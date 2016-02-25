@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../transforms/esr2html.xsl"?>
+
+<ESR xmlns="http://common-criteria.rhcloud.com/ns/esr" name="Operating System Fundamentals">
+  
+	<intro>
+		<esrtitle>General Purpose Operating System</esrtitle>
+		<maintainer>NIAP and CESG</maintainer>
+		<identifier>42</identifier>
+		<version>0.8</version>
+		<status>draft</status>
+		<issuedate>19 March 2015</issuedate>
+		<approver/>
+		<supercedes/>
+	</intro>
+
+	<section title="Background and Purpose" id="purpose">
+		This section sets the context for not only the ESR, but what is 
+		expected of the resulting Protection Profile (PP). The intent is 
+		that the remaining sections provide succinct statements that 
+		highlight the relevant aspects to be addressed by the Technical 
+		Community (TC) constructing the PP. Here, the authors provide a 
+		narrative that introduces the reader to the problem being solved, 
+		and presents key aspects that support or guide the TC, and may
+		elaborate on subtleties not apparent in the “bulleted” high level
+		statements.
+	</section>
+	<section title="Use Cases" id="usecases">
+	  This section is intended to provide the initial scope/bound of the 
+	  security problem by providing the reader with concise statements 
+	  regarding the scenarios in which the technology is being used. The 
+	  intended usage presented here should lay the groundwork for the 
+	  identifying the resources to be protected, and what threats must be
+	  considered in the drafting of the Essential Security Requirements 
+	  (ESR) and for the TC to consider when writing the PP.
+	</section>
+
+	<section title="Resources to be protected" id="resourcesprotected">
+    	  This section is intended to provide the initial scope/bound of the 
+    	  security problem by providing the reader with concise statements
+    	  regarding the scenarios in which the technology is being used. The 
+    	  intended usage presented here should lay the groundwork for the 
+    	  identifying the resources to be protected, and what threats must be
+    	  considered in the drafting of the Essential Security Requirements 
+    	  (ESR) and for the TC to consider when writing the PP.
+	</section>
+
+	<section title="Attacker access" id="attackeraccess"> 
+	  The following assumptions are made about
+	  attackers' ability to develop attacks: 
+	  <ul>
+	    <li> An attacker has an arbitrary amount of time to analyze the behavior of the product, its
+	    interaction with its platform, and the data it transmits over the network. </li>
+	    <li> An attacker is able to acquire their own copy of the target product and study its
+	    behavior on a platform that they control. </li>
+	  </ul>
+	  <p/> The attacker is expected to engage in the following general classes of attack: <!-- added in order to allow for rather direct flow to Threats section in PP -->
+	  <ul>
+	    <li> Network eavesdropping, in which an attacker may monitor and gain access to data
+	    exchanged between the product and other endpoints. </li>
+	    <li> Network attack, in which an attacker may initiate malicious communications with the
+	    product or alter communications between the product and other endpoints. </li>
+	    <li> Local attack, in which an attacker has gained the ability to execute code on the
+	    system, which may be used to escalate privilege or access data without
+	    authorization. </li>
+	    <li> Limited physical access attack, in which an attacker may attempt to access data on
+	    the system by virtue of being physically present for a limited period of time. This
+	    limited physical access does not include attacks in which the attacker could
+	    disassemble the system to gain access to its storage media or manipulate the product's
+	    underlying hardware and firmware. Systems used for working remotely, such as laptops
+	    and tablets, for which an attacker could gain longer physical access to, should
+	    apply additional protections that are provided by products evaluated against other
+	    Protection Profiles (e.g. FDE cPP). </li>
+	    <li> Persistence, in which an attacker has already exploited the system and wishes to
+	    maintain presence on the system. </li>
+	  </ul>
+	</section>
+	
+	<section title="Essential Security Requirements" id="requirements">
+        	This is where the authors present an initial set of English 
+        	requirements that specify security functionality, rather than 
+        	design and/or implementation characteristics. These requirements 
+        	will provide the foundation for which the detailed set of 
+        	requirements is derived. It is important that the requirements 
+        	captured here make an attempt to fully address the categories 
+        	(e.g., access control, identification and authentication, 
+        	management capabilities, roles of administration, secure 
+        	communications, and audit). That's not to say the requirements are 
+        	fully specified or detailed enough to simply translate to Common 
+        	Criteria security functional requirements. The goal is that there 
+        	is enough information contained here, as well as the other sections
+        	of this document, to provide the TC enough information to ensure 
+        	they have an understanding of what is minimally required in breath.
+	</section>
+
+	<section title="Assumptions" id="assumptions">
+	  Simply put, this section presents the aspects of the product and 
+	  its	intended environment that can be assumed to hold true. This 
+	  will provide additional scope on the resulting PP.
+
+	  The following assumptions are made for the operating system product and its operational
+	  environment: <ul>
+			<li>The underlying platform is physically protected, to a large extent. The hardware
+				that the product manages is secured by defensive measures that make physical attacks
+				impractical for most attackers. At the same time, casual passersby might attempt to
+				trivially access the system. </li>
+			<li>The product implements some security-relevant functionality that does not require
+				evaluation (e.g., network time synchronization, process scheduling, and virtual
+				memory management including process separation). </li>
+			<li>Depending on configuration and capability, the product may or may not be: <ul>
+					<li>configuration-managed by the enterprise</li>
+					<li>bound to directory services to support multi-user login</li> </ul>
+			</li>
+			<li> The product runs application software developed by a third-party. The applications are
+				not intentionally developed to be malicious, but can contain inadvertent coding
+				errors. These errors introduce risk that control of an application may be seized by
+				a malicious entity. The product shall confine these applications within the originally
+				designated operating environment. </li>
+			<li>The platform is connected to a network. For purposes of sending/receiving data, to
+				include software updates, the platform is connected to other entities. Other
+				entities on the network are not inherently trustable. </li>
+			<li>Administrators are not malicious in nature.</li>
+			<li> Users are not malicious in nature, though they may inadvertently or intentionally engage in risky behavior. </li>
+		</ul>
+	</section>
+
+
+	<section title="Optional Extensions" id="extensions"> 
+		Additional security functionality that may
+		be appropriate for some use cases, and can be expressed in extensions to this document,
+		includes: 
+		<ul>
+			<li></li>
+		</ul>
+	</section>
+
+	<section title="Outside the TOE's Scope" id="outsidescope">
+	  <!--
+			This is where the authors explicitly state things they do not want 
+			to be considered for inclusion in an evaluation against a 
+			resulting PP.  Items expressed here could include threats, 
+			functions or capabilities that would require assurance activities 
+			that are too subjective, or specific expertise not available in the
+			evaluation facilities expected to assess products against the PP 
+	  -->
+		The following list contains items that are explicitly out-of-scope for any evaluation
+		against the product PP <ul>
+			<li>Malicious, Highly-Privileged Administrators - Highly-privileged administrators
+				acting maliciously can disable most, if not all, security protections on the product.
+				Additionally procedural controls that are out of scope of this document should be
+				considered to help highlight administrator accounts acting suspiciously.</li>
+			<li>Zero Days - The disclosure of recently published vulnerabilities (Zero Days) should
+				not be used as a reason to fail an product undergoing evaluation.</li>
+			<li>Unofficial Versions - Non-vendor supplied install images often contain added
+				functionality and may weaken the normal operating functionality of the product</li>
+			<li>Platform - The product PP shall not address the hardware or firmware of its underlying
+				platform to include the boot sequence before control is handed off to the product. That
+				the platform itself is virtual or physical is irrelevant to any evaluations. </li>
+			<li>Applications - The product PP shall not address applications that are not delivered as
+				part of the product installation process. </li>
+		</ul>
+	</section>
+</ESR>
