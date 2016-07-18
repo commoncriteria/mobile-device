@@ -8,10 +8,10 @@ Protection Profile for Mobile Device Fundamentals
 ## Working Draft
 [Essential Security Requirements (ESR)](http://common-criteria.rhcloud.com/project/output/project-esr.html)
 
-[Protection Profile for QQQQ ](http://common-criteria.rhcloud.com/mobile/output/mobile-release.html)
+[Protection Profile for Mobile Device Fundamentals ](http://common-criteria.rhcloud.com/mobile-device/output/mobile-device-release.html)
 
 ## Release Version
-
+[Protection Profile for Mobile Device Fundamentals v3.0](https://www.niap-ccevs.org/Profile/Info.cfm?id=381)
 
 ## Technical Community
 [How to join the NIAP OS Technical Community (Mailing list and updates)](
