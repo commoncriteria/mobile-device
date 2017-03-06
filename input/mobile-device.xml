@@ -115,24 +115,6 @@
   <section title="Intended Readership" id="intread">
     The target audiences of this <abbr linkend="PP"/> are Mobile Device developers, <abbr linkend="CC"/> consumers, evaluators and schemes.
   </section>
-
-
-  <section title="Related Documents" id="reldocs">
-    <htm:b>Common Criteria </htm:b><htm:br/><htm:br/>
-    [CC1]	Common Criteria for Information Technology Security Evaluation, 
-    Part 1: Introduction and General Model, 
-    CCMB-2012-09-001, Version 3.1 Revision 4, September 2012.<htm:br/><htm:br/>
-    [CC2]	Common Criteria for Information Technology Security Evaluation, 
-    Part 2: Security Functional Components, 
-    CCMB-2012-09-002, Version 3.1 Revision 4, September 2012.<htm:br/><htm:br/>
-    [CC3]	Common Criteria for Information Technology Security Evaluation, 
-    Part 3: Security Assurance Components, 
-    CCMB-2012-09-003, Version 3.1 Revision 4, September 2012.<htm:br/><htm:br/>
-    [CEM]	Common Methodology for Information Technology Security Evaluation, 
-    Evaluation Methodology, 
-    CCMB-2012-09-004, Version 3.1, Revision 4, September 2012.
-    
-  </section>
   
   <section title="Glossary" id="glos" > 
       <glossary>
@@ -237,10 +219,10 @@
   <section title="TOE Overview" id="toeov">
     This assurance standard specifies information security requirements for Mobile Devices for use in an enterprise. A Mobile Device in the context of this assurance standard is a device, which is composed of a hardware platform and its system software. The device typically provides wireless connectivity and may include software for functions like secure messaging, email, web, VPN connection, and VoIP (Voice over IP), for access to the protected enterprise network, enterprise data and applications, and for communicating to other Mobile Devices. 
     <htm:br/><htm:br/>
-    <figref refid="fig1"/> illustrates the network operating environment of the Mobile Device. <htm:br/><htm:br/>
+    <figref refid="NetEnv"/> illustrates the network operating environment of the Mobile Device. <htm:br/><htm:br/>
     <figure entity="images/figure1.jpg"
       title="Mobile Device Network Environment"
-      id="fig1"/>  
+      id="NetEnv"/>  
     <htm:br/>
     <htm:br/>
     Examples of a “Mobile Device” that should claim conformance to this Protection Profile include smartphones, tablet computers, and other Mobile Devices with similar capabilities. 
@@ -250,8 +232,8 @@
     This assurance standard describes these essential security services provided by the Mobile Device and serves as a foundation for a secure mobile architecture. The wireless connectivity shall be validated against the Extended Package for WLAN Client. As illustrated in Figure 2, it is expected that a typical deployment would also include either third-party or bundled components. Whether these components are bundled as part of the Mobile Device by the manufacturer or developed by a third-party, they must be separately validated against the related assurance standards such as the Extended Package for Mobile Device Management Agents, Extended Package for IPsec VPN Client, and VoIP Application Extended Package. It is the responsibility of the architect of the overall secure mobile architecture to ensure validation of these components. Additional applications that may come pre-installed on the Mobile Device that are not validated are considered to be potentially flawed, but not malicious. Examples include email client and web browser.
     <htm:br/><htm:br/>
     <figure entity="images/figure2.jpg" pre="Figure"
-      title="Figure 2: Optional Additional Mobile Device Components"
-      id="fig2"/>
+      title=": Optional Additional Mobile Device Components"
+      id="TOE"/>
     <htm:br/>
   </section>
   <section title="TOE Usage" id="toeus">
@@ -400,6 +382,8 @@
           <component-refer ref="FCS_SRV_EXT.1"/>
           <component-refer ref="FCS_SRV_EXT.2"/>
           <component-refer ref="FCS_TLSC_EXT.1"/>
+          <component-refer ref="FCS_TLSC_EXT.2"/> <!-- (optional)-->
+          <component-refer ref="FCS_TLSC_EXT.3"/> <!-- (optional)-->
           <component-refer ref="FDP_BLT_EXT.1"/> <!-- (optional)-->
           <component-refer ref="FDP_IFC_EXT.1"/>
           <component-refer ref="FDP_STG_EXT.1"/>
@@ -707,6 +691,8 @@
                 <htm:tr><htm:td rowspan="3">FCS_TLSC_EXT.1</htm:td><htm:td>Establishment/termination of a TLS session.</htm:td><htm:td>Non-TOE endpoint of connection.</htm:td></htm:tr>
                 <htm:tr><htm:td>Failure to establish a TLS session.</htm:td><htm:td>Reason for failure.</htm:td></htm:tr>
                 <htm:tr><htm:td>Failure to verify presented identifier.</htm:td><htm:td>Presented identifier and reference identifier.</htm:td></htm:tr>
+                <htm:tr><htm:td>FCS_TLSC_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
+                <htm:tr><htm:td>FCS_TLSC_EXT.3</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FDP_ACF_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FDP_ACF_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FDP_ACF_EXT.3</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
@@ -849,9 +835,10 @@
       <subsection id="fcs" title="Class: Cryptographic Support (FCS)">
         This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: <abbr linkend="DEK"/>s and <abbr linkend="KEK"/>s. (A <abbr linkend="REK"/> is considered a <abbr linkend="KEK"/>.) <abbr linkend="DEK"/>s are used to protect data (as in the DAR protection described in <linkref linkend="FDP_DAR_EXT.1"/> and <linkref linkend="FDP_DAR_EXT.2"/>). <abbr linkend="KEK"/>s are used to protect other keys – <abbr linkend="DEK"/>s, other <abbr linkend="KEK"/>s, and other types of keys stored by the user or applications. The following diagram shows an example key hierarchy to illustrate the concepts of this profile. This example is not meant as an approved design, but <abbr linkend="ST"/> authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. Please note if “biometric fingerprint” is selected in <linkref linkend="FIA_UAU.5.1"/>, the <abbr linkend="BAF"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the <abbr linkend="BAF"/> is used to release keys. If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, meaning that a PIN must be used in conjunction with the <abbr linkend="BAF"/> this interaction shall be included.<htm:br/>
         
-        <figure entity="images/figure3.jpg" pre="Figure"
-          title="Figure 3: An Illustrative Key Hierarchy"
-          id="fig3"/>        
+
+        <figure entity="images/figure3.jpg"
+          title="An Illustrative Key Hierarchy"
+          id="Keys"/>        
        
         <f-component id="fcs_ckm.1" name="Cryptographic key generation" status="threshold">
           <!-- TODO:The formating is messed up. Want second selection to be tabbed in-->
@@ -1182,9 +1169,11 @@
             </title>
             <note role="application">
               The PBKDF is performed in accordance with <linkref linkend="FCS_COP.1(5)"/>.
-              <htm:br/><htm:br/>
-              It is expected that key generation derived from PBKDF, using an RBG or generation scheme, and through combination, will each be necessary to meet the requirements set out in this document. In particular, Figure 3 has <abbr linkend="KEK"/>s of each type: KEK_3 is generated, KEK_1 is derived from a Password Authentication Factor, and KEK_2 is combined from two <abbr linkend="KEK"/>s. In Figure 3, KEK_3 may either be a symmetric key generated from an RBG or an asymmetric key generated using a key generation scheme according to <linkref linkend="FCS_CKM.1"/>.
-              <htm:br/><htm:br/>
+
+              <htm:br></htm:br><htm:br></htm:br>
+              It is expected that key generation derived from PBKDF, using an RBG or generation scheme, and through combination, will each be necessary to meet the requirements set out in this document. In particular, <figref refid="Keys"/> has <abbr linkend="KEK"/>s of each type: KEK_3 is generated, KEK_1 is derived from a Password Authentication Factor, and KEK_2 is combined from two <abbr linkend="KEK"/>s. In <figref refid="Keys"/>, KEK_3 may either be a symmetric key generated from an RBG or an asymmetric key generated using a key generation scheme according to <linkref linkend="FCS_CKM.1"/>.
+              <htm:br></htm:br><htm:br></htm:br>
+
               If combined, the <abbr linkend="ST"/> author shall describe which method of combination is used in order to justify that the effective entropy of each factor is preserved.
               <htm:br/><htm:br/>
               The documentation of the product's encryption key management should be detailed enough that, after reading, the evaluator will thoroughly understand the product's key management and how it meets the requirements to ensure the keys are adequately protected. This documentation should include an essay and diagram(s). This documentation is not required to be part of the  <abbr linkend="TSS"/> - it can be submitted as a separate document and marked as developer proprietary.
@@ -1332,9 +1321,11 @@
               For the purposes of this requirement, plaintext keying material refers to authentication data, passwords, secret/private symmetric keys, private asymmetric keys, data used to derive keys, values derived from passwords, etc. If “biometric fingerprint” is selected in <linkref linkend="FIA_UAU.5.1"/> the enrollment or authentication templates are not subject to this requirement, since templates are not suitable for deriving keying material. However, source biometric data (i.e. fingerprint image or friction ridge pattern), the features an algorithm uses to perform biometric authentication for enrollment or verification (e.g. location of minutia), threshold values used in making the match adjudication, intermediate values calculated while building an enrollment or authentication template (i.e. direction maps, minutia counts, binarized and skeletonized representations of friction ridge patterns, etc.), and final match scores are examples of critical security parameters that must be destroyed when no longer needed.
               <htm:br/><htm:br/>
               Key destruction procedures are performed in accordance with <linkref linkend="FCS_CKM_EXT.4.1"/>.
-              <htm:br/><htm:br/>
-              There are multiple situations in which plaintext keying material is no longer necessary, including when the <abbr linkend="TOE"/> is powered off, when the wipe function is performed, when trusted channels are disconnected, when keying material is no longer needed by the trusted channel per the protocol, and when transitioning to the locked state (for those values derived from the Password Authentication Factor or that key material which is protected by the password-derived or biometric-unlocked <abbr linkend="KEK"/> according to <linkref linkend="FCS_STG_EXT.2"/> – see Figure 3). For keys (or key material used to derive those keys) protecting sensitive data received in the locked state, “no longer needed” includes “while in the locked state.”
-              <htm:br/><htm:br/>
+
+              <htm:br></htm:br><htm:br></htm:br>
+              There are multiple situations in which plaintext keying material is no longer necessary, including when the <abbr linkend="TOE"/> is powered off, when the wipe function is performed, when trusted channels are disconnected, when keying material is no longer needed by the trusted channel per the protocol, and when transitioning to the locked state (for those values derived from the Password Authentication Factor or that key material which is protected by the password-derived or biometric-unlocked <abbr linkend="KEK"/> according to <linkref linkend="FCS_STG_EXT.2"/> – see <figref refid="Keys"/>). For keys (or key material used to derive those keys) protecting sensitive data received in the locked state, “no longer needed” includes “while in the locked state.”
+              <htm:br></htm:br><htm:br></htm:br>
+
               Trusted channels may include TLS, HTTPS, DTLS, IPsec VPNs, Bluetooth BR/EDR, and Bluetooth LE. The plaintext keying material for these channels includes (but is not limited to) master secrets, and Security Associations (SAs). 
               <htm:br/><htm:br/>
               If <abbr linkend="REK"/>(s) are processed in a separate execution environment on the same Application Processor as the Rich OS, <abbr linkend="REK"/> key material must be cleared from RAM immediately after use, and at least, must be wiped when the device is locked, as the <abbr linkend="REK"/> is part of the key hierarchy protecting sensitive data. 
@@ -1720,9 +1711,11 @@
                 </test><htm:br/>
                 <test><htm:i>Selected Long Messages Test ­ Byte­oriented Mode</htm:i><htm:br/>
                   The evaluators devise an input set consisting of m/8 messages, where m is the block length of the hash algorithm. The length of the ith message is 512 + 8*99*i, where 1 ≤ i ≤ m/8. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
-                </test><htm:br/>
-                <test><htm:i>Pseudorandomly Generated Messages Test</htm:i><htm:br/>
-                  This test is for byte­oriented implementations only. The evaluators randomly generate a seed that is n bits long, where n is the length of the message digest produced by the hash function to be tested. The evaluators then formulate a set of 100 messages and associated digests by following the algorithm provided in Figure 1 of [SHAVS]. The evaluators then ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
+
+                </test><htm:br></htm:br>
+                <test><htm:i>Pseudorandomly Generated Messages Test</htm:i><htm:br></htm:br>
+                  This test is for byte­oriented implementations only. The evaluators randomly generate a seed that is n bits long, where n is the length of the message digest produced by the hash function to be tested. The evaluators then formulate a set of 100 messages and associated digests by following the algorithm provided in Figure 1 of <!-- TODO: Add reference to link this --> <cite linkend="SHAVS"/>. The evaluators then ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
+
                 </test>
               </testlist>
             </aactivity>
@@ -1734,8 +1727,7 @@
           <f-element id="fcs_cop.1.1(3)">
             <title>The <abbr linkend="TSF"/> shall perform <refinement>cryptographic signature services (generation and verification)</refinement> in accordance with a specified cryptographic algorithm
               <htm:ul>
-                <htm:li><refinement>RSA schemes using cryptographic key sizes of 2048-bit or greater that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 4 </refinement></htm:li>and
-                 
+                <htm:li><refinement>RSA schemes using cryptographic key sizes of 2048-bit or greater that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 4</refinement> and</htm:li>             
               <htm:li><refinement><selectables linebreak="yes">
                 <selectable>ECDSA schemes using “NIST curves” P-384 and 
               <selectables><selectable>P-256</selectable><selectable>P-521</selectable><selectable>no other curves</selectable></selectables> that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 5</selectable>
@@ -1818,7 +1810,34 @@
           </f-element>
         </f-component>     
         
-        <!-- TODO: DTLS requirements are missing from selection based appendix -->
+        <!-- TODO: Review DTLS requirements  -->
+        <f-component id="fcs_dtls_ext.1" name="Extended: DTLS Protocol" status="sel-based">
+          <!-- TODO need space between selection-depends SFRs -->
+          <selection-depends req="fdp_upc_ext.1.1"/>
+          <selection-depends req="fia_x509_ext.2.1"/>
+          <selection-depends req="ftp_itc_ext.1.1"/>
+          <f-element id="fcs_dtls_ext.1.1">
+            <title>The TSF shall implement the DTLS protocol in accordance with DTLS 1.2 (RFC 6347).</title>
+          </f-element>
+          <f-element id="fcs_dtls_ext.1.2">
+            <title>The TSF shall implement the requirements in TLS (<linkref linkend="FCS_TLSC_EXT.1"/>) <!--Should this also be .2 & .3  --> for the DTLS implementation, except where variations are allowed according to DTLS 1.2 (RFC 6347).
+            </title>
+            <note role="application">Differences between DTLS 1.2 and TLS 1.2 are outlined in RFC 6347; otherwise the protocols are the same. In particular, for the applicable security characteristics defined for the TSF, the two protocols do not differ. Therefore, all application notes and assurance activities that are listed for TLS apply to the DTLS implementation.</note>
+          </f-element>
+          <f-element id="fcs_dtls_ext.1.3">
+            <title>The TSF shall not establish a trusted communication channel if the peer certificate is deemed invalid.</title>
+            <note role="application">Validity is determined by the certificate path, the expiration date, and the revocation status in accordance with RFC 5280.</note>
+            <aactivity>
+              <testlist>
+                <test>The evaluator shall attempt to establish a connection with a DTLS server, observe the traffic with a packet analyzer, and verify that the connection succeeds and that the traffic is identified as DTLS.<htm:br></htm:br><htm:br></htm:br>
+                  Other tests are performed in conjunction with the Assurance Activity listed for <linkref linkend="FCS_TLSC_EXT.1"/>.<htm:br></htm:br><htm:br></htm:br>
+                  Certificate validity shall be tested in accordance with testing performed for <linkref linkend="FIA_X509_EXT.1"/>, and the evaluator shall perform the following test.</test>
+                <test>The evaluator shall demonstrate that using a certificate without a valid certification path results in the function failing. Using the administrative guidance, the evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function, and demonstrate that the function succeeds. The evaluator then shall delete one of the certificates, and show that the function fails.</test>
+              </testlist>
+            </aactivity>
+          </f-element>
+        </f-component>
+        
         
         <f-component id="fcs_https_ext.1" name="Extended: HTTPS Protocol" status="threshold">
           <f-element id="fcs_https_ext.1.1">
@@ -2078,24 +2097,23 @@
         
         <f-component id="fcs_stg_ext.2" name="Extended: Encrypted Cryptographic Key Storage" status="threshold">
           <f-element id="fcs_stg_ext.2.1">
-            <!-- TODO: need to correct formatting -->
             <title>The <abbr linkend="TSF"/> shall encrypt all <abbr linkend="DEK"/>s, <abbr linkend="KEK"/>s, 
               <assignable>any long-term trusted channel key material</assignable> and 
               <selectables><selectable>all software-based key storage</selectable><selectable>no other keys</selectable></selectables> by <abbr linkend="KEK"/>s that are 
-              <htm:ol><selectables>
-                
-                <selectable><htm:li>Protected by the <abbr linkend="REK"/> with 
-                  <htm:ol type="a"><selectables>
-                    <selectable><htm:li>encryption by a <abbr linkend="REK"/></htm:li></selectable>
-                    <selectable><htm:li>encryption by a <abbr linkend="KEK"/> chaining from a <abbr linkend="REK"/></htm:li></selectable>
-                    <selectable><htm:li>encryption by a <abbr linkend="KEK"/> that is derived from a <abbr linkend="REK"/></htm:li></selectable></selectables></htm:ol>
-                 </htm:li></selectable>
-                <selectable><htm:li>Protected by the <abbr linkend="REK"/> and the password with 
-                  <htm:ol type="a"><selectables><selectable><htm:li>encryption by a <abbr linkend="REK"/> and the password-derived <abbr linkend="KEK"/></htm:li></selectable>
-                    <selectable><htm:li>encryption by a <abbr linkend="KEK"/> chaining to a <abbr linkend="REK"/> and the password-derived or biometric-unlocked <abbr linkend="KEK"/></htm:li></selectable>
-                    <selectable><htm:li>encryption by a <abbr linkend="KEK"/> that is derived from a <abbr linkend="REK"/> and the password-derived or biometric-unlocked <abbr linkend="KEK"/></htm:li></selectable>
-                  </selectables></htm:ol>
-              </htm:li></selectable></selectables>.</htm:ol>
+              <selectables linebreak="yes">                
+                <selectable>Protected by the <abbr linkend="REK"/> with 
+                  <selectables linebreak="yes">
+                    <selectable>encryption by a <abbr linkend="REK"/></selectable>
+                    <selectable>encryption by a <abbr linkend="KEK"/> chaining from a <abbr linkend="REK"/></selectable>
+                    <selectable>encryption by a <abbr linkend="KEK"/> that is derived from a <abbr linkend="REK"/></selectable></selectables>
+                 </selectable>
+                <selectable>Protected by the <abbr linkend="REK"/> and the password with 
+                  <selectables linebreak="yes">
+                    <selectable>encryption by a <abbr linkend="REK"/> and the password-derived <abbr linkend="KEK"/></selectable>
+                    <selectable>encryption by a <abbr linkend="KEK"/> chaining to a <abbr linkend="REK"/> and the password-derived or biometric-unlocked <abbr linkend="KEK"/></selectable>
+                    <selectable>encryption by a <abbr linkend="KEK"/> that is derived from a <abbr linkend="REK"/> and the password-derived or biometric-unlocked <abbr linkend="KEK"/></selectable>
+                  </selectables>
+              </selectable></selectables>.
             </title>
             <note role="application">The <abbr linkend="ST"/> author must select “all software-based key storage” if “software-based” is selected in <linkref linkend="FCS_STG_EXT.1.1"/>. If the <abbr linkend="ST"/> author selects “mutable hardware” in <linkref linkend="FCS_STG_EXT.1.1"/>, the secure key storage is not subject to this requirement. 
              <abbr linkend="REK"/>s are not subject to this requirement. 
@@ -2103,9 +2121,11 @@
               A <abbr linkend="REK"/> and the password-derived <abbr linkend="KEK"/> may be combined to form a combined <abbr linkend="KEK"/> (as described in <linkref linkend="FCS_CKM_EXT.3"/>) in order to meet this requirement.
               <htm:br/><htm:br/>
               Sensitive data is protected by the <abbr linkend="REK"/> and the password or biometric. Sensitive data includes some or all user or enterprise data. Software-based key storage itself shall be considered sensitive data and be protected accordingly, i.e. by the password or biometric and <abbr linkend="REK"/>.
-              <htm:br/><htm:br/>
-              All keys must ultimately be protected by a <abbr linkend="REK"/>. Sensitive data must be protected by the password or biometric (selection 2). In particular, Figure 3 has <abbr linkend="KEK"/>s protected according to these requirements: DEK_1 meets 2a and would be appropriate for sensitive data, DEK_2 meets 1b and would not be appropriate for sensitive data, K_1 meets 1a and is not considered a sensitive key, and K_2 meets 2b and is considered a sensitive key.
-              <htm:br/><htm:br/>
+
+              <htm:br></htm:br><htm:br></htm:br>
+              All keys must ultimately be protected by a <abbr linkend="REK"/>. Sensitive data must be protected by the password or biometric (selection 2). In particular, <figref refid="Keys"/> has <abbr linkend="KEK"/>s protected according to these requirements: DEK_1 meets 2a and would be appropriate for sensitive data, DEK_2 meets 1b and would not be appropriate for sensitive data, K_1 meets 1a and is not considered a sensitive key, and K_2 meets 2b and is considered a sensitive key.
+              <htm:br></htm:br><htm:br></htm:br>
+
               Long-term trusted channel key material includes IPsec and Bluetooth keys. These keys shall not be protected by the password, as they may be necessary in the locked state.
               <htm:br/><htm:br/>
               The documentation of the product's encryption key management should be detailed enough that, after reading, the evaluator will thoroughly understand the product's key management and how it meets the requirements to ensure the keys are adequately protected. This documentation should include an essay and diagram(s). This documentation is not required to be part of the  <abbr linkend="TSS"/> - it can be submitted as a separate document and marked as developer proprietary.
@@ -2159,9 +2179,178 @@
             </aactivity>
           </f-element>
         </f-component>
-      </subsection>
       
-      <!-- TODO: TLS requirements missing-->
+      <!-- TODO: Review TLS requirements -->
+      <!-- Need to link stuff -->
+      <f-component id="fcs_tlsc_ext.1" name="Extended: TLS Protocol" status="threshold">
+        <!-- TODO: Update ciphersuites -->
+        <f-element id="fcs_tlsc_ext.1.1">
+          <title>The TSF shall implement TLS 1.2 (RFC 5246) supporting the following ciphersuites:<htm:br></htm:br>
+            <htm:ul>
+              <htm:li>Mandatory Ciphersuites:<htm:br></htm:br>
+                <htm:ul>
+                  <htm:li>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</htm:li>
+               </htm:ul>
+              </htm:li>
+              <htm:li>Optional Ciphersuites:
+                <selectables linebreak="yes">
+                  <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
+                  <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable>
+                  <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
+                  <selectable>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA as defined in RFC 4492</selectable>
+                  <selectable>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA as defined in RFC 4492</selectable>
+                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA as defined in RFC 4492</selectable>
+                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA as defined in RFC 4492</selectable>
+                  <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
+                  <selectable>TLS_RSA_WITH_AES_256_CBC_ SHA256 as defined in RFC 5246</selectable>
+                  <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
+                  <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_ SHA256 as defined in RFC 5246</selectable>
+                  <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_ SHA256 as defined in RFC 5246</selectable>
+                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
+                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
+                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
+                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
+                  <selectable>no other ciphersuite</selectable>
+                </selectables>
+              </htm:li>
+            </htm:ul>
+          </title>
+          <note role="application">The ciphersuites to be tested in the evaluated configuration are limited by this requirement. The ST author should select the optional ciphersuites that are supported; if there are no ciphersuites supported other than the mandatory suites, then “None” should be selected. It is necessary to limit the ciphersuites that can be used in an evaluated configuration administratively on the server in the test environment. The Suite B algorithms listed above (RFC 6460) are the preferred algorithms for implementation. <!-- This is how it was in MDF v3. We updated it in MDM v3, but can I update it in a minor  --> TLS_RSA_WITH_AES_128_CBC_SHA is required in order to ensure compliance with RFC 5246.<htm:br></htm:br><htm:br></htm:br>
+            If an elliptic-curve ciphersuite is selected, <linkref linkend="FCS_TLSC_EXT.2.1"/> shall be included in the ST.<htm:br></htm:br><htm:br></htm:br>
+            These requirements will be revisited as new TLS versions are standardized by the IETF.</note>
+          
+          <aactivity>The evaluator shall check the description of the implementation of this protocol in the TSS to ensure that the ciphersuites supported are specified. The evaluator shall check the TSS to ensure that the ciphersuites specified include those listed for this component. The evaluator shall also check the operational guidance to ensure that it contains instructions on configuring the TOE so that TLS conforms to the description in the TSS.<htm:br></htm:br><htm:br></htm:br>
+            The evaluator shall write, or the ST author shall provide, an application for the purposes of testing TLS. The evaluator shall also perform the following tests:
+            <testlist>
+              <test>The evaluator shall establish a TLS connection using each of the ciphersuites specified by the requirement. This connection may be established as part of the establishment of a higher-level protocol, e.g., as part of an EAP session. It is sufficient to observe the successful negotiation of a ciphersuite to satisfy the intent of the test; it is not necessary to examine the characteristics of the encrypted traffic in an attempt to discern the ciphersuite being used (for example, that the cryptographic algorithm is 128-bit AES and not 256-bit AES).</test>
+              <test>The evaluator shall attempt to establish the connection using a server with a server certificate that contains the Server Authentication purpose in the extendedKeyUsage field and verify that a connection is established. The evaluator will then verify that the client rejects an otherwise valid server certificate that lacks the Server Authentication purpose in the extendedKeyUsage field and a connection is not established. Ideally, the two certificates should be identical except for the extendedKeyUsage field.</test>
+              <test>The evaluator shall send a server certificate in the TLS connection that the does not match the server-selected ciphersuite (for example, send a ECDSA certificate while using the TLS_RSA_WITH_AES_128_CBC_SHA ciphersuite or send a RSA certificate while using one of the ECDSA ciphersuites.) The evaluator shall verify that the TOE disconnects after receiving the server’s Certificate handshake message.</test>
+              <test>The evaluator shall configure the server to select the TLS_NULL_WITH_NULL_NULL ciphersuite and verify that the client denies the connection.</test>
+              <test>The evaluator shall perform the following modifications to the traffic:<htm:br></htm:br>
+                <htm:ul>
+                  <htm:li>Change the TLS version selected by the server in the Server Hello to a non-supported TLS version (for example 1.3 represented by the two bytes 03 04) and verify that the client rejects the connection.</htm:li>
+                  <htm:li>Modify at least one byte in the server’s nonce in the Server Hello handshake message, and verify that the client rejects the Server Key Exchange handshake message (if using a DHE or ECDHE ciphersuite) or that the server denies the client’s Finished handshake message.</htm:li>
+                  <htm:li>Modify the server’s selected ciphersuite in the Server Hello handshake message to be a ciphersuite not presented in the Client Hello handshake message. The evaluator shall verify that the client rejects the connection after receiving the Server Hello.</htm:li>
+                  <htm:li>(conditional) If an ECDHE or DHE ciphersuite is selected, modify the signature block in the Server’s Key Exchange handshake message, and verify that the client rejects the connection after receiving the Server Key Exchange message.</htm:li>
+                  <htm:li>Modify a byte in the Server Finished handshake message, and verify that the client sends a fatal alert upon receipt and does not send any application data.</htm:li>
+                  <htm:li>Send a valid Server Finished message in plaintext and verify the client sends a fatal alert upon receipt and does not send any application data. The server’s finished message shall contain valid verify_data and shall parse correctly using a network protocol analysis tool.</htm:li>
+                </htm:ul></test>
+            </testlist>
+          </aactivity>
+        </f-element>
+        <f-element id="fcs_tlsc_ext.1.2">
+          <title>The TSF shall verify that the presented identifier matches the reference identifier according to RFC 6125.
+          </title>
+          <note role="application">The rules for verification of identify are described in Section 6 of RFC 6125. The reference identifier is established by the user (e.g. entering a URL into a web browser or clicking a link), by configuration (e.g. configuring the name of a mail server or authentication server), or by an application (e.g. a parameter of an API) depending on the application service. Based on a singular reference identifier’s source domain and application service type (e.g. HTTP, SIP, LDAP), the client establishes all reference identifiers which are acceptable, such as a Common Name for the Subject Name field of the certificate and a (case-insensitive) DNS name, URI name, and Service Name for the Subject Alternative Name field. The client then compares this list of all acceptable reference identifiers to the presented identifiers in the TLS server’s certificate.<htm:br></htm:br><htm:br></htm:br>
+            The preferred method for verification is the Subject Alternative Name using DNS names, URI names, or Service Names. Verification using the Common Name is required for the purposes of backwards compatibility. Additionally, support for use of IP addresses in the Subject Name or Subject Alternative name is discouraged as against best practices but may be implemented. Finally, the client should avoid constructing reference identifiers using wildcards. However, if the presented identifiers include wildcards, the client must follow the best practices regarding matching; these best practices are captured in the assurance activity.
+          </note>
+          <aactivity>The evaluator shall ensure that the TSS describes the client’s method of establishing all reference identifiers from the application-configured reference identifier, including which types of reference identifiers are supported (e.g. Common Name, DNS Name, URI Name, Service Name, or other application-specific Subject Alternative Names) and whether IP addresses and wildcards are supported. The evaluator shall ensure that this description identifies whether and the manner in which certificate pinning is supported or used by the TOE.<htm:br></htm:br><htm:br></htm:br>
+            The evaluator shall verify that the AGD guidance includes instructions for setting the reference identifier to be used for the purposes of certificate validation in TLS. In particular, the AGD guidance should describe the API used by applications for configuring the reference identifier.<htm:br></htm:br><htm:br></htm:br>
+            The evaluator shall configure the reference identifier according to the AGD guidance and perform the following tests during a TLS connection:
+            <testlist>
+              <test>The evaluator shall present a server certificate that does not contain an identifier in either the Subject Alternative Name (SAN) or Common Name (CN) that matches the reference identifier. The evaluator shall verify that the connection fails.</test>
+              <test>The evaluator shall present a server certificate that contains a CN that matches the reference identifier, contains the SAN extension, but does not contain an identifier in the SAN that matches the reference identifier. The evaluator shall verify that the connection fails. The evaluator shall repeat this test for each supported SAN type.</test>
+              <test>The evaluator shall present a server certificate that contains a CN that matches the reference identifier and does not contain the SAN extension. The evaluator shall verify that the connection succeeds.</test>
+              <test>The evaluator shall present a server certificate that contains a CN that does not match the reference identifier but does contain an identifier in the SAN that matches. The evaluator shall verify that the connection succeeds.</test>
+              <test>The evaluator shall perform the following wildcard tests with each supported type of reference identifier:
+                <htm:ul>
+                  <htm:li>The evaluator shall present a server certificate containing a wildcard that is not in the left-most label of the presented identifier (e.g. foo.*.example.com) and verify that the connection fails.</htm:li>
+                  <htm:li>The evaluator shall present a server certificate containing a wildcard in the left-most label but not preceding the public suffix (e.g. *.example.com). The evaluator shall configure the reference identifier with a single left-most label (e.g. foo.example.com) and verify that the connection succeeds. The evaluator shall configure the reference identifier without a left-most label as in the certificate (e.g. example.com) and verify that the connection fails. The evaluator shall configure the reference identifier with two left-most labels (e.g. bar.foo.example.com) and verify that the connection fails.</htm:li>
+                  <htm:li>The evaluator shall present a server certificate containing a wildcard in the left-most label immediately preceding the public suffix (e.g. *.com). The evaluator shall configure the reference identifier with a single left-most label (e.g. foo.com) and verify that the connection fails. The evaluator shall configure the reference identifier with two left-most labels (e.g. bar.foo.com) and verify that the connection fails.</htm:li>
+                </htm:ul></test>
+              <test>[conditional] If URI or Service name reference identifiers are supported, the evaluator shall configure the DNS name and the service identifier. The evaluator shall present a server certificate containing the correct DNS name and service identifier in the URIName or SRVName fields of the SAN and verify that the connection succeeds. The evaluator shall repeat this test with the wrong service identifier (but correct DNS name) and verify that the connection fails.</test>
+              <test>[conditional] If pinned certificates are supported the evaluator shall present a certificate that does not match the pinned certificate and verify that the connection fails.</test>
+            </testlist>
+          </aactivity>
+        </f-element>
+        <f-element id="fcs_tlsc_ext.1.3">
+          <title>The TSF shall not establish a trusted channel if the peer certificate is invalid.
+          </title>
+          <note role="application">Validity is determined by the identifier verification, certificate path, the expiration date, and the revocation status in accordance with RFC 5280. Certificate validity shall be tested in accordance with testing performed for <linkref linkend="FIA_X509_EXT.1"/>.<htm:br></htm:br><htm:br></htm:br>
+            For TLS connections, this channel shall not be established if the peer certificate is invalid. The HTTPS protocol (<linkref linkend="FCS_HTTPS_EXT.1"/>) requires different behavior, though HTTPS is implemented over TLS. This element addresses non-HTTPS TLS connections.</note>
+          <aactivity>The evaluator shall perform the following test:
+            <testlist>
+              <test>The evaluator shall demonstrate that using a certificate without a valid certification path results in the function failing. Using the administrative guidance, the evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function, and demonstrate that the function succeeds. The evaluator then shall delete one of the certificates, and show that the function fails.</test>
+            </testlist>
+          </aactivity>
+        </f-element>
+        <f-element id="fcs_tlsc_ext.1.4">
+          <title>The TSF shall support mutual authentication using X.509v3 certificates.
+          </title>
+          <note role="application">The use of X.509v3 certificates for TLS is addressed in <linkref linkend="FIA_X509_EXT.2.1"/>. This requirement adds that this use must include the client must be capable of presenting a certificate to a TLS server for TLS mutual authentication.</note>
+          <aactivity>The evaluator shall ensure that the TSS description required per <linkref linkend="FIA_X509_EXT.2.1"/> includes the use of client-side certificates for TLS mutual authentication.<htm:br></htm:br><htm:br></htm:br>
+            The evaluator shall verify that the AGD guidance required per <linkref linkend="FIA_X509_EXT.2.1"/> includes instructions for configuring the client-side certificates for TLS mutual authentication.<htm:br></htm:br><htm:br></htm:br>
+            The evaluator shall also perform the following test:
+            <testlist>
+              <test>The evaluator shall perform the following modification to the traffic:<htm:br></htm:br>
+                Configure the server to require mutual authentication and then modify a byte in a CA field in the Server’s Certificate Request handshake message. The modified CA field must not be the CA used to sign the client’s certificate. The evaluator shall verify the connection is unsuccessful.</test>
+            </testlist>
+          </aactivity>
+        </f-element>
+      </f-component>
+      
+      <!-- Changelog: FCS_TLSC_EXT.1.5 became FCS_TLSC_EXT.2.1 -->
+        <f-component id="fcs_tlsc_ext.2" name="Extended: TLS Protocol" status="sel-based">
+          <!-- TODO: Need to verify that those are the selection-depend SFR. if there are two selection-depends need them to add a space between them because if I add it, the link is broken -->
+          <selection-depends req="fcs_https_ext.1.2"/>
+          <selection-depends req="fcs_tlsc_ext.1.1"/>
+          <f-element id="fcs_tlsc_ext.2.1">
+            <title>The TSF shall present the Supported Elliptic Curves Extension in the Client Hello handshake message with the following NIST curves: 
+              <selectables>
+                <selectable>secp256r1</selectable>
+                <selectable>secp384r1</selectable>
+                <selectable>secp521r1</selectable>
+                <selectable>no other curves</selectable>
+              </selectables>.
+            </title>
+            <note role="application">This requirement limits the elliptic curves allowed for authentication and key agreement to the NIST curves from <linkref linkend="FCS_COP.1(3)"/> and <linkref linkend="FCS_CKM.1"/> and <linkref linkend="FCS_CKM.2(1)"/>. This extension is required for clients supporting Elliptic Curve ciphersuites.</note>
+            <aactivity>The evaluator shall verify that TSS describes the Supported Elliptic Curves Extension and whether the required behavior is performed by default or may be configured. If the TSS indicates that the Supported Elliptic Curves Extension must be configured to meet the requirement, the evaluator shall verify that AGD guidance includes configuration of the Supported Elliptic Curves Extension.<htm:br></htm:br><htm:br></htm:br>
+              <testlist>
+                <test> The evaluator shall configure the server to perform an ECDHE key exchange message in the TLS connection using a non-supported ECDHE curve (for example, P-192) and shall verify that the TOE disconnects after receiving the server's Key Exchange handshake message.</test>
+              </testlist>
+            </aactivity>
+          </f-element>
+        </f-component>
+
+        <!-- Changelog: FCS_TLSC_EXT.1.6 became FCS_TLSC_EXT.3.1, FCS_TLSC_EXT.1.7 became FCS_TLSC_EXT.3.2, FCS_TLSC_EXT.1.8 became FCS_TLSC_EXT.3.3 -->
+        <f-component id="fcs_tlsc_ext.3" name="Extended: TLS Protocol" status="objective">
+          <f-element id="fcs_tlsc_ext.3.1">
+            <title>The TSF shall present the signature_algorithms extension in the Client Hello with the supported_signature_algorithms value containing the following hash algorithms: 
+              <selectables>
+                <selectable>SHA256</selectable>
+                <selectable>SHA384</selectable>
+                <selectable>SHA512</selectable>
+              </selectables> and no other hash algorithms.</title>
+            <note role="application">This requirement limits the hashing algorithms supported for the purpose of digital signature verification by the client and limits the server to the supported hashes for the purpose of digital signature generation by the server. The signature_algorithm extension is only supported by TLS 1.2.</note>
+            <aactivity>The evaluator shall verify that TSS describes the signature_algorithm extension and whether the required behavior is performed by default or may be configured. If the TSS indicates that the signature_algorithm extension must be configured to meet the requirement, the evaluator shall verify that AGD guidance includes configuration of the signature_algorithm extension.<htm:br></htm:br><htm:br></htm:br>
+              The evaluator shall also perform the following test:
+              <testlist>
+                <test>The evaluator shall configure the server to send a certificate in the TLS connection that is not supported according to the Client’s HashAlgorithm enumeration within the signature_algorithms extension (for example, send a certificate with a SHA-1 signature). The evaluator shall verify that the TOE disconnects after receiving the server’s Certificate handshake message.</test>
+              </testlist>
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_tlsc_ext.3.2">
+            <title>The TSF shall support secure renegotiation through use of the “renegotiation_info” TLS extension in accordance with RFC 5746.</title>
+          </f-element>
+          <f-element id="fcs_tlsc_ext.3.3">
+            <title>The TSF shall include (choose only one of)
+              <selectables>
+                <selectable>renegotiation_info extension</selectable>
+                <selectable>TLS_EMPTY_RENEGOTIATION_INFO_SCSV ciphersuite</selectable>
+              </selectables> in the ClientHello message.</title>
+            <note role="application">RFC 5746 defines an extension to TLS that binds renegotiation handshakes to the cryptography in the original handshake.<htm:br></htm:br><htm:br></htm:br>
+              The ciphersuite included in the selection is a means for clients to be compatible with servers that don’t support the extension. It is recommended that client implementations support both the ciphersuite and the extension.
+            </note>
+            <aactivity>The evaluator shall perform the following tests:
+              <testlist>
+                <test>The evaluator shall use a network packet analyzer/sniffer to capture the traffic between the two TLS endpoints. The evaluator shall verify that either the “renegotiation_info” field or the SCSV ciphersuite is included in the ClientHello packet during the initial handshake.</test>
+                <test>The evaluator shall verify the Client’s handling of ServerHello messages received during the initial handshake that include the “renegotiation_info” extension. The evaluator shall modify the length portion of this field in the ServerHello message to be non-zero and verify that the client sends a failure and terminates the connection. The evaluator shall verify that a properly formatted field results in a successful TLS connection.</test>
+                <test>The evaluator shall verify that ServerHello messages received during secure renegotiation contain the “renegotiation_info” extension. The evaluator shall modify either the “client_verify_data” or “server_verify_data” value and verify that the client terminates the connection.</test>
+              </testlist>
+            </aactivity>
+          </f-element>
+        </f-component>      
+      </subsection>
       
       <subsection id="fdp" title="Class: User Data Protection (FDP)">
         <f-component id="fdp_acf_ext.1" name="Extended: Security access control" status="threshold">
@@ -2314,16 +2503,19 @@
           <htm:tr><htm:td>Protected Data</htm:td><htm:td>Protected data is encrypted while powered off. (<linkref linkend="FDP_DAR_EXT.1"/>)</htm:td></htm:tr>
           <htm:tr><htm:td>Sensitive Data</htm:td><htm:td>Sensitive data is encrypted while in the locked state. (<linkref linkend="FDP_DAR_EXT.2"/>)</htm:td></htm:tr>
         </htm:table>
-        All keys, protected data, and sensitive data must ultimately be protected by the <abbr linkend="REK"/>. Sensitive data must be protected by the password in addition to the <abbr linkend="REK"/>. In particular, Figure 3 has <abbr linkend="KEK"/>s protected according to these requirements: DEK_1 would be appropriate for sensitive data, DEK_2 would not be appropriate for sensitive data, K_1 is not considered a sensitive key, and K_2 is considered a sensitive key.
-        <htm:br/><htm:br/>
+
+        All keys, protected data, and sensitive data must ultimately be protected by the <abbr linkend="REK"/>. Sensitive data must be protected by the password in addition to the <abbr linkend="REK"/>. In particular, <figref refid="Keys"/> has <abbr linkend="KEK"/>s protected according to these requirements: DEK_1 would be appropriate for sensitive data, DEK_2 would not be appropriate for sensitive data, K_1 is not considered a sensitive key, and K_2 is considered a sensitive key.
+        <htm:br></htm:br><htm:br></htm:br>
         These requirements include a capability for encrypting sensitive data received while in the locked state, which may be considered a separate sub-category of sensitive data. This capability may be met by a key transport scheme (RSA) by using a public key to encrypt the <abbr linkend="DEK"/> while protecting the corresponding private key with a password-derived or biometric-unlocked <abbr linkend="KEK"/>. 
-        <htm:br/><htm:br/>
-        This capability may also be met by a key agreement scheme. To do so, the device generates a device-wide sensitive data asymmetric pair (the private key of which is protected by a password-derived or biometric-unlocked <abbr linkend="KEK"/>) and an asymmetric pair for the received sensitive data to be stored. In order to store the sensitive data, the device-wide public key and data private key are used to generate a shared secret, which can be used as a <abbr linkend="KEK"/> or a <abbr linkend="DEK"/>. The data private key and shared secret are cleared after the data is encrypted and the data public key stored. Thus, no key material is available in the locked state to decrypt the newly stored data. Upon unlock, the device-wide private key is decrypted and is used with each data public key to regenerate the shared secret and decrypt the stored data. Figure 4, below, illustrates this scheme.
-        <htm:br/><htm:br/>
+        <htm:br></htm:br><htm:br></htm:br>
+        This capability may also be met by a key agreement scheme. To do so, the device generates a device-wide sensitive data asymmetric pair (the private key of which is protected by a password-derived or biometric-unlocked <abbr linkend="KEK"/>) and an asymmetric pair for the received sensitive data to be stored. In order to store the sensitive data, the device-wide public key and data private key are used to generate a shared secret, which can be used as a <abbr linkend="KEK"/> or a <abbr linkend="DEK"/>. The data private key and shared secret are cleared after the data is encrypted and the data public key stored. Thus, no key material is available in the locked state to decrypt the newly stored data. Upon unlock, the device-wide private key is decrypted and is used with each data public key to regenerate the shared secret and decrypt the stored data. <figref refid="KeysLocked"/>, below, illustrates this scheme.
+        <htm:br></htm:br><htm:br></htm:br>
         
         
-        <figure id="fig4" entity="images/figure4.jpg" title="Key Agreement Scheme for Encrypting Received Sensitive Data in the Locked State" pre="Figure"></figure>
+
+        <figure id="KeysLocked" entity="images/figure4.jpg" title="Key Agreement Scheme for Encrypting Received Sensitive Data in the Locked State" pre="Figure"></figure>
         <htm:br/><htm:br/>
+
         This applies to FDP_DAR_EXT.1 and FDP_DAR_EXT.2.
         
         <f-component id="fdp_dar_ext.1" name="Extended: Protected Data Encryption" status="threshold">
@@ -3284,6 +3476,7 @@
                     M - Mandatory<htm:br/>
                     O - Optional/Objective<htm:br/>             
               <htm:table>
+
                 <htm:tr class="header">
                   <htm:td>Management Function<htm:br/>                  
                   </htm:td>
@@ -3291,6 +3484,7 @@
                   <htm:td>FMT_MOF_EXT.1.1</htm:td>
                   <htm:td>Administrator</htm:td>
                   <htm:td>FMT_MOF_EXT.1.2</htm:td>
+
                 </htm:tr>
                 <htm:tr>
                   <htm:td>1. configure password policy:
@@ -3319,15 +3513,15 @@
                   <htm:td>M</htm:td>
                 </htm:tr>
                 <htm:tr>
-                  <htm:td>3. enable/disable the VPN protection: 
-                    <htm:ol type="a">
-                      <htm:li>across device</htm:li>
-                      <htm:li><selectables linebreak="yes">
-                        <selectable>on a per-app basis</selectable>
-                        <selectable>on a per-group of applications processes basis</selectable>
-                        <selectable>no other method</selectable>
-                      </selectables></htm:li>
-                    </htm:ol>
+                  <htm:td>3. enable/disable the VPN protection:
+                    <htm:ol type="a">                     
+                      <htm:li>across device</htm:li></htm:ol>
+                      <indent><selectables>
+                        <selectable><htm:br></htm:br>b. on a per-app basis</selectable>
+                        <selectable><htm:br></htm:br>c. on a per-group of applications processes basis</selectable>
+                        <selectable><htm:br></htm:br>d. no other method</selectable>
+                      </selectables></indent>
+                    
                   </htm:td>
                   <htm:td>M</htm:td>
                   <htm:td>O</htm:td>
@@ -3346,13 +3540,13 @@
                   <htm:td>5. enable/disable 
                     <assignable>list of audio or visual collection devices</assignable>:
                     <htm:ol type="a">
-                      <htm:li>across device</htm:li>
-                      <htm:li><selectables linebreak="yes">
-                        <selectable>on a per-app basis</selectable>
-                        <selectable>on a per-group of applications processes basis</selectable>
-                        <selectable>no other method</selectable>
-                      </selectables></htm:li>
-                    </htm:ol>
+                      <htm:li>across device</htm:li></htm:ol>
+                      <indent><selectables>
+                        <selectable><htm:br></htm:br>b. on a per-app basis</selectable>
+                        <selectable><htm:br></htm:br>c. on a per-group of applications processes basis</selectable>
+                        <selectable><htm:br></htm:br>d. no other method</selectable>
+                      </selectables></indent>
+                    
                   </htm:td>
                   <htm:td>M</htm:td>
                   <htm:td>O</htm:td>
@@ -3375,12 +3569,12 @@
                 </htm:tr>
                 <htm:tr>
                   <htm:td>8. configure application installation policy by 
-                    <selectables linebreak="yes">
-                      <selectable>restricting the sources of applications</selectable>
-                      <selectable>specifying a set of allowed applications based on 
+                    <indent><selectables>
+                      <selectable><htm:br></htm:br>a. restricting the sources of applications</selectable>
+                      <selectable><htm:br></htm:br>b. specifying a set of allowed applications based on 
                         <assignable>application characteristics</assignable> (an application whitelist)</selectable>
-                      <selectable>denying installation of applications</selectable>
-                    </selectables>
+                      <selectable><htm:br></htm:br>c. denying installation of applications</selectable>
+                    </selectables></indent>
                   </htm:td>
                   <htm:td>M</htm:td>
                   <htm:td>-</htm:td>
@@ -3460,23 +3654,22 @@
                 </htm:tr>
                 <htm:tr>
                   <htm:td>18. configure the Bluetooth trusted channel:
-                    <htm:ol type="a">
-                      <htm:li>disable/enable the Discoverable mode (for BR/EDR)</htm:li> 
-                      <htm:li>change the Bluetooth device name</htm:li>
-                      <htm:li><selectables linebreak="yes">
-                      <selectable>change the Bluetooth device name (separately for BR/EDR and LE)</selectable>
-                        <selectable>provide separate controls for turning the BR/EDR and LE radios on and off</selectable>
-                        <selectable>allow/disallow additional wireless technologies to be used with Bluetooth</selectable> 
-                        <selectable>disable/enable Advertising (for LE)</selectable>
-                        <selectable>disable/enable the Connectable mode (for BR/EDR and LE)</selectable>
-                        <selectable>disable/enable the Bluetooth services and/or profiles available on the device (for BR/EDR and LE)</selectable>
-                        <selectable>specify minimum level of security for each pairing (for BR/EDR and LE)</selectable>
-                        <selectable>configure allowable methods of Out of Band pairing (for BR/EDR and LE)</selectable>
-                        <selectable>no other Bluetooth configuration</selectable>
-                      </selectables>
-                      </htm:li>
-                    </htm:ol>
-                  </htm:td>
+                    <htm:ol type="a">              
+                      <htm:li>disable/enable the Discoverable mode (for BR/EDR)</htm:li>
+                      <htm:li>change the Bluetooth device name</htm:li>                       
+                      </htm:ol><indent>
+                    <selectables>
+                        <selectable><htm:br></htm:br>c. change the Bluetooth device name (separately for BR/EDR and LE)</selectable>
+                        <selectable><htm:br></htm:br>d. provide separate controls for turning the BR/EDR and LE radios on and off</selectable>
+                        <selectable><htm:br></htm:br>e. allow/disallow additional wireless technologies to be used with Bluetooth</selectable> 
+                        <selectable><htm:br></htm:br>f. disable/enable Advertising (for LE)</selectable>
+                        <selectable><htm:br></htm:br>g. disable/enable the Connectable mode (for BR/EDR and LE)</selectable>
+                        <selectable><htm:br></htm:br>h. disable/enable the Bluetooth services and/or profiles available on the device (for BR/EDR and LE)</selectable>
+                        <selectable><htm:br></htm:br>i. specify minimum level of security for each pairing (for BR/EDR and LE)</selectable>
+                        <selectable><htm:br></htm:br>j. configure allowable methods of Out of Band pairing (for BR/EDR and LE)</selectable>
+                        <selectable><htm:br></htm:br>k. no other Bluetooth configuration</selectable>
+                      </selectables></indent>
+             </htm:td>
                   <htm:td>M</htm:td>
                   <htm:td>O</htm:td>
                   <htm:td>O</htm:td>
@@ -3484,13 +3677,13 @@
                 </htm:tr>
                 <htm:tr>
                   <htm:td>19. enable/disable display notification in the locked state of: 
-                    <selectables linebreak="yes">
-                      <selectable>email notifications</selectable> 
-                      <selectable>calendar appointments</selectable>
-                      <selectable>contact associated with phone call notification</selectable> 
-                      <selectable>text message notification</selectable>
-                      <selectable>other application-based notifications</selectable>
-                      <selectable>all notifications</selectable>
+                    <selectables>
+                      <selectable><htm:br></htm:br>a. email notifications</selectable> 
+                      <selectable><htm:br></htm:br>b. calendar appointments</selectable>
+                      <selectable><htm:br></htm:br>c. contact associated with phone call notification</selectable> 
+                      <selectable><htm:br></htm:br>d. text message notification</selectable>
+                      <selectable><htm:br></htm:br>e. other application-based notifications</selectable>
+                      <selectable><htm:br></htm:br>f. all notifications</selectable>
                     </selectables></htm:td>
                   <htm:td>M</htm:td>
                   <htm:td>O</htm:td>
@@ -3514,13 +3707,13 @@
                 <htm:tr>
                   <htm:td>22. enable/disable location services:
                     <htm:ol type="a">
-                      <htm:li>across device</htm:li>
-                      <htm:li><selectables linebreak="yes">
-                        <selectable>on a per-app basis</selectable>
-                        <selectable>on a per-group of applications processes basis</selectable>
-                        <selectable>no other method</selectable>
-                      </selectables></htm:li>
-                    </htm:ol>
+                      <htm:li>across device</htm:li></htm:ol>
+                      <indent><selectables>
+                        <selectable><htm:br></htm:br>b. on a per-app basis</selectable>
+                        <selectable><htm:br></htm:br>c. on a per-group of applications processes basis</selectable>
+                        <selectable><htm:br></htm:br>d. no other method</selectable>
+                      </selectables></indent>
+                    
                   </htm:td>
                   <htm:td>M</htm:td>
                   <htm:td>O</htm:td>
@@ -4909,7 +5102,10 @@
 	
 
         <a-component id="adv_fsp.1" name="Basic Functional Specification">
-            The functional specification describes the <abbr title="TSF Interface">TSFI</abbr>s. It is not necessary to have a formal or complete specification of these interfaces. Additionally, because <abbr linkend="TOE"/>s conforming to this <abbr linkend="PP"/> will necessarily have interfaces to the Operational Environment that are not directly invokable by <abbr linkend="TOE"/> users, there is little point specifying that such interfaces be described in and of themselves since only indirect testing of such interfaces may be possible. For this <abbr linkend="PP"/>, the activities for this family should focus on understanding the interfaces presented in the <abbr linkend="TSS"/> in response to the functional requirements and the interfaces presented in the AGD documentation. No additional “functional specification” documentation is necessary to satisfy the assurance activities specified. <htm:br/><htm:br/>
+
+          <!-- TODO: This text does not render -->
+            The functional specification describes the <abbr title="TSF Interface">TSFI</abbr>s. It is not necessary to have a formal or complete specification of these interfaces. Additionally, because <abbr linkend="TOE"/>s conforming to this <abbr linkend="PP"/> will necessarily have interfaces to the Operational Environment that are not directly invokable by <abbr linkend="TOE"/> users, there is little point specifying that such interfaces be described in and of themselves since only indirect testing of such interfaces may be possible. For this <abbr linkend="PP"/>, the activities for this family should focus on understanding the interfaces presented in the <abbr linkend="TSS"/> in response to the functional requirements and the interfaces presented in the AGD documentation. No additional “functional specification” documentation is necessary to satisfy the assurance activities specified. <htm:br></htm:br><htm:br></htm:br>
+
           The interfaces that need to be evaluated are characterized through the information needed to perform the assurance activities listed, rather than as an independent, abstract list. <htm:br/><htm:br/>
 	  <group type="dev-action">
             <a-element id="ADV_FSP.1.1D">
@@ -5539,7 +5735,7 @@
         <htm:tr><htm:td><linkref linkend="FCS_RBG_EXT.1.2"/></htm:td><htm:td>Select 256 bits.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FCS_STG_EXT.1.1"/></htm:td><htm:td>Select mutable hardware.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FCS_TLSC_EXT.1.1"/></htm:td><htm:td>Select TLS_RSA_WITH_AES_256_GCM_SHA384 or TLS_ECDHE_ECDSA_WITH AES_256_GCM_SHA384.</htm:td></htm:tr>
-        <htm:tr><htm:td><linkref linkend="FCS_TLSC_EXT.1.5"/></htm:td><htm:td>Select secp384r1, if included in ST (if ECC schemes are selected in FCS_CKM.1.1). </htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FCS_TLSC_EXT.2.1"/></htm:td><htm:td>Select secp384r1, if included in ST (if ECC schemes are selected in FCS_CKM.1.1). </htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FDP_DAR_EXT.1.2"/></htm:td><htm:td>Select 256 bits.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FIA_X509_EXT.2.1"/></htm:td><htm:td>Select at least IPsec.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FIA_X509_EXT.2.2"/></htm:td><htm:td>Select either “allow the administrator to choose...” or “not accept the certificate”. </htm:td></htm:tr>
