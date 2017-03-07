@@ -187,7 +187,7 @@
         <entry> <term><abbr title="Protection Profile">PP</abbr></term>
           <description>An implementation-independent set of security requirements for a category
             of products.</description></entry>
-        <entry> <term>Protected Data</term><description>Protected data is all non-TSF data, including all user or enterprise data. Protected data includes all keys in software-based secure key storage. Some or all of this data may be considered sensitive data as well. </description></entry>
+        <entry id="pd"> <term>Protected Data</term><description>Protected data is all non-TSF data, including all user or enterprise data. Protected data includes all keys in software-based secure key storage. Some or all of this data may be considered sensitive data as well. </description></entry>
         <entry> <term>Rich Operating System (Rich OS)</term><description>This term is a synonym used to refer to the primary operating system of the application processor defined above under “Operating System (OS)”. This term is used to distinguish the primary operating system from an operating system executing in a smaller, isolated execution environment that may be present on the processor.</description></entry>
         <entry> <term><abbr title="Root Encryption Key">REK</abbr></term><description>A key tied to the device used to encrypt other keys.</description></entry>
         <entry> <term><abbr title="Security Assurance Requirement">SAR</abbr></term>
@@ -566,12 +566,12 @@
                 <selectable>Audit records reaching <assignable>integer value less than 100</assignable> percentage of audit capacity</selectable> 
                 <selectable><assignable>other auditable events derived from this profile</assignable></selectable></selectables></refinement></htm:li>
               <htm:li><refinement>
-                <selectables><selectable>Specifically defined auditable event in Table 2</selectable><selectable>no additional auditable events</selectable></selectables></refinement></htm:li>
+                <selectables><selectable>Specifically defined auditable event in <counted-object-ref refid="objaudit"/></selectable><selectable>no additional auditable events</selectable></selectables></refinement></htm:li>
             </htm:ol></title>
             <note role="application">
-              Administrator actions are defined as functions labeled as mandatory for <linkref linkend="FMT_MOF_EXT.1.2"/> (i.e. ‘M-MM’ in Table 4). If the <abbr linkend="TSF"/> does not support removable media, number 4 is implicitly met.
+              Administrator actions are defined as functions labeled as mandatory for <linkref linkend="FMT_MOF_EXT.1.2"/> (i.e. ‘M-MM’ in <counted-object-ref refid="fmt_smf"/>). If the <abbr linkend="TSF"/> does not support removable media, number 4 is implicitly met.
               <htm:br/><htm:br/>
-              The <abbr linkend="TSF"/> shall generate an audit record for all events contained in Table 1. Generating audit records for events in Table 2 is currently objective. It is acceptable to include individual <abbr linkend="SFR"/>s from Table 2 in the <abbr linkend="ST"/>, without including the entirety of Table 2.
+              The <abbr linkend="TSF"/> shall generate an audit record for all events contained in <counted-object-ref refid="manaudit"/>. Generating audit records for events in <counted-object-ref refid="objaudit"/> is currently objective. It is acceptable to include individual <abbr linkend="SFR"/>s from <counted-object-ref refid="objaudit"/> in the <abbr linkend="ST"/>, without including the entirety of <counted-object-ref refid="objaudit"/>.
             </note>
           </f-element>
           <f-element id="fau_gen.1.2">
@@ -581,9 +581,9 @@
               <htm:li>type of event</htm:li>
               <htm:li>subject identity</htm:li> 
               <htm:li>the outcome (success or failure) of the event</htm:li> 
-              <htm:li>additional information in <counted-object-ref refid="manaudit"/><!--Table 1  --></htm:li>
+              <htm:li>additional information in <counted-object-ref refid="manaudit"/></htm:li>
               <htm:li>
-                <selectables><selectable><assignable>Additional information in Table 2</assignable></selectable>
+                <selectables><selectable><assignable>Additional information in <counted-object-ref refid="objaudit"/></assignable></selectable>
                   <selectable> no additional information</selectable>
                 </selectables></htm:li>
                 </htm:ol>
@@ -593,9 +593,9 @@
               <htm:br/><htm:br/>
               If “no additional auditable events” is selected in the second selection of <linkref linkend="FAU_GEN.1.1"/>, then “no additional information” shall be selected. 
               <htm:br/><htm:br/>
-              For each audit event selected from Table 2 in <linkref linkend="FAU_GEN.1.1"/> if additional information is required to be recorded within the audit record, it should be included in this selection.
+              For each audit event selected from <counted-object-ref refid="objaudit"/> in <linkref linkend="FAU_GEN.1.1"/> if additional information is required to be recorded within the audit record, it should be included in this selection.
               <htm:br/><htm:br/>
-              <htm:b>Table 1 Application Note:</htm:b> <linkref linkend="FPT_TST_EXT.1"/> – Audit of self-tests is required only at initial start-up. Since the <abbr linkend="TOE"/> “transitions to non-operational mode” upon failure of a self-test, per <linkref linkend="FPT_NOT_EXT.1"/>, this is considered equivalent evidence to an audit record for the failure of a self-test.
+              <htm:b><counted-object-ref refid="manaudit"/> Application Note:</htm:b> <linkref linkend="FPT_TST_EXT.1"/> – Audit of self-tests is required only at initial start-up. Since the <abbr linkend="TOE"/> “transitions to non-operational mode” upon failure of a self-test, per <linkref linkend="FPT_NOT_EXT.1"/>, this is considered equivalent evidence to an audit record for the failure of a self-test.
             </note>
             <aactivity>
               The evaluator shall check the administrative guide and ensure that it lists all of the auditable events and provides a format for audit records. Each audit record format type must be covered, along with a brief description of each field. The evaluator shall check to make sure that every audit event type mandated by the <abbr linkend="PP"/> is described and that the description of the fields contains the information required in <linkref linkend="FAU_GEN.1.2"/>. 
@@ -607,12 +607,11 @@
               Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms directly. For example, testing performed to ensure that the administrative guidance provided is correct verifies that AGD_OPE.1 is satisfied and should address the invocation of the administrative actions that are needed to verify the audit records are generated as expected.
               <htm:br/><htm:br/>
 
-              <htm:b><htm:i></htm:i>
+              
 	      <!--  counted-class=""> -->
-	      <counted-object pre="Table " id="manaudit">. Mandatory Auditable Events</counted-object>
-	     </htm:b><htm:br/>
-              <htm:table id="mandatoryAudit" title="Table 1">
-
+	      <htm:b><counted-object pre="Table " id="manaudit" counted-class="table">: Mandatory Auditable Events</counted-object></htm:b>  
+              <htm:br/>
+              <htm:table>
                 <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Auditable Events</htm:td><htm:td>Additional Audit Record Contents</htm:td></htm:tr>
                <htm:tr><htm:td>FAU_GEN.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FAU_STG.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
@@ -674,8 +673,7 @@
               <htm:br/>
              
               
-              
-              <htm:b><htm:i></htm:i>Table 2: Additional Auditable Events</htm:b><htm:br/>
+              <htm:b><counted-object pre="Table " id="objaudit" counted-class="table">: Additional Auditable Events</counted-object></htm:b><htm:br/>            
               <htm:table>
                 <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Auditable Events</htm:td><htm:td>Additional Audit Record Contents</htm:td></htm:tr>
                 <htm:tr><htm:td>FAU_SAR.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
@@ -832,7 +830,7 @@
         </f-component>
       </subsection>
       
-      <!-- there are no tls requirements in the document -->
+    
       
       <subsection id="fcs" title="Class: Cryptographic Support (FCS)">
         This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: <abbr linkend="DEK"/>s and <abbr linkend="KEK"/>s. (A <abbr linkend="REK"/> is considered a <abbr linkend="KEK"/>.) <abbr linkend="DEK"/>s are used to protect data (as in the DAR protection described in <linkref linkend="FDP_DAR_EXT.1"/> and <linkref linkend="FDP_DAR_EXT.2"/>). <abbr linkend="KEK"/>s are used to protect other keys – <abbr linkend="DEK"/>s, other <abbr linkend="KEK"/>s, and other types of keys stored by the user or applications. The following diagram shows an example key hierarchy to illustrate the concepts of this profile. This example is not meant as an approved design, but <abbr linkend="ST"/> authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. Please note if “biometric fingerprint” is selected in <linkref linkend="FIA_UAU.5.1"/>, the <abbr linkend="BAF"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the <abbr linkend="BAF"/> is used to release keys. If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, meaning that a PIN must be used in conjunction with the <abbr linkend="BAF"/> this interaction shall be included.<htm:br/>
@@ -1397,10 +1395,9 @@
         <f-component id="fcs_ckm_ext.5" name="Extended: TSF Wipe" status="threshold">
           <f-element id="fcs_ckm_ext.5.1">
             <title>The <abbr linkend="TSF"/> shall wipe all protected data by 
-              <selectables linebreak="yes">
-                
+              <selectables linebreak="yes"> 
                   <selectable>Cryptographically erasing the encrypted <abbr linkend="DEK"/>s and/or the <abbr linkend="KEK"/>s in non-volatile memory by following the requirements in <linkref linkend="FCS_CKM_EXT.4.1"/></selectable>
-                  <selectable>Overwriting all protected data according to the following rules:
+                  <selectable>Overwriting all <xref linkend="pd"/> according to the following rules:
                   <htm:ul>
                     <htm:li>For EEPROM, the destruction shall be executed by a single direct overwrite consisting of a pseudo random pattern using the <abbr linkend="TSF"/>’s RBG (as specified in <linkref linkend="FCS_RBG_EXT.1"/>, followed by a read-verify.
                     </htm:li>
@@ -1871,9 +1868,9 @@
        
         <f-component id="fcs_iv_ext.1" name="Extended: Initialization Vector Generation"  status="threshold">
           <f-element id="fcs_iv_ext.1.1">
-            <title>The <abbr linkend="TSF"/> shall generate IVs in accordance with Table 15: References and IV Requirements for NIST-approved Cipher Modes.
+            <title>The <abbr linkend="TSF"/> shall generate IVs in accordance with <counted-object-ref refid="ivtable"/>: References and IV Requirements for NIST-approved Cipher Modes.
             </title>
-            <note role="application">Table 15 lists the requirements for composition of IVs according to the NIST Special Publications for each cipher mode. The composition of IVs generated for encryption according to a cryptographic protocol is addressed by the protocol. Thus, this requirement addresses only IVs generated for key storage and data storage encryption. </note>
+            <note role="application"><counted-object-ref refid="ivtable"/> lists the requirements for composition of IVs according to the NIST Special Publications for each cipher mode. The composition of IVs generated for encryption according to a cryptographic protocol is addressed by the protocol. Thus, this requirement addresses only IVs generated for key storage and data storage encryption. </note>
             <aactivity>The evaluator shall examine the key hierarchy section of the  <abbr linkend="TSS"/> to ensure that the encryption of all keys is described and the formation of the IVs for each key encrypted by the same <abbr linkend="KEK"/> meets <linkref linkend="FCS_IV_EXT.1"/>.
             </aactivity>
           </f-element>
@@ -2182,8 +2179,8 @@
           </f-element>
         </f-component>
       
-      <!-- TODO: Review TLS requirements -->
-      <!-- Need to link stuff -->
+      
+      
       <f-component id="fcs_tlsc_ext.1" name="Extended: TLS Protocol" status="threshold">
         <!-- TODO: Update ciphersuites -->
         <f-element id="fcs_tlsc_ext.1.1">
@@ -2494,17 +2491,19 @@
         
         
         <!--HERE this text was outside of a requirement at the beginning of a subsubsection -->
-        Three levels of data-at-rest protection are addressed: <abbr linkend="TSF"/> data, Protected Data (and keys), and sensitive data. Table 3 addresses the level of protection required for each level of data-at-rest.
+        Three levels of data-at-rest protection are addressed: <abbr linkend="TSF"/> data, Protected Data (and keys), and sensitive data. <counted-object-ref refid="datalevels"/> addresses the level of protection required for each level of data-at-rest.
         <htm:br/><htm:br/>
         
         <!--table from page 79 -->
-        <htm:b><htm:i>Table 3: Protection of Data Levels</htm:i></htm:b><htm:br/><htm:br/>
+        <htm:b><counted-object id="datalevels" pre="Table " counted-class="table">: Protection of Data Levels</counted-object></htm:b>
+        <htm:br/><htm:br/>
         <htm:table>
           <htm:tr class="header"><htm:td>Data Level</htm:td><htm:td>Protection Required</htm:td></htm:tr>
           <htm:tr><htm:td>TSF Data</htm:td><htm:td>TSF data does not require confidentiality, but does require integrity protection (<linkref linkend="FPT_TST_EXT.2(1)"/>).</htm:td></htm:tr>
           <htm:tr><htm:td>Protected Data</htm:td><htm:td>Protected data is encrypted while powered off. (<linkref linkend="FDP_DAR_EXT.1"/>)</htm:td></htm:tr>
           <htm:tr><htm:td>Sensitive Data</htm:td><htm:td>Sensitive data is encrypted while in the locked state. (<linkref linkend="FDP_DAR_EXT.2"/>)</htm:td></htm:tr>
         </htm:table>
+        <htm:br></htm:br>
 
         All keys, protected data, and sensitive data must ultimately be protected by the <abbr linkend="REK"/>. Sensitive data must be protected by the password in addition to the <abbr linkend="REK"/>. In particular, <figref refid="Keys"/> has <abbr linkend="KEK"/>s protected according to these requirements: DEK_1 would be appropriate for sensitive data, DEK_2 would not be appropriate for sensitive data, K_1 is not considered a sensitive key, and K_2 is considered a sensitive key.
         <htm:br></htm:br><htm:br></htm:br>
@@ -3428,11 +3427,11 @@
         <htm:br/><htm:br/>
         The Administrator is responsible for management activities, including setting the policy that is applied by the enterprise on the Mobile Device. These management functions are likely to be a different set than those management functions provided to the user. Management functions that are provided to the user and not the administrator are listed in <linkref linkend="FMT_MOF_EXT.1.1"/>. Management functions for which the administrator may adopt a policy that restricts the user from performing that function are listed in <linkref linkend="FMT_MOF_EXT.1.2"/>. 
         <htm:br/><htm:br/>
-        Table 4 compares the management functions required by this Protection Profile in the following three requirements (<linkref linkend="FMT_MOF_EXT.1.1"/>, <linkref linkend="FMT_MOF_EXT.1.2"/>, and <linkref linkend="FMT_SMF_EXT.1"/>).
+        <counted-object-ref refid="fmt_smf"/> compares the management functions required by this Protection Profile in the following three requirements (<linkref linkend="FMT_MOF_EXT.1.1"/>, <linkref linkend="FMT_MOF_EXT.1.2"/>, and <linkref linkend="FMT_SMF_EXT.1"/>).
         
         <f-component id="fmt_mof_ext.1" name="Extended: Management of security functions behavior" status="threshold">
           <f-element id="fmt_mof_ext.1.1">
-            <title>The <abbr linkend="TSF"/> shall restrict the ability to perform the functions in column 3 of Table 4 to the user.
+            <title>The <abbr linkend="TSF"/> shall restrict the ability to perform the functions in column 3 of <counted-object-ref refid="fmt_smf"/> to the user.
             </title><note role="application">The functions that have an “M” in the third column are mandatory for this component, thus are restricted to the user, meaning that the administrator cannot manage those functions. The functions that have an “O” in the third column are optional and may be selected; and those functions with a “-” in the third are not applicable and may not be selected. The <abbr linkend="ST"/> author should select those security management functions that only the user may perform (i.e., the ones the administrator may not perform).
               <htm:br/><htm:br/>
               The <abbr linkend="ST"/> author may not select the same function in both <linkref linkend="FMT_MOF_EXT.1.1"/> and <linkref linkend="FMT_MOF_EXT.1.2"/>. A function cannot contain an “M” in both column 3 and column 5.
@@ -3446,7 +3445,7 @@
             </aactivity>
           </f-element>
           <f-element id="fmt_mof_ext.1.2">
-            <title>The <abbr linkend="TSF"/> shall restrict the ability to perform the functions in column 5 of Table 4 to the administrator when the device is enrolled and according to the administrator-configured policy.
+            <title>The <abbr linkend="TSF"/> shall restrict the ability to perform the functions in column 5 of <counted-object-ref refid="fmt_smf"/> to the administrator when the device is enrolled and according to the administrator-configured policy.
             </title>
             <note role="application">As long as the device is enrolled in management, the administrator (of the enterprise) must be guaranteed that minimum security functions of the enterprise policy are enforced. Further restrictive policies can be applied at any time by the user on behalf of the user or other administrators.
               <htm:br/><htm:br/>
@@ -3469,10 +3468,9 @@
         </f-component>
        
         <f-component id="fmt_smf_ext.1" name="Extended: Specification of Management Functions" status="threshold">
-          <!-- TODO: need to do ordered list type='a' for function 3, 5, 8, 18, 19, 22, 39, & 41  --> 
           <f-element id="fmt_smf_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall be capable of performing the following management functions: <htm:br/><htm:br/>             
-              <htm:b><htm:i>Table 4: Management Functions</htm:i></htm:b><htm:br/>
+              <htm:b><counted-object id="fmt_smf" pre="Table " counted-class="table">: Management Functions</counted-object></htm:b><htm:br/>
               <htm:br/>
               Status Markers:<htm:br/>
                     M - Mandatory<htm:br/>
@@ -3489,7 +3487,7 @@
 
                 </htm:tr>
                 <htm:tr>
-                  <htm:td>1. configure password policy:
+                  <htm:td><counted-object id="pwd" pre="" counted-class="function">.</counted-object> configure password policy:
                     <htm:ol type="a">
                       <htm:li>minimum password length</htm:li> 
                       <htm:li>minimum password complexity</htm:li> 
@@ -3938,7 +3936,7 @@
               </htm:table>
             </title>
             <note role="application">
-              Table 4 compares the management functions required by this Protection Profile. 
+              <counted-object-ref refid="fmt_smf"/> compares the management functions required by this Protection Profile. 
               <htm:br/><htm:br/>
               The first column lists the management functions identified in the <abbr linkend="PP"/>.
               <htm:br/><htm:br/>
@@ -4050,9 +4048,9 @@
               <htm:br/><htm:br/>
               Test activities specified below shall take place in the test environment described in the Assurance Activity for <linkref linkend="FPT_TUD_EXT.1.1"/>, <linkref linkend="FPT_TUD_EXT.1.2"/>, and <linkref linkend="FPT_TUD_EXT.1.3"/>. The evaluator shall consult the AGD guidance to perform each of the specified tests, iterating each test as necessary if both the user and administrator may perform the function. The evaluator shall verify that the AGD guidance describes how to perform each management function, including any configuration details. For each specified management function tested, the evaluator shall confirm that the underlying mechanism exhibits the configured setting. 
               <htm:br/><htm:br/>
-              
+              <!-- TODO: if the function number automatically updates then will the test numbers change as well? -->
               <testlist>
-                <htm:b>Function 1</htm:b><htm:br/>
+                <htm:b>Function <counted-object-ref refid="pwd"/></htm:b><htm:br/>
                 The evaluator shall verify the  <abbr linkend="TSS"/> defines the allowable policy options: the range of values for both password length and lifetime, and a description of complexity to include character set and complexity policies (e.g., configuration and enforcement of number of uppercase, lowercase, and special characters per password).<htm:br/><htm:br/>
                 <test>The evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and perform positive and negative tests, with at least two values set for each variable setting, for each of the following:
                   <htm:br/>
@@ -5093,10 +5091,10 @@
       
       After the <abbr linkend="ST"/> has been approved for evaluation, the <abbr class="expanded" title="Information Technology Security Evaluation Facility">ITSEF</abbr> will obtain the <abbr linkend="TOE"/>, supporting environmental IT, and the administrative/user guides for the <abbr linkend="TOE"/>. The ITSEF is expected to perform actions mandated by the Common Evaluation Methodology (CEM) for the ASE and ALC SARs. The ITSEF also performs the Assurance Activities contained within <secref linkend="sfr"/>, which are intended to be an interpretation of the other CEM assurance requirements as they apply to the specific technology instantiated in the <abbr linkend="TOE"/>. The Assurance Activities that are captured in <secref linkend="sfr"/> also provide clarification as to what the developer needs to provide to demonstrate the <abbr linkend="TOE"/> is compliant with the PP. <htm:br/> <htm:br/> 
       
-      The <abbr linkend="TOE"/> security assurance requirements are identified in Table 5.
+      The <abbr linkend="TOE"/> security assurance requirements are identified in <counted-object-ref refid="sartable"/>.
       <!-- Question: is this ASE_OBJ.1 or .2? ASE_REQ.1 or .2? table has as .1 & ASE paragraph has as .2 -->
-      <htm:table border="1">
-        <htm:caption>Table 5: Security Assurance Requirements</htm:caption>
+      <counted-object id="sartable" pre="Table" counted-class="table">: Security Assurance Requirements</counted-object>
+      <htm:table>
         <htm:tr class="header">
           <htm:td>Assurance Class</htm:td><htm:td>Assurance Components</htm:td>
         </htm:tr>
@@ -5458,6 +5456,7 @@
     
   </appendix>
   <appendix id="acro" title="Acronyms">
+    <counted-object id="acronyms" pre="Table " counted-class="table">: Acronyms</counted-object>
     <acronyms>
       <entry><term>AEAD</term><description>Authenticated Encryption with Associated Data</description></entry>
       <entry><term>AES</term><description>Advanced Encryption Standard</description></entry>
@@ -5553,6 +5552,7 @@
     Where selections for a particular requirement are not identified in a use case template, all available selections are equally applicable to the use case. 
 
     <section id="case1" title="[USE CASE 1] Enterprise-owned device for general-purpose enterprise use">
+      <counted-object id="uc1" pre="Table " counted-class="table">: Enterprise-Owned Template</counted-object>
     <htm:table>
       <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Action</htm:td></htm:tr>
       <htm:tr><htm:td><linkref linkend="FCS_STG_EXT.1.4"/></htm:td><htm:td>Do not select “the user.”</htm:td></htm:tr>
@@ -5574,6 +5574,7 @@
     </htm:table>
 </section>
     <section id="usecase2" title="[USE CASE 2] Enterprise-owned device for specialized, high-security use">
+      <counted-object id="uc2" pre="Table " counted-class="table">: High Security Template</counted-object>
       <htm:table>
         <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Action</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FCS_CKM.1.1"/></htm:td><htm:td>Select RSA with key size of 3072 or select ECC schemes.</htm:td></htm:tr>
@@ -5620,7 +5621,9 @@
         <htm:tr><htm:td><linkref linkend="FTA_TAB.1.1"/></htm:td><htm:td>Include in ST.</htm:td></htm:tr>
       </htm:table>
     </section>
+    
     <section id="usecase3" title="[USE CASE 3] Personally-owned device for personal and enterprise use">
+      <counted-object id="uc3" pre="Table " counted-class="table">: BYOD Template</counted-object>
       <htm:table>
         <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Action</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 3</htm:td><htm:td>Select “b.on a per-app basis”, “c. on a per-groups of application basis” or both</htm:td></htm:tr>
@@ -5636,6 +5639,7 @@
     <section id="usecase4" title="[USE CASE 4] Personally-owned device for personal and limited enterprise use">At this time no requirements or selections are recommended for this use case. </section>
   </appendix>  
   <appendix id="vector" title="Initialization Vector Requirements for NIST-Approved Cipher Modes">
+    <counted-object id="ivtable" pre="Table " counted-class="table">: References and IV Requirements for NIST-approved Cipher Modes</counted-object>
     <htm:table>
       <htm:tr class="header"><htm:td>Cipher Mode</htm:td><htm:td>Reference</htm:td><htm:td>IV Requirements</htm:td></htm:tr>
       <htm:tr><htm:td>Electronic Codebook (ECB)</htm:td><htm:td>SP 800-38A</htm:td><htm:td>No IV</htm:td></htm:tr>
@@ -5754,7 +5758,7 @@
         <htm:br/><htm:br/>
         As shown in the table below, the error bar may be large if a higher false error rate is declared:
         <htm:br/><htm:br/>
-        <!-- HERE table 16 page 203-->
+        <counted-object id="biotable1" pre="Table " counted-class="table">: Comparison of false error rates, number of errors, and number of trials needed, given Rule of 3</counted-object>
         <htm:table>
           <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 90% confidence, <htm:i>c</htm:i> = 0.95</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of trials needed</htm:td></htm:tr>
           <htm:tr><htm:td>1%  (1:100)</htm:td><htm:td>1%  ±  0.95% </htm:td><htm:td>3</htm:td><htm:td>297</htm:td></htm:tr>
@@ -5764,17 +5768,16 @@
           <htm:tr><htm:td>0.0001% (1:1000000)</htm:td><htm:td>0.0001%  ±  0.000095%</htm:td><htm:td>3</htm:td><htm:td>2997998</htm:td></htm:tr>
         </htm:table>
         <htm:br/><htm:br/>
-        <htm:i>Table 16: Comparison of false error rates, number of errors, and number of trials needed, given Rule of 3.</htm:i>
-        <htm:br/><htm:br/>
+        
         It should also be noted that the number of errors needed to satisfy <htm:i>c</htm:i> = 0.95 may be less as the error rate increases; however, when adjusting for a higher number of errors, <htm:i>c</htm:i> will be lower, thus reducing the error bar.
         <htm:br/><htm:br/>
         Because of the high error bar, vendors are strongly recommended to use higher numbers of samples and perform higher numbers of trials in testing than the Rule of 3 while using the largest test population that can be reasonably managed, per ANSI 409.1-2005, such as the Rule of 30 (Doddington’s rule) or a similar Rule of 96.
         <htm:br/><htm:br/>
         When identifying the number of trials, Doddington <cite linkend="NIST"/>
         advises that the “Rule of 30”, which implies <htm:i>c</htm:i> = 0.3 and 90% confidence, be used, where <htm:i>c</htm:i> is a percentage/fraction of the intended false error rate (either <abbr linkend="FAR"/> or <abbr linkend="FRR"/>) for which the error bar is calculated. A comparison of false error rates, number of errors, and number of trials needed, are shown in the table below. 
-        <!-- HERE reference, need a footnote in the schema -->
+        
         <htm:br/><htm:br/>
-        <!-- HERE table 17 page 204-->
+        <counted-object id="biotable2" pre="Table " counted-class="table">: Comparison of false error rates, number of errors, and number of trials needed, given Rule of 30</counted-object>
         <htm:table>
           <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 90% confidence, <htm:i>c</htm:i> = 0.3</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of trials needed</htm:td></htm:tr>
           <htm:tr><htm:td>1%  (1:100)</htm:td><htm:td>1%  ±  0.3% </htm:td><htm:td>30</htm:td><htm:td>2976</htm:td></htm:tr>
@@ -5784,14 +5787,12 @@
           <htm:tr><htm:td>0.0001% (1:1000000)</htm:td><htm:td>0.0001%  ±  0.00003%</htm:td><htm:td>30</htm:td><htm:td>30063259</htm:td></htm:tr>
         </htm:table>
         <htm:br/><htm:br/>
-        <htm:i>Table 17: Comparison of false error rates, number of errors, and number of trials needed, given Rule of 30.</htm:i>
-        <htm:br/><htm:br/>
         The Rule of 30 is derived by treating a biometric test, consisting of many comparisons, as a series of Bernoulli trials. For completeness, the derivation is in <appref linkend="biometric2"/>.
         <htm:br/><htm:br/>
         For a stronger test using <htm:i>c</htm:i> = 0.2 and confidence = 95%, a similar “Rule of 96” can be used for error rates less than or equal to 1%.
         <htm:br/><htm:br/>
         
-        <!-- HERE table 18 page 204-->
+        <counted-object id="biotable3" pre="Table " counted-class="table">: Comparison of false error rates, number of errors, and number of trials needed, given Rule of 96</counted-object>
         <htm:table>
           <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 95% confidence, <htm:i>c</htm:i> = 0.2</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of trials needed</htm:td></htm:tr>
           <htm:tr><htm:td>1%  (1:100)</htm:td><htm:td>1%  ±  0.2% </htm:td><htm:td>95</htm:td><htm:td>9507</htm:td></htm:tr>
@@ -5800,18 +5801,15 @@
           <htm:tr><htm:td>0.001%  (1:100000)</htm:td><htm:td>0.001%  ±  0.0002%</htm:td><htm:td>96</htm:td><htm:td>9603904</htm:td></htm:tr>
           <htm:tr><htm:td>0.0001% (1:1000000)</htm:td><htm:td>0.0001%  ±  0.00002%</htm:td><htm:td>96</htm:td><htm:td>96039904</htm:td></htm:tr>
         </htm:table>
-        <htm:br/><htm:br/>
-        <htm:i>Table 18: Comparison of false error rates, number of errors, and number of trials needed, given Rule of 96.</htm:i>
+        
         <htm:br/><htm:br/>
         More generally, it can be shown that the number of trials, <htm:i>n</htm:i>, can be expressed 
         in terms of the percentage/fraction of the intended false error rate, <htm:i>c</htm:i>, 
         error percentile of standard normal distribution, α, standard score of a 
         standard normal distribution, <htm:i>z</htm:i>, and intended false error rate <htm:i>p</htm:i>, as: 
         <htm:br/><htm:br/>
-        <!-- HERE equation -->
         <htm:img src="images/equationI1-A.jpg" /> .
         <htm:br/><htm:br/>
-        [equation]
         For a 90% confidence interval, <htm:i>z<htm:sub>α/2</htm:sub></htm:i> = 1.6449, while for a 
         95% confidence interval, <htm:i>z<htm:sub>α/2</htm:sub></htm:i> = 1.96. 
         <htm:br/><htm:br/>
@@ -5838,7 +5836,7 @@
         As shown in the table below, the error bar may be large if a higher false error rate is declared:
         <htm:br/><htm:br/>
         
-        <!-- HERE table 19 page 205-->
+        <counted-object id="biotable4" pre="Table " counted-class="table">: Comparison of false error rates, number of errors, and number of trials needed, given Rule of 3</counted-object>
         <htm:table>
           <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 90% confidence, <htm:i>c</htm:i> = 0.95</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of trials needed</htm:td></htm:tr>
           <htm:tr><htm:td>10%  (1:10)</htm:td><htm:td>10%  ±  9.5% </htm:td><htm:td>3</htm:td><htm:td>27</htm:td></htm:tr>
@@ -5847,8 +5845,7 @@
           <htm:tr><htm:td>1%  (1:100)</htm:td><htm:td>1%  ±  0.95%</htm:td><htm:td>3</htm:td><htm:td>297</htm:td></htm:tr>
         </htm:table>
         <htm:br/><htm:br/>
-        <htm:i>Table 19: Comparison of false error rates, number of errors, and number of trials needed, given Rule of 3.</htm:i>
-        <htm:br/><htm:br/>
+
         Because of the high error bar, especially for a False Reject Rate of 10%, vendors are recommended to use higher numbers of samples and trials in testing than the Rule of 3 while using the largest test population that can be reasonably managed, per ANSI 409.1-2005, such as the Rule of 30 (Doddington’s rule) or a similar Rule of 96.
         <htm:br/><htm:br/>
         Dottington’s Rule of 30 is not as exact as in False Accept Rate 
@@ -5858,7 +5855,7 @@
         according to the table below:
         <htm:br/><htm:br/>
         
-        <!-- HERE table 20 page 205-->
+        <counted-object id="biotable5" pre="Table " counted-class="table">: Comparison of false error rates, number of errors, and number of trials needed, given 90% confidence and c = 0.3</counted-object>
         <htm:table>
           <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 90% confidence, <htm:i>c</htm:i> = 0.3</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of trials needed</htm:td></htm:tr>
           <htm:tr><htm:td>10%  (1:10)</htm:td><htm:td>10%  ±  3% </htm:td><htm:td>27</htm:td><htm:td>271</htm:td></htm:tr>
@@ -5867,11 +5864,10 @@
           <htm:tr><htm:td>1%  (1:100)</htm:td><htm:td>1%  ±  0.3%</htm:td><htm:td>30</htm:td><htm:td>2976</htm:td></htm:tr>
         </htm:table>
         <htm:br/>
-        <htm:i>Table 20: Comparison of false error rates, number of errors, and number of trials needed, given 90% confidence and c = 0.3.</htm:i>
-        <htm:br/><htm:br/>
+        
         For a 95% confidence interval with <htm:i>c</htm:i> = 0.2, the following numbers of trials can be used, according to the table below:
         <htm:br/><htm:br/>
-        <!-- HERE table 21 page 206-->
+        <counted-object id="biotable6" pre="Table " counted-class="table">: Comparison of false error rates, number of errors, and number of trials needed, given Rule of 96</counted-object>
         <htm:table>
           <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 9095% confidence, <htm:i>c</htm:i> = 0.2</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of trials needed</htm:td></htm:tr>
           <htm:tr><htm:td>10%  (1:10)</htm:td><htm:td>10%  ±  2% </htm:td><htm:td>86</htm:td><htm:td>864</htm:td></htm:tr>
@@ -5879,8 +5875,6 @@
           <htm:tr><htm:td>2%  (1:50)</htm:td><htm:td>2%  ±  0.4%</htm:td><htm:td>94</htm:td><htm:td>4706</htm:td></htm:tr>
           <htm:tr><htm:td>1%  (1:100)</htm:td><htm:td>1%  ±  0.2%</htm:td><htm:td>95</htm:td><htm:td>9507</htm:td></htm:tr>
         </htm:table>
-        <htm:br/><htm:br/>
-        <htm:i>Table 21: Comparison of false error rates, number of errors, and number of trials needed, given Rule of 96.</htm:i>
       </subsection>
       </section>
     <section id="biometric2" title="Derivation of the Rule of 30 (and similar rules, for completeness)">
