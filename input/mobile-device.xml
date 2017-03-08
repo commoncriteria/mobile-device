@@ -102,6 +102,13 @@
         Updated key destruction SFR
       </subject>
     </entry>
+    <entry>
+      <version>3.1</version>
+      <date>2017-03-15</date>
+      <subject>
+      </subject>
+    </entry>
+    
   </RevisionHistory>
   
   
@@ -116,7 +123,9 @@
     The target audiences of this <abbr linkend="PP"/> are Mobile Device developers, <abbr linkend="CC"/> consumers, evaluators and schemes.
   </section>
   
+  
   <section title="Glossary" id="glos" > 
+    
       <glossary>
         <entry> <term>Adaptive (template)</term><description>Authentication templates that evolve with each sample that is verified and introduced into the biometrics database or gallery.</description></entry>
         <entry> <term><abbr title="Address Space Layout Randomization">ASLR</abbr></term><description>An anti-exploitation feature, which loads memory mappings into unpredictable locations. ASLR makes it more difficult for an attacker to redirect control to code that they have introduced into the address space of a process or the kernel.</description></entry>
@@ -151,7 +160,6 @@
         <entry> <term>Enterprise Applications</term><description>Applications that are provided and managed by the enterprise.</description></entry>
         <entry> <term>Enterprise Data</term><description>Enterprise data is any data residing in the enterprise servers, or temporarily stored on Mobile Devices to which the Mobile Device user is allowed access according to security policy defined by the enterprise and implemented by the administrator.</description></entry>
         <entry> <term>Ephemeral Keys</term><description>These keys are not stored in non-volatile memory.</description></entry>
-        <!-- here abbreviations -->
         <entry> <term><abbr title="False Accept Rate">FAR</abbr></term><description>A statistic used to measure biometric performance when operating in verification, defined as the percentage of times a system produces a false accept, which occurs when an individual is incorrectly matched to another individual’s existing biometric. For example, Mallory claims to be Alice and the system verifies the claim.</description></entry>
         <entry> <term><abbr title="False Reject Rate">FRR</abbr>FRR</term><description>A statistic used to measure biometric performance in verification, defined as the percentage of times the system produces a false reject. A false reject occurs when an individual is not matched to his or her own existing biometric template. For example, John claims to be John, but the system incorrectly denies the claim.</description></entry>
         <entry> <term>(Biometric) Feature(s)</term><description>Distinctive mathematical characteristic(s) derived from a biometric sample, used to generate enrollment or authentication templates.</description></entry>
@@ -215,7 +223,9 @@
         <entry> <term>Verification (Biometrics)</term><description>A task where the biometric system attempts to confirm an individual’s claimed identity by comparing a submitted sample to one or more previously enrolled authentication templates.</description></entry>
         
     </glossary>
+  
   </section>
+  
   <section title="TOE Overview" id="toeov">
     This assurance standard specifies information security requirements for Mobile Devices for use in an enterprise. A Mobile Device in the context of this assurance standard is a device, which is composed of a hardware platform and its system software. The device typically provides wireless connectivity and may include software for functions like secure messaging, email, web, VPN connection, and VoIP (Voice over IP), for access to the protected enterprise network, enterprise data and applications, and for communicating to other Mobile Devices. 
     <htm:br/><htm:br/>
@@ -593,7 +603,7 @@
               <htm:br/><htm:br/>
               If “no additional auditable events” is selected in the second selection of <linkref linkend="FAU_GEN.1.1"/>, then “no additional information” shall be selected. 
               <htm:br/><htm:br/>
-              For each audit event selected from <ctr-ref refid="objaudit"/>in <linkref linkend="FAU_GEN.1.1"/> if additional information is required to be recorded within the audit record, it should be included in this selection.
+              For each audit event selected from <ctr-ref refid="objaudit"/> in <linkref linkend="FAU_GEN.1.1"/> if additional information is required to be recorded within the audit record, it should be included in this selection.
               <htm:br/><htm:br/>
               <htm:b><ctr-ref refid="manaudit"/> Application Note:</htm:b> <linkref linkend="FPT_TST_EXT.1"/> – Audit of self-tests is required only at initial start-up. Since the <abbr linkend="TOE"/> “transitions to non-operational mode” upon failure of a self-test, per <linkref linkend="FPT_NOT_EXT.1"/>, this is considered equivalent evidence to an audit record for the failure of a self-test.
             </note>
@@ -608,7 +618,7 @@
               <htm:br/><htm:br/>
 
               
-	      <!--  counted-class=""> -->
+	      
 
 	      <htm:b>
 	      <ctr pre="Table " id="manaudit" ctr-type="table">: Mandatory Auditable Events</ctr>
@@ -2491,8 +2501,11 @@
           </f-element>
         </f-component>
         
-        
-        <!--HERE this text was outside of a requirement at the beginning of a subsubsection -->
+        <f-component name="Data-At-Rest Protection" id="fdp_dar" status="threshold">
+          <f-element id="">
+            <title></title>
+          </f-element>
+        </f-component>
         Three levels of data-at-rest protection are addressed: <abbr linkend="TSF"/> data, Protected Data (and keys), and sensitive data. <ctr-ref refid="datalevels"/> addresses the level of protection required for each level of data-at-rest.
         <htm:br/><htm:br/>
         
@@ -2518,9 +2531,7 @@
 
         <figure id="KeysLocked" entity="images/figure4.jpg" title="Key Agreement Scheme for Encrypting Received Sensitive Data in the Locked State"></figure>
         <htm:br/><htm:br/>
-
-        This applies to FDP_DAR_EXT.1 and FDP_DAR_EXT.2.
-        
+               
         <f-component id="fdp_dar_ext.1" name="Extended: Protected Data Encryption" status="threshold">
           <f-element id="fdp_dar_ext.1.1">
             <title>Encryption shall cover all protected data.
@@ -4439,6 +4450,7 @@
             </aactivity>
           </f-element>
         </f-component>
+        
         <f-component id="fpt_aex_ext.2" name="Extended: Anti-Exploitation Services (Memory Page Permissions)" status="threshold">
           <f-element id="fpt_aex_ext.2.1">
             <title>The <abbr linkend="TSF"/> shall be able to enforce read, write, and execute permissions on every page of physical memory.
@@ -4447,6 +4459,7 @@
             </aactivity>
           </f-element>
         </f-component>
+        
         <f-component id="fpt_aex_ext.3" name="Extended: Anti-Exploitation Services (Overflow Protection)" status="threshold">
           <f-element id="fpt_aex_ext.3.1">
             <title>TSF processes that execute in a non-privileged execution domain on the application processor shall implement stack-based buffer overflow protection.
@@ -4457,6 +4470,7 @@
             </aactivity>
           </f-element>
         </f-component>
+        
         <f-component id="fpt_aex_ext.4" name="Extended: Domain Isolation" status="threshold">
           <f-element id="fpt_aex_ext.4.1">
             <title>The <abbr linkend="TSF"/> shall protect itself from modification by untrusted subjects.
