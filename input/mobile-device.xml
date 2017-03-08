@@ -918,14 +918,15 @@
               <htm:i><htm:b>Key Generation for Curve25519</htm:b></htm:i><htm:br/><htm:br/>
               The evaluator shall require the implementation under test (IUT) to generate 10 private/public key pairs. The private key shall be generated as specified in RFC 7748 using an approved random bit generator (RBG). To determine correctness, the evaluator shall submit the generated key pairs to the public key verification (PKV) function of a known good implementation.
               <htm:br/><htm:br/>
-              [Note: Assuming the PKV function of the good implementation will:
+              <htm:div class="LsVerySpecificUseCase">Assuming the PKV function of the good implementation will:
               <htm:ol type="a">
               <htm:li>confirm the private and public keys are 32-byte values</htm:li>
                 <htm:li>confirm the three least significant bits of the most significant byte of the private key are zero</htm:li>
                 <htm:li>confirm the most significant bit of the least significant byte is zero</htm:li>
                 <htm:li>confirm the second most significant bit of the most significant byte is one </htm:li>
                 <htm:li>calculate the expected public key from the private key and confirm it matches the supplied public key</htm:li>
-              </htm:ol>]
+              </htm:ol>
+	      </htm:div>
               <htm:br/><htm:br/>
               The evaluator shall generate 10 private/public key pairs using the key generation function of a known good implementation and modify 5 of the public key values so that they are incorrect, leaving five values unchanged (i.e., correct). The evaluator shall obtain in response a set of 10 PASS/FAIL values.
               <htm:br/><htm:br/>
@@ -6131,7 +6132,12 @@
     Gossamer Security Solutions<htm:br/>
     
   </appendix>
-  
+
+  <extra-css>
+  .LsVerySpecificUseCase::before { content: "Note["; }
+  .LsVerySpecificUseCase { text-decoration: line-through;}
+  .LsVerySpecificUseCase::after { content: "]"; }
+  </extra-css>
 </PP>       
 <!--  
   &#38; is for & 
