@@ -2,8 +2,6 @@
 <?xsl-stylesheet type="text/xsl" href="../transforms/pp2html.xsl"?>
 
 <!-- TO DO - 
-  - search for ?? and fix all of them
-  - search for HERE and fix all of them
   - add TSS and Guidance tags to AAs
   -->
 <?xml-model href="../transforms/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
@@ -16,8 +14,8 @@
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
       <PPPubDate>2017-03-01</PPPubDate>
       <PPCertificationID>unassigned</PPCertificationID>
-      <CCVersion>??</CCVersion> <!-- HERE -->
-      <Keywords>??</Keywords> <!-- HERE -->
+      <CCVersion>3.1 Release 4</CCVersion> <!-- TODO -->
+      <Keywords>??</Keywords> <!-- TODO -->
       <entry>
         <name>Registration</name>
         <description>National Information Assurance Partnership</description>
@@ -103,16 +101,20 @@
       </subject>
     </entry>
     <entry>
+      <!-- TODO: Update revision history -->
       <version>3.1</version>
       <date>2017-03-15</date>
-      <subject>
+      <subject> Technical Decisions<htm:br/>
+        <htm:ul>
+          <htm:li>Biometric modality to include</htm:li>
+        </htm:ul>
       </subject>
     </entry>
     
   </RevisionHistory>
   
   
-<chapter id="int" title="Introduction">
+ <chapter id="int" title="Introduction">
   <section title="Objectives of Document" id="objdoc">
     This document presents the Common Criteria (CC) Protection Profile (PP) to express the fundamental security and evaluation requirements for a Mobile Device. 
   </section>
@@ -279,65 +281,86 @@
 </chapter>
 
   <chapter title="Security Problem Definition" id="spd" >
+    <!-- TODO: Description does not render unless text is bolded -->
   <section title="Threats" id="thr">
     Mobile devices are subject to the threats of traditional computer systems along with those entailed by their mobile nature. The threats considered in this Protection Profile are those of network eavesdropping, network attacks, physical access, malicious or flawed applications, persistent presence, backup, cloud, biometric impersonation, revocation of biometric credentials, and revocation of biometric template as detailed in the following sections.
     <threats>
       <threat id="T.EAVESDROP">
-        <description><htm:b>Network Eavesdropping</htm:b><htm:br/><htm:br/>
-          An attacker is positioned on a wireless communications channel or elsewhere on the network infrastructure. Attackers may monitor and gain access to data exchanged between the Mobile Device and other endpoints.</description>
-        <objective-refer ref="O.COMMS"> <!--HERE double check the refers -->
-          <rationale>??</rationale>
+        <description> <htm:b>Network Eavesdropping</htm:b><htm:br></htm:br>
+          An attacker is positioned on a wireless communications channel or elsewhere on the network infrastructure. Attackers may monitor and gain access to data exchanged between the Mobile Device and other endpoints.
+        </description>  
+        <objective-refer ref="O.COMMS"> 
+          <rationale>The threat T.EAVESDROP is countered by O.COMMS as this provides the capability to communicate using one (or more) standard protocols as a means to maintain the confidentiality of data that are transmitted outside of the TOE.</rationale>
+        </objective-refer>
+        <objective-refer ref="O.CONFIG"> 
+          <rationale>The threat T.EAVESDROP is countered by O.CONFIG as this provides a secure configuration of the mobile device to protect data that it processes.</rationale>
+        </objective-refer>
+        <objective-refer ref="O.AUTH"> 
+          <rationale>The threat T.EAVESDROP is countered by O.AUTH as this provides authentication of the endpoints of a trusted communication path.</rationale>
         </objective-refer>
       </threat>
       <threat id="T.NETWORK">
-        <description><htm:b>Network Attack</htm:b><htm:br/><htm:br/>
+        <description><htm:b>Network Attack</htm:b><htm:br></htm:br>
           An attacker is positioned on a wireless communications channel or elsewhere on the network infrastructure. Attackers may initiate communications with the Mobile Device or alter communications between the Mobile Device and other endpoints in order to compromise the Mobile Device. These attacks include malicious software update of any applications or system software on the device. These attacks also include malicious web pages or email attachments, which are usually delivered to devices over the network.</description>
-        <objective-refer ref="O.COMMS"> <!--HERE double check the refers -->
-          <rationale>??</rationale>
+        <objective-refer ref="O.COMMS"> 
+          <rationale>The threat T.NETWORK is countered by O.COMMS as this provides the capability to communicate using one (or more) standard protocols as a means to maintain the confidentiality of data that are transmitted outside of the TOE.</rationale>
+        </objective-refer>
+        <objective-refer ref="O.CONFIG">
+          <rationale>The threat T.NETWORK is countered by O.CONFIG as this provides a secure configuration of the mobile device to protect data that it processes.</rationale>
+        </objective-refer>
+        <objective-refer ref="O.AUTH"> 
+          <rationale>The threat T.NETWORK is countered by O.AUTH as this provides authentication of the endpoints of a trusted communication path.</rationale>
         </objective-refer>
       </threat>
       <threat id="T.PHYSICAL">
-        <description><htm:b>Physical Access</htm:b><htm:br/><htm:br/>
+        <description> <htm:b>Physical Access</htm:b><htm:br></htm:br>
           An attacker, with physical access, may attempt to access user data on the Mobile Device including credentials. These physical access threats may involve attacks, which attempt to access the device through external hardware ports, impersonate the user authentication mechanisms, through its user interface, and also through direct and possibly destructive access to its storage media.
-          <htm:b>Note: </htm:b>Defending against device re-use after physical compromise is out of scope for this protection profile.</description>
-        <objective-refer ref="O.STORAGE"> <!--HERE double check the refers -->
-          <rationale>??</rationale>
+          Note: Defending against device re-use after physical compromise is out of scope for this protection profile.</description>
+        <objective-refer ref="O.STORAGE"> 
+          <rationale>The threat T.PHYSICAL is countered by O.STORAGE as this provides the capability to encrypt all user and enterprise data and authentication keys to ensure the confidentiality of data that it stores.</rationale>
         </objective-refer>
-        <objective-refer ref="O.AUTH"> <!--HERE double check the refers -->
-          <rationale>??</rationale>
+        <objective-refer ref="O.AUTH"> 
+          <rationale>The threat T.PHYSICAL is countered by O.AUTH as this provides the capability to authenticate the user prior to accessing protected functionality and data. </rationale>
         </objective-refer>
       </threat>
       <threat id="T.FLAWAPP">
-        <description><htm:b>Malicious or Flawed Application</htm:b><htm:br/><htm:br/>
+        <description> <htm:b>Malicious or Flawed Application</htm:b><htm:br></htm:br>
           Applications loaded onto the Mobile Device may include malicious or exploitable code. This code could be included intentionally or unknowingly by the developer, perhaps as part of a software library. Malicious apps may attempt to exfiltrate data to which they have access. They may also conduct attacks against the platform’s system software, which will provide them with additional privileges and the ability to conduct further malicious activities. Malicious applications may be able to control the device's sensors (GPS, camera, microphone) to gather intelligence about the user's surroundings even when those activities do not involve data resident or transmitted from the device. Flawed applications may give an attacker access to perform network-based or physical attacks that otherwise would have been prevented</description>
-        <objective-refer ref="O.INTEGRITY"> <!--HERE double check the refers -->
-          <rationale>??</rationale>
+        <objective-refer ref="O.COMMS"> 
+          <rationale>The threat T.FLAWAPP is countered by O.COMMS as this provides the capability to communicate using one (or more) standard protocols as a means to maintain the confidentiality of data that are transmitted outside of the TOE.</rationale>
         </objective-refer>
-        <objective-refer ref="O.PRIVACY"> <!--HERE double check the refers -->
-          <rationale>??</rationale>
+        <objective-refer ref="O.CONFIG"> 
+          <rationale>The threat T.FLAWAPP is countered by O.CONFIG as this provides the capability to configure and apply security policies to ensure the Mobile Device can protect user and enterprise data that it may store or process.</rationale>
+        </objective-refer>
+        <objective-refer ref="O.AUTH"> 
+          <rationale>The threat T.FLAWAPP is countered by O.AUTH as this provides the capability to authenticate the user and endpoints of a trusted path to ensure they are communicating with an authorized entity with appropriate privileges.</rationale>
+        </objective-refer>
+        <objective-refer ref="O.INTEGRITY"> 
+          <rationale>The threat T.FLAWAPP is countered by O.INTEGRITY as this provides the capability to perform self-tests to ensure the integrity of critical functionality, software/firmware and data has been maintained.</rationale>
+        </objective-refer>
+        <objective-refer ref="O.PRIVACY"> 
+          <rationale>The threat T.FLAWAPP is countered by O.PRIVACY as this provides separation and privacy between user activities.</rationale>
         </objective-refer>
       </threat>
       <threat id="T.PERSISTENT">
-        <description><htm:b>Persistent Presence</htm:b><htm:br/><htm:br/>
+        <description> <htm:b>Persistent Presence</htm:b><htm:br></htm:br>
           Persistent presence on a device by an attacker implies that the device has lost integrity and cannot regain it. The device has likely lost this integrity due to some other threat vector, yet the continued access by an attacker constitutes an on-going threat in itself. In this case, the device and its data may be controlled by an adversary as well as by its legitimate owner.</description>
-        <objective-refer ref="O.INTEGRITY"> <!--HERE double check the refers -->
-          <rationale>??</rationale>
+        <objective-refer ref="O.INTEGRITY"> 
+          <rationale>The threat T.PERSISTENT is countered by O.INTEGRITY as this provides the capability to perform self-tests to ensure the integrity of critical functionality, software/firmware and data has been maintained.</rationale>
         </objective-refer>
-        <objective-refer ref="O.PRIVACY"> <!--HERE double check the refers -->
-          <rationale>??</rationale>
+        <objective-refer ref="O.PRIVACY"> 
+          <rationale>The threat T.PERSISTENT is countered by O.PRIVACY as this provides separation and privacy between user activities.</rationale>
         </objective-refer>
       </threat>
     </threats>
   </section>
   <section title="Assumptions" id="assp">
     The specific conditions listed below are assumed to exist in the <abbr linkend="TOE"/>’s Operational Environment. These include both practical realities in the development of the <abbr linkend="TOE"/> security requirements and the essential environmental conditions on the use of the <abbr linkend="TOE"/>.
-    <!--HERE I had to add the ref to the OE.x things, those are not in the paper but the xml requires the objective-refer tag -->
     <assumptions>
       <assumption id="A.CONFIG">
         <description>It is assumed that the <abbr linkend="TOE"/>’s security functions are configured correctly in a manner to ensure that the <abbr linkend="TOE"/> security policies will be enforced on all applicable network traffic flowing among the attached networks.</description>
         <objective-refer ref="OE.CONFIG">
-          <rationale>The operational environment objective OE.CONFIG is realized through
-            A.CONFIG. </rationale>
+          <rationale>The operational environment objective OE.CONFIG is realized through A.CONFIG. </rationale>
         </objective-refer>
       </assumption>
     </assumptions>
@@ -345,8 +368,7 @@
       <assumption id="A.NOTIFY">
         <description>It is assumed that the mobile user will immediately notify the administrator if the Mobile Device is lost or stolen.</description>
         <objective-refer ref="OE.NOTIFY">
-          <rationale>The operational environment objective OE.NOTIFY is realized through
-            A.NOTIFY. </rationale>
+          <rationale>The operational environment objective OE.NOTIFY is realized through A.NOTIFY. </rationale>
         </objective-refer>
       </assumption>
     </assumptions>
@@ -354,8 +376,7 @@
       <assumption id="A.PRECAUTION">
         <description>It is assumed that the mobile user exercises precautions to reduce the risk of loss or theft of the Mobile Device.</description>
         <objective-refer ref="OE.PRECAUTION">
-          <rationale>The operational environment objective OE.PRECAUTION is realized through
-            A.PRECAUTION. </rationale>
+          <rationale>The operational environment objective OE.PRECAUTION is realized through A.PRECAUTION. </rationale>
         </objective-refer>
       </assumption>
     </assumptions>
@@ -378,13 +399,13 @@
           <component-refer ref="FCS_CKM.1"/>
           <component-refer ref="FCS_CKM.2(1)"/> 
           <component-refer ref="FCS_CKM.2(2)"/> 
-          <component-refer ref="FCS_CKM_EXT.8"/> <!-- (optional)-->
+          <component-refer ref="FCS_CKM_EXT.8"/> <!-- (obj:y)-->
           <component-refer ref="FCS_COP.1(1)"/> 
           <component-refer ref="FCS_COP.1(2)"/> 
           <component-refer ref="FCS_COP.1(3)"/> 
           <component-refer ref="FCS_COP.1(4)"/> 
           <component-refer ref="FCS_COP.1(5)"/> 
-          <component-refer ref="FCS_DTLS_EXT.1"/> <!-- (optional)-->
+          <component-refer ref="FCS_DTLS_EXT.1"/> <!-- (sel:n)-->
           <component-refer ref="FCS_HTTPS_EXT.1"/>
           <component-refer ref="FCS_RBG_EXT.1"/>
           <component-refer ref="FCS_RBG_EXT.2"/> <!-- (optional)-->
@@ -533,6 +554,7 @@
         </SO>
       </SOs>
     </section>
+    
     <section title="Security Objectives for the Operational Environment" id="sooe">
       The following security objectives for the operational environment assist the <abbr linkend="OS"/> in correctly providing its security functionality. These track with the assumptions about the environment. <SOEs>
         <SOE id="OE.CONFIG">
@@ -546,6 +568,9 @@
         </SOE>
       </SOEs>
     </section>
+    <section title="Security Objectives Rationale" id="SOR">This section describes how the
+      assumptions, threats, and organizational security policies map to the security objectives.
+      <InsertSPDCorrespondence/></section>
   </chapter>
   
   
@@ -842,8 +867,6 @@
         </f-component>
       </subsection>
       
-    
-      
       <subsection id="fcs" title="Class: Cryptographic Support (FCS)">
         This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: <abbr linkend="DEK"/>s and <abbr linkend="KEK"/>s. (A <abbr linkend="REK"/> is considered a <abbr linkend="KEK"/>.) <abbr linkend="DEK"/>s are used to protect data (as in the DAR protection described in <linkref linkend="FDP_DAR_EXT.1"/> and <linkref linkend="FDP_DAR_EXT.2"/>). <abbr linkend="KEK"/>s are used to protect other keys – <abbr linkend="DEK"/>s, other <abbr linkend="KEK"/>s, and other types of keys stored by the user or applications. The following diagram shows an example key hierarchy to illustrate the concepts of this profile. This example is not meant as an approved design, but <abbr linkend="ST"/> authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. Please note if “biometric fingerprint” is selected in <linkref linkend="FIA_UAU.5.1"/>, the <abbr linkend="BAF"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the <abbr linkend="BAF"/> is used to release keys. If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, meaning that a PIN must be used in conjunction with the <abbr linkend="BAF"/> this interaction shall be included.<htm:br/>
         
@@ -853,7 +876,6 @@
           id="Keys"/>        
        
         <f-component id="fcs_ckm.1" name="Cryptographic key generation" status="threshold">
-          <!-- TODO:The formating is messed up. Want second selection to be tabbed in-->
           <f-element id="fcs_ckm.1.1">             
             <title> The <abbr linkend="TSF"/> shall generate <refinement>asymmetric</refinement> cryptographic keys in accordance with a specified cryptographic key generation algorithm 
               <selectables linebreak="yes">
@@ -957,7 +979,6 @@
               The Key generation specifies 2 ways to generate the private key x:<htm:br/><htm:br/>
               Private Key:<htm:br/><htm:br/>
                 <htm:ul>
-                  <!--HERE should look like 1 <=x <= q-1 -->
                   <htm:li>len(q) bit output of RBG where 1 &lt;= x &lt;= q-1 </htm:li>
                   <htm:li>len(q) + 64 bit output of RBG, followed by a mod q-1 operation where 1&lt;= x&lt;=q-1</htm:li>
                 </htm:ul>
@@ -1049,7 +1070,6 @@
         </f-component>
         
         <f-component id="fcs_ckm.2(2)" name="Cryptographic key establishment (While device is locked)"  status="threshold">
-           <!-- TODO: Fix formatting so that second selection is intendent/tabbed in -->
           <f-element id="fcs_ckm.2.1(2)">           
             <title>The <abbr linkend="TSF"/> shall <refinement>perform</refinement> cryptographic <refinement>key establishment</refinement> in accordance with a specified cryptographic key <refinement>establishment</refinement> method:
               <selectables linebreak="yes">
@@ -1164,8 +1184,7 @@
             </note>
           </f-element>          
           <f-element id="fcs_ckm_ext.3.2">
-            <title>The <abbr linkend="TSF"/> shall generate all <abbr linkend="KEK"/>s using one of the following methods:              
-                <!-- should option a be outside of the selection?? -->
+            <title>The <abbr linkend="TSF"/> shall generate all <abbr linkend="KEK"/>s using one of the following methods:        
               <htm:ul><htm:li>derive the <abbr linkend="KEK"/> from a Password Authentication Factor using PBKDF and </htm:li></htm:ul>
               <selectables linebreak="yes">
                 <selectable>generate the <abbr linkend="KEK"/> using an RBG that meets this profile (as specified in <linkref linkend="FCS_RBG_EXT.1"/>)</selectable>
@@ -1177,12 +1196,10 @@
                         <selectable>encrypting one key with another</selectable>
                       </selectables>
                 </selectable>
-              </selectables>
-              
+              </selectables>.
             </title>
             <note role="application">
               The PBKDF is performed in accordance with <linkref linkend="FCS_COP.1(5)"/>.
-
               <htm:br></htm:br><htm:br></htm:br>
               It is expected that key generation derived from PBKDF, using an RBG or generation scheme, and through combination, will each be necessary to meet the requirements set out in this document. In particular, <figref refid="Keys"/> has <abbr linkend="KEK"/>s of each type: KEK_3 is generated, KEK_1 is derived from a Password Authentication Factor, and KEK_2 is combined from two <abbr linkend="KEK"/>s. In <figref refid="Keys"/>, KEK_3 may either be a symmetric key generated from an RBG or an asymmetric key generated using a key generation scheme according to <linkref linkend="FCS_CKM.1"/>.
               <htm:br></htm:br><htm:br></htm:br>
@@ -1212,16 +1229,9 @@
                       <htm:li>Up to two values of L that are NOT evenly divisible by h.</htm:li>
                       <htm:li>Location of the counter relative to fixed input data: before, after, or in the middle.</htm:li>
               </htm:ul><htm:br/>
-              For each supported combination of PRF, counter location, value of r, 
-              and value of L, the evaluator shall generate 10 pseudorandom key derivation 
-              key values (K<htm:sub>1</htm:sub>). If there is only one value of L that is evenly divisible by h, 
-              the evaluator shall generate 20 values of K<htm:sub>1</htm:sub> for it. This means that a total of 
-              40 values of K<htm:sub>1</htm:sub> are generated for each {PRF, counter location, r} combination.
+              For each supported combination of PRF, counter location, value of r, and value of L, the evaluator shall generate 10 pseudorandom key derivation key values (K<htm:sub>1</htm:sub>). If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 values of K<htm:sub>1</htm:sub> for it. This means that a total of 40 values of K<htm:sub>1</htm:sub> are generated for each {PRF, counter location, r} combination.
               <htm:br/><htm:br/>
-              For each value of K<htm:sub>1</htm:sub>, the evaluator shall supply this data to the <abbr linkend="TOE"/> 
-              in order to produce the keying material output K<htm:sub>0</htm:sub>. Depending on the 
-              location of the counter relative to the fixed input data, the following 
-              data must also be supplied:
+              For each value of K<htm:sub>1</htm:sub>, the evaluator shall supply this data to the <abbr linkend="TOE"/> in order to produce the keying material output K<htm:sub>0</htm:sub>. Depending on the location of the counter relative to the fixed input data, the following data must also be supplied:
               <htm:br/><htm:br/>
               <htm:ul><htm:li>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
                 <htm:li>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
@@ -1244,16 +1254,7 @@
                           </htm:ul>
                         </htm:li>
                   </htm:ul><htm:br/>
-              For each supported combination of PRF, counter location (if a counter is used), 
-              value of r (if a counter is used), and value of L, the evaluator shall generate 
-              10 pseudorandom key derivation key values (K<htm:sub>1</htm:sub>). If the KDF supports zero-length 
-              IVs, five of these values will be accompanied by pseudorandom IVs that are equal 
-              to the length of K<htm:sub>1</htm:sub> and the other five will use zero-length IVs. If zero-length 
-              IVs are not supported, each value of K<htm:sub>1</htm:sub> will be accompanied by an IV. If there 
-              is only one value of L that is evenly divisible by h, the evaluator shall 
-              generate 20 values of K<htm:sub>1</htm:sub> for it. This means that a total of 40 values of K<htm:sub>1</htm:sub> are 
-              generated for each {PRF, counter location (if used), r (if used)} combination, 
-              along with either 20 or 40 associated IVs.
+              For each supported combination of PRF, counter location (if a counter is used), value of r (if a counter is used), and value of L, the evaluator shall generate 10 pseudorandom key derivation key values (K<htm:sub>1</htm:sub>). If the KDF supports zero-length IVs, five of these values will be accompanied by pseudorandom IVs that are equal to the length of K<htm:sub>1</htm:sub> and the other five will use zero-length IVs. If zero-length IVs are not supported, each value of K<htm:sub>1</htm:sub> will be accompanied by an IV. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 values of K<htm:sub>1</htm:sub> for it. This means that a total of 40 values of K<htm:sub>1</htm:sub> are generated for each {PRF, counter location (if used), r (if used)} combination, along with either 20 or 40 associated IVs.
               <htm:br/><htm:br/>
               For each value of K<htm:sub>1</htm:sub>, the evaluator shall supply this data to the <abbr linkend="TOE"/> in order to produce the keying material output K<htm:sub>0</htm:sub>. If the KDF uses a counter in this mode, the following data must also be supplied depending on the location of the counter relative to the fixed input data:
               <htm:br/><htm:br/>
@@ -1278,13 +1279,7 @@
                         </htm:ul>
                       </htm:li>
                       </htm:ul><htm:br/>
-              For each supported combination of PRF, counter location (if a counter is used), 
-              value of r (if a counter is used), and value of L, the evaluator shall 
-              generate 10 pseudorandom key derivation key values (K<htm:sub>1</htm:sub>). 
-              If there is only one value of L that is evenly divisible by h, 
-              the evaluator shall generate 20 values of K<htm:sub>1</htm:sub> for it. This means 
-              that a total of 40 values of K<htm:sub>1</htm:sub> are generated for each {PRF, counter 
-              location (if used), r (if used)} combination.
+              For each supported combination of PRF, counter location (if a counter is used), value of r (if a counter is used), and value of L, the evaluator shall generate 10 pseudorandom key derivation key values (K<htm:sub>1</htm:sub>). If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 values of K<htm:sub>1</htm:sub> for it. This means that a total of 40 values of K<htm:sub>1</htm:sub> are generated for each {PRF, counter location (if used), r (if used)} combination.
               <htm:br/><htm:br/>
               For each value of K<htm:sub>1</htm:sub>, the evaluator shall supply this data to the <abbr linkend="TOE"/> in order to produce the keying material output K<htm:sub>0</htm:sub>. If the KDF uses a counter in this mode, the following data must also be supplied depending on the location of the counter relative to the fixed input data:
               <htm:br/><htm:br/>
@@ -1448,8 +1443,7 @@
             </aactivity>
           </f-element>
         </f-component>
-        
-        
+         
         <f-component id="fcs_ckm_ext.6" name="Extended: Salt Generation"  status="threshold">
           <f-element id="fcs_ckm_ext.6.1">
             <title>The <abbr linkend="TSF"/> shall generate all salts using a RBG that meets <linkref linkend="FCS_RBG_EXT.1"/>.
@@ -1824,7 +1818,7 @@
         
         <!-- TODO: Review DTLS requirements  -->
         <f-component id="fcs_dtls_ext.1" name="Extended: DTLS Protocol" status="sel-based">
-          <!-- TODO need space between selection-depends SFRs -->
+          <!-- TODO: Need to verify that those are the selection-depend SFR.-->
           <selection-depends req="fdp_upc_ext.1.1"/>
           <selection-depends req="fia_x509_ext.2.1"/>
           <selection-depends req="ftp_itc_ext.1.1"/>
@@ -2013,10 +2007,12 @@
           </f-element>
         </f-component>
        
-        
-        <!--HERE this text was outside of a requirement at the beginning of a subsubsection -->
+        <f-component name="Cryptographic Key Storage" id="fcs_stg" status="threshold">
+          <f-element id="">
+            <title></title>
+          </f-element>
+        </f-component>
         This next requirements describe how keys are protected. All keys must ultimately be protected by a <abbr linkend="REK"/>, and may optionally be protected by the user’s authentication factor. Each key’s confidentiality and integrity must be protected. This section also describes the secure key storage services to be provided by the Mobile Device for use by applications and users, applying the same level of protection for these keys as keys internal to the OS.
-         <!-- This applies to FCS_STG_EXT.1, FCS_STG_EXT.2, and FCS_STG_EXT.3. -->
         <htm:br/>
        
         <f-component id="fcs_stg_ext.1" name="Extended: Cryptographic Key Storage" status="threshold">
@@ -2161,7 +2157,6 @@
         </f-component>
        
         <f-component id="fcs_stg_ext.3" name="Extended: Integrity of encrypted key storage" status="threshold">
-          <!-- TODO: formatting  -->
           <f-element id="fcs_stg_ext.3.1">            
             <title>The <abbr linkend="TSF"/> shall protect the integrity of any encrypted <abbr linkend="DEK"/>s and <abbr linkend="KEK"/>s and 
               <selectables><selectable>long-term trusted channel key material</selectable><selectable>all software-based key storage</selectable><selectable>no other keys</selectable></selectables> 
@@ -2191,9 +2186,7 @@
             </aactivity>
           </f-element>
         </f-component>
-      
-      
-      
+
       <f-component id="fcs_tlsc_ext.1" name="Extended: TLS Protocol" status="threshold">
         <!-- TODO: Update ciphersuites -->
         <f-element id="fcs_tlsc_ext.1.1">
@@ -2303,8 +2296,6 @@
       
       <!-- Changelog: FCS_TLSC_EXT.1.5 became FCS_TLSC_EXT.2.1 -->
         <f-component id="fcs_tlsc_ext.2" name="Extended: TLS Protocol" status="sel-based">
-          <!-- TODO: Need to verify that those are the selection-depend SFR. if there are two selection-depends need them to add a space between them because if I add it, the link is broken -->
-          <selection-depends req="fcs_https_ext.1.2"/>
           <selection-depends req="fcs_tlsc_ext.1.1"/>
           <f-element id="fcs_tlsc_ext.2.1">
             <title>The TSF shall present the Supported Elliptic Curves Extension in the Client Hello handshake message with the following NIST curves: 
@@ -2315,7 +2306,7 @@
                 <selectable>no other curves</selectable>
               </selectables>.
             </title>
-            <note role="application">This requirement limits the elliptic curves allowed for authentication and key agreement to the NIST curves from <linkref linkend="FCS_COP.1(3)"/> and <linkref linkend="FCS_CKM.1"/> and <linkref linkend="FCS_CKM.2(1)"/>. This extension is required for clients supporting Elliptic Curve ciphersuites.</note>
+            <note role="application"> If an elliptic-curve ciphersuite is selected in <linkref linkend="FCS_TLSC_EXT.1.1"/>, then <linkref linkend="FCS_TLSC_EXT.2.1"/> shall be included in the ST. This requirement limits the elliptic curves allowed for authentication and key agreement to the NIST curves from <linkref linkend="FCS_COP.1(3)"/> and <linkref linkend="FCS_CKM.1"/> and <linkref linkend="FCS_CKM.2(1)"/>. This extension is required for clients supporting Elliptic Curve ciphersuites.</note>
             <aactivity>The evaluator shall verify that TSS describes the Supported Elliptic Curves Extension and whether the required behavior is performed by default or may be configured. If the TSS indicates that the Supported Elliptic Curves Extension must be configured to meet the requirement, the evaluator shall verify that AGD guidance includes configuration of the Supported Elliptic Curves Extension.<htm:br></htm:br><htm:br></htm:br>
               <testlist>
                 <test> The evaluator shall configure the server to perform an ECDHE key exchange message in the TLS connection using a non-supported ECDHE curve (for example, P-192) and shall verify that the TOE disconnects after receiving the server's Key Exchange handshake message.</test>
@@ -2510,7 +2501,7 @@
         Three levels of data-at-rest protection are addressed: <abbr linkend="TSF"/> data, Protected Data (and keys), and sensitive data. <ctr-ref refid="datalevels"/> addresses the level of protection required for each level of data-at-rest.
         <htm:br/><htm:br/>
         
-        <!--table from page 79 -->
+        
         <htm:b><ctr id="datalevels" pre="Table " ctr-type="table">: Protection of Data Levels</ctr></htm:b>
         <htm:br/><htm:br/>
         <htm:table>
@@ -3238,7 +3229,7 @@
           <f-element id="fia_uau_ext.2.1">
             <title>The <abbr linkend="TSF"/> shall allow 
               <selectables><selectable>
-                <assignable>list of actions</assignable></selectable><selectable>no actions</selectable></selectables> on behalf of the user to be performed before the user is authenticated. 
+                <assignable>list of actions</assignable></selectable><selectable> no actions</selectable></selectables> on behalf of the user to be performed before the user is authenticated. 
             </title>
           </f-element>
           <f-element id="fia_uau_ext.2.2">
@@ -3324,7 +3315,10 @@
               <selectables><selectable>code signing for system software updates</selectable><selectable>code signing for mobile applications</selectable><selectable>code signing for integrity verification</selectable><selectable> 
                 <assignable>other uses</assignable></selectable><selectable>no additional uses</selectable></selectables>. 
             </title>
-            <note role="application">The <abbr linkend="ST"/> author’s first selection shall match the selection of <linkref linkend="FTP_ITC_EXT.1.1"/>. Certificates may optionally be used for trusted updates of system software (<linkref linkend="FPT_TUD_EXT.2.3"/>) and mobile applications (<linkref linkend="FPT_TUD_EXT.4.1"/>) and for integrity verification (<linkref linkend="FPT_TST_EXT.2(1)"/>). If <linkref linkend="FPT_TUD_EXT.4.1"/> is included in the <abbr linkend="ST"/>, “code signing for mobile applications” must be included in the selection. </note>
+            <note role="application">The <abbr linkend="ST"/> author’s first selection shall match the selection of <linkref linkend="FTP_ITC_EXT.1.1"/>. <htm:br></htm:br><htm:br></htm:br>
+              Certificates may optionally be used for trusted updates of system software (<linkref linkend="FPT_TUD_EXT.2.3"/>) and mobile applications (<linkref linkend="FPT_TUD_EXT.4.1"/>) and for integrity verification (<linkref linkend="FPT_TST_EXT.2(1)"/>). If "code signing for system software updates" or "code signing for mobile applications" is selected <linkref linkend="FPT_TUD_EXT.3.1"/> shall be included in the ST. <htm:br></htm:br><htm:br></htm:br>
+              
+              If <linkref linkend="FPT_TUD_EXT.4.1"/> is included in the <abbr linkend="ST"/>, “code signing for mobile applications” must be included in the selection. </note>
           </f-element>
           <f-element id="fia_x509_ext.2.2">
             <title>When the <abbr linkend="TSF"/> cannot establish a connection to determine the revocation status of a certificate, the <abbr linkend="TSF"/> shall 
@@ -3492,12 +3486,11 @@
               <htm:table>
 
                 <htm:tr class="header">
-                  <htm:td>Management Function<htm:br/>                  
-                  </htm:td>
-                  <htm:td>FMT_SMF_EXT.1</htm:td>
-                  <htm:td>FMT_MOF_EXT.1.1</htm:td>
-                  <htm:td>Administrator</htm:td>
-                  <htm:td>FMT_MOF_EXT.1.2</htm:td>
+                  <htm:td style="text-align:center">Management Function<htm:br/></htm:td>
+                  <htm:td style="text-align:center">FMT_<htm:br></htm:br>SMF_<htm:br></htm:br>EXT.1</htm:td>
+                  <htm:td style="text-align:center">FMT_<htm:br></htm:br>MOF_<htm:br></htm:br>EXT.1.1</htm:td>
+                  <htm:td style="text-align:center">Admin</htm:td>
+                  <htm:td style="text-align:center">FMT_<htm:br></htm:br>MOF_<htm:br></htm:br>EXT.1.2</htm:td>
 
                 </htm:tr>
                 <htm:tr>
@@ -5061,8 +5054,8 @@
                 <selectable>IPsec</selectable>
                 <selectable>TLS</selectable>
                 <selectable>DTLS</selectable>
-                <selectable>HTTPS protocol</selectable>
-              </selectables> to provide a communication channel between itself and another trusted IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
+                <selectable>HTTPS</selectable>
+              </selectables> protocol to provide a communication channel between itself and another trusted IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
             </title>
             <note role="application">The intent of the mandatory portion of the above requirement is to use the cryptographic protocols identified in the requirement to establish and maintain a trusted channel between the <abbr linkend="TOE"/> and an access point, VPN Gateway, or other trusted IT product.<htm:br/><htm:br/>
               The <abbr linkend="ST"/> author shall list which trusted channel protocols are implemented by the Mobile Device. <htm:br/><htm:br/>
@@ -5707,7 +5700,6 @@
         (i.e. verification attempts against more than one enrollee), an enrollee is used more than once (i.e. claims 
         against enrollee by more than one imposter), or full batch mode cross-comparison is done (i.e. all imposters 
         claim to be all enrolled users) <cite linkend="ANSI409.1"/>.
-        <!-- HERE reference, need a footnote in the schema -->
         <htm:br/><htm:br/>
         If a document is provided, it is strongly recommended that the lab or vendor perform testing in this 
         manner and shall be asked to provide the results of the tests performed. 
