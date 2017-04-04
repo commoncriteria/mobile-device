@@ -103,11 +103,17 @@
     <entry>
       <!-- TODO: Update revision history -->
       <version>3.1</version>
-      <date>2017-03-15</date>
-      <subject> Technical Decisions<htm:br/>
+      <date>2017-04-05</date>
+      <subject> Included changes based on Technical Rapid Response Team Decisions<htm:br/>
+        Modified biometric requirements to allow to following modalities:
         <htm:ul>
-          <htm:li>Biometric modality to include</htm:li>
+          <htm:li>fingerprint (allowed in version 3)</htm:li>
+          <htm:li>iris</htm:li>
+          <htm:li>face</htm:li>
+          <htm:li>voice</htm:li>
+          <htm:li>vein</htm:li>
         </htm:ul>
+        Removed TLS ciphersuites that utilized SHA1
       </subject>
     </entry>
     
@@ -1909,7 +1915,7 @@
             <aactivity>
               Documentation shall be produced and the evaluator shall perform the activities in accordance with <appref linkend="entropy"/>, the “Clarification to the Entropy Documentation and Assessment”. 
               <htm:br/><htm:br/>
-              The evaluator shall verify that the API documentation provided according to <linkref linkend="adv_fsp.1"/> includes the security functions described in <linkref linkend="FCS_RBG_EXT.1.3"/>.
+              The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/>, includes the security functions described in <linkref linkend="FCS_RBG_EXT.1.3"/>.
               <htm:br/><htm:br/>
               Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
               <htm:br/><htm:br/>
@@ -1980,7 +1986,7 @@
             </title>
             <note role="application">For each of the listed FCS components in the bulleted list, the intent is that the <abbr linkend="TOE"/> will make available all algorithms specified for that component in the <abbr linkend="ST"/>. For example, if for <linkref linkend="FCS_COP.1(2)"/> the <abbr linkend="ST"/> author selects SHA-256, then the <abbr linkend="TOE"/> would have to make available an interface to perform SHA-1 (the “mandatory” portion of <linkref linkend="FCS_COP.1.1(2)"/>) and SHA-256 (the “selected” portion of <linkref linkend="FCS_COP.1.1(2)"/>). The exception is for <linkref linkend="FCS_COP.1(1)"/>, which does not require the <abbr linkend="TOE"/> to make available AES_CCMP, AES_XTS, AES_GCMP-256, or AES_CCMP_256 even though they may be implemented to perform <abbr linkend="TSF"/>-related functions. However, the <abbr linkend="ST"/> author is expected to select (for <linkref linkend="FCS_COP.1(1)"/> selection in this component) algorithms that match those selected in the <abbr linkend="ST"/> for the <linkref linkend="FCS_COP.1(1)"/> component.</note>
             <aactivity>
-              The evaluator shall verify that the API documentation provided according to <linkref linkend="adv_fsp.1"/> includes the security functions (cryptographic algorithms) described in these requirements.
+              The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/> includes the security functions (cryptographic algorithms) described in these requirements.
               <htm:br/><htm:br/>
               The evaluator shall write, or the developer shall provide access to, an application that requests cryptographic operations by the <abbr linkend="TSF"/>. The evaluator shall verify that the results from the operation match the expected results according to the API documentation. This application may be used to assist in verifying the cryptographic operation assurance activities for the other algorithm services requirements. 
             </aactivity>
@@ -2055,7 +2061,7 @@
             
             <aactivity>The evaluator shall review the  <abbr linkend="TSS"/> to determine that the <abbr linkend="TOE"/>’s implements the required secure key storage. The evaluator shall ensure that the  <abbr linkend="TSS"/> contains a description of the key storage mechanism that justifies the selection of “mutable hardware” or “software-based”.
               <htm:br/><htm:br/>
-              The evaluator shall review the AGD guidance to determine that it describes the steps needed to import or destroy keys/secrets. The evaluator shall also verify that the API documentation provided according to <linkref linkend="adv_fsp.1"/> includes the security functions (import, use, and destruction) described in these requirements. The API documentation shall include the method by which applications restrict access to their keys/secrets in order to meet <linkref linkend="FCS_STG_EXT.1.4"/>. 
+              The evaluator shall review the AGD guidance to determine that it describes the steps needed to import or destroy keys/secrets. The evaluator shall also verify that the API documentation provided according to <secref linkend="adv"/> includes the security functions (import, use, and destruction) described in these requirements. The API documentation shall include the method by which applications restrict access to their keys/secrets in order to meet <linkref linkend="FCS_STG_EXT.1.4"/>. 
               <htm:br/><htm:br/>
               The evaluator shall test the functionality of each security function:
               
@@ -2655,7 +2661,7 @@
           </f-element>
           <f-element id="fdp_upc_ext.1.2">
               <title>The <abbr linkend="TSF"/> shall permit the non-TSF applications to initiate communication via the trusted channel.</title>
-            <aactivity>The evaluator shall verify that the API documentation provided according to <linkref linkend="adv_fsp.1"/> includes the security functions (protection channel) described in these requirements, and verify that the APIs implemented to support this requirement include the appropriate settings/parameters so that the application can both provide and obtain the information needed to assure mutual identification of the endpoints of the communication as required by this component. The evaluator shall write, or the developer shall provide access to, an application that requests protected channel services by the <abbr linkend="TSF"/>. The evaluator shall verify that the results from the protected channel match the expected results according to the API documentation. This application may be used to assist in verifying the protected channel assurance activities for the protocol requirements. 
+            <aactivity>The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/> includes the security functions (protection channel) described in these requirements, and verify that the APIs implemented to support this requirement include the appropriate settings/parameters so that the application can both provide and obtain the information needed to assure mutual identification of the endpoints of the communication as required by this component. The evaluator shall write, or the developer shall provide access to, an application that requests protected channel services by the <abbr linkend="TSF"/>. The evaluator shall verify that the results from the protected channel match the expected results according to the API documentation. This application may be used to assist in verifying the protected channel assurance activities for the protocol requirements. 
                 <htm:br/><htm:br/>
                 The evaluator shall examine the  <abbr linkend="TSS"/> to determine that it describes that all protocols listed in the  <abbr linkend="TSS"/> are specified and included in the requirements in the <abbr linkend="ST"/>. The evaluator shall confirm that the operational guidance contains instructions necessary for configuring the protocol(s) selected for use by the applications. The evaluator shall also perform the following tests:
               <testlist>
@@ -2757,7 +2763,7 @@
               Because explicit user action must be required to permit pairing, it must not be possible for applications to programmatically enter pairing information (e.g. PINs, numeric codes, or “yes/no” responses) during the pairing process. The absence of public APIs for programmatic authorization is not sufficient to meet this requirement; hidden or private APIs must be absent as well.
             </note>
             <aactivity>
-              The evaluator shall examine the  <abbr linkend="TSS"/> to ensure that it contains a description of when user permission is required for Bluetooth pairing, and that this description mandates explicit user authorization via manual input for all Bluetooth pairing, including application use of the Bluetooth trusted channel and situations where temporary (non-bonded) connections are formed. The evaluator shall examine the API documentation provided according to <linkref linkend="adv_fsp.1"/> and verify that this API documentation does not include any API for programmatic entering of pairing information (e.g. PINs, numeric codes, or “yes/no” responses) intended to bypass manual user input during pairing.
+              The evaluator shall examine the  <abbr linkend="TSS"/> to ensure that it contains a description of when user permission is required for Bluetooth pairing, and that this description mandates explicit user authorization via manual input for all Bluetooth pairing, including application use of the Bluetooth trusted channel and situations where temporary (non-bonded) connections are formed. The evaluator shall examine the API documentation provided according to <secref linkend="adv"/> and verify that this API documentation does not include any API for programmatic entering of pairing information (e.g. PINs, numeric codes, or “yes/no” responses) intended to bypass manual user input during pairing.
               <htm:br/><htm:br/>
               The evaluator shall examine the AGD guidance to verify that these user authorization screens are clearly identified and instructions are given for authorizing Bluetooth pairings.
               <htm:br/><htm:br/>
@@ -3331,7 +3337,7 @@
             <title>The <abbr linkend="TSF"/> shall respond to the requesting application with the success or failure of the validation. 
             </title>
             <note role="application">In order to comply with all of the rules in <linkref linkend="FIA_X509_EXT.1"/>, multiple API calls may be required; all of these calls should be clearly documented</note>
-            <aactivity>The evaluator shall verify that the API documentation provided according to <linkref linkend="adv_fsp.1"/> includes the security function (certificate validation) described in this requirement. This documentation shall be clear as to which results indicate success and failure.
+            <aactivity>The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/> includes the security function (certificate validation) described in this requirement. This documentation shall be clear as to which results indicate success and failure.
               <htm:br/><htm:br/>
               The evaluator shall write, or the developer shall provide access to, an application that requests certificate validation by the <abbr linkend="TSF"/>. The evaluator shall verify that the results from the validation match the expected results according to the API documentation. This application may be used to verify that import, removal, modification, and validation are performed correctly according to the tests required by <linkref linkend="FDP_STG_EXT.1"/>, <linkref linkend="FTP_ITC_EXT.1"/>, <linkref linkend="FMT_SMF_EXT.1.1"/>, and <linkref linkend="FIA_X509_EXT.1"/>.
             </aactivity>
@@ -4241,7 +4247,7 @@
                 <htm:b>Function 29 [conditional]</htm:b><htm:br/>
                 The evaluator shall verify that the  <abbr linkend="TSS"/> describes how approval for an application to perform the selected action (import, removal) with respect to certificates in the Trust Anchor Database is accomplished (e.g., a pop-up, policy setting, etc.).
                 <htm:br/><htm:br/>
-                The evaluator shall also verify that the API documentation provided according to <linkref linkend="adv_fsp.1"/> includes any security functions (import, modification, or destruction of the Trust Anchor Database) allowed by applications.<htm:br/><htm:br/>
+                The evaluator shall also verify that the API documentation provided according to <secref linkend="adv"/> includes any security functions (import, modification, or destruction of the Trust Anchor Database) allowed by applications.<htm:br/><htm:br/>
                 <test>The evaluator shall perform one of the following tests:
                   <htm:ol type="a">
                     <htm:li>[conditional] If applications may import certificates to the Trust Anchor Database, the evaluator shall write, or the developer shall provide access to, an application that imports a certificate into the Trust Anchor Database. The evaluator shall verify that the <abbr linkend="TOE"/> requires approval before allowing the application to import the certificate: 
@@ -5540,7 +5546,7 @@
     </acronyms>
   </appendix>
   <appendix id="use" title="Use Case Templates">
-    The following use case templates list those selections, assignments, and objective requirements that best support the use cases identified by this Protection Profile. Note that the templates assume that all <abbr linkend="SFR"/>s listed in Section 5 are included in the <abbr linkend="ST"/>, not just those listed in the templates. These templates and deviations from the template should be identified in the Security Target to assist customers with making risk-based purchasing decisions. Products that do not meet these templates are not precluded from use in the scenarios identified by this Protection Profile. 
+    The following use case templates list those selections, assignments, and objective requirements that best support the use cases identified by this Protection Profile. Note that the templates assume that all <abbr linkend="SFR"/>s listed in <secref linkend="sfr"/> are included in the <abbr linkend="ST"/>, not just those listed in the templates. These templates and deviations from the template should be identified in the Security Target to assist customers with making risk-based purchasing decisions. Products that do not meet these templates are not precluded from use in the scenarios identified by this Protection Profile. 
     <htm:br/><htm:br/>
     Several of the use cases templates include objective requirements that are strongly desired for the indicated use cases. Readers can expect those requirements to be made mandatory in the next revision of this protection profile, and industry should aim to include that security functionality in products in the near-term. 
     <htm:br/><htm:br/>
