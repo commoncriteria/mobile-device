@@ -1,4 +1,4 @@
 TRANS?=transforms
 BASE=mobile-device
--include Local.make
+-include User.make
 include $(TRANS)/Helper.make
