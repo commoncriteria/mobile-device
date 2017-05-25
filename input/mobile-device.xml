@@ -104,16 +104,17 @@
       <!-- TODO: Update revision history -->
       <version>3.1</version>
       <date>2017-04-05</date>
-      <subject> Included changes based on Technical Rapid Response Team Decisions<htm:br/>
-        Modified biometric requirements to allow to following modalities:
+      <subject> Included changes based on Technical Rapid Response Team Decisions and incorporated Technical Decisions.<htm:br/>
+        Modified biometric requirements:
         <htm:ul>
-          <htm:li>fingerprint (allowed in version 3)</htm:li>
-          <htm:li>iris</htm:li>
-          <htm:li>face</htm:li>
-          <htm:li>voice</htm:li>
-          <htm:li>vein</htm:li>
+          <htm:li>FIA_UAU.5 - Added iris, face, voice and vein as supported modalities, in addition to fingerprint (allowed in version 3)</htm:li>
+          <htm:li>FIA_BMG_EXT.1.1 - Clarified AA to specify that vendor evidence is acceptable and expectations of evidence provided. </htm:li>
+          <htm:li>FIA_BMG_EXT.1.2 - SAFAR was changed to an assignment of a SAFAR no greater than 1:500. </htm:li>
+          <htm:li>FIA_AFL_EXT.1 - Updated to allow each biometric modality to utilize an individual or shared counter.</htm:li>
         </htm:ul>
-        Removed TLS ciphersuites that utilized SHA1
+        FCS_TLSC_EXT.1.1 - Removed TLS ciphersuites that utilized SHA1 and updated optional ciphersuites to be uniformed across PPs.<htm:br/>
+        FCS_STG_EXT.2.2 - Modified to require long term trusted channel key material be encrypted by an approved method.<htm:br/>
+        FIA_UAU_EXT.1.1 - Modified to allow the long term trusted channel key material to be available prior to password being entered at start-up.<htm:br/>
       </subject>
     </entry>
     
@@ -607,6 +608,10 @@
               Administrator actions are defined as functions labeled as mandatory for <linkref linkend="FMT_MOF_EXT.1.2"/> (i.e. ‘M-MM’ in <ctr-ref refid="fmt_smf"/>). If the <abbr linkend="TSF"/> does not support removable media, number 4 is implicitly met.
               <htm:br/><htm:br/>
               The <abbr linkend="TSF"/> shall generate an audit record for all events contained in <ctr-ref refid="manaudit"/>. Generating audit records for events in <ctr-ref refid="objaudit"/> is currently objective. It is acceptable to include individual <abbr linkend="SFR"/>s from <ctr-ref refid="objaudit"/> in the <abbr linkend="ST"/>, without including the entirety of <ctr-ref refid="objaudit"/>.
+              <htm:br/><htm:br/>
+              <htm:b><ctr-ref refid="manaudit"/> Application Note:</htm:b> <linkref linkend="FPT_TST_EXT.1"/> – Audit of self-tests is required only at initial start-up. Since the <abbr linkend="TOE"/> “transitions to non-operational mode” upon failure of a self-test, per <linkref linkend="FPT_NOT_EXT.1"/>, this is considered equivalent evidence to an audit record for the failure of a self-test.
+              <linkref linkend="FDP_DAR_EXT.1"/> - "None" shall be selected, if the TOE utilizes whole volume encryption for protected memory, since it is not feasible to audit when the encryption/decryption fails. If the TOE utilizes file-based encryption for protected data and audits when this encryption/decryption fails, then that auditable event shall be selected.<htm:br/><htm:br/>
+              <htm:b><ctr-ref refid="objaudit"/> Application Note:</htm:b> If the audit event for <linkref linkend="FMT_SMF_EXT.1"/> is included in the ST, it is acceptable for the initiation of the software update to be audited without indicating the outcome (success or failure) of the update.
             </note>
           </f-element>
           <f-element id="fau_gen.1.2">
@@ -629,9 +634,7 @@
               If “no additional auditable events” is selected in the second selection of <linkref linkend="FAU_GEN.1.1"/>, then “no additional information” shall be selected. 
               <htm:br/><htm:br/>
               For each audit event selected from <ctr-ref refid="objaudit"/> in <linkref linkend="FAU_GEN.1.1"/> if additional information is required to be recorded within the audit record, it should be included in this selection.
-              <htm:br/><htm:br/>
-              <htm:b><ctr-ref refid="manaudit"/> Application Note:</htm:b> <linkref linkend="FPT_TST_EXT.1"/> – Audit of self-tests is required only at initial start-up. Since the <abbr linkend="TOE"/> “transitions to non-operational mode” upon failure of a self-test, per <linkref linkend="FPT_NOT_EXT.1"/>, this is considered equivalent evidence to an audit record for the failure of a self-test.
-              <linkref linkend="FDP_DAR_EXT.1"/> - "None" shall be selected, if the TOE utilizes whole volume encryption for protected memory, since it is not feasible to audit when the encryption/decryption fails. If the TOE utilizes file-based encryption for protected data and audits when this encryption/decryption fails, then that auditable event shall be selected.
+              
             </note>
             <aactivity>
               The evaluator shall check the administrative guide and ensure that it lists all of the auditable events and provides a format for audit records. Each audit record format type must be covered, along with a brief description of each field. The evaluator shall check to make sure that every audit event type mandated by the <abbr linkend="PP"/> is described and that the description of the fields contains the information required in <linkref linkend="FAU_GEN.1.2"/>. 
@@ -2210,6 +2213,7 @@
                   <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
                   <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
                   <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+                  <selectable>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
                   <selectable>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>                  
                   <selectable>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>                  
                   <selectable>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>                  
@@ -2448,12 +2452,16 @@
         <!--Changelog: FDP_ACF_EXT.1.3 became FDP_ACF_EXT.3-->
         <f-component id="fdp_acf_ext.3" name="Extended: Security attribute based access control" status="objective">
           <f-element id="fdp_acf_ext.3.1">
-            <title>The <abbr linkend="TSF"/> shall enforce an access control policy that prohibits an application from granting both write and execute permission to a file on the device except for 
-              <assignable>list of exceptions</assignable>.</title>
+            <title>The <abbr linkend="TSF"/> shall enforce an access control policy that prohibits an application from granting both write and execute permission to a file on the device except for <selectables>
+              <selectable>files stored in the application's private data folder</selectable>
+              <selectable>no exceptions</selectable>
+            </selectables>.</title>
             <aactivity>Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products.<htm:br/><htm:br/>
-              <testlist>
-                <test>The evaluator shall write, or the developer shall provide, an application, which attempts to store a file with both write and execute permissions. The evaluator shall verify that this action fails and that the permissions on the file are not simultaneously write and execute. </test><htm:br/>
-                <test>The evaluator shall traverse the file system examining the permission on each <abbr linkend="TSF"/> file to verify that no file has both write and execute permissions set.</test>
+              <testlist>                
+                <test>The evaluator shall write, or the developer shall provide, an application that attempts to store a file with both write and execute permissions. If the selection is "no exceptions", then the evaluator shall verify that this action fails and that the permissions on the file are not simultaneously write and execute.  If the selection is "application's private data folder", then the evaluator shall ensure that the attempt to store the file is outside of the application's private data folder.</test>
+                
+                <test>The evaluator shall traverse the file system examining the permission on each <abbr linkend="TSF"/> file to verify that no file has both write and execute permissions set.  If the selection is "application's private data folder", then only files outside of this folder need to be examined by the evaluator for this test.</test>
+                
               </testlist>
             </aactivity>
           </f-element>
@@ -4051,7 +4059,7 @@
                 <htm:b>Function 2</htm:b><htm:br/>
                 The evaluator shall verify the <abbr linkend="TSS"/> defines the range of values for both timeout period and number of authentication failures for all supported authentication mechanisms.<htm:br/><htm:br/>
                 <test>
-                  The evaluator shall exercise the <abbr linkend="TSF"/> configuration as the user and the administrator. The evaluator shall perform positive and negative tests, with at least two values set for each variable setting, for each of the following:
+                  The evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator. The evaluator shall perform positive and negative tests, with at least two values set for each variable setting, for each of the following:
                   <htm:br/>
                   <htm:ul>
                     <htm:li>screen-lock enabled/disabled</htm:li>
@@ -4084,7 +4092,7 @@
                 
                 If power above -90 dBm is observed, the Faraday box has too great of signal leakage and shall not be used to complete the test for Function 4.<htm:br/><htm:br/>
                 
-                <test>The evaluator shall exercise the <abbr linkend="TSF"/> configuration as all roles specified in the <abbr linkend="TSS"/>) to enable and disable the state of each radio (e.g. Wi-Fi, GPS, cellular, NFC, Bluetooth). Additionally, the evaluator shall repeat the steps below, booting into any auxiliary boot mode supported by the device. For each radio, the evaluator shall:<htm:br/><htm:br/>
+                <test>The evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable and disable the state of each radio (e.g. Wi-Fi, GPS, cellular, NFC, Bluetooth). Additionally, the evaluator shall repeat the steps below, booting into any auxiliary boot mode supported by the device. For each radio, the evaluator shall:<htm:br/><htm:br/>
                 
                 Step 1: Place the antenna of the spectrum analyzer inside the RF shielded enclosure. Configure the spectrum analyzer to sweep desired frequency range for the radio to be tested (based on range provided in the <abbr linkend="TSS"/>)). The ambient noise floor shall be set to -110dBm. Place the TOE into the RF shielded enclosure to isolate them from all other RF traffic. <htm:br/><htm:br/>
                 
@@ -4097,7 +4105,7 @@
                 The evaluator shall verify that the  <abbr linkend="TSS"/> includes a description of each collection device and an indication of if it can be enabled/disabled along with what role can do so. The evaluator shall confirm that the AGD guidance describes how to perform the enable/disable function. <htm:br/><htm:br/>
                 <test>The evaluator shall perform the following test(s):
                   <htm:ol type="a">
-                    <htm:li>The evaluator shall exercise the TSF configuration as both the user and administrator to enable and disable the state of each audio or visual collection devices (e.g. camera, microphone) listed by the ST author. For each collection device, the evaluator shall disable the device and then attempt to use its functionality. The evaluator shall reboot the <abbr linkend="TOE"/> and verify that disabled collection devices may not be used during or early in the boot process. Additionally, the evaluator shall boot the device into each available auxiliary boot mode and verify that the collection device cannot be used.
+                    <htm:li>he evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable and disable the state of each audio or visual collection devices (e.g. camera, microphone) listed by the ST author. For each collection device, the evaluator shall disable the device and then attempt to use its functionality. The evaluator shall reboot the <abbr linkend="TOE"/> and verify that disabled collection devices may not be used during or early in the boot process. Additionally, the evaluator shall boot the device into each available auxiliary boot mode and verify that the collection device cannot be used.
                     </htm:li>
                       <htm:li>[conditional] If “per-app basis” is selected, the evaluator shall create two applications and enable one to use access the A/V device and the other to not access the A/V device. The evaluator shall exercise each application attempting to access the A/V device individually. The evaluator shall verify that the enabled application is able to access the A/V device and the disabled application is not able to access the A/V device.
                       </htm:li>
@@ -4185,10 +4193,12 @@
                 <test>For each category of information listed in the AGD guidance, the evaluator shall verify that when that <abbr linkend="TSF"/> is configured to limit the information according to the AGD, the information is no longer displayed in the locked state.</test><htm:br/>                 
                 
                 <htm:b>Function 20</htm:b><htm:br/>
-                <test>The evaluator shall exercise the <abbr linkend="TSF"/> configuration as both the user and administrator to enable system-wide data-at-rest protection according to the AGD guidance. The evaluator shall ensure that all assurance activities for DAR (see <linkref linkend="fdp_dar"/>) are conducted with the device in this configuration.
+                <test>he evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable system-wide data-at-rest protection according to the AGD guidance. The evaluator shall ensure that all assurance activities for DAR (see <linkref linkend="fdp_dar"/>) are conducted with the device in this configuration.
                 </test><htm:br/>
+                
+                
                 <htm:b>Function 21</htm:b><htm:br/>
-                <test>The evaluator shall exercise the <abbr linkend="TSF"/> configuration as both the user and administrator to enable removable media’s data-at-rest protection according to the AGD guidance. The evaluator shall ensure that all assurance activities for DAR (see <linkref linkend="fdp_dar"/>) are conducted with the device in this configuration.
+                <test>he evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable removable media’s data-at-rest protection according to the AGD guidance. The evaluator shall ensure that all assurance activities for DAR (see <linkref linkend="fdp_dar"/>) are conducted with the device in this configuration.
                 </test><htm:br/>
                 
                 <htm:b>Function 22 </htm:b><htm:br/>
@@ -4227,7 +4237,7 @@
                 </test><htm:br/>
                 
                 <htm:b>Function 26 [conditional]</htm:b><htm:br/>
-                <test>The evaluator shall exercise the <abbr linkend="TSF"/> configuration as both the user and administrator to enable and disable any developer mode. The evaluator shall test that developer mode access is not available when its configuration is disabled. The evaluator shall verify the developer mode remains disabled during device reboot.
+                <test>he evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable and disable any developer mode. The evaluator shall test that developer mode access is not available when its configuration is disabled. The evaluator shall verify the developer mode remains disabled during device reboot.
                 </test><htm:br/>
                 
                 <htm:b>Function 27 [conditional]</htm:b><htm:br/>
