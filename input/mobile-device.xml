@@ -164,7 +164,7 @@
         <entry> <term>Enrollment Template</term><description>A digital representation of an individual’s distinct characteristics, representing information extracted from a biometric sample. Such templates are generated during the enrollment process and utilized in various ways (including averaging, fusion, etc.) in order to generate an authentication template.</description></entry>
         <entry> <term>Enterprise Applications</term><description>Applications that are provided and managed by the enterprise.</description></entry>
         <entry> <term>Enterprise Data</term><description>Enterprise data is any data residing in the enterprise servers, or temporarily stored on Mobile Devices to which the Mobile Device user is allowed access according to security policy defined by the enterprise and implemented by the administrator.</description></entry>
-        <entry> <term>Ephemeral Keys</term><description>These keys are not stored in non-volatile memory.</description></entry>
+        <entry> <term>Ephemeral Keys</term><description>These keys are stored in volatile memory.</description></entry>
         <entry> <term><abbr title="False Accept Rate">FAR</abbr></term><description>A statistic used to measure biometric performance when operating in verification, defined as the percentage of times a system produces a false accept, which occurs when an individual is incorrectly matched to another individual’s existing biometric. For example, Mallory claims to be Alice and the system verifies the claim.</description></entry>
         <entry> <term><abbr title="False Reject Rate">FRR</abbr>FRR</term><description>A statistic used to measure biometric performance in verification, defined as the percentage of times the system produces a false reject. A false reject occurs when an individual is not matched to his or her own existing biometric template. For example, John claims to be John, but the system incorrectly denies the claim.</description></entry>
         <entry> <term>(Biometric) Feature(s)</term><description>Distinctive mathematical characteristic(s) derived from a biometric sample, used to generate enrollment or authentication templates.</description></entry>
@@ -206,7 +206,7 @@
         <entry> <term><abbr title="Security Assurance Requirement">SAR</abbr></term>
           <description>A requirement to assure the security of the <abbr linkend="TOE"/>.
           </description></entry>
-        <entry> <term>Sensitive data</term><description>Sensitive data shall be identified in the  <abbr linkend="TSS"/> section of the Security Target (<abbr linkend="ST"/>) by the <abbr linkend="ST"/> author. Sensitive data may include all user or enterprise data or may be specific application data such as emails, messaging, documents, calendar items, and contacts. Sensitive data is protected while in the locked state (<linkref linkend="FDP_DAR_EXT.2"/>). Sensitive data must minimally include some or all keys in software-based key storage.</description></entry>
+        <entry> <term>Sensitive data</term><description>Sensitive data shall be identified in the  <abbr linkend="TSS"/> section of the Security Target (<abbr linkend="ST"/>) by the <abbr linkend="ST"/> author. Sensitive data is a subset or all of the Protected data. Sensitive data may include all user or enterprise data or may be specific application data such as emails, messaging, documents, calendar items, and contacts. Sensitive data is protected while in the locked state (<linkref linkend="FDP_DAR_EXT.2"/>). Sensitive data must minimally include some or all keys in software-based key storage.</description></entry>
         <entry> <term><abbr title="Security Functional Requirement">SFR</abbr></term>
           <description>A requirement for security enforcement by the <abbr linkend="TOE"/>.
           </description></entry>
@@ -284,7 +284,7 @@
 
   <chapter title="Security Problem Definition" id="spd">
   <section title="Threats" id="thr">
-    Mobile devices are subject to the threats of traditional computer systems along with those entailed by their mobile nature. The threats considered in this Protection Profile are those of network eavesdropping, network attacks, physical access, malicious or flawed applications, persistent presence, backup, cloud, biometric impersonation, revocation of biometric credentials, and revocation of biometric template as detailed in the following sections.
+    Mobile devices are subject to the threats of traditional computer systems along with those entailed by their mobile nature. The threats considered in this Protection Profile are those of network eavesdropping, network attacks, physical access, malicious or flawed applications, persistent presence, backup, biometric impersonation, revocation of biometric credentials, and revocation of biometric template as detailed in the following sections.
     <threats>
       <threat id="T.EAVESDROP">
         <description> <htm:b>Network Eavesdropping</htm:b><htm:br></htm:br><htm:br></htm:br>
@@ -631,13 +631,14 @@
               For each audit event selected from <ctr-ref refid="objaudit"/> in <linkref linkend="FAU_GEN.1.1"/> if additional information is required to be recorded within the audit record, it should be included in this selection.
               <htm:br/><htm:br/>
               <htm:b><ctr-ref refid="manaudit"/> Application Note:</htm:b> <linkref linkend="FPT_TST_EXT.1"/> – Audit of self-tests is required only at initial start-up. Since the <abbr linkend="TOE"/> “transitions to non-operational mode” upon failure of a self-test, per <linkref linkend="FPT_NOT_EXT.1"/>, this is considered equivalent evidence to an audit record for the failure of a self-test.
+              <linkref linkend="FDP_DAR_EXT.1"/> - "None" shall be selected, if the TOE utilizes whole volume encryption for protected memory, since it is not feasible to audit when the encryption/decryption fails. If the TOE utilizes file-based encryption for protected data and audits when this encryption/decryption fails, then that auditable event shall be selected.
             </note>
             <aactivity>
               The evaluator shall check the administrative guide and ensure that it lists all of the auditable events and provides a format for audit records. Each audit record format type must be covered, along with a brief description of each field. The evaluator shall check to make sure that every audit event type mandated by the <abbr linkend="PP"/> is described and that the description of the fields contains the information required in <linkref linkend="FAU_GEN.1.2"/>. 
               <htm:br/><htm:br/>
               The evaluator shall also make a determination of the administrative actions that are relevant in the context of this <abbr linkend="PP"/> including those listed in the Management section. The evaluator shall examine the administrative guide and make a determination of which administrative commands are related to the configuration (including enabling or disabling) of the mechanisms implemented in the <abbr linkend="TOE"/> that are necessary to enforce the requirements specified in the <abbr linkend="PP"/>. The evaluator shall document the methodology or approach taken while determining which actions in the administrative guide are security relevant with respect to this <abbr linkend="PP"/>. The evaluator may perform this activity as part of the activities associated with ensuring the AGD_OPE guidance satisfies the requirements.
               <htm:br/><htm:br/>
-              The evaluator shall test the <abbr linkend="TOE"/>’s ability to correctly generate audit records by having the <abbr linkend="TOE"/> generate audit records for the events listed in the provided table and administrative actions. This should include all instances of an event. The evaluator shall test that audit records are generated for the establishment and termination of a channel for each of the cryptographic protocols contained in the <abbr linkend="ST"/>. For administrative actions, the evaluator shall test that each action determined by the evaluator above to be security relevant in the context of this <abbr linkend="PP"/> is auditable. When verifying the test results, the evaluator shall ensure the audit records generated during testing match the format specified in the administrative guide, and that the fields in each audit record have the proper entries.
+              The evaluator shall test the <abbr linkend="TOE"/>’s ability to correctly generate audit records by having the <abbr linkend="TOE"/> generate audit records for the events listed in the provided table and administrative actions. This should include all instances of an event. The evaluator shall test that audit records are generated for the establishment and termination of a channel for each of the cryptographic protocols contained in the <abbr linkend="ST"/>. For administrative actions, the evaluator shall test that each action determined by the evaluator above to be security relevant in the context of this <abbr linkend="PP"/> is auditable. When verifying the test results, the evaluator shall ensure the audit records generated during testing match the format specified in the administrative guide, and that the fields specified in <linkref linkend="FAU_GEN.1.2"/> are contained in each audit record.
               <htm:br/><htm:br/>
               Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms directly. For example, testing performed to ensure that the administrative guidance provided is correct verifies that AGD_OPE.1 is satisfied and should address the invocation of the administrative actions that are needed to verify the audit records are generated as expected.
               <htm:br/><htm:br/>
@@ -670,7 +671,10 @@
                   </htm:tr>
                 <htm:tr><htm:td>FCS_STG_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_STG_EXT.3</htm:td><htm:td>Failure to verify integrity of stored key.</htm:td><htm:td>Identity of key being verified.</htm:td></htm:tr>
-                <htm:tr><htm:td>FDP_DAR_EXT.1</htm:td><htm:td>Failure to encrypt/decrypt data.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
+                <htm:tr><htm:td>FDP_DAR_EXT.1</htm:td><htm:td><selectables>
+                  <selectable>Failure to encrypt/decrypt data</selectable>
+                  <selectable>None</selectable>
+                </selectables>.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
                 <htm:tr><htm:td>FDP_DAR_EXT.2</htm:td><htm:td>Failure to encrypt/decrypt data.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
                 <htm:tr><htm:td>FDP_IFC_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FDP_STG_EXT.1</htm:td><htm:td>Addition or removal of certificate from Trust Anchor Database.</htm:td><htm:td>Subject name of certificate.</htm:td></htm:tr>
@@ -1132,7 +1136,7 @@
             <note role="application">
               Either asymmetric or symmetric keys are allowed; the <abbr linkend="ST"/> author makes the selection appropriate for the device. Symmetric keys must be of size 128 or 256 bits in order to correspond with <linkref linkend="FCS_COP.1(1)"/>. Asymmetric keys may be of any strength corresponding to <linkref linkend="FCS_CKM.1"/>. 
               <htm:br/><htm:br/>
-              The raw key material of “immutable hardware” <abbr linkend="REK"/>(s) is computationally processes by hardware and software cannot access the raw key material. Thus if “immutable-hardware” is selected in <linkref linkend="FCS_CKM_EXT.1.1"/> it implicitly meets <linkref linkend="FCS_CKM_EXT.7"/>. If “mutable-hardware” is selected in <linkref linkend="FCS_CKM_EXT.1.1"/>, <linkref linkend="FCS_CKM_EXT.7"/> must be included in the <abbr linkend="ST"/>.
+              The raw key material of “immutable hardware” <abbr linkend="REK"/>(s) is computationally processed by hardware and software cannot access the raw key material. Thus if “immutable-hardware” is selected in <linkref linkend="FCS_CKM_EXT.1.1"/> it implicitly meets <linkref linkend="FCS_CKM_EXT.7"/>. If “mutable-hardware” is selected in <linkref linkend="FCS_CKM_EXT.1.1"/>, <linkref linkend="FCS_CKM_EXT.7"/> must be included in the <abbr linkend="ST"/>.
               <htm:br/><htm:br/>
               The lack of a public/documented API for importing or exporting the <abbr linkend="REK"/>, when a private/undocumented API exists, is not sufficient to meet this requirement. 
               <htm:br/><htm:br/>
@@ -1420,6 +1424,8 @@
               </htm:ul>
                 </selectable></selectables>.
             </title>
+            <note role="Application"> Protected data is all non-TSF data, including all user or enterprise data. Some or all of this data may be considered sensitive data as well.
+            </note>
           </f-element>
           <f-element id="fcs_ckm_ext.5.2">
             <title>The <abbr linkend="TSF"/> shall perform a power cycle on conclusion of the wipe procedure.
@@ -1821,6 +1827,7 @@
           <selection-depends req="ftp_itc_ext.1.1"/>
           <f-element id="fcs_dtls_ext.1.1">
             <title>The TSF shall implement the DTLS protocol in accordance with DTLS 1.2 (RFC 6347).</title>
+            <note role="application"> If "DTLS" is selected in <linkref linkend="fdp_upc_ext.1.1"/>, <linkref linkend="fia_x509_ext.2.1"/> or <linkref linkend="ftp_itc_ext.1.1"/> <linkref linkend="fcs_dtls_ext.1"/> shall be included in the ST.</note>
           </f-element>
           <f-element id="fcs_dtls_ext.1.2">
             <title>The TSF shall implement the requirements in TLS (<linkref linkend="FCS_TLSC_EXT.1"/>) for the DTLS implementation, except where variations are allowed according to DTLS 1.2 (RFC 6347).
@@ -2139,8 +2146,8 @@
             </aactivity>
           </f-element>
           <f-element id="fcs_stg_ext.2.2 ">
-            <title><abbr linkend="DEK"/>s and <abbr linkend="KEK"/>s and 
-              <selectables><selectable>long-term trusted channel key material</selectable><selectable>all software-based key storage</selectable><selectable>no other keys</selectable></selectables> shall be encrypted using one of the following methods: 
+            <title><abbr linkend="DEK"/>s, <abbr linkend="KEK"/>s, <assignable>any long-term trusted channel key material</assignable> and
+              <selectables><selectable>all software-based key storage</selectable><selectable>no other keys</selectable></selectables> shall be encrypted using one of the following methods: 
               <selectables><selectable>using a SP800-56B key establishment scheme</selectable>
                 <selectable>using AES in the 
                 <selectables>
@@ -2189,24 +2196,28 @@
             <htm:ul>
               <htm:li>Mandatory Ciphersuites:<selectables linebreak="yes">
                    <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
-                   <selectable>TLS_RSA_WITH_AES_256_CBC_ SHA256 as defined in RFC 5246</selectable>
+                   <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
               </selectables>
               </htm:li>
               <htm:li>Optional Ciphersuites:
                 <selectables linebreak="yes"> 
                   <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
-                  <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_ SHA256 as defined in RFC 5246</selectable>
-                  <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_ SHA256 as defined in RFC 5246</selectable>
+                  <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
+                  <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+                  <selectable>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>                  
+                  <selectable>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>                  
+                  <selectable>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>                  
+                  <selectable>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>                  
                   <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
                   <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
                   <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
-                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
+                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>                              
                   <selectable>no other ciphersuite</selectable>
                 </selectables>
               </htm:li>
             </htm:ul>
           </title>
-          <note role="application">The ciphersuites to be tested in the evaluated configuration are limited by this requirement. The ST author should select the optional ciphersuites that are supported; if there are no ciphersuites supported other than the mandatory suites, then “None” should be selected. It is necessary to limit the ciphersuites that can be used in an evaluated configuration administratively on the server in the test environment. The Suite B algorithms listed above (RFC 6460) are the preferred algorithms for implementation. It is recognized that RFC 5246 mandates the ciphersuite TLS_RSA_WITH_AES_128_CBC_SHA, but this ciphersuite is not tested with this requirement.<htm:br></htm:br><htm:br></htm:br>
+          <note role="application">The ciphersuites to be tested in the evaluated configuration are limited by this requirement; however, this requirement does not restrict the TOE's ability to propose (in its Client Hello) additional ciphersuites beyond the ones listed in this requirement.  Put simply, the TOE may propose any ciphersuite; however, the evaluation will only test the ciphersuites in the above list. The ST author should select the optional ciphersuites that are supported; if there are no ciphersuites supported other than the mandatory suites, then “None” should be selected. It is necessary to limit the ciphersuites that can be used in an evaluated configuration administratively on the server in the test environment. The Suite B algorithms listed above (RFC 6460) are the preferred algorithms for implementation. It is recognized that RFC 5246 mandates the ciphersuite TLS_RSA_WITH_AES_128_CBC_SHA, but this ciphersuite is not tested with this requirement.<htm:br></htm:br><htm:br></htm:br>
             If an elliptic-curve ciphersuite is selected, <linkref linkend="FCS_TLSC_EXT.2.1"/> shall be included in the ST.<htm:br></htm:br><htm:br></htm:br>
             These requirements will be revisited as new TLS versions are standardized by the IETF.</note>
           
@@ -2451,13 +2462,12 @@
           </f-element>
         </f-component>
         
-        <f-component id="fdp_bck_ext.1" name="Extended: Application Backup" status="sel-based">
-          <selection-depends req="fmt_smf_ext.1.1"/> <!-- Function 40 -->
+        <f-component id="fdp_bck_ext.1" name="Extended: Application Backup" status="objective">
           <f-element id="fdp_bck_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall provide a mechanism for applications to mark 
               <selectables><selectable>all application data</selectable><selectable>selected application data</selectable></selectables> to be excluded from device backups.
             </title>
-            <note role="application">If <linkref linkend="FMT_SMF_EXT.1.1"/> function 40 is selected, <linkref linkend="FDP_BCK_EXT.1.1"/> must be included in the <abbr linkend="ST"/>. Device backups include any mechanism built into the <abbr linkend="TOE"/> that allows stored application data to be extracted over a physical port or sent over the network, but does not include any functionality implemented by a specific application itself if the application is not included in the <abbr linkend="TOE"/>. The lack of a public/documented API for performing backups, when a private/undocumented API exists, is not sufficient to meet this requirement. </note>
+            <note role="application"> Device backups include any mechanism built into the <abbr linkend="TOE"/> that allows stored application data to be extracted over a physical port or sent over the network, but does not include any functionality implemented by a specific application itself if the application is not included in the <abbr linkend="TOE"/>. The lack of a public/documented API for performing backups, when a private/undocumented API exists, is not sufficient to meet this requirement. </note>
             <aactivity>If “all application data” is selected, the evaluator shall install an application that has marked all of its application data to be excluded from backups. The evaluator shall cause data to be placed into the application’s storage area. The evaluator shall attempt to back up the application data and verify that the backup fails or that the application’s data was not included in the backup.
               <htm:br/><htm:br/>
               If “selected application data” is selected, the evaluator shall install an application that has marked selected application data to be excluded from backups. The evaluator shall cause data covered by “selected application data” to be placed into the application’s storage area. The evaluator shall attempt to backup that selected application data and verify that either the backup fails or that the selected data is excluded from the backup.
@@ -2496,7 +2506,7 @@
           <htm:tr class="header"><htm:td>Data Level</htm:td><htm:td>Protection Required</htm:td></htm:tr>
           <htm:tr><htm:td>TSF Data</htm:td><htm:td>TSF data does not require confidentiality, but does require integrity protection (<linkref linkend="FPT_TST_EXT.2(1)"/>).</htm:td></htm:tr>
           <htm:tr><htm:td>Protected Data</htm:td><htm:td>Protected data is encrypted while powered off. (<linkref linkend="FDP_DAR_EXT.1"/>)</htm:td></htm:tr>
-          <htm:tr><htm:td>Sensitive Data</htm:td><htm:td>Sensitive data is encrypted while in the locked state. (<linkref linkend="FDP_DAR_EXT.2"/>)</htm:td></htm:tr>
+          <htm:tr><htm:td>Sensitive Data</htm:td><htm:td>Sensitive data is encrypted while in the locked state, in addition to while powered off. (<linkref linkend="FDP_DAR_EXT.2"/>)</htm:td></htm:tr>
         </htm:table>
         <htm:br></htm:br>
 
@@ -2516,7 +2526,7 @@
           <f-element id="fdp_dar_ext.1.1">
             <title>Encryption shall cover all protected data.
             </title>
-            <note role="application"> Protected data is all non-TSF data, including all user or enterprise data. </note>
+            <note role="application"> Protected data is all non-TSF data, including all user or enterprise data. Some or all of this data may be considered sensitive data as well.</note>
           </f-element>
           <f-element id="fdp_dar_ext.1.2">
             <title>Encryption shall be performed using <abbr linkend="DEK"/>s with AES in the 
@@ -2682,9 +2692,9 @@
                 <selectable> no other</selectable>
               </selectables> as critical authentication mechanisms. 
             </title>
-            <note role="application">A critical authentication mechanism is one in which countermeasures are triggered when the maximum number of unsuccessful authentication attempts is exceeded, rendering the other factors unavailable.
+            <note role="application">A critical authentication mechanism is one in which countermeasures are triggered (i.e., wipe of the device) when the maximum number of unsuccessful authentication attempts is exceeded, rendering the other factors unavailable.
               <htm:br/><htm:br/>
-              If no additional authentication mechanisms are selected in <linkref linkend="FIA_UAU.5.1"/>, then ‘no other’ shall be selected. If an additional authentication mechanism is selected in <linkref linkend="FIA_UAU.5.1"/>, then it shall only be selected in <linkref linkend="FIA_AFL_EXT.1.1"/> if surpassing the authentication failure threshold for biometric data causes a wipe of the device regardless of the failure status of the other authentication mechanisms. 
+              If no additional authentication mechanisms are selected in <linkref linkend="FIA_UAU.5.1"/>, then ‘no other’ shall be selected. If an additional authentication mechanism is selected in <linkref linkend="FIA_UAU.5.1"/>, then it shall only be selected in <linkref linkend="FIA_AFL_EXT.1.1"/> if surpassing the authentication failure threshold for biometric data causes a countermeasure to be triggered regardless of the failure status of the other authentication mechanisms. 
               <htm:br/><htm:br/>
               If the <abbr linkend="TOE"/> implements multiple Authentication Factor interfaces (for example, a DAR decryption interface, a lockscreen interface, an auxiliary boot mode interface), this component applies to all available interfaces. For example, a password is a critical authentication mechanism regardless of if it is being entered at the DAR decryption interface or at a lockscreen interface.
             </note>
@@ -2698,10 +2708,10 @@
               <htm:br/><htm:br/>
               An unique authentication attempt is defined as any attempt to verify a password or biometric sample, in which the input is different from a previous attempt. ‘Unique’ shall be selected if the authentication system increments the counter only for unique unsuccessful authentication attempts. For example, if the same incorrect password is attempted twice the authentication system increments the counter once. ‘Non-unique’ shall be selected if the authentication system increments the counter for each unsuccessful authentication attempt, regardless of if the input is unique. For example, if the same incorrect password is attempted twice the authentication system increments the counter twice.
               <htm:br/><htm:br/>
-              If hybrid authentication (i.e. a combination of biometric and pin) is supported, a failed authentication attempt is counted a single attempt, even if both the biometric and pin were incorrect.
+              If hybrid authentication (i.e. a combination of biometric and pin) is supported, a failed authentication attempt can be counted as a single attempt, even if both the biometric and pin were incorrect.
               <htm:br/><htm:br/>
-              If the <abbr linkend="TOE"/> supports multiple authentication mechanisms (<linkref linkend="FIA_UAU.5.1"/>), this component applies to all authentication mechanisms. 
-              <htm:br/><htm:br/>
+              If the <abbr linkend="TOE"/> supports multiple authentication mechanisms per <linkref linkend="FIA_UAU.5.1"/>, this component applies to all authentication mechanisms. It is acceptable for a each authentication mechanism to utilize an independent counter or for multiple authentication mechanisms to utilize a shared counter. The interaction between the authentication factors in regards to the authentication counter shall be in accordance with <linkref linkend="FIA_UAU.5.2"/>.
+<htm:br/><htm:br/>
               If the <abbr linkend="TOE"/> implements multiple Authentication Factor interfaces (for example, a DAR decryption interface, a lockscreen interface, an auxiliary boot mode interface), this component applies to all available interfaces. However, it is acceptable for each Authentication Factor interface to be configurable with a different number of unsuccessful authentication attempts.
             </note>
           </f-element>
@@ -2718,7 +2728,8 @@
           <f-element id="fia_afl_ext.1.5">
             <title>When the defined number of unsuccessful authentication attempts for the last available authentication mechanism or single critical authentication mechanism has been surpassed, the <abbr linkend="TSF"/> shall perform a wipe of all protected data.
             </title>
-            <note role="application">Wipe is performed in accordance with <linkref linkend="FCS_CKM_EXT.5"/>. 
+            <note role="application">Wipe is performed in accordance with <linkref linkend="FCS_CKM_EXT.5"/>. Protected data is all non-TSF data, including all user or enterprise data. Some or all of this data may be considered sensitive data as well.
+            
               <htm:br/><htm:br/>
               If the <abbr linkend="TOE"/> implements multiple Authentication Factor interfaces (for example, a DAR decryption interface, a lockscreen interface, an auxiliary boot mode interface), this component applies to all available interfaces.
             </note>
@@ -2727,20 +2738,23 @@
             <title>The <abbr linkend="TSF"/> shall increment the number of unsuccessful authentication attempts prior to notifying the user that the authentication was unsuccessful. 
             </title>
             <note role="application">This requirement is to ensure that if power is cut to the device directly after an authentication attempt, the counter will be incremented to reflect that attempt. </note>
-            <aactivity>The evaluator shall ensure that the  <abbr linkend="TSS"/> describes that a value corresponding to the number of unsuccessful authentication attempts since the last successful authentication is kept for each user for each Authentication Factor interface. The evaluator shall ensure that this description also includes if and how this value is maintained when the <abbr linkend="TOE"/> loses power, either through a graceful powered off or an ungraceful loss of power. The evaluator shall ensure that if the value is not maintained, the interface is after another interface in the boot sequence for which the value is maintained. 
+            
+            <aactivity>The evaluator shall ensure that the <abbr linkend="TSS"/> describes that a value corresponding to the number of unsuccessful authentication attempts since the last successful authentication is kept for each Authentication Factor interface. The evaluator shall ensure that this description also includes if and how this value is maintained when the <abbr linkend="TOE"/> loses power, either through a graceful powered off or an ungraceful loss of power. The evaluator shall ensure that if the value is not maintained, the interface is after another interface in the boot sequence for which the value is maintained. 
               <htm:br/><htm:br/>
-              If the <abbr linkend="TOE"/> supports multiple authentication mechanisms, the evaluator shall ensure that this description also includes how the unsuccessful authentication attempts for each mechanism selected in <linkref linkend="FIA_UAU.5.1"/> is handled. 
+              If the <abbr linkend="TOE"/> supports multiple authentication mechanisms, the evaluator shall ensure that this description also includes how the unsuccessful authentication attempts for each mechanism selected in <linkref linkend="FIA_UAU.5.1"/> is handled. The evaluator shall verify that the <abbr linkend="TSS"/> describes if each authentication mechanism utilizes its own counter or if multiple authentication mechanisms utilize a shared counter. If multiple authentication mechanisms utilize a shared counter, the evaluator shall verify that the <abbr linkend="TSS"/> describes this interaction.
               <htm:br/><htm:br/>
-              The evaluator shall verify that the AGD guidance describes how the administrator configures the maximum number of unique unsuccessful authentication attempts. The evaluator shall also verify the  <abbr linkend="TSS"/> contains a description of how multiple authentication mechanisms interact.
+              The evaluator shall confirm that the  <abbr linkend="TSS"/> describes how the process used to determine if the authentication attempt was successful. The evaluator shall ensure that the counter would be updated even if power to the device is cut immediately following notifying the <abbr linkend="TOE"/> user if the authentication attempt was successful or not.
+              <htm:br/><htm:br/>
+              The evaluator shall verify that the AGD guidance describes how the administrator configures the maximum number of unique unsuccessful authentication attempts. 
+              <htm:br/><htm:br/>
               <testlist>
                 <test>The evaluator shall configure the device with all authentication mechanisms selected in <linkref linkend="FIA_UAU.5.1"/>. The evaluator shall perform the following tests for each available authentication interface:
                   <htm:br/><htm:br/>
                   Test 1a: The evaluator shall configure the <abbr linkend="TOE"/>, according to the AGD guidance, with a maximum number of unsuccessful authentication attempts. The evaluator shall enter the locked state and enter incorrect passwords until the wipe occurs. The evaluator shall verify that the number of password entries corresponds to the configured maximum and that the wipe is implemented. 
                   <htm:br/><htm:br/>
-                  Test 1b: [conditional] If the <abbr linkend="TOE"/> supports multiple authentication mechanisms the previous test shall be repeated using a combination of authentication mechanisms confirming that the critical authentication mechanisms will cause the device to wipe and that when the maximum number of unsuccessful authentication attempts for a non-critical authentication mechanism is exceeded, the device limits authentication attempts to other available authentication mechanisms.
+                  Test 1b: [conditional] If the <abbr linkend="TOE"/> supports multiple authentication mechanisms the previous test shall be repeated using a combination of authentication mechanisms confirming that the critical authentication mechanisms will cause the device to wipe and that when the maximum number of unsuccessful authentication attempts for a non-critical authentication mechanism is exceeded, the device limits authentication attempts to other available authentication mechanisms. If multiple authetication mechanisms utilize a shared counter, then the evaluator shall verify that the maximum number of unsucessful authentication attempts can be reached by using each individual authentication mechanism and a combination of all authentication mechanisms that share the counter.
                 </test><htm:br/>
                 <test>The evaluator shall repeat test one, but shall power off (by removing the battery, if possible) the <abbr linkend="TOE"/> between unsuccessful authentication attempts. The evaluator shall verify that the total number of unsuccessful authentication attempts for each authentication mechanism corresponds to the configured maximum and that the critical authentication mechanisms cause the device to wipe. Alternatively, if the number of authentication failures is not maintained for the interface under test, the evaluator shall verify that upon booting the <abbr linkend="TOE"/> between unsuccessful authentication attempts another authentication factor interface is presented before the interface under test.</test><htm:br/>
-                <test>The evaluator shall confirm that the  <abbr linkend="TSS"/> describes how the process used to determine if the authentication attempt was successful. The evaluator shall ensure that the counter would be updated even if power to the device is cut immediately following notifying the <abbr linkend="TOE"/> user if the authentication attempt was successful or not.</test>
               </testlist>
             </aactivity>
           </f-element>
@@ -2833,64 +2847,34 @@
         <f-component id="fia_blt_ext.5" name="Extended: Bluetooth Authentication – Secure Connections Only" status="objective">
           <f-element id="fia_blt_ext.5.1">
             <title>The <abbr linkend="TOE"/> shall support Secure Connections Only mode for Bluetooth BR/EDR. </title>
-            <note role="application">The specification states that Secure Connections Only Mode, also called "FIPS Mode", should be used when security is more important than backwards compatibility. 
-              <htm:br/><htm:br/>
-              From the specification, (v4.2, Vol 1, Part A, pp 92-93) “The Host will enforce that the P-256 elliptic curve is used during pairing, the secure authentication sequences are used, and AES-CCM is used for encryption.” Also, “if a BR/EDR/LE device is configured in Secure Connections Only Mode, then a transport will only be used when Secure Connections is supported by both devices.” 
-              <htm:br/><htm:br/>
-              This mode could be enabled or disabled via a user control/menu.
-            </note>
-            <aactivity>The evaluator shall ensure that the  <abbr linkend="TSS"/> describes support for Secure Connections Only mode for BR/EDR.
-              <htm:br/><htm:br/>
-              The evaluator shall perform the following tests:
-              <testlist>
-                <test>The evaluator shall perform the following steps:<htm:br/><htm:br/>
-                  Step 1: Put the <abbr linkend="TOE"/> into Secure Connections Only mode (BR/EDR).
-                  <htm:br/><htm:br/>
-                  Step 2: Attempt a pairing to a remote device that does not support Secure Connections Only mode.
-                  <htm:br/><htm:br/>
-                  Step 3: Verify that the pairing attempt fails.
-                </test><htm:br/>
-                <test>The evaluator shall perform the following steps:<htm:br/><htm:br/>
-                  Step 1: Put the <abbr linkend="TOE"/> into Secure Connections Only mode (BR/EDR).
-                  <htm:br/><htm:br/>
-                  Step 2: Attempt a pairing to a remote device that contains support Secure Connections Only mode and has Secure Connections Only mode enabled.
-                  <htm:br/><htm:br/>
-                  Step 3: Verify that the pairing attempt succeeds and use a Bluetooth packet sniffer to verify that the parameters of the pairing and encryption are consistent with Secure Connections for BR/EDR.
-                </test>
-              </testlist>
-            </aactivity>
           </f-element>
           <f-element id="fia_blt_ext.5.2">
-            <title>The <abbr linkend="TOE"/> shall support Secure Connections Only mode for Bluetooth LE.</title>
+            <title>The <abbr linkend="TOE"/> shall support Secure Connections Only mode for Bluetooth LE.</title>          
             <note role="application">The specification states that Secure Connections Only Mode, also called "FIPS Mode", should be used when security is more important than backwards compatibility. 
               <htm:br/><htm:br/>
-              From the specification, (v4.2, Vol 1, Part A, pp 92-93) "In this mode, the Host will enforce that the P-256 elliptic curve is used during pairing." Note that AES is always used in LE when encryption is used.
+              From the specification, (v4.2, Vol 1, Part A, pp 92-93) “The Host will enforce that the P-256 elliptic curve is used during pairing, the secure authentication sequences are used, and AES-CCM is used for encryption.” Also, “if a BR/EDR/LE device is configured in Secure Connections Only Mode, then a transport will only be used when Secure Connections is supported by both devices.” Note that AES is always used in LE when encryption is used.
               <htm:br/><htm:br/>
               This mode could be enabled or disabled via a user control/menu.
             </note>
-            <aactivity>
-              The specification states that Secure Connections Only Mode, also called "FIPS Mode", should be used when security is more important than backwards compatibility. 
+            <aactivity>The evaluator shall ensure that the <abbr linkend="TSS"/> describes support for Secure Connections Only mode for BR/EDR and LE.
               <htm:br/><htm:br/>
-              From the specification, (v4.2, Vol 1, Part A, pp 92-93) "In this mode, the Host will enforce that the P-256 elliptic curve is used during pairing." Note that AES is always used in LE when encryption is used.
-              <htm:br/><htm:br/>
-              This mode could be enabled or disabled via a user control/menu.
+              The evaluator shall perform the following tests once for BR/EDR and once for LE:
               <testlist>
                 <test>The evaluator shall perform the following steps:<htm:br/><htm:br/>
-                  Step 1: Put the <abbr linkend="TOE"/> into Secure Connections Only mode (LE).
+                  Step 1: Put the <abbr linkend="TOE"/> into Secure Connections Only mode.
                   <htm:br/><htm:br/>
                   Step 2: Attempt a pairing to a remote device that does not support Secure Connections Only mode.
                   <htm:br/><htm:br/>
                   Step 3: Verify that the pairing attempt fails.
                 </test><htm:br/>
                 <test>The evaluator shall perform the following steps:<htm:br/><htm:br/>
-                  Step 1: Put the <abbr linkend="TOE"/> into Secure Connections Only mode (LE).
+                  Step 1: Put the <abbr linkend="TOE"/> into Secure Connections Only mode.
                   <htm:br/><htm:br/>
                   Step 2: Attempt a pairing to a remote device that contains support Secure Connections Only mode and has Secure Connections Only mode enabled.
                   <htm:br/><htm:br/>
-                  Step 3: Verify that the pairing attempt succeeds and use a Bluetooth packet sniffer to verify that the parameters of the pairing and encryption are consistent with Secure Connections for LE.
+                  Step 3: Verify that the pairing attempt succeeds and use a Bluetooth packet sniffer to verify that the parameters of the pairing and encryption are consistent with Secure Connections.
                 </test>
               </testlist>
-              
             </aactivity>
           </f-element>
         </f-component>
@@ -2924,32 +2908,45 @@
         <f-component id="fia_bmg_ext.1" name="Extended: Accuracy of Biometric Authentication" status="sel-based">
           <selection-depends req="fia_uau.5.1"/>
           <f-element id="fia_bmg_ext.1.1">
-            <title>The one-attempt <abbr linkend="BAF"/> False Accept Rate <abbr linkend="FAR"/> shall not exceed 
+           
+            <title>The one-attempt <abbr linkend="BAF"/> False Accept Rate (<abbr linkend="FAR"/>) for <assignable>biometric modality selected in <linkref linkend="FIA_UAU.5.1"/></assignable>shall not exceed 
               <selectables><selectable>1:100</selectable><selectable>1:1000</selectable><selectable>1:10000</selectable></selectables> with a one-attempt <abbr linkend="BAF"/> False Reject Rate (FRR) not to exceed 1 in 
                 <selectables><selectable>10</selectable><selectable>20</selectable><selectable>50</selectable><selectable>100</selectable></selectables>. 
             </title>
-            <note role="application">If a <abbr linkend="BAF"/> or "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, <linkref linkend="FIA_BMG_EXT.1.1"/> must be included in the <abbr linkend="ST"/>.
+            <note role="application">If a <abbr linkend="BAF"/> or "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, <linkref linkend="FIA_BMG_EXT.1.1"/> must be included in the <abbr linkend="ST"/>. The assignment shall be completed for each biometric modality selected in <linkref linkend="FIA_UAU.5.1"/>. If multiple biometric modalities are selected in <linkref linkend="FIA_UAU.5.1"/>, it is acceptable for each modality to have a different <abbr linkend="FAR"/> and <abbr linkend="FRR"/>. 
+              
               <htm:br/><htm:br/>
               The False Accept Rate (<abbr linkend="FAR"/>) is the measure of the likelihood that the biometric will incorrectly accept an authentication attempt by an unauthorized user. A system's <abbr linkend="FAR"/> typically is stated as the proportion of verification transactions with wrongful claims of identity that are incorrectly confirmed.
               <htm:br/><htm:br/>
               The False Reject Rate (FRR) is the measure of the likelihood that the biometric security system will incorrectly reject an authentication attempt by an authorized user. A system's <abbr linkend="FRR"/> typically is stated as the proportion of verification transactions with truthful claims of identity that are incorrectly denied.
+              <htm:br/><htm:br/>
+              Please note that depending on the number of authentication attempts allowed for the <abbr linkend="BAF"/> a FAR of 1:100 and 1:1000 will not produce an acceptable SAFAR, without the use of hybrid authentication.
               <htm:br/><htm:br/>
               Generally testing environments for a biometric system in a mobile device are based on a single legitimate user enrolling and test subjects attempt to authenticate. Since a thorough evaluation for <abbr linkend="FAR"/> and <abbr linkend="FRR"/> meeting all the conditions of statistical independence is not feasible in the timeframe of <abbr linkend="CC"/> evaluations and in agreement with ISO/IEC 19795, the use of offline testing is acceptable even if this causes the biometric system to deviate slightly from the evaluated configuration. Additionally, full cross-comparison (i.e. all test subjects are compared to non-self) is acceptable. 
               <htm:br/><htm:br/>
               Detailed explanations corresponding to the testing environments that are acceptable, to include the number of trials needed, can be found in <appref linkend="biometric1"/>.            
               <htm:br/><htm:br/>                      
             </note>
+            <aactivity>The evaluator shall verify that the <abbr linkend="TSS"/> contains evidence supporting the testing and calculations completed to determine the <abbr linkend="FAR"/> and <abbr linkend="FRR"/>. <appref linkend="biometric"/> provides guidance to how this testing could be completed and to what error bars are expected when the Rule of 3 is applied. The evaluator shall consult <appref linkend="biometric"/> as a reference, but should not treat it as a mandate. The evaluator shall verify that the <abbr linkend="TSS"/> contains evidence of how many imposters were used for testing, whether online or offline testing  was used and if offline testing was completed, evidence describing the differences between the biometric system used for testing and the <abbr linkend="TOE"/> in the evaluated configuration, if any. The evaluator shall verify that the testing describes how imposters are compared to enrolled users, for example, if multiple devices for online testing or full cross-comparison for offline testing was used. Adequate documentation is required to demonstrate that testing was completed to support the claimed <abbr linkend="FAR"/> and <abbr linkend="FRR"/>.
+              <htm:br/><htm:br/>                
+            </aactivity>
           </f-element>
+          
           <f-element id="fia_bmg_ext.1.2">
               <title>The overall System Authentication False Accept Rate (SAFAR) shall be no greater than 1 in 
-                <selectables><selectable>1000</selectable><selectable>10000</selectable><selectable>100,000</selectable><selectable>1,000,000</selectable></selectables>.</title>
+                <assignable> a SAFAR no greater than 1:500</assignable> within a 1% margin.</title>           
             <note role="application">If a <abbr linkend="BAF"/> or "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, <linkref linkend="FIA_BMG_EXT.1.2"/> must be included in the <abbr linkend="ST"/>.
                 <htm:br/><htm:br/>
-                System Authentication False Accept Rate (SAFAR) is defined by the combination of individual error rates for each authentication factor and attempt used for access to a single session on the device. Accessing a single session may involve a single authentication factor, in which case the SAFAR for a single attempt will be equal to the false accept rate (<abbr linkend="FAR"/>) of that authentication factor and the SAFAR for n attempts will be 1-(1-FAR)^n, assuming independence. 
+                System Authentication False Accept Rate (SAFAR) is defined by the combination of individual error rates for each authentication factor and attempts used for access to a single session on the device. Accessing a single session may involve a single authentication factor, in which case the SAFAR for a single attempt will be equal to the false accept rate (<abbr linkend="FAR"/>) of that authentication factor and the SAFAR for n attempts will be <htm:img src="images/SAFAR_basic.jpg"/>, assuming independence. 
                 <htm:br/><htm:br/>
-                The full equations for calculating SAFAR can be found in <appref linkend="biometric3"/>. A fully worked-out example that applies the equations in <appref linkend="biometric3"/> for calculating SAFAR can be found in <appref linkend="biometric4"/>.
+              Accessing a single session on the device may involve the ability to use multiple authentication factors. It may be the case that only one authentication factor is needed to access a single session on the device (i.e., both a password and a <abbr linkend="BAF"/> can be used, but only one is needed) or that both authentication factors are needed to access a single session on the device (i.e., both the <abbr linkend="BAF"/> and a PIN must be entered). The full equations for calculating the SAFAR can be found in <appref linkend="biometric3"/>. A fully worked-out example that applies the equations in <appref linkend="biometric3"/> for calculating the SAFAR can be found in <appref linkend="biometric4"/>. 
+              
+              <htm:br/><htm:br/>
+              <!-- TODO: Clean up this section -->
+              If more than one <abbr linkend="BAF"/> is included in the TOE and the <abbr linkend="FAR"/> or the number of authentication attempts differ depending on the <abbr linkend="BAF"/>, the worst case scenario shall be used to calculate the SAFAR. If the authentication factors utilize the same authentication counter per <linkref linkend="FIA_AFL_EXT.1"/> then it should be assumed that the authentication factor with the highest <!-- TODO: or should this be the lowest --> <abbr linkend="FAR"/> will be used for the maximum number of authentication attempts allowed by that factor. For example if the <abbr linkend="TOE"/> includes a password and more than one <abbr linkend="BAF"/>s, the <abbr linkend="BAF"/>s have different <abbr linkend="FAR"/>s, pnly the password is a critical factor and all authentication factors utilize the same authentication counter then the SAFAR shall be calculated assuming that the <abbr linkend="BAF"/> with the highest <!-- TODO: or lowest --> <abbr linkend="FAR"/> is used for the maximum number of authentication attempts allowed by that <abbr linkend="BAF"/>, if the other <abbr linkend="BAF"/> is able to be used then it should be assumed that it will be used for the maximum number of authentication attempts allowed by that <abbr linkend="BAF"/>, with the remaining number of attempts being made by the password. The 1% margin is included for cases where a biometric modality is not a critical authentication factor and thus both biometric and password can be used in a session without exceeding the declared SAFAR.
+              <htm:br/><htm:br/>  
               </note>   
-            <aactivity>The evaluator shall consult <appref linkend="biometric"/> and verify that the <abbr linkend="TSS"/> contains evidence supporting the testing and calculations completed to determine the <abbr linkend="FAR"/>, <abbr linkend="FRR"/> and SAFAR. The evaluator shall verify that the <abbr linkend="TSS"/> contains evidence of either online or offline testing and if offline testing was completed, evidence describing the differences between the biometric system used for testing and the <abbr linkend="TOE"/> in the evaluated configuration, if any. The evaluator shall verify that the testing describes how imposters are compared to enrolled users, for example, if multiple devices for online testing or full cross-comparison for offline testing was used. The evaluator shall also verify that the <abbr linkend="TSS"/> indicates which SAFAR the <abbr linkend="TOE"/> is targeting, which combination(s) of authentication factors are needed to meet the SAFAR, and the number of attempts for each authentication factor the <abbr linkend="TOE"/> is configured to allow. Adequate documentation is required to demonstrate that testing was completed to support the claimed <abbr linkend="FAR"/>, <abbr linkend="FRR"/> and SAFAR.
+            <aactivity>The evaluator shall verify that the <abbr linkend="TSS"/> indicates which SAFAR the <abbr linkend="TOE"/> is targeting and contains evidence supporting the calculations, per <appref linkend="biometric3"/>, completed to determine the SAFAR. The evaluator shall verify that the <abbr linkend="TSS"/> contains evidence of how the authentication factors interact, per <linkref linkend="FIA_UAU.5.2"/> and <linkref linkend="FIA_AFL_EXT.1"/>. The evaluator shall verify that the <abbr linkend="TSS"/>, contains the combination(s) of authentication factors needed to meet the SAFAR, and the number of attempts for each authentication factor the <abbr linkend="TOE"/> is configured to allow. Adequate documentation is required to demonstrate the calculations completed to support the claimed SAFAR.
                 <htm:br/><htm:br/>                
              </aactivity>
           </f-element>
@@ -3110,7 +3107,8 @@
           </f-element>
         <f-element id="fia_uau.5.2">
           <title>The <abbr linkend="TSF"/> shall authenticate any user's claimed identity according to the <assignable>rules describing how each authentication mechanism provides authentication</assignable>.</title>
-          <note role="application">For all authentication mechanisms specified in <linkref linkend="FIA_UAU.5.1"/>, the TSS shall describe the rules as to how each authentication mechanism is used. Example rules are how the authentication mechanism authenticates the user (i.e. how does the TSF verify that the correct password or biometric sample was entered), the result of a successful authentication (i.e. is the user input used to derive or unlock a key) and which authentication mechanism can be used at which authentication factor interfaces (i.e. if there are times, for example, after a reboot, that only specific authentication mechanisms can be used). Rules regarding unsuccessful authentication are covered in FIA_AFL_EXT.1.</note>
+
+          <note role="application">For all authentication mechanisms specified in <linkref linkend="FIA_UAU.5.1"/>, the TSS shall describe the rules as to how each authentication mechanism is used. Example rules are how the authentication mechanism authenticates the user (i.e. how does the TSF verify that the correct password or biometric sample was entered), the result of a successful authentication (i.e. is the user input used to derive or unlock a key) and which authentication mechanism can be used at which authentication factor interfaces (i.e. if there are times, for example, after a reboot, that only specific authentication mechanisms can be used). If multiple <abbr linkend="BAF"/>s are supported per <linkref linkend="FIA_UAU.5.1"/>, the interaction between the <abbr linkend="BAF"/>s, shall be described. For example, if the multiple <abbr linkend="BAF"/>s can be enabled at the same time. Rules regarding how the authentication factors interact in terms of unsuccessful authentication are covered in FIA_AFL_EXT.1.</note>
           
           <aactivity>The evaluator shall ensure that the <abbr linkend="TSS"/> describes each mechanism provided to support user authentication and the rules describing how the authentication mechanism(s) provide authentication. <htm:br/><htm:br/>
             The evaluator shall verify that configuration guidance for each authentication mechanism is addressed in the AGD guidance.
@@ -3165,7 +3163,7 @@
             <aactivity>The evaluator shall ensure that the  <abbr linkend="TSS"/> describes the means of obscuring the authentication entry, for all authentication methods specified in <linkref linkend="FIA_UAU.5.1"/>. The evaluator shall verify that any configuration of this requirement is addressed in the AGD guidance and that the password is obscured by default. 
               <testlist>
                 <test>The evaluator shall enter passwords on the device, including at least the Password Authentication Factor at lockscreen, and verify that the password is not displayed on the device. </test>
-                <test>[conditional] For each <abbr linkend="BAF"/> selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall authenticate by producing a biometric sample at lockscreen. As the biometric algorithms are performed, the evaluator shall verify that sensitive images, audio, or other information identifying the user are kept secret and are not revealed to the user. Additionally, the evaluator shall produce a biometric sample that fails to authenticate and verify that the reason(s) for authentication failure (user mismatch, low sample quality, etc.) are not revealed to the user.</test>
+                <test>[conditional] For each <abbr linkend="BAF"/> selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall authenticate by producing a biometric sample at lockscreen. As the biometric algorithms are performed, the evaluator shall verify that sensitive images, audio, or other information identifying the user are kept secret and are not revealed to the user. Additionally, the evaluator shall produce a biometric sample that fails to authenticate and verify that the reason(s) for authentication failure (user mismatch, low sample quality, etc.) are not revealed to the user. It is acceptable for the <abbr linkend="BAF"/> to state that it was unable to physically read the biometric sample, for example if the sensor is unclean or the biometric sample was removed to quickly. However, specifics regarding why the presented biometric sample failed authentication shall not be revealed to the user.</test>
               </testlist>
             </aactivity>
           </f-element>
@@ -3177,8 +3175,7 @@
               <selectables><selectable>long-term trusted channel key material</selectable><selectable>all software-based key storage</selectable><selectable>no other keys</selectable></selectables> at startup.
             </title>
             <note role="application">The intent of this requirement is to prevent decryption of protected data before the user has authorized to the device using the Password Authentication Factor. The Password Authentication Factor is also required in order derive the key used to decrypt sensitive data, which includes software-based secure key storage. 
-              <htm:br/><htm:br/>
-              The <abbr linkend="ST"/> author shall select long-term trusted channel key material or software-based key storage in correspondence with <linkref linkend="FCS_STG_EXT.2.1"/>.
+              
             </note>
             <aactivity>The evaluator shall verify that the  <abbr linkend="TSS"/> section of the <abbr linkend="ST"/> describes the process for decrypting protected data and keys. The evaluator shall ensure that this process requires the user to enter a Password Authentication Factor and, in accordance with <linkref linkend="FCS_CKM_EXT.3"/>, derives a <abbr linkend="KEK"/>, which is used to protect the software-based secure key storage and (optionally) <abbr linkend="DEK"/>(s) for sensitive data, in accordance with <linkref linkend="FCS_STG_EXT.2"/>.
               <htm:br/><htm:br/>
@@ -3385,7 +3382,7 @@
       
       <!-- Changelog FIA_X509_EXT.2.3 became FIA_X509_EXT.5.1 
         FIA_X509_EXT.2.4 became FIA_X509_EXT.5.2 -->
-      <f-component id="fia_x509_ext.5" name="Extended: X509 certificate authentication" status="objective">
+      <f-component id="fia_x509_ext.5" name="Extended: X509 certificate enrollment" status="objective">
         <f-element id="fia_x509_ext.5.1">
           <title>The <abbr linkend="TSF"/> shall generate a Certificate Request Message as specified in RFC 2986 and be able to provide the following information in the request: public key and 
             <selectables><selectable>device-specific information</selectable><selectable>Common Name</selectable><selectable>Organization</selectable><selectable>Organizational Unit</selectable><selectable>Country</selectable></selectables>.</title>
@@ -3709,7 +3706,7 @@
                 <htm:tr>
                   <htm:td>23. Enable/disable the use of  
                     <selectables>
-                      <selectable>Biometric Fingerprint</selectable>
+                      <selectable>Biometric Authentication Factor</selectable>
                       <selectable>Hybrid Authentication Factor</selectable>
                     </selectables></htm:td>
                   <htm:td>M</htm:td>
@@ -3954,7 +3951,7 @@
               <htm:br/><htm:br/>
               Regarding functions 4 and 5, disablement of a particular radio or audio/visual device must be effective as soon as the <abbr linkend="TOE"/> has power. Disablement must also apply when the <abbr linkend="TOE"/> is booted into auxiliary boot modes, for example, associated with updates or backup. If the <abbr linkend="TOE"/> supports states in which security management policy is inaccessible, for example, due to data-at-rest protection, it is acceptable to meet this requirement by ensuring that these devices are disabled by default while in these states. That these devices are disabled during auxiliary boot modes does not imply that the device (particularly the cellular radio) may not be enabled in order to perform emergency phone calls. 
               <htm:br/><htm:br/>
-              Wipe of the <abbr linkend="TSF"/> (function 7) is performed according to <linkref linkend="FCS_CKM_EXT.5"/>.
+              Wipe of the <abbr linkend="TSF"/> (function 7) is performed according to <linkref linkend="FCS_CKM_EXT.5"/>. Protected data is all non-TSF data, including all user or enterprise data. Some or all of this data may be considered sensitive data as well.
               <htm:br/><htm:br/>
               The selection in function 8 allows the <abbr linkend="ST"/> author to select which mechanisms are available to the administrator through the <abbr linkend="MDM"/> Agent to restrict the applications which the user may install. The <abbr linkend="ST"/> author shall state if application whitelisting is applied device-wide or if it can be specified to apply to either the Enterprise and/or Personal applications. 
               <htm:ul>
@@ -3996,7 +3993,7 @@
               <htm:br/><htm:br/>
               For function 22, location services include location information gathered from GPS, cellular, and Wi-Fi. 
               <htm:br/><htm:br/>
-              Function 23 is implicitly met if the <abbr linkend="TOE"/> does not contain a <abbr linkend="BAF"/>. This selection shall correspond with the selection made in <linkref linkend="FIA_UAU.5.1"/>. If a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/>, it shall be selected and the user or admin shall have the option to disable the use of it. If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/> it shall be selected and the user or admin shall have the option to disable the use of it.
+              Function 23 is implicitly met if the <abbr linkend="TOE"/> does not contain a <abbr linkend="BAF"/>. This selection shall correspond with the selection made in <linkref linkend="FIA_UAU.5.1"/>. If a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/>, "Biometric Authentication Factor" shall be selected and the user or admin shall have the option to disable the use of it. If multiple <abbr linkend="BAF"/>s are selected in <linkref linkend="FIA_UAU.5.1"/>, this applies to all different modalities. If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/> it shall be selected and the user or admin shall have the option to disable the use of it.
               <htm:br/><htm:br/>
               The assignment in function 24 consists of all externally accessible hardware ports, such as USB, the SD card, and HDMI, whose data transfer capabilities can be enabled and disabled by either the user or administrator. Disablement of data transfer over an external port must be effective during and after boot into the normal operative mode of the device. If the <abbr linkend="TOE"/> supports states in which configured security management policy is inaccessible, for example, due to data-at-rest protection, it is acceptable to meet this requirement by ensuring that data transfer is disabled by default while in these states. Each of the ports may be enabled or disabled separately. The configuration policy need not disable all ports together. In the case of USB, chagrining is still allowed if data transfer capabilities have been disabled.
               <htm:br/><htm:br/>
@@ -4199,9 +4196,10 @@
                 </test><htm:br/>
                 
                 <htm:b>Function 23</htm:b><htm:br/>
-                <test>The evaluator shall verify that the  <abbr linkend="TSS"/> states if the <abbr linkend="TOE"/> supports a <abbr linkend="BAF"/> and/or hybrid authentication. 
+                <test>The evaluator shall verify that the <abbr linkend="TSS"/> states if the <abbr linkend="TOE"/> supports a <abbr linkend="BAF"/> and/or hybrid authentication. If the TOE does not include a <abbr linkend="BAF"/> and/or hybrid authentication this test is implicitly met.
+                   
                   <htm:ol type="a">
-                    <htm:li>[conditional] If a <abbr linkend="BAF"/> is selected the evaluator shall verify that the <abbr linkend="TSS"/> describes the procedure to enable/disable the <abbr linkend="BAF"/>. The evaluator shall configure the <abbr linkend="TOE"/> to allow the <abbr linkend="BAF"/> to authenticate and verify that successful authentication can be achieved using the <abbr linkend="BAF"/>. The evaluator shall configure the <abbr linkend="TOE"/> to disable the use of the <abbr linkend="BAF"/> for authentication and confirm that the <abbr linkend="BAF"/> cannot be used to authenticate.
+                    <htm:li>[conditional] If a <abbr linkend="BAF"/> is selected the evaluator shall verify that the <abbr linkend="TSS"/> describes the procedure to enable/disable the <abbr linkend="BAF"/>. If the <abbr linkend="TOE"/> includes multiple <abbr linkend="BAF"/>s, the evaluator shall verify that the <abbr linkend="TSS"/> describes how to enable/disable each <abbr linkend="BAF"/>, specifically if the different modalities can be individually enabled/disabled. The evaluator shall configure the <abbr linkend="TOE"/> to allow each supported <abbr linkend="BAF"/> to authenticate and verify that successful authentication can be achieved using the <abbr linkend="BAF"/>. The evaluator shall configure the <abbr linkend="TOE"/> to disable the use of each supported <abbr linkend="BAF"/> for authentication and confirm that the <abbr linkend="BAF"/> cannot be used to authenticate.
                     </htm:li>
                     <htm:li>[conditional] If “Hybrid” is selected the evaluator shall verify that the <abbr linkend="TSS"/> describes the procedure to enable/disable the hybrid (biometric credential and PIN) authentication. The evaluator shall configure the <abbr linkend="TOE"/> to allow hybrid authentication to authenticate and confirm that successful authentication can be achieved using the hybrid authentication. The evaluator shall configure the <abbr linkend="TOE"/> to disable the use of hybrid authentication and confirm that the hybrid authentication cannot be used to authenticate.
                     </htm:li>
@@ -4381,7 +4379,7 @@
             </title>
             <note role="application">Un-enrollment may consist of removing the <abbr linkend="MDM"/> agent or removing the administrator’s policies. The functions in the selection are remediation actions that <abbr linkend="TOE"/> provides (perhaps via APIs) to the administrator (perhaps via an <abbr linkend="MDM"/> agent) that are performed upon un-enrollment. “Enterprise applications” refers to applications that are in the Enterprise application group. “Enterprise resource data” refers to all stored Enterprise data and the separate resources that are available to the Enterprise application group, per <linkref linkend="FDP_ACF_EXT.2.1"/>. If <linkref linkend="FDP_ACF_EXT.2.1"/> is included in the <abbr linkend="ST"/>, then "remove all device-stored Enterprise resource data" must be selected, and is defined to be all resources selected in <linkref linkend="FDP_ACF_EXT.2.1"/>. If <linkref linkend="FIA_UAU_EXT.4.1"/> is included in the <abbr linkend="ST"/>, then “remove Enterprise secondary authentication data” must be selected. If <linkref linkend="FIA_UAU_EXT.4.1"/> is not included in the <abbr linkend="ST"/>, then “remove Enterprise secondary authentication data” cannot be selected. Enterprise secondary authentication data only refers to any data stored on the <abbr linkend="TOE"/> that is specifically used as part of a secondary authentication mechanism to authenticate access to Enterprise applications and shared resources. Material that is used for the <abbr linkend="TOE"/>’s primary authentication mechanism or other purposes not related to authentication to or protection of Enterprise applications or shared resources should not be removed.
               <htm:br/><htm:br/>
-              If “wipe of protected data” or “wipe of sensitive data” is selected the wipe shall be in accordance with <linkref linkend="FCS_CKM_EXT.5.1"/>. Thus cryptographically wiping the device is an acceptable remediation action. 
+              Protected data is all non-TSF data, including all user or enterprise data. Some or all of this data may be considered sensitive data as well. If “wipe of protected data” is selected it is assumed that the sensitive data is wiped as well. However, if “wipe of sensitive data” is selected, it does not imply that all non-TSF data (protected data) is wiped. If “wipe of protected data” or “wipe of sensitive data” is selected the wipe shall be in accordance with <linkref linkend="FCS_CKM_EXT.5.1"/>. Thus cryptographically wiping the device is an acceptable remediation action. 
             </note>
             <aactivity>
               The evaluator shall verify that the  <abbr linkend="TSS"/> describes all available remediation actions, when they are available for use, and any other administrator-configured triggers. The evaluator shall verify that the  <abbr linkend="TSS"/> describes how the remediation actions are provided to the administrator. 
@@ -4571,13 +4569,19 @@
             <title>The <abbr linkend="TSF"/> shall 
               <selectables><selectable>disable access through hardware</selectable><selectable>control access by a signing key</selectable></selectables> to JTAG.
             </title>
-            <note role="application">This requirement means that access to JTAG shall be disabled either through hardware and/or restricted through software.</note>
-            <aactivity>If “disable access through hardware” is selected the evaluator shall perform the following test:<htm:br/><htm:br/>
-              The evaluator shall examine the  <abbr linkend="TSS"/> to determine the location of the JTAG ports on the <abbr linkend="TSF"/>, to include the order of the ports (i.e., Data In, Data Out, Clock, etc.). The evaluator shall connect a packet analyzer to the JTAG ports. The evaluator shall query the JTAG port for its device ID and confirm that the device ID cannot be retrieved. <htm:br/><htm:br/>
+            <note role="application">This requirement means that access to JTAG shall be disabled either through hardware and/or restricted through the use of a signing key.</note>
+            <aactivity>
+              
+              If “disable access through hardware” is selected the evaluator shall perform the following test:
+              <htm:br/><htm:br/>
+              Assurance Activity Note: The following test requires the developer to provide access to a test platform that provides the evaluator with chip level access. 
+              <htm:br/><htm:br/>
+              The evaluator shall examine the <abbr linkend="TSS"/> to determine the location of the JTAG ports on the <abbr linkend="TSF"/>, to include the order of the ports (i.e., Data In, Data Out, Clock, etc.). The evaluator shall connect a packet analyzer to the JTAG ports. The evaluator shall query the JTAG port for its device ID and confirm that the device ID cannot be retrieved. <htm:br/><htm:br/>
               
               If “control access by a signing key” is selected the evaluator shall perform the following test:<htm:br/><htm:br/>
               
-              The evaluator shall examine the  <abbr linkend="TSS"/> to determine how access to the JTAG is controlled by a signing key. The evaluator shall test with an application that is not approved to access the JTAG verifying that access cannot be achieved. 
+              The evaluator shall examine the <abbr linkend="TSS"/> to determine how access to the JTAG is controlled by a signing key. The evaluator shall examine the <abbr linkend="TSS"/> to determine when the JTAG can be accessed, i.e., what has the access to the signing key.
+              
             </aactivity>
           </f-element>
         </f-component>
@@ -5647,7 +5651,7 @@
   <appendix id="biometric" title="Biometric Derivation and Examples">
     <section id="biometric1" title="Experimental Setups And Error Bars In Testing FAR And FRR">
       <subsection id="sub1" title="Introduction">
-        For the purposes of this <abbr linkend="PP"/>, FIA_BMG_EXT.1.1 requires testing for <abbr linkend="FAR"/> and <abbr linkend="FRR"/> if a <abbr linkend="BAF"/> is included in the <abbr linkend="TOE"/>. In this version of the <abbr linkend="PP"/> it is expected that the vendor will provide evidence to the evaluator of the completed testing to support the claimed <abbr linkend="FAR"/> and <abbr linkend="FRR"/>. This Appendix provides a guide to how this testing could be done and to what error bars are expected when the Rule of 3 is applied. This guide should be treated as a reference and not as a NIAP mandate, requirement, or set of mandates or requirements. 
+        For the purposes of this <abbr linkend="PP"/>, <linkref linkend="FIA_BMG_EXT.1"/> requires testing for <abbr linkend="FAR"/>, <abbr linkend="FRR"/> and SAFAR if a <abbr linkend="BAF"/> is included in the <abbr linkend="TOE"/>. In this version of the <abbr linkend="PP"/> it is expected that the vendor will provide evidence to the evaluator of the testing completed to support the claimed <abbr linkend="FAR"/> and <abbr linkend="FRR"/>. This Appendix provides a guide to how this testing could be done and to what error bars are expected when the Rule of 3 is applied. This guide should be treated as a reference and not as a NIAP mandate, requirement, or set of mandates or requirements. 
         <htm:br/><htm:br/>
         </subsection>
         
@@ -5673,9 +5677,9 @@
         <htm:br/><htm:br/>
         The table below assumes online testing using a single device, thus a single legitimate user.
         <htm:br/><htm:br/>
-        <ctr id="biotable1" pre="Table " ctr-type="table">: Comparison of false error rates, number of errors, and number of trials needed for online testing, given Rule of 3</ctr>
+        <ctr id="biotable1" pre="Table " ctr-type="table">: Comparison of false error rates, number of errors, and number of test subjects needed for online testing, given Rule of 3</ctr>
         <htm:table>
-          <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 90% confidence, <htm:i>c</htm:i> = 0.95</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of trials needed</htm:td></htm:tr>
+          <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 90% confidence, <htm:i>c</htm:i> = 0.95</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of test subjects needed</htm:td></htm:tr>
           <htm:tr><htm:td>1%  (1:100)</htm:td><htm:td>1%  ±  0.95% </htm:td><htm:td>3</htm:td><htm:td>297</htm:td></htm:tr>
           <htm:tr><htm:td>0.1%  (1:1000)</htm:td><htm:td>0.1%  ±  0.095%</htm:td><htm:td>3</htm:td><htm:td>2995</htm:td></htm:tr>
           <htm:tr><htm:td>0.01%  (1:10000)</htm:td><htm:td>0.01%  ±  0.0095%</htm:td><htm:td>3</htm:td><htm:td>29977</htm:td></htm:tr>
@@ -5687,9 +5691,9 @@
         The table below assumes that <htm:i>N<htm:sub>D</htm:sub></htm:i> devices are used for online testing.
         
         <htm:br/><htm:br/>
-        <ctr id="biotable2" pre="Table " ctr-type="table">: Comparison of false error rates, number of errors, and number of trials needed for online testing with <htm:i>N<htm:sub>D</htm:sub></htm:i> devices, given Rule of 3</ctr>
+        <ctr id="biotable2" pre="Table " ctr-type="table">: Comparison of false error rates, number of errors, and number of test subjects needed for online testing with <htm:i>N<htm:sub>D</htm:sub></htm:i> devices, given Rule of 3</ctr>
         <htm:table>
-          <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 90% confidence, <htm:i>c</htm:i> = 0.95</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of trials needed</htm:td></htm:tr>
+          <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 90% confidence, <htm:i>c</htm:i> = 0.95</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of test subjects needed</htm:td></htm:tr>
           <htm:tr><htm:td>1%  (1:100)</htm:td><htm:td>1%  ±  0.95% </htm:td><htm:td>3</htm:td><htm:td>297/<htm:i>N<htm:sub>D</htm:sub></htm:i></htm:td></htm:tr>
           <htm:tr><htm:td>0.1%  (1:1000)</htm:td><htm:td>0.1%  ±  0.095%</htm:td><htm:td>3</htm:td><htm:td>2995/<htm:i>N<htm:sub>D</htm:sub></htm:i></htm:td></htm:tr>
           <htm:tr><htm:td>0.01%  (1:10000)</htm:td><htm:td>0.01%  ±  0.0095%</htm:td><htm:td>3</htm:td><htm:td>29977/<htm:i>N<htm:sub>D</htm:sub></htm:i></htm:td></htm:tr>
@@ -5700,9 +5704,9 @@
         <htm:br/><htm:br/>
         The table below assumes offline testing using a full cross-comparison.
         <htm:br/><htm:br/>
-        <ctr id="biotable3" pre="Table " ctr-type="table">: Comparison of false error rates, number of errors, and number of trials needed for offline testing and full cross-comparison, given Rule of 3</ctr>
+        <ctr id="biotable3" pre="Table " ctr-type="table">: Comparison of false error rates, number of errors, and number of test subjects needed for offline testing and full cross-comparison, given Rule of 3</ctr>
         <htm:table>
-          <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 90% confidence, <htm:i>c</htm:i> = 0.95</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of trials needed</htm:td></htm:tr>
+          <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 90% confidence, <htm:i>c</htm:i> = 0.95</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of test subjects needed</htm:td></htm:tr>
           <htm:tr><htm:td>1%  (1:100)</htm:td><htm:td>1%  ±  0.95% </htm:td><htm:td>3</htm:td><htm:td>25</htm:td></htm:tr>
           <htm:tr><htm:td>0.1%  (1:1000)</htm:td><htm:td>0.1%  ±  0.095%</htm:td><htm:td>3</htm:td><htm:td>78</htm:td></htm:tr>
           <htm:tr><htm:td>0.01%  (1:10000)</htm:td><htm:td>0.01%  ±  0.0095%</htm:td><htm:td>3</htm:td><htm:td>246</htm:td></htm:tr>
@@ -5718,9 +5722,9 @@
         As shown in the table below, the error bar may be large if a higher false error rate is declared:
         <htm:br/><htm:br/>
         
-        <ctr id="biotable4" pre="Table " ctr-type="table">: Comparison of false error rates, number of errors, and number of trials needed, given Rule of 3</ctr>
+        <ctr id="biotable4" pre="Table " ctr-type="table">: Comparison of false error rates, number of errors, and number of test subjects needed, given Rule of 3</ctr>
         <htm:table>
-          <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 90% confidence, <htm:i>c</htm:i> = 0.95</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of trials needed</htm:td></htm:tr>
+          <htm:tr class="header"><htm:td>False Error Rate</htm:td><htm:td>False error rates, 90% confidence, <htm:i>c</htm:i> = 0.95</htm:td><htm:td>Number of errors (rounded)</htm:td><htm:td>Number of test subjects needed</htm:td></htm:tr>
           <htm:tr><htm:td>10%  (1:10)</htm:td><htm:td>10%  ±  9.5% </htm:td><htm:td>3</htm:td><htm:td>27</htm:td></htm:tr>
           <htm:tr><htm:td>5%  (1:20)</htm:td><htm:td>5%  ±  4.75%</htm:td><htm:td>3</htm:td><htm:td>57</htm:td></htm:tr>
           <htm:tr><htm:td>2%  (1:50)</htm:td><htm:td>2%  ±  1.9%</htm:td><htm:td>3</htm:td><htm:td>147</htm:td></htm:tr>
@@ -5729,7 +5733,8 @@
         <htm:br/><htm:br/>
         </subsection>
       </section>
-    <section id="biometric2" title="Derivation of the Rule of 30 (and similar rules, for completeness)">
+    
+    <section id="biometric2" title="Derivation of the Rule of 3 (and similar rules, for completeness)">
       A biometric test can be treated as a series of Bernoulli trials for which a binomial distribution of the number of successes and failures is assumed. When calculating an error interval for which a binomial distribution is assumed, one confidence interval (denoted <htm:i>I<htm:sub>conf</htm:sub></htm:i>) that is widely used is the standard Wald interval, expressed in Equation (1) as:
       <htm:br/><htm:br/>
       <htm:img src="images/equationI2-1.jpg" /> 
@@ -5740,7 +5745,7 @@
       <htm:br/><htm:br/>
       Although intervals such as the Wilson, Agresti-Coull, and Jeffreys intervals 
       are recommended by Brown et al., biometrics testing in practice rests on the 
-      derivation of the Rule of 30 based on the Wald distribution <cite linkend="Brown"/>. 
+      derivation of the Rule of 30 based on the Wald distribution <cite linkend="Brown"/>. However, because of the large sample size, number of test subjects, and number of trials required for the Rule of 30, this PP mandates the Rule of 3 to make testing more feasible.
       <htm:br/><htm:br/>
       In simpler form, this refers to a confidence interval with error <htm:i>E</htm:i> expressed as:
       <htm:br/><htm:br/>
@@ -5748,31 +5753,42 @@
       <htm:br/><htm:br/>
       Rearranging the equation to express the number of trials, <htm:i>n</htm:i>, in terms of error <htm:i>E</htm:i>, this expression becomes:
       <htm:br/><htm:br/>
-      <htm:img src="images/equationI2-3.jpg" />
+      $$n=\left(\frac{z_{a/2}}{E}\right)^2p\left(1-p\right)\quad\quad(3)$$
       <htm:br/><htm:br/>
       In practice, <htm:i>E</htm:i> is expressed as a proportion of the error probability as:
       <htm:br/><htm:br/>
-      <htm:i>E = cp     (4)</htm:i>
+
+      <htm:i>E = cp             (4)</htm:i>
+<!-- 
+      $$E = cp\quad\quad(4)$$-->
+
       <htm:br/><htm:br/>
       Thus, <htm:i>n</htm:i> finally becomes:
       <htm:br/><htm:br/>
-      <htm:img src="images/equationI2-5.jpg" />
+      $$n=\left(\frac{z_{a/2}}{c}\right)^2\frac{\left(1-p\right)}{p}\quad\quad(5)$$
       <htm:br/><htm:br/>
       For a 90% confidence interval, <htm:i>z<htm:sub>α/2</htm:sub></htm:i> = 1.6449, while for a 95% 
       confidence interval, <htm:i>z<htm:sub>α/2</htm:sub></htm:i> = 1.96. 
       <htm:br/><htm:br/>
-      Thus it is easy to see that for a 90% confidence interval with <htm:i>c</htm:i> = 0.3:
+
+      Thus it is easy to see that for a 90% confidence interval with <htm:i>c</htm:i> = 0.95:
+      <htm:br/><htm:br/> 
+      <htm:img src="images/ruleOf3.jpg" />
+<!-- Wrong equation, but kept for formatting reference -->
+      <!--  $$\left ( \frac{1.6449}{0.3}\right )^{2}= 30.06\quad\quad(6)$$-->
+
       <htm:br/><htm:br/>
-      <htm:img src="images/equationI2-A.jpg" />
-      <htm:br/><htm:br/>
-      which confirms the rule of 30 and completes our derivation.
+      which confirms the rule of 3 and completes our derivation.
     </section>
     
     <section id="biometric3" title="SAFAR Calculation Equations">
       A number of equations can be used in calculating SAFAR. A fully-worked example that applies the equations below can be found in <appref linkend="biometric4"/>.
-      <htm:br/>
-      Let <htm:i>SAFAR<htm:sub>i</htm:sub></htm:i> be the SAFAR for the <htm:i>i<htm:sup>th</htm:sup></htm:i> 
-      authentication factor with <htm:i>n<htm:sub>i</htm:sub></htm:i> attempts at the given factor, treated individually as a separate authentication system, which can be expressed as 
+      <htm:br/><htm:br/>
+      The SAFAR for a single authentication factor is calculated as <htm:img src="images/SAFAR_test.jpg"/>.
+     
+      <htm:br/><htm:br/>
+      Thus let <htm:i>SAFAR<htm:sub>i</htm:sub></htm:i> be the SAFAR for the <htm:i>i<htm:sup>th</htm:sup></htm:i> 
+      authentication factor where <htm:i>n<htm:sub>i</htm:sub></htm:i> is the number of authentication attempts allowed for the given factor, treated individually as a separate authentication system, which can be expressed as 
       <htm:br/><htm:br/>
       <htm:img src="images/equationI3-1.jpg" />  (1)
       <htm:br/><htm:br/>
@@ -5795,7 +5811,7 @@
       <htm:br/><htm:br/>
       As such, the following equations for SAFAR utilizing multiple factors follow (using the worst SAFARs):
       <htm:br/><htm:br/>
-      If the user has a choice of multiple authentication factors with a choice of only one authentication factor in a given session, the overall SAFAR will be equal to <htm:i>SAFAR<htm:sub>(k)</htm:sub></htm:i>, assuming each attempt is independent.
+      If the user has a choice of multiple authentication factors with a choice of only one authentication factor in a given session (i.e., all authentication factors are considered critical and a user cannot switch between authentication factors), the overall SAFAR will be equal to <htm:i>SAFAR<htm:sub>(k)</htm:sub></htm:i>, assuming each attempt is independent.
       <htm:br/><htm:br/>
       If the user has a choice of multiple authentication factors and can choose to attempt authentication using more than one factor with success requiring any factor to pass and <htm:i>n<htm:sub>i</htm:sub></htm:i> attempts allowed per factor) for a given session, the SAFAR for <htm:i>k</htm:i> available authentication factors will be
       <htm:br/><htm:br/>
@@ -5813,6 +5829,8 @@
       worst case of all <htm:img src="images/equationI3-a.jpg" /> combinations of factors becomes the overall SAFAR.
       </section>
    
+   
+   
     <section id="biometric4" title="SAFAR Calculation Example">
       <htm:i>Password and fingerprint authentication example:</htm:i>
       <htm:br/><htm:br/>
@@ -5822,8 +5840,8 @@
       <htm:br/><htm:br/>
       <htm:ol type="a">
         <htm:li>What is the SAFAR of each individual authentication factor, treated separately?</htm:li>
-        <htm:li>If the user can only authenticate using a single authentication factor, what is the overall SAFAR?</htm:li>
-        <htm:li>If the user can authenticate using any authentication factor in an authentication session, what is the overall SAFAR?</htm:li>
+        <htm:li>If the user can only authenticate using a single authentication factor, assuming all authentication factors available are critical and there is no possibility for the user to switch between authentication factors, what is the overall SAFAR?</htm:li>
+        <htm:li>If the user can authenticate using any authentication factor in an authentication session, and none are considered critical factors, what is the overall SAFAR?</htm:li>
         <htm:li>If the conditions are the same as in c) but password is now a <htm:i>critical</htm:i> authentication factor that will cause a device wipe, what is the overall SAFAR?</htm:li>
         <htm:li>If the password factor and fingerprint biometric factor are both required with the number of attempts for fingerprint increased to ten, what is the overall SAFAR? What is the risk if authentication feedback is provided for each modality (i.e. fingerprint failed or password failed)?</htm:li>
         <htm:li>f) If the password factor and fingerprint biometric factor are both combined into a hybrid factor (both must be used and the only authentication feedback allowed is valid login or invalid login) for entry with ten attempts allowed for the hybrid factor, what is the overall SAFAR? Why is this scenario more secure than e)?</htm:li>
@@ -5834,11 +5852,11 @@
       <htm:ol type="a">
         <htm:li>The SAFAR for a four-character password allowing for ten attempts, utilizing a 64 character set, is: 
           <htm:br/><htm:br/>
-          <htm:img src="images/equationI4-a.jpg" /> .
+          <htm:img src="images/SAFAR_pwd.jpg" /> .
           <htm:br/><htm:br/>
           The SAFAR for a fingerprint biometric factor with an <abbr linkend="FAR"/> of 1:1000, allowing for five attempts, is:
           <htm:br/><htm:br/>
-          <htm:img src="images/equationI4-b.jpg" /> .
+          <htm:img src="images/SAFAR_finger.jpg" /> .
          </htm:li>
         <htm:li>
           If the user is only allowed to pick one factor, the overall SAFAR is that of the weakest one, 
@@ -5991,8 +6009,3 @@
 
   </extra-css>
 </PP>       
-
-
-
-
-
