@@ -625,7 +625,7 @@
                 </htm:ol>
             </title>
             <note role="application">
-              The subject identity is usually the process name/ID. The event type is often indicated by a severity level, for example ‘info’, ‘warning’, or ‘error’.
+              The subject identity is usually the process name/ID. The event type is often indicated by a severity level, for example, ‘info’, ‘warning’, or ‘error’.
               <htm:br/><htm:br/>
               If “no additional auditable events” is selected in the second selection of <linkref linkend="FAU_GEN.1.1"/>, then “no additional information” shall be selected. 
               <htm:br/><htm:br/>
@@ -947,13 +947,13 @@
                 <htm:li>2^(nlen/2) &lt; d &lt; LCM(p-1,q-1)</htm:li>
                 <htm:li>e*d = 1 mod LCM(p-1,q-1)</htm:li>
               </htm:ul>
-              <htm:br/><htm:br/>
+              <htm:br/>
               <htm:i><htm:b>Key Generation for FIPS 186-4 Elliptic Curve Cryptography (ECC)</htm:b></htm:i><htm:br/>
               <htm:i>FIPS 186-4 ECC Key Generation Test</htm:i><htm:br/><htm:br/>
-              For each supported NIST curve, i.e., P-256, P-384 and P-521, the evaluator shall require the implementation under test (IUT) to generate 10 private/public key pairs. The private key shall be generated using an approved random bit generator (RBG). To determine correctness, the evaluator shall submit the generated key pairs to the public key verification (PKV) function of a known good implementation.
+              For each supported NIST curve, i.e. P-256, P-384 and P-521, the evaluator shall require the implementation under test (IUT) to generate 10 private/public key pairs. The private key shall be generated using an approved random bit generator (RBG). To determine correctness, the evaluator shall submit the generated key pairs to the public key verification (PKV) function of a known good implementation.
               <htm:br/><htm:br/>
               <htm:i>FIPS 186-4 Public Key Verification (PKV) Test</htm:i><htm:br/><htm:br/>
-              For each supported NIST curve, i.e., P-256, P-384 and P-521, the evaluator shall generate 10 private/public key pairs using the key generation function of a known good implementation and modify five of the public key values so that they are incorrect, leaving five values unchanged (i.e., correct). The evaluator shall obtain in response a set of 10 PASS/FAIL values.
+              For each supported NIST curve, i.e. P-256, P-384 and P-521, the evaluator shall generate 10 private/public key pairs using the key generation function of a known good implementation and modify five of the public key values so that they are incorrect, leaving five values unchanged (i.e. correct). The evaluator shall obtain in response a set of 10 PASS/FAIL values.
               <htm:br/><htm:br/>
               <htm:i><htm:b>Key Generation for Curve25519</htm:b></htm:i><htm:br/><htm:br/>
               The evaluator shall require the implementation under test (IUT) to generate 10 private/public key pairs. The private key shall be generated as specified in RFC 7748 using an approved random bit generator (RBG). To determine correctness, the evaluator shall submit the generated key pairs to the public key verification (PKV) function of a known good implementation.
@@ -968,7 +968,7 @@
               </htm:ol>
 	      
               <htm:br/><htm:br/>
-              The evaluator shall generate 10 private/public key pairs using the key generation function of a known good implementation and modify 5 of the public key values so that they are incorrect, leaving five values unchanged (i.e., correct). The evaluator shall obtain in response a set of 10 PASS/FAIL values.
+              The evaluator shall generate 10 private/public key pairs using the key generation function of a known good implementation and modify 5 of the public key values so that they are incorrect, leaving five values unchanged (i.e. correct). The evaluator shall obtain in response a set of 10 PASS/FAIL values.
               <htm:br/><htm:br/>
               <htm:i><htm:b>Key Generation for Finite-Field Cryptography (FFC)</htm:b></htm:i><htm:br/>
               The evaluator shall verify the implementation of the Parameters Generation and the Key Generation for FFC by the <abbr linkend="TOE"/> using the Parameter Generation and Key Generation test. This test verifies the ability of the <abbr linkend="TSF"/> to correctly produce values for the field prime p, the cryptographic prime q (dividing p-1), the cryptographic group generator g, and the calculation of the private key x and public key y.<htm:br/>
@@ -1201,6 +1201,7 @@
                       <selectables>
                         <selectable>using an XOR operation</selectable>
                         <selectable>concatenating the keys and use a KDF (as described in SP 800-108)</selectable>
+                        <selectable>concatenating the keys and using a KDF (as described in SP 800-56C)</selectable>
                         <selectable>encrypting one key with another</selectable>
                       </selectables>
                 </selectable>
@@ -1215,8 +1216,10 @@
               If combined, the <abbr linkend="ST"/> author shall describe which method of combination is used in order to justify that the effective entropy of each factor is preserved.
               <htm:br/><htm:br/>
               The documentation of the product's encryption key management should be detailed enough that, after reading, the evaluator will thoroughly understand the product's key management and how it meets the requirements to ensure the keys are adequately protected. This documentation should include an essay and diagram(s). This documentation is not required to be part of the  <abbr linkend="TSS"/> - it can be submitted as a separate document and marked as developer proprietary.
+            <htm:br/><htm:br/>
+              SP 800-56C specifies a two-step key derivation procedure that employs an extraction-then-expansion technique for deriving keying material from a shared secret generated during a key establishment scheme. The Randomness Extraction step as described in Section 5 of SP 800-56C is followed by Key Expansion using the key derivation functions defined in SP 800-108 (as described in Section 6 of SP 800-56C).                    
             </note>
-            <aactivity>The evaluator shall examine the key hierarchy  <abbr linkend="TSS"/> to ensure that the formation of all <abbr linkend="KEK"/>s is described and that the key sizes match that described by the <abbr linkend="ST"/> author. The evaluator shall examine the key hierarchy section of the  <abbr linkend="TSS"/> to ensure that each key (<abbr linkend="DEK"/>s, software-based key storage, and <abbr linkend="KEK"/>s) is encrypted by keys of equal or greater security strength using one of the selected methods.
+            <aactivity>The evaluator shall examine the key hierarchy section of the <abbr linkend="TSS"/> to ensure that the formation of all <abbr linkend="KEK"/>s is described and that the key sizes match that described by the <abbr linkend="ST"/> author. The evaluator shall examine the key hierarchy section of the  <abbr linkend="TSS"/> to ensure that each key (<abbr linkend="DEK"/>s, software-based key storage, and <abbr linkend="KEK"/>s) is encrypted by keys of equal or greater security strength using one of the selected methods.
               <htm:br/>
               <htm:ul>
                 <htm:li>The evaluator shall review the  <abbr linkend="TSS"/> to verify that it contains a description of the PBKDF use to derive <abbr linkend="KEK"/>s. This description must include the size and storage location of salts. This activity may be performed in combination with that for <linkref linkend="FCS_COP.1(5)"/>.</htm:li>
@@ -1225,7 +1228,45 @@
                 <htm:li>If the <abbr linkend="KEK"/> is formed from a combination, the evaluator shall verify that the  <abbr linkend="TSS"/> describes the method of combination and that this method is either an XOR, a KDF, or encryption. </htm:li>
               </htm:ul>
               <htm:br/>
-              (conditional) If a KDF is used, the evaluator shall ensure that the  <abbr linkend="TSS"/> description includes a description of the key derivation function and shall verify the key derivation uses an approved derivation mode and key expansion algorithm according to SP 800-108. The evaluator shall perform one or more of the following tests to verify the correctness of the key derivation function, depending on the mode(s) that are supported:
+              (conditional) If a KDF is used, the evaluator shall ensure that the  <abbr linkend="TSS"/> includes a description of the key derivation function and shall verify the key derivation uses an approved derivation mode and key expansion algorithm according to SP 800-108. 
+              <htm:br/><htm:br/>
+              If “concatenating the keys and using a KDF (as described in (SP 800-56C)” is selected, the evaluator shall ensure the TSS includes a description of the randomness extraction step. 
+              <htm:ul>
+                <htm:li>The description must include how an approved untruncated MAC function is being used for the randomness extraction step and the evaluator must verify the TSS describes that the output length (in bits) of the MAC function is at least as large as the targeted security strength (in bits) of the parameter set employed by the key establishment scheme (see Tables 1-3 of SP 800-56C).</htm:li>
+                <htm:li>The description must include how the MAC function being used for the randomness extraction step is related to the PRF used in the key expansion and verify the TSS description includes the correct MAC function:</htm:li>
+                <htm:ul>
+                  <htm:li>If an HMAC-hash is used in the randomness extraction step, then the same HMAC-hash (with the same hash function hash) is used as the PRF in the key expansion step.</htm:li>
+                  <htm:li>If an AES-CMAC (with key length 128, 192, or 256 bits) is used in the randomness extraction step, then AES-CMAC with a 128-bit key is used as the PRF in the key expansion step.</htm:li>
+                  </htm:ul>
+                <htm:li>The description must include the lengths of the salt values being used in the randomness extraction step and the evaluator shall verify the TSS description includes correct salt lengths:</htm:li>
+                <htm:ul>
+                  <htm:li>If an HMAC-hash is being used as the MAC, the salt length can be any value up to the maximum bit length permitted for input to the hash function hash.</htm:li>
+                  <htm:li>If an AES-CMAC is being used as the MAC, the salt length shall be the same length as the AES key (i.e. 128, 192, or 256 bits). </htm:li>
+                  </htm:ul>               
+              </htm:ul>
+
+              If a KDF is used, the evaluator shall perform one or more of the following tests to verify the correctness of the key derivation function, depending on the mode(s) that are supported. Table <ctr-ref refid="KDF"/> maps the data fields to the notations used in SP 800-108 and SP 800-56C.
+              <htm:br/><htm:br/>
+              <htm:b>
+                <ctr pre="Table " id="KDF" ctr-type="table">: Notations used in SP 800-108 and SP 800-56C</ctr>
+              </htm:b><htm:br/>
+              <htm:table>
+                <htm:tr class="header"><htm:td>Data Fields</htm:td><htm:td colspan="2">Notations</htm:td></htm:tr>
+                <htm:tr class="header"><htm:td></htm:td><htm:td>SP 800-108</htm:td><htm:td>SP 800-56C</htm:td></htm:tr>
+                <htm:tr><htm:td>Pseudorandom function</htm:td><htm:td>PRF</htm:td><htm:td>PRF</htm:td></htm:tr>
+                <htm:tr><htm:td>Counter length</htm:td><htm:td>r</htm:td><htm:td>r</htm:td></htm:tr>
+                <htm:tr><htm:td>Length of output of PRF</htm:td><htm:td>h</htm:td><htm:td>h</htm:td></htm:tr>
+                <htm:tr><htm:td>Length of derived keying material</htm:td><htm:td>L</htm:td><htm:td>L</htm:td></htm:tr>
+                <htm:tr><htm:td>Length of input values</htm:td><htm:td>I_length</htm:td><htm:td>I_length</htm:td></htm:tr>
+                <htm:tr><htm:td>Pseudorandom input values I</htm:td><htm:td>K<htm:sub>1</htm:sub> (key derivation key)</htm:td><htm:td>Z (shared secret)</htm:td></htm:tr>
+                <htm:tr><htm:td>Pseudorandom salt values</htm:td><htm:td>n/a</htm:td><htm:td>s</htm:td></htm:tr>
+                <htm:tr><htm:td>Randomness extraction MAC</htm:td><htm:td>n/a</htm:td><htm:td>MAC</htm:td></htm:tr>
+              
+              
+              
+              
+              </htm:table>
+            
               <htm:br/><htm:br/>
               <htm:b>Counter Mode Tests:</htm:b>
               <htm:br/><htm:br/>
@@ -1235,18 +1276,21 @@
                   <htm:li>The length (in bits) of the output of the PRF (h).</htm:li>
                 <htm:li>Minimum and maximum values for the length (in bits) of the derived keying material (L). These values can be equal if only one value of L is supported. These must be evenly divisible by h.</htm:li>
                       <htm:li>Up to two values of L that are NOT evenly divisible by h.</htm:li>
-                      <htm:li>Location of the counter relative to fixed input data: before, after, or in the middle.</htm:li>
+                      <htm:li>Location of the counter relative to fixed input data: before, after, or in the middle.
+                <htm:ul> 
+                  <htm:li>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value. </htm:li>
+                  <htm:li>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
+                  <htm:li>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li>                                  
+                </htm:ul></htm:li>
+                <htm:li>The length (I_length) of the input values I.</htm:li>
+                
               </htm:ul><htm:br/>
-              For each supported combination of PRF, counter location, value of r, and value of L, the evaluator shall generate 10 pseudorandom key derivation key values (K<htm:sub>1</htm:sub>). If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 values of K<htm:sub>1</htm:sub> for it. This means that a total of 40 values of K<htm:sub>1</htm:sub> are generated for each {PRF, counter location, r} combination.
+              For each supported combination of I_length, MAC, salt, PRF, counter location, value of r, and value of L, the evaluator shall generate 10 test vectors that include pseudorandom input values I, and pseudorandom salt values. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 test vectors for it. For each test vector, the evaluator shall supply this data to the TOE in order to produce the keying material output.
               <htm:br/><htm:br/>
-              For each value of K<htm:sub>1</htm:sub>, the evaluator shall supply this data to the <abbr linkend="TOE"/> in order to produce the keying material output K<htm:sub>0</htm:sub>. Depending on the location of the counter relative to the fixed input data, the following data must also be supplied:
-              <htm:br/><htm:br/>
-              <htm:ul><htm:li>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
-                <htm:li>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
-                  <htm:li>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li>
-                </htm:ul><htm:br/>
+              
               The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation.
               <htm:br/><htm:br/>
+              
               <htm:b>Feedback Mode Tests:</htm:b>
               <htm:br/>
               The evaluator shall determine the following characteristics of the key derivation function:<htm:br/>
@@ -1259,19 +1303,19 @@
                           <htm:ul>
                             <htm:li>One or more of the values {8, 16, 24, 32} that equal the length of the binary representation of the counter (r).</htm:li>
                             <htm:li>Location of the counter relative to fixed input data: before, after, or in the middle.</htm:li>
+                            <htm:ul><htm:li>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
+                              <htm:li>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
+                              <htm:li>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li>
+                            </htm:ul>
                           </htm:ul>
                         </htm:li>
+                <htm:li>The length (I_length) of the input values I.</htm:li>
                   </htm:ul><htm:br/>
-              For each supported combination of PRF, counter location (if a counter is used), value of r (if a counter is used), and value of L, the evaluator shall generate 10 pseudorandom key derivation key values (K<htm:sub>1</htm:sub>). If the KDF supports zero-length IVs, five of these values will be accompanied by pseudorandom IVs that are equal to the length of K<htm:sub>1</htm:sub> and the other five will use zero-length IVs. If zero-length IVs are not supported, each value of K<htm:sub>1</htm:sub> will be accompanied by an IV. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 values of K<htm:sub>1</htm:sub> for it. This means that a total of 40 values of K<htm:sub>1</htm:sub> are generated for each {PRF, counter location (if used), r (if used)} combination, along with either 20 or 40 associated IVs.
+              For each supported combination of I_length, MAC, salt, PRF, counter location (if a counter is used), value of r (if a counter is used), and value of L, the evaluator shall generate 10 test vectors that include pseudorandom input values I and pseudorandom salt values. If the KDF supports zero-length IVs, five of these test vectors will be accompanied by pseudorandom IVs and the other five will use zero-length IVs. If zero-length IVs are not supported, each test vector will be accompanied by an IV. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 test vectors for it. 
               <htm:br/><htm:br/>
-              For each value of K<htm:sub>1</htm:sub>, the evaluator shall supply this data to the <abbr linkend="TOE"/> in order to produce the keying material output K<htm:sub>0</htm:sub>. If the KDF uses a counter in this mode, the following data must also be supplied depending on the location of the counter relative to the fixed input data:
+              For each test vector, the evaluator shall supply this data to the <abbr linkend="TOE"/> in order to produce the keying material output. The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation.
               <htm:br/><htm:br/>
-              <htm:ul><htm:li>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
-                <htm:li>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
-                  <htm:li>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li>
-                    </htm:ul><htm:br/>
-              The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation.
-              <htm:br/><htm:br/>
+             
               <htm:b>Double Pipeline Iteration Mode Tests:</htm:b>
               <htm:br/><htm:br/>
               The evaluator shall determine the following characteristics of the key derivation function:
@@ -1283,19 +1327,19 @@
                       <htm:li>Whether or not a counter is used, and if so:
                         <htm:ul>
                           <htm:li>One or more of the values {8, 16, 24, 32} that equal the length of the binary representation of the counter (r).</htm:li>
-                          <htm:li>Location of the counter relative to fixed input data: before, after, or in the middle.</htm:li>
+                          <htm:li>Location of the counter relative to fixed input data: before, after, or in the middle.
+                 <htm:ul><htm:li>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
+                              <htm:li>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
+                              <htm:li>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li>
+                            </htm:ul>       
+                        </htm:li>
                         </htm:ul>
                       </htm:li>
+                <htm:li>The length (I_length) of the input values I.</htm:li>
                       </htm:ul><htm:br/>
-              For each supported combination of PRF, counter location (if a counter is used), value of r (if a counter is used), and value of L, the evaluator shall generate 10 pseudorandom key derivation key values (K<htm:sub>1</htm:sub>). If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 values of K<htm:sub>1</htm:sub> for it. This means that a total of 40 values of K<htm:sub>1</htm:sub> are generated for each {PRF, counter location (if used), r (if used)} combination.
+              For each supported combination of I_length, MAC, salt, PRF, counter location (if a counter is used), value of r (if a counter is used), and value of L, the evaluator shall generate 10 test vectors that include pseudorandom input values L, and pseudorandom salt values. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 test vectors for it. 
               <htm:br/><htm:br/>
-              For each value of K<htm:sub>1</htm:sub>, the evaluator shall supply this data to the <abbr linkend="TOE"/> in order to produce the keying material output K<htm:sub>0</htm:sub>. If the KDF uses a counter in this mode, the following data must also be supplied depending on the location of the counter relative to the fixed input data:
-              <htm:br/><htm:br/>
-              <htm:ul><htm:li>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
-                <htm:li>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
-                  <htm:li>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li>
-                        </htm:ul> <htm:br/>
-              The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation.
+              For each test vector, the evaluator shall supply this data to the <abbr linkend="TOE"/> in order to produce the keying material output. The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation.
             </aactivity>
           </f-element>
         </f-component>
@@ -1325,7 +1369,7 @@
               </htm:ul>
             </title>
             <note role="application">
-              The clearing indicated above applies to each intermediate storage area for plaintext key/cryptographic critical security parameter (i.e., any storage, such as memory buffers, that is included in the path of such data) upon the transfer of the key/cryptographic critical security parameter to another location.
+              The clearing indicated above applies to each intermediate storage area for plaintext key/cryptographic critical security parameter (i.e. any storage, such as memory buffers, that is included in the path of such data) upon the transfer of the key/cryptographic critical security parameter to another location.
               <htm:br/><htm:br/>
               Because plaintext key material is not allowed to be written to non-volatile memory (<linkref linkend="FPT_KST_EXT.1"/>), the second selection only applies to key material written to volatile memory. 
             </note>
@@ -1590,7 +1634,7 @@
                               PT = CT[i-1]
                   </htm:pre>
                   <htm:br/>
-                  The ciphertext computed in the 1000<htm:sup>th</htm:sup> iteration (i.e., CT[1000]) is the result for that trial. This result shall be compared to the result of running 1000 iterations with the same values using a known good implementation.
+                  The ciphertext computed in the 1000<htm:sup>th</htm:sup> iteration (i.e. CT[1000]) is the result for that trial. This result shall be compared to the result of running 1000 iterations with the same values using a known good implementation.
                   <htm:br/><htm:br/>
                   The evaluator shall test the decrypt functionality using the same test as for encrypt, exchanging CT and PT and replacing AES-CBC-Encrypt with AES-CBC-Decrypt.
                 </test>
@@ -1659,7 +1703,7 @@
                   <htm:br/><htm:br/>
                   <htm:ul style="list-style-type:none">
                     <htm:li><htm:b>256 bit (for AES-128) and 512 bit (for AES-256) keys</htm:b></htm:li><htm:br/>
-                    <htm:li><htm:b>Three data unit (i.e., plaintext) lengths.</htm:b> One of the data unit lengths shall be a non-zero integer multiple of 128 bits, if supported. One of the data unit lengths shall be an integer multiple of 128 bits, if supported. The third data unit length shall be either the longest supported data unit length or 216 bits, whichever is smaller.
+                    <htm:li><htm:b>Three data unit (i.e. plaintext) lengths.</htm:b> One of the data unit lengths shall be a non-zero integer multiple of 128 bits, if supported. One of the data unit lengths shall be an integer multiple of 128 bits, if supported. The third data unit length shall be either the longest supported data unit length or 216 bits, whichever is smaller.
                     </htm:li><htm:br/>
                   </htm:ul>
                   using a set of 100 (key, plaintext and 128-bit random tweak value) 3-tuples and obtain the ciphertext that results from XTS-AES encrypt.
@@ -1708,24 +1752,24 @@
             <aactivity>
               The evaluator checks the AGD documents to determine that any configuration that is required to be done to configure the functionality for the required hash sizes is present. The evaluator shall check that the association of the hash function with other <abbr linkend="TSF"/> cryptographic functions (for example, the digital signature verification function) is documented in the  <abbr linkend="TSS"/>.
               <htm:br/><htm:br/>
-              The <abbr linkend="TSF"/> hashing functions can be implemented in one of two modes. The first mode is the byte­oriented mode. In this mode the <abbr linkend="TSF"/> only hashes messages that are an integral number of bytes in length; i.e., the length (in bits) of the message to be hashed is divisible by 8. The second mode is the bit­oriented mode. In this mode the <abbr linkend="TSF"/> hashes messages of arbitrary length. As there are different tests for each mode, an indication is given in the following sections for the bit­oriented vs. the byte­oriented testmacs.
+              The <abbr linkend="TSF"/> hashing functions can be implemented in one of two modes. The first mode is the byte­oriented mode. In this mode the <abbr linkend="TSF"/> only hashes messages that are an integral number of bytes in length; i.e. the length (in bits) of the message to be hashed is divisible by 8. The second mode is the bit­oriented mode. In this mode the <abbr linkend="TSF"/> hashes messages of arbitrary length. As there are different tests for each mode, an indication is given in the following sections for the bit­oriented vs. the byte­oriented testmacs.
               <htm:br/><htm:br/>
               The <abbr linkend="TSF"/> may implement either bit-oriented or byte-oriented; both implementations are not required. The evaluator shall perform all of the following tests for each hash algorithm implemented by the <abbr linkend="TSF"/> and used to satisfy the requirements of this <abbr linkend="PP"/>.
               <htm:br/><htm:br/>
               Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
               <htm:br/><htm:br/>
               <testlist>
-                <test><htm:i>Short Messages Test ­ Bit­oriented Mode</htm:i><htm:br/>
+                <test><htm:i>Short Messages Test: Bit-­oriented Mode</htm:i><htm:br/>
                   The evaluators devise an input set consisting of m+1 messages, where m is the block length of the hash algorithm. The length of the messages ranges sequentially from 0 to m bits. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
                 </test><htm:br/>
-                <test><htm:i>Short Messages Test ­ Byte­oriented Mode</htm:i><htm:br/>
+                <test><htm:i>Short Messages Test: Byte-­oriented Mode</htm:i><htm:br/>
                   The evaluators devise an input set consisting of m/8+1 messages, where m is the block length of the hash algorithm. The length of the messages range sequentially from 0 to m/8 bytes, with each message being an integral number of bytes. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
                 </test><htm:br/>
-                <test><htm:i>Selected Long Messages Test ­ Bit­oriented Mode</htm:i><htm:br/>
-                  The evaluators devise an input set consisting of m messages, where m is the block length of the hash algorithm. The length of the ith message is 512 + 99*i, where 1 ≤ i ≤ m. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
+                <test><htm:i>Selected Long Messages Test: Bit-­oriented Mode</htm:i><htm:br/>
+                  The evaluators devise an input set consisting of m messages, where m is the block length of the hash algorithm. The length of the i<htm:sup>th</htm:sup> message is 512 + 99*i, where 1 ≤ i ≤ m. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
                 </test><htm:br/>
-                <test><htm:i>Selected Long Messages Test ­ Byte­oriented Mode</htm:i><htm:br/>
-                  The evaluators devise an input set consisting of m/8 messages, where m is the block length of the hash algorithm. The length of the ith message is 512 + 8*99*i, where 1 ≤ i ≤ m/8. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
+                <test><htm:i>Selected Long Messages Test: Byte-­oriented Mode</htm:i><htm:br/>
+                  The evaluators devise an input set consisting of m/8 messages, where m is the block length of the hash algorithm. The length of the i<htm:sup>th</htm:sup> message is 512 + 8*99*i, where 1 ≤ i ≤ m/8. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
 
                 </test><htm:br></htm:br>
                 <test><htm:i>Pseudorandomly Generated Messages Test</htm:i><htm:br></htm:br>
@@ -1756,10 +1800,10 @@
                 <test><htm:b>ECDSA Algorithm Tests</htm:b><htm:br/>
                   <testlist>
                     <test><htm:b>ECDSA FIPS 186-4 Signature Generation Test</htm:b><htm:br/>
-                      For each supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator shall generate 10 1024-bit long messages and obtain for each message a public key and the resulting signature values R and S. To determine correctness, the evaluator shall use the signature verification function of a known good implementation.
+                      For each supported NIST curve (i.e. P-256, P-384 and P-521) and SHA function pair, the evaluator shall generate 10 1024-bit long messages and obtain for each message a public key and the resulting signature values R and S. To determine correctness, the evaluator shall use the signature verification function of a known good implementation.
                     </test><htm:br/>
                     <test><htm:b>ECDSA FIPS 186-4 Signature Verification Test</htm:b><htm:br/>
-                      For each supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator shall generate a set of 10 1024-bit message, public key and signature tuples and modify one of the values (message, public key or signature) in five of the 10 tuples. The evaluator shall obtain in response a set of 10 PASS/FAIL values.
+                      For each supported NIST curve (i.e. P-256, P-384 and P-521) and SHA function pair, the evaluator shall generate a set of 10 1024-bit message, public key and signature tuples and modify one of the values (message, public key or signature) in five of the 10 tuples. The evaluator shall obtain in response a set of 10 PASS/FAIL values.
                     </test>
                   </testlist>
                 </test>
@@ -2236,7 +2280,7 @@
               <test>The evaluator shall configure the server to select the TLS_NULL_WITH_NULL_NULL ciphersuite and verify that the client denies the connection.</test>
               <test>The evaluator shall perform the following modifications to the traffic:<htm:br></htm:br>
                 <htm:ul>
-                  <htm:li>Change the TLS version selected by the server in the Server Hello to a non-supported TLS version (for example 1.3 represented by the two bytes 03 04) and verify that the client rejects the connection.</htm:li>
+                  <htm:li>Change the TLS version selected by the server in the Server Hello to a non-supported TLS version (for example, 1.3 represented by the two bytes 03 04) and verify that the client rejects the connection.</htm:li>
                   <htm:li>Modify at least one byte in the server’s nonce in the Server Hello handshake message, and verify that the client rejects the Server Key Exchange handshake message (if using a DHE or ECDHE ciphersuite) or that the server denies the client’s Finished handshake message.</htm:li>
                   <htm:li>Modify the server’s selected ciphersuite in the Server Hello handshake message to be a ciphersuite not presented in the Client Hello handshake message. The evaluator shall verify that the client rejects the connection after receiving the Server Hello.</htm:li>
                   <htm:li>(conditional) If an ECDHE or DHE ciphersuite is selected, modify the signature block in the Server’s Key Exchange handshake message, and verify that the client rejects the connection after receiving the Server Key Exchange message.</htm:li>
@@ -2702,7 +2746,7 @@
                 <selectable> no other</selectable>
               </selectables> as critical authentication mechanisms. 
             </title>
-            <note role="application">A critical authentication mechanism is one in which countermeasures are triggered (i.e., wipe of the device) when the maximum number of unsuccessful authentication attempts is exceeded, rendering the other factors unavailable.
+            <note role="application">A critical authentication mechanism is one in which countermeasures are triggered (i.e. wipe of the device) when the maximum number of unsuccessful authentication attempts is exceeded, rendering the other factors unavailable.
               <htm:br/><htm:br/>
               If no additional authentication mechanisms are selected in <linkref linkend="FIA_UAU.5.1"/>, then ‘no other’ shall be selected. If an additional authentication mechanism is selected in <linkref linkend="FIA_UAU.5.1"/>, then it shall only be selected in <linkref linkend="FIA_AFL_EXT.1.1"/> if surpassing the authentication failure threshold for biometric data causes a countermeasure to be triggered regardless of the failure status of the other authentication mechanisms. 
               <htm:br/><htm:br/>
@@ -2720,7 +2764,7 @@
               <htm:br/><htm:br/>
               If hybrid authentication (i.e. a combination of biometric and pin) is supported, a failed authentication attempt can be counted as a single attempt, even if both the biometric and pin were incorrect.
               <htm:br/><htm:br/>
-              If the <abbr linkend="TOE"/> supports multiple authentication mechanisms per <linkref linkend="FIA_UAU.5.1"/>, this component applies to all authentication mechanisms. It is acceptable for a each authentication mechanism to utilize an independent counter or for multiple authentication mechanisms to utilize a shared counter. The interaction between the authentication factors in regards to the authentication counter shall be in accordance with <linkref linkend="FIA_UAU.5.2"/>.
+              If the <abbr linkend="TOE"/> supports multiple authentication mechanisms per <linkref linkend="FIA_UAU.5.1"/>, this component applies to all authentication mechanisms. It is acceptable for each authentication mechanism to utilize an independent counter or for multiple authentication mechanisms to utilize a shared counter. The interaction between the authentication factors in regards to the authentication counter shall be in accordance with <linkref linkend="FIA_UAU.5.2"/>.
 <htm:br/><htm:br/>
               If the <abbr linkend="TOE"/> implements multiple Authentication Factor interfaces (for example, a DAR decryption interface, a lockscreen interface, an auxiliary boot mode interface), this component applies to all available interfaces. However, it is acceptable for each Authentication Factor interface to be configurable with a different number of unsuccessful authentication attempts.
             </note>
@@ -2947,13 +2991,17 @@
                 <assignable> a SAFAR no greater than 1:500</assignable> within a 1% margin.</title>           
             <note role="application">If a <abbr linkend="BAF"/> or "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, <linkref linkend="FIA_BMG_EXT.1.2"/> must be included in the <abbr linkend="ST"/>.
                 <htm:br/><htm:br/>
-                System Authentication False Accept Rate (SAFAR) is defined by the combination of individual error rates for each authentication factor and attempts used for access to a single session on the device. Accessing a single session may involve a single authentication factor, in which case the SAFAR for a single attempt will be equal to the false accept rate (<abbr linkend="FAR"/>) of that authentication factor and the SAFAR for n attempts will be <htm:img src="images/SAFAR_basic.jpg"/>, assuming independence. 
-                <htm:br/><htm:br/>
-              Accessing a single session on the device may involve the ability to use multiple authentication factors. It may be the case that only one authentication factor is needed to access a single session on the device (i.e., both a password and a <abbr linkend="BAF"/> can be used, but only one is needed) or that both authentication factors are needed to access a single session on the device (i.e., both the <abbr linkend="BAF"/> and a PIN must be entered). The full equations for calculating the SAFAR can be found in <appref linkend="biometric3"/>. A fully worked-out example that applies the equations in <appref linkend="biometric3"/> for calculating the SAFAR can be found in <appref linkend="biometric4"/>. 
-              
+                System Authentication False Accept Rate (SAFAR) is defined by the combination of individual error rates for each authentication factor and attempts used for access to a single session on the device. 
               <htm:br/><htm:br/>
-             
-              If more than one <abbr linkend="BAF"/> is included in the TOE and the <abbr linkend="FAR"/> or the number of authentication attempts differ depending on the <abbr linkend="BAF"/>, the worst case scenario shall be used to calculate the SAFAR. If the authentication factors utilize the same authentication counter per <linkref linkend="FIA_AFL_EXT.1"/> then it should be assumed that the authentication factor with the worst <abbr linkend="FAR"/> will be used for the maximum number of authentication attempts allowed by that factor. For example if the <abbr linkend="TOE"/> includes a password and more than one <abbr linkend="BAF"/>s, the <abbr linkend="BAF"/>s have different <abbr linkend="FAR"/>s, only the password is a critical factor and all authentication factors utilize the same authentication counter then the SAFAR shall be calculated assuming that the <abbr linkend="BAF"/> with the worst <abbr linkend="FAR"/> is used for the maximum number of authentication attempts allowed by that <abbr linkend="BAF"/>, if the other <abbr linkend="BAF"/> is able to be used then it should be assumed that it will be used for the maximum number of authentication attempts allowed by that <abbr linkend="BAF"/>, with the remaining number of attempts being made by the password. The 1% margin is included for cases where a biometric modality is not a critical authentication factor and thus both biometric and password can be used in a session without exceeding the declared SAFAR.
+                Accessing a single session may involve a single authentication factor, in which case the SAFAR for a single attempt will be equal to the false accept rate (<abbr linkend="FAR"/>) of that authentication factor and the SAFAR for n attempts will be <htm:img src="images/SAFAR_basic.jpg"/>, assuming independence. 
+              <htm:br/><htm:br/>             
+              Accessing a single session on the device may involve the ability to use multiple authentication factors. It may be the case that only one authentication factor is needed to access a single session on the device (i.e. both a password and a <abbr linkend="BAF"/> can be used, but only one is needed) or that both authentication factors are needed to access a single session on the device (i.e. both the <abbr linkend="BAF"/> and a PIN must be entered). The full equations for calculating the SAFAR can be found in <appref linkend="biometric3"/>. A fully worked-out example that applies the equations in <appref linkend="biometric3"/> for calculating the SAFAR can be found in <appref linkend="biometric4"/>.
+              <htm:br/><htm:br/>
+              The worst-case scenario shall be used to calculate the SAFAR. Thus the authentication factor with the highest FAR shall be used for the maximum number of authentication attempts allowed for that factor. If any authentication attempts remain, then the authentication factor with the second highest <abbr linkend="FAR"/> is used for the maximum number of authentication attempts allowed for that factor and so on. For example, the <abbr linkend="TOE"/> supports a password and a <abbr linkend="BAF"/>, the <abbr linkend="FAR"/> for the <abbr linkend="BAF"/> is higher than the <abbr linkend="FAR"/> for the password and each authentication factor utilizes a shared counter per <linkref linkend="FIA_AFL_EXT.1"/>. Then the worst-case scenario is the <abbr linkend="BAF"/> is utilized for the maximum number of authentication attempts allowed for the <abbr linkend="BAF"/>. For any remaining authentication attempts allowed the password is utilized.          
+              <htm:br/><htm:br/>
+              Another example is the TOE supports a password and two <abbr linkend="BAF"/>s, where the <abbr linkend="BAF"/>s have different <abbr linkend="FAR"/>s, with both <abbr linkend="FAR"/>s being higher than the password <abbr linkend="FAR"/>. Then the worst-case scenario is that the <abbr linkend="BAF"/> with the highest <abbr linkend="FAR"/> is used for the maximum number of authentication attempts allowed for that <abbr linkend="BAF"/>, followed by the second <abbr linkend="BAF"/> if any authentication attempts are allowed for that <abbr linkend="BAF"/>. If any authentication attempts remain, then the password is utilized for those attempts.
+              <htm:br/><htm:br/>
+              The 1% margin is included for cases where a <abbr linkend="BAF"/> is not a critical authentication factor and thus both <abbr linkend="BAF"/> and password can be used in a session without exceeding the declared SAFAR.
               <htm:br/><htm:br/>  
               </note>   
             <aactivity>The evaluator shall verify that the <abbr linkend="TSS"/> indicates which SAFAR the <abbr linkend="TOE"/> is targeting and contains evidence supporting the calculations, per <appref linkend="biometric3"/>, completed to determine the SAFAR. The evaluator shall verify that the <abbr linkend="TSS"/> contains evidence of how the authentication factors interact, per <linkref linkend="FIA_UAU.5.2"/> and <linkref linkend="FIA_AFL_EXT.1"/>. The evaluator shall verify that the <abbr linkend="TSS"/>, contains the combination(s) of authentication factors needed to meet the SAFAR, and the number of attempts for each authentication factor the <abbr linkend="TOE"/> is configured to allow. Adequate documentation is required to demonstrate the calculations completed to support the claimed SAFAR.
@@ -3105,7 +3153,7 @@
             
             <note role="application">The <abbr linkend="TSF"/> must support a Password Authentication Factor and may optionally implement a <abbr linkend="BAF"/>, in the form of a fingerprint, iris, face, voice and (finger/palm) vein. A hybrid authentication factor is where a user has to submit a combination of PIN and biometric sample where both have to pass and if either fails the user is not made aware of which factor failed.
               <htm:br/><htm:br/>
-              If “hybrid” is selected, a biometric modality does not need to be selected, but should be selected if the biometric authentication can be used independent of the hybrid authentication, i.e, without having to enter a PIN.
+              If “hybrid” is selected, a biometric modality does not need to be selected, but should be selected if the biometric authentication can be used independent of the hybrid authentication, i.e. without having to enter a PIN.
               <htm:br/><htm:br/>
               If a biometric modality or "hybrid" is selected, then <linkref linkend="FIA_BMG_EXT.1"/> and <linkref linkend="FDP_PBA_EXT.1"/> must be included in the <abbr linkend="ST"/>.
               <htm:br/><htm:br/>
@@ -3173,7 +3221,7 @@
             <aactivity>The evaluator shall ensure that the  <abbr linkend="TSS"/> describes the means of obscuring the authentication entry, for all authentication methods specified in <linkref linkend="FIA_UAU.5.1"/>. The evaluator shall verify that any configuration of this requirement is addressed in the AGD guidance and that the password is obscured by default. 
               <testlist>
                 <test>The evaluator shall enter passwords on the device, including at least the Password Authentication Factor at lockscreen, and verify that the password is not displayed on the device. </test>
-                <test>[conditional] For each <abbr linkend="BAF"/> selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall authenticate by producing a biometric sample at lockscreen. As the biometric algorithms are performed, the evaluator shall verify that sensitive images, audio, or other information identifying the user are kept secret and are not revealed to the user. Additionally, the evaluator shall produce a biometric sample that fails to authenticate and verify that the reason(s) for authentication failure (user mismatch, low sample quality, etc.) are not revealed to the user. It is acceptable for the <abbr linkend="BAF"/> to state that it was unable to physically read the biometric sample, for example if the sensor is unclean or the biometric sample was removed to quickly. However, specifics regarding why the presented biometric sample failed authentication shall not be revealed to the user.</test>
+                <test>[conditional] For each <abbr linkend="BAF"/> selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall authenticate by producing a biometric sample at lockscreen. As the biometric algorithms are performed, the evaluator shall verify that sensitive images, audio, or other information identifying the user are kept secret and are not revealed to the user. Additionally, the evaluator shall produce a biometric sample that fails to authenticate and verify that the reason(s) for authentication failure (user mismatch, low sample quality, etc.) are not revealed to the user. It is acceptable for the <abbr linkend="BAF"/> to state that it was unable to physically read the biometric sample, for example, if the sensor is unclean or the biometric sample was removed to quickly. However, specifics regarding why the presented biometric sample failed authentication shall not be revealed to the user.</test>
               </testlist>
             </aactivity>
           </f-element>
@@ -3221,7 +3269,7 @@
           <f-element id="fia_uau_ext.2.2">
             <title>The <abbr linkend="TSF"/> shall require each user to be successfully authenticated before allowing any other <abbr linkend="TSF"/>-mediated actions on behalf of that user.
             </title>
-            <note role="application">The security relevant actions allowed by unauthorized users in locked state must be listed. At a minimum the actions that correspond to the functions available to the user in <linkref linkend="FMT_SMF_EXT.1"/> and are allowed by unauthorized users in locked state should be listed. For example if the user can enable/disable the camera per function 5 of <linkref linkend="FMT_SMF_EXT.1"/> and unauthorized users can take a picture when the device is in locked state, this action must be listed. 
+            <note role="application">The security relevant actions allowed by unauthorized users in locked state must be listed. At a minimum the actions that correspond to the functions available to the user in <linkref linkend="FMT_SMF_EXT.1"/> and are allowed by unauthorized users in locked state should be listed. For example, if the user can enable/disable the camera per function 5 of <linkref linkend="FMT_SMF_EXT.1"/> and unauthorized users can take a picture when the device is in locked state, this action must be listed. 
             </note>
             <aactivity>The evaluator shall verify that the  <abbr linkend="TSS"/> describes the actions allowed by unauthorized users in the locked state. The evaluator shall attempt to perform some actions not listed in the selection while the device is in the locked state and verify that those actions do not succeed.</aactivity>
           </f-element>
@@ -3377,7 +3425,7 @@
                <test>The evaluator shall use the operational guidance to cause the <abbr linkend="TOE"/> to request certificate enrollment from an EST server using the simple enrollment method described in RFC 7030 Section 4.2, authenticating the certificate request to the server using an existing certificate and private key as described by RFC 7030 Section 3.3.2. The evaluator shall confirm that the resulting certificate is successfully obtained and installed in the <abbr linkend="TOE"/> key store.</test><htm:br/>
                <test>The evaluator shall use the operational guidance to cause the <abbr linkend="TOE"/> to request certificate enrollment from an EST server using the simple enrollment method described in RFC 7030 Section 4.2, authenticating the certificate request to the server using a username and password as described by RFC 7030 Section 3.2.3. The evaluator shall confirm that the resulting certificate is successfully obtained and installed in the <abbr linkend="TOE"/> key store.</test><htm:br/>
                <test>The evaluator shall modify the EST server to return a certificate containing a different public key than the key included in the <abbr linkend="TOE"/>’s certificate request. The evaluator shall use the operational guidance to cause the <abbr linkend="TOE"/> to request certificate enrollment from an EST server. The evaluator shall confirm that the <abbr linkend="TOE"/> does not accept the resulting certificate since the public key in the issued certificate does not match the public key in the certificate request.</test><htm:br/>
-               <test>The evaluator shall configure the EST server or use a man-in-the-middle tool to present a server certificate to the <abbr linkend="TOE"/> that is present in the <abbr linkend="TOE"/> general Trust Anchor Database but not its EST-specific Trust Anchor Database. The evaluator shall cause the <abbr linkend="TOE"/> to request certificate enrollment from the EST server. The evaluator shall verify that the request is not successful.</test>
+               <test>The evaluator shall configure the EST server or use a man-in-the-middle tool to present a server certificate to the <abbr linkend="TOE"/> that is present in the <abbr linkend="TOE"/> general Trust Anchor Database but not its EST-specific Trust Anchor Database. The evaluator shall cause the <abbr linkend="TOE"/> to request certificate enrollment from the EST server. The evaluator shall verify that the request is not successful.</test><htm:br/>
                <test>The evaluator shall configure the EST server or use a man-in-the-middle tool to present an invalid certificate. The evaluator shall cause the <abbr linkend="TOE"/> to request certificate enrollment from the EST server. The evaluator shall verify that the request is not successful The evaluator shall configure the EST server or use a man-in-the-middle tool to present a certificate that does not have the CMC RA purpose and verify that requests to the EST server fail. The tester shall repeat the test using a valid certificate and a certificate that contains the CMC RA purpose and verify that the certificate enrollment requests succeed.</test><htm:br/>
                <test>The evaluator shall use a packet sniffing tool between the <abbr linkend="TOE"/> and an EST server. The evaluator shall turn on the sniffing tool and cause the <abbr linkend="TOE"/> to request certificate enrollment from an EST server. The evaluator shall verify that the EST protocol interaction occurs over a Transport Layer Security (TLS) protected connection. The evaluator is not expected to decrypt the connection but rather observe that the packets conform to the TLS protocol format.</test><htm:br/>
                <test>The evaluator shall use the operational guidance to cause the <abbr linkend="TOE"/> to request a server-provided private key and certificate from an EST server. The evaluator shall confirm that the resulting private key and certificate are successfully obtained and installed in the <abbr linkend="TOE"/> key store.</test><htm:br/>
@@ -3426,7 +3474,7 @@
         <f-component id="fmt_mof_ext.1" name="Extended: Management of security functions behavior" status="threshold">
           <f-element id="fmt_mof_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall restrict the ability to perform the functions in column 3 of <ctr-ref refid="fmt_smf"/> to the user.
-            </title><note role="application">The functions that have an “M” in the third column are mandatory for this component, thus are restricted to the user, meaning that the administrator cannot manage those functions. The functions that have an “O” in the third column are optional and may be selected; and those functions with a “-” in the third are not applicable and may not be selected. The <abbr linkend="ST"/> author should select those security management functions that only the user may perform (i.e., the ones the administrator may not perform).
+            </title><note role="application">The functions that have an “M” in the third column are mandatory for this component, thus are restricted to the user, meaning that the administrator cannot manage those functions. The functions that have an “O” in the third column are optional and may be selected; and those functions with a “-” in the third are not applicable and may not be selected. The <abbr linkend="ST"/> author should select those security management functions that only the user may perform (i.e. the ones the administrator may not perform).
               <htm:br/><htm:br/>
               The <abbr linkend="ST"/> author may not select the same function in both <linkref linkend="FMT_MOF_EXT.1.1"/> and <linkref linkend="FMT_MOF_EXT.1.2"/>. A function cannot contain an “M” in both column 3 and column 5.
               <htm:br/><htm:br/>
@@ -3941,7 +3989,7 @@
               <htm:br/><htm:br/>
               The second column (<linkref linkend="FMT_SMF_EXT.1"/>) indicates whether the function is to be implemented. The <abbr linkend="ST"/> author should select which Optional functions are implemented.
               <htm:br/><htm:br/>
-              The third column (<linkref linkend="FMT_MOF_EXT.1.1"/>) indicates functions that are to be restricted to the user (i.e., not available to the administrator).
+              The third column (<linkref linkend="FMT_MOF_EXT.1.1"/>) indicates functions that are to be restricted to the user (i.e. not available to the administrator).
               <htm:br/><htm:br/>
               The fourth column (Administrator) indicates functions that are available to the administrator. The functions restricted to the user (column 3) cannot also be available to the administrator. Functions available to the administrator can still be available to the user, as long as the function is not restricted to the administrator (column 5). Thus, if the <abbr linkend="TOE"/> must offer these functions to the administrator to perform the fourth column shall be selected.
               <htm:br/><htm:br/>
@@ -4069,9 +4117,9 @@
                   <htm:ol type="a">
                   <htm:li>The evaluator shall exercise the TSF configuration to enable the VPN protection. These configuration actions must be used for the testing of the <linkref linkend="FDP_IFC_EXT.1.1"/> requirement.
                   </htm:li>
-                    <htm:li>[conditional] If “per-app basis” is selected, the evaluator shall create two applications and enable one to use the VPN and the other to not use the VPN. The evaluator shall exercise each application (attempting to access network resources; for example by browsing different websites) individually while capturing packets from the TOE. The evaluator shall verify from the packet capture that the traffic from the VPN-enabled application is encapsulated in IPsec and that the traffic from the VPN-disabled application is not encapsulated in IPsec.
+                    <htm:li>[conditional] If “per-app basis” is selected, the evaluator shall create two applications and enable one to use the VPN and the other to not use the VPN. The evaluator shall exercise each application (attempting to access network resources; for example, by browsing different websites) individually while capturing packets from the TOE. The evaluator shall verify from the packet capture that the traffic from the VPN-enabled application is encapsulated in IPsec and that the traffic from the VPN-disabled application is not encapsulated in IPsec.
                     </htm:li>
-                    <htm:li>[conditional] If “per-groups of application basis” is selected, the evaluator shall create two applications and the applications shall be placed into different groups. Enable one application group to use the VPN and the other to not use the VPN. The evaluator shall exercise each application (attempting to access network resources; for example by browsing different websites) individually while capturing packets from the TOE. The evaluator shall verify from the packet capture that the traffic from the application in the VPN-enabled group is encapsulated in IPsec and that the traffic from the application in the VPN-disabled group is not encapsulated in IPsec.
+                    <htm:li>[conditional] If “per-groups of application basis” is selected, the evaluator shall create two applications and the applications shall be placed into different groups. Enable one application group to use the VPN and the other to not use the VPN. The evaluator shall exercise each application (attempting to access network resources; for example, by browsing different websites) individually while capturing packets from the TOE. The evaluator shall verify from the packet capture that the traffic from the application in the VPN-enabled group is encapsulated in IPsec and that the traffic from the application in the VPN-disabled group is not encapsulated in IPsec.
                       </htm:li>
                   </htm:ol>
                 </test><htm:br/>
@@ -4080,7 +4128,7 @@
                 
                 The evaluator shall verify that the <abbr linkend="TSS"/> includes a description of each radio and an indication of if the radio can be enabled/disabled along with what role can do so. In addition the evaluator shall verify that the frequency ranges at which each radio operates is included in the <abbr linkend="TSS"/>. The evaluator shall confirm that the AGD guidance describes how to perform the enable/disable function for each radio.<htm:br/><htm:br/>
                 
-                The evaluator shall ensure that minimal signal leakage enters the RF shielded enclosure (i.e, Faraday bag, Faraday box, RF shielded room) by performing the following steps:<htm:br/><htm:br/>
+                The evaluator shall ensure that minimal signal leakage enters the RF shielded enclosure (i.e. Faraday bag, Faraday box, RF shielded room) by performing the following steps:<htm:br/><htm:br/>
                 
                 Step 1: Place the antenna of the spectrum analyzer inside the RF shielded enclosure.<htm:br/><htm:br/>
                 
@@ -4101,7 +4149,7 @@
                 The evaluator shall verify that the  <abbr linkend="TSS"/> includes a description of each collection device and an indication of if it can be enabled/disabled along with what role can do so. The evaluator shall confirm that the AGD guidance describes how to perform the enable/disable function. <htm:br/><htm:br/>
                 <test>The evaluator shall perform the following test(s):
                   <htm:ol type="a">
-                    <htm:li>he evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable and disable the state of each audio or visual collection devices (e.g. camera, microphone) listed by the ST author. For each collection device, the evaluator shall disable the device and then attempt to use its functionality. The evaluator shall reboot the <abbr linkend="TOE"/> and verify that disabled collection devices may not be used during or early in the boot process. Additionally, the evaluator shall boot the device into each available auxiliary boot mode and verify that the collection device cannot be used.
+                    <htm:li>The evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable and disable the state of each audio or visual collection devices (e.g. camera, microphone) listed by the ST author. For each collection device, the evaluator shall disable the device and then attempt to use its functionality. The evaluator shall reboot the <abbr linkend="TOE"/> and verify that disabled collection devices may not be used during or early in the boot process. Additionally, the evaluator shall boot the device into each available auxiliary boot mode and verify that the collection device cannot be used.
                     </htm:li>
                       <htm:li>[conditional] If “per-app basis” is selected, the evaluator shall create two applications and enable one to use access the A/V device and the other to not access the A/V device. The evaluator shall exercise each application attempting to access the A/V device individually. The evaluator shall verify that the enabled application is able to access the A/V device and the disabled application is not able to access the A/V device.
                       </htm:li>
@@ -4189,12 +4237,12 @@
                 <test>For each category of information listed in the AGD guidance, the evaluator shall verify that when that <abbr linkend="TSF"/> is configured to limit the information according to the AGD, the information is no longer displayed in the locked state.</test><htm:br/>                 
                 
                 <htm:b>Function 20</htm:b><htm:br/>
-                <test>he evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable system-wide data-at-rest protection according to the AGD guidance. The evaluator shall ensure that all assurance activities for DAR (see <linkref linkend="fdp_dar"/>) are conducted with the device in this configuration.
+                <test>The evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable system-wide data-at-rest protection according to the AGD guidance. The evaluator shall ensure that all assurance activities for DAR (see <linkref linkend="fdp_dar"/>) are conducted with the device in this configuration.
                 </test><htm:br/>
                 
                 
                 <htm:b>Function 21</htm:b><htm:br/>
-                <test>he evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable removable media’s data-at-rest protection according to the AGD guidance. The evaluator shall ensure that all assurance activities for DAR (see <linkref linkend="fdp_dar"/>) are conducted with the device in this configuration.
+                <test>The evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable removable media’s data-at-rest protection according to the AGD guidance. The evaluator shall ensure that all assurance activities for DAR (see <linkref linkend="fdp_dar"/>) are conducted with the device in this configuration.
                 </test><htm:br/>
                 
                 <htm:b>Function 22 </htm:b><htm:br/>
@@ -4233,7 +4281,7 @@
                 </test><htm:br/>
                 
                 <htm:b>Function 26 [conditional]</htm:b><htm:br/>
-                <test>he evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable and disable any developer mode. The evaluator shall test that developer mode access is not available when its configuration is disabled. The evaluator shall verify the developer mode remains disabled during device reboot.
+                <test>The evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable and disable any developer mode. The evaluator shall test that developer mode access is not available when its configuration is disabled. The evaluator shall verify the developer mode remains disabled during device reboot.
                 </test><htm:br/>
                 
                 <htm:b>Function 27 [conditional]</htm:b><htm:br/>
@@ -4588,11 +4636,11 @@
               <htm:br/><htm:br/>
               Assurance Activity Note: The following test requires the developer to provide access to a test platform that provides the evaluator with chip level access. 
               <htm:br/><htm:br/>
-              The evaluator shall examine the <abbr linkend="TSS"/> to determine the location of the JTAG ports on the <abbr linkend="TSF"/>, to include the order of the ports (i.e., Data In, Data Out, Clock, etc.). The evaluator shall connect a packet analyzer to the JTAG ports. The evaluator shall query the JTAG port for its device ID and confirm that the device ID cannot be retrieved. <htm:br/><htm:br/>
+              The evaluator shall examine the <abbr linkend="TSS"/> to determine the location of the JTAG ports on the <abbr linkend="TSF"/>, to include the order of the ports (i.e. Data In, Data Out, Clock, etc.). The evaluator shall connect a packet analyzer to the JTAG ports. The evaluator shall query the JTAG port for its device ID and confirm that the device ID cannot be retrieved. <htm:br/><htm:br/>
               
               If “control access by a signing key” is selected the evaluator shall perform the following test:<htm:br/><htm:br/>
               
-              The evaluator shall examine the <abbr linkend="TSS"/> to determine how access to the JTAG is controlled by a signing key. The evaluator shall examine the <abbr linkend="TSS"/> to determine when the JTAG can be accessed, i.e., what has the access to the signing key.
+              The evaluator shall examine the <abbr linkend="TSS"/> to determine how access to the JTAG is controlled by a signing key. The evaluator shall examine the <abbr linkend="TSS"/> to determine when the JTAG can be accessed, i.e. what has the access to the signing key.
               
             </aactivity>
           </f-element>
@@ -5155,7 +5203,7 @@
             </a-element>
 	    <a-element id="adv_fsp.1.2d">
               <title>The developer shall provide a tracing from the functional specification to the SFRs.</title>
-              <note role="application">As indicated in the introduction to this section, the functional specification is comprised of the information contained in the AGD_OPE, AGD_PRE and the API information that is provided to application developers, including the APIs that require privilege to invoke. <htm:br></htm:br><htm:br></htm:br>
+              <note role="application">As indicated in the introduction to this section, the functional specification is comprised of the information contained in the AGD_OPE, AGD_PRE, and the API information that is provided to application developers, including the APIs that require privilege to invoke. <htm:br></htm:br><htm:br></htm:br>
                 The developer may reference a website accessible to application developers and the evaluator. The API documentation shall include those interfaces required in this profile. The API documentation shall clearly indicate to which products and versions each available function applies.
                 <htm:br></htm:br><htm:br></htm:br>
                 The assurance activities in the functional requirements point to evidence that should exist in the documentation and <abbr linkend="TSS"/> section; since these are directly associated with the SFRs, the tracing in element ADV_FSP.1.2D is implicitly already done and no additional documentation is necessary.</note>
@@ -5323,7 +5371,7 @@
 	  </group>
         </a-component>
         <a-component id="alc_tsu_ext" name="Timely Security Updates"> 
-          <summary>This component requires the TOE developer, in conjunction with any other necessary parties, to provide information as to how the end-user devices are updated to address security issues in a timely manner. The documentation describes the process of providing updates to the public from the time a security flaw is reported/discovered, to the time an update is released. This description includes the parties involved (e.g., the developer, carriers(s)) and the steps that are performed (e.g., developer testing, carrier testing), including worst case time periods, before an update is made available to the public. </summary>
+          <summary>This component requires the TOE developer, in conjunction with any other necessary parties, to provide information as to how the end-user devices are updated to address security issues in a timely manner. The documentation describes the process of providing updates to the public from the time a security flaw is reported/discovered, to the time an update is released. This description includes the parties involved (e.g., the developer, carriers(s)) and the steps that are performed (e.g., developer testing, carrier testing), including worst-case time periods, before an update is made available to the public. </summary>
 	  <group type="dev-action">
             <a-element id="alc_tsu_ext.1.1d">
               <title>The developer shall provide a description in the <abbr linkend="TSS"/> of how timely security updates are made to the <abbr linkend="TOE"/>.</title>
@@ -5672,7 +5720,7 @@
         <htm:br/><htm:br/>
         If online testing is utilized, it is expected that the testing is conducted directly on the <abbr linkend="TOE"/>. The legitimate user will enroll on the <abbr linkend="TOE"/> and all test subjects will be compared to only the legitimate user. Thus if the target <abbr linkend="FAR"/> is 1:100, at least 300 independent samples shall be used corresponding to 300 users and at least 300 independent trials are required in testing this <abbr linkend="FAR"/>. It is acceptable that multiple <abbr linkend="TOE"/>s, each with a different legitimate user, could be used to reduce the number of test subjects needed for online testing. With the assumption that the test subjects are compared against all legitimate users and no legitimate users are counted as test subjects, if <htm:i>N<htm:sub>D</htm:sub></htm:i> devices are used, the number of test subjects needed can be divided by <htm:i>N<htm:sub>D</htm:sub></htm:i>. 
         <htm:br/><htm:br/>
-        If offline testing is used, it is expected that the biometric system used for testing will not be in the evaluated configuration of the <abbr linkend="TOE"/> to allow for a full cross-comparison, in which the biometric sample from the test subjects is compared with every non-self template. It is expected, that the biometric system used for testing will collect samples and generate templates exactly the same as the biometric system in the <abbr linkend="TOE"/>. However, even though the comparison to determine if a valid sample is provided (i.e., matching algorithm) should remain the same, it is acceptable if the biometric system is modified to complete a full cross-comparison. Per ISO/IEC 19795, these comparisons will not be statistically independent, but this approach is statistically unbiased. Additionally, offline testing with a full cross-comparison greatly reduces the number of test subjects needed. If there are <htm:i>N<htm:sub>U</htm:sub></htm:i> users, the number of available individual independent comparisons will be <htm:i>N<htm:sub>U</htm:sub>*(N<htm:sub>U</htm:sub>-1)/2</htm:i>. Thus if the target <abbr linkend="FAR"/> is 1:10000, only 246 test subjects are needed if offline testing of a full cross-comparison is used.
+        If offline testing is used, it is expected that the biometric system used for testing will not be in the evaluated configuration of the <abbr linkend="TOE"/> to allow for a full cross-comparison, in which the biometric sample from the test subjects is compared with every non-self template. It is expected, that the biometric system used for testing will collect samples and generate templates exactly the same as the biometric system in the <abbr linkend="TOE"/>. However, even though the comparison to determine if a valid sample is provided (i.e. matching algorithm) should remain the same, it is acceptable if the biometric system is modified to complete a full cross-comparison. Per ISO/IEC 19795, these comparisons will not be statistically independent, but this approach is statistically unbiased. Additionally, offline testing with a full cross-comparison greatly reduces the number of test subjects needed. If there are <htm:i>N<htm:sub>U</htm:sub></htm:i> users, the number of available individual independent comparisons will be <htm:i>N<htm:sub>U</htm:sub>*(N<htm:sub>U</htm:sub>-1)/2</htm:i>. Thus if the target <abbr linkend="FAR"/> is 1:10000, only 246 test subjects are needed if offline testing of a full cross-comparison is used.
         <htm:br/><htm:br/>
         
       </subsection>
@@ -5681,7 +5729,7 @@
         To expedite approval while maintaining a statistically valid result, it is required for the vendor 
         or independent lab to perform testing using <htm:i>three</htm:i> times the sample size, at a minimum, i.e. the “Rule of 3” for the number of trials. 
         <htm:br/><htm:br/>
-        Three times the sample size corresponds to 90% confidence and <htm:i>c</htm:i> = 0.95 (rounded, worst case), where <htm:i>c</htm:i> is a percentage/fraction of the intended false error rate (either <abbr linkend="FAR"/> or <abbr linkend="FRR"/>) for which the error bar is calculated. 
+        Three times the sample size corresponds to 90% confidence and <htm:i>c</htm:i> = 0.95 (rounded, worst-case), where <htm:i>c</htm:i> is a percentage/fraction of the intended false error rate (either <abbr linkend="FAR"/> or <abbr linkend="FRR"/>) for which the error bar is calculated. 
         <htm:br/><htm:br/>
         The parameters associated with the Rule of 3 are derived by treating a biometric test, consisting of many comparisons, as a series of Bernoulli trials. 
         <htm:br/><htm:br/>
@@ -5729,7 +5777,7 @@
         
       </subsection>
       <subsection id="sub4" title="Deriving False Reject Rate">
-        As with False Accept Rate, it is required for the vendor or lab to perform testing using <htm:i>three</htm:i> times the sample size, at a minimum, i.e. the “Rule of 3”. Three times the sample size corresponds to 90% confidence and <htm:i>c</htm:i> = 0.95 (rounded, worst case), where <htm:i>c</htm:i> is a percentage/fraction of the intended false error rate (either <abbr linkend="FAR"/> or <abbr linkend="FRR"/>) for which the error bar is calculated. 
+        As with False Accept Rate, it is required for the vendor or lab to perform testing using <htm:i>three</htm:i> times the sample size, at a minimum, i.e. the “Rule of 3”. Three times the sample size corresponds to 90% confidence and <htm:i>c</htm:i> = 0.95 (rounded, worst-case), where <htm:i>c</htm:i> is a percentage/fraction of the intended false error rate (either <abbr linkend="FAR"/> or <abbr linkend="FRR"/>) for which the error bar is calculated. 
         <htm:br/><htm:br/>
         As shown in the table below, the error bar may be large if a higher false error rate is declared:
         <htm:br/><htm:br/>
@@ -5823,7 +5871,7 @@
       <htm:br/><htm:br/>
       As such, the following equations for SAFAR utilizing multiple factors follow (using the worst SAFARs):
       <htm:br/><htm:br/>
-      If the user has a choice of multiple authentication factors with a choice of only one authentication factor in a given session (i.e., all authentication factors are considered critical and a user cannot switch between authentication factors), the overall SAFAR will be equal to <htm:i>SAFAR<htm:sub>(k)</htm:sub></htm:i>, assuming each attempt is independent.
+      If the user has a choice of multiple authentication factors with a choice of only one authentication factor in a given session (i.e. all authentication factors are considered critical and a user cannot switch between authentication factors), the overall SAFAR will be equal to <htm:i>SAFAR<htm:sub>(k)</htm:sub></htm:i>, assuming each attempt is independent.
       <htm:br/><htm:br/>
       If the user has a choice of multiple authentication factors and can choose to attempt authentication using more than one factor with success requiring any factor to pass and <htm:i>n<htm:sub>i</htm:sub></htm:i> attempts allowed per factor) for a given session, the SAFAR for <htm:i>k</htm:i> available authentication factors will be
       <htm:br/><htm:br/>
@@ -5838,7 +5886,7 @@
       <htm:img src="images/equationI3-4.jpg" />  (4)
       <htm:br/><htm:br/>
       assuming each attempt is independent. If <htm:i>m &lt; k</htm:i> available factors, the 
-      worst case of all <htm:img src="images/equationI3-a.jpg" /> combinations of factors becomes the overall SAFAR.
+      worst-case of all <htm:img src="images/equationI3-a.jpg" /> combinations of factors becomes the overall SAFAR.
       </section>
    
    
@@ -5882,7 +5930,7 @@
           <htm:img src="images/equationI4-e.jpg" />
         </htm:li>
         <htm:li>
-          If the conditions are the same as in c) but with password as a critical factor, the worst case scenario is the same as in c) in that the password factor is picked last, thus 
+          If the conditions are the same as in c) but with password as a critical factor, the worst-case scenario is the same as in c) in that the password factor is picked last, thus 
           <htm:br/><htm:br/>
           <htm:img src="images/equationI4-f.jpg" /> .
           </htm:li>
