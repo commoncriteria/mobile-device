@@ -9,7 +9,7 @@
       <PPTitle>Protection Profile for Mobile Device Fundamentals</PPTitle>
       <PPVersion>3.1</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
-      <PPPubDate>2017-06-01</PPPubDate>
+      <PPPubDate>2017-06-15</PPPubDate>
       <PPCertificationID>unassigned</PPCertificationID>
       <CCVersion>3.1 Release 4</CCVersion>
       <Keywords>??</Keywords>
@@ -167,7 +167,7 @@
         <entry> <term>(Biometric) Feature(s)</term><description>Distinctive mathematical characteristic(s) derived from a biometric sample, used to generate enrollment or authentication templates.</description></entry>
         <entry> <term><abbr title="File Encryption Key">FEK</abbr></term><description>A <abbr linkend="DEK"/> used to encrypt a file or a directory when File Encryption is used. <abbr linkend="FEK"/>s are unique to each encrypted file or directory.</description></entry>
         <entry> <term>Hardware-Isolated Keys</term><description>The Rich OS can only access these keys by reference, if at all, during runtime.</description></entry>
-        <entry> <term>Hybrid Authentication</term><description>A hybrid authentication factor is one where a user has to submit a combination of PIN and biometric sample with both to pass and without the user being made aware of which factor failed, if either fails.</description></entry>
+        <entry> <term>Hybrid Authentication</term><description>A hybrid authentication factor is one where a user has to submit a combination of biometric sample and PIN or password with both to pass and without the user being made aware of which factor failed, if either fails.</description></entry>
         <entry> <term>Immutable Hardware Key</term><description>These keys are stored as hardware-protected raw key and cannot be changed or sanitized.</description></entry>
         <entry> <term>Key Chaining</term><description>The method of using multiple layers of encryption keys to protect data. A top layer key encrypts a lower layer key, which encrypts the data; this method can have any number of layers.</description></entry>
         <entry> <term><abbr title="Key Encryption Key">KEK</abbr></term><description>A key used to encrypt other keys, such as <abbr linkend="DEK"/>s or storage that contains keys.</description></entry>
@@ -876,7 +876,7 @@
       </subsection>
       
       <subsection id="fcs" title="Class: Cryptographic Support (FCS)">
-        This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: <abbr linkend="DEK"/>s and <abbr linkend="KEK"/>s. (A <abbr linkend="REK"/> is considered a <abbr linkend="KEK"/>.) <abbr linkend="DEK"/>s are used to protect data (as in the DAR protection described in <linkref linkend="FDP_DAR_EXT.1"/> and <linkref linkend="FDP_DAR_EXT.2"/>). <abbr linkend="KEK"/>s are used to protect other keys – <abbr linkend="DEK"/>s, other <abbr linkend="KEK"/>s, and other types of keys stored by the user or applications. The following diagram shows an example key hierarchy to illustrate the concepts of this profile. This example is not meant as an approved design, but <abbr linkend="ST"/> authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. Please note if a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/>, the <abbr linkend="BAF"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the <abbr linkend="BAF"/> is used to release keys. If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, meaning that a PIN must be used in conjunction with the <abbr linkend="BAF"/> this interaction shall be included.<htm:br/>
+        This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: <abbr linkend="DEK"/>s and <abbr linkend="KEK"/>s. (A <abbr linkend="REK"/> is considered a <abbr linkend="KEK"/>.) <abbr linkend="DEK"/>s are used to protect data (as in the DAR protection described in <linkref linkend="FDP_DAR_EXT.1"/> and <linkref linkend="FDP_DAR_EXT.2"/>). <abbr linkend="KEK"/>s are used to protect other keys – <abbr linkend="DEK"/>s, other <abbr linkend="KEK"/>s, and other types of keys stored by the user or applications. The following diagram shows an example key hierarchy to illustrate the concepts of this profile. This example is not meant as an approved design, but <abbr linkend="ST"/> authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. Please note if a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/>, the <abbr linkend="BAF"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the <abbr linkend="BAF"/> is used to release keys. If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, meaning that a PIN or password must be used in conjunction with the <abbr linkend="BAF"/> this interaction shall be included.<htm:br/>
         
 
         <figure entity="images/figure3.jpg"
@@ -1193,10 +1193,10 @@
           </f-element>          
           <f-element id="fcs_ckm_ext.3.2">
             <title>The <abbr linkend="TSF"/> shall generate all <abbr linkend="KEK"/>s using one of the following methods:        
-              <htm:ul><htm:li>derive the <abbr linkend="KEK"/> from a Password Authentication Factor using PBKDF and </htm:li></htm:ul>
+              <htm:ul><htm:li>Derive the <abbr linkend="KEK"/> from a Password Authentication Factor using PBKDF and </htm:li></htm:ul>
               <selectables linebreak="yes">
-                <selectable>generate the <abbr linkend="KEK"/> using an RBG that meets this profile (as specified in <linkref linkend="FCS_RBG_EXT.1"/>)</selectable>
-                <selectable>generate the <abbr linkend="KEK"/> using a key generation scheme that meets this profile (as specified in <linkref linkend="FCS_CKM.1"/>)</selectable>
+                <selectable>Generate the <abbr linkend="KEK"/> using an RBG that meets this profile (as specified in <linkref linkend="FCS_RBG_EXT.1"/>)</selectable>
+                <selectable>Generate the <abbr linkend="KEK"/> using a key generation scheme that meets this profile (as specified in <linkref linkend="FCS_CKM.1"/>)</selectable>
                 <selectable>Combine the <abbr linkend="KEK"/> from other <abbr linkend="KEK"/>s in a way that preserves the effective entropy of each factor by 
                       <selectables>
                         <selectable>using an XOR operation</selectable>
@@ -2533,10 +2533,11 @@
           <selection-depends req="fia_uau.5.1"/>
           <f-element id="fdp_pba_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall protect the authentication template 
-              <selectables><selectable>using a PIN as an additional factor</selectable><selectable> 
-              <assignable>other circumstances</assignable></selectable></selectables>.
+              <selectables><selectable>using a PIN as an additional factor</selectable>
+                <selectable>using a password as an additional factor</selectable>
+                <selectable><assignable>other circumstances</assignable></selectable></selectables>.
             </title>
-            <note role="application">If a <abbr linkend="BAF"/> or "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, <linkref linkend="FDP_PBA_EXT.1.1"/> must be included in the <abbr linkend="ST"/>. If "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, then "using a PIN as an additional factor" shall be selected. If "hybrid" is not selected in <linkref linkend="FIA_UAU.5.1"/>, then the authentication template shall be secured by other means, which should be specified in the assignment.
+            <note role="application">If a <abbr linkend="BAF"/> or "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, <linkref linkend="FDP_PBA_EXT.1.1"/> must be included in the <abbr linkend="ST"/>. If "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, then "using a PIN as an additional factor" or "using a password as an additional factor" shall be selected. If "hybrid" is not selected in <linkref linkend="FIA_UAU.5.1"/>, then the authentication template shall be secured by other means, which should be specified in the assignment.
               Since compromised authentication templates can be used in generating presentation/spoof attacks, it is important to utilize secure methods for protecting them.</note>
             <aactivity>The evaluator shall determine that the  <abbr linkend="TSS"/> contains a description of the activities that happen during biometric authentication.
               <htm:br/><htm:br/>
@@ -2762,7 +2763,7 @@
               <htm:br/><htm:br/>
               An unique authentication attempt is defined as any attempt to verify a password or biometric sample, in which the input is different from a previous attempt. ‘Unique’ shall be selected if the authentication system increments the counter only for unique unsuccessful authentication attempts. For example, if the same incorrect password is attempted twice the authentication system increments the counter once. ‘Non-unique’ shall be selected if the authentication system increments the counter for each unsuccessful authentication attempt, regardless of if the input is unique. For example, if the same incorrect password is attempted twice the authentication system increments the counter twice.
               <htm:br/><htm:br/>
-              If hybrid authentication (i.e. a combination of biometric and pin) is supported, a failed authentication attempt can be counted as a single attempt, even if both the biometric and pin were incorrect.
+              If hybrid authentication (i.e. a combination of biometric and pin/password) is supported, a failed authentication attempt can be counted as a single attempt, even if both the biometric and pin/password were incorrect.
               <htm:br/><htm:br/>
               If the <abbr linkend="TOE"/> supports multiple authentication mechanisms per <linkref linkend="FIA_UAU.5.1"/>, this component applies to all authentication mechanisms. It is acceptable for each authentication mechanism to utilize an independent counter or for multiple authentication mechanisms to utilize a shared counter. The interaction between the authentication factors in regards to the authentication counter shall be in accordance with <linkref linkend="FIA_UAU.5.2"/>.
 <htm:br/><htm:br/>
@@ -3151,13 +3152,13 @@
             </refinement>to support user authentication.
             </title>
             
-            <note role="application">The <abbr linkend="TSF"/> must support a Password Authentication Factor and may optionally implement a <abbr linkend="BAF"/>, in the form of a fingerprint, iris, face, voice and (finger/palm) vein. A hybrid authentication factor is where a user has to submit a combination of PIN and biometric sample where both have to pass and if either fails the user is not made aware of which factor failed.
+            <note role="application">The <abbr linkend="TSF"/> must support a Password Authentication Factor and may optionally implement a <abbr linkend="BAF"/>, in the form of a fingerprint, iris, face, voice and (finger/palm) vein. A hybrid authentication factor is where a user has to submit a combination of PIN/password and biometric sample where both have to pass and if either fails the user is not made aware of which factor failed.
               <htm:br/><htm:br/>
-              If “hybrid” is selected, a biometric modality does not need to be selected, but should be selected if the biometric authentication can be used independent of the hybrid authentication, i.e. without having to enter a PIN.
+              If “hybrid” is selected, a biometric modality does not need to be selected, but should be selected if the biometric authentication can be used independent of the hybrid authentication, i.e. without having to enter a PIN/password.
               <htm:br/><htm:br/>
               If a biometric modality or "hybrid" is selected, then <linkref linkend="FIA_BMG_EXT.1"/> and <linkref linkend="FDP_PBA_EXT.1"/> must be included in the <abbr linkend="ST"/>.
               <htm:br/><htm:br/>
-              If “using a PIN as an additional factor” is selected in <linkref linkend="FDP_PBA_EXT.1.1"/>, then “hybrid” shall be selected. 
+              If “using a PIN as an additional factor” or "using a password as an additional factor" is selected in <linkref linkend="FDP_PBA_EXT.1.1"/>, then “hybrid” shall be selected. 
               <htm:br/><htm:br/>
               The Password Authentication Factor is configured according to <linkref linkend="FIA_PMG_EXT.1"/>.
             </note>
@@ -3187,7 +3188,7 @@
               <testlist>
                 <test>The evaluator shall configure the <abbr linkend="TSF"/> to use the Password Authentication Factor according to the AGD guidance. The evaluator shall change Password Authentication Factor according to the AGD guidance and verify that the <abbr linkend="TSF"/> requires the entry of the Password Authentication Factor before allowing the factor to be changed.</test>
                 <test>[conditional] For each <abbr linkend="BAF"/> selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall configure the <abbr linkend="TSF"/> to use the <abbr linkend="BAF"/>, which includes configuring the Password Authentication Factor, according to the AGD guidance. The evaluator shall change the <abbr linkend="BAF"/> according to the AGD guidance and verify that the <abbr linkend="TSF"/> requires the entry of the Password Authentication Factor before allowing the <abbr linkend="BAF"/> to be changed. </test>
-                <test>[conditional] If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall configure the <abbr linkend="TSF"/> to use the <abbr linkend="BAF"/> and PIN, which includes configuring the Password Authentication Factor, according to the AGD guidance. The evaluator shall change the <abbr linkend="BAF"/> and PIN according to the AGD guidance and verify that the <abbr linkend="TSF"/> requires the entry of the Password Authentication Factor before allowing the factor to be changed. </test>
+                <test>[conditional] If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall configure the <abbr linkend="TSF"/> to use the <abbr linkend="BAF"/> and PIN or password, which includes configuring the Password Authentication Factor, according to the AGD guidance. The evaluator shall change the <abbr linkend="BAF"/> and PIN according to the AGD guidance and verify that the <abbr linkend="TSF"/> requires the entry of the Password Authentication Factor before allowing the factor to be changed. </test>
               </testlist>
             </aactivity>
           </f-element>
@@ -3201,10 +3202,10 @@
               <testlist>
                 <test>The evaluator shall configure the <abbr linkend="TSF"/> to transition to the locked state after a time of inactivity (<linkref linkend="FMT_SMF_EXT.1"/>) according to the AGD guidance. The evaluator shall wait until the <abbr linkend="TSF"/> locks and then verify that the <abbr linkend="TSF"/> requires the entry of the Password Authentication Factor before transitioning to the unlocked state.</test>
                 <test>[conditional] For each <abbr linkend="BAF"/> selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall repeat Test 1 verifying that the <abbr linkend="TSF"/> requires the entry of the <abbr linkend="BAF"/> before transitioning to the unlocked state. </test>
-                <test>[conditional] If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall repeat Test 1 verifying that the <abbr linkend="TSF"/> requires the entry of the <abbr linkend="BAF"/> and PIN before transitioning to the unlocked state. </test>
+                <test>[conditional] If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall repeat Test 1 verifying that the <abbr linkend="TSF"/> requires the entry of the <abbr linkend="BAF"/> and PIN/password before transitioning to the unlocked state. </test>
                 <test>The evaluator shall configure user-initiated locking according to the AGD guidance. The evaluator shall lock the <abbr linkend="TSF"/> and then verify that the <abbr linkend="TSF"/> requires the entry of the Password Authentication Factor before transitioning to the unlocked state.</test>
                 <test>[conditional] For each <abbr linkend="BAF"/> selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall repeat Test 4 verifying that the <abbr linkend="TSF"/> requires the entry of the <abbr linkend="BAF"/> before transitioning to the unlocked state.</test>
-                <test>[conditional] If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall repeat Test 4 verifying that the <abbr linkend="TSF"/> requires the entry of the <abbr linkend="BAF"/> and PIN before transitioning to the unlocked state.</test>
+                <test>[conditional] If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall repeat Test 4 verifying that the <abbr linkend="TSF"/> requires the entry of the <abbr linkend="BAF"/> and PIN/password before transitioning to the unlocked state.</test>
               </testlist>
             </aactivity>
           </f-element>
@@ -4261,7 +4262,7 @@
                   <htm:ol type="a">
                     <htm:li>[conditional] If a <abbr linkend="BAF"/> is selected the evaluator shall verify that the <abbr linkend="TSS"/> describes the procedure to enable/disable the <abbr linkend="BAF"/>. If the <abbr linkend="TOE"/> includes multiple <abbr linkend="BAF"/>s, the evaluator shall verify that the <abbr linkend="TSS"/> describes how to enable/disable each <abbr linkend="BAF"/>, specifically if the different modalities can be individually enabled/disabled. The evaluator shall configure the <abbr linkend="TOE"/> to allow each supported <abbr linkend="BAF"/> to authenticate and verify that successful authentication can be achieved using the <abbr linkend="BAF"/>. The evaluator shall configure the <abbr linkend="TOE"/> to disable the use of each supported <abbr linkend="BAF"/> for authentication and confirm that the <abbr linkend="BAF"/> cannot be used to authenticate.
                     </htm:li>
-                    <htm:li>[conditional] If “Hybrid” is selected the evaluator shall verify that the <abbr linkend="TSS"/> describes the procedure to enable/disable the hybrid (biometric credential and PIN) authentication. The evaluator shall configure the <abbr linkend="TOE"/> to allow hybrid authentication to authenticate and confirm that successful authentication can be achieved using the hybrid authentication. The evaluator shall configure the <abbr linkend="TOE"/> to disable the use of hybrid authentication and confirm that the hybrid authentication cannot be used to authenticate.
+                    <htm:li>[conditional] If “Hybrid” is selected the evaluator shall verify that the <abbr linkend="TSS"/> describes the procedure to enable/disable the hybrid (biometric credential and PIN/password) authentication. The evaluator shall configure the <abbr linkend="TOE"/> to allow hybrid authentication to authenticate and confirm that successful authentication can be achieved using the hybrid authentication. The evaluator shall configure the <abbr linkend="TOE"/> to disable the use of hybrid authentication and confirm that the hybrid authentication cannot be used to authenticate.
                     </htm:li>
                   </htm:ol>
                 </test><htm:br/>
@@ -4656,7 +4657,7 @@
               <htm:br/><htm:br/>
               If a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/>, keying material also refers to source biometric data (i.e. fingerprint), enrollment and authentication templates, the features an algorithm uses to perform biometric authentication for enrollment or verification (i.e. location of minutia), threshold values used in making the match adjudication, intermediate calculations generated while building an enrollment or authentication template (i.e. direction maps, minutia counts, binarized and skeletonized representations of friction ridge patterns, etc.), and final match scores. Any images or metadata identifying the user for authentication shall be stored encrypted. 
               <htm:br/><htm:br/>
-              If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, in addition to the keying material included for the <abbr linkend="BAF"/>, mentioned in the previous paragraph, keying material also refers to the PIN used as part of the hybrid authentication. 
+              If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, in addition to the keying material included for the <abbr linkend="BAF"/>, mentioned in the previous paragraph, keying material also refers to the PIN/password used as part of the hybrid authentication. 
             </note>
             <aactivity>The evaluator shall consult the  <abbr linkend="TSS"/> section of the <abbr linkend="ST"/> in performing the assurance activities for this requirement. 
               <htm:br/><htm:br/>
@@ -4683,7 +4684,7 @@
             <htm:br/><htm:br/>
             If a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/>, keying material also refers to source biometric data (i.e. fingerprint), enrollment and authentication templates, the features an algorithm uses to perform biometric authentication for enrollment or verification (i.e. location of minutia), threshold values used in making the match adjudication, intermediate calculations generated while building an enrollment or authentication template (i.e. direction maps, minutia counts, binarized and skeletonized representations of friction ridge patterns), and final match scores.   
             <htm:br/><htm:br/>
-            If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, in addition to the keying material included for the <abbr linkend="BAF"/>, mentioned in the previous paragraph, keying material also refers to the PIN used as part of the hybrid authentication. 
+            If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, in addition to the keying material included for the <abbr linkend="BAF"/>, mentioned in the previous paragraph, keying material also refers to the PIN/password used as part of the hybrid authentication. 
             <htm:br/><htm:br/>
             In the future, this requirement will apply to symmetric and asymmetric private keys stored in the <abbr linkend="TOE"/> secure key storage where applications are outside the boundary of the <abbr linkend="TOE"/>. Thus, the <abbr linkend="TSF"/> will be required to provide cryptographic key operations (signature, encryption, and decryption) on behalf of applications (<linkref linkend="FCS_SRV_EXT.2.1"/>) that have access to those keys. 
             </note>
@@ -4829,7 +4830,7 @@
         <f-component id="fpt_tst_ext.2(2)" name="Extended: TSF Integrity Checking" status="objective">
           <f-element id="fpt_tst_ext.2.1(2)">
             <title>The <abbr linkend="TSF"/> shall verify the integrity of <selectables>
-              <selectable>all executable code stored in mutable media </selectable>
+              <selectable>all executable code stored in mutable media</selectable>
               <selectable><assignable>list of other executable code</assignable></selectable>
             </selectables>, stored in mutable media prior to its execution through the use of <selectables>
               <selectable>a digital signature using an immutable hardware asymmetric key</selectable>
@@ -5856,13 +5857,13 @@
       <htm:br/><htm:br/>
       If multiple authentication factors are required (with all to pass), i.e. password plus biometric factor, the SAFAR for a single attempt will be the product of each individual factor’s false accept rate, assuming each attempt is independent.
       <htm:br/><htm:br/>
-      Thus, for a hybrid combination of <htm:i>m</htm:i> password and biometric factors (denoted 
+      Thus, for a hybrid combination of <htm:i>m</htm:i> PIN/password and biometric factors (denoted 
       with index <htm:i>j</htm:i>) with <htm:i>n<htm:sub>i</htm:sub></htm:i> attempts allowed, 
       treated collectively as an individual authentication factor in a separate authentication system, the SAFAR can be expressed as:
       <htm:br/><htm:br/>
       <htm:img src="images/equationI3-2.jpg" />  (2)
       <htm:br/><htm:br/>
-      assuming each attempt is independent. Because this is currently associated with a PIN and biometrics, <htm:i>m</htm:i> = 2 in this case. 
+      assuming each attempt is independent. Because this is currently associated with a PIN/password and biometrics, <htm:i>m</htm:i> = 2 in this case. 
       <htm:br/><htm:br/>
       When ordered, let <htm:i>SAFAR<htm:sub>(k)</htm:sub></htm:i> be the SAFAR for the authentication 
       factor with the largest SAFAR, and <htm:i>SAFAR<htm:sub>(1)</htm:sub></htm:i> be the SAFAR for the 
@@ -5904,7 +5905,7 @@
         <htm:li>If the user can authenticate using any authentication factor in an authentication session, and none are considered critical factors, what is the overall SAFAR?</htm:li>
         <htm:li>If the conditions are the same as in c) but password is now a <htm:i>critical</htm:i> authentication factor that will cause a device wipe, what is the overall SAFAR?</htm:li>
         <htm:li>If the password factor and fingerprint biometric factor are both required with the number of attempts for fingerprint increased to ten, what is the overall SAFAR? What is the risk if authentication feedback is provided for each modality (i.e. fingerprint failed or password failed)?</htm:li>
-        <htm:li>f) If the password factor and fingerprint biometric factor are both combined into a hybrid factor (both must be used and the only authentication feedback allowed is valid login or invalid login) for entry with ten attempts allowed for the hybrid factor, what is the overall SAFAR? Why is this scenario more secure than e)?</htm:li>
+        <htm:li>f) If the password/PIN factor and fingerprint biometric factor are both combined into a hybrid factor (both must be used and the only authentication feedback allowed is valid login or invalid login) for entry with ten attempts allowed for the hybrid factor, what is the overall SAFAR? Why is this scenario more secure than e)?</htm:li>
       </htm:ol>
       <htm:br/>
       <htm:i>Solution:</htm:i>
@@ -5946,7 +5947,7 @@
           <htm:br/><htm:br/>
         </htm:li>
         <htm:li>
-          If password and fingerprint are now combined into a single hybrid factor, the SAFAR is as follows:
+          If password/PIN and fingerprint are now combined into a single hybrid factor, the SAFAR is as follows:
           <htm:br/><htm:br/>
           <htm:img src="images/equationI4-i.jpg" /> .
           <htm:br/><htm:br/>
