@@ -8,7 +8,7 @@ This repository hosts the draft version of the Protection Profile for Mobile Dev
 [Essential Security Requirements (ESR)](http://common-criteria.rhcloud.com/project/output/mobile-device-esr.html) for this technology class of 
 products. This repository is used to facilitate collaboration and development on the draft document. 
 See the [release](#Release-Version) section if you are looking for the officially released version for evaluations. 
-A list of products that have passed evaluation against this Protection Profile can be found [here](https://www.niap-ccevs.org/Profile/Info.cfm?id=395).
+A list of products that have passed evaluation against this Protection Profile can be found [here](https://www.niap-ccevs.org/Profile/Info.cfm?id=417).
 
 
 ## Draft Version
