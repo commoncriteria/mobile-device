@@ -1,0 +1,40 @@
+language: generic
+sudo: true
+dist: trusty
+
+# whitelist of branches to build
+branches:
+  only:
+    - master
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq make xsltproc
+
+before_script:
+  - wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
+  - tar -xvf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
+  - export PATH=$PATH:$PWD/wkhtmltox/bin/
+
+script:
+  - make
+  - git clone https://github.com/commoncriteria/commoncriteria.github.io.git
+  - git clone https://github.com/commoncriteria/ci-scripts.git
+  - mkdir -p commoncriteria.github.io/pp/$(basename $TRAVIS_REPO_SLUG)
+  - cp -r output/* commoncriteria.github.io/pp/$(basename $TRAVIS_REPO_SLUG)
+  - chmod 700 ci-scripts/generate_pdfs.sh
+  - chmod 700 ci-scripts/create_site.sh
+  - ./ci-scripts/generate_pdfs.sh
+  - git pull
+  - ./ci-scripts/create_site.sh
+  
+# Deploy HTML pages and updated index.html (needed before we can generate pdf versions)
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  local_dir: commoncriteria.github.io/
+  repo: commoncriteria/commoncriteria.github.io
+  target_branch: master
+  on:
+    branch: master
