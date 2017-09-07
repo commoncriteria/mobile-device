@@ -25,7 +25,10 @@ script:
   - chmod 700 ci-scripts/generate_pdfs.sh
   - chmod 700 ci-scripts/create_site.sh
   - ./ci-scripts/generate_pdfs.sh
-  - git pull
+  - cd commoncriteria.github.io
+  - git add --all && git commit -m "Deploying changes"
+  - git pull --rebase
+  - cd -
   - ./ci-scripts/create_site.sh
   
 # Deploy HTML pages and updated index.html (needed before we can generate pdf versions)

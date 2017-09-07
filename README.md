@@ -5,7 +5,7 @@ Protection Profile for Mobile Device Fundamentals
 ![license](https://img.shields.io/badge/license-Unlicensed-blue.svg)
 
 This repository hosts the draft version of the Protection Profile for Mobile Device Fundamentals based on the 
-[Essential Security Requirements (ESR)](http://common-criteria.rhcloud.com/project/output/mobile-device-esr.html) for this technology class of 
+[Essential Security Requirements (ESR)](https://commoncriteria.github.io/pp/mobile-device/mobile-device-esr.html) for this technology class of 
 products. This repository is used to facilitate collaboration and development on the draft document. 
 See the [release](#Release-Version) section if you are looking for the officially released version for evaluations. 
 A list of products that have passed evaluation against this Protection Profile can be found [here](https://www.niap-ccevs.org/Profile/Info.cfm?id=417).
@@ -13,8 +13,8 @@ A list of products that have passed evaluation against this Protection Profile c
 
 ## Draft Version
 
-* [Protection Profile for Mobile Device Fundamentals ](http://common-criteria.rhcloud.com/mobile-device/output/mobile-device-release.html) (html)
-* [Protection Profile for Mobile Device Fundamentals ](http://common-criteria.rhcloud.com/mobile-device/output/mobile-device-release.pdf) (pdf)
+* [Protection Profile for Mobile Device Fundamentals ](https://commoncriteria.github.io/pp/mobile-device/mobile-device-release.html) (html)
+* [Protection Profile for Mobile Device Fundamentals ](https://commoncriteria.github.io/pp/mobile-device/mobile-device-release.pdf) (pdf)
 
 ## Release Version
 
