@@ -1,163 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="../transforms/esr2html.xsl"?>
 
-<ESR xmlns="http://common-criteria.rhcloud.com/ns/esr" name="Operating System Fundamentals">
+<ESR xmlns="http://common-criteria.rhcloud.com/ns/esr" name="Mobile Device Fundamentals">
   
 	<intro>
-		<esrtitle>General Purpose Operating System</esrtitle>
-		<maintainer>NIAP and CESG</maintainer>
-		<identifier>42</identifier>
-		<version>0.8</version>
-		<status>draft</status>
-		<issuedate>19 March 2015</issuedate>
+		<esrtitle>Protection Profile for Mobile Devices: Mobile Security Foundation</esrtitle>
+		<maintainer>Information Assurance Directorate</maintainer>
+		<identifier>00x</identifier>
+		<version>0.02</version>
+		<status>Draft</status>
+		<issuedate/>
 		<approver/>
 		<supercedes/>
 	</intro>
 
 	<section title="Background and Purpose" id="purpose">
-		This section sets the context for not only the ESR, but what is 
-		expected of the resulting Protection Profile (PP). The intent is 
-		that the remaining sections provide succinct statements that 
-		highlight the relevant aspects to be addressed by the Technical 
-		Community (TC) constructing the PP. Here, the authors provide a 
-		narrative that introduces the reader to the problem being solved, 
-		and presents key aspects that support or guide the TC, and may
-		elaborate on subtleties not apparent in the “bulleted” high level
-		statements.
+		This assurance standard specifies information security requirements for Mobile Devices for 
+		use in an enterprise. A Mobile Device in the context of this assurance standard is a device 
+		which is composed of a hardware platform and its system software. The device typically 
+		provides wireless connectivity and uses application software for functions like secure 
+		messaging, email, web, VPN connection, and VoIP (Voice over IP), for access to the 
+		protected enterprise network, enterprise data and applications, and for communicating to 
+		other mobile devices.
+	<br/>
+		Examples of a “mobile device” that should claim compliance to this assurance standard 
+		include smartphones, tablet computers, and other mobile devices with similar capabilities.
+	<br/>
+		The Mobile Device provides essential services, such as cryptographic services, data-at-rest 
+		protection, and key storage services to support the secure operation of applications on the 
+		device.  Additional security features such as security policy enforcement, application 
+		mandatory access control, anti-exploitation features, user authentication, and software integrity 
+		protection are implemented in order to address threats.
+	<br/>
+		This assurance standard describes these essential security services provided by the Mobile 
+		Device and serving as a foundation for a secure mobile architecture. It is expected that a 
+		typical deployment would also include either third-party or bundled components that 
+		provide:
+		<ul>
+			<li>Data in transit protection (e.g. VPN Clientm VoIP Client, Web Browser)</li>
+			<li>Security policy management (e.g. MDM System)</li>
+		</ul>
+	<br/>
+		If these components are bundled as part of the Mobile Device by the manufacturer, they 
+		may be separately validated against the related assurance standards. Additional 
+		applications that may come pre-installed on the Mobile Device that are not validated are 
+		considered to be potentially flawed, but not malicious.  Examples include VoIP client, email 
+		client, and web browser.
+	<br/>
+		<b>Related assurance standards</b>
+		This assurance standard is one of a set of complementary 
+		Mobility assurance standards that can be layered together to 
+		provide a full deployment.  The set of assurance standards will 
+		consist of:
+		<ol>
+			<li>Mobile Device: Mobile Security Foundations</li>
+			<li>Mobile Device Management</li>
+			<li>VPN Client &amp; Gateway</li>
+			<li>VoIP Client &amp; SIP Server</li>
+			<li>Email Client</li>
+			<li>Web Browser</li>
+		</ol>
+	<br/>
 	</section>
+	
 	<section title="Use Cases" id="usecases">
-	  This section is intended to provide the initial scope/bound of the 
-	  security problem by providing the reader with concise statements 
-	  regarding the scenarios in which the technology is being used. The 
-	  intended usage presented here should lay the groundwork for the 
-	  identifying the resources to be protected, and what threats must be
-	  considered in the drafting of the Essential Security Requirements 
-	  (ESR) and for the TC to consider when writing the PP.
+	  	A selection of use cases is elaborated below.
+	<br/>
+		<b>[USE CASE 1] Enterprise-furnished device for general-purpose enterprise use and limited 
+			personal use</b>
+		An enterprise-furnished device for general-purpose business use entails a significant degree 
+		of enterprise control over configuration and, possibly, software inventory. The enterprise 
+		elects to provide users with mobile devices and additional applications (such as VPN or 
+		email clients) in order to maintain control of their sensitive data and security of their 
+		networks, while trying to balance the constraints of usability and security and 
+		considerations of personal ownership and control. Users may use Internet connectivity to 
+		browse the web or access corporate mail or run enterprise applications, but this 
+		connectivity may be under significant control of the enterprise.
+	<br/>
+		<b>[USE CASE 2]Enterprise-furnished device for specialized, high-security use</b>
+		An enterprise-furnished device with intentionally-limited network connectivity, tightly-
+		controlled configuration, and limited software inventory is appropriate for specialized, high-
+		security use cases. For example, the device may not be permitted connectivity to any 
+		external peripherals. It may only be able to communicate via its WiFi or cellular radios with 
+		the enterprise-run network, which may not even permit connectivity to the Internet. Use of 
+		the device may entail compliance with policies that would not be considered realistic in any 
+		general-purpose use case, yet may mitigate risks to highly sensitive information. As in the 
+		previous case, the enterprise will look for additional applications providing enterprise 
+		connectivity and services to have a similar level of assurance as the platform.
+	<br/>
+		<b>[USE CASE 3] Personally-furnished device for personal and enterprise use</b>
+		A personally-furnished device which is used for both personal activities and enterprise data 
+		is commonly called Bring Your Own Device (BYOD). Unlike in the enterprise-furnished cases, 
+		in this use case the enterprise is limited in what security policies it can enforce on the device 
+		because the user purchased the device for personal use and is unlikely to accept 
+		policies that limit the functionality of the device. However, because the enterprise allows 
+		the user full (or nearly full) access to the enterprise network, the enterprise will require 
+		certain security policies, for example a password or screenlock policy, and may require 
+		assured enterprise software, for example a VPN client, before allowing access.
+	<br/>
+		<b>[USE CASE 4] Personally-furnished device for personal and limited enterprise use</b>
+		A personally-furnished device may also be given access to limited enterprise services such as 
+		enterprise email. Because the user does not have full access to the enterprise or enterprise 
+		data, the enterprise may not need to enforce any security policies on the device. However, 
+		the enterprise may want secure email and web browsing with assurance that the services 
+		being provided to those clients by the mobile device are not compromised.
+	<br/>
 	</section>
 
 	<section title="Resources to be protected" id="resourcesprotected">
-    	  This section is intended to provide the initial scope/bound of the 
-    	  security problem by providing the reader with concise statements
-    	  regarding the scenarios in which the technology is being used. The 
-    	  intended usage presented here should lay the groundwork for the 
-    	  identifying the resources to be protected, and what threats must be
-    	  considered in the drafting of the Essential Security Requirements 
-    	  (ESR) and for the TC to consider when writing the PP.
+    	High-level resources to be protected are identified in the Background/Purpose.
+    <br/>
 	</section>
 
 	<section title="Attacker access" id="attackeraccess"> 
-	  The following assumptions are made about
-	  attackers' ability to develop attacks: 
-	  <ul>
-	    <li> An attacker has an arbitrary amount of time to analyze the behavior of the product, its
-	    interaction with its platform, and the data it transmits over the network. </li>
-	    <li> An attacker is able to acquire their own copy of the target product and study its
-	    behavior on a platform that they control. </li>
-	  </ul>
-	  <p/> The attacker is expected to engage in the following general classes of attack: <!-- added in order to allow for rather direct flow to Threats section in PP -->
-	  <ul>
-	    <li> Network eavesdropping, in which an attacker may monitor and gain access to data
-	    exchanged between the product and other endpoints. </li>
-	    <li> Network attack, in which an attacker may initiate malicious communications with the
-	    product or alter communications between the product and other endpoints. </li>
-	    <li> Local attack, in which an attacker has gained the ability to execute code on the
-	    system, which may be used to escalate privilege or access data without
-	    authorization. </li>
-	    <li> Limited physical access attack, in which an attacker may attempt to access data on
-	    the system by virtue of being physically present for a limited period of time. This
-	    limited physical access does not include attacks in which the attacker could
-	    disassemble the system to gain access to its storage media or manipulate the product's
-	    underlying hardware and firmware. Systems used for working remotely, such as laptops
-	    and tablets, for which an attacker could gain longer physical access to, should
-	    apply additional protections that are provided by products evaluated against other
-	    Protection Profiles (e.g. FDE cPP). </li>
-	    <li> Persistence, in which an attacker has already exploited the system and wishes to
-	    maintain presence on the system. </li>
-	  </ul>
+	    Mobile devices are subject to the threats of traditional computer systems along with those 
+	    entailed by their mobile nature. The requirements in this assurance standard were 
+	    developed to address the threats of network eavesdropping, network attacks, physical 
+	    access, and non-malicious (but potentially flawed) apps.
+	<br/>
+		<ul>
+			<li>Network eavesdropping involves an attack positioned on a wireless 
+				communications channel or elsewhere on the network infrastructure. Attackers may 
+				monitor and gain access to data exchanged between the Mobile Device and other 
+				endpoints.</li>
+		<br/>
+			<li>Network attacks encompass situations in which an attacker is positioned on a 
+				wireless communications channel or elsewhere on the network 
+				infrastructure. Attackers may initiate communications with the Mobile Device or 
+				alter communications between the Mobile Device and other endpoints in order to 
+				compromise the Mobile Device. These attacks include malicious software updates 
+				of any apps or system software on the device. These attacks include spoofing of 
+				endpoint devices, such as MDM or VPN servers. These attacks also include malicious 
+				web pages or email attachments which are usually delivered over the network to 
+				devices.</li>
+		<br/>
+			<li>Physical access threats involve loss or theft of the Mobile Device which may give rise 
+				to lose of confidentiality of user data including credentials. These may involve 
+				attacks which attempt to access the device through external hardware ports, 
+				through its user interface, and also through direct and possibly destructive access to 
+				its storage media. The goal of such attacks is to access data from a lost or stolen 
+				device which is not expected to return to its user. Defending against device re-use 
+				after physical compromise is out of scope for this assurance standard.</li>
+		<br/>
+			<li>Malicious or flawed app threats exist because apps loaded onto the Mobile Device 
+				may include malicious or exploitable code. This code could be included intentionally 
+				by its developer or unknowingly by the developer, perhaps as a software 
+				library. Malicious apps may attempt to exfiltrate data to which they have 
+				access. They may also conduct attacks against the platform's system software which 
+				will provide them with additional privileges and the ability to conduct further 
+				malicious activities. Malicious apps may be able to control the device's sensors (GPS, 
+				camera, microphone) to gather intelligence about the user's surroundings even 
+				when those activities do not involve data resident or transmitted from the device. 
+				Flawed apps may give an attack access to perform network-based or physical 
+				attacks that otherwise would have been prevented.</li>
+		<br/>
+			<li>Persistent access to a device by an attacker implies that the device has lost integrity 
+				and cannot regain it. The device has likely lost this integrity due to some other 
+				threat vector, yet the continued access by an attacker constitutes an ongoing threat 
+				in itself. In this case the device and its data may be controlled by an adversary at 
+				least as well as by its legitimate owner.</li>
+		</ul>
+	<br/>
 	</section>
 	
 	<section title="Essential Security Requirements" id="requirements">
-        	This is where the authors present an initial set of English 
-        	requirements that specify security functionality, rather than 
-        	design and/or implementation characteristics. These requirements 
-        	will provide the foundation for which the detailed set of 
-        	requirements is derived. It is important that the requirements 
-        	captured here make an attempt to fully address the categories 
-        	(e.g., access control, identification and authentication, 
-        	management capabilities, roles of administration, secure 
-        	communications, and audit). That's not to say the requirements are 
-        	fully specified or detailed enough to simply translate to Common 
-        	Criteria security functional requirements. The goal is that there 
-        	is enough information contained here, as well as the other sections
-        	of this document, to provide the TC enough information to ensure 
-        	they have an understanding of what is minimally required in breath.
+        	Essential security requirements for this protection profile are documented in Mobile 
+        	Devices: Mobile Security Foundations - Essential Security Requirements 
+        	(MDPPRequirements_20130530.pdf).
+    <br/>
 	</section>
 
 	<section title="Assumptions" id="assumptions">
-	  Simply put, this section presents the aspects of the product and 
-	  its	intended environment that can be assumed to hold true. This 
-	  will provide additional scope on the resulting PP.
-
-	  The following assumptions are made for the operating system product and its operational
-	  environment: <ul>
-			<li>The underlying platform is physically protected, to a large extent. The hardware
-				that the product manages is secured by defensive measures that make physical attacks
-				impractical for most attackers. At the same time, casual passersby might attempt to
-				trivially access the system. </li>
-			<li>The product implements some security-relevant functionality that does not require
-				evaluation (e.g., network time synchronization, process scheduling, and virtual
-				memory management including process separation). </li>
-			<li>Depending on configuration and capability, the product may or may not be: <ul>
-					<li>configuration-managed by the enterprise</li>
-					<li>bound to directory services to support multi-user login</li> </ul>
-			</li>
-			<li> The product runs application software developed by a third-party. The applications are
-				not intentionally developed to be malicious, but can contain inadvertent coding
-				errors. These errors introduce risk that control of an application may be seized by
-				a malicious entity. The product shall confine these applications within the originally
-				designated operating environment. </li>
-			<li>The platform is connected to a network. For purposes of sending/receiving data, to
-				include software updates, the platform is connected to other entities. Other
-				entities on the network are not inherently trustable. </li>
-			<li>Administrators are not malicious in nature.</li>
-			<li> Users are not malicious in nature, though they may inadvertently or intentionally engage in risky behavior. </li>
-		</ul>
+	  <ol>
+	  	<li>The Mobile Device will be provisioned for a specific mobile user in the enterprise 
+	  		environment by the administrator prior to use by the mobile user.</li>
+	  	<br/>
+	  	<li>The administrator will configure the Mobile Device security functions correctly to 
+	  		create the intended security policy.</li>
+	  	<br/>
+	  	<li>The Mobile User will immediately notify the administrator if the Mobile Device is 
+	  		lost or stolen.</li>
+	  	<br/>
+	  	<li>The Mobile User is not malicious, and exercises precautions to reduce the risk of 
+	  		loss or theft of the Mobile Device.</li>
+	  	<br/>
+	  </ol>
 	</section>
 
-
 	<section title="Optional Extensions" id="extensions"> 
-		Additional security functionality that may
-		be appropriate for some use cases, and can be expressed in extensions to this document,
-		includes: 
-		<ul>
-			<li></li>
-		</ul>
+		Optional Extensions are Identified within the Security Requirements.
+	<br/>
 	</section>
 
 	<section title="Outside the TOE's Scope" id="outsidescope">
-	  <!--
-			This is where the authors explicitly state things they do not want 
-			to be considered for inclusion in an evaluation against a 
-			resulting PP.  Items expressed here could include threats, 
-			functions or capabilities that would require assurance activities 
-			that are too subjective, or specific expertise not available in the
-			evaluation facilities expected to assess products against the PP 
-	  -->
-		The following list contains items that are explicitly out-of-scope for any evaluation
-		against the product PP <ul>
-			<li>Malicious, Highly-Privileged Administrators - Highly-privileged administrators
-				acting maliciously can disable most, if not all, security protections on the product.
-				Additionally procedural controls that are out of scope of this document should be
-				considered to help highlight administrator accounts acting suspiciously.</li>
-			<li>Zero Days - The disclosure of recently published vulnerabilities (Zero Days) should
-				not be used as a reason to fail an product undergoing evaluation.</li>
-			<li>Unofficial Versions - Non-vendor supplied install images often contain added
-				functionality and may weaken the normal operating functionality of the product</li>
-			<li>Platform - The product PP shall not address the hardware or firmware of its underlying
-				platform to include the boot sequence before control is handed off to the product. That
-				the platform itself is virtual or physical is irrelevant to any evaluations. </li>
-			<li>Applications - The product PP shall not address applications that are not delivered as
-				part of the product installation process. </li>
-		</ul>
+	  	The Mobile Device is also vulnerable due to the access of service providers who, in their role, 
+	  	can easily eavesdrop on mobile communications or inject malicious or flawed code into the 
+	  	mobile device. At this time, this assurance standard provides few mitigations to the access 
+	  	available to service providers, or adversaries posing as service providers; however, several 
+	  	future requirements addressing this threat are identified, with the expectation that industry 
+	  	will feedback as to the feasibility of such requirements.
 	</section>
 </ESR>
