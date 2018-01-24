@@ -2,7 +2,7 @@
 <?xsl-stylesheet type="text/xsl" href="../transforms/pp2html.xsl"?>
 
 <?xml-model href="../transforms/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<PP xmlns="http://common-criteria.rhcloud.com/ns/cc" name="Mobile Device Fundamentals"
+<PP xmlns="https://niap-ccevs.org/cc/v1" name="Mobile Device Fundamentals"
   xmlns:htm="http://www.w3.org/1999/xhtml">
   <PPReference title="PP Reference" id="XXXXX">
     <ReferenceTable>
@@ -672,7 +672,7 @@
                 <htm:tr><htm:td>FCS_IV_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_SRV_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>                
                 <htm:tr><htm:td rowspan="2">FCS_STG_EXT.1</htm:td><htm:td>Import or destruction of key.</htm:td><htm:td rowspan="2">Identity of key. Role and identity of requestor.</htm:td></htm:tr>
-                <htm:tr><htm:td><selectables><selectable>Exceptions to use and destruction rules</selectable><selectable>No other events</selectable></selectables></htm:td>
+                <htm:tr><htm:td><selectables><selectable>Exceptions to use and destruction rules</selectable><selectable exclusive="yes">No other events</selectable></selectables></htm:td>
                   </htm:tr>
                 <htm:tr><htm:td>FCS_STG_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_STG_EXT.3</htm:td><htm:td>Failure to verify integrity of stored key.</htm:td><htm:td>Identity of key being verified.</htm:td></htm:tr>
@@ -889,7 +889,7 @@
               <selectables linebreak="yes">
                   <selectable><refinement>RSA schemes using</refinement> cryptographic key sizes of <refinement>2048-bit or greater</refinement> that meet <refinement>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.3</refinement></selectable>
                 <selectable><refinement>ECC schemes using </refinement><selectables linebreak="yes">                 
-                    <selectable><refinement>“NIST curves” P-384 and </refinement><selectables><selectable><refinement>P-256</refinement></selectable><selectable><refinement>P-521</refinement></selectable><selectable><refinement>no other curves</refinement></selectable></selectables> that meet the following: <refinement>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.4</refinement></selectable>
+                    <selectable><refinement>“NIST curves” P-384 and </refinement><selectables><selectable><refinement>P-256</refinement></selectable><selectable><refinement>P-521</refinement></selectable><selectable exclusive="yes"><refinement>no other curves</refinement></selectable></selectables> that meet the following: <refinement>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.4</refinement></selectable>
                     <selectable><refinement>Curve25519 schemes that meet the following: RFC 7748</refinement></selectable></selectables>
                 </selectable>
                   <selectable><refinement>FFC schemes using </refinement>cryptographic key sizes of <refinement>2048-bit or greater</refinement> that meet the following: <refinement>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1</refinement></selectable>
@@ -1014,7 +1014,7 @@
               <selectables linebreak="yes">
                 <selectable><refinement>Elliptic curve-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</refinement></selectable>
                 <selectable><refinement>Finite field-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</refinement></selectable>
-                <selectable><refinement>No other schemes</refinement></selectable>
+                <selectable exclusive="yes"><refinement>No other schemes</refinement></selectable>
               </selectables>.
             </title>
             <note role="application">
@@ -1126,7 +1126,7 @@
         <f-component id="fcs_ckm_ext.1" name="Extended: Cryptographic Key Support" status="threshold">
           <f-element id="fcs_ckm_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall support 
-              <selectables><selectable>immutable hardware</selectable><selectable>mutable hardware</selectable></selectables> <abbr linkend="REK"/>(s) with a 
+              <selectables><selectable>immutable hardware</selectable><selectable id="mutable_hardware">mutable hardware</selectable></selectables> <abbr linkend="REK"/>(s) with a 
               <selectables><selectable>symmetric</selectable><selectable>asymmetric</selectable></selectables> key of strength 
               <selectables><selectable>112 bits</selectable><selectable>128 bits</selectable><selectable>192 bits</selectable><selectable>256 bits</selectable></selectables>. 
             </title>
@@ -1521,7 +1521,7 @@
         
         <!-- Changelog: fcs_ckm_ext.1.4 became fcs_ckm_ext.7-->
         <f-component id="fcs_ckm_ext.7" name="Extended: Cryptographic Key Support (REK)" status="sel-based">
-          <selection-depends req="fcs_ckm_ext.1.1"/>
+          <selection-depends req="fcs_ckm_ext.1.1" ids="mutable_hardware"/>
           <f-element id="fcs_ckm_ext.7.1">
             <title>A <abbr linkend="REK"/> shall not be able to be read from or exported from the hardware. 
             </title>
@@ -1575,10 +1575,10 @@
                 <selectable><refinement>AES-XTS (as defined in NIST SP 800-38E) mode</refinement></selectable> 
                 <selectable><refinement>AES-CCMP-256 (as defined in NIST SP800-38C and IEEE 802.11ac-2013)</refinement></selectable>
                 <selectable><refinement>AES-GCMP-256 (as defined in NIST SP800-38D and IEEE 802.11ac-2013)</refinement></selectable>
-                  <selectable><refinement>no other modes</refinement></selectable></selectables></htm:li>
+                  <selectable exclusive="yes"><refinement>no other modes</refinement></selectable></selectables></htm:li>
               </htm:ul>
               and cryptographic key sizes 128-bit key sizes and 
-                <selectables><selectable><refinement>256-bit key sizes</refinement></selectable><selectable><refinement>no other key sizes</refinement></selectable></selectables>.
+                <selectables><selectable><refinement>256-bit key sizes</refinement></selectable><selectable exclusive="yes"><refinement>no other key sizes</refinement></selectable></selectables>.
             </title>
             <note role="application">For the first selection, the <abbr linkend="ST"/> author should choose the mode or modes in which AES operates. For the second selection, the <abbr linkend="ST"/> author should choose the key sizes that are supported by this functionality. 128-bit CBC and CCMP are required in order to comply with WLAN Client Extended Package. 
               <htm:br/><htm:br/>
@@ -1740,8 +1740,8 @@
         <f-component id="fcs_cop.1(2)" name="Cryptographic operation"  status="threshold">
           <f-element id="fcs_cop.1.1(2)">
             <title>The <abbr linkend="TSF"/> shall perform <refinement>cryptographic hashing</refinement> in accordance with a specified cryptographic algorithm <refinement>SHA-1 and 
-              <selectables><selectable>SHA-256</selectable><selectable>SHA-384</selectable><selectable>SHA-512</selectable><selectable>no other algorithms</selectable></selectables></refinement> and <refinement>message digest</refinement> sizes <refinement>160 and 
-              <selectables><selectable>256</selectable><selectable>384</selectable><selectable>512 bits</selectable><selectable>no other message digest sizes</selectable></selectables></refinement> that meet the following: <refinement>FIPS Pub 180-4</refinement>.
+              <selectables><selectable>SHA-256</selectable><selectable>SHA-384</selectable><selectable>SHA-512</selectable><selectable exclusive="yes">no other algorithms</selectable></selectables></refinement> and <refinement>message digest</refinement> sizes <refinement>160 and 
+              <selectables><selectable>256</selectable><selectable>384</selectable><selectable>512 bits</selectable><selectable exclusive="yes">no other message digest sizes</selectable></selectables></refinement> that meet the following: <refinement>FIPS Pub 180-4</refinement>.
             </title>
             <note role="application">Per NIST SP 800-131A, SHA-1 for generating digital signatures is no longer allowed, and SHA-1 for verification of digital signatures is strongly discouraged as there may be risk in accepting these signatures. It is expected that vendors will implement SHA-2 algorithms in accordance with SP 800-131A.
               <htm:br/><htm:br/>
@@ -1789,8 +1789,8 @@
                 <htm:li><refinement>RSA schemes using cryptographic key sizes of 2048-bit or greater that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 4</refinement> and</htm:li>             
               <htm:li><refinement><selectables linebreak="yes">
                 <selectable>ECDSA schemes using “NIST curves” P-384 and 
-              <selectables><selectable>P-256</selectable><selectable>P-521</selectable><selectable>no other curves</selectable></selectables> that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 5</selectable>
-                  <selectable>No other algorithms</selectable>
+              <selectables><selectable>P-256</selectable><selectable>P-521</selectable><selectable exclusive="yes">no other curves</selectable></selectables> that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 5</selectable>
+                  <selectable exclusive="yes">No other algorithms</selectable>
               </selectables></refinement>.</htm:li>
               </htm:ul>
             </title>
@@ -1829,9 +1829,9 @@
         <f-component id="fcs_cop.1(4)" name="Cryptographic operation" status="threshold">
           <f-element id="fcs_cop.1.1(4)">
             <title>The <abbr linkend="TSF"/> shall perform <refinement>keyed-hash message authentication</refinement> in accordance with a specified cryptographic algorithm <refinement>HMAC-SHA-1 and 
-              <selectables><selectable>HMAC-SHA-256</selectable><selectable>HMAC-SHA-384</selectable><selectable>HMAC-SHA-512</selectable><selectable>no other algorithms</selectable></selectables></refinement> and cryptographic key sizes 
+              <selectables><selectable>HMAC-SHA-256</selectable><selectable>HMAC-SHA-384</selectable><selectable>HMAC-SHA-512</selectable><selectable exclusive="yes">no other algorithms</selectable></selectables></refinement> and cryptographic key sizes 
               <assignable>key size (in bits) used in HMAC</assignable><refinement> and message digest sizes 160 and 
-              <selectables><selectable>256</selectable><selectable>384</selectable><selectable>512</selectable><selectable>no other</selectable></selectables> bits</refinement> that meet the following: <refinement>FIPS Pub 198-1, "The Keyed-Hash Message Authentication Code", and FIPS Pub 180-4, "Secure Hash Standard"</refinement>.
+              <selectables><selectable>256</selectable><selectable>384</selectable><selectable>512</selectable><selectable exclusive="yes">no other</selectable></selectables> bits</refinement> that meet the following: <refinement>FIPS Pub 198-1, "The Keyed-Hash Message Authentication Code", and FIPS Pub 180-4, "Secure Hash Standard"</refinement>.
           </title>
             <note role="application">The selection in this requirement must be consistent with the key size specified for the size of the keys used in conjunction with the keyed-hash message authentication. HMAC-SHA-1 is currently required in order to comply with the WLAN Client EP.</note>
           <aactivity>
@@ -1871,9 +1871,9 @@
         
         
         <f-component id="fcs_dtls_ext.1" name="Extended: DTLS Protocol" status="sel-based">         
-          <selection-depends req="fdp_upc_ext.1.1"/>
-          <selection-depends req="fia_x509_ext.2.1"/>
-          <selection-depends req="ftp_itc_ext.1.1"/>
+          <selection-depends req="fdp_upc_ext.1.1" ids="upc_dtls"/>
+          <selection-depends req="fia_x509_ext.2.1" ids="x509_dtls"/>
+          <selection-depends req="ftp_itc_ext.1.1" ids="itc_dtls"/>
           <f-element id="fcs_dtls_ext.1.1">
             <title>The TSF shall implement the DTLS protocol in accordance with DTLS 1.2 (RFC 6347).</title>
             <note role="application"> If "DTLS" is selected in <linkref linkend="fdp_upc_ext.1.1"/>, <linkref linkend="fia_x509_ext.2.1"/> or <linkref linkend="ftp_itc_ext.1.1"/> <linkref linkend="fcs_dtls_ext.1"/> shall be included in the ST.</note>
@@ -1909,7 +1909,7 @@
           </f-element>
           <f-element id="fcs_https_ext.1.3">
             <title>The <abbr linkend="TSF"/> shall notify the application and 
-              <selectables><selectable>not establish the connection</selectable><selectable>request application authorization to establish the connection</selectable><selectable>no other action</selectable></selectables> if the peer certificate is deemed invalid. 
+              <selectables><selectable>not establish the connection</selectable><selectable>request application authorization to establish the connection</selectable><selectable exclusive="yes">no other action</selectable></selectables> if the peer certificate is deemed invalid. 
             </title>
             <note role="application">Validity is determined by the certificate path, the expiration date, and the revocation status in accordance with RFC 5280.</note>
             <aactivity>
@@ -2018,7 +2018,7 @@
               <selectables><selectable>selected algorithms</selectable><selectable> selected algorithms with the exception of ECC over curve 25519-based algorithms</selectable></selectables>
                 in <linkref linkend="FCS_CKM.2(2)"/></htm:li>
                <htm:li>The following algorithms in <linkref linkend="FCS_COP.1(1)"/>: AES-CBC, 
-              <selectables><selectable>AES Key Wrap</selectable><selectable>AES Key Wrap with Padding</selectable><selectable>AES-GCM</selectable><selectable>AES-CCM</selectable><selectable>no other modes</selectable></selectables>
+              <selectables><selectable>AES Key Wrap</selectable><selectable>AES Key Wrap with Padding</selectable><selectable>AES-GCM</selectable><selectable>AES-CCM</selectable><selectable exclusive="yes">no other modes</selectable></selectables>
                </htm:li>
                <htm:li>All mandatory and selected algorithms in <linkref linkend="FCS_COP.1(3)"/></htm:li>
                <htm:li>All mandatory and selected algorithms in <linkref linkend="FCS_COP.1(2)"/></htm:li>
@@ -2027,7 +2027,7 @@
               <selectables linebreak="yes">
                 <selectable>All mandatory and <selectables><selectable>selected algorithms</selectable><selectable>selected algorithms with the exception of ECC over curve 25519-based algorithms</selectable></selectables> in <linkref linkend="FCS_CKM.1"/></selectable>
                 <selectable>The selected algorithms in <linkref linkend="FCS_COP.1(5)"/></selectable>
-                  <selectable>No other cryptographic operations</selectable>
+                  <selectable exclusive="yes">No other cryptographic operations</selectable>
                 </selectables>
               </htm:li>
              </htm:ul>
@@ -2072,7 +2072,7 @@
           <f-element id="fcs_stg_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall provide 
               <selectables><selectable>mutable hardware</selectable><selectable>software-based</selectable></selectables> secure key storage for asymmetric private keys and 
-              <selectables><selectable>symmetric keys</selectable><selectable>persistent secrets</selectable><selectable>no other keys</selectable></selectables>. 
+              <selectables><selectable>symmetric keys</selectable><selectable>persistent secrets</selectable><selectable exclusive="yes">no other keys</selectable></selectables>. 
             </title>
             <note role="application">A hardware keystore can be exposed to the <abbr linkend="TSF"/> through a variety of interfaces, including embedded on the motherboard, USB, microSD, and Bluetooth.
               <htm:br/><htm:br/>
@@ -2086,7 +2086,7 @@
           <f-element id="fcs_stg_ext.1.2">
             <title>The <abbr linkend="TSF"/> shall be capable of importing keys/secrets into the secure key storage upon request of 
               <selectables><selectable>the user</selectable><selectable>the administrator</selectable></selectables> and 
-                <selectables><selectable>applications running on the <abbr linkend="TSF"/></selectable><selectable>no other subjects</selectable></selectables>.
+                <selectables><selectable>applications running on the <abbr linkend="TSF"/></selectable><selectable exclusive="yes">no other subjects</selectable></selectables>.
             </title>
             <note role="application">If the <abbr linkend="ST"/> Author selects only user, the <abbr linkend="ST"/> Author shall select function 9 in <linkref linkend="FMT_MOF_EXT.1.1"/>. </note>
           </f-element>         
@@ -2160,7 +2160,7 @@
           <f-element id="fcs_stg_ext.2.1">
             <title>The <abbr linkend="TSF"/> shall encrypt all <abbr linkend="DEK"/>s, <abbr linkend="KEK"/>s, 
               <assignable>any long-term trusted channel key material</assignable> and 
-              <selectables><selectable>all software-based key storage</selectable><selectable>no other keys</selectable></selectables> by <abbr linkend="KEK"/>s that are 
+              <selectables><selectable>all software-based key storage</selectable><selectable exclusive="yes">no other keys</selectable></selectables> by <abbr linkend="KEK"/>s that are 
               <selectables linebreak="yes">                
                 <selectable>Protected by the <abbr linkend="REK"/> with 
                   <selectables linebreak="yes">
@@ -2196,7 +2196,7 @@
           </f-element>
           <f-element id="fcs_stg_ext.2.2 ">
             <title><abbr linkend="DEK"/>s, <abbr linkend="KEK"/>s, <assignable>any long-term trusted channel key material</assignable> and
-              <selectables><selectable>all software-based key storage</selectable><selectable>no other keys</selectable></selectables> shall be encrypted using one of the following methods: 
+              <selectables><selectable>all software-based key storage</selectable><selectable exclusive="yes">no other keys</selectable></selectables> shall be encrypted using one of the following methods: 
               <selectables><selectable>using a SP800-56B key establishment scheme</selectable>
                 <selectable>using AES in the 
                 <selectables>
@@ -2211,7 +2211,7 @@
         <f-component id="fcs_stg_ext.3" name="Extended: Integrity of encrypted key storage" status="threshold">
           <f-element id="fcs_stg_ext.3.1">            
             <title>The <abbr linkend="TSF"/> shall protect the integrity of any encrypted <abbr linkend="DEK"/>s and <abbr linkend="KEK"/>s and 
-              <selectables><selectable>long-term trusted channel key material</selectable><selectable>all software-based key storage</selectable><selectable>no other keys</selectable></selectables> 
+              <selectables><selectable>long-term trusted channel key material</selectable><selectable>all software-based key storage</selectable><selectable exclusive="yes">no other keys</selectable></selectables> 
                 by 
               <selectables linebreak="yes">
                 <selectable>
@@ -2254,15 +2254,15 @@
                   <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
                   <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
                   <selectable>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
-                  <selectable>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>                  
-                  <selectable>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>                  
-                  <selectable>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>                  
-                  <selectable>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>                  
-                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
-                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
-                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
-                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>                              
-                  <selectable>no other ciphersuite</selectable>
+                  <selectable id='tlsc_1'>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>                  
+                  <selectable id='tlsc_2'>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>                  
+                  <selectable id='tlsc_3'>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>                  
+                  <selectable id='tlsc_4'>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>                  
+                  <selectable id='tlsc_5'>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
+                  <selectable id='tlsc_6'>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
+                  <selectable id='tlsc_7'>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
+                  <selectable id='tlsc_8'>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>                              
+                  <selectable exclusive="yes">no other ciphersuite</selectable>
                 </selectables>
               </htm:li>
             </htm:ul>
@@ -2343,14 +2343,14 @@
       
       <!-- Changelog: FCS_TLSC_EXT.1.5 became FCS_TLSC_EXT.2.1 -->
         <f-component id="fcs_tlsc_ext.2" name="Extended: TLS Protocol" status="sel-based">
-          <selection-depends req="fcs_tlsc_ext.1.1"/>
+          <selection-depends req="fcs_tlsc_ext.1.1" ids="tlsc_1,tlsc_2,tlsc_3,tlsc_4,tlsc_5,tlsc_6,tlsc_7,tlsc_8"/>
           <f-element id="fcs_tlsc_ext.2.1">
             <title>The TSF shall present the Supported Elliptic Curves Extension in the Client Hello handshake message with the following NIST curves: 
               <selectables>
                 <selectable>secp256r1</selectable>
                 <selectable>secp384r1</selectable>
                 <selectable>secp521r1</selectable>
-                <selectable>no other curves</selectable>
+                <selectable exclusive="yes">no other curves</selectable>
               </selectables>.
             </title>
             <note role="application"> If an elliptic-curve ciphersuite is selected in <linkref linkend="FCS_TLSC_EXT.1.1"/>, then <linkref linkend="FCS_TLSC_EXT.2.1"/> shall be included in the ST. This requirement limits the elliptic curves allowed for authentication and key agreement to the NIST curves from <linkref linkend="FCS_COP.1(3)"/> and <linkref linkend="FCS_CKM.1"/> and <linkref linkend="FCS_CKM.2(1)"/>. This extension is required for clients supporting Elliptic Curve ciphersuites.</note>
@@ -2450,7 +2450,7 @@
           </f-element>
           <f-element id="fdp_acf_ext.1.2">
             <title>The <abbr linkend="TSF"/> shall provide an access control policy that prevents 
-              <selectables><selectable>application</selectable><selectable>groups of applications</selectable></selectables> from accessing 
+              <selectables><selectable>application</selectable><selectable id="fdp_group">groups of applications</selectable></selectables> from accessing 
               <selectables><selectable>all</selectable><selectable>private</selectable></selectables> data stored by other 
               <selectables><selectable>application</selectable><selectable>groups of applications</selectable></selectables>. Exceptions may only be explicitly authorized for such sharing by 
               <selectables><selectable>the user</selectable><selectable>the administrator</selectable><selectable>a common application developer</selectable><selectable>no one</selectable></selectables>.
@@ -2476,7 +2476,7 @@
         
         <!--Changelog:FDP_ACF_EXT.1.4 became FDP_ACF_EXT.2.1-->
         <f-component id="fdp_acf_ext.2" name="Extended: Security access control" status="sel-based">
-          <selection-depends req="fdp_acf_ext.1.2"/>
+          <selection-depends req="fdp_acf_ext.1.2" ids="fdp_group"/>
           <f-element id="fdp_acf_ext.2.1">
             <title>The <abbr linkend="TSF"/> shall provide a separate 
               <selectables><selectable>address book</selectable><selectable>calendar</selectable><selectable>keystore</selectable><selectable>account credential database, 
@@ -2530,7 +2530,7 @@
         </f-component>
         
         <f-component id="fdp_pba_ext.1" name="Extended: Storage of Critical Biometric Parameters" status="sel-based">
-          <selection-depends req="fia_uau.5.1"/>
+          <selection-depends req="fia_uau.5.1" ids="uau_fing,uau_iris,uau_face,uau_vox,uau_vein,uau_hybr"/>
           <f-element id="fdp_pba_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall protect the authentication template 
               <selectables><selectable>using a PIN as an additional factor</selectable>
@@ -2709,7 +2709,7 @@
         <f-component id="fdp_upc_ext.1" name="Extended: Inter-TSF user data transfer protection"  status="threshold">
           <f-element id="fdp_upc_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall provide a means for non-TSF applications executing on the <abbr linkend="TOE"/> to use TLS, HTTPS, Bluetooth BR/EDR, and 
-              <selectables><selectable>DTLS</selectable><selectable>Bluetooth LE</selectable><selectable>IPsec</selectable><selectable>no other protocol</selectable></selectables> to provide a protected communication channel between the non-TSF application and another IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
+              <selectables><selectable id="upc_dtls">DTLS</selectable><selectable>Bluetooth LE</selectable><selectable>IPsec</selectable><selectable>no other protocol</selectable></selectables> to provide a protected communication channel between the non-TSF application and another IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
             </title>
             <note role="application">The intent of this requirement is that one of the selected protocols is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. It should be noted that the FTP_ITC_EXT requires that all <abbr linkend="TSF"/> communications (meaning communications from the device to a gateway) be protected using the protocols indicated in that requirement, so the protocols required by this component ride “on top of” those listed in FTP_ITC_EXT.
               <htm:br/><htm:br/>
@@ -2961,7 +2961,7 @@
         </f-component>
         
         <f-component id="fia_bmg_ext.1" name="Extended: Accuracy of Biometric Authentication" status="sel-based">
-          <selection-depends req="fia_uau.5.1"/>
+          <selection-depends req="fia_uau.5.1" ids="uau_fing,uau_iris,uau_face,uau_vox,uau_vein,uau_hybr"/>
           <f-element id="fia_bmg_ext.1.1">
            
             <title>The one-attempt <abbr linkend="BAF"/> False Accept Rate (<abbr linkend="FAR"/>) for <assignable>biometric modality selected in <linkref linkend="FIA_UAU.5.1"/></assignable>shall not exceed 
@@ -3142,12 +3142,12 @@
           <f-element id="fia_uau.5.1">
             <title>The <abbr linkend="TSF"/> shall provide <refinement>password and
               <selectables>
-                <selectable>fingerprint</selectable>
-                <selectable> iris</selectable>
-                <selectable> face</selectable>
-                <selectable> voice</selectable>
-                <selectable> vein</selectable>             
-                <selectable> hybrid</selectable>
+                <selectable id="uau_fing">fingerprint</selectable>
+                <selectable id="uau_iris"> iris</selectable>
+                <selectable id="uau_face"> face</selectable>
+                <selectable id="uau_vox" > voice</selectable>
+                <selectable id="uau_vein"> vein</selectable>             
+                <selectable id="uau_hybr"> hybrid</selectable>
                 <selectable>no other mechanism</selectable></selectables>
             </refinement>to support user authentication.
             </title>
@@ -3346,8 +3346,8 @@
         <f-component id="fia_x509_ext.2" name="Extended: X509 certificate authentication" status="threshold">
           <f-element id="fia_x509_ext.2.1">
             <title>The <abbr linkend="TSF"/> shall use X.509v3 certificates as defined by RFC 5280 to support authentication for 
-              <selectables><selectable>IPsec</selectable><selectable>TLS</selectable><selectable>HTTPS</selectable><selectable>DTLS</selectable></selectables>, and 
-              <selectables><selectable>code signing for system software updates</selectable><selectable>code signing for mobile applications</selectable><selectable>code signing for integrity verification</selectable><selectable> 
+              <selectables><selectable>IPsec</selectable><selectable>TLS</selectable><selectable>HTTPS</selectable><selectable id="x509_dtls">DTLS</selectable></selectables>, and 
+              <selectables><selectable id="x509_sys">code signing for system software updates</selectable><selectable id="x509_apps">code signing for mobile applications</selectable><selectable id="x509_sign">code signing for integrity verification</selectable><selectable> 
                 <assignable>other uses</assignable></selectable><selectable>no additional uses</selectable></selectables>. 
             </title>
             <note role="application">The <abbr linkend="ST"/> author’s first selection shall match the selection of <linkref linkend="FTP_ITC_EXT.1.1"/>. <htm:br></htm:br><htm:br></htm:br>
@@ -4854,7 +4854,7 @@
        
         <!--Changelog FPT_TST_EXT.2.2 became FPT_TST_EXT.3-->
         <f-component id="fpt_tst_ext.3" name="Extended: TSF Integrity Testing" status="sel-based">
-          <selection-depends req="fia_x509_ext.2.1"/>
+          <selection-depends req="fia_x509_ext.2.1" ids="x509_sign"/>
           <f-element id="fpt_tst_ext.3.1">
             <title>The <abbr linkend="TSF"/> shall not execute code if the code signing certificate is deemed invalid. 
             </title>
@@ -4958,7 +4958,7 @@
      
         <!--Changelog FPT_TUD_EXT.2.6 became FPT_TUD_EXT.3.1-->
         <f-component id="fpt_tud_ext.3" name="Extended: Trusted Update Verification" status="sel-based">
-          <selection-depends req="fia_x509_ext.2.1"/>
+          <selection-depends req="fia_x509_ext.2.1" ids="x509_sys,x509_apps"/>
           <f-element id="fpt_tud_ext.3.1">
             <title>The <abbr linkend="TSF"/> shall not install code if the code signing certificate is deemed invalid. 
             </title>
@@ -5097,7 +5097,7 @@
               <selectables>
                 <selectable>IPsec</selectable>
                 <selectable>TLS</selectable>
-                <selectable>DTLS</selectable>
+                <selectable id="itc_dtls">DTLS</selectable>
                 <selectable>HTTPS</selectable>
               </selectables> protocol to provide a communication channel between itself and another trusted IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
             </title>
