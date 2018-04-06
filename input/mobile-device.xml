@@ -2,7 +2,7 @@
 <?xsl-stylesheet type="text/xsl" href="../transforms/pp2html.xsl"?>
 
 <?xml-model href="../transforms/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<PP xmlns="http://common-criteria.rhcloud.com/ns/cc" name="Mobile Device Fundamentals"
+<PP xmlns="https://niap-ccevs.org/cc/v1" name="Mobile Device Fundamentals"
   xmlns:htm="http://www.w3.org/1999/xhtml">
   <PPReference title="PP Reference" id="XXXXX">
     <ReferenceTable>
@@ -20,7 +20,7 @@
     </ReferenceTable>
   </PPReference>
   
-  <RevisionHistory role="final">
+  <RevisionHistory>
     <entry>
       <version>1.0</version>
       <date>2013-10-21</date>
@@ -29,7 +29,10 @@
     <entry>
       <version>1.1</version>
       <date>2014-01-12</date>
-      <subject>Typographical changes and additional clarifications in application notes. Removed assignment from FCS_TLS_EXT.1 and limited testing to those ciphersuites in both FCS_TLS_EXT.1 and FCS_TLS_EXT.2.</subject>
+      <subject>Typographical changes and additional clarifications in application notes.
+        Removed assignment from FCS_TLS_EXT.1 and limited testing to those ciphersuites in
+        both FCS_TLS_EXT.1 and FCS_TLS_EXT.2.
+      </subject>
     </entry>
     <entry>
       <version>2.0</version>
@@ -672,7 +675,7 @@
                 <htm:tr><htm:td>FCS_IV_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_SRV_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>                
                 <htm:tr><htm:td rowspan="2">FCS_STG_EXT.1</htm:td><htm:td>Import or destruction of key.</htm:td><htm:td rowspan="2">Identity of key. Role and identity of requestor.</htm:td></htm:tr>
-                <htm:tr><htm:td><selectables><selectable>Exceptions to use and destruction rules</selectable><selectable>No other events</selectable></selectables></htm:td>
+                <htm:tr><htm:td><selectables><selectable>Exceptions to use and destruction rules</selectable><selectable exclusive="yes">No other events</selectable></selectables></htm:td>
                   </htm:tr>
                 <htm:tr><htm:td>FCS_STG_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_STG_EXT.3</htm:td><htm:td>Failure to verify integrity of stored key.</htm:td><htm:td>Identity of key being verified.</htm:td></htm:tr>
@@ -889,7 +892,7 @@
               <selectables linebreak="yes">
                   <selectable><refinement>RSA schemes using</refinement> cryptographic key sizes of <refinement>2048-bit or greater</refinement> that meet <refinement>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.3</refinement></selectable>
                 <selectable><refinement>ECC schemes using </refinement><selectables linebreak="yes">                 
-                    <selectable><refinement>“NIST curves” P-384 and </refinement><selectables><selectable><refinement>P-256</refinement></selectable><selectable><refinement>P-521</refinement></selectable><selectable><refinement>no other curves</refinement></selectable></selectables> that meet the following: <refinement>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.4</refinement></selectable>
+                    <selectable><refinement>“NIST curves” P-384 and </refinement><selectables><selectable><refinement>P-256</refinement></selectable><selectable><refinement>P-521</refinement></selectable><selectable exclusive="yes"><refinement>no other curves</refinement></selectable></selectables> that meet the following: <refinement>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.4</refinement></selectable>
                     <selectable><refinement>Curve25519 schemes that meet the following: RFC 7748</refinement></selectable></selectables>
                 </selectable>
                   <selectable><refinement>FFC schemes using </refinement>cryptographic key sizes of <refinement>2048-bit or greater</refinement> that meet the following: <refinement>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1</refinement></selectable>
@@ -1014,7 +1017,7 @@
               <selectables linebreak="yes">
                 <selectable><refinement>Elliptic curve-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</refinement></selectable>
                 <selectable><refinement>Finite field-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</refinement></selectable>
-                <selectable><refinement>No other schemes</refinement></selectable>
+                <selectable exclusive="yes"><refinement>No other schemes</refinement></selectable>
               </selectables>.
             </title>
             <note role="application">
@@ -1126,7 +1129,7 @@
         <f-component id="fcs_ckm_ext.1" name="Extended: Cryptographic Key Support" status="threshold">
           <f-element id="fcs_ckm_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall support 
-              <selectables><selectable>immutable hardware</selectable><selectable>mutable hardware</selectable></selectables> <abbr linkend="REK"/>(s) with a 
+              <selectables><selectable>immutable hardware</selectable><selectable id="mutable_hardware">mutable hardware</selectable></selectables> <abbr linkend="REK"/>(s) with a 
               <selectables><selectable>symmetric</selectable><selectable>asymmetric</selectable></selectables> key of strength 
               <selectables><selectable>112 bits</selectable><selectable>128 bits</selectable><selectable>192 bits</selectable><selectable>256 bits</selectable></selectables>. 
             </title>
@@ -1521,7 +1524,7 @@
         
         <!-- Changelog: fcs_ckm_ext.1.4 became fcs_ckm_ext.7-->
         <f-component id="fcs_ckm_ext.7" name="Extended: Cryptographic Key Support (REK)" status="sel-based">
-          <selection-depends req="fcs_ckm_ext.1.1"/>
+          <selection-depends req="fcs_ckm_ext.1.1" ids="mutable_hardware"/>
           <f-element id="fcs_ckm_ext.7.1">
             <title>A <abbr linkend="REK"/> shall not be able to be read from or exported from the hardware. 
             </title>
@@ -1575,10 +1578,10 @@
                 <selectable><refinement>AES-XTS (as defined in NIST SP 800-38E) mode</refinement></selectable> 
                 <selectable><refinement>AES-CCMP-256 (as defined in NIST SP800-38C and IEEE 802.11ac-2013)</refinement></selectable>
                 <selectable><refinement>AES-GCMP-256 (as defined in NIST SP800-38D and IEEE 802.11ac-2013)</refinement></selectable>
-                  <selectable><refinement>no other modes</refinement></selectable></selectables></htm:li>
+                  <selectable exclusive="yes"><refinement>no other modes</refinement></selectable></selectables></htm:li>
               </htm:ul>
               and cryptographic key sizes 128-bit key sizes and 
-                <selectables><selectable><refinement>256-bit key sizes</refinement></selectable><selectable><refinement>no other key sizes</refinement></selectable></selectables>.
+                <selectables><selectable><refinement>256-bit key sizes</refinement></selectable><selectable exclusive="yes"><refinement>no other key sizes</refinement></selectable></selectables>.
             </title>
             <note role="application">For the first selection, the <abbr linkend="ST"/> author should choose the mode or modes in which AES operates. For the second selection, the <abbr linkend="ST"/> author should choose the key sizes that are supported by this functionality. 128-bit CBC and CCMP are required in order to comply with WLAN Client Extended Package. 
               <htm:br/><htm:br/>
@@ -1740,8 +1743,8 @@
         <f-component id="fcs_cop.1(2)" name="Cryptographic operation"  status="threshold">
           <f-element id="fcs_cop.1.1(2)">
             <title>The <abbr linkend="TSF"/> shall perform <refinement>cryptographic hashing</refinement> in accordance with a specified cryptographic algorithm <refinement>SHA-1 and 
-              <selectables><selectable>SHA-256</selectable><selectable>SHA-384</selectable><selectable>SHA-512</selectable><selectable>no other algorithms</selectable></selectables></refinement> and <refinement>message digest</refinement> sizes <refinement>160 and 
-              <selectables><selectable>256</selectable><selectable>384</selectable><selectable>512 bits</selectable><selectable>no other message digest sizes</selectable></selectables></refinement> that meet the following: <refinement>FIPS Pub 180-4</refinement>.
+              <selectables><selectable>SHA-256</selectable><selectable>SHA-384</selectable><selectable>SHA-512</selectable><selectable exclusive="yes">no other algorithms</selectable></selectables></refinement> and <refinement>message digest</refinement> sizes <refinement>160 and 
+              <selectables><selectable>256</selectable><selectable>384</selectable><selectable>512 bits</selectable><selectable exclusive="yes">no other message digest sizes</selectable></selectables></refinement> that meet the following: <refinement>FIPS Pub 180-4</refinement>.
             </title>
             <note role="application">Per NIST SP 800-131A, SHA-1 for generating digital signatures is no longer allowed, and SHA-1 for verification of digital signatures is strongly discouraged as there may be risk in accepting these signatures. It is expected that vendors will implement SHA-2 algorithms in accordance with SP 800-131A.
               <htm:br/><htm:br/>
@@ -1789,8 +1792,8 @@
                 <htm:li><refinement>RSA schemes using cryptographic key sizes of 2048-bit or greater that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 4</refinement> and</htm:li>             
               <htm:li><refinement><selectables linebreak="yes">
                 <selectable>ECDSA schemes using “NIST curves” P-384 and 
-              <selectables><selectable>P-256</selectable><selectable>P-521</selectable><selectable>no other curves</selectable></selectables> that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 5</selectable>
-                  <selectable>No other algorithms</selectable>
+              <selectables><selectable>P-256</selectable><selectable>P-521</selectable><selectable exclusive="yes">no other curves</selectable></selectables> that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 5</selectable>
+                  <selectable exclusive="yes">No other algorithms</selectable>
               </selectables></refinement>.</htm:li>
               </htm:ul>
             </title>
@@ -1829,9 +1832,9 @@
         <f-component id="fcs_cop.1(4)" name="Cryptographic operation" status="threshold">
           <f-element id="fcs_cop.1.1(4)">
             <title>The <abbr linkend="TSF"/> shall perform <refinement>keyed-hash message authentication</refinement> in accordance with a specified cryptographic algorithm <refinement>HMAC-SHA-1 and 
-              <selectables><selectable>HMAC-SHA-256</selectable><selectable>HMAC-SHA-384</selectable><selectable>HMAC-SHA-512</selectable><selectable>no other algorithms</selectable></selectables></refinement> and cryptographic key sizes 
+              <selectables><selectable>HMAC-SHA-256</selectable><selectable>HMAC-SHA-384</selectable><selectable>HMAC-SHA-512</selectable><selectable exclusive="yes">no other algorithms</selectable></selectables></refinement> and cryptographic key sizes 
               <assignable>key size (in bits) used in HMAC</assignable><refinement> and message digest sizes 160 and 
-              <selectables><selectable>256</selectable><selectable>384</selectable><selectable>512</selectable><selectable>no other</selectable></selectables> bits</refinement> that meet the following: <refinement>FIPS Pub 198-1, "The Keyed-Hash Message Authentication Code", and FIPS Pub 180-4, "Secure Hash Standard"</refinement>.
+              <selectables><selectable>256</selectable><selectable>384</selectable><selectable>512</selectable><selectable exclusive="yes">no other</selectable></selectables> bits</refinement> that meet the following: <refinement>FIPS Pub 198-1, "The Keyed-Hash Message Authentication Code", and FIPS Pub 180-4, "Secure Hash Standard"</refinement>.
           </title>
             <note role="application">The selection in this requirement must be consistent with the key size specified for the size of the keys used in conjunction with the keyed-hash message authentication. HMAC-SHA-1 is currently required in order to comply with the WLAN Client EP.</note>
           <aactivity>
@@ -1871,9 +1874,9 @@
         
         
         <f-component id="fcs_dtls_ext.1" name="Extended: DTLS Protocol" status="sel-based">         
-          <selection-depends req="fdp_upc_ext.1.1"/>
-          <selection-depends req="fia_x509_ext.2.1"/>
-          <selection-depends req="ftp_itc_ext.1.1"/>
+          <selection-depends req="fdp_upc_ext.1.1" ids="upc_dtls"/>
+          <selection-depends req="fia_x509_ext.2.1" ids="x509_dtls"/>
+          <selection-depends req="ftp_itc_ext.1.1" ids="itc_dtls"/>
           <f-element id="fcs_dtls_ext.1.1">
             <title>The TSF shall implement the DTLS protocol in accordance with DTLS 1.2 (RFC 6347).</title>
             <note role="application"> If "DTLS" is selected in <linkref linkend="fdp_upc_ext.1.1"/>, <linkref linkend="fia_x509_ext.2.1"/> or <linkref linkend="ftp_itc_ext.1.1"/> <linkref linkend="fcs_dtls_ext.1"/> shall be included in the ST.</note>
@@ -1909,7 +1912,7 @@
           </f-element>
           <f-element id="fcs_https_ext.1.3">
             <title>The <abbr linkend="TSF"/> shall notify the application and 
-              <selectables><selectable>not establish the connection</selectable><selectable>request application authorization to establish the connection</selectable><selectable>no other action</selectable></selectables> if the peer certificate is deemed invalid. 
+              <selectables><selectable>not establish the connection</selectable><selectable>request application authorization to establish the connection</selectable><selectable exclusive="yes">no other action</selectable></selectables> if the peer certificate is deemed invalid. 
             </title>
             <note role="application">Validity is determined by the certificate path, the expiration date, and the revocation status in accordance with RFC 5280.</note>
             <aactivity>
@@ -2018,7 +2021,7 @@
               <selectables><selectable>selected algorithms</selectable><selectable> selected algorithms with the exception of ECC over curve 25519-based algorithms</selectable></selectables>
                 in <linkref linkend="FCS_CKM.2(2)"/></htm:li>
                <htm:li>The following algorithms in <linkref linkend="FCS_COP.1(1)"/>: AES-CBC, 
-              <selectables><selectable>AES Key Wrap</selectable><selectable>AES Key Wrap with Padding</selectable><selectable>AES-GCM</selectable><selectable>AES-CCM</selectable><selectable>no other modes</selectable></selectables>
+              <selectables><selectable>AES Key Wrap</selectable><selectable>AES Key Wrap with Padding</selectable><selectable>AES-GCM</selectable><selectable>AES-CCM</selectable><selectable exclusive="yes">no other modes</selectable></selectables>
                </htm:li>
                <htm:li>All mandatory and selected algorithms in <linkref linkend="FCS_COP.1(3)"/></htm:li>
                <htm:li>All mandatory and selected algorithms in <linkref linkend="FCS_COP.1(2)"/></htm:li>
@@ -2027,7 +2030,7 @@
               <selectables linebreak="yes">
                 <selectable>All mandatory and <selectables><selectable>selected algorithms</selectable><selectable>selected algorithms with the exception of ECC over curve 25519-based algorithms</selectable></selectables> in <linkref linkend="FCS_CKM.1"/></selectable>
                 <selectable>The selected algorithms in <linkref linkend="FCS_COP.1(5)"/></selectable>
-                  <selectable>No other cryptographic operations</selectable>
+                  <selectable exclusive="yes">No other cryptographic operations</selectable>
                 </selectables>
               </htm:li>
              </htm:ul>
@@ -2072,7 +2075,7 @@
           <f-element id="fcs_stg_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall provide 
               <selectables><selectable>mutable hardware</selectable><selectable>software-based</selectable></selectables> secure key storage for asymmetric private keys and 
-              <selectables><selectable>symmetric keys</selectable><selectable>persistent secrets</selectable><selectable>no other keys</selectable></selectables>. 
+              <selectables><selectable>symmetric keys</selectable><selectable>persistent secrets</selectable><selectable exclusive="yes">no other keys</selectable></selectables>. 
             </title>
             <note role="application">A hardware keystore can be exposed to the <abbr linkend="TSF"/> through a variety of interfaces, including embedded on the motherboard, USB, microSD, and Bluetooth.
               <htm:br/><htm:br/>
@@ -2086,7 +2089,7 @@
           <f-element id="fcs_stg_ext.1.2">
             <title>The <abbr linkend="TSF"/> shall be capable of importing keys/secrets into the secure key storage upon request of 
               <selectables><selectable>the user</selectable><selectable>the administrator</selectable></selectables> and 
-                <selectables><selectable>applications running on the <abbr linkend="TSF"/></selectable><selectable>no other subjects</selectable></selectables>.
+                <selectables><selectable>applications running on the <abbr linkend="TSF"/></selectable><selectable exclusive="yes">no other subjects</selectable></selectables>.
             </title>
             <note role="application">If the <abbr linkend="ST"/> Author selects only user, the <abbr linkend="ST"/> Author shall select function 9 in <linkref linkend="FMT_MOF_EXT.1.1"/>. </note>
           </f-element>         
@@ -2160,7 +2163,7 @@
           <f-element id="fcs_stg_ext.2.1">
             <title>The <abbr linkend="TSF"/> shall encrypt all <abbr linkend="DEK"/>s, <abbr linkend="KEK"/>s, 
               <assignable>any long-term trusted channel key material</assignable> and 
-              <selectables><selectable>all software-based key storage</selectable><selectable>no other keys</selectable></selectables> by <abbr linkend="KEK"/>s that are 
+              <selectables><selectable>all software-based key storage</selectable><selectable exclusive="yes">no other keys</selectable></selectables> by <abbr linkend="KEK"/>s that are 
               <selectables linebreak="yes">                
                 <selectable>Protected by the <abbr linkend="REK"/> with 
                   <selectables linebreak="yes">
@@ -2196,7 +2199,7 @@
           </f-element>
           <f-element id="fcs_stg_ext.2.2 ">
             <title><abbr linkend="DEK"/>s, <abbr linkend="KEK"/>s, <assignable>any long-term trusted channel key material</assignable> and
-              <selectables><selectable>all software-based key storage</selectable><selectable>no other keys</selectable></selectables> shall be encrypted using one of the following methods: 
+              <selectables><selectable>all software-based key storage</selectable><selectable exclusive="yes">no other keys</selectable></selectables> shall be encrypted using one of the following methods: 
               <selectables><selectable>using a SP800-56B key establishment scheme</selectable>
                 <selectable>using AES in the 
                 <selectables>
@@ -2211,7 +2214,7 @@
         <f-component id="fcs_stg_ext.3" name="Extended: Integrity of encrypted key storage" status="threshold">
           <f-element id="fcs_stg_ext.3.1">            
             <title>The <abbr linkend="TSF"/> shall protect the integrity of any encrypted <abbr linkend="DEK"/>s and <abbr linkend="KEK"/>s and 
-              <selectables><selectable>long-term trusted channel key material</selectable><selectable>all software-based key storage</selectable><selectable>no other keys</selectable></selectables> 
+              <selectables><selectable>long-term trusted channel key material</selectable><selectable>all software-based key storage</selectable><selectable exclusive="yes">no other keys</selectable></selectables> 
                 by 
               <selectables linebreak="yes">
                 <selectable>
@@ -2254,15 +2257,15 @@
                   <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
                   <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
                   <selectable>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
-                  <selectable>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>                  
-                  <selectable>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>                  
-                  <selectable>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>                  
-                  <selectable>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>                  
-                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
-                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
-                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
-                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>                              
-                  <selectable>no other ciphersuite</selectable>
+                  <selectable id='tlsc_1'>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>                  
+                  <selectable id='tlsc_2'>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>                  
+                  <selectable id='tlsc_3'>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>                  
+                  <selectable id='tlsc_4'>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>                  
+                  <selectable id='tlsc_5'>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
+                  <selectable id='tlsc_6'>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
+                  <selectable id='tlsc_7'>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
+                  <selectable id='tlsc_8'>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>                              
+                  <selectable exclusive="yes">no other ciphersuite</selectable>
                 </selectables>
               </htm:li>
             </htm:ul>
@@ -2343,14 +2346,14 @@
       
       <!-- Changelog: FCS_TLSC_EXT.1.5 became FCS_TLSC_EXT.2.1 -->
         <f-component id="fcs_tlsc_ext.2" name="Extended: TLS Protocol" status="sel-based">
-          <selection-depends req="fcs_tlsc_ext.1.1"/>
+          <selection-depends req="fcs_tlsc_ext.1.1" ids="tlsc_1,tlsc_2,tlsc_3,tlsc_4,tlsc_5,tlsc_6,tlsc_7,tlsc_8"/>
           <f-element id="fcs_tlsc_ext.2.1">
             <title>The TSF shall present the Supported Elliptic Curves Extension in the Client Hello handshake message with the following NIST curves: 
               <selectables>
                 <selectable>secp256r1</selectable>
                 <selectable>secp384r1</selectable>
                 <selectable>secp521r1</selectable>
-                <selectable>no other curves</selectable>
+                <selectable exclusive="yes">no other curves</selectable>
               </selectables>.
             </title>
             <note role="application"> If an elliptic-curve ciphersuite is selected in <linkref linkend="FCS_TLSC_EXT.1.1"/>, then <linkref linkend="FCS_TLSC_EXT.2.1"/> shall be included in the ST. This requirement limits the elliptic curves allowed for authentication and key agreement to the NIST curves from <linkref linkend="FCS_COP.1(3)"/> and <linkref linkend="FCS_CKM.1"/> and <linkref linkend="FCS_CKM.2(1)"/>. This extension is required for clients supporting Elliptic Curve ciphersuites.</note>
@@ -2450,7 +2453,7 @@
           </f-element>
           <f-element id="fdp_acf_ext.1.2">
             <title>The <abbr linkend="TSF"/> shall provide an access control policy that prevents 
-              <selectables><selectable>application</selectable><selectable>groups of applications</selectable></selectables> from accessing 
+              <selectables><selectable>application</selectable><selectable id="fdp_group">groups of applications</selectable></selectables> from accessing 
               <selectables><selectable>all</selectable><selectable>private</selectable></selectables> data stored by other 
               <selectables><selectable>application</selectable><selectable>groups of applications</selectable></selectables>. Exceptions may only be explicitly authorized for such sharing by 
               <selectables><selectable>the user</selectable><selectable>the administrator</selectable><selectable>a common application developer</selectable><selectable>no one</selectable></selectables>.
@@ -2476,7 +2479,7 @@
         
         <!--Changelog:FDP_ACF_EXT.1.4 became FDP_ACF_EXT.2.1-->
         <f-component id="fdp_acf_ext.2" name="Extended: Security access control" status="sel-based">
-          <selection-depends req="fdp_acf_ext.1.2"/>
+          <selection-depends req="fdp_acf_ext.1.2" ids="fdp_group"/>
           <f-element id="fdp_acf_ext.2.1">
             <title>The <abbr linkend="TSF"/> shall provide a separate 
               <selectables><selectable>address book</selectable><selectable>calendar</selectable><selectable>keystore</selectable><selectable>account credential database, 
@@ -2530,7 +2533,7 @@
         </f-component>
         
         <f-component id="fdp_pba_ext.1" name="Extended: Storage of Critical Biometric Parameters" status="sel-based">
-          <selection-depends req="fia_uau.5.1"/>
+          <selection-depends req="fia_uau.5.1" ids="uau_fing,uau_iris,uau_face,uau_vox,uau_vein,uau_hybr"/>
           <f-element id="fdp_pba_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall protect the authentication template 
               <selectables><selectable>using a PIN as an additional factor</selectable>
@@ -2709,7 +2712,7 @@
         <f-component id="fdp_upc_ext.1" name="Extended: Inter-TSF user data transfer protection"  status="threshold">
           <f-element id="fdp_upc_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall provide a means for non-TSF applications executing on the <abbr linkend="TOE"/> to use TLS, HTTPS, Bluetooth BR/EDR, and 
-              <selectables><selectable>DTLS</selectable><selectable>Bluetooth LE</selectable><selectable>IPsec</selectable><selectable>no other protocol</selectable></selectables> to provide a protected communication channel between the non-TSF application and another IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
+              <selectables><selectable id="upc_dtls">DTLS</selectable><selectable>Bluetooth LE</selectable><selectable>IPsec</selectable><selectable>no other protocol</selectable></selectables> to provide a protected communication channel between the non-TSF application and another IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
             </title>
             <note role="application">The intent of this requirement is that one of the selected protocols is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. It should be noted that the FTP_ITC_EXT requires that all <abbr linkend="TSF"/> communications (meaning communications from the device to a gateway) be protected using the protocols indicated in that requirement, so the protocols required by this component ride “on top of” those listed in FTP_ITC_EXT.
               <htm:br/><htm:br/>
@@ -2961,7 +2964,7 @@
         </f-component>
         
         <f-component id="fia_bmg_ext.1" name="Extended: Accuracy of Biometric Authentication" status="sel-based">
-          <selection-depends req="fia_uau.5.1"/>
+          <selection-depends req="fia_uau.5.1" ids="uau_fing,uau_iris,uau_face,uau_vox,uau_vein,uau_hybr"/>
           <f-element id="fia_bmg_ext.1.1">
            
             <title>The one-attempt <abbr linkend="BAF"/> False Accept Rate (<abbr linkend="FAR"/>) for <assignable>biometric modality selected in <linkref linkend="FIA_UAU.5.1"/></assignable>shall not exceed 
@@ -3142,12 +3145,12 @@
           <f-element id="fia_uau.5.1">
             <title>The <abbr linkend="TSF"/> shall provide <refinement>password and
               <selectables>
-                <selectable>fingerprint</selectable>
-                <selectable> iris</selectable>
-                <selectable> face</selectable>
-                <selectable> voice</selectable>
-                <selectable> vein</selectable>             
-                <selectable> hybrid</selectable>
+                <selectable id="uau_fing">fingerprint</selectable>
+                <selectable id="uau_iris"> iris</selectable>
+                <selectable id="uau_face"> face</selectable>
+                <selectable id="uau_vox" > voice</selectable>
+                <selectable id="uau_vein"> vein</selectable>             
+                <selectable id="uau_hybr"> hybrid</selectable>
                 <selectable>no other mechanism</selectable></selectables>
             </refinement>to support user authentication.
             </title>
@@ -3346,8 +3349,8 @@
         <f-component id="fia_x509_ext.2" name="Extended: X509 certificate authentication" status="threshold">
           <f-element id="fia_x509_ext.2.1">
             <title>The <abbr linkend="TSF"/> shall use X.509v3 certificates as defined by RFC 5280 to support authentication for 
-              <selectables><selectable>IPsec</selectable><selectable>TLS</selectable><selectable>HTTPS</selectable><selectable>DTLS</selectable></selectables>, and 
-              <selectables><selectable>code signing for system software updates</selectable><selectable>code signing for mobile applications</selectable><selectable>code signing for integrity verification</selectable><selectable> 
+              <selectables><selectable>IPsec</selectable><selectable>TLS</selectable><selectable>HTTPS</selectable><selectable id="x509_dtls">DTLS</selectable></selectables>, and 
+              <selectables><selectable id="x509_sys">code signing for system software updates</selectable><selectable id="x509_apps">code signing for mobile applications</selectable><selectable id="x509_sign">code signing for integrity verification</selectable><selectable> 
                 <assignable>other uses</assignable></selectable><selectable>no additional uses</selectable></selectables>. 
             </title>
             <note role="application">The <abbr linkend="ST"/> author’s first selection shall match the selection of <linkref linkend="FTP_ITC_EXT.1.1"/>. <htm:br></htm:br><htm:br></htm:br>
@@ -3516,466 +3519,372 @@
               <htm:b><ctr id="fmt_smf" pre="Table " ctr-type="table">: Management Functions</ctr></htm:b><htm:br/>
               <htm:br/>
               Status Markers:<htm:br/>
-                    M - Mandatory<htm:br/>
-                    O - Optional/Objective<htm:br/>             
-              <htm:table>
+              M - Mandatory<htm:br/>
+              O - Optional/Objective<htm:br/>             
 
-                <htm:tr class="header">
-                  <htm:td style="text-align:center">Management Function<htm:br/></htm:td>
-                  <htm:td style="text-align:center">FMT_<htm:br></htm:br>SMF_<htm:br></htm:br>EXT.1</htm:td>
-                  <htm:td style="text-align:center">FMT_<htm:br></htm:br>MOF_<htm:br></htm:br>EXT.1.1</htm:td>
-                  <htm:td style="text-align:center">Admin</htm:td>
-                  <htm:td style="text-align:center">FMT_<htm:br></htm:br>MOF_<htm:br></htm:br>EXT.1.2</htm:td>
+	      <management-function-set default="O">
+		<manager id="1">Impl.</manager>
+		<manager id="2">User Only</manager>
+		<manager id="3">Admin</manager>
+		<manager id="4">Admin Only</manager>
+		<management-function><text>
+		  <ctr id="pwd" pre="" ctr-type="function">.</ctr> configure password policy:
+		  <htm:ol type="a">
+		    <htm:li>minimum password length</htm:li> 
+		    <htm:li>minimum password complexity</htm:li> 
+		    <htm:li>maximum password lifetime</htm:li>
+		  </htm:ol>
+		</text>
+		<M ref="1"/><_ ref="2"/><M ref="3"/><M ref="4"/>
+		</management-function>
+		<management-function><text>
+		  2. configure session locking policy:
+		  <htm:ol type="a">
+		    <htm:li>screen-lock enabled/disabled</htm:li>
+		    <htm:li>screen lock timeout </htm:li>
+		    <htm:li>number of authentication failures</htm:li>
+		  </htm:ol>
+		</text>
+		<M ref="1"/><_ ref="2"/><M ref="3"/><M ref="4"/>
+		</management-function>
+		<management-function><text>
+		  3. enable/disable the VPN protection:
+		  <htm:ol type="a">                     
+		  <htm:li>across device</htm:li></htm:ol>
+		  <indent><selectables>
+                    <selectable><htm:br></htm:br>b. on a per-app basis</selectable>
+                    <selectable><htm:br></htm:br>c. on a per-group of applications processes basis</selectable>
+                    <selectable><htm:br></htm:br>d. no other method</selectable>
+		  </selectables></indent>
+		</text>
+		<M ref="1"/>
+		</management-function>
+		<management-function><text>
+		  4. enable/disable 
+		  <assignable>list of all radios</assignable>
+		</text>
+		<M ref="1"/>
+		</management-function>
+		<management-function><text>
+		  5. enable/disable 
+		  <assignable>list of audio or visual collection devices</assignable>:
+		  <htm:ol type="a">
+		  <htm:li>across device</htm:li></htm:ol>
+		  <indent><selectables>
+                    <selectable><htm:br></htm:br>b. on a per-app basis</selectable>
+                    <selectable><htm:br></htm:br>c. on a per-group of applications processes basis</selectable>
+                    <selectable><htm:br></htm:br>d. no other method</selectable>
+		  </selectables></indent>
+		</text>
+		<M ref="1"/>
+		</management-function>
+		<management-function><text>
+		  6. transition to the locked state
+		</text>
+		<M ref="1"/>
+		<_ ref="2"/>
+		<M ref="3"/>
+		<_ ref="4"/>
 
-                </htm:tr>
-                <htm:tr>
-                  <htm:td><ctr id="pwd" pre="" ctr-type="function">.</ctr> configure password policy:
-                    <htm:ol type="a">
-                      <htm:li>minimum password length</htm:li> 
-                      <htm:li>minimum password complexity</htm:li> 
-                      <htm:li>maximum password lifetime</htm:li>
-                    </htm:ol>
-                  </htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>M</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>2. configure session locking policy:
-                    <htm:ol type="a">
-                      <htm:li>screen-lock enabled/disabled</htm:li>
-                      <htm:li>screen lock timeout </htm:li>
-                      <htm:li>number of authentication failures</htm:li>
-                    </htm:ol>
-                  </htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>M</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>3. enable/disable the VPN protection:
-                    <htm:ol type="a">                     
-                      <htm:li>across device</htm:li></htm:ol>
-                      <indent><selectables>
-                        <selectable><htm:br></htm:br>b. on a per-app basis</selectable>
-                        <selectable><htm:br></htm:br>c. on a per-group of applications processes basis</selectable>
-                        <selectable><htm:br></htm:br>d. no other method</selectable>
-                      </selectables></indent>
-                    
-                  </htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>4. enable/disable 
-                    <assignable>list of all radios</assignable></htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>5. enable/disable 
-                    <assignable>list of audio or visual collection devices</assignable>:
-                    <htm:ol type="a">
-                      <htm:li>across device</htm:li></htm:ol>
-                      <indent><selectables>
-                        <selectable><htm:br></htm:br>b. on a per-app basis</selectable>
-                        <selectable><htm:br></htm:br>c. on a per-group of applications processes basis</selectable>
-                        <selectable><htm:br></htm:br>d. no other method</selectable>
-                      </selectables></indent>
-                    
-                  </htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>6. transition to the locked state</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>7. <abbr linkend="TSF"/> wipe of protected data</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>8. configure application installation policy by 
-                    <indent><selectables>
-                      <selectable><htm:br></htm:br>a. restricting the sources of applications</selectable>
-                      <selectable><htm:br></htm:br>b. specifying a set of allowed applications based on 
-                        <assignable>application characteristics</assignable> (an application whitelist)</selectable>
-                      <selectable><htm:br></htm:br>c. denying installation of applications</selectable>
-                    </selectables></indent>
-                  </htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>M</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>9. import keys/secrets into the secure key storage</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>-</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>10. destroy imported keys/secrets and 
+		</management-function>
+		<management-function>
+		  <text>
+		    7. 
+		    <abbr linkend="TSF"/> wipe of protected data
+		  </text>
+		  <M ref="1"/>
+		  <_ ref="2"/>
+		  <M ref="3"/>
+		  <_ ref="4"/>
+		</management-function>
+		<management-function><text>
+		  8. configure application installation policy by 
+		  <indent><selectables>
+		    <selectable><htm:br></htm:br>a. restricting the sources of applications</selectable>
+		    <selectable><htm:br></htm:br>b. specifying a set of allowed applications based on 
+                    <assignable>application characteristics</assignable> (an application whitelist)</selectable>
+		    <selectable><htm:br></htm:br>c. denying installation of applications</selectable>
+		  </selectables></indent>
+		  
+		</text>
+		<M ref="1"/>
+		<_ ref="2"/>
+		<M ref="3"/>
+		<M ref="4"/>
+		</management-function>
+		<management-function><text>
+		  9. import keys/secrets into the secure key storage
+		</text>
+		<M ref="1"/>
+		<_ ref="4"/>
+
+		</management-function>
+		<management-function><text>
+		  10. destroy imported keys/secrets and 
+		  <selectables>
+		    <selectable>no other keys/secrets</selectable>
+		    <selectable><assignable>list of other categories of keys/secrets</assignable></selectable>
+		    </selectables> in the secure key storage
+		  </text>
+		  <M ref="1"/>
+		  <_ ref="4"/>
+		</management-function>
+		<management-function><text>
+		  11. import X.509v3 certificates into the Trust Anchor Database
+		</text>
+		<M ref="1"/>
+		<_ ref="2"/>
+		<M ref="3"/>
+		</management-function>
+		<management-function><text>
+		  12. remove imported X.509v3 certificates and 
+		  <selectables>
+		    <selectable>no other X.509v3 certificates</selectable>
+		    <selectable><assignable>list of other categories of X.509v3 certificates</assignable></selectable>
+		    </selectables> in the Trust Anchor Database
+		  </text>
+		  <M ref="1"/>
+		  <_ ref="4"/>
+		</management-function>
+		<management-function><text>
+		  13. enroll the <abbr linkend="TOE"/> in management
+		</text>
+		<M ref="1"/>
+		<M ref="2"/>
+		<_ ref="3"/>
+		<_ ref="4"/>
+		</management-function>
+		<management-function><text>
+		  14. remove applications
+		</text>
+		<M ref="1"/>
+		<_ ref="2"/>
+		<M ref="3"/>
+		</management-function>
+		<management-function><text>
+		  15. update system software
+		</text>
+		<M ref="1"/>
+		<_ ref="2"/>
+		<M ref="3"/>
+		</management-function>
+		<management-function><text>
+		  16. install applications
+		</text>
+		<M ref="1"/>
+		<_ ref="2"/>
+		<M ref="3"/>
+		</management-function>
+		<management-function><text>
+		  17. remove Enterprise applications
+		</text>
+		<M ref="1"/>
+		<_ ref="2"/>
+		<M ref="3"/>
+		<_ ref="4"/>
+
+
+		</management-function>
+		<management-function><text>
+		  18. configure the Bluetooth trusted channel:
+		  <htm:ol type="a">              
+		    <htm:li>disable/enable the Discoverable mode (for BR/EDR)</htm:li>
+		    <htm:li>change the Bluetooth device name</htm:li>                       
+		    </htm:ol><indent>
+		    <selectables>
+                      <selectable><htm:br></htm:br>c. change the Bluetooth device name (separately for BR/EDR and LE)</selectable>
+                      <selectable><htm:br></htm:br>d. provide separate controls for turning the BR/EDR and LE radios on and off</selectable>
+                      <selectable><htm:br></htm:br>e. allow/disallow additional wireless technologies to be used with Bluetooth</selectable> 
+                      <selectable><htm:br></htm:br>f. disable/enable Advertising (for LE)</selectable>
+                      <selectable><htm:br></htm:br>g. disable/enable the Connectable mode (for BR/EDR and LE)</selectable>
+                      <selectable><htm:br></htm:br>h. disable/enable the Bluetooth services and/or profiles available on the device (for BR/EDR and LE)</selectable>
+                      <selectable><htm:br></htm:br>i. specify minimum level of security for each pairing (for BR/EDR and LE)</selectable>
+                      <selectable><htm:br></htm:br>j. configure allowable methods of Out of Band pairing (for BR/EDR and LE)</selectable>
+                      <selectable><htm:br></htm:br>k. no other Bluetooth configuration</selectable>
+		    </selectables></indent>
+		    
+		  </text>
+		  <M ref="1"/>
+		</management-function>
+		<management-function><text>
+		  19. enable/disable display notification in the locked state of: 
+		  <selectables>
+		    <selectable><htm:br></htm:br>a. email notifications</selectable> 
+		    <selectable><htm:br></htm:br>b. calendar appointments</selectable>
+		    <selectable><htm:br></htm:br>c. contact associated with phone call notification</selectable> 
+		    <selectable><htm:br></htm:br>d. text message notification</selectable>
+		    <selectable><htm:br></htm:br>e. other application-based notifications</selectable>
+		    <selectable><htm:br></htm:br>f. all notifications</selectable>
+		  </selectables>
+		</text>
+		<M ref="1"/>
+		</management-function>
+		<management-function><text>
+		  20. enable data-at rest protection
+		</text>
+		<M ref="1"/>
+		</management-function>
+		<management-function><text>
+		  21. enable removable media’s data-at-rest protection
+		</text>
+		<M ref="1"/>
+		</management-function>
+		<management-function><text>
+		  22. enable/disable location services:
+		  <htm:ol type="a">
+		  <htm:li>across device</htm:li></htm:ol>
+		  <indent><selectables>
+                    <selectable><htm:br></htm:br>b. on a per-app basis</selectable>
+                    <selectable><htm:br></htm:br>c. on a per-group of applications processes basis</selectable>
+                    <selectable><htm:br></htm:br>d. no other method</selectable>
+		  </selectables></indent>
+		</text>
+		<M ref="1"/>
+		</management-function>
+		<management-function><text>
+		  23. Enable/disable the use of  
+		  <selectables>
+		    <selectable>Biometric Authentication Factor</selectable>
+		    <selectable>Hybrid Authentication Factor</selectable>
+		  </selectables>
+		</text>
+		<M ref="1"/>
+		</management-function>
+		<management-function><text>
+		  24. enable/disable all data signaling over 
+		  <assignable>list of externally accessible hardware ports</assignable>
+		</text>
+		</management-function>
+		<management-function><text>
+		  25. enable/disable 
+		  <assignable>list of protocols where the device acts as a server</assignable>
+		</text>
+		</management-function>
+		<management-function><text>
+		  26. enable/disable developer modes
+		</text>
+		</management-function>
+		<management-function><text>
+		  27. enable/disable bypass of local user authentication
+		</text>
+		</management-function>
+		<management-function><text>
+		  28. wipe Enterprise data
+		</text>
+		<_ ref="4"/>
+		</management-function>
+		<management-function><text>
+		  29. approve 
+		  <selectables>
+		    <selectable>import</selectable>
+		    <selectable>removal</selectable></selectables> by applications of X.509v3 certificates in the Trust Anchor Database
+		  </text>
+		</management-function>
+		<management-function><text>
+		  30. configure whether to establish a trusted channel or disallow establishment if the <abbr linkend="TSF"/> cannot establish a connection to determine the validity of a certificate
+		</text>
+		</management-function>
+		<management-function><text>
+		  31. enable/disable the cellular protocols used to connect to cellular network base stations
+		</text>
+		</management-function>
+		<management-function><text>
+		  32. read audit logs kept by the <abbr linkend="TSF"/>
+		</text>
+		<_ ref="4"/>
+		</management-function>
+		<management-function><text>
+		  33. configure 
+		  <selectables>
+		    <selectable>certificate</selectable>
+		    <selectable>public-key</selectable></selectables> used to validate digital signature on applications
+		  </text>
+		</management-function>
+		<management-function><text>
+		  34. approve exceptions for shared use of keys/secrets by multiple applications
+		</text>
+		</management-function>
+		<management-function><text>
+		  35. approve exceptions for destruction of keys/secrets by applications that did not import the key/secret
+		</text>
+		</management-function>
+		<management-function><text>
+		  36. configure the unlock banner
+		</text>
+		<_ ref="2"/>
+		</management-function>
+		<management-function><text>
+		  37. configure the auditable items
+		</text>
+		<_ ref="2"/>
+		</management-function>
+		<management-function><text>
+		  38. retrieve <abbr linkend="TSF"/>-software integrity verification values
+		</text>
+		</management-function>
+		<management-function><text>
+		  39. enable/disable 
+		  <selectables linebreak="yes">
+		    <selectable>USB mass storage mode</selectable>
+		    <selectable>USB data transfer without user authentication</selectable>
+		    <selectable>USB data transfer without authentication of the connecting system</selectable>
+		  </selectables>
+		  
+		</text>
+		</management-function>
+		<management-function><text>
+		  40. enable/disable backup of 
+		  <selectables>
+		  <selectable>all applications</selectable><selectable>selected applications</selectable><selectable>selected groups of applications</selectable><selectable>configuration data</selectable></selectables>
+                  to 
+		  <selectables>
+		  <selectable>locally connected system</selectable><selectable>remote system</selectable></selectables>
+		</text>
+		</management-function>
+		<management-function><text>
+		  41. enable/disable 
+		  <selectables linebreak="yes">
+		    <selectable>Hotspot functionality authenticated by 
                     <selectables>
-                      <selectable>no other keys/secrets</selectable>
-                      <selectable><assignable>list of other categories of keys/secrets</assignable></selectable>
-                    </selectables> in the secure key storage</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>-</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>11. import X.509v3 certificates into the Trust Anchor Database</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>12. remove imported X.509v3 certificates and 
+                    <selectable>pre-shared key</selectable><selectable>passcode</selectable><selectable>no authentication</selectable></selectables>
+		    </selectable> 
+		    <selectable>USB tethering authenticated by 
                     <selectables>
-                      <selectable>no other X.509v3 certificates</selectable>
-                      <selectable><assignable>list of other categories of X.509v3 certificates</assignable></selectable>
-                    </selectables> in the Trust Anchor Database</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>-</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>13. enroll the <abbr linkend="TOE"/> in management</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                  <htm:td>-</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>14. remove applications</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>15. update system software</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>16. install applications</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>17. remove Enterprise applications</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>-</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>18. configure the Bluetooth trusted channel:
-                    <htm:ol type="a">              
-                      <htm:li>disable/enable the Discoverable mode (for BR/EDR)</htm:li>
-                      <htm:li>change the Bluetooth device name</htm:li>                       
-                      </htm:ol><indent>
-                    <selectables>
-                        <selectable><htm:br></htm:br>c. change the Bluetooth device name (separately for BR/EDR and LE)</selectable>
-                        <selectable><htm:br></htm:br>d. provide separate controls for turning the BR/EDR and LE radios on and off</selectable>
-                        <selectable><htm:br></htm:br>e. allow/disallow additional wireless technologies to be used with Bluetooth</selectable> 
-                        <selectable><htm:br></htm:br>f. disable/enable Advertising (for LE)</selectable>
-                        <selectable><htm:br></htm:br>g. disable/enable the Connectable mode (for BR/EDR and LE)</selectable>
-                        <selectable><htm:br></htm:br>h. disable/enable the Bluetooth services and/or profiles available on the device (for BR/EDR and LE)</selectable>
-                        <selectable><htm:br></htm:br>i. specify minimum level of security for each pairing (for BR/EDR and LE)</selectable>
-                        <selectable><htm:br></htm:br>j. configure allowable methods of Out of Band pairing (for BR/EDR and LE)</selectable>
-                        <selectable><htm:br></htm:br>k. no other Bluetooth configuration</selectable>
-                      </selectables></indent>
-             </htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>19. enable/disable display notification in the locked state of: 
-                    <selectables>
-                      <selectable><htm:br></htm:br>a. email notifications</selectable> 
-                      <selectable><htm:br></htm:br>b. calendar appointments</selectable>
-                      <selectable><htm:br></htm:br>c. contact associated with phone call notification</selectable> 
-                      <selectable><htm:br></htm:br>d. text message notification</selectable>
-                      <selectable><htm:br></htm:br>e. other application-based notifications</selectable>
-                      <selectable><htm:br></htm:br>f. all notifications</selectable>
-                    </selectables></htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>20. enable data-at rest protection</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>21. enable removable media’s data-at-rest protection</htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>22. enable/disable location services:
-                    <htm:ol type="a">
-                      <htm:li>across device</htm:li></htm:ol>
-                      <indent><selectables>
-                        <selectable><htm:br></htm:br>b. on a per-app basis</selectable>
-                        <selectable><htm:br></htm:br>c. on a per-group of applications processes basis</selectable>
-                        <selectable><htm:br></htm:br>d. no other method</selectable>
-                      </selectables></indent>
-                    
-                  </htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>23. Enable/disable the use of  
-                    <selectables>
-                      <selectable>Biometric Authentication Factor</selectable>
-                      <selectable>Hybrid Authentication Factor</selectable>
-                    </selectables></htm:td>
-                  <htm:td>M</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>24. enable/disable all data signaling over 
-                    <assignable>list of externally accessible hardware ports</assignable></htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>25. enable/disable 
-                    <assignable>list of protocols where the device acts as a server</assignable></htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>26. enable/disable developer modes</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>27. enable/disable bypass of local user authentication</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>28. wipe Enterprise data</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>-</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>29. approve 
-                    <selectables>
-                      <selectable>import</selectable>
-                      <selectable>removal</selectable></selectables> by applications of X.509v3 certificates in the Trust Anchor Database</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>30. configure whether to establish a trusted channel or disallow establishment if the <abbr linkend="TSF"/> cannot establish a connection to determine the validity of a certificate</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>31. enable/disable the cellular protocols used to connect to cellular network base stations</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>32. read audit logs kept by the <abbr linkend="TSF"/></htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>-</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>33. configure 
-                    <selectables>
-                      <selectable>certificate</selectable>
-                      <selectable>public-key</selectable></selectables> used to validate digital signature on applications</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>34. approve exceptions for shared use of keys/secrets by multiple applications</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>35. approve exceptions for destruction of keys/secrets by applications that did not import the key/secret</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>36. configure the unlock banner</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>-</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>37. configure the auditable items</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>-</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>38. retrieve <abbr linkend="TSF"/>-software integrity verification values</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>39. enable/disable 
-                    <selectables linebreak="yes">
-                      <selectable>USB mass storage mode</selectable>
-                      <selectable>USB data transfer without user authentication</selectable>
-                      <selectable>USB data transfer without authentication of the connecting system</selectable>
-                    </selectables>
-                  </htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>40. enable/disable backup of 
-                    <selectables>
-                      <selectable>all applications</selectable><selectable>selected applications</selectable><selectable>selected groups of applications</selectable><selectable>configuration data</selectable></selectables>
-                        to 
-                    <selectables>
-                      <selectable>locally connected system</selectable><selectable>remote system</selectable></selectables></htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>41. enable/disable 
-                    <selectables linebreak="yes">
-                      <selectable>Hotspot functionality authenticated by 
-                        <selectables>
-                          <selectable>pre-shared key</selectable><selectable>passcode</selectable><selectable>no authentication</selectable></selectables>
-                      </selectable> 
-                      <selectable>USB tethering authenticated by 
-                        <selectables>
-                          <selectable>pre-shared key</selectable><selectable>passcode</selectable><selectable>no authentication</selectable></selectables>
-                      </selectable>
-                    </selectables>
-                  </htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>42. approve exceptions for sharing data between 
-                    <selectables>
-                      <selectable>application</selectable><selectable>groups of application</selectable>
-                    </selectables></htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>43. place applications into application groups based on 
-                    <assignable>enterprise configuration settings</assignable></htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>44. Unenroll the <abbr linkend="TOE"/> from management</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>45. Enable/disable the Always On VPN protection</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>46. Revoke Biometric template</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-                <htm:tr>
-                  <htm:td>47. <assignable>list of other management functions to be provided by the <abbr linkend="TSF"/></assignable></htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                  <htm:td>O</htm:td>
-                </htm:tr>
-              </htm:table>
+                    <selectable>pre-shared key</selectable><selectable>passcode</selectable><selectable>no authentication</selectable></selectables>
+		    </selectable>
+		  </selectables>
+		  
+		</text>
+		</management-function>
+		<management-function><text>
+		  42. approve exceptions for sharing data between 
+		  <selectables>
+		    <selectable>application</selectable><selectable>groups of application</selectable>
+		  </selectables>
+		</text>
+		</management-function>
+		<management-function><text>
+		  43. place applications into application groups based on 
+		  <assignable>enterprise configuration settings</assignable>
+		</text>
+		</management-function>
+		<management-function><text>
+		  44. Unenroll the <abbr linkend="TOE"/> from management
+		</text>
+		</management-function>
+		<management-function><text>
+		  45. Enable/disable the Always On VPN protection
+		</text>
+		</management-function>
+		<management-function><text>
+		  46. Revoke Biometric template
+		</text>
+		</management-function>
+		<management-function><text>
+		  47. <assignable>list of other management functions to be provided by the <abbr linkend="TSF"/></assignable>		      
+		</text>
+		</management-function>
+	      </management-function-set>
             </title>
             <note role="application">
               <ctr-ref refid="fmt_smf"/> compares the management functions required by this Protection Profile. 
@@ -4854,7 +4763,7 @@
        
         <!--Changelog FPT_TST_EXT.2.2 became FPT_TST_EXT.3-->
         <f-component id="fpt_tst_ext.3" name="Extended: TSF Integrity Testing" status="sel-based">
-          <selection-depends req="fia_x509_ext.2.1"/>
+          <selection-depends req="fia_x509_ext.2.1" ids="x509_sign"/>
           <f-element id="fpt_tst_ext.3.1">
             <title>The <abbr linkend="TSF"/> shall not execute code if the code signing certificate is deemed invalid. 
             </title>
@@ -4958,7 +4867,7 @@
      
         <!--Changelog FPT_TUD_EXT.2.6 became FPT_TUD_EXT.3.1-->
         <f-component id="fpt_tud_ext.3" name="Extended: Trusted Update Verification" status="sel-based">
-          <selection-depends req="fia_x509_ext.2.1"/>
+          <selection-depends req="fia_x509_ext.2.1" ids="x509_sys,x509_apps"/>
           <f-element id="fpt_tud_ext.3.1">
             <title>The <abbr linkend="TSF"/> shall not install code if the code signing certificate is deemed invalid. 
             </title>
@@ -5097,7 +5006,7 @@
               <selectables>
                 <selectable>IPsec</selectable>
                 <selectable>TLS</selectable>
-                <selectable>DTLS</selectable>
+                <selectable id="itc_dtls">DTLS</selectable>
                 <selectable>HTTPS</selectable>
               </selectables> protocol to provide a communication channel between itself and another trusted IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
             </title>
@@ -5197,8 +5106,7 @@
 
            <summary>The functional specification describes the TOE Security Functions Interface<abbr title="TSF Interface"> (TSFIs)</abbr>. It is not necessary to have a formal or complete specification of these interfaces. Additionally, because <abbr linkend="TOE"/>s conforming to this <abbr linkend="PP"/> will necessarily have interfaces to the Operational Environment that are not directly invokable by <abbr linkend="TOE"/> users, there is little point specifying that such interfaces be described in and of themselves since only indirect testing of such interfaces may be possible. For this <abbr linkend="PP"/>, the activities for this family should focus on understanding the interfaces presented in the <abbr linkend="TSS"/> in response to the functional requirements and the interfaces presented in the AGD documentation. No additional “functional specification” documentation is necessary to satisfy the assurance activities specified.  <htm:br></htm:br><htm:br></htm:br>
             The interfaces that need to be evaluated are characterized through the information needed to perform the assurance activities listed, rather than as an independent, abstract list.</summary> 
-          
-	  <group type="dev-action">
+	  <evalactionlabel title="Developer action elements:"/>
 	    <a-element id="adv_fsp.1.1d">
               <title>The developer shall provide a functional specification.</title>
             </a-element>
@@ -5209,8 +5117,8 @@
                 <htm:br></htm:br><htm:br></htm:br>
                 The assurance activities in the functional requirements point to evidence that should exist in the documentation and <abbr linkend="TSS"/> section; since these are directly associated with the SFRs, the tracing in element ADV_FSP.1.2D is implicitly already done and no additional documentation is necessary.</note>
             </a-element>
-	  </group>
-	  <group type="con-pres">
+
+	  <evalactionlabel title="Content and presentation elements:"/>
 	    <a-element id="adv_fsp.1.1c">
               <title>The functional specification shall describe the purpose and method of use for each SFR-enforcing and SFR-supporting <abbr title="TSF Interface">TSFI</abbr>.</title>
             </a-element>
@@ -5223,8 +5131,8 @@
             <a-element id="adv_fsp.1.4c">
               <title>The tracing shall demonstrate that the SFRs trace to <abbr title="TSF Interface">TSFI</abbr>s in the functional specification.</title>
             </a-element>
-	  </group>
-	  <group type="eval-action">
+
+	  <evalactionlabel title="Evaluator action elements:"/>
             <a-element id="adv_fsp.1.1e">
               <title>The evaluator shall confirm that the information provided meets all requirements for content and presentation of evidence.</title>
             </a-element>
@@ -5233,7 +5141,7 @@
               <aactivity>There are no specific assurance activities associated with these SARs, except ensuring the information is provided. The functional specification documentation is provided to support the evaluation activities described in <secref linkend="sfr"/>, and other activities described for AGD, ATE, and AVA SARs. The requirements on the content of the functional specification information is implicitly assessed by virtue of the other assurance activities being performed; if the evaluator is unable to perform an activity because there is insufficient interface information, then an adequate functional specification has not been provided.
 	      </aactivity>
             </a-element>
-	  </group>
+
         </a-component>
       </subsection>
       <subsection id="agd" title="Class AGD: Guidance Documentation">
@@ -5249,14 +5157,14 @@
         Guidance pertaining to particular security functionality is also provided; requirements on such guidance are contained in the assurance activities
         specified with each requirement. 
 	<a-component id="agd_ope.1" name="Operational User Guidance">
-	  <group type="dev-action">
+	  <evalactionlabel title="Developer action elements:"/>
 	    <a-element id="agd_ope.1.1d">
 	      <title>The developer shall provide operational user guidance.</title> 
 	      <note role="application">The operational user guidance does not have to be contained in a single document. Guidance to users, administrators and application developers can be spread among documents or web pages. Where appropriate, the guidance documentation is expressed in the eXtensible Configuration Checklist Description Format (XCCDF) to support security automation.<htm:br></htm:br><htm:br></htm:br>
 	      Rather than repeat information here, the developer should review the assurance activities for this component to ascertain the specifics of the guidance that the evaluator will be checking for. This will provide the necessary information for the preparation of acceptable guidance.</note>
             </a-element>
-    </group>
-	  <group type="con-pres">
+
+	  <evalactionlabel title="Content and presentation elements:"/>
 	    <a-element id="agd_ope.1.1c">
               <title>The operational user guidance shall describe, for each user role, the user-accessible functions and privileges that should be controlled in a secure processing environment, including appropriate warnings.</title>
               <note role="application">User and administrator (e.g., MDM agent), and application developer are to be considered in the definition of user role.</note>
@@ -5280,8 +5188,8 @@
             <a-element id="agd_ope.1.7c">
               <title>The operational user guidance shall be clear and reasonable.</title>
             </a-element>
-	  </group>
-	  <group type="eval-action">
+
+	  <evalactionlabel title="Evaluator action elements:"/>
             <a-element id="agd_ope.1.1e">
               <title>The evaluator shall confirm that the information provided meets all requirements for content and presentation of evidence. </title>       
               <aactivity>Some of the contents of the operational guidance are verified by the assurance activities in <secref linkend="sfr"/> and evaluation of the <abbr linkend="TOE"/> according to the <cite linkend="CEM"/>. The following additional information is also required. <htm:br></htm:br><htm:br></htm:br>                The operational guidance shall contain a list of natively installed applications and any relevant version numbers. If any third party vendors are permitted to install applications before purchase by the end user or enterprise, these applications shall also be listed.<htm:br></htm:br><htm:br></htm:br>
@@ -5293,24 +5201,24 @@
                 </htm:ul>  
                 The <abbr linkend="TOE"/> will likely contain security functionality that does not fall in the scope of evaluation under this PP. The operational guidance shall make it clear to an administrator which security functionality is covered by the evaluation activities. </aactivity>
           </a-element>
-	  </group>
+
         </a-component>
         <a-component id="agd_pre.1" name="Preparative Procedures">
-	  <group type="dev-action">
+	  <evalactionlabel title="Developer action elements:"/>
             <a-element id="agd_pre.1.1d">
               <title>The developer shall provide the <abbr linkend="TOE"/>, including its preparative procedures.</title>
               <note role="application">As with the operational guidance, the developer should look to the assurance activities to determine the required content with respect to preparative procedures.</note>
             </a-element>
-	  </group>
-	  <group type="con-pres">
+
+	  <evalactionlabel title="Content and presentation elements:"/>
             <a-element id="agd_pre.1.1c">
               <title>The preparative procedures shall describe all the steps necessary for secure acceptance of the delivered <abbr linkend="TOE"/> in accordance with the developer's delivery procedures.</title>
             </a-element>
             <a-element id="agd_pre.1.2c">
               <title>The preparative procedures shall describe all the steps necessary for secure installation of the <abbr linkend="TOE"/> and for the secure preparation of the operational environment in accordance with the security objectives for the operational environment as described in the <abbr linkend="ST"/>.</title>
             </a-element>
-	  </group>
-	  <group type="eval-action">
+
+	  <evalactionlabel title="Evaluator action elements:"/>
             <a-element id="agd_pre.1.1e">
               <title>The evaluator shall confirm that the information provided meets all requirements for content and presentation of evidence.</title>
             </a-element>
@@ -5318,7 +5226,7 @@
               <title>The evaluator shall apply the preparative procedures to confirm that the <abbr linkend="OS"/> can be prepared securely for operation.</title>
               <aactivity>As indicated in the introduction above, there are significant expectations with respect to the documentation—especially when configuring the operational environment to support <abbr linkend="TOE"/> functional requirements. The evaluator shall check to ensure that the guidance provided for the <abbr linkend="TOE"/> adequately addresses all platforms claimed for the <abbr linkend="TOE"/> in the <abbr linkend="ST"/>. </aactivity>
             </a-element>
-	  </group>
+
         </a-component>
       </subsection>
       <subsection id="alc" title="Class ALC: Life-cycle Support">
@@ -5326,41 +5234,41 @@
           <a-component id="alc_cmc.1" name="Labeling of the TOE">
 	    <summary>This component is targeted at identifying the <abbr linkend="TOE"/> such that it can be distinguished from other products or versions from the same vendor and can be easily specified when being procured by an end user. 
 	  </summary>
-	  <group type="dev-action">
+	  <evalactionlabel title="Developer action elements:"/>
             <a-element id="alc_cmc.1.1d">
               <title>The developer shall provide the <abbr linkend="TOE"/> and a reference for the <abbr linkend="TOE"/>.</title>
             </a-element>
-	  </group>
-	  <group type="con-pres">
+
+	  <evalactionlabel title="Content and presentation elements:"/>
             <a-element id="alc_cmc.1.1c">
               <title>The <abbr linkend="TOE"/> shall be labeled with a unique reference.</title>  
             </a-element>
-	  </group>
-	  <group type="eval-action">
+
+	  <evalactionlabel title="Evaluator action elements:"/>
             <a-element id="alc_cmc.1.1e">
               <title>The evaluator shall confirm that the information provided meets all requirements for content and presentation of evidence.</title>
               <aactivity>The evaluator shall check the <abbr linkend="ST"/> to ensure that it contains an identifier (such as a product name/version number) that specifically identifies the version that meets the requirements of the <abbr linkend="ST"/>. Further, the evaluator shall check the AGD guidance and <abbr linkend="TOE"/> samples received for testing to ensure that the version number is consistent with that in the <abbr linkend="ST"/>. If the vendor maintains a web site advertising the <abbr linkend="TOE"/>, the evaluator shall examine the information on the web site to ensure that the information in the <abbr linkend="ST"/> is sufficient to distinguish the product.</aactivity>
             </a-element>
-	  </group>
+
         </a-component>
         <a-component id="alc_cms.1" name="TOE CM Coverage">
           <summary>Given the scope of the <abbr linkend="TOE"/> and its associated evaluation evidence requirements, this component’s assurance activities are covered by the assurance activities listed for ALC_CMC.1.</summary>
-          <group type="dev-action">
+          <evalactionlabel title="Developer action elements:"/>
             <a-element id="alc_cms.1.1d">
               <title>
                 The developer shall provide a configuration list for the <abbr linkend="TOE"/>.
 	      </title>
             </a-element>
-	  </group>
-	  <group type="con-pres">
+
+	  <evalactionlabel title="Content and presentation elements:"/>
             <a-element id="alc_cms.1.1c">
               <title>The configuration list shall include the following: the <abbr linkend="TOE"/> itself; and the evaluation evidence required by the SARs.</title>
             </a-element>
             <a-element id="alc_cms.1.2c">
               <title>The configuration list shall uniquely identify the configuration items.</title>
             </a-element>
-	  </group>
-          <group type="eval-action">
+
+          <evalactionlabel title="Evaluator action elements:"/>
             <a-element id="alc_cms.1.1e">
               <title>The evaluator shall confirm that the information provided meets all requirements for content and presentation of evidence.</title>
               <note role="Application"> The “evaluation evidence required by the SARs” in this PP is limited to the information in the <abbr linkend="ST"/> coupled with the guidance provided to administrators and users under the AGD requirements. By ensuring that the <abbr linkend="TOE"/> is specifically identified and that this identification is consistent in the <abbr linkend="ST"/> and in the AGD guidance (as done in the assurance activity for ALC_CMC.1), the evaluator implicitly confirms the information required by this component.<htm:br></htm:br><htm:br></htm:br>
@@ -5369,16 +5277,15 @@
                 The evaluator shall ensure that the developer has identified (in public-facing development guidance for their platform) one or more development environments appropriate for use in developing applications for the developer’s platform. For each of these development environments, the developer shall provide information on how to configure the environment to ensure that buffer overflow protection mechanisms in the environment(s) are invoked (e.g., compiler and linker flags). The evaluator shall ensure that this documentation also includes an indication of whether such protections are on by default, or have to be specifically enabled. <htm:br></htm:br><htm:br></htm:br>
               The evaluator shall ensure that the <abbr linkend="TSF"/> is uniquely identified (with respect to other products from the <abbr linkend="TSF"/> vendor), and that documentation provided by the developer in association with the requirements in the <abbr linkend="ST"/> is associated with the <abbr linkend="TSF"/> using this unique identification.</aactivity>
           </a-element>
-	  </group>
         </a-component>
         <a-component id="alc_tsu_ext" name="Timely Security Updates"> 
           <summary>This component requires the TOE developer, in conjunction with any other necessary parties, to provide information as to how the end-user devices are updated to address security issues in a timely manner. The documentation describes the process of providing updates to the public from the time a security flaw is reported/discovered, to the time an update is released. This description includes the parties involved (e.g., the developer, carriers(s)) and the steps that are performed (e.g., developer testing, carrier testing), including worst-case time periods, before an update is made available to the public. </summary>
-	  <group type="dev-action">
+	  <evalactionlabel title="Developer action elements:"/>
             <a-element id="alc_tsu_ext.1.1d">
               <title>The developer shall provide a description in the <abbr linkend="TSS"/> of how timely security updates are made to the <abbr linkend="TOE"/>.</title>
             </a-element>
-	  </group>
-	  <group type="con-pres">
+
+	  <evalactionlabel title="Content and presentation elements:"/>
             <a-element id="alc_tsu_ext.1.1c">
               <title>The description shall include the process for creating and deploying security updates for the <abbr linkend="TOE"/> software.</title>
               <note>The software to be described includes the operating systems of the application processor and the baseband processor, as well as any firmware and applications. The process description includes the <abbr linkend="TOE"/> developer processes as well as any third-party (carrier) processes. The process description includes each deployment mechanism (e.g., over-the-air updates, per-carrier updates, downloaded updates).</note>
@@ -5398,8 +5305,8 @@
 	      <note>The purpose of providing this information is so that users and enterprises can determine which devices are susceptible to publicly known vulnerabilities so that they can make appropriate risk decisions, such as limiting access to enterprise resources until updates are installed.
 	      </note>
 	    </a-element>
-	  </group>
-          <group type="eval-action">
+
+          <evalactionlabel title="Evaluator action elements:"/>
             <a-element id="alc_tsu_ext.2.1e">
               <title>The evaluator shall confirm that the information provided meets all requirements for content and presentation of evidence.
               </title>
@@ -5413,7 +5320,6 @@
             The evaluator shall verify that the description includes where users can seek information about the availability of new security updates including details of the specific public vulnerabilities corrected by each update. The evaluator shall verify that the description includes the minimum amount of time that the <abbr linkend="TOE"/> is expected to be supported with security updates, and the process by which users can seek information about when the <abbr linkend="TOE"/> is no longer expected to receive security updates.
             </aactivity>
             </a-element>
-          </group>
         </a-component>
       </subsection>
       <subsection id="ate" title="Class ATE: Tests">
@@ -5422,17 +5328,17 @@
         
         <a-component id="ate_ind.1" name="Independent Testing – Conformance"> 
           <summary>Testing is performed to confirm the functionality described in the <abbr linkend="TSS"/> as well as the administrative (including configuration and operational) documentation provided. The focus of the testing is to confirm that the requirements specified in <secref linkend="sfr"/> being met, although some additional testing is specified for SARs in <secref linkend="sar"/>. The Assurance Activities identify the additional testing activities associated with these components. The evaluator produces a test report documenting the plan for and results of testing, as well as coverage arguments focused on the platform/<abbr linkend="TOE"/> combinations that are claiming conformance to this PP. </summary>
-	  <group type="dev-action">
+	  <evalactionlabel title="Developer action elements:"/>
             <a-element id="ate_ind.1.1d">
               <title>The developer shall provide the <abbr linkend="TOE"/> for testing.</title>
-            </a-element>
-	  </group>
-          <group type="con-pres">
+           </a-element>
+
+          <evalactionlabel title="Content and presentation elements:"/>
             <a-element id="ate_ind.1.1c">
               <title>The <abbr linkend="TOE"/> shall be suitable for testing.</title>
             </a-element>
-	  </group>
-	  <group type="eval-action">
+
+	  <evalactionlabel title="Evaluator action elements:"/>
             <a-element id="ate_ind.1.1e">
               <title>The evaluator <htm:i>shall confirm</htm:i> that the information provided meets all requirements for content and presentation of evidence.</title>
             </a-element>
@@ -5443,23 +5349,22 @@
                 The test plan describes the composition of each platform to be tested, and any setup that is necessary beyond what is contained in the AGD documentation. It should be noted that the evaluator is expected to follow the AGD documentation for installation and setup of each platform either as part of a test or as a standard pre-test condition. This may include special test drivers or tools. For each driver or tool, an argument (not just an assertion) should be provided that the driver or tool will not adversely affect the performance of the functionality by the <abbr linkend="TOE"/> and its platform. This also includes the configuration of the cryptographic engine to be used. The cryptographic algorithms implemented by this engine are those specified by this PP and used by the cryptographic protocols being evaluated (IPsec, TLS/HTTPS, SSH). <htm:br></htm:br><htm:br></htm:br>
                 The test plan identifies high-level test objectives as well as the test procedures to be followed to achieve those objectives. These procedures include expected results. The test report (which could just be an annotated version of the test plan) details the activities that took place when the test procedures were executed, and includes the actual results of the tests. This shall be a cumulative account, so if there was a test run that resulted in a failure; a fix installed; and then a successful re-run of the test, the report would show a “fail” and “pass” result (and the supporting details), and not just the “pass” result.</aactivity>
             </a-element>
-	  </group>
         </a-component>
       </subsection>
       <subsection id="ava" title="Class AVA: Vulnerability Assessment">
         For the current generation of this protection profile, the evaluation lab is expected to survey open sources to discover what vulnerabilities have been discovered in these types of products. In most cases, these vulnerabilities will require sophistication beyond that of a basic attacker. Until penetration tools are created and uniformly distributed to the evaluation labs, the evaluator will not be expected to test for these vulnerabilities in the <abbr linkend="TOE"/>. The labs will be expected to comment on the likelihood of these vulnerabilities given the documentation provided by the vendor. This information will be used in the development of penetration testing tools and for the development of future protection profiles.
         <a-component id="ava_van.1" name="Vulnerability Survey">
-	  <group type="dev-action">
+	  <evalactionlabel title="Developer action elements:"/>
             <a-element id="ava_van.1.1d">
               <title>The developer shall provide the <abbr linkend="TOE"/> for testing.</title>
             </a-element>
-	  </group>
-	  <group type="con-pres">
+
+	  <evalactionlabel title="Content and presentation elements:"/>
           <a-element id="ava_van.1.1c">
             <title>The <abbr linkend="TOE"/> shall be suitable for testing.</title>
           </a-element>
-	  </group>
-	  <group type="eval-action">
+
+	  <evalactionlabel title="Evaluator action elements:"/>
       <a-element id="ava_van.1.1e">
             <title>The evaluator shall confirm that the information provided meets all requirements for content and presentation of evidence.</title>
           </a-element>
@@ -5474,7 +5379,6 @@
               <htm:br></htm:br><htm:br></htm:br>
               For each vulnerability found, the evaluator either provides a rationale with respect to its non-applicability, or the evaluator formulates a test (using the guidelines provided in ATE_IND) to confirm the vulnerability, if suitable. Suitability is determined by assessing the attack vector needed to take advantage of the vulnerability. If exploiting the vulnerability requires expert skills and an electron microscope, for instance, then a test would not be suitable and an appropriate justification would be formulated.</aactivity>
           </a-element>
-	  </group>
         </a-component>
       </subsection>      
     </section> 
@@ -6070,3 +5974,4 @@
 
   </extra-css>
 </PP>       
+
