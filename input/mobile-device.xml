@@ -201,7 +201,7 @@
           <description>An implementation-independent set of security requirements for a category
             of products.</description></entry>
         <entry id="pd"> <term>Protected Data</term><description>Protected data is all non-TSF data, including all user or enterprise data. Protected data includes all keys in software-based secure key storage. Some or all of this data may be considered sensitive data as well. </description></entry>
-        <entry> <term>Rich Operating System (Rich OS)</term><description>This term is a synonym used to refer to the primary operating system of the application processor defined above under “Operating System (OS)”. This term is used to distinguish the primary operating system from an operating system executing in a smaller, isolated execution environment that may be present on the processor.</description></entry>
+        <entry> <term>Rich Operating System (Rich OS)</term><description>This term is a synonym used to refer to the primary operating system of the application processor defined above under "Operating System (OS)". This term is used to distinguish the primary operating system from an operating system executing in a smaller, isolated execution environment that may be present on the processor.</description></entry>
         <entry> <term><abbr title="Root Encryption Key">REK</abbr></term><description>A key tied to the device used to encrypt other keys.</description></entry>
         <entry> <term><abbr title="Security Assurance Requirement">SAR</abbr></term>
           <description>A requirement to assure the security of the <abbr linkend="TOE"/>.
@@ -239,7 +239,7 @@
       id="NetEnv"/>  
     <htm:br/>
     <htm:br/>
-    Examples of a “Mobile Device” that should claim conformance to this Protection Profile include smartphones, tablet computers, and other Mobile Devices with similar capabilities. 
+    Examples of a "Mobile Device" that should claim conformance to this Protection Profile include smartphones, tablet computers, and other Mobile Devices with similar capabilities. 
     <htm:br/><htm:br/>
     The Mobile Device provides essential services, such as cryptographic services, data-at-rest protection, and key storage services to support the secure operation of applications on the device. Additional security features such as security policy enforcement, application mandatory access control, anti-exploitation features, user authentication, and software integrity protection are implemented in order to address threats. 
     <htm:br/><htm:br/>
@@ -608,7 +608,7 @@
               <htm:br/><htm:br/>
               The <abbr linkend="TSF"/> shall generate an audit record for all events contained in <ctr-ref refid="manaudit"/>. Generating audit records for events in <ctr-ref refid="objaudit"/> is currently objective. It is acceptable to include individual <abbr linkend="SFR"/>s from <ctr-ref refid="objaudit"/> in the <abbr linkend="ST"/>, without including the entirety of <ctr-ref refid="objaudit"/>.
               <htm:br/><htm:br/>
-              <htm:b><ctr-ref refid="manaudit"/> Application Note:</htm:b> <linkref linkend="FPT_TST_EXT.1"/> – Audit of self-tests is required only at initial start-up. Since the <abbr linkend="TOE"/> “transitions to non-operational mode” upon failure of a self-test, per <linkref linkend="FPT_NOT_EXT.1"/>, this is considered equivalent evidence to an audit record for the failure of a self-test.
+              <htm:b><ctr-ref refid="manaudit"/> Application Note:</htm:b> <linkref linkend="FPT_TST_EXT.1"/> – Audit of self-tests is required only at initial start-up. Since the <abbr linkend="TOE"/> "transitions to non-operational mode" upon failure of a self-test, per <linkref linkend="FPT_NOT_EXT.1"/>, this is considered equivalent evidence to an audit record for the failure of a self-test.
               <linkref linkend="FDP_DAR_EXT.1"/> - "None" shall be selected, if the TOE utilizes whole volume encryption for protected memory, since it is not feasible to audit when the encryption/decryption fails. If the TOE utilizes file-based encryption for protected data and audits when this encryption/decryption fails, then that auditable event shall be selected.<htm:br/><htm:br/>
               <htm:b><ctr-ref refid="objaudit"/> Application Note:</htm:b> If the audit event for <linkref linkend="FMT_SMF_EXT.1"/> is included in the ST, it is acceptable for the initiation of the software update to be audited without indicating the outcome (success or failure) of the update.
             </note>
@@ -630,7 +630,7 @@
             <note role="application">
               The subject identity is usually the process name/ID. The event type is often indicated by a severity level, for example, ‘info’, ‘warning’, or ‘error’.
               <htm:br/><htm:br/>
-              If “no additional auditable events” is selected in the second selection of <linkref linkend="FAU_GEN.1.1"/>, then “no additional information” shall be selected. 
+              If "no additional auditable events" is selected in the second selection of <linkref linkend="FAU_GEN.1.1"/>, then "no additional information" shall be selected. 
               <htm:br/><htm:br/>
               For each audit event selected from <ctr-ref refid="objaudit"/> in <linkref linkend="FAU_GEN.1.1"/> if additional information is required to be recorded within the audit record, it should be included in this selection.
               
@@ -837,7 +837,7 @@
                 <selectable><assignable>other attributes</assignable></selectable>
               </selectables>.
             </title>
-            <note role="application">The intent of this requirement is to identify all criteria that can be selected to trigger an audit event. This can be configured through an interface on the <abbr linkend="TSF"/> for a user or administrator to invoke. For the <abbr linkend="ST"/> author, the assignment is used to list any additional criteria or “none”.
+            <note role="application">The intent of this requirement is to identify all criteria that can be selected to trigger an audit event. This can be configured through an interface on the <abbr linkend="TSF"/> for a user or administrator to invoke. For the <abbr linkend="ST"/> author, the assignment is used to list any additional criteria or "none".
             </note>
             <aactivity>                            
               The evaluator shall review the administrative guidance to ensure that the guidance itemizes all event types, as well as describes all attributes that are to be selectable in accordance with the requirement, to include those attributes listed in the assignment. The administrative guidance shall also contain instructions on how to set the pre-selection as well as explain the syntax (if present) for multi-value pre-selection. The administrative guidance shall also identify those audit records that are always recorded, regardless of the selection criteria currently being enforced.<htm:br/><htm:br/>
@@ -879,7 +879,7 @@
       </subsection>
       
       <subsection id="fcs" title="Class: Cryptographic Support (FCS)">
-        This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: <abbr linkend="DEK"/>s and <abbr linkend="KEK"/>s. (A <abbr linkend="REK"/> is considered a <abbr linkend="KEK"/>.) <abbr linkend="DEK"/>s are used to protect data (as in the DAR protection described in <linkref linkend="FDP_DAR_EXT.1"/> and <linkref linkend="FDP_DAR_EXT.2"/>). <abbr linkend="KEK"/>s are used to protect other keys – <abbr linkend="DEK"/>s, other <abbr linkend="KEK"/>s, and other types of keys stored by the user or applications. The following diagram shows an example key hierarchy to illustrate the concepts of this profile. This example is not meant as an approved design, but <abbr linkend="ST"/> authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. Please note if a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/>, the <abbr linkend="BAF"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the <abbr linkend="BAF"/> is used to release keys. If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, meaning that a PIN or password must be used in conjunction with the <abbr linkend="BAF"/> this interaction shall be included.<htm:br/>
+        This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: <abbr linkend="DEK"/>s and <abbr linkend="KEK"/>s. (A <abbr linkend="REK"/> is considered a <abbr linkend="KEK"/>.) <abbr linkend="DEK"/>s are used to protect data (as in the DAR protection described in <linkref linkend="FDP_DAR_EXT.1"/> and <linkref linkend="FDP_DAR_EXT.2"/>). <abbr linkend="KEK"/>s are used to protect other keys – <abbr linkend="DEK"/>s, other <abbr linkend="KEK"/>s, and other types of keys stored by the user or applications. The following diagram shows an example key hierarchy to illustrate the concepts of this profile. This example is not meant as an approved design, but <abbr linkend="ST"/> authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. Please note if a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/>, the <abbr linkend="BAF"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the <abbr linkend="BAF"/> is used to release keys. If "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, meaning that a PIN or password must be used in conjunction with the <abbr linkend="BAF"/> this interaction shall be included.<htm:br/>
         
 
         <figure entity="images/figure3.jpg"
@@ -890,12 +890,12 @@
           <f-element id="fcs_ckm.1.1">             
             <title> The <abbr linkend="TSF"/> shall generate <refinement>asymmetric</refinement> cryptographic keys in accordance with a specified cryptographic key generation algorithm 
               <selectables linebreak="yes">
-                  <selectable><refinement>RSA schemes using</refinement> cryptographic key sizes of <refinement>2048-bit or greater</refinement> that meet <refinement>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.3</refinement></selectable>
+                  <selectable><refinement>RSA schemes using</refinement> cryptographic key sizes of <refinement>2048-bit or greater</refinement> that meet <refinement>FIPS PUB 186-4, "Digital Signature Standard (DSS)", Appendix B.3</refinement></selectable>
                 <selectable><refinement>ECC schemes using </refinement><selectables linebreak="yes">                 
-                    <selectable><refinement>“NIST curves” P-384 and </refinement><selectables><selectable><refinement>P-256</refinement></selectable><selectable><refinement>P-521</refinement></selectable><selectable exclusive="yes"><refinement>no other curves</refinement></selectable></selectables> that meet the following: <refinement>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.4</refinement></selectable>
+                    <selectable><refinement>"NIST curves" P-384 and </refinement><selectables><selectable><refinement>P-256</refinement></selectable><selectable><refinement>P-521</refinement></selectable><selectable exclusive="yes"><refinement>no other curves</refinement></selectable></selectables> that meet the following: <refinement>FIPS PUB 186-4, "Digital Signature Standard (DSS)", Appendix B.4</refinement></selectable>
                     <selectable><refinement>Curve25519 schemes that meet the following: RFC 7748</refinement></selectable></selectables>
                 </selectable>
-                  <selectable><refinement>FFC schemes using </refinement>cryptographic key sizes of <refinement>2048-bit or greater</refinement> that meet the following: <refinement>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1</refinement></selectable>
+                  <selectable><refinement>FFC schemes using </refinement>cryptographic key sizes of <refinement>2048-bit or greater</refinement> that meet the following: <refinement>FIPS PUB 186-4, "Digital Signature Standard (DSS)", Appendix B.1</refinement></selectable>
              </selectables>.               
             </title>
             <note role="application">
@@ -1011,12 +1011,12 @@
         <f-component id="fcs_ckm.2(1)" name="Cryptographic key establishment">
           <f-element id="fcs_ckm.2.1(1)"> 
             <title>The <abbr linkend="TSF"/> shall <refinement>perform</refinement> cryptographic <refinement>key establishment</refinement> in accordance with a specified cryptographic key <refinement>establishment</refinement> method:
-              <htm:ul><htm:li><refinement>RSA-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56B, “Recommendation for Pair-Wise Key Establishment Schemes Using Integer Factorization Cryptography”</refinement>
+              <htm:ul><htm:li><refinement>RSA-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56B, "Recommendation for Pair-Wise Key Establishment Schemes Using Integer Factorization Cryptography"</refinement>
               </htm:li></htm:ul>
               and 
               <selectables linebreak="yes">
-                <selectable><refinement>Elliptic curve-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</refinement></selectable>
-                <selectable><refinement>Finite field-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</refinement></selectable>
+                <selectable><refinement>Elliptic curve-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56A, "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography"</refinement></selectable>
+                <selectable><refinement>Finite field-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56A, "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography"</refinement></selectable>
                 <selectable exclusive="yes"><refinement>No other schemes</refinement></selectable>
               </selectables>.
             </title>
@@ -1084,14 +1084,14 @@
           <f-element id="fcs_ckm.2.1(2)">           
             <title>The <abbr linkend="TSF"/> shall <refinement>perform</refinement> cryptographic <refinement>key establishment</refinement> in accordance with a specified cryptographic key <refinement>establishment</refinement> method:
               <selectables linebreak="yes">
-                <selectable><refinement>RSA-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56B, “Recommendation for Pair-Wise Key Establishment Schemes Using Integer Factorization Cryptography”</refinement></selectable>
+                <selectable><refinement>RSA-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56B, "Recommendation for Pair-Wise Key Establishment Schemes Using Integer Factorization Cryptography"</refinement></selectable>
                 <selectable><refinement>Elliptic curve-based key establishment schemes</refinement> that meets the following: 
                     <selectables linebreak="yes">
-                        <selectable><refinement>NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</refinement></selectable>
+                        <selectable><refinement>NIST Special Publication 800-56A, "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography"</refinement></selectable>
                         <selectable><refinement>RFC 7748, "Elliptic Curves for Security"</refinement></selectable>
                     </selectables>
                 </selectable>
-                <selectable><refinement>Finite field-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</refinement></selectable>
+                <selectable><refinement>Finite field-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56A, "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography"</refinement></selectable>
               </selectables>
               <refinement>for the purposes of encrypting sensitive data received while the device is locked.</refinement>
             </title>
@@ -1144,7 +1144,7 @@
             <note role="application">
               Either asymmetric or symmetric keys are allowed; the <abbr linkend="ST"/> author makes the selection appropriate for the device. Symmetric keys must be of size 128 or 256 bits in order to correspond with <linkref linkend="FCS_COP.1(1)"/>. Asymmetric keys may be of any strength corresponding to <linkref linkend="FCS_CKM.1"/>. 
               <htm:br/><htm:br/>
-              The raw key material of “immutable hardware” <abbr linkend="REK"/>(s) is computationally processed by hardware and software cannot access the raw key material. Thus if “immutable-hardware” is selected in <linkref linkend="FCS_CKM_EXT.1.1"/> it implicitly meets <linkref linkend="FCS_CKM_EXT.7"/>. If “mutable-hardware” is selected in <linkref linkend="FCS_CKM_EXT.1.1"/>, <linkref linkend="FCS_CKM_EXT.7"/> must be included in the <abbr linkend="ST"/>.
+              The raw key material of "immutable hardware" <abbr linkend="REK"/>(s) is computationally processed by hardware and software cannot access the raw key material. Thus if "immutable-hardware" is selected in <linkref linkend="FCS_CKM_EXT.1.1"/> it implicitly meets <linkref linkend="FCS_CKM_EXT.7"/>. If "mutable-hardware" is selected in <linkref linkend="FCS_CKM_EXT.1.1"/>, <linkref linkend="FCS_CKM_EXT.7"/> must be included in the <abbr linkend="ST"/>.
               <htm:br/><htm:br/>
               The lack of a public/documented API for importing or exporting the <abbr linkend="REK"/>, when a private/undocumented API exists, is not sufficient to meet this requirement. 
               <htm:br/><htm:br/>
@@ -1233,7 +1233,7 @@
               <htm:br/>
               (conditional) If a KDF is used, the evaluator shall ensure that the  <abbr linkend="TSS"/> includes a description of the key derivation function and shall verify the key derivation uses an approved derivation mode and key expansion algorithm according to SP 800-108. 
               <htm:br/><htm:br/>
-              If “concatenating the keys and using a KDF (as described in (SP 800-56C)” is selected, the evaluator shall ensure the TSS includes a description of the randomness extraction step. 
+              If "concatenating the keys and using a KDF (as described in (SP 800-56C)" is selected, the evaluator shall ensure the TSS includes a description of the randomness extraction step. 
               <htm:ul>
                 <htm:li>The description must include how an approved untruncated MAC function is being used for the randomness extraction step and the evaluator must verify the TSS describes that the output length (in bits) of the MAC function is at least as large as the targeted security strength (in bits) of the parameter set employed by the key establishment scheme (see Tables 1-3 of SP 800-56C).</htm:li>
                 <htm:li>The description must include how the MAC function being used for the randomness extraction step is related to the PRF used in the key expansion and verify the TSS description includes the correct MAC function:</htm:li>
@@ -1378,7 +1378,7 @@
             </note>
           </f-element>
           <f-element id="fcs_ckm_ext.4.2">
-            <title>The <abbr linkend="TSF"/> shall destroy all plaintext keying material  and critical security parameters when no longer needed.
+            <title>The <abbr linkend="TSF"/> shall destroy all plaintext keying material and critical security parameters when no longer needed.
             </title>
             <note role="application">
               For the purposes of this requirement, plaintext keying material refers to authentication data, passwords, secret/private symmetric keys, private asymmetric keys, data used to derive keys, values derived from passwords, etc. If a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/> the enrollment or authentication templates are not subject to this requirement, since templates are not suitable for deriving keying material. However, source biometric data (i.e. fingerprint image or friction ridge pattern), the features an algorithm uses to perform biometric authentication for enrollment or verification (e.g. location of minutia), threshold values used in making the match adjudication, intermediate values calculated while building an enrollment or authentication template (i.e. direction maps, minutia counts, binarized and skeletonized representations of friction ridge patterns, etc.), and final match scores are examples of critical security parameters that must be destroyed when no longer needed.
@@ -1386,7 +1386,7 @@
               Key destruction procedures are performed in accordance with <linkref linkend="FCS_CKM_EXT.4.1"/>.
 
               <htm:br></htm:br><htm:br></htm:br>
-              There are multiple situations in which plaintext keying material is no longer necessary, including when the <abbr linkend="TOE"/> is powered off, when the wipe function is performed, when trusted channels are disconnected, when keying material is no longer needed by the trusted channel per the protocol, and when transitioning to the locked state (for those values derived from the Password Authentication Factor or that key material which is protected by the password-derived or biometric-unlocked <abbr linkend="KEK"/> according to <linkref linkend="FCS_STG_EXT.2"/> – see <figref refid="Keys"/>). For keys (or key material used to derive those keys) protecting sensitive data received in the locked state, “no longer needed” includes “while in the locked state.”
+              There are multiple situations in which plaintext keying material is no longer necessary, including when the <abbr linkend="TOE"/> is powered off, when the wipe function is performed, when trusted channels are disconnected, when keying material is no longer needed by the trusted channel per the protocol, and when transitioning to the locked state (for those values derived from the Password Authentication Factor or that key material which is protected by the password-derived or biometric-unlocked <abbr linkend="KEK"/> according to <linkref linkend="FCS_STG_EXT.2"/> – see <figref refid="Keys"/>). For keys (or key material used to derive those keys) protecting sensitive data received in the locked state, "no longer needed" includes "while in the locked state."
               <htm:br></htm:br><htm:br></htm:br>
 
               Trusted channels may include TLS, HTTPS, DTLS, IPsec VPNs, Bluetooth BR/EDR, and Bluetooth LE. The plaintext keying material for these channels includes (but is not limited to) master secrets, and Security Associations (SAs). 
@@ -1528,7 +1528,7 @@
           <f-element id="fcs_ckm_ext.7.1">
             <title>A <abbr linkend="REK"/> shall not be able to be read from or exported from the hardware. 
             </title>
-            <note role="application">If “mutable-hardware” is selected in <linkref linkend="FCS_CKM_EXT.1.1"/>, <linkref linkend="FCS_CKM_EXT.7"/> must be included in the <abbr linkend="ST"/>. Note that if “immutable-hardware” is selected in <linkref linkend="FCS_CKM_EXT.1.1"/> it implicitly meets <linkref linkend="FCS_CKM_EXT.7"/>.
+            <note role="application">If "mutable-hardware" is selected in <linkref linkend="FCS_CKM_EXT.1.1"/>, <linkref linkend="FCS_CKM_EXT.7"/> must be included in the <abbr linkend="ST"/>. Note that if "immutable-hardware" is selected in <linkref linkend="FCS_CKM_EXT.1.1"/> it implicitly meets <linkref linkend="FCS_CKM_EXT.7"/>.
               <htm:br/><htm:br/>
               The lack of a public/documented API for importing or exporting, when a private/undocumented API exists, is not sufficient to meet this requirement. 
             </note>
@@ -1789,10 +1789,10 @@
           <f-element id="fcs_cop.1.1(3)">
             <title>The <abbr linkend="TSF"/> shall perform <refinement>cryptographic signature services (generation and verification)</refinement> in accordance with a specified cryptographic algorithm
               <htm:ul>
-                <htm:li><refinement>RSA schemes using cryptographic key sizes of 2048-bit or greater that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 4</refinement> and</htm:li>             
+                <htm:li><refinement>RSA schemes using cryptographic key sizes of 2048-bit or greater that meet the following: FIPS PUB 186-4, "Digital Signature Standard (DSS)", Section 4</refinement> and</htm:li>             
               <htm:li><refinement><selectables linebreak="yes">
-                <selectable>ECDSA schemes using “NIST curves” P-384 and 
-              <selectables><selectable>P-256</selectable><selectable>P-521</selectable><selectable exclusive="yes">no other curves</selectable></selectables> that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 5</selectable>
+                <selectable>ECDSA schemes using "NIST curves" P-384 and 
+              <selectables><selectable>P-256</selectable><selectable>P-521</selectable><selectable exclusive="yes">no other curves</selectable></selectables> that meet the following: FIPS PUB 186-4, "Digital Signature Standard (DSS)", Section 5</selectable>
                   <selectable exclusive="yes">No other algorithms</selectable>
               </selectables></refinement>.</htm:li>
               </htm:ul>
@@ -1965,7 +1965,7 @@
               The <abbr linkend="ST"/> author may select either software or hardware noise sources. A hardware noise source is a component that produces data that cannot be explained by a deterministic rule, due to its physical nature. In other words, a hardware based noise source generates sequences of random numbers from a physical process that cannot be predicted. For example, a sampled ring oscillator consists of an odd number of inverter gates chained into a loop, with an electrical pulse traveling from inverter to inverter around the loop. The inverters are not clocked, so the precise time required for a complete circuit around the loop varies slightly as various physical effects modify the small delay time at each inverter on the line to the next inverter. This variance results in an approximate natural frequency that contains drift and jitter over time. The output of the ring oscillator consists of the oscillating binary value sampled at a constant rate from one of the inverters – a rate that is significantly slower than the oscillator’s natural frequency.
             </note>
             <aactivity>
-              Documentation shall be produced and the evaluator shall perform the activities in accordance with <appref linkend="entropy"/>, the “Clarification to the Entropy Documentation and Assessment”. 
+              Documentation shall be produced and the evaluator shall perform the activities in accordance with <appref linkend="entropy"/>, the "Clarification to the Entropy Documentation and Assessment". 
               <htm:br/><htm:br/>
               The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/>, includes the security functions described in <linkref linkend="FCS_RBG_EXT.1.3"/>.
               <htm:br/><htm:br/>
@@ -1975,7 +1975,7 @@
               <htm:br/><htm:br/>
               The evaluator shall perform 15 trials for the RNG implementation. If the RNG is configurable, the evaluator shall perform 15 trials for each configuration. The evaluator shall also confirm that the operational guidance contains appropriate instructions for configuring the RNG functionality.
               <htm:br/><htm:br/>
-              If the RNG has prediction resistance enabled, each trial consists of (1) instantiate DRBG, (2) generate the first block of random bits (3) generate a second block of random bits (4) uninstantiate. The evaluator verifies that the second block of random bits is the expected value. The evaluator shall generate eight input values for each trial. The first is a count (0 – 14). The next three are entropy input, nonce, and personalization string for the instantiate operation. The next two are additional input and entropy input for the first call to generate. The final two are additional input and entropy input for the second call to generate. These values are randomly generated. “generate one block of random bits” means to generate random bits with number of returned bits equal to the Output Block Length (as defined in NIST SP800-90A).
+              If the RNG has prediction resistance enabled, each trial consists of (1) instantiate DRBG, (2) generate the first block of random bits (3) generate a second block of random bits (4) uninstantiate. The evaluator verifies that the second block of random bits is the expected value. The evaluator shall generate eight input values for each trial. The first is a count (0 – 14). The next three are entropy input, nonce, and personalization string for the instantiate operation. The next two are additional input and entropy input for the first call to generate. The final two are additional input and entropy input for the second call to generate. These values are randomly generated. "generate one block of random bits" means to generate random bits with number of returned bits equal to the Output Block Length (as defined in NIST SP800-90A).
               <htm:br/><htm:br/>
               If the RNG does not have prediction resistance, each trial consists of (1) instantiate DRBG, (2) generate the first block of random bits (3) reseed, (4) generate a second block of random bits (5) uninstantiate. The evaluator verifies that the second block of random bits is the expected value. The evaluator shall generate eight input values for each trial. The first is a count (0 – 14). The next three are entropy input, nonce, and personalization string for the instantiate operation. The fifth value is additional input to the first call to generate. The sixth and seventh are additional input and entropy input to the call to reseed. The final value is additional input to the second generate call.
               <htm:br/><htm:br/>
@@ -2036,7 +2036,7 @@
              </htm:ul>
               
             </title>
-            <note role="application">For each of the listed FCS components in the bulleted list, the intent is that the <abbr linkend="TOE"/> will make available all algorithms specified for that component in the <abbr linkend="ST"/>. For example, if for <linkref linkend="FCS_COP.1(2)"/> the <abbr linkend="ST"/> author selects SHA-256, then the <abbr linkend="TOE"/> would have to make available an interface to perform SHA-1 (the “mandatory” portion of <linkref linkend="FCS_COP.1.1(2)"/>) and SHA-256 (the “selected” portion of <linkref linkend="FCS_COP.1.1(2)"/>). The exception is for <linkref linkend="FCS_COP.1(1)"/>, which does not require the <abbr linkend="TOE"/> to make available AES_CCMP, AES_XTS, AES_GCMP-256, or AES_CCMP_256 even though they may be implemented to perform <abbr linkend="TSF"/>-related functions. However, the <abbr linkend="ST"/> author is expected to select (for <linkref linkend="FCS_COP.1(1)"/> selection in this component) algorithms that match those selected in the <abbr linkend="ST"/> for the <linkref linkend="FCS_COP.1(1)"/> component.</note>
+            <note role="application">For each of the listed FCS components in the bulleted list, the intent is that the <abbr linkend="TOE"/> will make available all algorithms specified for that component in the <abbr linkend="ST"/>. For example, if for <linkref linkend="FCS_COP.1(2)"/> the <abbr linkend="ST"/> author selects SHA-256, then the <abbr linkend="TOE"/> would have to make available an interface to perform SHA-1 (the "mandatory" portion of <linkref linkend="FCS_COP.1.1(2)"/>) and SHA-256 (the "selected" portion of <linkref linkend="FCS_COP.1.1(2)"/>). The exception is for <linkref linkend="FCS_COP.1(1)"/>, which does not require the <abbr linkend="TOE"/> to make available AES_CCMP, AES_XTS, AES_GCMP-256, or AES_CCMP_256 even though they may be implemented to perform <abbr linkend="TSF"/>-related functions. However, the <abbr linkend="ST"/> author is expected to select (for <linkref linkend="FCS_COP.1(1)"/> selection in this component) algorithms that match those selected in the <abbr linkend="ST"/> for the <linkref linkend="FCS_COP.1(1)"/> component.</note>
             <aactivity>
               The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/> includes the security functions (cryptographic algorithms) described in these requirements.
               <htm:br/><htm:br/>
@@ -2083,7 +2083,7 @@ This section also describes the secure key storage services to be provided by th
               <htm:br/><htm:br/>
               Immutable hardware is considered outside of this requirement and will be covered elsewhere.
               <htm:br/><htm:br/>
-              If the secure key storage is implemented in software that is protected as required by <linkref linkend="FCS_STG_EXT.2"/>, the <abbr linkend="ST"/> author shall select “software-based.” If “software-based” is selected, the <abbr linkend="ST"/> author shall select “all software-based key storage” in <linkref linkend="FCS_STG_EXT.2"/>. 
+              If the secure key storage is implemented in software that is protected as required by <linkref linkend="FCS_STG_EXT.2"/>, the <abbr linkend="ST"/> author shall select "software-based." If "software-based" is selected, the <abbr linkend="ST"/> author shall select "all software-based key storage" in <linkref linkend="FCS_STG_EXT.2"/>. 
               <htm:br/><htm:br/>
               Support for secure key storage for all symmetric keys and persistent secrets will be required in future revisions.
             </note>
@@ -2113,7 +2113,7 @@ This section also describes the secure key storage services to be provided by th
             </title>
             <note role="application">If the <abbr linkend="ST"/> Author selects user or administrator, the <abbr linkend="ST"/> Author must also select function 35 in <linkref linkend="FMT_SMF_EXT.1.1"/>. If the <abbr linkend="ST"/> Author selects only user, the <abbr linkend="ST"/> Author shall select function 35 in <linkref linkend="FMT_MOF_EXT.1.1"/>. </note>
             
-            <aactivity>The evaluator shall review the  <abbr linkend="TSS"/> to determine that the <abbr linkend="TOE"/>’s implements the required secure key storage. The evaluator shall ensure that the  <abbr linkend="TSS"/> contains a description of the key storage mechanism that justifies the selection of “mutable hardware” or “software-based”.
+            <aactivity>The evaluator shall review the  <abbr linkend="TSS"/> to determine that the <abbr linkend="TOE"/>’s implements the required secure key storage. The evaluator shall ensure that the  <abbr linkend="TSS"/> contains a description of the key storage mechanism that justifies the selection of "mutable hardware" or "software-based".
               <htm:br/><htm:br/>
               The evaluator shall review the AGD guidance to determine that it describes the steps needed to import or destroy keys/secrets. The evaluator shall also verify that the API documentation provided according to <secref linkend="adv"/> includes the security functions (import, use, and destruction) described in these requirements. The API documentation shall include the method by which applications restrict access to their keys/secrets in order to meet <linkref linkend="FCS_STG_EXT.1.4"/>. 
               <htm:br/><htm:br/>
@@ -2142,7 +2142,7 @@ This section also describes the secure key storage services to be provided by th
                       <htm:li>The evaluator shall repeat the test, allowing the approvals to verify that the application is able to use the key/secret as described.</htm:li>
                     </htm:ul>
                   <htm:br/>
-                  If the <abbr linkend="ST"/> Author has selected “common application developer”, this test is performed by either using applications from different developers or appropriately (according to API documentation) not authorizing sharing.
+                  If the <abbr linkend="ST"/> Author has selected "common application developer", this test is performed by either using applications from different developers or appropriately (according to API documentation) not authorizing sharing.
                 </test>
                 <htm:br/>
                 <test>The evaluator shall destroy keys/secrets of each supported type according to the AGD guidance. The evaluator shall write, or the developer shall provide access to, an application that destroys an imported key/secret.
@@ -2154,7 +2154,7 @@ This section also describes the secure key storage services to be provided by th
                     <htm:li>The evaluator shall repeat the test, allowing the approvals and verifying that the application is no longer able to use the key/secret as described.</htm:li>
                   </htm:ul>
                   <htm:br/>
-                  If the <abbr linkend="ST"/> Author has selected “common application developer”, this test is performed by either using applications from different developers or appropriately (according to API documentation) not authorizing sharing.
+                  If the <abbr linkend="ST"/> Author has selected "common application developer", this test is performed by either using applications from different developers or appropriately (according to API documentation) not authorizing sharing.
                 </test>
               </testlist>
             </aactivity>
@@ -2181,7 +2181,7 @@ This section also describes the secure key storage services to be provided by th
                   </selectables>
               </selectable></selectables>.
             </title>
-            <note role="application">The <abbr linkend="ST"/> author must select “all software-based key storage” if “software-based” is selected in <linkref linkend="FCS_STG_EXT.1.1"/>. If the <abbr linkend="ST"/> author selects “mutable hardware” in <linkref linkend="FCS_STG_EXT.1.1"/>, the secure key storage is not subject to this requirement. 
+            <note role="application">The <abbr linkend="ST"/> author must select "all software-based key storage" if "software-based" is selected in <linkref linkend="FCS_STG_EXT.1.1"/>. If the <abbr linkend="ST"/> author selects "mutable hardware" in <linkref linkend="FCS_STG_EXT.1.1"/>, the secure key storage is not subject to this requirement. 
              <abbr linkend="REK"/>s are not subject to this requirement. 
               <htm:br/><htm:br/>
               A <abbr linkend="REK"/> and the password-derived <abbr linkend="KEK"/> may be combined to form a combined <abbr linkend="KEK"/> (as described in <linkref linkend="FCS_CKM_EXT.3"/>) in order to meet this requirement.
@@ -2272,7 +2272,7 @@ This section also describes the secure key storage services to be provided by th
               </htm:li>
             </htm:ul>
           </title>
-          <note role="application">The ciphersuites to be tested in the evaluated configuration are limited by this requirement; however, this requirement does not restrict the TOE's ability to propose (in its Client Hello) additional ciphersuites beyond the ones listed in this requirement.  Put simply, the TOE may propose any ciphersuite; however, the evaluation will only test the ciphersuites in the above list. The ST author should select the optional ciphersuites that are supported; if there are no ciphersuites supported other than the mandatory suites, then “None” should be selected. It is necessary to limit the ciphersuites that can be used in an evaluated configuration administratively on the server in the test environment. The Suite B algorithms listed above (RFC 6460) are the preferred algorithms for implementation. It is recognized that RFC 5246 mandates the ciphersuite TLS_RSA_WITH_AES_128_CBC_SHA, but this ciphersuite is not tested with this requirement.<htm:br></htm:br><htm:br></htm:br>
+          <note role="application">The ciphersuites to be tested in the evaluated configuration are limited by this requirement; however, this requirement does not restrict the TOE's ability to propose (in its Client Hello) additional ciphersuites beyond the ones listed in this requirement.  Put simply, the TOE may propose any ciphersuite; however, the evaluation will only test the ciphersuites in the above list. The ST author should select the optional ciphersuites that are supported; if there are no ciphersuites supported other than the mandatory suites, then "None" should be selected. It is necessary to limit the ciphersuites that can be used in an evaluated configuration administratively on the server in the test environment. The Suite B algorithms listed above (RFC 6460) are the preferred algorithms for implementation. It is recognized that RFC 5246 mandates the ciphersuite TLS_RSA_WITH_AES_128_CBC_SHA, but this ciphersuite is not tested with this requirement.<htm:br></htm:br><htm:br></htm:br>
             If an elliptic-curve ciphersuite is selected, <linkref linkend="FCS_TLSC_EXT.2.1"/> shall be included in the ST.<htm:br></htm:br><htm:br></htm:br>
             These requirements will be revisited as new TLS versions are standardized by the IETF.</note>
           
@@ -2386,7 +2386,7 @@ This section also describes the secure key storage services to be provided by th
             </aactivity>
           </f-element>
           <f-element id="fcs_tlsc_ext.3.2">
-            <title>The TSF shall support secure renegotiation through use of the “renegotiation_info” TLS extension in accordance with RFC 5746.</title>
+            <title>The TSF shall support secure renegotiation through use of the "renegotiation_info" TLS extension in accordance with RFC 5746.</title>
           </f-element>
           <f-element id="fcs_tlsc_ext.3.3">
             <title>The TSF shall include (choose only one of)
@@ -2399,9 +2399,9 @@ This section also describes the secure key storage services to be provided by th
             </note>
             <aactivity>The evaluator shall perform the following tests:
               <testlist>
-                <test>The evaluator shall use a network packet analyzer/sniffer to capture the traffic between the two TLS endpoints. The evaluator shall verify that either the “renegotiation_info” field or the SCSV ciphersuite is included in the ClientHello packet during the initial handshake.</test>
-                <test>The evaluator shall verify the Client’s handling of ServerHello messages received during the initial handshake that include the “renegotiation_info” extension. The evaluator shall modify the length portion of this field in the ServerHello message to be non-zero and verify that the client sends a failure and terminates the connection. The evaluator shall verify that a properly formatted field results in a successful TLS connection.</test>
-                <test>The evaluator shall verify that ServerHello messages received during secure renegotiation contain the “renegotiation_info” extension. The evaluator shall modify either the “client_verify_data” or “server_verify_data” value and verify that the client terminates the connection.</test>
+                <test>The evaluator shall use a network packet analyzer/sniffer to capture the traffic between the two TLS endpoints. The evaluator shall verify that either the "renegotiation_info" field or the SCSV ciphersuite is included in the ClientHello packet during the initial handshake.</test>
+                <test>The evaluator shall verify the Client’s handling of ServerHello messages received during the initial handshake that include the "renegotiation_info" extension. The evaluator shall modify the length portion of this field in the ServerHello message to be non-zero and verify that the client sends a failure and terminates the connection. The evaluator shall verify that a properly formatted field results in a successful TLS connection.</test>
+                <test>The evaluator shall verify that ServerHello messages received during secure renegotiation contain the "renegotiation_info" extension. The evaluator shall modify either the "client_verify_data" or "server_verify_data" value and verify that the client terminates the connection.</test>
               </testlist>
             </aactivity>
           </f-element>
@@ -2461,17 +2461,17 @@ This section also describes the secure key storage services to be provided by th
             </title>
             <note role="application">Application groups may be designated Enterprise or Personal. Applications installed by the user default to being in the Personal application group unless otherwise designated by the administrator in function 43 of <linkref linkend="FMT_SMF_EXT.1.1"/>. Applications installed by the administrator default to being in the Enterprise application group (this category includes applications that the user requests the administrator install, for instance by selecting the application for installation through an enterprise application catalog) unless otherwise designated by the administrator in function 43 of <linkref linkend="FMT_SMF_EXT.1.1"/>. It is acceptable for the same application to have multiple instances installed, each in different application groups. Private data is defined as data that is accessible only by the application that wrote it. Private data is distinguished from data that an application may, by design, write to shared storage areas.
               <htm:br/><htm:br/>
-              If “groups of applications” is selected, <linkref linkend="FDP_ACF_EXT.2"/> must be included in the <abbr linkend="ST"/>.
+              If "groups of applications" is selected, <linkref linkend="FDP_ACF_EXT.2"/> must be included in the <abbr linkend="ST"/>.
             </note>
-            <aactivity>The evaluator shall examine the  <abbr linkend="TSS"/> to verify that it describes which data sharing is permitted between applications, which data sharing is not permitted, and how disallowed sharing is prevented. It is possible to select both “application” and “groups of application”, in which case the  <abbr linkend="TSS"/> is expected to describe the data sharing policies that would be applied in each case.
+            <aactivity>The evaluator shall examine the  <abbr linkend="TSS"/> to verify that it describes which data sharing is permitted between applications, which data sharing is not permitted, and how disallowed sharing is prevented. It is possible to select both "application" and "groups of application", in which case the  <abbr linkend="TSS"/> is expected to describe the data sharing policies that would be applied in each case.
               <testlist>
-                <test>The evaluator shall write, or the developer shall provide, two applications, one that saves data containing a unique string and the other, which attempts to access that data. If “groups of applications” is selected, the applications shall be placed into different groups. If “application” is selected, the evaluator shall install the two applications. If “private data” is selected, the application shall not write to a designated shared storage area. The evaluator shall verify that the second application is unable to access the stored unique string. 
+                <test>The evaluator shall write, or the developer shall provide, two applications, one that saves data containing a unique string and the other, which attempts to access that data. If "groups of applications" is selected, the applications shall be placed into different groups. If "application" is selected, the evaluator shall install the two applications. If "private data" is selected, the application shall not write to a designated shared storage area. The evaluator shall verify that the second application is unable to access the stored unique string. 
                   <htm:br/><htm:br/>
-                  If “the user” is selected, the evaluator shall grant access as the user and verify that the second application is able to access the stored unique string.
+                  If "the user" is selected, the evaluator shall grant access as the user and verify that the second application is able to access the stored unique string.
                   <htm:br/><htm:br/>
-                  If “the administrator” is selected, the evaluator shall grant access as the administrator and verify that the second application is able to access the stored unique string.
+                  If "the administrator" is selected, the evaluator shall grant access as the administrator and verify that the second application is able to access the stored unique string.
                   <htm:br/><htm:br/>
-                  If “a common application developer” is selected, the evaluator shall grant access to an, application with a common application developer to the first, and verify that the application is able to access the stored unique string.
+                  If "a common application developer" is selected, the evaluator shall grant access to an, application with a common application developer to the first, and verify that the application is able to access the stored unique string.
                 </test>
               </testlist>
             </aactivity>
@@ -2487,7 +2487,7 @@ This section also describes the secure key storage services to be provided by th
               <assignable>list of additional resources</assignable></selectable></selectables> for each application group and only allow applications within that process group to access the resource. Exceptions may only be explicitly authorized for such sharing by 
                 <selectables><selectable>the user</selectable><selectable>the administrator</selectable><selectable>no one</selectable></selectables>.
             </title>
-            <note role="application">If “groups of applications” is selected in <linkref linkend="FDP_ACF_EXT.1.2"/>, <linkref linkend="FDP_ACF_EXT.2"/> must be included in the <abbr linkend="ST"/>. </note>
+            <note role="application">If "groups of applications" is selected in <linkref linkend="FDP_ACF_EXT.1.2"/>, <linkref linkend="FDP_ACF_EXT.2"/> must be included in the <abbr linkend="ST"/>. </note>
             <aactivity>For each selected resource, the evaluator shall cause data to be placed into the Enterprise group’s instance of that shared resource. The evaluator shall install an application into the Personal group that attempts to access the shared resource information and verify that it cannot access the information.
             </aactivity>
           </f-element>
@@ -2526,9 +2526,9 @@ This section also describes the secure key storage services to be provided by th
               <selectables><selectable>all application data</selectable><selectable>selected application data</selectable></selectables> to be excluded from device backups.
             </title>
             <note role="application"> Device backups include any mechanism built into the <abbr linkend="TOE"/> that allows stored application data to be extracted over a physical port or sent over the network, but does not include any functionality implemented by a specific application itself if the application is not included in the <abbr linkend="TOE"/>. The lack of a public/documented API for performing backups, when a private/undocumented API exists, is not sufficient to meet this requirement. </note>
-            <aactivity>If “all application data” is selected, the evaluator shall install an application that has marked all of its application data to be excluded from backups. The evaluator shall cause data to be placed into the application’s storage area. The evaluator shall attempt to back up the application data and verify that the backup fails or that the application’s data was not included in the backup.
+            <aactivity>If "all application data" is selected, the evaluator shall install an application that has marked all of its application data to be excluded from backups. The evaluator shall cause data to be placed into the application’s storage area. The evaluator shall attempt to back up the application data and verify that the backup fails or that the application’s data was not included in the backup.
               <htm:br/><htm:br/>
-              If “selected application data” is selected, the evaluator shall install an application that has marked selected application data to be excluded from backups. The evaluator shall cause data covered by “selected application data” to be placed into the application’s storage area. The evaluator shall attempt to backup that selected application data and verify that either the backup fails or that the selected data is excluded from the backup.
+              If "selected application data" is selected, the evaluator shall install an application that has marked selected application data to be excluded from backups. The evaluator shall cause data covered by "selected application data" to be placed into the application’s storage area. The evaluator shall attempt to backup that selected application data and verify that either the backup fails or that the selected data is excluded from the backup.
             </aactivity>
           </f-element>
         </f-component>
@@ -2613,7 +2613,7 @@ This section also describes the secure key storage services to be provided by th
             </title>
             <note role="application">Data and keys that have been marked as sensitive will be subject to certain restrictions (through other requirements) in both the locked and unlocked states of the Mobile Device. This mechanism allows an application to choose those data and keys under its control to be subject to those requirements.
               <htm:br/><htm:br/>
-              In the future, this <abbr linkend="PP"/> may require that all data and key created by applications will default to the “sensitive” marking, requiring an explicit “non-sensitive” marking rather than an explicit “sensitive” marking.
+              In the future, this <abbr linkend="PP"/> may require that all data and key created by applications will default to the "sensitive" marking, requiring an explicit "non-sensitive" marking rather than an explicit "sensitive" marking.
             </note>
             <aactivity>The evaluator shall verify that the  <abbr linkend="TSS"/> includes a description of which data stored by the <abbr linkend="TSF"/> (such as by native applications) is treated as sensitive. This data may include all or some user or enterprise data and must be specific regarding the level of protection of email, contacts, calendar appointments, messages, and documents. 
               <htm:br/><htm:br/>
@@ -2631,7 +2631,7 @@ This section also describes the secure key storage services to be provided by th
               <htm:br/><htm:br/>
               The intent of this requirement is to allow the device to receive sensitive data while locked and to store the received data in such a way as to prevent unauthorized parties from decrypting it while in the locked state. If only a subset of sensitive data may be received in the locked state, this subset must be described in the  <abbr linkend="TSS"/>. 
               <htm:br/><htm:br/>
-              Key material must be cleared when no longer needed according to <linkref linkend="FCS_CKM_EXT.4"/>. For keys (or key material used to derive those keys) protecting sensitive data received in the locked state, “no longer needed” includes “while in the locked state.” For example, in the first key scheme, this includes the <abbr linkend="DEK"/> protecting the received data as soon as the data is encrypted. In the second key scheme this includes the private key for the data asymmetric pair, the generated shared secret, and any generated <abbr linkend="DEK"/>s. Of course, both schemes require that a private key of an asymmetric pair (the RSA private key and the device-wide private key, respectively) be cleared when transitioning to the locked state. 
+              Key material must be cleared when no longer needed according to <linkref linkend="FCS_CKM_EXT.4"/>. For keys (or key material used to derive those keys) protecting sensitive data received in the locked state, "no longer needed" includes "while in the locked state." For example, in the first key scheme, this includes the <abbr linkend="DEK"/> protecting the received data as soon as the data is encrypted. In the second key scheme this includes the private key for the data asymmetric pair, the generated shared secret, and any generated <abbr linkend="DEK"/>s. Of course, both schemes require that a private key of an asymmetric pair (the RSA private key and the device-wide private key, respectively) be cleared when transitioning to the locked state. 
             </note>
             <aactivity>The evaluator shall review the  <abbr linkend="TSS"/> section of the <abbr linkend="ST"/> to determine that the  <abbr linkend="TSS"/> includes a description of the process of receiving sensitive data while the device is in a locked state. The evaluator shall also verify that the description indicates if sensitive data that may be received in the locked state is treated differently than sensitive data that cannot be received in the locked state. The description shall include the key scheme for encrypting and storing the received data, which must involve an asymmetric key and must prevent the sensitive data-at-rest from being decrypted by wiping all key material used to derive or encrypt the data (as described in the application note). The introduction to this section provides two different schemes that meet the requirements, but other solutions may address this requirement.
               <htm:br/><htm:br/>
@@ -2665,7 +2665,7 @@ This section also describes the secure key storage services to be provided by th
                 <selectable>provide an interface which allows a VPN client to protect all IP traffic using IPsec</selectable>
                 <selectable>provide a VPN client which can protect all IP traffic using IPsec</selectable></selectables> with the exception of IP traffic required to establish the VPN connection.
             </title>
-            <note role="application">Typically, the traffic required to establish the VPN connection is referred to as “Control Plane” traffic; whereas, the IP traffic protected by the IPsec VPN is referred to as “Data Plane” traffic. All “Data Plane” traffic must flow through the VPN connection and the VPN must not split-tunnel.
+            <note role="application">Typically, the traffic required to establish the VPN connection is referred to as "Control Plane" traffic; whereas, the IP traffic protected by the IPsec VPN is referred to as "Data Plane" traffic. All "Data Plane" traffic must flow through the VPN connection and the VPN must not split-tunnel.
               <htm:br/><htm:br/>
               If no native IPsec client is validated or third-party VPN clients may also implement the required Information Flow Control, the first option shall be selected. In these cases, the <abbr linkend="TOE"/> provides an API to third-party VPN clients that allow them to configure the <abbr linkend="TOE"/>’s network stack to perform the required Information Flow Control.
               <htm:br/><htm:br/>
@@ -2715,11 +2715,11 @@ This section also describes the secure key storage services to be provided by th
             <title>The <abbr linkend="TSF"/> shall provide a means for non-TSF applications executing on the <abbr linkend="TOE"/> to use TLS, HTTPS, Bluetooth BR/EDR, and 
               <selectables><selectable id="upc_dtls">DTLS</selectable><selectable>Bluetooth LE</selectable><selectable>IPsec</selectable><selectable>no other protocol</selectable></selectables> to provide a protected communication channel between the non-TSF application and another IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
             </title>
-            <note role="application">The intent of this requirement is that one of the selected protocols is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. It should be noted that the FTP_ITC_EXT requires that all <abbr linkend="TSF"/> communications (meaning communications from the device to a gateway) be protected using the protocols indicated in that requirement, so the protocols required by this component ride “on top of” those listed in FTP_ITC_EXT.
+            <note role="application">The intent of this requirement is that one of the selected protocols is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. It should be noted that the FTP_ITC_EXT requires that all <abbr linkend="TSF"/> communications (meaning communications from the device to a gateway) be protected using the protocols indicated in that requirement, so the protocols required by this component ride "on top of" those listed in FTP_ITC_EXT.
               <htm:br/><htm:br/>
               It should also be noted that some applications are part of the <abbr linkend="TSF"/>, and FTP_ITC_EXT requires that <abbr linkend="TSF"/> applications be protected by at least one of the protocols in first selection in <linkref linkend="FTP_ITC_EXT.1"/>. It is not required to have two different implementations of a protocol, or two different protocols, to satisfy both this requirement (for non-TSF apps) and FTP_ITC_EXT (for <abbr linkend="TSF"/> apps), as long as the services specified are provided.
               <htm:br/><htm:br/>
-              The <abbr linkend="ST"/> author shall list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps. If the <abbr linkend="ST"/> author selects IPsec, the <abbr linkend="TSF"/> shall be validated against the “IPsec Virtual Private Network (VPN) Client Extended Package.” <appref linkend="sel-based"/> contains the requirements for implementing each of the other optional trusted channel protocols. The <abbr linkend="ST"/> author must include the security functional requirements for the trusted channel protocol selected in <linkref linkend="FDP_UPC_EXT.1"/> in the main body of the <abbr linkend="ST"/>.
+              The <abbr linkend="ST"/> author shall list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps. If the <abbr linkend="ST"/> author selects IPsec, the <abbr linkend="TSF"/> shall be validated against the "IPsec Virtual Private Network (VPN) Client Extended Package." <appref linkend="sel-based"/> contains the requirements for implementing each of the other optional trusted channel protocols. The <abbr linkend="ST"/> author must include the security functional requirements for the trusted channel protocol selected in <linkref linkend="FDP_UPC_EXT.1"/> in the main body of the <abbr linkend="ST"/>.
             </note>
           </f-element>
           <f-element id="fdp_upc_ext.1.2">
@@ -2823,12 +2823,12 @@ This section also describes the secure key storage services to be provided by th
           <f-element id="fia_blt_ext.1.1 ">
             <title>The <abbr linkend="TSF"/> shall require explicit user authorization before pairing with a remote Bluetooth device.
             </title>
-            <note role="application">User authorization includes explicit actions like affirming the remote device’s name, expressing an intent to connect to the remote device, and entering relevant pairing information (e.g. PINs, numeric codes, or “yes/no” responses). The user must have to explicitly permit all pairing attempts, even when bonding is not taking place.
+            <note role="application">User authorization includes explicit actions like affirming the remote device’s name, expressing an intent to connect to the remote device, and entering relevant pairing information (e.g. PINs, numeric codes, or "yes/no" responses). The user must have to explicitly permit all pairing attempts, even when bonding is not taking place.
               <htm:br/><htm:br/>
-              Because explicit user action must be required to permit pairing, it must not be possible for applications to programmatically enter pairing information (e.g. PINs, numeric codes, or “yes/no” responses) during the pairing process. The absence of public APIs for programmatic authorization is not sufficient to meet this requirement; hidden or private APIs must be absent as well.
+              Because explicit user action must be required to permit pairing, it must not be possible for applications to programmatically enter pairing information (e.g. PINs, numeric codes, or "yes/no" responses) during the pairing process. The absence of public APIs for programmatic authorization is not sufficient to meet this requirement; hidden or private APIs must be absent as well.
             </note>
             <aactivity>
-              The evaluator shall examine the  <abbr linkend="TSS"/> to ensure that it contains a description of when user permission is required for Bluetooth pairing, and that this description mandates explicit user authorization via manual input for all Bluetooth pairing, including application use of the Bluetooth trusted channel and situations where temporary (non-bonded) connections are formed. The evaluator shall examine the API documentation provided according to <secref linkend="adv"/> and verify that this API documentation does not include any API for programmatic entering of pairing information (e.g. PINs, numeric codes, or “yes/no” responses) intended to bypass manual user input during pairing.
+              The evaluator shall examine the  <abbr linkend="TSS"/> to ensure that it contains a description of when user permission is required for Bluetooth pairing, and that this description mandates explicit user authorization via manual input for all Bluetooth pairing, including application use of the Bluetooth trusted channel and situations where temporary (non-bonded) connections are formed. The evaluator shall examine the API documentation provided according to <secref linkend="adv"/> and verify that this API documentation does not include any API for programmatic entering of pairing information (e.g. PINs, numeric codes, or "yes/no" responses) intended to bypass manual user input during pairing.
               <htm:br/><htm:br/>
               The evaluator shall examine the AGD guidance to verify that these user authorization screens are clearly identified and instructions are given for authorizing Bluetooth pairings.
               <htm:br/><htm:br/>
@@ -2839,7 +2839,7 @@ This section also describes the secure key storage services to be provided by th
                   <htm:br/><htm:br/>
                   Step 1: Initiate pairing with the <abbr linkend="TOE"/> from a remote Bluetooth device that requests no man-in-the-middle protection, no bonding, and claims to have NoInputNoOutput input-output (IO) capability. (Such a device will attempt to evoke behavior from the <abbr linkend="TOE"/> that represents the minimal level of user interaction that the <abbr linkend="TOE"/> supports during pairing.) 
                   <htm:br/><htm:br/>
-                  Step 2: Verify that the <abbr linkend="TOE"/> does not permit any Bluetooth pairing without explicit authorization from the user (e.g. the user must have to minimally answer “yes” or “allow” in a prompt). 
+                  Step 2: Verify that the <abbr linkend="TOE"/> does not permit any Bluetooth pairing without explicit authorization from the user (e.g. the user must have to minimally answer "yes" or "allow" in a prompt). 
                 </test>
               </testlist>
             </aactivity>
@@ -2893,7 +2893,7 @@ This section also describes the secure key storage services to be provided by th
                   <htm:br/><htm:br/>
                   Step 1: Initiate pairing with the <abbr linkend="TOE"/> from a remote Bluetooth device that supports Secure Simple Pairing. 
                   <htm:br/><htm:br/>
-                  Step 2: During the pairing process, observe the packets in a Bluetooth protocol analyzer and verify that the <abbr linkend="TOE"/> claims support for both “Secure Simple Pairing (Host Support)” and “Secure Simple Pairing (Controller Support)” during the LMP Features Exchange.
+                  Step 2: During the pairing process, observe the packets in a Bluetooth protocol analyzer and verify that the <abbr linkend="TOE"/> claims support for both "Secure Simple Pairing (Host Support)" and "Secure Simple Pairing (Controller Support)" during the LMP Features Exchange.
                   <htm:br/><htm:br/>
                   Step 3: Verify that Secure Simple Pairing is used during the pairing process.
                 </test>
@@ -2911,7 +2911,7 @@ This section also describes the secure key storage services to be provided by th
             <title>The <abbr linkend="TOE"/> shall support Secure Connections Only mode for Bluetooth LE.</title>          
             <note role="application">The specification states that Secure Connections Only Mode, also called "FIPS Mode", should be used when security is more important than backwards compatibility. 
               <htm:br/><htm:br/>
-              From the specification, (v4.2, Vol 1, Part A, pp 92-93) “The Host will enforce that the P-256 elliptic curve is used during pairing, the secure authentication sequences are used, and AES-CCM is used for encryption.” Also, “if a BR/EDR/LE device is configured in Secure Connections Only Mode, then a transport will only be used when Secure Connections is supported by both devices.” Note that AES is always used in LE when encryption is used.
+              From the specification, (v4.2, Vol 1, Part A, pp 92-93) "The Host will enforce that the P-256 elliptic curve is used during pairing, the secure authentication sequences are used, and AES-CCM is used for encryption." Also, "if a BR/EDR/LE device is configured in Secure Connections Only Mode, then a transport will only be used when Secure Connections is supported by both devices." Note that AES is always used in LE when encryption is used.
               <htm:br/><htm:br/>
               This mode could be enabled or disabled via a user control/menu.
             </note>
@@ -2946,7 +2946,7 @@ This section also describes the secure key storage services to be provided by th
               <assignable>list of Bluetooth profiles</assignable>.</title>
             <note role="application">In addition to pairing, it may be appropriate to require explicit user action to authorize a particular remote device to access certain Bluetooth services. The <abbr linkend="TSF"/> may choose to require this additional action for all devices, or only for those devices that do not have a required level of trust. 
               <htm:br/><htm:br/>
-              The <abbr linkend="TSF"/> might designate certain devices as having a trusted device relationship with the <abbr linkend="TOE"/> and granting them “blanket” access to all services. However, it is strongly preferable that instead, for each service, the <abbr linkend="TSF"/> maintain a list of devices trusted to use that particular service. 
+              The <abbr linkend="TSF"/> might designate certain devices as having a trusted device relationship with the <abbr linkend="TOE"/> and granting them "blanket" access to all services. However, it is strongly preferable that instead, for each service, the <abbr linkend="TSF"/> maintain a list of devices trusted to use that particular service. 
               <htm:br/><htm:br/>
               Furthermore, it may be the case that the <abbr linkend="TSF"/> allows movement of devices from the untrusted to the trusted category for a particular service after the user provides explicit authorization for the device to use the service. For example, it may be appropriate to require that the user provide explicit, manual authorization before a remote device may use the OBEX service for an object transfer the first time. The user might be given the option to permit future connections to that service by the particular device without requiring explicit authorization each time.
               <htm:br/><htm:br/>
@@ -2954,7 +2954,7 @@ This section also describes the secure key storage services to be provided by th
             </note>
             <aactivity>The evaluator shall perform the following tests for each service protected according to this requirement:<htm:br/>
               <testlist>
-                <test>While the service is in active use by an application on the <abbr linkend="TOE"/>, the evaluator shall attempt to gain access to a “protected” Bluetooth service (from the second list in the requirement) from a remote device that does not have the required level of trust to use the service. The evaluator shall verify that the user is explicitly asked for authorization by the <abbr linkend="TOE"/> to allow access to the service for the particular remote device. The evaluator shall deny the authorization on the <abbr linkend="TOE"/> and verify that the remote attempt to access the service fails due to lack of authorization. </test><htm:br/>
+                <test>While the service is in active use by an application on the <abbr linkend="TOE"/>, the evaluator shall attempt to gain access to a "protected" Bluetooth service (from the second list in the requirement) from a remote device that does not have the required level of trust to use the service. The evaluator shall verify that the user is explicitly asked for authorization by the <abbr linkend="TOE"/> to allow access to the service for the particular remote device. The evaluator shall deny the authorization on the <abbr linkend="TOE"/> and verify that the remote attempt to access the service fails due to lack of authorization. </test><htm:br/>
                 <test>The evaluator shall repeat Test 1, allow the authorization, and verify that the remote device successfully accesses the service. Note that this connection may involve pairing, if the untrusted remote device has not yet paired with the <abbr linkend="TOE"/>.</test><htm:br/>
                 <test>If the <abbr linkend="TSF"/> implementation differentiates between trusted and untrusted devices when determining if user authorization is required, repeat Test 1 with a service that appears in the second list in the requirement (but not in the first list) and a device that has the required level of trust to use the service. The evaluator shall verify that the user is not prompted for explicit authorization and the connection to the service succeeds.</test><htm:br/>
                 <test>If the <abbr linkend="TSF"/> implementation differentiates between trusted and untrusted devices when determining if user authorization is required, repeat Test 1 with a service that appears in the first list in the requirement and a device that has the required level of trust to use the service. The evaluator shall verify that the user is explicitly asked for authorization by the <abbr linkend="TOE"/> to allow access to the service for the particular remote device. The evaluator shall deny the authorization on the <abbr linkend="TOE"/> and verify that the remote attempt to access the service fails due to lack of authorization. </test><htm:br/>
@@ -3101,16 +3101,16 @@ This section also describes the secure key storage services to be provided by th
                     <selectable><assignable>a character set of at least 52 characters</assignable></selectable>
                   </selectables>, numbers, and special characters: 
                 <selectables>
-                  <selectable>“!”</selectable>
-                  <selectable>“@”</selectable>
-                  <selectable>“#”</selectable>
-                  <selectable>“$”</selectable>
-                  <selectable>“%”</selectable>
-                  <selectable>“^”</selectable>
-                  <selectable>“&#38;”</selectable>
-                  <selectable> “*”</selectable>
-                  <selectable>“(“</selectable>
-                  <selectable>“)”</selectable>
+                  <selectable>"!"</selectable>
+                  <selectable>"@"</selectable>
+                  <selectable>"#"</selectable>
+                  <selectable>"$"</selectable>
+                  <selectable>"%"</selectable>
+                  <selectable>"^"</selectable>
+                  <selectable>"&#38;"</selectable>
+                  <selectable> "*"</selectable>
+                  <selectable>"("</selectable>
+                  <selectable>")"</selectable>
                   <selectable><assignable>other characters</assignable></selectable>
                </selectables>
                     ; </htm:li>                   
@@ -3157,11 +3157,11 @@ This section also describes the secure key storage services to be provided by th
             
             <note role="application">The <abbr linkend="TSF"/> must support a Password Authentication Factor and may optionally implement a <abbr linkend="BAF"/>, in the form of a fingerprint, iris, face, voice and (finger/palm) vein. A hybrid authentication factor is where a user has to submit a combination of PIN/password and biometric sample where both have to pass and if either fails the user is not made aware of which factor failed.
               <htm:br/><htm:br/>
-              If “hybrid” is selected, a biometric modality does not need to be selected, but should be selected if the biometric authentication can be used independent of the hybrid authentication, i.e. without having to enter a PIN/password.
+              If "hybrid" is selected, a biometric modality does not need to be selected, but should be selected if the biometric authentication can be used independent of the hybrid authentication, i.e. without having to enter a PIN/password.
               <htm:br/><htm:br/>
               If a biometric modality or "hybrid" is selected, then <linkref linkend="FIA_BMG_EXT.1"/> and <linkref linkend="FDP_PBA_EXT.1"/> must be included in the <abbr linkend="ST"/>.
               <htm:br/><htm:br/>
-              If “using a PIN as an additional factor” or "using a password as an additional factor" is selected in <linkref linkend="FDP_PBA_EXT.1.1"/>, then “hybrid” shall be selected. 
+              If "using a PIN as an additional factor" or "using a password as an additional factor" is selected in <linkref linkend="FDP_PBA_EXT.1.1"/>, then "hybrid" shall be selected. 
               <htm:br/><htm:br/>
               The Password Authentication Factor is configured according to <linkref linkend="FIA_PMG_EXT.1"/>.
             </note>
@@ -3191,7 +3191,7 @@ This section also describes the secure key storage services to be provided by th
               <testlist>
                 <test>The evaluator shall configure the <abbr linkend="TSF"/> to use the Password Authentication Factor according to the AGD guidance. The evaluator shall change Password Authentication Factor according to the AGD guidance and verify that the <abbr linkend="TSF"/> requires the entry of the Password Authentication Factor before allowing the factor to be changed.</test>
                 <test>[conditional] For each <abbr linkend="BAF"/> selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall configure the <abbr linkend="TSF"/> to use the <abbr linkend="BAF"/>, which includes configuring the Password Authentication Factor, according to the AGD guidance. The evaluator shall change the <abbr linkend="BAF"/> according to the AGD guidance and verify that the <abbr linkend="TSF"/> requires the entry of the Password Authentication Factor before allowing the <abbr linkend="BAF"/> to be changed. </test>
-                <test>[conditional] If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall configure the <abbr linkend="TSF"/> to use the <abbr linkend="BAF"/> and PIN or password, which includes configuring the Password Authentication Factor, according to the AGD guidance. The evaluator shall change the <abbr linkend="BAF"/> and PIN according to the AGD guidance and verify that the <abbr linkend="TSF"/> requires the entry of the Password Authentication Factor before allowing the factor to be changed. </test>
+                <test>[conditional] If "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall configure the <abbr linkend="TSF"/> to use the <abbr linkend="BAF"/> and PIN or password, which includes configuring the Password Authentication Factor, according to the AGD guidance. The evaluator shall change the <abbr linkend="BAF"/> and PIN according to the AGD guidance and verify that the <abbr linkend="TSF"/> requires the entry of the Password Authentication Factor before allowing the factor to be changed. </test>
               </testlist>
             </aactivity>
           </f-element>
@@ -3205,10 +3205,10 @@ This section also describes the secure key storage services to be provided by th
               <testlist>
                 <test>The evaluator shall configure the <abbr linkend="TSF"/> to transition to the locked state after a time of inactivity (<linkref linkend="FMT_SMF_EXT.1"/>) according to the AGD guidance. The evaluator shall wait until the <abbr linkend="TSF"/> locks and then verify that the <abbr linkend="TSF"/> requires the entry of the Password Authentication Factor before transitioning to the unlocked state.</test>
                 <test>[conditional] For each <abbr linkend="BAF"/> selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall repeat Test 1 verifying that the <abbr linkend="TSF"/> requires the entry of the <abbr linkend="BAF"/> before transitioning to the unlocked state. </test>
-                <test>[conditional] If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall repeat Test 1 verifying that the <abbr linkend="TSF"/> requires the entry of the <abbr linkend="BAF"/> and PIN/password before transitioning to the unlocked state. </test>
+                <test>[conditional] If "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall repeat Test 1 verifying that the <abbr linkend="TSF"/> requires the entry of the <abbr linkend="BAF"/> and PIN/password before transitioning to the unlocked state. </test>
                 <test>The evaluator shall configure user-initiated locking according to the AGD guidance. The evaluator shall lock the <abbr linkend="TSF"/> and then verify that the <abbr linkend="TSF"/> requires the entry of the Password Authentication Factor before transitioning to the unlocked state.</test>
                 <test>[conditional] For each <abbr linkend="BAF"/> selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall repeat Test 4 verifying that the <abbr linkend="TSF"/> requires the entry of the <abbr linkend="BAF"/> before transitioning to the unlocked state.</test>
-                <test>[conditional] If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall repeat Test 4 verifying that the <abbr linkend="TSF"/> requires the entry of the <abbr linkend="BAF"/> and PIN/password before transitioning to the unlocked state.</test>
+                <test>[conditional] If "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, the evaluator shall repeat Test 4 verifying that the <abbr linkend="TSF"/> requires the entry of the <abbr linkend="BAF"/> and PIN/password before transitioning to the unlocked state.</test>
               </testlist>
             </aactivity>
           </f-element>
@@ -3356,7 +3356,7 @@ This section also describes the secure key storage services to be provided by th
             <note role="application">The <abbr linkend="ST"/> author’s first selection shall match the selection of <linkref linkend="FTP_ITC_EXT.1.1"/>. <htm:br></htm:br><htm:br></htm:br>
               Certificates may optionally be used for trusted updates of system software (<linkref linkend="FPT_TUD_EXT.2.3"/>) and mobile applications (<linkref linkend="FPT_TUD_EXT.4.1"/>) and for integrity verification (<linkref linkend="FPT_TST_EXT.2(1)"/>). If "code signing for system software updates" or "code signing for mobile applications" is selected <linkref linkend="FPT_TUD_EXT.3.1"/> shall be included in the ST. <htm:br></htm:br><htm:br></htm:br>
               
-              If <linkref linkend="FPT_TUD_EXT.4.1"/> is included in the <abbr linkend="ST"/>, “code signing for mobile applications” must be included in the selection. </note>
+              If <linkref linkend="FPT_TUD_EXT.4.1"/> is included in the <abbr linkend="ST"/>, "code signing for mobile applications" must be included in the selection. </note>
           </f-element>
           <f-element id="fia_x509_ext.2.2">
             <title>When the <abbr linkend="TSF"/> cannot establish a connection to determine the revocation status of a certificate, the <abbr linkend="TSF"/> shall 
@@ -3413,7 +3413,7 @@ This section also describes the secure key storage services to be provided by th
             <title>The <abbr linkend="TSF"/> shall be capable of requesting server-provided private keys as specified in RFC 7030 Section 4.4.</title>
           </f-element>
           <f-element id="fia_x509_ext.4.6">
-            <title>The <abbr linkend="TSF"/> shall be capable of updating its EST-specific Trust Anchor Database using the “Root CA Key Update” process described in RFC 7030 Section 4.1.3.</title>
+            <title>The <abbr linkend="TSF"/> shall be capable of updating its EST-specific Trust Anchor Database using the "Root CA Key Update" process described in RFC 7030 Section 4.1.3.</title>
           </f-element>
           <f-element id="fia_x509_ext.4.7">
             <title>The <abbr linkend="TSF"/> shall generate a Certificate Request Message for EST as specified in RFC 2986 and be able to provide the following information in the request: public key and 
@@ -3434,8 +3434,8 @@ This section also describes the secure key storage services to be provided by th
                <test>The evaluator shall use a packet sniffing tool between the <abbr linkend="TOE"/> and an EST server. The evaluator shall turn on the sniffing tool and cause the <abbr linkend="TOE"/> to request certificate enrollment from an EST server. The evaluator shall verify that the EST protocol interaction occurs over a Transport Layer Security (TLS) protected connection. The evaluator is not expected to decrypt the connection but rather observe that the packets conform to the TLS protocol format.</test><htm:br/>
                <test>The evaluator shall use the operational guidance to cause the <abbr linkend="TOE"/> to request a server-provided private key and certificate from an EST server. The evaluator shall confirm that the resulting private key and certificate are successfully obtained and installed in the <abbr linkend="TOE"/> key store.</test><htm:br/>
                <test>The evaluator shall modify the EST server to, in response to a server-provided private key and certificate request, return a private key that does not correspond with the public key in the returned certificate. The evaluator shall use the operational guidance to cause the <abbr linkend="TOE"/> to request a server-provided private key and certificate. The evaluator shall confirm that the <abbr linkend="TOE"/> does not accept the resulting private key and certificate since the private key and public key do not correspond.</test><htm:br/>
-               <test>The evaluator shall configure the EST server to provide a “Root CA Key Update” as described in RFC 7030 Section 4.1.3. The evaluator shall cause the <abbr linkend="TOE"/> to request CA certificates from the EST server and shall confirm that the EST-specific Trust Anchor Database is updated with the new trust anchor.</test><htm:br/>
-               <test>The evaluator shall configure the EST server to provide a “Root CA Key Update” as described in RFC 7030 Section 4.1.3, but shall modify part of the NewWithOld certificate’s generated signature. The evaluator shall cause the <abbr linkend="TOE"/> to request CA certificates from the EST server and shall confirm that the EST-specific Trust Anchor Database is not updated with the new trust anchor since the signature did not verify.</test><htm:br/>
+               <test>The evaluator shall configure the EST server to provide a "Root CA Key Update" as described in RFC 7030 Section 4.1.3. The evaluator shall cause the <abbr linkend="TOE"/> to request CA certificates from the EST server and shall confirm that the EST-specific Trust Anchor Database is updated with the new trust anchor.</test><htm:br/>
+               <test>The evaluator shall configure the EST server to provide a "Root CA Key Update" as described in RFC 7030 Section 4.1.3, but shall modify part of the NewWithOld certificate’s generated signature. The evaluator shall cause the <abbr linkend="TOE"/> to request CA certificates from the EST server and shall confirm that the EST-specific Trust Anchor Database is not updated with the new trust anchor since the signature did not verify.</test><htm:br/>
                <test>The evaluator shall use the operational guidance to cause the <abbr linkend="TOE"/> to generate a certificate request message. The evaluator shall capture the generated message and ensure that it conforms to the format specified by RFC 2986. The evaluator shall confirm that the certificate request provides the public key and other required information, including any necessary user-input information. </test>
               </testlist>
             </aactivity>
@@ -3478,9 +3478,9 @@ This section also describes the secure key storage services to be provided by th
         <f-component id="fmt_mof_ext.1" name="Extended: Management of security functions behavior">
           <f-element id="fmt_mof_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall restrict the ability to perform the functions in column 3 of <ctr-ref refid="fmt_smf"/> to the user.
-            </title><note role="application">The functions that have an “M” in the third column are mandatory for this component, thus are restricted to the user, meaning that the administrator cannot manage those functions. The functions that have an “O” in the third column are optional and may be selected; and those functions with a “-” in the third are not applicable and may not be selected. The <abbr linkend="ST"/> author should select those security management functions that only the user may perform (i.e. the ones the administrator may not perform).
+            </title><note role="application">The functions that have an "M" in the third column are mandatory for this component, thus are restricted to the user, meaning that the administrator cannot manage those functions. The functions that have an "O" in the third column are optional and may be selected; and those functions with a "-" in the third are not applicable and may not be selected. The <abbr linkend="ST"/> author should select those security management functions that only the user may perform (i.e. the ones the administrator may not perform).
               <htm:br/><htm:br/>
-              The <abbr linkend="ST"/> author may not select the same function in both <linkref linkend="FMT_MOF_EXT.1.1"/> and <linkref linkend="FMT_MOF_EXT.1.2"/>. A function cannot contain an “M” in both column 3 and column 5.
+              The <abbr linkend="ST"/> author may not select the same function in both <linkref linkend="FMT_MOF_EXT.1.1"/> and <linkref linkend="FMT_MOF_EXT.1.2"/>. A function cannot contain an "M" in both column 3 and column 5.
               <htm:br/><htm:br/>
               The <abbr linkend="ST"/> author may use a table in the <abbr linkend="ST"/>, indicating with clear demarcations (to be accompanied by an index) those functions that are restricted to the user (column 3). The <abbr linkend="ST"/> author should iterate a row to indicate any variations in the selectable sub-functions or assigned values with respect to the values in the columns.
               <htm:br/><htm:br/>
@@ -3495,7 +3495,7 @@ This section also describes the secure key storage services to be provided by th
             </title>
             <note role="application">As long as the device is enrolled in management, the administrator (of the enterprise) must be guaranteed that minimum security functions of the enterprise policy are enforced. Further restrictive policies can be applied at any time by the user on behalf of the user or other administrators.
               <htm:br/><htm:br/>
-              The functions that have an “M” in the fifth column are mandatory for this component; the functions that have an “O” in the fifth column are optional and may be selected; and those functions with a “-” in the fifth are not applicable and may not be selected. 
+              The functions that have an "M" in the fifth column are mandatory for this component; the functions that have an "O" in the fifth column are optional and may be selected; and those functions with a "-" in the fifth are not applicable and may not be selected. 
               <htm:br/><htm:br/>
               The <abbr linkend="ST"/> author may not select the same function in both <linkref linkend="FMT_MOF_EXT.1.1"/> and <linkref linkend="FMT_MOF_EXT.1.2"/>.
               <htm:br/><htm:br/>
@@ -3905,7 +3905,7 @@ This section also describes the secure key storage services to be provided by th
               <htm:br/><htm:br/>
               The fifth column (<linkref linkend="FMT_MOF_EXT.1.2"/>) indicates whether the function is to be restricted to the administrator when the device is enrolled and the administrator applies the indicated policy. If the function is restricted to the administrator the function is not available to the user. This does not prevent the user from modifying a setting to make the function stricter, but the user cannot undo the configuration enforced by the administrator.
               <htm:br/><htm:br/>
-              The <abbr linkend="ST"/> author may use a table in the <abbr linkend="ST"/>, listing only those functions that are implemented. For functions that are mandatory, any sub-functions not in a selection are also mandatory and any assignments must contain at least one assigned value. For functions that are optional and contain an assignment or selection, at least one value must be assigned/selected to be included in the <abbr linkend="ST"/>. For non-selectable sub-functions in an optional function, all sub-functions must be implemented in order for the function to be included. For functions with a “per-app basis” sub function and an assignment, the <abbr linkend="ST"/> author must indicate which assigned features are manageable on a per-app basis and which are not by iterating the row.
+              The <abbr linkend="ST"/> author may use a table in the <abbr linkend="ST"/>, listing only those functions that are implemented. For functions that are mandatory, any sub-functions not in a selection are also mandatory and any assignments must contain at least one assigned value. For functions that are optional and contain an assignment or selection, at least one value must be assigned/selected to be included in the <abbr linkend="ST"/>. For non-selectable sub-functions in an optional function, all sub-functions must be implemented in order for the function to be included. For functions with a "per-app basis" sub function and an assignment, the <abbr linkend="ST"/> author must indicate which assigned features are manageable on a per-app basis and which are not by iterating the row.
               <htm:br/><htm:br/>
               <htm:b>Function-specific Application Notes:</htm:b> For functions 3, 5 and 22, the function must be implemented on a device-wide basis but may also be implemented on a per-app basis or on a per-group of applications basis in which the configuration includes the list of applications or groups of applications to which the enable/disable applies.
               <htm:br/><htm:br/>
@@ -3913,7 +3913,7 @@ This section also describes the secure key storage services to be provided by th
               <htm:br/><htm:br/>
               Function 3 optionally allows the VPN to be configured per-app or per-groups of apps. If this configuration is selected, it does not void <linkref linkend="FDP_IFC_EXT.1"/>. Instead <linkref linkend="FDP_IFC_EXT.1"/> is applied to the application or group of applications the VPN is applied to. In other words, all traffic destined for the VPN-enabled application or group of applications, must travel through the VPN, but traffic not destined for that application or group of applications can travel outside the VPN. When the VPN is configured across the device <linkref linkend="FDP_IFC_EXT.1"/> applies to all traffic and the VPN must not split tunnel.
               <htm:br/><htm:br/>
-              The assignment in function 4 consists of all radios present on the <abbr linkend="TSF"/>, such as Wi-Fi, GPS, cellular, NFC, Bluetooth BR/EDR, and Bluetooth LE, which can be enabled and disabled. In the future, if both Bluetooth BR/EDR and Bluetooth LE are supported, they will be required to be enabled and disabled separately. Disablement of the cellular radio does not imply that the radio may not be enabled in order to place emergency phone calls; however, it is not expected that a device in “airplane mode”, where all radios are disabled, will automatically (without authorization) turn on the cellular radio to place emergency calls. 
+              The assignment in function 4 consists of all radios present on the <abbr linkend="TSF"/>, such as Wi-Fi, GPS, cellular, NFC, Bluetooth BR/EDR, and Bluetooth LE, which can be enabled and disabled. In the future, if both Bluetooth BR/EDR and Bluetooth LE are supported, they will be required to be enabled and disabled separately. Disablement of the cellular radio does not imply that the radio may not be enabled in order to place emergency phone calls; however, it is not expected that a device in "airplane mode", where all radios are disabled, will automatically (without authorization) turn on the cellular radio to place emergency calls. 
               <htm:br/><htm:br/>
               The assignment in function 5 consists of at least one audio and/or visual device, such as camera and microphone, which can be enabled and disabled by either the user or administrator. Disablement of the microphone does not imply that the microphone may not be enabled in order to place emergency phone calls. If certain devices are able to be restricted to the enterprise (either device-wide, per-app or per-group of applications) and others are able to be restricted to users, then this function should be iterated in the table with the appropriate table entries.
               <htm:br/><htm:br/>
@@ -3930,13 +3930,13 @@ This section also describes the secure key storage services to be provided by th
               <htm:br/><htm:br/>
               In the future, function 12 may require destruction or disabling of any default trusted CA certificates, excepting those CA certificates necessary for continued operation of the <abbr linkend="TSF"/>, such as the developer’s certificate. At this time, the <abbr linkend="ST"/> author shall indicate in the assignment whether pre-installed or any other category of X.509v3 certificates may be removed from the Trust Anchor Database.
               <htm:br/><htm:br/>
-              For function 13, the enrollment function may be installing an <abbr linkend="MDM"/> agent and includes the policies to be applied to the device. It is acceptable for the user approval notice to require the user to intentionally opt to view the policies (for example, by “tapping” on a “View” icon) rather than listing the policies in full in the notice.
+              For function 13, the enrollment function may be installing an <abbr linkend="MDM"/> agent and includes the policies to be applied to the device. It is acceptable for the user approval notice to require the user to intentionally opt to view the policies (for example, by "tapping" on a "View" icon) rather than listing the policies in full in the notice.
               <htm:br/><htm:br/>
               For function 15, the administrator capability to update the system software may be limited to causing a prompt to the user to update rather than the ability to initiate the update itself. As the administrator is likely to be acting remotely, he/she would be unaware of inopportune situations, such as low power, which may cause the update to fail and the device to become inoperable. The user can refuse to accept the update in such situations. It is expected that system architects will be cognizant of this limitation and will enforce network access controls in order to enforce enterprise-critical updates.
               <htm:br/><htm:br/>
               Function 16 addresses both installation and update. This protection profile does not distinguish between installation and update of applications because mobile devices typically completely overwrite the previous installation with a new installation during an application update. 
               <htm:br/><htm:br/>
-              For function 17, “Enterprise applications” are those applications that belong to the Enterprise application group. Applications installed by the enterprise administrator (including automatic installation by the administrator after being requested by the user from a catalog of enterprise applications) are by default placed in the Enterprise application group unless an exception has been made in function 43 of <linkref linkend="FMT_SMF_EXT.1.1"/>.
+              For function 17, "Enterprise applications" are those applications that belong to the Enterprise application group. Applications installed by the enterprise administrator (including automatic installation by the administrator after being requested by the user from a catalog of enterprise applications) are by default placed in the Enterprise application group unless an exception has been made in function 43 of <linkref linkend="FMT_SMF_EXT.1.1"/>.
               <htm:br/><htm:br/>
               For function 18, management of the Discoverable mode and management of the Bluetooth device name are mandatory. All other management functions for Bluetooth are currently objective.
               <htm:ul>
@@ -3961,7 +3961,7 @@ This section also describes the secure key storage services to be provided by th
               <htm:br/><htm:br/>
               For function 22, location services include location information gathered from GPS, cellular, and Wi-Fi. 
               <htm:br/><htm:br/>
-              Function 23 is implicitly met if the <abbr linkend="TOE"/> does not contain a <abbr linkend="BAF"/>. This selection shall correspond with the selection made in <linkref linkend="FIA_UAU.5.1"/>. If a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/>, "Biometric Authentication Factor" shall be selected and the user or admin shall have the option to disable the use of it. If multiple <abbr linkend="BAF"/>s are selected in <linkref linkend="FIA_UAU.5.1"/>, this applies to all different modalities. If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/> it shall be selected and the user or admin shall have the option to disable the use of it.
+              Function 23 is implicitly met if the <abbr linkend="TOE"/> does not contain a <abbr linkend="BAF"/>. This selection shall correspond with the selection made in <linkref linkend="FIA_UAU.5.1"/>. If a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/>, "Biometric Authentication Factor" shall be selected and the user or admin shall have the option to disable the use of it. If multiple <abbr linkend="BAF"/>s are selected in <linkref linkend="FIA_UAU.5.1"/>, this applies to all different modalities. If "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/> it shall be selected and the user or admin shall have the option to disable the use of it.
               <htm:br/><htm:br/>
               The assignment in function 24 consists of all externally accessible hardware ports, such as USB, the SD card, and HDMI, whose data transfer capabilities can be enabled and disabled by either the user or administrator. Disablement of data transfer over an external port must be effective during and after boot into the normal operative mode of the device. If the <abbr linkend="TOE"/> supports states in which configured security management policy is inaccessible, for example, due to data-at-rest protection, it is acceptable to meet this requirement by ensuring that data transfer is disabled by default while in these states. Each of the ports may be enabled or disabled separately. The configuration policy need not disable all ports together. In the case of USB, chagrining is still allowed if data transfer capabilities have been disabled.
               <htm:br/><htm:br/>
@@ -3969,11 +3969,11 @@ This section also describes the secure key storage services to be provided by th
               <htm:br/><htm:br/>
               Function 26 must be included in the selection if developer modes are supported by the TSF.
               <htm:br/><htm:br/>
-              Function 27 must be included in the selection if bypass of local user authentication, such as a “Forgot Password”, password hint, or remote authentication feature, is supported.
+              Function 27 must be included in the selection if bypass of local user authentication, such as a "Forgot Password", password hint, or remote authentication feature, is supported.
               <htm:br/><htm:br/>
               Function 29 must be included in the selection if the TSF allows applications, other than the <abbr linkend="MDM"/> Agents, to import or remove X.509v3 certificates from the Trust Anchor Database. The <abbr linkend="MDM"/> Agent is considered the administrator. This function does not apply to applications trusting a certificate for its own validations. The function only applies to situations where the application modifies the device-wide Trust Anchor Database, affecting the validations performed by the <abbr linkend="TSF"/> for other applications. The user or administrator may be provided the ability to globally allow or deny any application requests in order to meet this requirement.
               <htm:br/><htm:br/>
-              Function 30 must be included in the selection if the “administrator-configured option” is selection in <linkref linkend="FIA_X509_EXT.2.2"/>.
+              Function 30 must be included in the selection if the "administrator-configured option" is selection in <linkref linkend="FIA_X509_EXT.2.2"/>.
               <htm:br/><htm:br/>
               Function 33 should be included in the selection if <linkref linkend="FPT_TUD_EXT.4.1"/> is included in the <abbr linkend="ST"/> and the configurable option is selected.
               <htm:br/><htm:br/>
@@ -4027,9 +4027,9 @@ This section also describes the secure key storage services to be provided by th
                   <htm:ol type="a">
                   <htm:li>The evaluator shall exercise the TSF configuration to enable the VPN protection. These configuration actions must be used for the testing of the <linkref linkend="FDP_IFC_EXT.1.1"/> requirement.
                   </htm:li>
-                    <htm:li>[conditional] If “per-app basis” is selected, the evaluator shall create two applications and enable one to use the VPN and the other to not use the VPN. The evaluator shall exercise each application (attempting to access network resources; for example, by browsing different websites) individually while capturing packets from the TOE. The evaluator shall verify from the packet capture that the traffic from the VPN-enabled application is encapsulated in IPsec and that the traffic from the VPN-disabled application is not encapsulated in IPsec.
+                    <htm:li>[conditional] If "per-app basis" is selected, the evaluator shall create two applications and enable one to use the VPN and the other to not use the VPN. The evaluator shall exercise each application (attempting to access network resources; for example, by browsing different websites) individually while capturing packets from the TOE. The evaluator shall verify from the packet capture that the traffic from the VPN-enabled application is encapsulated in IPsec and that the traffic from the VPN-disabled application is not encapsulated in IPsec.
                     </htm:li>
-                    <htm:li>[conditional] If “per-groups of application basis” is selected, the evaluator shall create two applications and the applications shall be placed into different groups. Enable one application group to use the VPN and the other to not use the VPN. The evaluator shall exercise each application (attempting to access network resources; for example, by browsing different websites) individually while capturing packets from the TOE. The evaluator shall verify from the packet capture that the traffic from the application in the VPN-enabled group is encapsulated in IPsec and that the traffic from the application in the VPN-disabled group is not encapsulated in IPsec.
+                    <htm:li>[conditional] If "per-groups of application basis" is selected, the evaluator shall create two applications and the applications shall be placed into different groups. Enable one application group to use the VPN and the other to not use the VPN. The evaluator shall exercise each application (attempting to access network resources; for example, by browsing different websites) individually while capturing packets from the TOE. The evaluator shall verify from the packet capture that the traffic from the application in the VPN-enabled group is encapsulated in IPsec and that the traffic from the application in the VPN-disabled group is not encapsulated in IPsec.
                       </htm:li>
                   </htm:ol>
                 </test><htm:br/>
@@ -4042,7 +4042,7 @@ This section also describes the secure key storage services to be provided by th
                 
                 Step 1: Place the antenna of the spectrum analyzer inside the RF shielded enclosure.<htm:br/><htm:br/>
                 
-                Step 2: Enable “Max Hold” on the spectrum analyzer and perform a spectrum sweep of the frequency range between 300MHz – 6000MHz, in I KHz steps (this range should encompass 802.11, 802.15, GSM, UMTS, LTE and GPS). This range will not address NFC 13.56MHz, another test should be set up with similar constraints to address NFC.<htm:br/><htm:br/>
+                Step 2: Enable "Max Hold" on the spectrum analyzer and perform a spectrum sweep of the frequency range between 300MHz – 6000MHz, in I KHz steps (this range should encompass 802.11, 802.15, GSM, UMTS, LTE and GPS). This range will not address NFC 13.56MHz, another test should be set up with similar constraints to address NFC.<htm:br/><htm:br/>
                 
                 If power above -90 dBm is observed, the Faraday box has too great of signal leakage and shall not be used to complete the test for Function 4.<htm:br/><htm:br/>
                 
@@ -4050,9 +4050,9 @@ This section also describes the secure key storage services to be provided by th
                 
                 Step 1: Place the antenna of the spectrum analyzer inside the RF shielded enclosure. Configure the spectrum analyzer to sweep desired frequency range for the radio to be tested (based on range provided in the <abbr linkend="TSS"/>)). The ambient noise floor shall be set to -110dBm. Place the TOE into the RF shielded enclosure to isolate them from all other RF traffic. <htm:br/><htm:br/>
                 
-                Step 2: The evaluator shall create a baseline of the expected behavior of RF signals. The evaluator shall power on the device, ensure the radio in question is enabled, power off the device, enable “Max Hold” on the spectrum analyzer and power on the device. The evaluator shall wait 2 minutes at each Authentication Factor interface prior to entering the necessary password to complete the boot process, waiting 5 minutes after the device is fully booted. The evaluator shall observe that RF spikes are present at the expected uplink channel frequency. The evaluator shall clear the “Max Hold” on the spectrum analyzer. <htm:br/><htm:br/>
+                Step 2: The evaluator shall create a baseline of the expected behavior of RF signals. The evaluator shall power on the device, ensure the radio in question is enabled, power off the device, enable "Max Hold" on the spectrum analyzer and power on the device. The evaluator shall wait 2 minutes at each Authentication Factor interface prior to entering the necessary password to complete the boot process, waiting 5 minutes after the device is fully booted. The evaluator shall observe that RF spikes are present at the expected uplink channel frequency. The evaluator shall clear the "Max Hold" on the spectrum analyzer. <htm:br/><htm:br/>
                 
-                Step 3: The evaluator shall verify the absence of RF activity for the uplink channel when the radio in question is disabled. The evaluator shall complete the following test five times. The evaluator shall power on the device, ensure the radio in question is disabled, power off the device, enable “Max Hold” on the spectrum analyzer and power on the device. The evaluator shall wait 2 minutes at each Authentication Factor interface prior to entering the necessary password to complete the boot process, waiting 5 minutes after the device is fully booted. The evaluator shall clear the “Max Hold” on the spectrum analyzer. If a spike of RF activity for the uplink channel of the specific radio frequency band is observed at any time (either at an Authentication Factor interface or when the device is fully booted) it is deemed that the radio is enabled.
+                Step 3: The evaluator shall verify the absence of RF activity for the uplink channel when the radio in question is disabled. The evaluator shall complete the following test five times. The evaluator shall power on the device, ensure the radio in question is disabled, power off the device, enable "Max Hold" on the spectrum analyzer and power on the device. The evaluator shall wait 2 minutes at each Authentication Factor interface prior to entering the necessary password to complete the boot process, waiting 5 minutes after the device is fully booted. The evaluator shall clear the "Max Hold" on the spectrum analyzer. If a spike of RF activity for the uplink channel of the specific radio frequency band is observed at any time (either at an Authentication Factor interface or when the device is fully booted) it is deemed that the radio is enabled.
                 </test><htm:br/>
                 
                 <htm:b>Function 5</htm:b><htm:br/>
@@ -4061,9 +4061,9 @@ This section also describes the secure key storage services to be provided by th
                   <htm:ol type="a">
                     <htm:li>The evaluator shall exercise the <abbr linkend="TSF"/> configuration as the administrator and, if not restricted to the administrator, the user, to enable and disable the state of each audio or visual collection devices (e.g. camera, microphone) listed by the ST author. For each collection device, the evaluator shall disable the device and then attempt to use its functionality. The evaluator shall reboot the <abbr linkend="TOE"/> and verify that disabled collection devices may not be used during or early in the boot process. Additionally, the evaluator shall boot the device into each available auxiliary boot mode and verify that the collection device cannot be used.
                     </htm:li>
-                      <htm:li>[conditional] If “per-app basis” is selected, the evaluator shall create two applications and enable one to use access the A/V device and the other to not access the A/V device. The evaluator shall exercise each application attempting to access the A/V device individually. The evaluator shall verify that the enabled application is able to access the A/V device and the disabled application is not able to access the A/V device.
+                      <htm:li>[conditional] If "per-app basis" is selected, the evaluator shall create two applications and enable one to use access the A/V device and the other to not access the A/V device. The evaluator shall exercise each application attempting to access the A/V device individually. The evaluator shall verify that the enabled application is able to access the A/V device and the disabled application is not able to access the A/V device.
                       </htm:li>
-                        <htm:li>[conditional] If “per-groups of application basis” is selected, the evaluator shall create two applications and the applications shall be placed into different groups. Enable one group to access the A/V device and the other to not access the A/V device. The evaluator shall exercise each application attempting to access the A/V device individually. The evaluator shall verify that the application in the enabled group is able to access the A/V device and the application in the disabled group is not able to access the A/V device.
+                        <htm:li>[conditional] If "per-groups of application basis" is selected, the evaluator shall create two applications and the applications shall be placed into different groups. Enable one group to access the A/V device and the other to not access the A/V device. The evaluator shall exercise each application attempting to access the A/V device individually. The evaluator shall verify that the application in the enabled group is able to access the A/V device and the application in the disabled group is not able to access the A/V device.
                     </htm:li>
                   </htm:ol>
                 </test><htm:br/>
@@ -4108,7 +4108,7 @@ This section also describes the secure key storage services to be provided by th
                 </test><htm:br/>
                 
                 <htm:b>Function 14</htm:b><htm:br/>
-                The evaluator shall verify that the  <abbr linkend="TSS"/> includes an indication of what applications (e.g., user-installed applications, Administrator-installed applications, or Enterprise applications) can be removed along with what role can do so. The evaluator shall examine the AGD guidance to determine that it details, for each type of application that can be removed, the procedures necessary to remove those applications and their associated data. For the purposes of this assurance activity, “associated data” refers to data that are created by the app during its operation that do not exist independent of the app's existence, for instance, configuration data, or e-mail information that’s part of an e-mail client. It does not, on the other hand, refer to data such as word processing documents (for a word processing app) or photos (for a photo or camera app). <htm:br/><htm:br/>
+                The evaluator shall verify that the  <abbr linkend="TSS"/> includes an indication of what applications (e.g., user-installed applications, Administrator-installed applications, or Enterprise applications) can be removed along with what role can do so. The evaluator shall examine the AGD guidance to determine that it details, for each type of application that can be removed, the procedures necessary to remove those applications and their associated data. For the purposes of this assurance activity, "associated data" refers to data that are created by the app during its operation that do not exist independent of the app's existence, for instance, configuration data, or e-mail information that’s part of an e-mail client. It does not, on the other hand, refer to data such as word processing documents (for a word processing app) or photos (for a photo or camera app). <htm:br/><htm:br/>
                 <test>The evaluator shall attempt to remove applications according to the AGD guidance and verify that the <abbr linkend="TOE"/> no longer permits users to access those applications or their associated data.
                 </test><htm:br/>
                 
@@ -4136,7 +4136,7 @@ This section also describes the secure key storage services to be provided by th
                    <htm:li>[conditional] The evaluator shall enable Advertising for Bluetooth LE, verify that the advertisements are captured by the protocol analyzer, disable Advertising, and verify that no advertisements from the device are captured by the protocol analyzer.</htm:li>
                    <htm:li>[conditional] The evaluator shall enable Connectable mode and verify that other Bluetooth devices may pair with the <abbr linkend="TOE"/> and (if the devices were bonded) re-connect after pairing and disconnection. For BR/EDR devices: The evaluator shall use the protocol analyzer to verify that the <abbr linkend="TOE"/> responds to pages from the other devices and permits pairing and re-connection. The evaluator shall disable Connectable mode and verify that the <abbr linkend="TOE"/> does not respond to pages from remote Bluetooth devices, thereby not permitting pairing or re-connection. For LE: The evaluator shall use the protocol analyzer to verify that the <abbr linkend="TOE"/> sends connectable advertising events and responds to connection requests. The evaluator shall disable Connectable mode and verify that the <abbr linkend="TOE"/> stops sending connectable advertising events and stops responding to connection requests from remote Bluetooth devices. </htm:li>
                    <htm:li>[conditional] The evaluator shall verify that all supported Bluetooth services and/or profiles are listed in the <abbr linkend="TSS"/> as manageable and, if the <abbr linkend="TOE"/> allows disabling by application rather than by service and/or profile name, that a list of services and/or profile for each application is also listed. </htm:li>
-                   <htm:li>[conditional] The evaluator shall allow low security modes/levels on the <abbr linkend="TOE"/> and shall initiate pairing with the <abbr linkend="TOE"/> from a remote device that allows only something other than Security Mode 4/Level 3 or Security Mode 4/Level 4 (for BR/EDR), or Security Mode 1/Level 3 (for LE). (For example, a remote BR/EDR device may claim Input/Output capability “NoInputNoOutput” and state that man-in-the-middle (MiTM) protection is not required. A remote LE device may not support encryption.) The evaluator shall verify that this pairing attempt succeeds due to the <abbr linkend="TOE"/> falling back to the low security mode/level. The evaluator shall then remove the pairing of the two devices, prohibit the use of low security modes/levels on the TOE, then attempt the connection again. The evaluator shall verify that the pairing attempt fails. With the low security modes/levels disabled, the evaluator shall initiate pairing from the <abbr linkend="TOE"/> to a remote device that supports Security Mode 4/Level 3 or Security Mode 4/Level 4 (for BR/EDR) or Security Mode 1/Level 3 (for LE). The evaluator shall verify that this pairing is successful and uses the high security mode/level. </htm:li>
+                   <htm:li>[conditional] The evaluator shall allow low security modes/levels on the <abbr linkend="TOE"/> and shall initiate pairing with the <abbr linkend="TOE"/> from a remote device that allows only something other than Security Mode 4/Level 3 or Security Mode 4/Level 4 (for BR/EDR), or Security Mode 1/Level 3 (for LE). (For example, a remote BR/EDR device may claim Input/Output capability "NoInputNoOutput" and state that man-in-the-middle (MiTM) protection is not required. A remote LE device may not support encryption.) The evaluator shall verify that this pairing attempt succeeds due to the <abbr linkend="TOE"/> falling back to the low security mode/level. The evaluator shall then remove the pairing of the two devices, prohibit the use of low security modes/levels on the TOE, then attempt the connection again. The evaluator shall verify that the pairing attempt fails. With the low security modes/levels disabled, the evaluator shall initiate pairing from the <abbr linkend="TOE"/> to a remote device that supports Security Mode 4/Level 3 or Security Mode 4/Level 4 (for BR/EDR) or Security Mode 1/Level 3 (for LE). The evaluator shall verify that this pairing is successful and uses the high security mode/level. </htm:li>
                    <htm:li>[conditional] The evaluator shall attempt to pair using each of the Out of Band pairing methods, verify that the pairing method works, iteratively disable each pairing method, and verify that the pairing method fails.
                     </htm:li>
                  </htm:ol>
@@ -4160,7 +4160,7 @@ This section also describes the secure key storage services to be provided by th
                   <htm:ol type="a">
                     <htm:li>The evaluator shall enable location services device-wide and shall verify that an application (such as a mapping application) is able to access the TOE’s location information. The evaluator shall disable location services device-wide and shall verify that an application (such as a mapping application) is unable to access the TOE’s location information.
                     </htm:li>
-                      <htm:li>[conditional] If “per-app basis” is selected, the evaluator shall create two applications and enable one to use access the location services and the other to not access the location services. The evaluator shall exercise each application attempting to access location services individually. The evaluator shall verify that the enabled application is able to access the location services and the disabled application is not able to access the location services.
+                      <htm:li>[conditional] If "per-app basis" is selected, the evaluator shall create two applications and enable one to use access the location services and the other to not access the location services. The evaluator shall exercise each application attempting to access location services individually. The evaluator shall verify that the enabled application is able to access the location services and the disabled application is not able to access the location services.
                   </htm:li>
                   </htm:ol>
                 </test><htm:br/>
@@ -4171,13 +4171,13 @@ This section also describes the secure key storage services to be provided by th
                   <htm:ol type="a">
                     <htm:li>[conditional] If a <abbr linkend="BAF"/> is selected the evaluator shall verify that the <abbr linkend="TSS"/> describes the procedure to enable/disable the <abbr linkend="BAF"/>. If the <abbr linkend="TOE"/> includes multiple <abbr linkend="BAF"/>s, the evaluator shall verify that the <abbr linkend="TSS"/> describes how to enable/disable each <abbr linkend="BAF"/>, specifically if the different modalities can be individually enabled/disabled. The evaluator shall configure the <abbr linkend="TOE"/> to allow each supported <abbr linkend="BAF"/> to authenticate and verify that successful authentication can be achieved using the <abbr linkend="BAF"/>. The evaluator shall configure the <abbr linkend="TOE"/> to disable the use of each supported <abbr linkend="BAF"/> for authentication and confirm that the <abbr linkend="BAF"/> cannot be used to authenticate.
                     </htm:li>
-                    <htm:li>[conditional] If “Hybrid” is selected the evaluator shall verify that the <abbr linkend="TSS"/> describes the procedure to enable/disable the hybrid (biometric credential and PIN/password) authentication. The evaluator shall configure the <abbr linkend="TOE"/> to allow hybrid authentication to authenticate and confirm that successful authentication can be achieved using the hybrid authentication. The evaluator shall configure the <abbr linkend="TOE"/> to disable the use of hybrid authentication and confirm that the hybrid authentication cannot be used to authenticate.
+                    <htm:li>[conditional] If "Hybrid" is selected the evaluator shall verify that the <abbr linkend="TSS"/> describes the procedure to enable/disable the hybrid (biometric credential and PIN/password) authentication. The evaluator shall configure the <abbr linkend="TOE"/> to allow hybrid authentication to authenticate and confirm that successful authentication can be achieved using the hybrid authentication. The evaluator shall configure the <abbr linkend="TOE"/> to disable the use of hybrid authentication and confirm that the hybrid authentication cannot be used to authenticate.
                     </htm:li>
                   </htm:ol>
                 </test><htm:br/>
                 
                 <htm:br/>
-                Assurance Activity Note: It should be noted that the following functions are optional capabilities, if the function is implemented, then the following assurance activities shall be performed. The notation of “[conditional] beside the function number indicates that if the function is not included in the <abbr linkend="ST"/>, then there is no expectation that the assurance activity be performed.
+                Assurance Activity Note: It should be noted that the following functions are optional capabilities, if the function is implemented, then the following assurance activities shall be performed. The notation of "[conditional] beside the function number indicates that if the function is not included in the <abbr linkend="ST"/>, then there is no expectation that the assurance activity be performed.
                 <htm:br/><htm:br/>
                 
                 <htm:b>Function 24 [conditional]</htm:b><htm:br/>
@@ -4195,8 +4195,8 @@ This section also describes the secure key storage services to be provided by th
                 </test><htm:br/>
                 
                 <htm:b>Function 27 [conditional]</htm:b><htm:br/>
-                The evaluator shall examine the AGD guidance to determine that it describes how to enable and disable any “Forgot Password”, password hint, or remote authentication (to bypass local authentication mechanisms) capability.<htm:br/>
-                <test>For each mechanism listed in the AGD guidance that provides a “Forgot Password” feature or other means where the local authentication process can be bypassed, the evaluator shall disable the feature and ensure that they are not able to bypass the local authentication process.
+                The evaluator shall examine the AGD guidance to determine that it describes how to enable and disable any "Forgot Password", password hint, or remote authentication (to bypass local authentication mechanisms) capability.<htm:br/>
+                <test>For each mechanism listed in the AGD guidance that provides a "Forgot Password" feature or other means where the local authentication process can be bypassed, the evaluator shall disable the feature and ensure that they are not able to bypass the local authentication process.
                 </test><htm:br/>
                 
                 <htm:b>Function 28 [conditional]</htm:b><htm:br/>
@@ -4281,14 +4281,14 @@ This section also describes the secure key storage services to be provided by th
                 </test><htm:br/>
                 
                 <htm:b>Function 40 [conditional]</htm:b><htm:br/>
-                The evaluator shall verify that the  <abbr linkend="TSS"/> includes a description of available backup methods that can be enabled/disabled. If “selected applications or selected groups of applications are selected the  <abbr linkend="TSS"/> shall include which applications of groups of applications backup can be enabled/disabled.<htm:br/><htm:br/>
-                <test>If “all applications” is selected, the evaluator shall disable each selected backup location in turn and verify that the <abbr linkend="TOE"/> cannot complete a backup. The evaluator shall then enable each selected backup location in turn and verify that the <abbr linkend="TOE"/> can perform a backup.
+                The evaluator shall verify that the  <abbr linkend="TSS"/> includes a description of available backup methods that can be enabled/disabled. If "selected applications or selected groups of applications are selected the  <abbr linkend="TSS"/> shall include which applications of groups of applications backup can be enabled/disabled.<htm:br/><htm:br/>
+                <test>If "all applications" is selected, the evaluator shall disable each selected backup location in turn and verify that the <abbr linkend="TOE"/> cannot complete a backup. The evaluator shall then enable each selected backup location in turn and verify that the <abbr linkend="TOE"/> can perform a backup.
                   <htm:br/><htm:br/>
-                  If “selected applications” is selected, the evaluator shall disable each selected backup location in turn and verify that for the selected application the <abbr linkend="TOE"/> prevents backup from occurring. The evaluator shall then enable each selected backup location in turn and verify that for the selected application the <abbr linkend="TOE"/> can perform a backup.
+                  If "selected applications" is selected, the evaluator shall disable each selected backup location in turn and verify that for the selected application the <abbr linkend="TOE"/> prevents backup from occurring. The evaluator shall then enable each selected backup location in turn and verify that for the selected application the <abbr linkend="TOE"/> can perform a backup.
                   <htm:br/><htm:br/>
-                  If “selected groups of applications” is selected, the evaluator shall disable each selected backup location in turn and verify that for a group of applications the <abbr linkend="TOE"/> prevents the backup from occurring. The evaluator shall then enable each selected backup location in turn and verify for the group of application the <abbr linkend="TOE"/> can perform a backup.
+                  If "selected groups of applications" is selected, the evaluator shall disable each selected backup location in turn and verify that for a group of applications the <abbr linkend="TOE"/> prevents the backup from occurring. The evaluator shall then enable each selected backup location in turn and verify for the group of application the <abbr linkend="TOE"/> can perform a backup.
                   <htm:br/><htm:br/>
-                  If “configuration data” is selected, the evaluator shall disable each selected backup location in turn and verify that the <abbr linkend="TOE"/> prevents the backup of configuration data from occurring. The evaluator shall then enable each selected backup location in turn and verify that the <abbr linkend="TOE"/> can perform a backup of configuration data.
+                  If "configuration data" is selected, the evaluator shall disable each selected backup location in turn and verify that the <abbr linkend="TOE"/> prevents the backup of configuration data from occurring. The evaluator shall then enable each selected backup location in turn and verify that the <abbr linkend="TOE"/> can perform a backup of configuration data.
                 </test><htm:br/>
                 
                 <htm:b>Function 41 [conditional] </htm:b><htm:br/>
@@ -4347,9 +4347,9 @@ This section also describes the secure key storage services to be provided by th
               <selectables><selectable>
                 <assignable>other administrator-configured triggers</assignable></selectable><selectable> no other triggers</selectable></selectables>.
             </title>
-            <note role="application">Un-enrollment may consist of removing the <abbr linkend="MDM"/> agent or removing the administrator’s policies. The functions in the selection are remediation actions that <abbr linkend="TOE"/> provides (perhaps via APIs) to the administrator (perhaps via an <abbr linkend="MDM"/> agent) that are performed upon un-enrollment. “Enterprise applications” refers to applications that are in the Enterprise application group. “Enterprise resource data” refers to all stored Enterprise data and the separate resources that are available to the Enterprise application group, per <linkref linkend="FDP_ACF_EXT.2.1"/>. If <linkref linkend="FDP_ACF_EXT.2.1"/> is included in the <abbr linkend="ST"/>, then "remove all device-stored Enterprise resource data" must be selected, and is defined to be all resources selected in <linkref linkend="FDP_ACF_EXT.2.1"/>. If <linkref linkend="FIA_UAU_EXT.4.1"/> is included in the <abbr linkend="ST"/>, then “remove Enterprise secondary authentication data” must be selected. If <linkref linkend="FIA_UAU_EXT.4.1"/> is not included in the <abbr linkend="ST"/>, then “remove Enterprise secondary authentication data” cannot be selected. Enterprise secondary authentication data only refers to any data stored on the <abbr linkend="TOE"/> that is specifically used as part of a secondary authentication mechanism to authenticate access to Enterprise applications and shared resources. Material that is used for the <abbr linkend="TOE"/>’s primary authentication mechanism or other purposes not related to authentication to or protection of Enterprise applications or shared resources should not be removed.
+            <note role="application">Un-enrollment may consist of removing the <abbr linkend="MDM"/> agent or removing the administrator’s policies. The functions in the selection are remediation actions that <abbr linkend="TOE"/> provides (perhaps via APIs) to the administrator (perhaps via an <abbr linkend="MDM"/> agent) that are performed upon un-enrollment. "Enterprise applications" refers to applications that are in the Enterprise application group. "Enterprise resource data" refers to all stored Enterprise data and the separate resources that are available to the Enterprise application group, per <linkref linkend="FDP_ACF_EXT.2.1"/>. If <linkref linkend="FDP_ACF_EXT.2.1"/> is included in the <abbr linkend="ST"/>, then "remove all device-stored Enterprise resource data" must be selected, and is defined to be all resources selected in <linkref linkend="FDP_ACF_EXT.2.1"/>. If <linkref linkend="FIA_UAU_EXT.4.1"/> is included in the <abbr linkend="ST"/>, then "remove Enterprise secondary authentication data" must be selected. If <linkref linkend="FIA_UAU_EXT.4.1"/> is not included in the <abbr linkend="ST"/>, then "remove Enterprise secondary authentication data" cannot be selected. Enterprise secondary authentication data only refers to any data stored on the <abbr linkend="TOE"/> that is specifically used as part of a secondary authentication mechanism to authenticate access to Enterprise applications and shared resources. Material that is used for the <abbr linkend="TOE"/>’s primary authentication mechanism or other purposes not related to authentication to or protection of Enterprise applications or shared resources should not be removed.
               <htm:br/><htm:br/>
-              Protected data is all non-TSF data, including all user or enterprise data. Some or all of this data may be considered sensitive data as well. If “wipe of protected data” is selected it is assumed that the sensitive data is wiped as well. However, if “wipe of sensitive data” is selected, it does not imply that all non-TSF data (protected data) is wiped. If “wipe of protected data” or “wipe of sensitive data” is selected the wipe shall be in accordance with <linkref linkend="FCS_CKM_EXT.5.1"/>. Thus cryptographically wiping the device is an acceptable remediation action. 
+              Protected data is all non-TSF data, including all user or enterprise data. Some or all of this data may be considered sensitive data as well. If "wipe of protected data" is selected it is assumed that the sensitive data is wiped as well. However, if "wipe of sensitive data" is selected, it does not imply that all non-TSF data (protected data) is wiped. If "wipe of protected data" or "wipe of sensitive data" is selected the wipe shall be in accordance with <linkref linkend="FCS_CKM_EXT.5.1"/>. Thus cryptographically wiping the device is an acceptable remediation action. 
             </note>
             <aactivity>
               The evaluator shall verify that the  <abbr linkend="TSS"/> describes all available remediation actions, when they are available for use, and any other administrator-configured triggers. The evaluator shall verify that the  <abbr linkend="TSS"/> describes how the remediation actions are provided to the administrator. 
@@ -4405,8 +4405,8 @@ This section also describes the secure key storage services to be provided by th
           <f-element id="fpt_aex_ext.3.1">
             <title>TSF processes that execute in a non-privileged execution domain on the application processor shall implement stack-based buffer overflow protection.
             </title>
-            <note role="application">A “non-privileged execution domain” refers to the user mode (as opposed to kernel mode, for instance) of the processor. While not all <abbr linkend="TSF"/> processes must implement such protection, it is expected that most of the processes (to include libraries used by <abbr linkend="TSF"/> processes) do implement buffer overflow protections.</note>
-            <aactivity>The evaluator shall determine that the  <abbr linkend="TSS"/> contains a description of stack-based buffer overflow protections implemented in the <abbr linkend="TSF"/> software which runs in the non-privileged execution mode of the application processor. The exact implementation of stack-based buffer overflow protection will vary by platform. Example implementations may be activated through compiler options such as "-fstack-protector-all", “-fstack-protector”, and “/GS” flags. 
+            <note role="application">A "non-privileged execution domain" refers to the user mode (as opposed to kernel mode, for instance) of the processor. While not all <abbr linkend="TSF"/> processes must implement such protection, it is expected that most of the processes (to include libraries used by <abbr linkend="TSF"/> processes) do implement buffer overflow protections.</note>
+            <aactivity>The evaluator shall determine that the  <abbr linkend="TSS"/> contains a description of stack-based buffer overflow protections implemented in the <abbr linkend="TSF"/> software which runs in the non-privileged execution mode of the application processor. The exact implementation of stack-based buffer overflow protection will vary by platform. Example implementations may be activated through compiler options such as "-fstack-protector-all", "-fstack-protector", and "/GS" flags. 
               The evaluator shall ensure that the  <abbr linkend="TSS"/> contains an inventory of <abbr linkend="TSF"/> binaries and libraries, indicating those that implement stack-based buffer overflow protections as well as those that do not. The  <abbr linkend="TSS"/> must provide a rationale for those binaries and libraries that are not protected in this manner.
             </aactivity>
           </f-element>
@@ -4426,7 +4426,7 @@ This section also describes the secure key storage services to be provided by th
               <htm:br/><htm:br/>
               Untrusted subjects include untrusted applications; unauthorized users who have access to the device while powered off, in a screen-locked state, or when booted into auxiliary boot modes; and, unauthorized users or untrusted software or hardware which may have access to the device over a wired interface, either when the device is in a screen-locked state or booted into auxiliary boot modes.
             </note>
-            <aactivity>The evaluator shall ensure that the  <abbr linkend="TSS"/> describes the mechanisms that are in place that prevents non-TSF software from modifying the <abbr linkend="TSF"/> software or <abbr linkend="TSF"/> data that governs the behavior of the <abbr linkend="TSF"/>. These mechanisms could range from hardware-based means (e.g. “execution rings” and memory management functionality); to software-based means (e.g. boundary checking of inputs to APIs). The evaluator determines that the described mechanisms appear reasonable to protect the <abbr linkend="TSF"/> from modification.
+            <aactivity>The evaluator shall ensure that the  <abbr linkend="TSS"/> describes the mechanisms that are in place that prevents non-TSF software from modifying the <abbr linkend="TSF"/> software or <abbr linkend="TSF"/> data that governs the behavior of the <abbr linkend="TSF"/>. These mechanisms could range from hardware-based means (e.g. "execution rings" and memory management functionality); to software-based means (e.g. boundary checking of inputs to APIs). The evaluator determines that the described mechanisms appear reasonable to protect the <abbr linkend="TSF"/> from modification.
               <htm:br/><htm:br/>
               The evaluator shall ensure the  <abbr linkend="TSS"/> describes how the <abbr linkend="TSF"/> ensures that the address spaces of applications are kept separate from one another.
               <htm:br/><htm:br/>
@@ -4527,7 +4527,7 @@ This section also describes the secure key storage services to be provided by th
             </note>
             <aactivity>The evaluator shall perform the following tests:
               <testlist>
-                <test>While the service is not in active use by an application on the <abbr linkend="TOE"/>, the evaluator shall attempt to discover a service associated with a “protected” Bluetooth profile (as specified by the requirement) on the <abbr linkend="TOE"/> via a Service Discovery Protocol search. The evaluator shall verify that the service does not appear in the Service Discovery Protocol search results. Next, the evaluator shall attempt to gain remote access to the service from a device that does not currently have a trusted device relationship with the <abbr linkend="TOE"/>. The evaluator shall verify that this attempt fails due to the unavailability of the service and profile. </test><htm:br/>
+                <test>While the service is not in active use by an application on the <abbr linkend="TOE"/>, the evaluator shall attempt to discover a service associated with a "protected" Bluetooth profile (as specified by the requirement) on the <abbr linkend="TOE"/> via a Service Discovery Protocol search. The evaluator shall verify that the service does not appear in the Service Discovery Protocol search results. Next, the evaluator shall attempt to gain remote access to the service from a device that does not currently have a trusted device relationship with the <abbr linkend="TOE"/>. The evaluator shall verify that this attempt fails due to the unavailability of the service and profile. </test><htm:br/>
                 <test>The evaluator shall repeat Test 1 with a device that currently has a trusted device relationship with the <abbr linkend="TOE"/> and verify that the same behavior is exhibited. </test>
               </testlist>
             </aactivity>
@@ -4542,13 +4542,13 @@ This section also describes the secure key storage services to be provided by th
             <note role="application">This requirement means that access to JTAG shall be disabled either through hardware and/or restricted through the use of a signing key.</note>
             <aactivity>
               
-              If “disable access through hardware” is selected the evaluator shall perform the following test:
+              If "disable access through hardware" is selected the evaluator shall perform the following test:
               <htm:br/><htm:br/>
               Assurance Activity Note: The following test requires the developer to provide access to a test platform that provides the evaluator with chip level access. 
               <htm:br/><htm:br/>
               The evaluator shall examine the <abbr linkend="TSS"/> to determine the location of the JTAG ports on the <abbr linkend="TSF"/>, to include the order of the ports (i.e. Data In, Data Out, Clock, etc.). The evaluator shall connect a packet analyzer to the JTAG ports. The evaluator shall query the JTAG port for its device ID and confirm that the device ID cannot be retrieved. <htm:br/><htm:br/>
               
-              If “control access by a signing key” is selected the evaluator shall perform the following test:<htm:br/><htm:br/>
+              If "control access by a signing key" is selected the evaluator shall perform the following test:<htm:br/><htm:br/>
               
               The evaluator shall examine the <abbr linkend="TSS"/> to determine how access to the JTAG is controlled by a signing key. The evaluator shall examine the <abbr linkend="TSS"/> to determine when the JTAG can be accessed, i.e. what has the access to the signing key.
               
@@ -4566,7 +4566,7 @@ This section also describes the secure key storage services to be provided by th
               <htm:br/><htm:br/>
               If a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/>, keying material also refers to source biometric data (i.e. fingerprint), enrollment and authentication templates, the features an algorithm uses to perform biometric authentication for enrollment or verification (i.e. location of minutia), threshold values used in making the match adjudication, intermediate calculations generated while building an enrollment or authentication template (i.e. direction maps, minutia counts, binarized and skeletonized representations of friction ridge patterns, etc.), and final match scores. Any images or metadata identifying the user for authentication shall be stored encrypted. 
               <htm:br/><htm:br/>
-              If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, in addition to the keying material included for the <abbr linkend="BAF"/>, mentioned in the previous paragraph, keying material also refers to the PIN/password used as part of the hybrid authentication. 
+              If "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, in addition to the keying material included for the <abbr linkend="BAF"/>, mentioned in the previous paragraph, keying material also refers to the PIN/password used as part of the hybrid authentication. 
             </note>
             <aactivity>The evaluator shall consult the  <abbr linkend="TSS"/> section of the <abbr linkend="ST"/> in performing the assurance activities for this requirement. 
               <htm:br/><htm:br/>
@@ -4593,7 +4593,7 @@ This section also describes the secure key storage services to be provided by th
             <htm:br/><htm:br/>
             If a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/>, keying material also refers to source biometric data (i.e. fingerprint), enrollment and authentication templates, the features an algorithm uses to perform biometric authentication for enrollment or verification (i.e. location of minutia), threshold values used in making the match adjudication, intermediate calculations generated while building an enrollment or authentication template (i.e. direction maps, minutia counts, binarized and skeletonized representations of friction ridge patterns), and final match scores.   
             <htm:br/><htm:br/>
-            If “hybrid” is selected in <linkref linkend="FIA_UAU.5.1"/>, in addition to the keying material included for the <abbr linkend="BAF"/>, mentioned in the previous paragraph, keying material also refers to the PIN/password used as part of the hybrid authentication. 
+            If "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, in addition to the keying material included for the <abbr linkend="BAF"/>, mentioned in the previous paragraph, keying material also refers to the PIN/password used as part of the hybrid authentication. 
             <htm:br/><htm:br/>
             In the future, this requirement will apply to symmetric and asymmetric private keys stored in the <abbr linkend="TOE"/> secure key storage where applications are outside the boundary of the <abbr linkend="TOE"/>. Thus, the <abbr linkend="TSF"/> will be required to provide cryptographic key operations (signature, encryption, and decryption) on behalf of applications (<linkref linkend="FCS_SRV_EXT.2.1"/>) that have access to those keys. 
             </note>
@@ -4751,9 +4751,9 @@ This section also describes the secure key storage services to be provided by th
             </title>
             <note role="application">All executable code covered in this requirement is executed after the kernel is loaded.<htm:br/><htm:br/>
               
-             If “all executable code in mutable media” is verified, implementation in hardware or in read-only memory is a natural logical consequence. 
+             If "all executable code in mutable media" is verified, implementation in hardware or in read-only memory is a natural logical consequence. 
               <htm:br/><htm:br/>
-              At this time, the verification of software executed on other processors stored in mutable media is not required; however, it may be added in the first assignment. If all executable code (including bootloader(s), kernel, device drivers, pre-loaded applications, user-loaded applications, and libraries) is verified, “all executable code stored in mutable media” should be selected.
+              At this time, the verification of software executed on other processors stored in mutable media is not required; however, it may be added in the first assignment. If all executable code (including bootloader(s), kernel, device drivers, pre-loaded applications, user-loaded applications, and libraries) is verified, "all executable code stored in mutable media" should be selected.
             </note>
             <aactivity>
               The assurance activity shall be completed in conjunction with <linkref linkend="FPT_TST_EXT.2(1)"/> for all executable code specified.
@@ -4767,7 +4767,7 @@ This section also describes the secure key storage services to be provided by th
           <f-element id="fpt_tst_ext.3.1">
             <title>The <abbr linkend="TSF"/> shall not execute code if the code signing certificate is deemed invalid. 
             </title>
-            <note role="application">Certificates may optionally be used for code signing for integrity verification (<linkref linkend="FPT_TST_EXT.2.1(1)"/>). If “code signing for integrity verification” is selected in <linkref linkend="FIA_X509_EXT.2.1"/>, <linkref linkend="FPT_TST_EXT.3.1"/> must be included in the <abbr linkend="ST"/>. 
+            <note role="application">Certificates may optionally be used for code signing for integrity verification (<linkref linkend="FPT_TST_EXT.2.1(1)"/>). If "code signing for integrity verification" is selected in <linkref linkend="FIA_X509_EXT.2.1"/>, <linkref linkend="FPT_TST_EXT.3.1"/> must be included in the <abbr linkend="ST"/>. 
               <htm:br/><htm:br/>
               Validity is determined by the certificate path, the expiration date, and the revocation status in accordance with RFC 5280.
             </note>
@@ -4871,7 +4871,7 @@ This section also describes the secure key storage services to be provided by th
           <f-element id="fpt_tud_ext.3.1">
             <title>The <abbr linkend="TSF"/> shall not install code if the code signing certificate is deemed invalid. 
             </title>
-            <note role="application">Certificates may optionally be used for code signing of system software updates (<linkref linkend="FPT_TUD_EXT.2.3"/>) and of mobile applications (<linkref linkend="FPT_TUD_EXT.4.1"/>). This element must be included in the <abbr linkend="ST"/> if certificates are used for either update element. If either “code signing for system software updates” or “code signing for mobile applications” is selected in <linkref linkend="FIA_X509_EXT.2.1"/>, <linkref linkend="FPT_TUD_EXT.3.1"/> must be included in the <abbr linkend="ST"/>. 
+            <note role="application">Certificates may optionally be used for code signing of system software updates (<linkref linkend="FPT_TUD_EXT.2.3"/>) and of mobile applications (<linkref linkend="FPT_TUD_EXT.4.1"/>). This element must be included in the <abbr linkend="ST"/> if certificates are used for either update element. If either "code signing for system software updates" or "code signing for mobile applications" is selected in <linkref linkend="FIA_X509_EXT.2.1"/>, <linkref linkend="FPT_TUD_EXT.3.1"/> must be included in the <abbr linkend="ST"/>. 
               <htm:br/><htm:br/>
               Validity is determined by the certificate path, the expiration date, and the revocation status in accordance with RFC 5280.
             </note>
@@ -5104,7 +5104,7 @@ This section also describes the secure key storage services to be provided by th
 
         <a-component id="adv_fsp.1" name="Basic Functional Specification">
 
-           <summary>The functional specification describes the TOE Security Functions Interface<abbr title="TSF Interface"> (TSFIs)</abbr>. It is not necessary to have a formal or complete specification of these interfaces. Additionally, because <abbr linkend="TOE"/>s conforming to this <abbr linkend="PP"/> will necessarily have interfaces to the Operational Environment that are not directly invokable by <abbr linkend="TOE"/> users, there is little point specifying that such interfaces be described in and of themselves since only indirect testing of such interfaces may be possible. For this <abbr linkend="PP"/>, the activities for this family should focus on understanding the interfaces presented in the <abbr linkend="TSS"/> in response to the functional requirements and the interfaces presented in the AGD documentation. No additional “functional specification” documentation is necessary to satisfy the assurance activities specified.  <htm:br></htm:br><htm:br></htm:br>
+           <summary>The functional specification describes the TOE Security Functions Interface<abbr title="TSF Interface"> (TSFIs)</abbr>. It is not necessary to have a formal or complete specification of these interfaces. Additionally, because <abbr linkend="TOE"/>s conforming to this <abbr linkend="PP"/> will necessarily have interfaces to the Operational Environment that are not directly invokable by <abbr linkend="TOE"/> users, there is little point specifying that such interfaces be described in and of themselves since only indirect testing of such interfaces may be possible. For this <abbr linkend="PP"/>, the activities for this family should focus on understanding the interfaces presented in the <abbr linkend="TSS"/> in response to the functional requirements and the interfaces presented in the AGD documentation. No additional "functional specification" documentation is necessary to satisfy the assurance activities specified.  <htm:br></htm:br><htm:br></htm:br>
             The interfaces that need to be evaluated are characterized through the information needed to perform the assurance activities listed, rather than as an independent, abstract list.</summary> 
 	  <evalactionlabel title="Developer action elements:"/>
 	    <a-element id="adv_fsp.1.1d">
@@ -5271,7 +5271,7 @@ This section also describes the secure key storage services to be provided by th
           <evalactionlabel title="Evaluator action elements:"/>
             <a-element id="alc_cms.1.1e">
               <title>The evaluator shall confirm that the information provided meets all requirements for content and presentation of evidence.</title>
-              <note role="Application"> The “evaluation evidence required by the SARs” in this PP is limited to the information in the <abbr linkend="ST"/> coupled with the guidance provided to administrators and users under the AGD requirements. By ensuring that the <abbr linkend="TOE"/> is specifically identified and that this identification is consistent in the <abbr linkend="ST"/> and in the AGD guidance (as done in the assurance activity for ALC_CMC.1), the evaluator implicitly confirms the information required by this component.<htm:br></htm:br><htm:br></htm:br>
+              <note role="Application"> The "evaluation evidence required by the SARs" in this PP is limited to the information in the <abbr linkend="ST"/> coupled with the guidance provided to administrators and users under the AGD requirements. By ensuring that the <abbr linkend="TOE"/> is specifically identified and that this identification is consistent in the <abbr linkend="ST"/> and in the AGD guidance (as done in the assurance activity for ALC_CMC.1), the evaluator implicitly confirms the information required by this component.<htm:br></htm:br><htm:br></htm:br>
                 Life-cycle support is targeted aspects of the developer’s life-cycle and instructions to providers of applications for the developer’s devices, rather than an in-depth examination of the <abbr linkend="TSF"/> manufacturer’s development and configuration management process. This is not meant to diminish the critical role that a developer’s practices play in contributing to the overall trustworthiness of a product; rather, it’s a reflection on the information to be made available for evaluation.</note>
                 <aactivity>
                 The evaluator shall ensure that the developer has identified (in public-facing development guidance for their platform) one or more development environments appropriate for use in developing applications for the developer’s platform. For each of these development environments, the developer shall provide information on how to configure the environment to ensure that buffer overflow protection mechanisms in the environment(s) are invoked (e.g., compiler and linker flags). The evaluator shall ensure that this documentation also includes an indication of whether such protections are on by default, or have to be specifically enabled. <htm:br></htm:br><htm:br></htm:br>
@@ -5347,7 +5347,7 @@ This section also describes the secure key storage services to be provided by th
               <aactivity>The evaluator shall prepare a test plan and report documenting the testing aspects of the system. The test plan covers all of the testing actions contained in the <cite linkend="CEM"/> and the body of this PP’s Assurance Activities. While it is not necessary to have one test case per test listed in an Assurance Activity, the evaluator must document in the test plan that each applicable testing requirement in the <abbr linkend="ST"/> is covered. <htm:br></htm:br><htm:br></htm:br>
                 The test plan identifies the platforms to be tested, and for those platforms not included in the test plan but included in the <abbr linkend="ST"/>, the test plan provides a justification for not testing the platforms. This justification must address the differences between the tested platforms and the untested platforms, and make an argument that the differences do not affect the testing to be performed. It is not sufficient to merely assert that the differences have no affect; rationale must be provided. If all platforms claimed in the <abbr linkend="ST"/> are tested, then no rationale is necessary. <htm:br></htm:br><htm:br></htm:br>
                 The test plan describes the composition of each platform to be tested, and any setup that is necessary beyond what is contained in the AGD documentation. It should be noted that the evaluator is expected to follow the AGD documentation for installation and setup of each platform either as part of a test or as a standard pre-test condition. This may include special test drivers or tools. For each driver or tool, an argument (not just an assertion) should be provided that the driver or tool will not adversely affect the performance of the functionality by the <abbr linkend="TOE"/> and its platform. This also includes the configuration of the cryptographic engine to be used. The cryptographic algorithms implemented by this engine are those specified by this PP and used by the cryptographic protocols being evaluated (IPsec, TLS/HTTPS, SSH). <htm:br></htm:br><htm:br></htm:br>
-                The test plan identifies high-level test objectives as well as the test procedures to be followed to achieve those objectives. These procedures include expected results. The test report (which could just be an annotated version of the test plan) details the activities that took place when the test procedures were executed, and includes the actual results of the tests. This shall be a cumulative account, so if there was a test run that resulted in a failure; a fix installed; and then a successful re-run of the test, the report would show a “fail” and “pass” result (and the supporting details), and not just the “pass” result.</aactivity>
+                The test plan identifies high-level test objectives as well as the test procedures to be followed to achieve those objectives. These procedures include expected results. The test report (which could just be an annotated version of the test plan) details the activities that took place when the test procedures were executed, and includes the actual results of the tests. This shall be a cumulative account, so if there was a test run that resulted in a failure; a fix installed; and then a successful re-run of the test, the report would show a "fail" and "pass" result (and the supporting details), and not just the "pass" result.</aactivity>
             </a-element>
         </a-component>
       </subsection>
@@ -5513,19 +5513,19 @@ This section also describes the secure key storage services to be provided by th
       <ctr id="uc1" pre="Table " ctr-type="table">: Enterprise-Owned Template</ctr>
     <htm:table>
       <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Action</htm:td></htm:tr>
-      <htm:tr><htm:td><linkref linkend="FCS_STG_EXT.1.4"/></htm:td><htm:td>Do not select “the user.”</htm:td></htm:tr>
+      <htm:tr><htm:td><linkref linkend="FCS_STG_EXT.1.4"/></htm:td><htm:td>Do not select "the user."</htm:td></htm:tr>
       <htm:tr><htm:td><linkref linkend="FMT_MOF_EXT.1.2"/> Function 4</htm:td><htm:td>Assign GPS.</htm:td></htm:tr>
       <htm:tr><htm:td><linkref linkend="FMT_MOF_EXT.1.2"/> Function 25</htm:td><htm:td>Include in ST. Assign personal Hotspot connections (if feature exists).</htm:td></htm:tr>
       <htm:tr><htm:td><linkref linkend="FMT_MOF_EXT.1.2"/> Function 36</htm:td><htm:td>Include in ST.</htm:td></htm:tr>
-      <htm:tr><htm:td><linkref linkend="FMT_MOF_EXT.1.2"/> Function 39</htm:td><htm:td>Include in ST. Select “USB Mass storage mode.”</htm:td></htm:tr>
-      <htm:tr><htm:td><linkref linkend="FMT_MOF_EXT.1.2"/> Function 41</htm:td><htm:td>Include in ST. Select “USB tethering.”</htm:td></htm:tr>
+      <htm:tr><htm:td><linkref linkend="FMT_MOF_EXT.1.2"/> Function 39</htm:td><htm:td>Include in ST. Select "USB Mass storage mode."</htm:td></htm:tr>
+      <htm:tr><htm:td><linkref linkend="FMT_MOF_EXT.1.2"/> Function 41</htm:td><htm:td>Include in ST. Select "USB tethering."</htm:td></htm:tr>
       <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 4</htm:td><htm:td>Assign GPS.</htm:td></htm:tr>
       <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 25</htm:td><htm:td>Include in ST. Assign personal Hotspot connections (if feature exists).</htm:td></htm:tr>
       <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 36</htm:td><htm:td>Include in ST.</htm:td></htm:tr>
-      <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 39</htm:td><htm:td>Include in ST. Select “USB Mass storage mode.”</htm:td></htm:tr>
+      <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 39</htm:td><htm:td>Include in ST. Select "USB Mass storage mode."</htm:td></htm:tr>
       <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 41</htm:td><htm:td>Include in ST. Select both options.</htm:td></htm:tr>
       <htm:tr><htm:td><linkref linkend="FPT_BBD_EXT.1.1"/></htm:td><htm:td>Include in ST.</htm:td></htm:tr>
-      <htm:tr><htm:td><linkref linkend="FPT_TST_EXT.2.1(2)"/></htm:td><htm:td>Include in ST and Select “all executable code stored in mutable media.”</htm:td></htm:tr>
+      <htm:tr><htm:td><linkref linkend="FPT_TST_EXT.2.1(2)"/></htm:td><htm:td>Include in ST and Select "all executable code stored in mutable media."</htm:td></htm:tr>
       <htm:tr><htm:td><linkref linkend="FPT_TUD_EXT.4.1"/></htm:td><htm:td>Include in ST.</htm:td></htm:tr>
       <htm:tr><htm:td><linkref linkend="FTA_TAB.1.1"/></htm:td><htm:td>Include in ST.</htm:td></htm:tr>
                
@@ -5537,8 +5537,8 @@ This section also describes the secure key storage services to be provided by th
         <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Action</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FCS_CKM.1.1"/></htm:td><htm:td>Select RSA with key size of 3072 or select ECC schemes.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FCS_CKM.2.1(1)"/></htm:td><htm:td>Select ECC schemes, if ECC schemes are selected in FCS_CKM.1.1.</htm:td></htm:tr>
-        <htm:tr><htm:td><linkref linkend="FCS_CKM.2.1(2)"/></htm:td><htm:td>Select “RSA schemes” or select “ECC schemes that meet NIST SP 800-56A”.</htm:td></htm:tr>
-        <htm:tr><htm:td><linkref linkend="FCS_CKM_EXT.1.1"/></htm:td><htm:td>If “symmetric” is selected then “256 bits” must be selected. If “asymmetric” is selected and RSA scheme is selected in FCS_CKM.1.1 then “128 bits” can be selected. If “asymmetric” is selected and ECC scheme is selected in FCS_CKM.1.1, then “192 bits” can be selected. </htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FCS_CKM.2.1(2)"/></htm:td><htm:td>Select "RSA schemes" or select "ECC schemes that meet NIST SP 800-56A".</htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FCS_CKM_EXT.1.1"/></htm:td><htm:td>If "symmetric" is selected then "256 bits" must be selected. If "asymmetric" is selected and RSA scheme is selected in FCS_CKM.1.1 then "128 bits" can be selected. If "asymmetric" is selected and ECC scheme is selected in FCS_CKM.1.1, then "192 bits" can be selected. </htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FCS_CKM_EXT.2.1"/></htm:td><htm:td>Select 256 bits.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FCS_CKM_EXT.3.1"/></htm:td><htm:td>If asymmetric KEKs is selected and RSA scheme is selected in FCS_CKM.1.1 then assign 128 bits security strength. If asymmetric KEKs is selected and ECC scheme is selected in FCS_CKM.1.1 then assign 192 bits security strength. If symmetric KEKs is selected, select 256 bit security strength.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FCS_COP.1.1(1)"/></htm:td><htm:td>Select 256 bits.</htm:td></htm:tr>
@@ -5551,8 +5551,8 @@ This section also describes the secure key storage services to be provided by th
         <htm:tr><htm:td><linkref linkend="FCS_TLSC_EXT.2.1"/></htm:td><htm:td>Select secp384r1, if included in ST (if ECC schemes are selected in FCS_CKM.1.1). </htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FDP_DAR_EXT.1.2"/></htm:td><htm:td>Select 256 bits.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FIA_X509_EXT.2.1"/></htm:td><htm:td>Select at least IPsec.</htm:td></htm:tr>
-        <htm:tr><htm:td><linkref linkend="FIA_X509_EXT.2.2"/></htm:td><htm:td>Select either “allow the administrator to choose...” or “not accept the certificate”. </htm:td></htm:tr>
-        <htm:tr><htm:td><linkref linkend="FIA_X509_EXT.5.1"/></htm:td><htm:td>Include in ST. Select “Common Name”, “Organization”, &#38; “Organizational Unit”.</htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FIA_X509_EXT.2.2"/></htm:td><htm:td>Select either "allow the administrator to choose..." or "not accept the certificate". </htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FIA_X509_EXT.5.1"/></htm:td><htm:td>Include in ST. Select "Common Name", "Organization", &#38; "Organizational Unit".</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FIA_X509_EXT.5.1"/></htm:td><htm:td>Include in ST.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FMT_MOF_EXT.1.2"/> Function 3</htm:td><htm:td>Include in ST.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FMT_MOF_EXT.1.2"/> Function 4</htm:td><htm:td>Assign all radios on TSF. </htm:td></htm:tr>
@@ -5562,15 +5562,15 @@ This section also describes the secure key storage services to be provided by th
         <htm:tr><htm:td><linkref linkend="FMT_MOF_EXT.1.2"/> Function 44</htm:td><htm:td>Include in ST.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FMT_MOF_EXT.1.2"/> Function 45</htm:td><htm:td>Include in ST (if IPsec is selected in FTP_ITC_EXT.1).</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 12</htm:td><htm:td>Assign all X.509v3 certificates in the Trust Anchor Database.</htm:td></htm:tr>
-        <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 19</htm:td><htm:td>Select “f. all notifications”.</htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 19</htm:td><htm:td>Select "f. all notifications".</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 24</htm:td><htm:td>Include in ST. Assign at least USB. </htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 25</htm:td><htm:td>Include in ST. Assign all protocols where the TSF acts as a server. </htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 31</htm:td><htm:td>Include in ST.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 36</htm:td><htm:td>Include in ST.</htm:td></htm:tr>
-        <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.2.1"/></htm:td><htm:td>Select “wipe of protected data”, “wipe of sensitive data”, “alert the administrator”.</htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.2.1"/></htm:td><htm:td>Select "wipe of protected data", "wipe of sensitive data", "alert the administrator".</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FAU_SAR.1.1"/></htm:td><htm:td>Include in ST.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FAU_SAR.1.2"/></htm:td><htm:td>Include in ST.</htm:td></htm:tr>
-        <htm:tr><htm:td><linkref linkend="FAU_SEL.1.1"/></htm:td><htm:td>Include in ST. Select “event type”, “success of auditable security events”, and “failure of auditable security events”.</htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FAU_SEL.1.1"/></htm:td><htm:td>Include in ST. Select "event type", "success of auditable security events", and "failure of auditable security events".</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FCS_SRV_EXT.2.1"/></htm:td><htm:td>Include in ST.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FPT_AEX_EXT.5.1"/></htm:td><htm:td>Include in ST.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FPT_AEX_EXT.5.2"/></htm:td><htm:td>Include in ST.</htm:td></htm:tr>
@@ -5584,13 +5584,13 @@ This section also describes the secure key storage services to be provided by th
       <ctr id="uc3" pre="Table " ctr-type="table">: BYOD Template</ctr>
       <htm:table>
         <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Action</htm:td></htm:tr>
-        <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 3</htm:td><htm:td>Select “b. on a per-app basis”, “c. on a per-groups of application basis” or both</htm:td></htm:tr>
-        <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 5</htm:td><htm:td>Select “b. on a per-app basis”, “c. on a per-groups of application basis” or both</htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 3</htm:td><htm:td>Select "b. on a per-app basis", "c. on a per-groups of application basis" or both</htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 5</htm:td><htm:td>Select "b. on a per-app basis", "c. on a per-groups of application basis" or both</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 17</htm:td><htm:td>Include in ST.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 28</htm:td><htm:td>Include in ST.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.1.1"/> Function 44</htm:td><htm:td>Include in ST (M-M-)</htm:td></htm:tr>
-        <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.2.1"/></htm:td><htm:td>Select “Remove Enterprise Applications”</htm:td></htm:tr>
-        <htm:tr><htm:td><linkref linkend="FDP_ACF_EXT.1.2"/></htm:td><htm:td>Select “Groups of Applications”</htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FMT_SMF_EXT.2.1"/></htm:td><htm:td>Select "Remove Enterprise Applications"</htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FDP_ACF_EXT.1.2"/></htm:td><htm:td>Select "Groups of Applications"</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FDP_ACF_EXT.2.1"/></htm:td><htm:td>Include in ST.</htm:td></htm:tr>
       </htm:table>
     </section>
@@ -5601,7 +5601,7 @@ This section also describes the secure key storage services to be provided by th
     <htm:table>
       <htm:tr class="header"><htm:td>Cipher Mode</htm:td><htm:td>Reference</htm:td><htm:td>IV Requirements</htm:td></htm:tr>
       <htm:tr><htm:td>Electronic Codebook (ECB)</htm:td><htm:td>SP 800-38A</htm:td><htm:td>No IV</htm:td></htm:tr>
-      <htm:tr><htm:td>Counter (CTR)</htm:td><htm:td>SP 800-38A</htm:td><htm:td>“Initial Counter” shall be non-repeating. No counter value shall be repeated across multiple messages with the same secret key.</htm:td></htm:tr>
+      <htm:tr><htm:td>Counter (CTR)</htm:td><htm:td>SP 800-38A</htm:td><htm:td>"Initial Counter" shall be non-repeating. No counter value shall be repeated across multiple messages with the same secret key.</htm:td></htm:tr>
       <htm:tr><htm:td>Cipher Block Chaining (CBC)</htm:td><htm:td>SP 800-38A</htm:td><htm:td>IVs shall be unpredictable. Repeating IVs leak information about whether the first one or more blocks are shared between two messages, so IVs should be non-repeating in such situations.</htm:td></htm:tr>
       <htm:tr><htm:td>Output Feedback (OFB)</htm:td><htm:td>SP 800-38A</htm:td><htm:td>IVs shall be non-repeating and shall not be generated by invoking the cipher on another IV.</htm:td></htm:tr>
       <htm:tr><htm:td>Cipher Feedback (CFB)</htm:td><htm:td>SP 800-38A</htm:td><htm:td>IVs should be non-repeating as repeating IVs leak information about the first plaintext block and about common shared prefixes in messages.</htm:td></htm:tr>
@@ -5632,7 +5632,7 @@ This section also describes the secure key storage services to be provided by th
    
       <subsection id="sub3" title="Deriving False Accept Rate">
         To expedite approval while maintaining a statistically valid result, it is required for the vendor 
-        or independent lab to perform testing using <htm:i>three</htm:i> times the sample size, at a minimum, i.e. the “Rule of 3” for the number of trials. 
+        or independent lab to perform testing using <htm:i>three</htm:i> times the sample size, at a minimum, i.e. the "Rule of 3" for the number of trials. 
         <htm:br/><htm:br/>
         Three times the sample size corresponds to 90% confidence and <htm:i>c</htm:i> = 0.95 (rounded, worst-case), where <htm:i>c</htm:i> is a percentage/fraction of the intended false error rate (either <abbr linkend="FAR"/> or <abbr linkend="FRR"/>) for which the error bar is calculated. 
         <htm:br/><htm:br/>
@@ -5682,7 +5682,7 @@ This section also describes the secure key storage services to be provided by th
         
       </subsection>
       <subsection id="sub4" title="Deriving False Reject Rate">
-        As with False Accept Rate, it is required for the vendor or lab to perform testing using <htm:i>three</htm:i> times the sample size, at a minimum, i.e. the “Rule of 3”. Three times the sample size corresponds to 90% confidence and <htm:i>c</htm:i> = 0.95 (rounded, worst-case), where <htm:i>c</htm:i> is a percentage/fraction of the intended false error rate (either <abbr linkend="FAR"/> or <abbr linkend="FRR"/>) for which the error bar is calculated. 
+        As with False Accept Rate, it is required for the vendor or lab to perform testing using <htm:i>three</htm:i> times the sample size, at a minimum, i.e. the "Rule of 3". Three times the sample size corresponds to 90% confidence and <htm:i>c</htm:i> = 0.95 (rounded, worst-case), where <htm:i>c</htm:i> is a percentage/fraction of the intended false error rate (either <abbr linkend="FAR"/> or <abbr linkend="FRR"/>) for which the error bar is calculated. 
         <htm:br/><htm:br/>
         As shown in the table below, the error bar may be large if a higher false error rate is declared:
         <htm:br/><htm:br/>
@@ -5915,7 +5915,7 @@ This section also describes the secure key storage services to be provided by th
       <entry id="ANSI409.1">
         <tag>ANSI 409.1</tag>
         <description>
-          ANSI/CITS 409.1-2005. Biometrics Performance Testing and Reporting—Part 1: Principles and Findings.” Annex B. ANSI/CITS, 2005.
+          ANSI/CITS 409.1-2005. Biometrics Performance Testing and Reporting—Part 1: Principles and Findings." Annex B. ANSI/CITS, 2005.
         </description>
       </entry>
       
