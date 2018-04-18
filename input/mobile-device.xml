@@ -2355,13 +2355,12 @@ This section also describes the secure key storage services to be provided by th
                 <selectable>secp256r1</selectable>
                 <selectable>secp384r1</selectable>
                 <selectable>secp521r1</selectable>
-                <selectable exclusive="yes">no other curves</selectable>
               </selectables>.
             </title>
-            <note role="application"> If an elliptic-curve ciphersuite is selected in <linkref linkend="FCS_TLSC_EXT.1.1"/>, then <linkref linkend="FCS_TLSC_EXT.2.1"/> shall be included in the ST. This requirement limits the elliptic curves allowed for authentication and key agreement to the NIST curves from <linkref linkend="FCS_COP.1(3)"/> and <linkref linkend="FCS_CKM.1"/> and <linkref linkend="FCS_CKM.2(1)"/>. This extension is required for clients supporting Elliptic Curve ciphersuites.</note>
+            <note role="application"> If an elliptic-curve ciphersuite is selected in <linkref linkend="FCS_TLSC_EXT.1.1"/>, then <linkref linkend="FCS_TLSC_EXT.2.1"/> shall be included in the ST. This requirement does not limit the elliptic curves the client may propose for authentication and key agreement.  Rather, it asks the ST author to define which of the NIST curves from <linkref linkend="FCS_COP.1(3)"/> and <linkref linkend="FCS_CKM.1"/> and <linkref linkend="FCS_CKM.2(1)"/> the TOE supports. This extension is required for clients supporting Elliptic Curve ciphersuites.</note>
             <aactivity>The evaluator shall verify that TSS describes the Supported Elliptic Curves Extension and whether the required behavior is performed by default or may be configured. If the TSS indicates that the Supported Elliptic Curves Extension must be configured to meet the requirement, the evaluator shall verify that AGD guidance includes configuration of the Supported Elliptic Curves Extension.<htm:br></htm:br><htm:br></htm:br>
               <testlist>
-                <test> The evaluator shall configure the server to perform an ECDHE key exchange message in the TLS connection using a non-supported ECDHE curve (for example, P-192) and shall verify that the TOE disconnects after receiving the server's Key Exchange handshake message.</test>
+                <test> The evaluator shall configure a server to perform ECDHE key exchange using each of the TOE’s supported curves and shall verify that the TOE successfully connects to the server.</test>
               </testlist>
             </aactivity>
           </f-element>
