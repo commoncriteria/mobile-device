@@ -2968,26 +2968,25 @@ This section also describes the secure key storage services to be provided by th
           <selection-depends req="fia_uau.5.1" ids="uau_fing,uau_iris,uau_face,uau_vox,uau_vein,uau_hybr"/>
           <f-element id="fia_bmg_ext.1.1">
            
-            <title>The one-attempt <abbr linkend="BAF"/> False Accept Rate (<abbr linkend="FAR"/>) for <assignable>biometric modality selected in <linkref linkend="FIA_UAU.5.1"/></assignable>shall not exceed 
-              <selectables><selectable>1:100</selectable><selectable>1:1000</selectable><selectable>1:10000</selectable></selectables> with a one-attempt <abbr linkend="BAF"/> False Reject Rate (FRR) not to exceed 1 in 
-                <selectables><selectable>10</selectable><selectable>20</selectable><selectable>50</selectable><selectable>100</selectable></selectables>. 
+            <title>The one-attempt <abbr linkend="BAF"/> False Accept Rate (<abbr linkend="FAR"/>) for <assignable>biometric modality selected in <linkref linkend="FIA_UAU.5.1"/></assignable>shall not exceed <assignable> claimed FAR no greater than 1:100</assignable> with a one-attempt <abbr linkend="BAF"/> False Reject Rate (FRR) not to exceed 1 in <assignable>claimed FRR no greater than 1:10</assignable>. 
             </title>
             <note role="application">If a <abbr linkend="BAF"/> or "hybrid" is selected in <linkref linkend="FIA_UAU.5.1"/>, <linkref linkend="FIA_BMG_EXT.1.1"/> must be included in the <abbr linkend="ST"/>. The assignment shall be completed for each biometric modality selected in <linkref linkend="FIA_UAU.5.1"/>. If multiple biometric modalities are selected in <linkref linkend="FIA_UAU.5.1"/>, it is acceptable for each modality to have a different <abbr linkend="FAR"/> and <abbr linkend="FRR"/>. 
-              
               <htm:br/><htm:br/>
               The False Accept Rate (<abbr linkend="FAR"/>) is the measure of the likelihood that the biometric will incorrectly accept an authentication attempt by an unauthorized user. A system's <abbr linkend="FAR"/> typically is stated as the proportion of verification transactions with wrongful claims of identity that are incorrectly confirmed.
               <htm:br/><htm:br/>
               The False Reject Rate (FRR) is the measure of the likelihood that the biometric security system will incorrectly reject an authentication attempt by an authorized user. A system's <abbr linkend="FRR"/> typically is stated as the proportion of verification transactions with truthful claims of identity that are incorrectly denied.
               <htm:br/><htm:br/>
-              Please note that depending on the number of authentication attempts allowed for the <abbr linkend="BAF"/> a FAR of 1:100 and 1:1000 will not produce an acceptable SAFAR, without the use of hybrid authentication.
+              Please note that without the use of hybrid authentication, multiple authentication attempts for a <abbr linkend="BAF"/> that is claimed to have a one-attempt <abbr linkend="FAR"/> between 1:100 and 1:500 inclusive will not produce an acceptable <abbr linkend="SAFAR"/> in meeting <linkref linkend="FIA_BMG_EXT.1.2"/>. More generally, depending on the number of authentication attempts allowed for the <abbr linkend="BAF"/>, the claimed <abbr linkend="FAR"/> must be strong (or equivalently, low) enough so that the <abbr linkend="SAFAR"/> chosen in <linkref linkend="FIA_BMG_EXT.1.2"/> can be met within the 1% margin mandated.
               <htm:br/><htm:br/>
               Generally testing environments for a biometric system in a mobile device are based on a single legitimate user enrolling and test subjects attempt to authenticate. Since a thorough evaluation for <abbr linkend="FAR"/> and <abbr linkend="FRR"/> meeting all the conditions of statistical independence is not feasible in the timeframe of <abbr linkend="CC"/> evaluations and in agreement with ISO/IEC 19795, the use of offline testing is acceptable even if this causes the biometric system to deviate slightly from the evaluated configuration. Additionally, full cross-comparison (i.e. all test subjects are compared to non-self) is acceptable. 
               <htm:br/><htm:br/>
               Detailed explanations corresponding to the testing environments that are acceptable, to include the number of trials needed, can be found in <appref linkend="biometric1"/>.            
               <htm:br/><htm:br/>                      
             </note>
-            <aactivity>The evaluator shall verify that the <abbr linkend="TSS"/> contains evidence supporting the testing and calculations completed to determine the <abbr linkend="FAR"/> and <abbr linkend="FRR"/>. <appref linkend="biometric"/> provides guidance to how this testing could be completed and to what error bars are expected when the Rule of 3 is applied. The evaluator shall consult <appref linkend="biometric"/> as a reference, but should not treat it as a mandate. The evaluator shall verify that the <abbr linkend="TSS"/> contains evidence of how many imposters were used for testing, whether online or offline testing  was used and if offline testing was completed, evidence describing the differences between the biometric system used for testing and the <abbr linkend="TOE"/> in the evaluated configuration, if any. The evaluator shall verify that the testing describes how imposters are compared to enrolled users, for example, if multiple devices for online testing or full cross-comparison for offline testing was used. Adequate documentation is required to demonstrate that testing was completed to support the claimed <abbr linkend="FAR"/> and <abbr linkend="FRR"/>.
-              <htm:br/><htm:br/>                
+            <aactivity>
+              The evaluator shall verify that the <abbr linkend="TSS"/> contains evidence supporting the testing and calculations completed to determine the <abbr linkend="FAR"/> and <abbr linkend="FRR"/>. <appref linkend="biometric"/> provides guidance to how this testing could be completed and to what error bars are expected when the Rule of 3 is applied. The evaluator shall consult <appref linkend="biometric"/> as a reference, but should not treat it as a mandate. The evaluator shall verify that the <abbr linkend="TSS"/> contains evidence of whether online or offline testing was used. If offline testing was completed, evidence describing the differences between the biometric system used for testing and the <abbr linkend="TOE"/>  in the evaluated configuration, if any must be included.
+              <htm:br/><htm:br/> 
+              The following documentation is not required to be part of the <abbr linkend="TSS"/> - it may be submitted as a separate proprietary document.  The evaluator shall verify the evidence includes how many imposters were used for testing and that the testing describes how imposters are compared to enrolled users, for example, if multiple devices for online testing or full cross-comparison for offline testing was used. Adequate documentation is required to demonstrate that testing was completed to support the claimed <abbr linkend="FAR"/> and <abbr linkend="FRR"/>.                                      
             </aactivity>
           </f-element>
           
@@ -4363,7 +4362,7 @@ This section also describes the secure key storage services to be provided by th
         <f-component id="fmt_smf_ext.3" name="Extended: Current Administrator" status="objective">
           <f-element id="fmt_smf_ext.3.1">
             <title>The <abbr linkend="TSF"/> shall provide a mechanism that allows users to view a list of currently authorized administrators and the management functions that each administrator is authorized to perform.</title>
-            <aactivity>The evaluator shall cause the <abbr linkend="TOE"/> to be enrolled into management. The evaluator shall then invoke this mechanism and verify the ability to view that the device has been enrolled, view the management functions that the administrator is authorized to perform, and view the list of policies that are currently in place from that administrator.
+            <aactivity>The evaluator shall cause the <abbr linkend="TOE"/> to be enrolled into management. The evaluator shall then invoke this mechanism and verify the ability to view that the device has been enrolled, and view the management functions that the administrator is authorized to perform.
             </aactivity>
           </f-element>
         </f-component>
@@ -5677,7 +5676,7 @@ This section also describes the secure key storage services to be provided by th
           <htm:tr><htm:td>0.1%  (1:1000)</htm:td><htm:td>0.1%  ±  0.095%</htm:td><htm:td>3</htm:td><htm:td>78</htm:td></htm:tr>
           <htm:tr><htm:td>0.01%  (1:10000)</htm:td><htm:td>0.01%  ±  0.0095%</htm:td><htm:td>3</htm:td><htm:td>246</htm:td></htm:tr>
           <htm:tr><htm:td>0.001%  (1:100000)</htm:td><htm:td>0.001%  ±  0.00095%</htm:td><htm:td>3</htm:td><htm:td>776</htm:td></htm:tr>
-          <htm:tr><htm:td>0.0001% (1:1000000)</htm:td><htm:td>0.0001%  ±  0.000095%</htm:td><htm:td>3</htm:td><htm:td>4450</htm:td></htm:tr>
+          <htm:tr><htm:td>0.0001% (1:1000000)</htm:td><htm:td>0.0001%  ±  0.000095%</htm:td><htm:td>3</htm:td><htm:td>2450</htm:td></htm:tr>
         </htm:table>
         <htm:br/><htm:br/>
         
