@@ -2,6 +2,9 @@
 <?xsl-stylesheet type="text/xsl" href="../transforms/pp2html.xsl"?>
 
 <?xml-model href="../transforms/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<!-- TODO: <selectables onlyone="yes"> for all selections where only one item can be selected
+<selectable id= " "/> and selection depends ids for the selectable SFRs -->
+
 <PP xmlns="https://niap-ccevs.org/cc/v1" name="Mobile Device Fundamentals"
   xmlns:htm="http://www.w3.org/1999/xhtml">
   <PPReference title="PP Reference" id="XXXXX">
@@ -137,7 +140,7 @@
         <entry> <term>Administrator</term><description>The Administrator is responsible for management activities, including setting the policy that is applied by the enterprise on the Mobile Device. This administrator is likely to be acting remotely and could be the Mobile Device Management (MDM) Administrator acting through an <abbr linkend="MDM"/> Agent. If the device is unenrolled, the user is the administrator.</description></entry>
         <entry id="assurance"> <term>Assurance</term><description>Grounds for confidence that a <abbr linkend="TOE"/> meets the <abbr linkend="SFR"/>s <cite linkend="CC"/>.</description></entry>
         <entry> <term>Authentication Template</term><description>A digital representation of an individual’s distinct characteristics, representing information extracted from a biometric sample. Such templates are used during biometric authentication and verification as the basis for comparison. Unlike enrollment templates, these templates can be adaptive.</description></entry>
-        <entry> <term>Auxiliary Boot Modes</term><description>Auxiliary boot modes are states in which the device provides power to one or more components to provide an interface that enables an unauthenticated user to interact with either a specific component or several components that exist outside of the device’s fully authenticated, operational state.</description></entry>
+        <entry><term>Auxiliary Boot Modes</term><description>Auxiliary boot modes are states in which the device provides power to one or more components to provide an interface that enables an unauthenticated user to interact with either a specific component or several components that exist outside of the device’s fully authenticated, operational state.</description></entry>
         <entry> <term><abbr title="Biometric Authentication Factor">BAF</abbr></term><description>Authentication factor, which uses biometric sample, matched to a biometric authentication template to help establish identity.</description></entry>
         <entry> <term>Biometric Data</term><description>Digital data created during a biometric process. It encompasses raw sensor observations, biometric samples, models, templates, and/or similarity scores, among other data. This data is used to describe the information collected during an enrollment, verification, or identification process, but does not apply to end user information such as user name, password (unless tied to the biometric modality), demographic information, and authorizations.</description></entry>
         <entry> <term>Biometric Sample</term><description>Information or computer data obtained from a biometric sensor device or captured from an individual to the sensor.</description></entry>
@@ -150,12 +153,10 @@
             <htm:li>Comparing the biometric data with data contained in one or more authentication templates</htm:li>
             <htm:li>Deciding how well they match and indicating whether or not an identification or verification of identity has been achieved.</htm:li>
           </htm:ol></description></entry>
-        <entry> <term><abbr title="Common Criteria">CC</abbr></term>
-          <description>Common Criteria for Information Technology Security
-            Evaluation.</description></entry>
+        <entry> <term><abbr title="Common Criteria">CC</abbr></term><description>Common Criteria for Information Technology Security Evaluation.</description></entry>
         <entry> <term>Common Application Developer</term><description>Application developers (or software companies) often produce many applications under the same name. Mobile devices often allow shared resources by such applications where otherwise resources would not be shared. </description></entry>
         <entry> <term><abbr title="Critical Security Parameter">CSP</abbr></term><description>Security-related information whose disclosure or modification can compromise the security of a cryptographic module and/or authentication system.</description></entry>
-        <entry> <term>Data</term><description>Program/application or data files that are stored or transmitted by a server or Mobile Device (MD).</description></entry>
+        <entry><term>Data</term><description>Program/application or data files that are stored or transmitted by a server or Mobile Device (MD). </description></entry>
         <entry> <term><abbr title="Data Encryption Key">DEK</abbr></term><description>A key used to encrypt data-at-rest.</description></entry>
         <entry> <term>Developer Modes</term><description>Developer modes are states in which additional services are available to a user in order to provide enhanced system access for debugging of software. </description></entry>
         <entry> <term>Encrypted Software Keys</term><description>These keys are stored in the main file system encrypted by another key and can be changed and sanitized.</description></entry>
@@ -3060,7 +3061,7 @@ This section also describes the secure key storage services to be provided by th
         
         <f-component id="fia_bmg_ext.6" name="Extended: Spoof Detections for Biometrics" status="objective">
           <f-element id="fia_bmg_ext.6.1">
-            <title>The <abbr linkend="TSF"/> shall perform Presentation Attack Detection testing up to the attack potential of <selectables> <selectable>basic</selectable><selectable>intermediate</selectable><selectable>advanced</selectable></selectables> attacks, for each biometric modalities selected in <linkref linkend="FIA_UAU.5.1"/> on each enrollment and authentication attempt, rejecting detected spoofs. When an authentication attempt fails due to <abbr linkend="PAD"/> testing, the <abbr linkend="TSF"/> shall not indicate to the user the reason for failure to authenticate.</title>
+            <title>The <abbr linkend="TSF"/> shall perform Presentation Attack Detection testing up to the attack potential of <selectables onlyone="yes"><selectable>basic</selectable><selectable>intermediate</selectable><selectable>advanced</selectable></selectables> attacks, for each biometric modalities selected in <linkref linkend="FIA_UAU.5.1"/> on each enrollment and authentication attempt, rejecting detected spoofs. When an authentication attempt fails due to <abbr linkend="PAD"/> testing, the <abbr linkend="TSF"/> shall not indicate to the user the reason for failure to authenticate.</title>
             <note role="application"> Presentation Attack Detection (PAD) is also known as liveness detection or spoof detection. If multiple modalities are selected in <linkref linkend="FIA_UAU.5.1"/>, then this SFR shall be iterated for each modality. For each modality, only one attack strength shall be selected.<htm:br/><htm:br/>
               Because Presentation Attack Detection (PAD) is an open-ended problem much like vulnerability testing, it is neither cost-effective nor feasible to create a complete list of attack vectors and perform testing on all of them during the timeframe for <abbr linkend="CC"/> evaluations. Such a list would be ever-changing, and unlike code vulnerabilities (i.e. CVEs), the equipment, skill, time, and cost required to test highly sophisticated attacks is highly infeasible for a testing lab given the current timeframe for <abbr linkend="CC"/> evaluations. Nevertheless, it is a known risk that has been documented by researchers for years. 
               <htm:br/><htm:br/>
