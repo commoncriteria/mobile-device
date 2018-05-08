@@ -2337,8 +2337,10 @@ This section also describes the secure key storage services to be provided by th
             The evaluator shall verify that the AGD guidance required per <linkref linkend="FIA_X509_EXT.2.1"/> includes instructions for configuring the client-side certificates for TLS mutual authentication.<htm:br></htm:br><htm:br></htm:br>
             The evaluator shall also perform the following test:
             <testlist>
-              <test>The evaluator shall perform the following modification to the traffic:<htm:br></htm:br>
-                Configure the server to require mutual authentication and then modify a byte in a CA field in the Server’s Certificate Request handshake message. The modified CA field must not be the CA used to sign the client’s certificate. The evaluator shall verify the connection is unsuccessful.</test>
+              The evaluator shall perform the following modification to the traffic:<htm:br></htm:br>
+              <test> The evaluator shall establish a connection to a peer server that is not configured for mutual authentication (i.e. does not send Server’s Certificate Request (type 13) message). The evaluator observes negotiation of a TLS channel and confirms that the TOE did not send Client’s Certificate message (type 11) during handshake.
+                 </test> 
+              <test>  The evaluator shall establish a connection to a peer server with a shared trusted root that is configured for mutual authentication (i.e. it sends Server’s Certificate Request (type 13) message). The evaluator observes negotiation of a TLS channel and confirms that the TOE responds with a non-empty Client’s Certificate message (type 11) and Certificate Verify (type 15) message.</test>
             </testlist>
           </aactivity>
         </f-element>
