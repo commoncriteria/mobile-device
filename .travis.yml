@@ -15,12 +15,14 @@ before_script:
   - wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
   - tar -xvf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
   - export PATH=$PATH:$PWD/wkhtmltox/bin/
+  - git clone https://github.com/AndroidKitKat/ExecuteDaisy.git
 
 script:
   - make
   - make worksheet
   - git clone https://github.com/commoncriteria/commoncriteria.github.io.git
   - git clone https://github.com/commoncriteria/ci-scripts.git
+  - DAISY_DIR=ExecuteDaisy  make diff
   - mkdir -p commoncriteria.github.io/pp/$(basename $TRAVIS_REPO_SLUG)
   - rm -rf commoncriteria.github.io/pp/$(basename $TRAVIS_REPO_SLUG)/*
   - cp -r output/* commoncriteria.github.io/pp/$(basename $TRAVIS_REPO_SLUG)
