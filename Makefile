@@ -1,7 +1,9 @@
 TRANS?=transforms
 BASE=mobile-device
-PREV_RELEASE_PP_URL=https://www.niap-ccevs.org/MMO/PP/-417-
+
 
 -include User.make
+
+DIFF_TAGS=v3.1
 include $(TRANS)/Helper.make
 
