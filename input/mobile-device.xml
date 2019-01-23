@@ -1102,21 +1102,16 @@
         
         <f-component id="fcs_ckm.2(1)" name="Cryptographic key establishment">
           <f-element id="fcs_ckm.2.1(1)"> 
-            <title>The <abbr linkend="TSF"/> shall <refinement>perform</refinement> cryptographic <refinement>key establishment</refinement> in accordance with a specified cryptographic key <refinement>establishment</refinement> method:
-              <htm:ul><htm:li><refinement>RSA-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56B, "Recommendation for Pair-Wise Key Establishment Schemes Using Integer Factorization Cryptography"</refinement>
-              </htm:li></htm:ul>
-              and 
-              <selectables linebreak="yes">
+            <title>The <abbr linkend="TSF"/> shall <refinement>perform</refinement> cryptographic <refinement>key establishment</refinement> in accordance with a specified cryptographic key <refinement>establishment</refinement> method:<selectables linebreak="yes">
+             <selectable><refinement>RSA-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56B, "Recommendation for Pair-Wise Key Establishment Schemes Using Integer Factorization Cryptography"</refinement></selectable>
                 <selectable><refinement>Elliptic curve-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56A, "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography"</refinement></selectable>
                 <selectable><refinement>Finite field-based key establishment schemes</refinement> that meets the following: <refinement>NIST Special Publication 800-56A, "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography"</refinement></selectable>
                 <selectable exclusive="yes"><refinement>No other schemes</refinement></selectable>
               </selectables>.
             </title>
             <note role="application">
-              The <abbr linkend="ST"/> author shall select all key establishment schemes used for the selected cryptographic protocols. <linkref linkend="FCS_TLSC_EXT.1"/> requires ciphersuites that use RSA-based key establishment schemes. <!-- This is no longer true in the TLS package. Do we want to keep RSA as mandatory? -->
-              <htm:br/><htm:br/>
-              The RSA-based key establishment schemes are described in Section 9 of NIST SP 800-56B; however, Section 9 relies on implementation of other sections in SP 800-56B. If the <abbr linkend="TOE"/> acts as a receiver in the RSA key establishment scheme, the <abbr linkend="TOE"/> does not need to implement RSA key generation.
-              <htm:br/><htm:br/>
+              The <abbr linkend="ST"/> author shall select all key establishment schemes used for the selected cryptographic protocols.<htm:br/><htm:br/>
+              The RSA-based key establishment schemes are described in Section 9 of NIST SP 800-56B; however, Section 9 relies on implementation of other sections in SP 800-56B. If the <abbr linkend="TOE"/> acts as a receiver in the RSA key establishment scheme, the <abbr linkend="TOE"/> does not need to implement RSA key generation.<htm:br/><htm:br/>
               The elliptic curves used for the key establishment scheme shall correlate with the curves specified in <linkref linkend="FCS_CKM.1.1"/>. 
               <htm:br/><htm:br/>
               The domain parameters used for the finite field-based key establishment scheme are specified by the key generation according to <linkref linkend="FCS_CKM.1.1"/>.
@@ -2011,17 +2006,14 @@
         
         <f-component id="fcs_cop.1(3)" name="Cryptographic operation" >
           <f-element id="fcs_cop.1.1(3)">
-            <title>The <abbr linkend="TSF"/> shall perform <refinement>cryptographic signature services (generation and verification)</refinement> in accordance with a specified cryptographic algorithm
-              <htm:ul>
-                <htm:li><refinement>RSA schemes using cryptographic key sizes of 2048-bit or greater that meet the following: FIPS PUB 186-4, "Digital Signature Standard (DSS)", Section 4</refinement> and</htm:li>             
-              <htm:li><refinement><selectables linebreak="yes">
-                <selectable>ECDSA schemes using "NIST curves" P-384 and 
-              <selectables><selectable>P-256</selectable><selectable>P-521</selectable><selectable exclusive="yes">no other curves</selectable></selectables> that meet the following: FIPS PUB 186-4, "Digital Signature Standard (DSS)", Section 5</selectable>
+            <title>The <abbr linkend="TSF"/> shall perform <refinement>cryptographic signature services (generation and verification)</refinement> in accordance with a specified cryptographic algorithm<selectables linebreak="yes">
+              <selectable><refinement>RSA schemes using cryptographic key sizes of 2048-bit or greater that meet the following: FIPS PUB 186-4, "Digital Signature Standard (DSS)", Section 4</refinement></selectable>
+                <selectable><refinement>ECDSA schemes using "NIST curves" P-384 and 
+              <selectables><selectable>P-256</selectable><selectable>P-521</selectable><selectable exclusive="yes">no other curves</selectable></selectables> that meet the following: FIPS PUB 186-4, "Digital Signature Standard (DSS)", Section 5</refinement></selectable>
                   <selectable exclusive="yes">No other algorithms</selectable>
-              </selectables></refinement>.</htm:li>
-              </htm:ul>
+              </selectables>.
             </title>
-            <note role="application">The <abbr linkend="ST"/> Author should choose the algorithm implemented to perform digital signatures; if more than one algorithm is available, this requirement should be iterated to specify the functionality. For the algorithm chosen, the <abbr linkend="ST"/> author should make the appropriate assignments/selections to specify the parameters that are implemented for that algorithm. RSA signature generation and verification is currently required in order to comply with <linkref linkend="FCS_TLSC_EXT.1"/>. <!-- NIAP: This is no longer true, tls package does not mandate RSA, so should I continue to do so in this SFR? --></note> <!-- I do not have to mandate RSA, but this should still mirror other selections in TLS -->
+            <note role="application">The <abbr linkend="ST"/> Author should choose the algorithm implemented to perform digital signatures; if more than one algorithm is available, this requirement should be iterated to specify the functionality. For the algorithm chosen, the <abbr linkend="ST"/> author should make the appropriate assignments/selections to specify the parameters that are implemented for that algorithm. </note> 
             <aactivity>Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
               <htm:br/>
               <Tests/><testlist>
@@ -2135,7 +2127,7 @@
             </title>
           </f-element>
           <f-element id="fcs_https_ext.1.2">
-            <title>The <abbr linkend="TSF"/> shall implement HTTPS using TLS per the TLS Functional Package. <!-- TODO: Will need to reword -->
+            <title>The <abbr linkend="TSF"/> shall implement HTTPS using TLS in accordance with the Package for Transport Layer Security. 
             </title>
           </f-element>
           <f-element id="fcs_https_ext.1.3">
@@ -3001,8 +2993,18 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
         <f-component id="fdp_upc_ext.1" name="Extended: Inter-TSF user data transfer protection" >
           <f-element id="fdp_upc_ext.1.1">
             <!-- TODO: Look at  -->
-            <title>The <abbr linkend="TSF"/> shall provide a means for non-TSF applications executing on the <abbr linkend="TOE"/> to use TLS, HTTPS, Bluetooth BR/EDR, and <selectables><selectable id="upc_dtls">DTLS</selectable><selectable>Bluetooth LE</selectable><selectable>IPsec</selectable><selectable>no other protocol</selectable></selectables> to provide a protected communication channel between the non-TSF application and another IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
+            <title>The <abbr linkend="TSF"/> shall provide a means for non-TSF applications executing on the <abbr linkend="TOE"/> to use <htm:ul>
+              <htm:li>TLS in accordance with the Package for Transport Layer Security,</htm:li> 
+              <htm:li>HTTPS,</htm:li> 
+              <htm:li>Bluetooth BR/EDR in accordance with the PP-Module for Bluetooth,</htm:li> 
+            </htm:ul>and <selectables linebreak="yes">
+              <selectable id="upc_dtls">DTLS in accordance with the Package for Transport Layer Security</selectable>
+              <selectable>Bluetooth LE in accordance with the PP-Module for Bluetooth</selectable>
+              <selectable>IPsec in accordance with the PP-Module for VPN Client</selectable>
+              <selectable>no other protocol</selectable>
+            </selectables> to provide a protected communication channel between the non-TSF application and another IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
             </title>
+            <!-- Need to update app note to point to packages/modules -->
             <note role="application">The intent of this requirement is that one of the selected protocols is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. It should be noted that the FTP_ITC_EXT requires that all <abbr linkend="TSF"/> communications (meaning communications from the device to a gateway) be protected using the protocols indicated in that requirement, so the protocols required by this component ride "on top of" those listed in FTP_ITC_EXT.
               <htm:br/><htm:br/>
               It should also be noted that some applications are part of the <abbr linkend="TSF"/>, and FTP_ITC_EXT requires that <abbr linkend="TSF"/> applications be protected by at least one of the protocols in first selection in <linkref linkend="FTP_ITC_EXT.1"/>. It is not required to have two different implementations of a protocol, or two different protocols, to satisfy both this requirement (for non-TSF apps) and FTP_ITC_EXT (for <abbr linkend="TSF"/> apps), as long as the services specified are provided.
@@ -3672,14 +3674,14 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
           </f-element>
         </f-component>
         
-        <f-component id="fia_x509_ext.2" name="Extended: X509 certificate authentication">
+        <f-component id="fia_x509_ext.2" name="Extended: X.509 certificate authentication">
           <f-element id="fia_x509_ext.2.1">
             <title>The <abbr linkend="TSF"/> shall use X.509v3 certificates as defined by RFC 5280 to support authentication for 
               <selectables><selectable>IPsec</selectable><selectable>TLS</selectable><selectable>HTTPS</selectable><selectable id="x509_dtls">DTLS</selectable></selectables>, and 
               <selectables><selectable id="x509_sys">code signing for system software updates</selectable><selectable id="x509_apps">code signing for mobile applications</selectable><selectable id="x509_sign">code signing for integrity verification</selectable><selectable> 
                 <assignable>other uses</assignable></selectable><selectable>no additional uses</selectable></selectables>. 
             </title>
-            <note role="application">The <abbr linkend="ST"/> author’s first selection shall match the selection of <linkref linkend="FTP_ITC_EXT.1.1"/>. <htm:br/><htm:br/>
+            <note role="application">The <abbr linkend="ST"/> author’s first selection shall match the selection of <linkref linkend="FTP_ITC_EXT.1.1"/>. <htm:br/><htm:br/> <!-- TODO: will need to update app note to point to other trusted channel requirements and point to the package -->
               Certificates may optionally be used for trusted updates of system software (<linkref linkend="FPT_TUD_EXT.2.3"/>) and mobile applications (<linkref linkend="FPT_TUD_EXT.4.1"/>) and for integrity verification (<linkref linkend="FPT_TST_EXT.2(1)"/>). If "code signing for system software updates" or "code signing for mobile applications" is selected <linkref linkend="FPT_TUD_EXT.3.1"/> shall be included in the <abbr linkend="ST"/>. <htm:br/><htm:br/>
               
               If <linkref linkend="FPT_TUD_EXT.4.1"/> is included in the <abbr linkend="ST"/>, "code signing for mobile applications" must be included in the selection. </note>
@@ -5380,10 +5382,10 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
           <f-element id="ftp_itc_ext.1.1">
             <!-- TODO: Should I move TLS outside of the slection? In previous versions of MDF it was mandatory -->
             <title>The <abbr linkend="TSF"/> shall use 802.11-2012, 802.1X, and EAP-TLS and 
-              <selectables>
-                <selectable>IPsec</selectable>
-                <selectable>TLS</selectable>
-                <selectable id="itc_dtls">DTLS</selectable>
+              <selectables linebreak="yes">
+                <selectable>IPsec in accordance with the PP-Module for VPN Client</selectable>
+                <selectable>TLS in accordance with the Package for Transport Layer Security</selectable>
+                <selectable id="itc_dtls">DTLS in accordance with the Package for Transport Layer Security</selectable>
                 <selectable>HTTPS</selectable>
               </selectables> protocol to provide a communication channel between itself and another trusted IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
             </title>
