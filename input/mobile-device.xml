@@ -6,8 +6,18 @@
 <!-- <?xml-model href="../transforms/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?> -->
 
 
-<!-- TODO: <selectables onlyone="yes"> for all selections where only one item can be selected
-<selectable id= " "/> and selection depends ids for the selectable SFRs -->
+<!-- TODO: 
+    - <selectables onlyone="yes"> for all selections where only one item can be selected
+    - <selectable id= " "/> and selection depends ids for the selectable SFRs 
+    - FCS_CKM.2 TDs - text from Dianne
+    
+-->
+
+<!-- DONE:
+    - FCS_CKM.1 TD 
+
+
+-->
 
 <PP xmlns="https://niap-ccevs.org/cc/v1" name="Mobile Device Fundamentals" xmlns:htm="http://www.w3.org/1999/xhtml" boilerplate="yes">
   <PPReference>
@@ -984,8 +994,14 @@
                     <selectable><refinement>"NIST curves" P-384 and </refinement><selectables><selectable><refinement>P-256</refinement></selectable><selectable><refinement>P-521</refinement></selectable><selectable exclusive="yes"><refinement>no other curves</refinement></selectable></selectables> that meet the following: <refinement>FIPS PUB 186-4, "Digital Signature Standard (DSS)", Appendix B.4</refinement></selectable>
                     <selectable><refinement>Curve25519 schemes that meet the following: RFC 7748</refinement></selectable></selectables>
                 </selectable>
-                  <selectable><refinement>FFC schemes using </refinement>cryptographic key sizes of <refinement>2048-bit or greater</refinement> that meet the following: <refinement>FIPS PUB 186-4, "Digital Signature Standard (DSS)", Appendix B.1</refinement></selectable>
-             </selectables>.               
+                  <selectable><refinement>FFC schemes using </refinement><selectables>
+                    <selectable>cryptographic key sizes of <refinement>2048-bit or greater</refinement> that meet the following: <refinement>FIPS PUB 186-4, "Digital Signature Standard (DSS)", Appendix B.1</refinement></selectable>
+                <selectable><refinement>Diffie-Hellman group 14 </refinement>that meet the following:<refinement> RFC3526, Section 3</refinement></selectable>
+                <selectable><refinement>"safe-prime" groups</refinement> that meet the following:<refinement> 'NIST Special Publication 800-56A Revision 3, "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography"', and </refinement><selectables>
+                  <selectable><refinement>RFC 3526</refinement></selectable>
+                  <selectable><refinement>RFC 7919</refinement></selectable>
+                </selectables></selectable></selectables></selectable>            
+              </selectables>.               
             </title>
             <note role="application">
               The <abbr linkend="ST"/> author shall select all key generation schemes used for key establishment and entity authentication. When key generation is used for key establishment, the schemes in <linkref linkend="FCS_CKM.2.1(1)"/> and selected cryptographic protocols must match the selection. When key generation is used for entity authentication, the public key may be associated with an X.509v3 certificate. 
@@ -1096,6 +1112,8 @@
               </htm:ul>
               <htm:br/>
               for each FFC parameter set and key pair.
+              <htm:h4>Diffie-Hellman Group 14 and FFC Schemes using "safe-prime" groups</htm:h4>
+              Testing for FFC Schemes using Diffie-Hellman group 14 and/or "safe-prime" groups is done as part of testing in <linkref linkend="fcs_ckm.2.1"/>.
             </aactivity>
           </f-element>
         </f-component>
