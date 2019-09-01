@@ -1033,11 +1033,7 @@
               </htm:i><htm:br/><htm:br/>
               <Tests>
               <htm:i><htm:b>Key Generation for FIPS PUB 186-4 RSA Schemes</htm:b></htm:i><htm:br/><htm:br/>
-              The evaluator shall verify the implementation of RSA Key Generation by the <abbr linkend="TOE"/> using the Key 
-              Generation test. This test verifies the ability of the <abbr linkend="TSF"/> to correctly produce values for the 
-              key components including the public verification exponent <htm:i>e</htm:i>, the private 
-              prime factors <htm:i>p</htm:i> and <htm:i>q</htm:i>, 
-              the public modulus n and the calculation of the private signature exponent <htm:i>d</htm:i>.
+              The evaluator shall verify the implementation of RSA Key Generation by the <abbr linkend="TOE"/> using the Key Generation test. This test verifies the ability of the <abbr linkend="TSF"/> to correctly produce values for the key components including the public verification exponent <htm:i>e</htm:i>, the private prime factors <htm:i>p</htm:i> and <htm:i>q</htm:i>, the public modulus n and the calculation of the private signature exponent <htm:i>d</htm:i>.
               <htm:br/><htm:br/>
               Key Pair generation specifies 5 ways (or methods) to generate the primes <htm:i>p</htm:i> and <htm:i>q</htm:i>. These include: 
               <htm:ol>
@@ -1078,15 +1074,16 @@
               <htm:i>FIPS 186-4 Public Key Verification (PKV) Test</htm:i><htm:br/><htm:br/>
               For each supported NIST curve, i.e. P-256, P-384 and P-521, the evaluator shall generate 10 private/public key pairs using the key generation function of a known good implementation and modify five of the public key values so that they are incorrect, leaving five values unchanged (i.e. correct). The evaluator shall obtain in response a set of 10 PASS/FAIL values.
               <htm:br/><htm:br/>
-              <htm:i><htm:b>Key Generation for Curve25519</htm:b></htm:i><htm:br/><htm:br/>
-              The evaluator shall require the implementation under test (IUT) to generate 10 private/public key pairs. The private key shall be generated as specified in RFC 7748 using an approved random bit generator (RBG). To determine correctness, the evaluator shall submit the generated key pairs to the public key verification (PKV) function of a known good implementation.
+              
+                <htm:i><htm:b>Key Generation for Curve25519</htm:b></htm:i><htm:br/><htm:br/>
+                The evaluator shall require the implementation under test (IUT) to generate 10 private/public key pairs. The private key shall be generated as specified in RFC 7748 using an approved random bit generator (RBG) and shall be written in little-endian order (least significant byte first). To determine correctness, the evaluator shall submit the generated key pairs to the public key verification (PKV) function of a known good implementation.
               <htm:br/><htm:br/>
-              Note: Assuming the PKV function of the good implementation will:
+                Note: Assuming the PKV function of the good implementation will (using little-endian order):
               <htm:ol type="a">
               <htm:li>confirm the private and public keys are 32-byte values</htm:li>
-                <htm:li>confirm the three least significant bits of the most significant byte of the private key are zero</htm:li>
-                <htm:li>confirm the most significant bit of the least significant byte is zero</htm:li>
-                <htm:li>confirm the second most significant bit of the most significant byte is one </htm:li>
+                <htm:li>confirm the three least significant bits of the first byte of the private key are zero</htm:li>
+                <htm:li>confirm the most significant bit of the last byte is zero</htm:li>
+                <htm:li>confirm the second most significant bit of the last byte is one </htm:li>
                 <htm:li>calculate the expected public key from the private key and confirm it matches the supplied public key</htm:li>
               </htm:ol>
 	      
