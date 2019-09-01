@@ -9,15 +9,12 @@
 <!-- TODO: 
     - <selectables onlyone="yes"> for all selections where only one item can be selected
     - <selectable id= " "/> and selection depends ids for the selectable SFRs 
-    - FCS_CKM.2 TDs - text from Dianne
-    
     
 -->
 
 <!-- DONE:
-    - FCS_CKM.1 TD 
     - BT - keep SFRs mapped to MDF objectives, but need to update SFR numbers - DONE
-    - All TDs as of 2018-05-26
+    - All TDs as of 2019_09_01
 
 -->
 
@@ -753,8 +750,9 @@
               The evaluator shall check the <abbr linkend="TSS"/> and ensure that it lists all of the auditable events and provides a format for audit records. Each audit record format type must be covered, along with a brief description of each field. The evaluator shall check to make sure that every audit event type mandated by the <abbr linkend="PP"/> is described and that the description of the fields contains the information required in <linkref linkend="FAU_GEN.1.2"/>. 
               <htm:br/><htm:br/>
               The evaluator shall also make a determination of the administrative actions that are relevant in the context of this <abbr linkend="PP"/> including those listed in the Management section. The evaluator shall examine the administrative guide and make a determination of which administrative commands are related to the configuration (including enabling or disabling) of the mechanisms implemented in the <abbr linkend="TOE"/> that are necessary to enforce the requirements specified in the <abbr linkend="PP"/>. The evaluator shall document the methodology or approach taken while determining which actions in the administrative guide are security relevant with respect to this <abbr linkend="PP"/>. The evaluator may perform this activity as part of the activities associated with ensuring the AGD_OPE guidance satisfies the requirements.
-              <htm:br/><htm:br/></TSS>
-                <Tests>
+              </TSS>
+              <htm:br/><htm:br/>
+              <Tests>
               The evaluator shall test the <abbr linkend="TOE"/>’s ability to correctly generate audit records by having the <abbr linkend="TOE"/> generate audit records for the events listed in the provided table and administrative actions. This should include all instances of an event. The evaluator shall test that audit records are generated for the establishment and termination of a channel for each of the cryptographic protocols contained in the <abbr linkend="ST"/>. For administrative actions, the evaluator shall test that each action determined by the evaluator above to be security relevant in the context of this <abbr linkend="PP"/> is auditable. When verifying the test results, the evaluator shall ensure the audit records generated during testing match the format specified in the administrative guide, and that the fields specified in <linkref linkend="FAU_GEN.1.2"/> are contained in each audit record.
               <htm:br/><htm:br/>
               Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms directly. For example, testing performed to ensure that the administrative guidance provided is correct verifies that AGD_OPE.1 is satisfied and should address the invocation of the administrative actions that are needed to verify the audit records are generated as expected.
@@ -924,7 +922,7 @@
             <title>The <abbr linkend="TSF"/> shall provide the audit records in a manner suitable for the user to interpret the information.</title>
             <aactivity>
               <Tests>
-              The assurance activity for this requirement is performed in conjunction with <!-- TODO: Check this -->test 32 of <linkref linkend="FMT_SMF_EXT.1"/>.
+              The assurance activity for this requirement is performed in conjunction with test 32 of <linkref linkend="FMT_SMF_EXT.1"/>.
             </Tests>
             </aactivity>
           </f-element>
@@ -1449,8 +1447,7 @@
             </note>
           </f-element>          
           <f-element id="fcs_ckm_ext.3.2">
-            <!-- TODO: Need to check that nothing was deleted from this AA in TD 366 -->
-            <title>The <abbr linkend="TSF"/> shall generate all <abbr linkend="KEK"/>s using one of the following methods:        
+            <title>The <abbr linkend="TSF"/> shall generate all <abbr linkend="KEK"/>s using one of the following methods:
               <htm:ul><htm:li>Derive the <abbr linkend="KEK"/> from a Password Authentication Factor according to <linkref linkend="FCS_COP.1.1(5)"/> and </htm:li></htm:ul>
               <selectables linebreak="yes">
                 <selectable>Generate the <abbr linkend="KEK"/> using an RBG that meets this profile (as specified in <linkref linkend="FCS_RBG_EXT.1"/>)</selectable>
@@ -2014,46 +2011,39 @@
         
         <f-component id="fcs_cop.1(2)" name="Cryptographic operation" >
           <f-element id="fcs_cop.1.1(2)">
-            <title>The <abbr linkend="TSF"/> shall perform <refinement>cryptographic hashing</refinement> in accordance with a specified cryptographic algorithm <refinement>SHA-1 and 
-              <selectables><selectable>SHA-256</selectable><selectable>SHA-384</selectable><selectable>SHA-512</selectable><selectable exclusive="yes">no other algorithms</selectable></selectables></refinement> and <refinement>message digest</refinement> sizes <refinement>160 and 
+            <title>The <abbr linkend="TSF"/> shall perform <refinement>cryptographic hashing</refinement> in accordance with a specified cryptographic algorithm <refinement>SHA-1 and             <selectables><selectable>SHA-256</selectable><selectable>SHA-384</selectable><selectable>SHA-512</selectable><selectable exclusive="yes">no other algorithms</selectable></selectables></refinement> and <refinement>message digest</refinement> sizes <refinement>160 and 
               <selectables><selectable>256</selectable><selectable>384</selectable><selectable>512 bits</selectable><selectable exclusive="yes">no other message digest sizes</selectable></selectables></refinement> that meet the following: <refinement>FIPS Pub 180-4</refinement>.
             </title>
-            <note role="application">Per NIST SP 800-131A, SHA-1 for generating digital signatures is no longer allowed, and SHA-1 for verification of digital signatures is strongly discouraged as there may be risk in accepting these signatures. It is expected that vendors will implement SHA-2 algorithms in accordance with SP 800-131A.
-              <htm:br/><htm:br/>
-              SHA-1 is currently required in order to comply with the WLAN Client Extended Package. Vendors are strongly encouraged to implement updated protocols that support the SHA-2 family; until updated protocols are supported, this <abbr linkend="PP"/> allows support for SHA-1 implementations in compliance with SP 800-131A.
-              <htm:br/><htm:br/>
-              The intent of this requirement is to specify the hashing function. The hash selection must support the message digest size selection. The hash selection should be consistent with the overall strength of the algorithm used (for example, SHA 256 for 128-bit keys).
+            <note role="application">Per NIST SP 800-131A, SHA-1 for generating digital signatures is no longer allowed, and SHA-1 for verification of digital signatures is strongly discouraged as there may be risk in accepting these signatures. It is expected that vendors will implement SHA-2 algorithms in accordance with SP 800-131A.<htm:br/><htm:br/>
+              SHA-1 is currently required in order to comply with the WLAN Client Extended Package. Vendors are strongly encouraged to implement updated protocols that support the SHA-2 family; until updated protocols are supported, this <abbr linkend="PP"/> allows support for SHA-1 implementations in compliance with SP 800-131A.<htm:br/><htm:br/>
+              The intent of this requirement is to specify the hashing function. The hash selection must support the message digest size selection. The hash selection should be consistent with the overall strength of the algorithm used (for example, SHA 256 for 128-bit keys). <htm:br/><htm:br/>
+              The <abbr linkend="TSF"/> hashing functions can be implemented in one of two modes. The first mode is the byte­oriented mode. In this mode the <abbr linkend="TSF"/> only hashes messages that are an integral number of bytes in length; i.e. the length (in bits) of the message to be hashed is divisible by 8. The second mode is the bit­oriented mode. In this mode the <abbr linkend="TSF"/> hashes messages of arbitrary length. The <abbr linkend="TSF"/> may implement either bit-oriented or byte-oriented; both implementations are not required.
             </note>
             <aactivity>
-              <!-- TODO: Need to reorder -->
+              <TSS>
+                The evaluator shall check that the association of the hash function with other <abbr linkend="TSF"/> cryptographic functions (for example, the digital signature verification function) is documented in the <abbr linkend="TSS"/>. The evalutator shall check that the <abbr linkend="TSS"/> indicates if the hashing function is implemented in bit-oriented and/or byte-oriented mode. <htm:br/><htm:br/>              
+              </TSS>
               <Guidance>
-              The evaluator checks the AGD documents to determine that any configuration that is required to be done to configure the functionality for the required hash sizes is present. The evaluator shall check that the association of the hash function with other <abbr linkend="TSF"/> cryptographic functions (for example, the digital signature verification function) is documented in the  <abbr linkend="TSS"/>.
-              <htm:br/><htm:br/>
-              The <abbr linkend="TSF"/> hashing functions can be implemented in one of two modes. The first mode is the byte­oriented mode. In this mode the <abbr linkend="TSF"/> only hashes messages that are an integral number of bytes in length; i.e. the length (in bits) of the message to be hashed is divisible by 8. The second mode is the bit­oriented mode. In this mode the <abbr linkend="TSF"/> hashes messages of arbitrary length. As there are different tests for each mode, an indication is given in the following sections for the bit­oriented vs. the byte­oriented testmacs.
-              <htm:br/><htm:br/>
-              The <abbr linkend="TSF"/> may implement either bit-oriented or byte-oriented; both implementations are not required. The evaluator shall perform all of the following tests for each hash algorithm implemented by the <abbr linkend="TSF"/> and used to satisfy the requirements of this <abbr linkend="PP"/>.
-              <htm:br/><htm:br/>
+                The evaluator checks the AGD documents to determine that any configuration that is required to be done to configure the functionality for the required hash sizes is present.<htm:br/><htm:br/>
               </Guidance>
-              Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
-              <htm:br/><htm:br/>
               <Tests>
+                <htm:b>Assurance Activity Note:</htm:b> The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products. <htm:br/><htm:br/>
+                The evaluator shall perform all of the following tests for each hash algorithm implemented by the <abbr linkend="TSF"/> and used to satisfy the requirements of this <abbr linkend="PP"/>. As there are different tests for each mode, an indication is given in the following sections for the bit­oriented vs. the byte­oriented testmacs.<htm:br/><htm:br/>
               <testlist>
-                <test><htm:i>Short Messages Test: Bit-­oriented Mode</htm:i><htm:br/>
+                <test><htm:i>Short Messages Test: Bit-oriented Mode</htm:i><htm:br/>
                   The evaluators devise an input set consisting of m+1 messages, where m is the block length of the hash algorithm. The length of the messages ranges sequentially from 0 to m bits. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
                 </test><htm:br/>
-                <test><htm:i>Short Messages Test: Byte-­oriented Mode</htm:i><htm:br/>
+                <test><htm:i>Short Messages Test: Byte-oriented Mode</htm:i><htm:br/>
                   The evaluators devise an input set consisting of m/8+1 messages, where m is the block length of the hash algorithm. The length of the messages range sequentially from 0 to m/8 bytes, with each message being an integral number of bytes. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
                 </test><htm:br/>
-                <test><htm:i>Selected Long Messages Test: Bit-­oriented Mode</htm:i><htm:br/>
+                <test><htm:i>Selected Long Messages Test: Bit-oriented Mode</htm:i><htm:br/>
                   The evaluators devise an input set consisting of m messages, where m is the block length of the hash algorithm. The length of the i<htm:sup>th</htm:sup> message is 512 + 99*i, where 1 ≤ i ≤ m. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
                 </test><htm:br/>
-                <test><htm:i>Selected Long Messages Test: Byte-­oriented Mode</htm:i><htm:br/>
+                <test><htm:i>Selected Long Messages Test: Byte-oriented Mode</htm:i><htm:br/>
                   The evaluators devise an input set consisting of m/8 messages, where m is the block length of the hash algorithm. The length of the i<htm:sup>th</htm:sup> message is 512 + 8*99*i, where 1 ≤ i ≤ m/8. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
-
                 </test><htm:br/>
-                <test><htm:i>Pseudorandomly Generated Messages Test</htm:i><htm:br/>
+                <test><htm:i>Pseudorandomly Generated Messages Test: Byte-oriented Mode</htm:i><htm:br/>
                   This test is for byte­oriented implementations only. The evaluators randomly generate a seed that is n bits long, where n is the length of the message digest produced by the hash function to be tested. The evaluators then formulate a set of 100 messages and associated digests by following the algorithm provided in Figure 1 of SHAVS. The evaluators then ensure that the correct result is produced when the messages are provided to the <abbr linkend="TSF"/>.
-
                 </test>
               </testlist>
               </Tests>
