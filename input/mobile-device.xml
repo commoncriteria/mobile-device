@@ -10,6 +10,8 @@
     - <selectables onlyone="yes"> for all selections where only one item can be selected
     - <selectable id= " "/> and selection depends ids for the selectable SFRs 
     
+    - Need to require mutual auth (FCS_DTLSC_EXT.2.1 from package), need to not allow SHA1 cipher suites, selection for FCS_DTLSC_EXT.1.3 to not allow exceptions for when server cert is invalid.  
+
 -->
 
 <!-- DONE:
@@ -2127,7 +2129,7 @@
               <htm:br/><htm:br/>
               Appendix A of NIST SP 800-132 recommends setting the iteration count in order to increase the computation needed to derive a key from a password and, therefore, increase the workload of performing a dictionary attack.
             </note>
-            <aactivity> <!-- AA updated per TD 306. TODO: Check with Joe to make sure that commented out parts should be deleted -->
+            <aactivity> <!-- AA updated per TD 366. TODO: Check with Joe to make sure that commented out parts should be deleted -->
               <TSS>The evaluator shall check that the  <abbr linkend="TSS"/> describes the method by which the password is first encoded and then fed to the SHA algorithm and verify the SHA algorithm matches the first selection.<htm:br/><htm:br/>  
               If a key stretching function, such as PBKDF2, is selected the settings for the algorithm (padding, blocking, etc.) shall be described. <!-- The evaluator shall verify that these are supported by the selections in this component as well as the selections concerning the hash function itself. --> The evaluator shall verify that the <abbr linkend="TSS"/> contains a description of how the output of the hash function or key stretching function is used to form the submask that will be input into the function and is the same length as the <abbr linkend="KEK"/> as specified in <linkref linkend="FCS_CKM_EXT.3"/>.
               <htm:br/><htm:br/>
@@ -2141,36 +2143,7 @@
           </f-element>
         </f-component>     
         
-        
-        <!-- TODO: Need to require mutual auth (FCS_DTLSC_EXT.2.1 from package), need to not allow SHA1 cipher suites, selection for FCS_DTLSC_EXT.1.3 to not allow exceptions for when server cert is invalid.  -->
-        <!--  
-        <f-component id="fcs_dtls_ext.1" name="Extended: DTLS Protocol" status="sel-based">         
-          <selection-depends req="fdp_upc_ext.1.1" ids="upc_dtls"/>
-          <selection-depends req="fia_x509_ext.2.1" ids="x509_dtls"/>
-          <selection-depends req="ftp_itc_ext.1.1" ids="itc_dtls"/>
-          <f-element id="fcs_dtls_ext.1.1">
-            <title>The <abbr linkend="TSF"/> shall implement the DTLS protocol in accordance with DTLS 1.2 (RFC 6347).</title>
-            <note role="application"> If "DTLS" is selected in <linkref linkend="fdp_upc_ext.1.1"/>, <linkref linkend="fia_x509_ext.2.1"/> or <linkref linkend="ftp_itc_ext.1.1"/> <linkref linkend="fcs_dtls_ext.1"/> shall be included in the <abbr linkend="ST"/>.</note>
-          </f-element>
-          <f-element id="fcs_dtls_ext.1.2">
-            <title>The <abbr linkend="TSF"/> shall implement the requirements in TLS (<linkref linkend="FCS_TLSC_EXT.1"/>) for the DTLS implementation, except where variations are allowed according to DTLS 1.2 (RFC 6347).
-            </title>
-            <note role="application">Differences between DTLS 1.2 and TLS 1.2 are outlined in RFC 6347; otherwise the protocols are the same. In particular, for the applicable security characteristics defined for the <abbr linkend="TSF"/>, the two protocols do not differ. Therefore, all application notes and assurance activities that are listed for TLS apply to the DTLS implementation.</note>
-          </f-element>
-          <f-element id="fcs_dtls_ext.1.3">
-            <title>The <abbr linkend="TSF"/>TSF shall not establish a trusted communication channel if the peer certificate is deemed invalid.</title>
-            <note role="application">Validity is determined by the certificate path, the expiration date, and the revocation status in accordance with RFC 5280.</note>
-            <aactivity>
-              <testlist>
-                <test>The evaluator shall attempt to establish a connection with a DTLS server, observe the traffic with a packet analyzer, and verify that the connection succeeds and that the traffic is identified as DTLS.<htm:br/><htm:br/>
-                  Other tests are performed in conjunction with the Assurance Activity listed for <linkref linkend="FCS_TLSC_EXT.1"/>.<htm:br/><htm:br/>
-                  Certificate validity shall be tested in accordance with testing performed for <linkref linkend="FIA_X509_EXT.1"/>, and the evaluator shall perform the following test.</test>
-                <test>The evaluator shall demonstrate that using a certificate without a valid certification path results in the function failing. Using the administrative guidance, the evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function, and demonstrate that the function succeeds. The evaluator then shall delete one of the certificates, and show that the function fails.</test>
-              </testlist>
-            </aactivity>
-          </f-element>
-        </f-component>
-        -->
+
         
         <f-component id="fcs_https_ext.1" name="Extended: HTTPS Protocol">
           <f-element id="fcs_https_ext.1.1">
