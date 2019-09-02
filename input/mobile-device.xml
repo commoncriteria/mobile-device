@@ -11,6 +11,7 @@
     - <selectable id= " "/> and selection depends ids for the selectable SFRs 
     
     - Need to require mutual auth (FCS_DTLSC_EXT.2.1 from package), need to not allow SHA1 cipher suites, selection for FCS_DTLSC_EXT.1.3 to not allow exceptions for when server cert is invalid.  
+    - MDF fcs_tlsc_ext.1.3 is similar to fcs_tlsc_ext.1.3 in package, but package has [selection: with no exceptions, except when override is authorized]. Do I need to specify a selection?? MDF: The <abbr linkend="TSF"/> shall not establish a trusted channel if the peer certificate is invalid.
 
 -->
 
@@ -19,6 +20,31 @@
     - All TDs as of 2019_09_01
 
 -->
+
+<!-- NOTE: 
+  - TLS package is mandatory in MDF, FDP_UPC_EXT.1 mandates it  
+
+--> 
+
+<!-- TODO: I do not want to allow SHA1 for TLS, but FCS_COP in MDF still allows it because WLAN client needs it - so can't use MDM app note in MDF to say that ciphersuites must align with FCS_COP.1-->
+
+<!-- Mapping to TLS Package: Client
+     MDF   Package
+     1.1 = 1.1
+     1.2 = 1.2
+     1.3 ~ 1.3
+     1.4 (man) = 2.1 (sel-based) - TODO: figure out how to make mutual auth for TLS mandatory
+     2.1 = 5.1
+     3.1 = 3.1
+     3.2 (man) = 4.1 (sel-based) - okay
+     3.3 (man) = 4.2 (sel-based) - okay
+     -->
+<!-- NIAP: If TLS package and Bluetooth module will be mandatory (if HW exists) do I still map the SFRs to objectives? 
+                        YES!!!! -->
+
+<!-- TODO: figure out how to make mutual auth for TLS mandatory or did I already do this? Check how we did it MDM -->
+
+
 
 <PP xmlns="https://niap-ccevs.org/cc/v1" name="Mobile Device Fundamentals" xmlns:htm="http://www.w3.org/1999/xhtml" boilerplate="yes">
   <PPReference>
@@ -497,9 +523,7 @@
   </section>
 </chapter>
   <chapter title="Security Objectives" id="sobj" boilerplate="no">
-    <section title="Security Objectives for the TOE" id="sot">
-      <!-- NIAP: If TLS package and Bluetooth module will be mandatory (if HW exists) do I still map the SFRs to objectives? 
-                        YES!!!! -->
+    <section title="Security Objectives for the TOE" id="sot">     
       The security objectives for the Mobile Device are defined as follows. 
       <SOs>
         <SO id="O.PROTECTED_COMMS">
@@ -743,17 +767,15 @@
               <htm:br/><htm:br/>
               If "no additional auditable events" is selected in the second selection of <linkref linkend="FAU_GEN.1.1"/>, then "no additional information" shall be selected. 
               <htm:br/><htm:br/>
-              For each audit event selected from <ctr-ref refid="objaudit"/> in <linkref linkend="FAU_GEN.1.1"/> if additional information is required to be recorded within the audit record, it should be included in this selection.
-              
+              For each audit event selected from <ctr-ref refid="objaudit"/> in <linkref linkend="FAU_GEN.1.1"/> if additional information is required to be recorded within the audit record, it should be included in this selection. 
             </note>
             <aactivity>
-              <!-- TODO: Clean up this AA -->
               <TSS>
-              The evaluator shall check the <abbr linkend="TSS"/> and ensure that it lists all of the auditable events and provides a format for audit records. Each audit record format type must be covered, along with a brief description of each field. The evaluator shall check to make sure that every audit event type mandated by the <abbr linkend="PP"/> is described and that the description of the fields contains the information required in <linkref linkend="FAU_GEN.1.2"/>. 
-              <htm:br/><htm:br/>
-              The evaluator shall also make a determination of the administrative actions that are relevant in the context of this <abbr linkend="PP"/> including those listed in the Management section. The evaluator shall examine the administrative guide and make a determination of which administrative commands are related to the configuration (including enabling or disabling) of the mechanisms implemented in the <abbr linkend="TOE"/> that are necessary to enforce the requirements specified in the <abbr linkend="PP"/>. The evaluator shall document the methodology or approach taken while determining which actions in the administrative guide are security relevant with respect to this <abbr linkend="PP"/>. The evaluator may perform this activity as part of the activities associated with ensuring the AGD_OPE guidance satisfies the requirements.
+              The evaluator shall check the <abbr linkend="TSS"/> and ensure that it lists all of the auditable events and provides a format for audit records. Each audit record format type must be covered, along with a brief description of each field. The evaluator shall check to make sure that every audit event type mandated by the <abbr linkend="PP"/> is described and that the description of the fields contains the information required in <linkref linkend="FAU_GEN.1.2"/>. <htm:br/><htm:br/>
               </TSS>
-              <htm:br/><htm:br/>
+              <Guidance>
+              The evaluator shall also make a determination of the administrative actions that are relevant in the context of this <abbr linkend="PP"/> including those listed in the Management section. The evaluator shall examine the administrative guide and make a determination of which administrative commands are related to the configuration (including enabling or disabling) of the mechanisms implemented in the <abbr linkend="TOE"/> that are necessary to enforce the requirements specified in the <abbr linkend="PP"/>. The evaluator shall document the methodology or approach taken while determining which actions in the administrative guide are security relevant with respect to this <abbr linkend="PP"/>. The evaluator may perform this activity as part of the activities associated with ensuring the AGD_OPE guidance satisfies the requirements.<htm:br/><htm:br/>
+              </Guidance>
               <Tests>
               The evaluator shall test the <abbr linkend="TOE"/>’s ability to correctly generate audit records by having the <abbr linkend="TOE"/> generate audit records for the events listed in the provided table and administrative actions. This should include all instances of an event. The evaluator shall test that audit records are generated for the establishment and termination of a channel for each of the cryptographic protocols contained in the <abbr linkend="ST"/>. For administrative actions, the evaluator shall test that each action determined by the evaluator above to be security relevant in the context of this <abbr linkend="PP"/> is auditable. When verifying the test results, the evaluator shall ensure the audit records generated during testing match the format specified in the administrative guide, and that the fields specified in <linkref linkend="FAU_GEN.1.2"/> are contained in each audit record.
               <htm:br/><htm:br/>
@@ -814,22 +836,21 @@
                 <htm:tr><htm:td>FPT_KST_EXT.3</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FPT_NOT_EXT.1</htm:td><htm:td><selectables><selectable>Measurement of <abbr linkend="TSF"/> software</selectable><selectable>None</selectable></selectables>.</htm:td><htm:td><selectables><selectable>Integrity verification value</selectable><selectable>No additional information</selectable></selectables>.</htm:td></htm:tr>
                 <htm:tr><htm:td>FPT_STM.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
-                <htm:tr><htm:td rowspan="2">FPT_TST_EXT.1</htm:td><htm:td>Initiation of self-test.</htm:td><htm:td rowspan="2"><selectables><selectable>Algorithm that caused the failure</selectable><selectable>none</selectable></selectables></htm:td></htm:tr><htm:tr><htm:td>Failure of self-test.</htm:td></htm:tr>  
+                <htm:tr><htm:td rowspan="2">FPT_TST_EXT.1</htm:td><htm:td>Initiation of self-test.</htm:td><htm:td rowspan="2"><selectables><selectable>Algorithm that caused the failure</selectable><selectable>none</selectable></selectables></htm:td></htm:tr><htm:tr><htm:td>Failure of self-test.</htm:td></htm:tr> 
                 <htm:tr><htm:td rowspan="2">FPT_TST_EXT.2(1)</htm:td><htm:td>Start-up of <abbr linkend="TOE"/>.</htm:td><htm:td>No additional information.</htm:td></htm:tr><htm:tr><htm:td><selectables><selectable>Detected integrity violation</selectable><selectable>none</selectable></selectables></htm:td><htm:td><selectables><selectable>The <abbr linkend="TSF"/> code file that caused the integrity violation</selectable><selectable>No additional information</selectable></selectables></htm:td></htm:tr>      
                 <htm:tr><htm:td>FPT_TUD_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FTA_SSL_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
               </htm:table>
               <htm:br/>
-             
-              
+                
               <htm:b><ctr ctr-type='Table' id="objaudit">: Additional Auditable Events</ctr></htm:b><htm:br/>            
               <htm:table>
                 <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Auditable Events</htm:td><htm:td>Additional Audit Record Contents</htm:td></htm:tr>
                 <htm:tr><htm:td>FAU_SAR.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FAU_SEL.1</htm:td><htm:td>All modifications to the audit configuration that occur while the audit collection functions are operating. </htm:td><htm:td>No additional Information.</htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_CKM_EXT.7</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
-                <htm:tr><htm:td>FCS_CKM_EXT.8</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
-                <htm:tr><htm:td>FCS_DTLS_EXT.1</htm:td><htm:td>Failure of the certificate validity check.</htm:td><htm:td>Issuer Name and Subject Name of certificate. </htm:td></htm:tr>
+                <!-- <htm:tr><htm:td>FCS_CKM_EXT.8</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>  -->
+                <htm:tr><htm:td>FCS_DTLS_EXT.1 (TLS Package)</htm:td><htm:td>Failure of the certificate validity check.</htm:td><htm:td>Issuer Name and Subject Name of certificate. </htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_HTTPS_EXT.1</htm:td><htm:td>Failure of the certificate validity check.</htm:td>
                   <htm:td>Issuer Name and Subject Name of certificate.<htm:br/> 
                     <selectables><selectable>User’s authorization decision</selectable><selectable>No additional information</selectable></selectables>.</htm:td></htm:tr>
@@ -837,11 +858,11 @@
                 <htm:tr><htm:td>FCS_RBG_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_RBG_EXT.3</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_SRV_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>                
-                <htm:tr><htm:td rowspan="3">FCS_TLSC_EXT.1</htm:td><htm:td>Establishment/termination of a TLS session.</htm:td><htm:td>Non-<abbr linkend="TOE "/> endpoint of connection.</htm:td></htm:tr>
+                <htm:tr><htm:td rowspan="3">FCS_TLSC_EXT.1 (TLS Package)</htm:td><htm:td>Establishment/termination of a TLS session.</htm:td><htm:td>Non-<abbr linkend="TOE "/> endpoint of connection.</htm:td></htm:tr>
                 <htm:tr><htm:td>Failure to establish a TLS session.</htm:td><htm:td>Reason for failure.</htm:td></htm:tr>
                 <htm:tr><htm:td>Failure to verify presented identifier.</htm:td><htm:td>Presented identifier and reference identifier.</htm:td></htm:tr>
-                <htm:tr><htm:td>FCS_TLSC_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
-                <htm:tr><htm:td>FCS_TLSC_EXT.3</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
+                <htm:tr><htm:td>FCS_TLSC_EXT.2 (TLS Package)</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
+                <htm:tr><htm:td>FCS_TLSC_EXT.3 (TLS Package)</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FDP_ACF_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FDP_ACF_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FDP_ACF_EXT.3</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
@@ -1641,11 +1662,9 @@
               For the purposes of this requirement, plaintext keying material refers to authentication data, passwords, secret/private symmetric keys, private asymmetric keys, data used to derive keys, values derived from passwords, etc. If a <abbr linkend="BAF"/> is selected in <linkref linkend="FIA_UAU.5.1"/> the enrollment or authentication templates are not subject to this requirement, since templates are not suitable for deriving keying material. However, source biometric data (i.e. fingerprint image or friction ridge pattern), the features an algorithm uses to perform biometric authentication for enrollment or verification (e.g. location of minutia), threshold values used in making the match adjudication, intermediate values calculated while building an enrollment or authentication template (i.e. direction maps, minutia counts, binarized and skeletonized representations of friction ridge patterns, etc.), and final match scores are examples of critical security parameters that must be destroyed when no longer needed.
               <htm:br/><htm:br/>
               Key destruction procedures are performed in accordance with <linkref linkend="FCS_CKM_EXT.4.1"/>.
-
               <htm:br/><htm:br/>
               There are multiple situations in which plaintext keying material is no longer necessary, including when the <abbr linkend="TOE"/> is powered off, when the wipe function is performed, when trusted channels are disconnected, when keying material is no longer needed by the trusted channel per the protocol, and when transitioning to the locked state (for those values derived from the Password Authentication Factor or that key material which is protected by the password-derived or biometric-unlocked <abbr linkend="KEK"/> according to <linkref linkend="FCS_STG_EXT.2"/> – see <figref refid="Keys"/>). For keys (or key material used to derive those keys) protecting sensitive data received in the locked state, "no longer needed" includes "while in the locked state."
               <htm:br/><htm:br/>
-
               Trusted channels may include TLS, HTTPS, DTLS, IPsec VPNs, Bluetooth BR/EDR, and Bluetooth LE. The plaintext keying material for these channels includes (but is not limited to) master secrets, and Security Associations (SAs). 
               <htm:br/><htm:br/>
               If <abbr linkend="REK"/>(s) are processed in a separate execution environment on the same Application Processor as the Rich OS, <abbr linkend="REK"/> key material must be cleared from RAM immediately after use, and at least, must be wiped when the device is locked, as the <abbr linkend="REK"/> is part of the key hierarchy protecting sensitive data. 
@@ -1804,35 +1823,6 @@
             </aactivity>
           </f-element>
         </f-component>
-        
-<!-- BT Module: This component is the same -->
-       <!--   <f-component id="fcs_ckm_ext.8" name="Extended: Bluetooth Key Generation" status="objective">
-          <f-element id="fcs_ckm_ext.8.1">
-            <title>The <abbr linkend="TSF"/> shall randomly generate public/private ECDH key pairs every 
-              <assignable>frequency of and/or criteria for new key pair generation</assignable>.</title>
-            <note role="application">There are likely multiple acceptable ways of keeping ECDH key pairs adequately fresh, including a time-based approach such that the same key pairs will not be used for more than, for instance, 24 hours. Alternatively, the criteria might be linked to the number of passed or failed authentication attempts. As a starting point to determine reasonable authentication attempt-based replacement criteria, note that the Bluetooth specification (v4.1, Vol. 2, 5.1) suggests mitigating repeated authentication attempts by changing a device’s private key after three failed authentication attempts from any BD_ADDR, after ten successful pairings from any BD_ADDR, or after a combination of these such that any three successful pairings count as one failed pairing.
-              <htm:br/><htm:br/>
-              This requirement also applies to Bluetooth LE if the <abbr linkend="TOE"/> supports LE Secure Connections, which was introduced in version 4.2 of the specification. 
-            </note>
-            <aactivity>The evaluator shall ensure that the  <abbr linkend="TSS"/> describes the criteria used to determine the frequency of generating new ECDH public/private key pairs. In particular, the evaluator shall ensure that the implementation does not permit the use of static ECDH key pairs.
-              <htm:br/><htm:br/>
-              The evaluator shall perform the following test:
-              <testlist>
-                <test>The evaluator shall perform the following steps:<htm:br/><htm:br/>
-                  Step 1 - Pair the <abbr linkend="TOE"/> to a remote Bluetooth device and record the public key currently in use by the <abbr linkend="TOE"/>. (This public key can be obtained using a Bluetooth protocol analyzer to inspect packets exchanged during pairing.)
-                  <htm:br/><htm:br/>
-                  Step 2 - Perform necessary actions to generate new ECDH public/private key pairs. (Note that this test step depends on how the  <abbr linkend="TSS"/> describes the criteria used to determine the frequency of generating new ECDH public/private key pairs.)
-                  <htm:br/><htm:br/>
-                  Step 3 - Pair the <abbr linkend="TOE"/> to a remote Bluetooth device and again record the public key currently in use by the <abbr linkend="TOE"/>. 
-                  <htm:br/><htm:br/>
-                  Step 4 - Verify that the public key in Step 1 differs from the public key in Step 3.
-                </test>
-              </testlist>
-            </aactivity>
-          </f-element>
-        </f-component>-->
-        
-        
         <f-component id="fcs_cop.1(1)" name="Cryptographic operation" >
           <f-element id="fcs_cop.1.1(1)">
             <title>The <abbr linkend="TSF"/> shall perform encryption/decryption in accordance with a specified cryptographic algorithm: <htm:br/>
@@ -2142,9 +2132,6 @@
             </aactivity>
           </f-element>
         </f-component>     
-        
-
-        
         <f-component id="fcs_https_ext.1" name="Extended: HTTPS Protocol">
           <f-element id="fcs_https_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall implement the HTTPS protocol that complies with RFC 2818.
@@ -2153,19 +2140,22 @@
           <f-element id="fcs_https_ext.1.2">
             <title>The <abbr linkend="TSF"/> shall implement HTTPS using TLS in accordance with the Package for Transport Layer Security. 
             </title>
+            <note role="application">
+              The Package for Transport Layer Security shall be included in the ST.
+            </note>
           </f-element>
           <f-element id="fcs_https_ext.1.3">
             <title>The <abbr linkend="TSF"/> shall notify the application and 
               <selectables><selectable>not establish the connection</selectable><selectable>request application authorization to establish the connection</selectable><selectable exclusive="yes">no other action</selectable></selectables> if the peer certificate is deemed invalid. 
             </title>
-            <note role="application"><!-- TODO: Will need to add app note about bringing in the TLS Package -->
+            <note role="application">
               Validity is determined by the certificate path, the expiration date, and the revocation status in accordance with RFC 5280.</note>
             <aactivity>
               <Tests>
               <testlist>
                 <test>The evaluator shall attempt to establish an HTTPS connection with a webserver, observe the traffic with a packet analyzer, and verify that the connection succeeds and that the traffic is identified as TLS or HTTPS.
                   <htm:br/><htm:br/>
-                  Other tests are performed in conjunction with <linkref linkend="FCS_TLSC_EXT.1"/>. <!-- TODO: Now TLS Package -->
+                  Other tests are performed in conjunction with testing in the Package for Transport Layer Security.
                   <htm:br/><htm:br/>
                   Certificate validity shall be tested in accordance with testing performed for <linkref linkend="FIA_X509_EXT.1"/>, and the evaluator shall perform the following test:
                 </test><htm:br/><htm:br/>
@@ -2213,17 +2203,19 @@
               The <abbr linkend="ST"/> author may select either software or hardware noise sources. A hardware noise source is a component that produces data that cannot be explained by a deterministic rule, due to its physical nature. In other words, a hardware based noise source generates sequences of random numbers from a physical process that cannot be predicted. For example, a sampled ring oscillator consists of an odd number of inverter gates chained into a loop, with an electrical pulse traveling from inverter to inverter around the loop. The inverters are not clocked, so the precise time required for a complete circuit around the loop varies slightly as various physical effects modify the small delay time at each inverter on the line to the next inverter. This variance results in an approximate natural frequency that contains drift and jitter over time. The output of the ring oscillator consists of the oscillating binary value sampled at a constant rate from one of the inverters – a rate that is significantly slower than the oscillator’s natural frequency.
             </note>
             <aactivity>
-              <!-- TODO: Fix AA -->
-              Documentation shall be produced and the evaluator shall perform the activities in accordance with <appref linkend="entropy"/>, the "Clarification to the Entropy Documentation and Assessment". 
+              <TSS>
+                Documentation shall be produced and the evaluator shall perform the activities in accordance with <appref linkend="entropy"/>, the "Clarification to the Entropy Documentation and Assessment". 
               <htm:br/><htm:br/>
               The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/>, includes the security functions described in <linkref linkend="FCS_RBG_EXT.1.3"/>.
               <htm:br/><htm:br/>
-              Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
-              <htm:br/><htm:br/>
+              </TSS>
+              <Guidance>
+                The evaluator shall also confirm that the operational guidance contains appropriate instructions for configuring the RNG functionality.<htm:br/><htm:br/>
+              </Guidance>
               <Tests>
-              The evaluator shall perform the following tests.
-              <htm:br/><htm:br/>
-              The evaluator shall perform 15 trials for the RNG implementation. If the RNG is configurable, the evaluator shall perform 15 trials for each configuration. The evaluator shall also confirm that the operational guidance contains appropriate instructions for configuring the RNG functionality.
+                Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
+                <htm:br/><htm:br/>
+              The evaluator shall perform 15 trials for the RNG implementation. If the RNG is configurable, the evaluator shall perform 15 trials for each configuration. 
               <htm:br/><htm:br/>
               If the RNG has prediction resistance enabled, each trial consists of (1) instantiate DRBG, (2) generate the first block of random bits (3) generate a second block of random bits (4) uninstantiate. The evaluator verifies that the second block of random bits is the expected value. The evaluator shall generate eight input values for each trial. The first is a count (0 – 14). The next three are entropy input, nonce, and personalization string for the instantiate operation. The next two are additional input and entropy input for the first call to generate. The final two are additional input and entropy input for the second call to generate. These values are randomly generated. "generate one block of random bits" means to generate random bits with number of returned bits equal to the Output Block Length (as defined in NIST SP800-90A).
               <htm:br/><htm:br/>
@@ -2247,8 +2239,7 @@
             <title>The <abbr linkend="TSF"/> shall save the state of the deterministic RBG at power-off, and shall use this state as input to the deterministic RBG at startup.</title>
             <note role="application">The capability to add the state saved at power-off as input to the RBG prevents an RBG that is slow to gather entropy from producing the same output regularly and across reboots. Since there is no guarantee of the protections provided when the state is stored (or a requirement for any such protection), it is assumed that the state is 'known', and therefore cannot contribute entropy to the RBG, but can introduce enough variation that the initial RBG values are not predictable and exploitable.</note>
             <aactivity>
-              <!-- TODO: Look at -->
-              <TSS>The assurance activity for this requirement is captured in the RBG documentation for <appref linkend="entropy"/>. The evaluator shall verify that the documentation describes how the state is generated so as to be available for the next startup, how the state is used as input to the DRBG, and any protection measures used for the state while the <abbr linkend="TOE"/> is powered off. </TSS>
+              <TSS>The evaluation activity for this requirement is captured in the RBG documentation for <appref linkend="entropy"/>. The evaluator shall verify that the documentation describes how the state is generated so as to be available for the next startup, how the state is used as input to the DRBG, and any protection measures used for the state while the <abbr linkend="TOE"/> is powered off. </TSS>
             </aactivity>
           </f-element>
         </f-component>        
@@ -2257,7 +2248,7 @@
             <title>The <abbr linkend="TSF"/> shall allow applications to add data to the deterministic RBG using the Personalization String as defined in SP 800-90A. </title>
             <note role="application">As specified in SP 800-90A the <abbr linkend="TSF"/> shall not count data input from an application towards the entropy required by <linkref linkend="FCS_RBG_EXT.1"/>. Thus, the <abbr linkend="TSF"/> shall not allow the only input to the RBG seed to be from an application. </note>
             <aactivity>
-              <!-- TODO: Look at -->The evaluator shall verify that this function is included as an interface to the RBG in the documentation required by <appref linkend="entropy"/> and that the behavior of the RBG following a call to this interface is described. The evaluator shall also verify that the documentation of the RBG describes the conditions of use and possible values for the Personalization String input to the SP 800-90A specified DRBG. The evaluator shall also perform the following test.
+              The evaluator shall verify that this function is included as an interface to the RBG in the documentation required by <appref linkend="entropy"/> and that the behavior of the RBG following a call to this interface is described. The evaluator shall also verify that the documentation of the RBG describes the conditions of use and possible values for the Personalization String input to the SP 800-90A specified DRBG. 
               <Tests>
               <testlist>
                 <test>The evaluator shall write, or the developer shall provide, an application that adds data to the RBG via the Personalization String. The evaluator shall verify that the request succeeds.</test>
@@ -2287,12 +2278,12 @@
                   <selectable exclusive="yes">No other cryptographic operations</selectable>
                 </selectables>
               </htm:li>
-             </htm:ul>
-              
+             </htm:ul>    
             </title>
-            <note role="application">For each of the listed FCS components in the bulleted list, the intent is that the <abbr linkend="TOE"/> will make available all algorithms specified for that component in the <abbr linkend="ST"/>. For example, if for <linkref linkend="FCS_COP.1(2)"/> the <abbr linkend="ST"/> author selects SHA-256, then the <abbr linkend="TOE"/> would have to make available an interface to perform SHA-1 (the "mandatory" portion of <linkref linkend="FCS_COP.1.1(2)"/>) and SHA-256 (the "selected" portion of <linkref linkend="FCS_COP.1.1(2)"/>). The exception is for <linkref linkend="FCS_COP.1(1)"/>, which does not require the <abbr linkend="TOE"/> to make available AES_CCMP, AES_XTS, AES_GCMP-256, or AES_CCMP_256 even though they may be implemented to perform <abbr linkend="TSF"/>-related functions. However, the <abbr linkend="ST"/> author is expected to select (for <linkref linkend="FCS_COP.1(1)"/> selection in this component) algorithms that match those selected in the <abbr linkend="ST"/> for the <linkref linkend="FCS_COP.1(1)"/> component.</note>
+            <note role="application">
+              For each of the listed FCS components in the bulleted list, the intent is that the <abbr linkend="TOE"/> will make available all algorithms specified for that component in the <abbr linkend="ST"/>. For example, if for <linkref linkend="FCS_COP.1(2)"/> the <abbr linkend="ST"/> author selects SHA-256, then the <abbr linkend="TOE"/> would have to make available an interface to perform SHA-1 (the "mandatory" portion of <linkref linkend="FCS_COP.1.1(2)"/>) and SHA-256 (the "selected" portion of <linkref linkend="FCS_COP.1.1(2)"/>). The exception is for <linkref linkend="FCS_COP.1(1)"/>, which does not require the <abbr linkend="TOE"/> to make available AES_CCMP, AES_XTS, AES_GCMP-256, or AES_CCMP_256 even though they may be implemented to perform <abbr linkend="TSF"/>-related functions. However, the <abbr linkend="ST"/> author is expected to select (for <linkref linkend="FCS_COP.1(1)"/> selection in this component) algorithms that match those selected in the <abbr linkend="ST"/> for the <linkref linkend="FCS_COP.1(1)"/> component.
+            </note>
             <aactivity>
-              <!-- TODO: Look at -->
               The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/> includes the security functions (cryptographic algorithms) described in these requirements.
               <htm:br/><htm:br/>
               <Tests>
@@ -2313,7 +2304,6 @@
             </title>
             <note role="application">The <abbr linkend="TOE"/> will, therefore, be required to perform cryptographic operations on behalf of applications using the keys stored in the <abbr linkend="TOE"/>’s secure key storage. </note>
             <aactivity>
-              <!-- TODO: Look at -->
               The evaluator shall verify that the API documentation for the secure key storage includes the cryptographic operations by the stored keys. 
               <htm:br/><htm:br/>
               <Tests>
@@ -2513,188 +2503,6 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
             </aactivity>
           </f-element>
         </f-component>
-
-<!-- NOTE: TLS package is mandatory in MDF, FDP_UPC_EXT.1 mandates it  -->
-        <!-- TODO: I do not want to allow SHA1 for TLS, but FCS_COP in MDF still allows it because WLAN client needs it - so can't use MDM app note in MDF to say that ciphersuites must align with FCS_COP.1-->
-     <!--   <f-component id="fcs_tlsc_ext.1" name="Extended: TLS Protocol">-->
-        <!-- Same as fcs_tlsc_ext.1.1 in package-->
-
-        <!--  <f-element id="fcs_tlsc_ext.1.1">
-          <title>The <abbr linkend="TSF"/> shall implement TLS 1.2 (RFC 5246) supporting the following ciphersuites:<htm:br/>
-            <htm:ul>
-              <htm:li>Mandatory Ciphersuites:<selectables linebreak="yes">
-                   <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
-                   <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
-              </selectables>
-              </htm:li>
-              <htm:li>Optional Ciphersuites:
-                <selectables linebreak="yes"> 
-                  <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
-                  <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
-                  <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
-                  <selectable>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
-                  <selectable id='tlsc_1'>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>                  
-                  <selectable id='tlsc_2'>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>                  
-                  <selectable id='tlsc_3'>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>                  
-                  <selectable id='tlsc_4'>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>                  
-                  <selectable id='tlsc_5'>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
-                  <selectable id='tlsc_6'>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
-                  <selectable id='tlsc_7'>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
-                  <selectable id='tlsc_8'>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>                              
-                  <selectable exclusive="yes">no other ciphersuite</selectable>
-                </selectables>
-              </htm:li>
-            </htm:ul>
-          </title>
-          <note role="application">The ciphersuites to be tested in the evaluated configuration are limited by this requirement; however, this requirement does not restrict the <abbr linkend="TOE"/>'s ability to propose (in its Client Hello) additional ciphersuites beyond the ones listed in this requirement.  Put simply, the <abbr linkend="TOE"/> may propose any ciphersuite; however, the evaluation will only test the ciphersuites in the above list. The <abbr linkend="ST"/> author should select the optional ciphersuites that are supported; if there are no ciphersuites supported other than the mandatory suites, then "None" should be selected. It is necessary to limit the ciphersuites that can be used in an evaluated configuration administratively on the server in the test environment. The Suite B algorithms listed above (RFC 6460) are the preferred algorithms for implementation. It is recognized that RFC 5246 mandates the ciphersuite TLS_RSA_WITH_AES_128_CBC_SHA, but this ciphersuite is not tested with this requirement.<htm:br/><htm:br/>
-            If an elliptic-curve ciphersuite is selected, <linkref linkend="FCS_TLSC_EXT.2.1"/> shall be included in the <abbr linkend="ST"/>.<htm:br/><htm:br/>
-            These requirements will be revisited as new TLS versions are standardized by the IETF.</note>         
-          <aactivity>The evaluator shall check the description of the implementation of this protocol in the <abbr linkend="TSS"/> to ensure that the ciphersuites supported are specified. The evaluator shall check the <abbr linkend="TSS"/> to ensure that the ciphersuites specified include those listed for this component. The evaluator shall also check the operational guidance to ensure that it contains instructions on configuring the <abbr linkend="TOE"/> so that TLS conforms to the description in the <abbr linkend="TSS"/>.<htm:br/><htm:br/>
-            The evaluator shall write, or the <abbr linkend="ST"/> author shall provide, an application for the purposes of testing TLS. The evaluator shall also perform the following tests:
-            <testlist>
-              <test>The evaluator shall establish a TLS connection using each of the ciphersuites specified by the requirement. This connection may be established as part of the establishment of a higher-level protocol, e.g., as part of an EAP session. It is sufficient to observe the successful negotiation of a ciphersuite to satisfy the intent of the test; it is not necessary to examine the characteristics of the encrypted traffic in an attempt to discern the ciphersuite being used (for example, that the cryptographic algorithm is 128-bit AES and not 256-bit AES).</test>
-              <test>The evaluator shall attempt to establish the connection using a server with a server certificate that contains the Server Authentication purpose in the extendedKeyUsage field and verify that a connection is established. The evaluator will then verify that the client rejects an otherwise valid server certificate that lacks the Server Authentication purpose in the extendedKeyUsage field and a connection is not established. Ideally, the two certificates should be identical except for the extendedKeyUsage field.</test>
-              <test>The evaluator shall send a server certificate in the TLS connection that the does not match the server-selected ciphersuite (for example, send a ECDSA certificate while using the TLS_RSA_WITH_AES_128_CBC_SHA ciphersuite or send a RSA certificate while using one of the ECDSA ciphersuites.) The evaluator shall verify that the <abbr linkend="TOE"/> disconnects after receiving the server’s Certificate handshake message.</test>
-              <test>The evaluator shall configure the server to select the TLS_NULL_WITH_NULL_NULL ciphersuite and verify that the client denies the connection.</test>
-              <test>The evaluator shall perform the following modifications to the traffic:<htm:br/>
-                <htm:ul>
-                  <htm:li>Change the TLS version selected by the server in the Server Hello to a non-supported TLS version (for example, 1.3 represented by the two bytes 03 04) and verify that the client rejects the connection.</htm:li>
-                  <htm:li>Modify at least one byte in the server’s nonce in the Server Hello handshake message, and verify that the client rejects the Server Key Exchange handshake message (if using a DHE or ECDHE ciphersuite) or that the server denies the client’s Finished handshake message.</htm:li>
-                  <htm:li>Modify the server’s selected ciphersuite in the Server Hello handshake message to be a ciphersuite not presented in the Client Hello handshake message. The evaluator shall verify that the client rejects the connection after receiving the Server Hello.</htm:li>
-                  <htm:li>(conditional) If an ECDHE or DHE ciphersuite is selected, modify the signature block in the Server’s Key Exchange handshake message, and verify that the client rejects the connection after receiving the Server Key Exchange message.</htm:li>
-                  <htm:li>Modify a byte in the Server Finished handshake message, and verify that the client sends a fatal alert upon receipt and does not send any application data.</htm:li>
-                  <htm:li>Send a valid Server Finished message in plaintext and verify the client sends a fatal alert upon receipt and does not send any application data. The server’s finished message shall contain valid verify_data and shall parse correctly using a network protocol analysis tool.</htm:li>
-                </htm:ul></test>
-            </testlist>
-          </aactivity>
-        </f-element>
-        -->
-       
-        <!-- Same as fcs_tlsc_ext.1.2 in package-->
-        <!--  <f-element id="fcs_tlsc_ext.1.2">
-          <title>The <abbr linkend="TSF"/> shall verify that the presented identifier matches the reference identifier according to RFC 6125.
-          </title>
-          <note role="application">The rules for verification of identify are described in Section 6 of RFC 6125. The reference identifier is established by the user (e.g. entering a URL into a web browser or clicking a link), by configuration (e.g. configuring the name of a mail server or authentication server), or by an application (e.g. a parameter of an API) depending on the application service. Based on a singular reference identifier’s source domain and application service type (e.g. HTTP, SIP, LDAP), the client establishes all reference identifiers which are acceptable, such as a Common Name for the Subject Name field of the certificate and a (case-insensitive) DNS name, URI name, and Service Name for the Subject Alternative Name field. The client then compares this list of all acceptable reference identifiers to the presented identifiers in the TLS server’s certificate.<htm:br/><htm:br/>
-            The preferred method for verification is the Subject Alternative Name using DNS names, URI names, or Service Names. Verification using the Common Name is required for the purposes of backwards compatibility. Additionally, support for use of IP addresses in the Subject Name or Subject Alternative name is discouraged as against best practices but may be implemented. Finally, the client should avoid constructing reference identifiers using wildcards. However, if the presented identifiers include wildcards, the client must follow the best practices regarding matching; these best practices are captured in the assurance activity.
-          </note>
-          <aactivity>
-            <TSS/>The evaluator shall ensure that the <abbr linkend="TSS"/> describes the client’s method of establishing all reference identifiers from the application-configured reference identifier, including which types of reference identifiers are supported (e.g. Common Name, DNS Name, URI Name, Service Name, or other application-specific Subject Alternative Names) and whether IP addresses and wildcards are supported. The evaluator shall ensure that this description identifies whether and the manner in which certificate pinning is supported or used by the <abbr linkend="TOE"/>.<htm:br/><htm:br/>
-            <Guidance/>The evaluator shall verify that the AGD guidance includes instructions for setting the reference identifier to be used for the purposes of certificate validation in TLS. In particular, the AGD guidance should describe the API used by applications for configuring the reference identifier.<htm:br/><htm:br/>
-            <Tests/>
-            The evaluator shall configure the reference identifier according to the AGD guidance and perform the following tests during a TLS connection:
-            <testlist>
-              <test>The evaluator shall present a server certificate that does not contain an identifier in either the Subject Alternative Name (SAN) or Common Name (CN) that matches the reference identifier. The evaluator shall verify that the connection fails.</test>
-              <test>The evaluator shall present a server certificate that contains a CN that matches the reference identifier, contains the SAN extension, but does not contain an identifier in the SAN that matches the reference identifier. The evaluator shall verify that the connection fails. The evaluator shall repeat this test for each supported SAN type.</test>
-              <test>If the <abbr linkend="TOE "/> does not mandate the presence of the SAN extension, the evaluator shall present a server certificate that contains a CN that matches the reference identifier and does not contain the SAN extension. The evaluator shall verify that the connection succeeds. If the <abbr linkend="TOE "/> does mandate the presence of the SAN extension, this Test shall be omitted.</test>
-              <test>The evaluator shall present a server certificate that contains a CN that does not match the reference identifier but does contain an identifier in the SAN that matches. The evaluator shall verify that the connection succeeds.</test>
-              <test>The evaluator shall perform the following wildcard tests with each supported type of reference identifier:
-                <htm:ul>
-                  <htm:li>The evaluator shall present a server certificate containing a wildcard that is not in the left-most label of the presented identifier (e.g. foo.*.example.com) and verify that the connection fails.</htm:li>
-                  <htm:li>The evaluator shall present a server certificate containing a wildcard in the left-most label but not preceding the public suffix (e.g. *.example.com). The evaluator shall configure the reference identifier with a single left-most label (e.g. foo.example.com) and verify that the connection succeeds. The evaluator shall configure the reference identifier without a left-most label as in the certificate (e.g. example.com) and verify that the connection fails. The evaluator shall configure the reference identifier with two left-most labels (e.g. bar.foo.example.com) and verify that the connection fails.</htm:li>
-                  <htm:li>The evaluator shall present a server certificate containing a wildcard in the left-most label immediately preceding the public suffix (e.g. *.com). The evaluator shall configure the reference identifier with a single left-most label (e.g. foo.com) and verify that the connection fails. The evaluator shall configure the reference identifier with two left-most labels (e.g. bar.foo.com) and verify that the connection fails.</htm:li>
-                </htm:ul></test>
-              <test>[conditional] If URI or Service name reference identifiers are supported, the evaluator shall configure the DNS name and the service identifier. The evaluator shall present a server certificate containing the correct DNS name and service identifier in the URIName or SRVName fields of the SAN and verify that the connection succeeds. The evaluator shall repeat this test with the wrong service identifier (but correct DNS name) and verify that the connection fails.</test>
-              <test>[conditional] If pinned certificates are supported the evaluator shall present a certificate that does not match the pinned certificate and verify that the connection fails.</test>
-            </testlist>
-          </aactivity>
-        </f-element>-->
-        
-        <!-- Similar to fcs_tlsc_ext.1.3 in package, but package has [selection: with no exceptions, except when override is authorized]. TODO: Do I need to specify a selection?? -->
-       <!--  <f-element id="fcs_tlsc_ext.1.3">
-          <title>The <abbr linkend="TSF"/> shall not establish a trusted channel if the peer certificate is invalid.
-          </title>
-          <note role="application">Validity is determined by the identifier verification, certificate path, the expiration date, and the revocation status in accordance with RFC 5280. Certificate validity shall be tested in accordance with testing performed for <linkref linkend="FIA_X509_EXT.1"/>.<htm:br/><htm:br/>
-            For TLS connections, this channel shall not be established if the peer certificate is invalid. The HTTPS protocol (<linkref linkend="FCS_HTTPS_EXT.1"/>) requires different behavior, though HTTPS is implemented over TLS. This element addresses non-HTTPS TLS connections.</note>
-          <aactivity>
-            <Tests/>The evaluator shall perform the following test:
-            <testlist>
-              <test>The evaluator shall demonstrate that using a certificate without a valid certification path results in the function failing. Using the administrative guidance, the evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function, and demonstrate that the function succeeds. The evaluator then shall delete one of the certificates, and show that the function fails.</test>
-            </testlist>
-          </aactivity>
-        </f-element>--> 
-        
-        <!-- This is fcs_tlsc_ext.2.1 in package, which is selection based and not mandatory. TODO: figure out how to make mutual auth always required -->
-        <!--  <f-element id="fcs_tlsc_ext.1.4">
-          <title>The <abbr linkend="TSF"/> shall support mutual authentication using X.509v3 certificates.
-          </title>
-          <note role="application">The use of X.509v3 certificates for TLS is addressed in <linkref linkend="FIA_X509_EXT.2.1"/>. This requirement adds that this use must include the client must be capable of presenting a certificate to a TLS server for TLS mutual authentication.</note>
-          <aactivity>
-            <TSS/>The evaluator shall ensure that the <abbr linkend="TSS"/> description required per <linkref linkend="FIA_X509_EXT.2.1"/> includes the use of client-side certificates for TLS mutual authentication.<htm:br/><htm:br/>
-            <Guidance/>
-            The evaluator shall verify that the AGD guidance required per <linkref linkend="FIA_X509_EXT.2.1"/> includes instructions for configuring the client-side certificates for TLS mutual authentication.<htm:br/><htm:br/>
-            <Tests/>
-            The evaluator shall also perform the following test:
-            <testlist>
-              The evaluator shall perform the following modification to the traffic:<htm:br/>
-              <test> The evaluator shall establish a connection to a peer server that is not configured for mutual authentication (i.e. does not send Server’s Certificate Request (type 13) message). The evaluator observes negotiation of a TLS channel and confirms that the <abbr linkend="TOE "/> did not send Client’s Certificate message (type 11) during handshake.
-                 </test> 
-              <test>  The evaluator shall establish a connection to a peer server with a shared trusted root that is configured for mutual authentication (i.e. it sends Server’s Certificate Request (type 13) message). The evaluator observes negotiation of a TLS channel and confirms that the <abbr linkend="TOE "/> responds with a non-empty Client’s Certificate message (type 11) and Certificate Verify (type 15) message.</test>
-            </testlist>
-          </aactivity>
-        </f-element>-->
-     <!--   </f-component>
-      -->
-      
-      <!-- This is fcs_tlsc_ext.5 in the package. Same selection applies, so no changes need -->
-       <!--  <f-component id="fcs_tlsc_ext.2" name="Extended: TLS Protocol" status="sel-based">
-          <selection-depends req="fcs_tlsc_ext.1.1" ids="tlsc_1,tlsc_2,tlsc_3,tlsc_4,tlsc_5,tlsc_6,tlsc_7,tlsc_8"/>
-          <f-element id="fcs_tlsc_ext.2.1">
-            <title>The <abbr linkend="TSF"/> shall present the Supported Elliptic Curves Extension in the Client Hello handshake message with the following NIST curves: 
-              <selectables>
-                <selectable>secp256r1</selectable>
-                <selectable>secp384r1</selectable>
-                <selectable>secp521r1</selectable>
-              </selectables>.
-            </title>
-            <note role="application"> If an elliptic-curve ciphersuite is selected in <linkref linkend="FCS_TLSC_EXT.1.1"/>, then <linkref linkend="FCS_TLSC_EXT.2.1"/> shall be included in the <abbr linkend="ST"/>. This requirement does not limit the elliptic curves the client may propose for authentication and key agreement.  Rather, it asks the <abbr linkend="ST"/> author to define which of the NIST curves from <linkref linkend="FCS_COP.1(3)"/> and <linkref linkend="FCS_CKM.1"/> and <linkref linkend="FCS_CKM.2(1)"/> the <abbr linkend="TOE"/> supports. This extension is required for clients supporting Elliptic Curve ciphersuites.</note>
-            <aactivity>The evaluator shall verify that <abbr linkend="TSS"/> describes the Supported Elliptic Curves Extension and whether the required behavior is performed by default or may be configured. If the <abbr linkend="TSS"/> indicates that the Supported Elliptic Curves Extension must be configured to meet the requirement, the evaluator shall verify that AGD guidance includes configuration of the Supported Elliptic Curves Extension.<htm:br/><htm:br/>
-              <testlist>
-                <test> The evaluator shall configure a server to perform ECDHE key exchange using each of the <abbr linkend="TOE"/>’s supported curves and shall verify that the <abbr linkend="TOE"/> successfully connects to the server.</test>
-              </testlist>
-            </aactivity>
-          </f-element>
-        </f-component>--> 
-        
-        
-        <!--   <f-component id="fcs_tlsc_ext.3" name="Extended: TLS Protocol" status="objective">-->
-           <!-- Exactly the same in package -->
-           <!-- <f-element id="fcs_tlsc_ext.3.1">
-            <title>The <abbr linkend="TSF"/> shall present the signature_algorithms extension in the Client Hello with the supported_signature_algorithms value containing the following hash algorithms: 
-              <selectables>
-                <selectable>SHA256</selectable>
-                <selectable>SHA384</selectable>
-                <selectable>SHA512</selectable>
-              </selectables> and no other hash algorithms.</title>
-            <note role="application">This requirement limits the hashing algorithms supported for the purpose of digital signature verification by the client and limits the server to the supported hashes for the purpose of digital signature generation by the server. The signature_algorithm extension is only supported by TLS 1.2.</note>
-            <aactivity>The evaluator shall verify that <abbr linkend="TSS"/> describes the signature_algorithm extension and whether the required behavior is performed by default or may be configured. If the <abbr linkend="TSS"/> indicates that the signature_algorithm extension must be configured to meet the requirement, the evaluator shall verify that AGD guidance includes configuration of the signature_algorithm extension.<htm:br/><htm:br/>
-              The evaluator shall also perform the following test:
-              <testlist>
-                <test>The evaluator shall configure the server to send a certificate in the TLS connection that is not supported according to the Client’s HashAlgorithm enumeration within the signature_algorithms extension (for example, send a certificate with a SHA-1 signature). The evaluator shall verify that the <abbr linkend="TOE"/> disconnects after receiving the server’s Certificate handshake message.</test>
-              </testlist>
-            </aactivity>
-          </f-element>-->
-        <!-- 3.2 and 3.3 are 4.1 and 4.2 in the package and are selection based, which is fine -->
-         <!--  <f-element id="fcs_tlsc_ext.3.2">
-            <title>The <abbr linkend="TSF"/> shall support secure renegotiation through use of the "renegotiation_info" TLS extension in accordance with RFC 5746.</title>
-          </f-element>
-          <f-element id="fcs_tlsc_ext.3.3">
-            <title>The <abbr linkend="TSF"/> shall include (choose only one of)
-              <selectables>
-                <selectable>renegotiation_info extension</selectable>
-                <selectable>TLS_EMPTY_RENEGOTIATION_INFO_SCSV ciphersuite</selectable>
-              </selectables> in the ClientHello message.</title>
-            <note role="application">RFC 5746 defines an extension to TLS that binds renegotiation handshakes to the cryptography in the original handshake.<htm:br/><htm:br/>
-              The ciphersuite included in the selection is a means for clients to be compatible with servers that don’t support the extension. It is recommended that client implementations support both the ciphersuite and the extension.
-            </note>
-            <aactivity>The evaluator shall perform the following tests:
-              <testlist>
-                <test>The evaluator shall use a network packet analyzer/sniffer to capture the traffic between the two TLS endpoints. The evaluator shall verify that either the "renegotiation_info" field or the SCSV ciphersuite is included in the ClientHello packet during the initial handshake.</test>
-                <test>The evaluator shall verify the Client’s handling of ServerHello messages received during the initial handshake that include the "renegotiation_info" extension. The evaluator shall modify the length portion of this field in the ServerHello message to be non-zero and verify that the client sends a failure and terminates the connection. The evaluator shall verify that a properly formatted field results in a successful TLS connection.</test>
-                <test>The evaluator shall verify that ServerHello messages received during secure renegotiation contain the "renegotiation_info" extension. The evaluator shall modify either the "client_verify_data" or "server_verify_data" value and verify that the client terminates the connection.</test>
-              </testlist>
-            </aactivity>
-          </f-element>--> 
-       <!--   </f-component>   -->   
       </subsection>
       
       <subsection id="fdp" title="Class: User Data Protection (FDP)">
@@ -2733,9 +2541,9 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               </TSS>
               Assurance Activity Note: The following tests require the vendor to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
               <htm:br/><htm:br/>
-              <Tests>The evaluator shall write, or the developer shall provide, applications for the purposes of the following tests.
-              <htm:br/><htm:br/>
-             
+              <Tests>
+                The evaluator shall write, or the developer shall provide, applications for the purposes of the following tests.
+              <htm:br/><htm:br/>          
               <testlist>
                 <test>For each system service to which no applications are allowed access, the evaluator shall attempt to access the system service with a test application and verify that the application is not able to access that system service.</test>
                 <test>For each system service to which only privileged applications are allowed access, the evaluator shall attempt to access the system service with an unprivileged application and verify that the application is not able to access that system service. The evaluator shall attempt to access the system service with a privileged application and verify that the application can access the service.</test>
@@ -2797,13 +2605,11 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               <selectable>no exceptions</selectable>
             </selectables>.</title>
             <aactivity>
-              <!-- TODO: Look at -->Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products.<htm:br/><htm:br/>
               <Tests>
+                <htm:b>Assurance Activity Note:</htm:b> The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products.<htm:br/><htm:br/>
               <testlist>                
-                <test>The evaluator shall write, or the developer shall provide, an application that attempts to store a file with both write and execute permissions. If the selection is "no exceptions", then the evaluator shall verify that this action fails and that the permissions on the file are not simultaneously write and execute.  If the selection is "application's private data folder", then the evaluator shall ensure that the attempt to store the file is outside of the application's private data folder.</test>
-                
-                <test>The evaluator shall traverse the file system examining the permission on each <abbr linkend="TSF"/> file to verify that no file has both write and execute permissions set.  If the selection is "application's private data folder", then only files outside of this folder need to be examined by the evaluator for this test.</test>
-                
+                <test>The evaluator shall write, or the developer shall provide, an application that attempts to store a file with both write and execute permissions. If the selection is "no exceptions", then the evaluator shall verify that this action fails and that the permissions on the file are not simultaneously write and execute.  If the selection is "application's private data folder", then the evaluator shall ensure that the attempt to store the file is outside of the application's private data folder.</test>                
+                <test>The evaluator shall traverse the file system examining the permission on each <abbr linkend="TSF"/> file to verify that no file has both write and execute permissions set.  If the selection is "application's private data folder", then only files outside of this folder need to be examined by the evaluator for this test.</test>              
               </testlist>
               </Tests>
             </aactivity>
@@ -3811,12 +3617,11 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
             <note role="application">The public key referenced is the public key portion of the public-private key pair generated by the <abbr linkend="TOE"/> as specified in <linkref linkend="FCS_CKM.1"/>.</note>
           </f-element>
           <f-element id="fia_x509_ext.4.8">
-            <title>The <abbr linkend="TSF"/> shall validate the chain of certificates from the Root CA certificate in the Trust Anchor Database to the EST Server CA certificate upon receiving a CA Certificates Response. </title>
-            
+            <title>The <abbr linkend="TSF"/> shall validate the chain of certificates from the Root CA certificate in the Trust Anchor Database to the EST Server CA certificate upon receiving a CA Certificates Response. </title>          
             <aactivity>
               <Guidance>The evaluator shall check to ensure that the operational guidance contains instructions on requesting certificates from an EST server, including generating a Certificate Request Message.<htm:br/><htm:br/></Guidance>
               <Tests>
-              The evaluator shall also perform the following tests. Other tests are performed in conjunction with the Assurance Activity listed for <linkref linkend="FCS_TLSC_EXT.1"/>.<htm:br/> <!-- TODO: Update reference -->
+              The evaluator shall also perform the following tests. Other tests are performed in conjunction with the Assurance Activity listed in the Package for Transport Layer Security.<htm:br/>
              <testlist>
                <test>The evaluator shall use the operational guidance to cause the <abbr linkend="TOE"/> to request certificate enrollment from an EST server using the simple enrollment method described in RFC 7030 Section 4.2, authenticating the certificate request to the server using an existing certificate and private key as described by RFC 7030 Section 3.3.2. The evaluator shall confirm that the resulting certificate is successfully obtained and installed in the <abbr linkend="TOE"/> key store.</test><htm:br/>
                <test>The evaluator shall use the operational guidance to cause the <abbr linkend="TOE"/> to request certificate enrollment from an EST server using the simple enrollment method described in RFC 7030 Section 4.2, authenticating the certificate request to the server using a username and password as described by RFC 7030 Section 3.2.3. The evaluator shall confirm that the resulting certificate is successfully obtained and installed in the <abbr linkend="TOE"/> key store.</test><htm:br/>
@@ -5511,12 +5316,13 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               <selectables><selectable>OTA updates</selectable><selectable>no other connections</selectable></selectables>.
             </title>
             <aactivity>
-              <!-- TODO: Look at need to reorder sentences -->
-              <TSS>The evaluator shall examine the  <abbr linkend="TSS"/> to determine that it describes the details of the <abbr linkend="TOE"/> connecting to access points, VPN Gateways, and other trusted IT products in terms of the cryptographic protocols specified in the requirement, along with <abbr linkend="TOE"/>-specific options or procedures that might not be reflected in the specifications. The evaluator shall also confirm that all protocols listed in the  <abbr linkend="TSS"/> are specified and included in the requirements in the <abbr linkend="ST"/>. </TSS>
-              <Guidance> The evaluator shall confirm that the operational guidance contains instructions for establishing the connection to access points, VPN Gateways, and other trusted IT products. 
+              <TSS>
+                The evaluator shall examine the  <abbr linkend="TSS"/> to determine that it describes the details of the <abbr linkend="TOE"/> connecting to access points, VPN Gateways, and other trusted IT products in terms of the cryptographic protocols specified in the requirement, along with <abbr linkend="TOE"/>-specific options or procedures that might not be reflected in the specifications. The evaluator shall also confirm that all protocols listed in the  <abbr linkend="TSS"/> are specified and included in the requirements in the <abbr linkend="ST"/>. <htm:br/><htm:br/>
+                If OTA updates are selected, the  <abbr linkend="TSS"/> shall describe which trusted channel protocol is initiated by the <abbr linkend="TOE"/> and is used for updates.<htm:br/><htm:br/>
+              </TSS>
+              <Guidance> 
+                The evaluator shall confirm that the operational guidance contains instructions for establishing the connection to access points, VPN Gateways, and other trusted IT products. 
               <htm:br/><htm:br/>
-              If OTA updates are selected, the  <abbr linkend="TSS"/> shall describe which trusted channel protocol is initiated by the <abbr linkend="TOE"/> and is used for updates.
-                <htm:br/><htm:br/>
               </Guidance>
               <Tests>
               The evaluator shall also perform the following tests for each protocol listed:
@@ -5993,7 +5799,6 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
     Several of the use cases templates include objective requirements that are strongly desired for the indicated use cases. Readers can expect those requirements to be made mandatory in the next revision of this protection profile, and industry should aim to include that security functionality in products in the near-term. 
     <htm:br/><htm:br/>
     Where selections for a particular requirement are not identified in a use case template, all available selections are equally applicable to the use case. 
-<!-- TODO: Update use cases to say that BT and TLS SFRs are in module/package -->
     <section id="case1" title="[USE CASE 1] Enterprise-owned device for general-purpose enterprise use">
       <ctr id="uc1" ctr-type='Table'>: Enterprise-Owned Template</ctr>
     <htm:table>
@@ -6031,8 +5836,8 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
         <htm:tr><htm:td><linkref linkend="FCS_COP.1.1(3)"/></htm:td><htm:td>Assign a key size of 3072 for RSA or select ECDSA schemes.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FCS_COP.1.1(5)"/></htm:td><htm:td>Select 256 bits.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FCS_RBG_EXT.1.2"/></htm:td><htm:td>Select 256 bits.</htm:td></htm:tr>        
-        <htm:tr><htm:td><linkref linkend="FCS_TLSC_EXT.1.1"/></htm:td><htm:td>Select TLS_RSA_WITH_AES_256_GCM_SHA384 or TLS_ECDHE_ECDSA_WITH AES_256_GCM_SHA384.</htm:td></htm:tr>
-        <htm:tr><htm:td><linkref linkend="FCS_TLSC_EXT.2.1"/></htm:td><htm:td>Select secp384r1, if included in <abbr linkend="ST"/> (if ECC schemes are selected in FCS_CKM.1.1). </htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FCS_TLSC_EXT.1.1 (TLS Package)"/></htm:td><htm:td>Select TLS_RSA_WITH_AES_256_GCM_SHA384 or TLS_ECDHE_ECDSA_WITH AES_256_GCM_SHA384.</htm:td></htm:tr>
+        <htm:tr><htm:td><linkref linkend="FCS_TLSC_EXT.2.1 (TLS Package)"/></htm:td><htm:td>Select secp384r1, if included in <abbr linkend="ST"/> (if ECC schemes are selected in FCS_CKM.1.1). </htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FDP_DAR_EXT.1.2"/></htm:td><htm:td>Select 256 bits.</htm:td></htm:tr>
         <htm:tr><htm:td><linkref linkend="FIA_X509_EXT.2.2"/></htm:td><htm:td>Select either "allow the administrator to choose..." or "not accept the certificate".</htm:td></htm:tr>  
         <htm:tr><htm:td><linkref linkend="FMT_MOF_EXT.1.2"/> Function 3</htm:td><htm:td>Include in <abbr linkend="ST"/>.</htm:td></htm:tr>
