@@ -10,40 +10,63 @@
     - <selectables onlyone="yes"> for all selections where only one item can be selected
     - <selectable id= " "/> and selection depends ids for the selectable SFRs 
     
-    - Need to require mutual auth (FCS_DTLSC_EXT.2.1 from package), need to not allow SHA1 cipher suites, selection for FCS_DTLSC_EXT.1.3 to not allow exceptions for when server cert is invalid.  
-    - MDF fcs_tlsc_ext.1.3 is similar to fcs_tlsc_ext.1.3 in package, but package has [selection: with no exceptions, except when override is authorized]. Do I need to specify a selection?? MDF: The <abbr linkend="TSF"/> shall not establish a trusted channel if the peer certificate is invalid.
+- Joe - TD 366
+
+- IF BT HW exists then mandatory, if HW does not exist then not mandatory
+
+- How do I disallow SHA1 cipher suites for TLS, but FCS_COP still allows it because WLAN client needs it - so can't use MDM app note in MDF to say that ciphersuites must align with FCS_COP.1
+      - App Note: 
+            If the ST author selects "mutually authenticated TLS as defined in the Package for Transport Layer Security" or "mutually authenticated DTLS as defined in the Package for Transport Layer Security", the TSF must be validated against requirements from the Package for Transport Layer Security, with the following selections made:
+          FCS_TLS_EXT.1:
+              - either TLS or DTLS is selected depending on the selection made in FTP_ITC.1.1(1)
+              - either client or server is selected as appropriate
+          FCS_TLSC_EXT.1.1 or FCS_TLSS_EXT.1.1 (as appropriate):
+              - The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.
+              - mutual authentication must be selected
+          FCS_DTLSC_EXT.1.1 or FCS_DTLSS_EXT.1.1 (as appropriate):
+              - The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.
+              - mutual authentication must be selected
+    
+    - selection for FCS_TLSC_EXT.1.3 and FCS_DTLS_EXT.1.3 (in package) to not allow exceptions for when server cert is invalid.  
+            - MDF fcs_tlsc/dtls_ext.1.3 is similar to fcs_tlsc/dtls_ext.1.3 in package, but package has [selection: with no exceptions, except when override is authorized]. How do I specify which selection has to be made?? MDF: The <abbr linkend="TSF"/> shall not establish a trusted channel if the peer certificate is invalid. However, HTTPS over TLS requires different behavior, though HTTPS is implemented over TLS. This element addresses non-HTTPS TLS connections.
 
 -->
 
 <!-- DONE:
     - BT - keep SFRs mapped to MDF objectives, but need to update SFR numbers - DONE
     - All TDs as of 2019_09_01
+    - mutual auth required for TLS and DTLS
 
 -->
 
+
+
+
 <!-- NOTE: 
-  - TLS package is mandatory in MDF, FDP_UPC_EXT.1 mandates it  
+  - TLS package is mandatory in MDF, FDP_UPC_EXT.1 and FTP_ITC_EXT.1.1 mandates it
+  - TLS package SFRs will still be mapped to objectives and included in audit table (FAU_GEN) in MDF
 
---> 
-
-<!-- TODO: I do not want to allow SHA1 for TLS, but FCS_COP in MDF still allows it because WLAN client needs it - so can't use MDM app note in MDF to say that ciphersuites must align with FCS_COP.1-->
-
-<!-- Mapping to TLS Package: Client
+Mapping to TLS Package: Client
      MDF   Package
      1.1 = 1.1
      1.2 = 1.2
      1.3 ~ 1.3
-     1.4 (man) = 2.1 (sel-based) - TODO: figure out how to make mutual auth for TLS mandatory
+     1.4 (man) = 2.1 (sel-based) - mandating mutual auth to be selected so 2.1 becomes mandatory
      2.1 = 5.1
      3.1 = 3.1
      3.2 (man) = 4.1 (sel-based) - okay
      3.3 (man) = 4.2 (sel-based) - okay
-     -->
-<!-- NIAP: If TLS package and Bluetooth module will be mandatory (if HW exists) do I still map the SFRs to objectives? 
-                        YES!!!! -->
+--> 
 
-<!-- TODO: figure out how to make mutual auth for TLS mandatory or did I already do this? Check how we did it MDM -->
+<!-- NOTE: 
+  - Bluetooth module will be mandatory (if HW exists), 
+  - Bluetooth module SFRs will still be mapped to objectives in MDF, but module has its own audit requirement (FAU_GEN), so BT SFRs will not be included in audit table (FAU_GEN) in MDF
+                       
+Mapping to Bluetooth Module:
+spreadsheet
 
+
+-->
 
 
 <PP xmlns="https://niap-ccevs.org/cc/v1" name="Mobile Device Fundamentals" xmlns:htm="http://www.w3.org/1999/xhtml" boilerplate="yes">
@@ -939,7 +962,9 @@
         <f-component id="fau_sar.1" name="Audit Review" status="objective">
           <f-element id="fau_sar.1.1">
             <title>The <abbr linkend="TSF"/> shall provide <refinement>the administrator</refinement> with the capability to read <refinement>all audited events and record contents</refinement> from the audit records.</title>
-            <note role="application">The administrator shall have access to read the audit record, perhaps through an API or via an <abbr linkend="MDM"/> Agent, which transfers the local records stored on the <abbr linkend="TOE"/> to the <abbr linkend="MDM"/> Server where the enterprise administrator may view them. If this requirement is included in the <abbr linkend="ST"/>, function 32 shall be included in the selection of <linkref linkend="FMT_SMF_EXT.1"/>.</note>
+            <note role="application">
+              The administrator shall have access to read the audit record, perhaps through an API or via an <abbr linkend="MDM"/> Agent, which transfers the local records stored on the <abbr linkend="TOE"/> to the <abbr linkend="MDM"/> Server where the enterprise administrator may view them. If this requirement is included in the <abbr linkend="ST"/>, function 32 shall be included in the selection of <linkref linkend="FMT_SMF_EXT.1"/>.
+            </note>
           </f-element>
           <f-element id="fau_sar.1.2">
             <title>The <abbr linkend="TSF"/> shall provide the audit records in a manner suitable for the user to interpret the information.</title>
@@ -961,11 +986,13 @@
                 <selectable><assignable>other attributes</assignable></selectable>
               </selectables>.
             </title>
-            <note role="application">The intent of this requirement is to identify all criteria that can be selected to trigger an audit event. This can be configured through an interface on the <abbr linkend="TSF"/> for a user or administrator to invoke. For the <abbr linkend="ST"/> author, the assignment is used to list any additional criteria or "none".
+            <note role="application">
+              The intent of this requirement is to identify all criteria that can be selected to trigger an audit event. This can be configured through an interface on the <abbr linkend="TSF"/> for a user or administrator to invoke. For the <abbr linkend="ST"/> author, the assignment is used to list any additional criteria or "none".
             </note>
             <aactivity> 
               <Guidance>
-              The evaluator shall review the administrative guidance to ensure that the guidance itemizes all event types, as well as describes all attributes that are to be selectable in accordance with the requirement, to include those attributes listed in the assignment. The administrative guidance shall also contain instructions on how to set the pre-selection as well as explain the syntax (if present) for multi-value pre-selection. The administrative guidance shall also identify those audit records that are always recorded, regardless of the selection criteria currently being enforced.<htm:br/><htm:br/></Guidance>
+              The evaluator shall review the administrative guidance to ensure that the guidance itemizes all event types, as well as describes all attributes that are to be selectable in accordance with the requirement, to include those attributes listed in the assignment. The administrative guidance shall also contain instructions on how to set the pre-selection as well as explain the syntax (if present) for multi-value pre-selection. The administrative guidance shall also identify those audit records that are always recorded, regardless of the selection criteria currently being enforced.<htm:br/><htm:br/>
+              </Guidance>
               <Tests>
               The evaluator shall also perform the following tests:<htm:br/>
               <testlist>
@@ -1048,11 +1075,10 @@
               The evaluator shall ensure that the <abbr linkend="TSS"/> identifies the key sizes supported by the <abbr linkend="TOE"/>. If the <abbr linkend="ST"/> specifies more than one scheme, the evaluator shall examine the <abbr linkend="TSS"/> to verify that it identifies the usage for each scheme.
               <htm:br/><htm:br/></TSS>
               <Guidance>
-              The evaluator shall verify that the AGD guidance instructs the administrator how to configure the <abbr linkend="TOE"/> to use the selected key generation scheme(s) and key size(s) for all uses defined in this <abbr linkend="PP"/>.
-              <htm:br/><htm:br/></Guidance>
-              <htm:i>Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
-              </htm:i><htm:br/><htm:br/>
+              The evaluator shall verify that the AGD guidance instructs the administrator how to configure the <abbr linkend="TOE"/> to use the selected key generation scheme(s) and key size(s) for all uses defined in this <abbr linkend="PP"/>.<htm:br/><htm:br/>
+              </Guidance>
               <Tests>
+                <htm:b>Assurance Activity Note:</htm:b> The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.<htm:br/><htm:br/>
               <htm:i><htm:b>Key Generation for FIPS PUB 186-4 RSA Schemes</htm:b></htm:i><htm:br/><htm:br/>
               The evaluator shall verify the implementation of RSA Key Generation by the <abbr linkend="TOE"/> using the Key Generation test. This test verifies the ability of the <abbr linkend="TSF"/> to correctly produce values for the key components including the public verification exponent <htm:i>e</htm:i>, the private prime factors <htm:i>p</htm:i> and <htm:i>q</htm:i>, the public modulus n and the calculation of the private signature exponent <htm:i>d</htm:i>.
               <htm:br/><htm:br/>
@@ -1176,16 +1202,13 @@
               <TSS>
               The evaluator shall ensure that the supported key establishment schemes correspond to the key generation schemes identified in <linkref linkend="FCS_CKM.1.1"/>. If the <abbr linkend="ST"/> specifies more than one scheme, the evaluator shall examine the <abbr linkend="TSS"/> to verify that it identifies the usage for each scheme. 
               <htm:br/><htm:br/>
-                If Diffie-Hellman group 14 is selected from <linkref linkend="FCS_CKM.2.1"/>, the TSS shall describe how the implementation meets RFC 3526 Section 3.
-              </TSS>
-              <htm:br/><htm:br/>
+                If Diffie-Hellman group 14 is selected from <linkref linkend="FCS_CKM.2.1"/>, the TSS shall describe how the implementation meets RFC 3526 Section 3.<htm:br/><htm:br/>
+              </TSS>             
               <Guidance>
-              The evaluator shall verify that the AGD guidance instructs the administrator how to configure the <abbr linkend="TOE"/> to use the selected key establishment scheme(s).
-              </Guidance>
-              <htm:br/><htm:br/>
-              Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
-              <htm:br/><htm:br/>
+              The evaluator shall verify that the AGD guidance instructs the administrator how to configure the <abbr linkend="TOE"/> to use the selected key establishment scheme(s).<htm:br/><htm:br/>
+              </Guidance>            
               <Tests>
+                <htm:b>Assurance Activity Note:</htm:b> The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.<htm:br/><htm:br/>
               <htm:br/><htm:br/>
               The evaluator shall verify the implementation of the key establishment schemes supported by the <abbr linkend="TOE"/> using the applicable tests below. 
               <htm:br/><htm:br/>
@@ -1307,18 +1330,17 @@
               The RBG used to generate a <abbr linkend="REK"/> may be a RBG native to the hardware key container or may be an off-device RBG. If performed by an off-device RBG, the device manufacturer shall not be able to access a <abbr linkend="REK"/> after the manufacturing process has been completed. The assurance activities for these two cases differ. 
             </note>
             <aactivity>
-              <!-- TODO: Look at -->
               <TSS>
               The evaluator shall review the <abbr linkend="TSS"/> to determine that a <abbr linkend="REK"/> is supported by the <abbr linkend="TOE"/>, that the <abbr linkend="TSS"/> includes a description of the protection provided by the <abbr linkend="TOE"/> for a <abbr linkend="REK"/>, and that the <abbr linkend="TSS"/> includes a description of the method of generation of a <abbr linkend="REK"/>.
               <htm:br/><htm:br/>
-              The evaluator shall verify that the description of the protection of a <abbr linkend="REK"/> describes how any reading, import, and export of that <abbr linkend="REK"/> is prevented. (For example, if the hardware protecting the <abbr linkend="REK"/> is removable, the description should include how other devices are prevented from reading the <abbr linkend="REK"/>.) The evaluator shall verify that the  <abbr linkend="TSS"/> describes how encryption/decryption/derivation actions are isolated so as to prevent applications and system-level processes from reading the <abbr linkend="REK"/> while allowing encryption/decryption/derivation by the key.
-              <htm:br/><htm:br/>
+              The evaluator shall verify that the description of the protection of a <abbr linkend="REK"/> describes how any reading, import, and export of that <abbr linkend="REK"/> is prevented. (For example, if the hardware protecting the <abbr linkend="REK"/> is removable, the description should include how other devices are prevented from reading the <abbr linkend="REK"/>.) The evaluator shall verify that the  <abbr linkend="TSS"/> describes how encryption/decryption/derivation actions are isolated so as to prevent applications and system-level processes from reading the <abbr linkend="REK"/> while allowing encryption/decryption/derivation by the key.<htm:br/><htm:br/>
+              
               The evaluator shall verify that the description includes how the Rich OS is prevented from accessing the memory containing <abbr linkend="REK"/> key material, which software is allowed access to the <abbr linkend="REK"/>, how any other software in the execution environment is prevented from reading that key material, and what other mechanisms prevent the <abbr linkend="REK"/> key material from being written to shared memory locations between the Rich OS and the separate execution environment.
               <htm:br/><htm:br/>
-              If key derivation is performed using a <abbr linkend="REK"/>, the evaluator shall ensure that the  <abbr linkend="TSS"/> description includes a description of the key derivation function and shall verify the key derivation uses an approved derivation mode and key expansion algorithm according to <linkref linkend="FCS_CKM_EXT.3.2"/>. 
+              If key derivation is performed using a <abbr linkend="REK"/>, the evaluator shall ensure that the <abbr linkend="TSS"/> description includes a description of the key derivation function and shall verify the key derivation uses an approved derivation mode and key expansion algorithm according to <linkref linkend="FCS_CKM_EXT.3.2"/>. 
               <htm:br/><htm:br/>
               The evaluator shall verify that the generation of a <abbr linkend="REK"/> meets the <linkref linkend="FCS_RBG_EXT.1.1"/> and <linkref linkend="FCS_RBG_EXT.1.2"/> requirements:
-              <htm:br/><htm:br/>
+              <htm:br/>
               <htm:ul>
                 <htm:li>If <abbr linkend="REK"/>(s) is/are generated on-device, the  <abbr linkend="TSS"/> shall include a description of the generation mechanism including what triggers a generation, how the functionality described by <linkref linkend="FCS_RBG_EXT.1"/> is invoked, and whether a separate instance of the RBG is used for <abbr linkend="REK"/>(s).</htm:li>
                 <htm:li>If <abbr linkend="REK"/>(s) is/are generated off-device, the  <abbr linkend="TSS"/> shall include evidence that the RBG meets <linkref linkend="FCS_RBG_EXT.1"/>. This will likely necessitate a second set of RBG documentation equivalent to the documentation provided for the RBG assurance activities. In addition, the  <abbr linkend="TSS"/> shall describe the manufacturing process that prevents the device manufacturer from accessing any <abbr linkend="REK"/>(s).</htm:li>
@@ -1476,7 +1498,7 @@
                 <selectable>Generate the <abbr linkend="KEK"/> using an RBG that meets this profile (as specified in <linkref linkend="FCS_RBG_EXT.1"/>)</selectable>
                 <selectable>Generate the <abbr linkend="KEK"/> using a key generation scheme that meets this profile (as specified in <linkref linkend="FCS_CKM.1"/>)</selectable>
                 <selectable>Combine the <abbr linkend="KEK"/> from other <abbr linkend="KEK"/>s in a way that preserves the effective entropy of each factor by 
-                      <selectables>
+                  <selectables>
                         <selectable>using an XOR operation</selectable>
                         <selectable>concatenating the keys and using a KDF (as described in SP 800-108)</selectable>
                         <selectable>concatenating the keys and using a KDF (as described in SP 800-56C)</selectable>
@@ -1490,7 +1512,6 @@
               <htm:br/><htm:br/>
               It is expected that key generation derived from conditioning, using an RBG or generation scheme, and through combination, will each be necessary to meet the requirements set out in this document. In particular, <figref refid="Keys"/> has <abbr linkend="KEK"/>s of each type: KEK_3 is generated, KEK_1 is derived from a Password Authentication Factor, and KEK_2 is combined from two <abbr linkend="KEK"/>s. In <figref refid="Keys"/>, KEK_3 may either be a symmetric key generated from an RBG or an asymmetric key generated using a key generation scheme according to <linkref linkend="FCS_CKM.1"/>.
               <htm:br/><htm:br/>
-
               If combined, the <abbr linkend="ST"/> author shall describe which method of combination is used in order to justify that the effective entropy of each factor is preserved.
               <htm:br/><htm:br/>
               The documentation of the product's encryption key management should be detailed enough that, after reading, the evaluator will thoroughly understand the product's key management and how it meets the requirements to ensure the keys are adequately protected. This documentation should include an essay and diagram(s). This documentation is not required to be part of the  <abbr linkend="TSS"/> - it can be submitted as a separate document and marked as developer proprietary.
@@ -1498,33 +1519,28 @@
               SP 800-56C specifies a two-step key derivation procedure that employs an extraction-then-expansion technique for deriving keying material from a shared secret generated during a key establishment scheme. The Randomness Extraction step as described in Section 5 of SP 800-56C is followed by Key Expansion using the key derivation functions defined in SP 800-108 (as described in Section 6 of SP 800-56C).                    
             </note>
             <aactivity>
-              <!-- TODO: Look at -->
-              <TSS>The evaluator shall examine the key hierarchy section of the <abbr linkend="TSS"/> to ensure that the formation of all <abbr linkend="KEK"/>s is described and that the key sizes match that described by the <abbr linkend="ST"/> author. The evaluator shall examine the key hierarchy section of the  <abbr linkend="TSS"/> to ensure that each key (<abbr linkend="DEK"/>s, software-based key storage, and <abbr linkend="KEK"/>s) is encrypted by keys of equal or greater security strength using one of the selected methods.
-              <htm:br/>
-              <htm:ul>
-                <htm:li>The evaluator shall review the  <abbr linkend="TSS"/> to verify that it contains a description of the conditioning use to derive <abbr linkend="KEK"/>s. This description must include the size and storage location of salts. This activity may be performed in combination with that for <linkref linkend="FCS_COP.1(5)"/>.</htm:li>
-                <htm:li>If the symmetric <abbr linkend="KEK"/> is generated by an RBG, the evaluator shall review the  <abbr linkend="TSS"/> to determine that it describes how the functionality described by <linkref linkend="FCS_RBG_EXT.1"/> is invoked. The evaluator uses the description of the RBG functionality in <linkref linkend="FCS_RBG_EXT.1"/> or documentation available for the operational environment to determine that the key size being requested is greater than or equal to the key size and mode to be used for the encryption/decryption of the data.</htm:li>
-                <htm:li>If the <abbr linkend="KEK"/> is generated according to an asymmetric key scheme, the evaluator shall review the  <abbr linkend="TSS"/> to determine that it describes how the functionality described by <linkref linkend="FCS_CKM.1"/> is invoked. The evaluator uses the description of the key generation functionality in <linkref linkend="FCS_CKM.1"/> or documentation available for the operational environment to determine that the key strength being requested is greater than or equal to 112 bits.</htm:li>
-                <htm:li>If the <abbr linkend="KEK"/> is formed from a combination, the evaluator shall verify that the  <abbr linkend="TSS"/> describes the method of combination and that this method is either an XOR, a KDF, or encryption. </htm:li>
-              </htm:ul>
-              <htm:br/>
-              (conditional) If a KDF is used, the evaluator shall ensure that the  <abbr linkend="TSS"/> includes a description of the key derivation function and shall verify the key derivation uses an approved derivation mode and key expansion algorithm according to SP 800-108. 
-              <htm:br/><htm:br/>
-              If "concatenating the keys and using a KDF (as described in (SP 800-56C)" is selected, the evaluator shall ensure the <abbr linkend="TSS"/> includes a description of the randomness extraction step. 
-              <htm:ul>
-                <htm:li>The description must include how an approved untruncated MAC function is being used for the randomness extraction step and the evaluator must verify the <abbr linkend="TSS"/> describes that the output length (in bits) of the MAC function is at least as large as the targeted security strength (in bits) of the parameter set employed by the key establishment scheme (see Tables 1-3 of SP 800-56C).</htm:li>
-                <htm:li>The description must include how the MAC function being used for the randomness extraction step is related to the PRF used in the key expansion and verify the <abbr linkend="TSS"/> description includes the correct MAC function:</htm:li>
+              <TSS>
+                The evaluator shall examine the key hierarchy section of the <abbr linkend="TSS"/> to ensure that the formation of all <abbr linkend="KEK"/>s are described and that the key sizes match that described by the <abbr linkend="ST"/> author. The evaluator shall examine the key hierarchy section of the  <abbr linkend="TSS"/> to ensure that each key (<abbr linkend="DEK"/>s, software-based key storage, and <abbr linkend="KEK"/>s) is encrypted by keys of equal or greater security strength using one of the selected methods.<htm:br/><htm:br/>                    
+                The evaluator shall review the <abbr linkend="TSS"/> to verify that it contains a description of the conditioning use to derive <abbr linkend="KEK"/>s. This description must include the size and storage location of salts. This activity may be performed in combination with that for <linkref linkend="FCS_COP.1(5)"/>.<htm:br/><htm:br/> 
+                (conditional) If the symmetric <abbr linkend="KEK"/> is generated by an RBG, the evaluator shall review the  <abbr linkend="TSS"/> to determine that it describes how the functionality described by <linkref linkend="FCS_RBG_EXT.1"/> is invoked. The evaluator uses the description of the RBG functionality in <linkref linkend="FCS_RBG_EXT.1"/> or documentation available for the operational environment to determine that the key size being requested is greater than or equal to the key size and mode to be used for the encryption/decryption of the data.<htm:br/><htm:br/> 
+                (conditional) If the <abbr linkend="KEK"/> is generated according to an asymmetric key scheme, the evaluator shall review the  <abbr linkend="TSS"/> to determine that it describes how the functionality described by <linkref linkend="FCS_CKM.1"/> is invoked. The evaluator uses the description of the key generation functionality in <linkref linkend="FCS_CKM.1"/> or documentation available for the operational environment to determine that the key strength being requested is greater than or equal to 112 bits.<htm:br/><htm:br/> 
+                (conditional) If the <abbr linkend="KEK"/> is formed from a combination, the evaluator shall verify that the  <abbr linkend="TSS"/> describes the method of combination and that this method is either an XOR, a KDF, or encryption.<htm:br/><htm:br/> 
+                (conditional) If a KDF is used, the evaluator shall ensure that the  <abbr linkend="TSS"/> includes a description of the key derivation function and shall verify the key derivation uses an approved derivation mode and key expansion algorithm according to SP 800-108. <htm:br/><htm:br/>
+                (conditional) If "concatenating the keys and using a KDF (as described in (SP 800-56C)" is selected, the evaluator shall ensure the <abbr linkend="TSS"/> includes a description of the randomness extraction step. The description must include <htm:ul>
+                  <htm:li>How an approved untruncated MAC function is being used for the randomness extraction step and the evaluator must verify the <abbr linkend="TSS"/> describes that the output length (in bits) of the MAC function is at least as large as the targeted security strength (in bits) of the parameter set employed by the key establishment scheme (see Tables 1-3 of SP 800-56C).</htm:li>
+                  <htm:li>How the MAC function being used for the randomness extraction step is related to the PRF used in the key expansion and verify the <abbr linkend="TSS"/> description includes the correct MAC function:</htm:li>
                 <htm:ul>
                   <htm:li>If an HMAC-hash is used in the randomness extraction step, then the same HMAC-hash (with the same hash function hash) is used as the PRF in the key expansion step.</htm:li>
                   <htm:li>If an AES-CMAC (with key length 128, 192, or 256 bits) is used in the randomness extraction step, then AES-CMAC with a 128-bit key is used as the PRF in the key expansion step.</htm:li>
                   </htm:ul>
-                <htm:li>The description must include the lengths of the salt values being used in the randomness extraction step and the evaluator shall verify the <abbr linkend="TSS"/> description includes correct salt lengths:</htm:li>
+                <htm:li>The lengths of the salt values being used in the randomness extraction step and the evaluator shall verify the <abbr linkend="TSS"/> description includes correct salt lengths:</htm:li>
                 <htm:ul>
                   <htm:li>If an HMAC-hash is being used as the MAC, the salt length can be any value up to the maximum bit length permitted for input to the hash function hash.</htm:li>
                   <htm:li>If an AES-CMAC is being used as the MAC, the salt length shall be the same length as the AES key (i.e. 128, 192, or 256 bits). </htm:li>
                   </htm:ul>               
-              </htm:ul>
-
+              </htm:ul><htm:br/>               
+              </TSS>
+              <Tests>
               If a KDF is used, the evaluator shall perform one or more of the following tests to verify the correctness of the key derivation function, depending on the mode(s) that are supported.  <ctr-ref refid="KDF"/> maps the data fields to the notations used in SP 800-108 and SP 800-56C.
               <htm:br/><htm:br/>
               <htm:b>
@@ -1541,90 +1557,75 @@
                 <htm:tr><htm:td>Pseudorandom input values I</htm:td><htm:td>K<htm:sub>1</htm:sub> (key derivation key)</htm:td><htm:td>Z (shared secret)</htm:td></htm:tr>
                 <htm:tr><htm:td>Pseudorandom salt values</htm:td><htm:td>n/a</htm:td><htm:td>s</htm:td></htm:tr>
                 <htm:tr><htm:td>Randomness extraction MAC</htm:td><htm:td>n/a</htm:td><htm:td>MAC</htm:td></htm:tr>
-              
-              
-              
-              
-              </htm:table>
-            
+              </htm:table>          
               <htm:br/><htm:br/>
-              <htm:b>Counter Mode Tests:</htm:b>
+              
+                <htm:b>Counter Mode Tests:</htm:b>
               <htm:br/><htm:br/>
-              The evaluator shall determine the following characteristics of the key derivation function:
-              <htm:ul><htm:li>One or more pseudorandom functions that are supported by the implementation (PRF).</htm:li>
+              The evaluator shall determine the following characteristics of the key derivation function:<htm:ul>
+                <htm:li>One or more pseudorandom functions that are supported by the implementation (PRF).</htm:li>
                 <htm:li>One or more of the values {8, 16, 24, 32} that equal the length of the binary representation of the counter (r).</htm:li>
-                  <htm:li>The length (in bits) of the output of the PRF (h).</htm:li>
+                <htm:li>The length (in bits) of the output of the PRF (h).</htm:li>
                 <htm:li>Minimum and maximum values for the length (in bits) of the derived keying material (L). These values can be equal if only one value of L is supported. These must be evenly divisible by h.</htm:li>
-                      <htm:li>Up to two values of L that are NOT evenly divisible by h.</htm:li>
-                      <htm:li>Location of the counter relative to fixed input data: before, after, or in the middle.
-                <htm:ul> 
-                  <htm:li>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value. </htm:li>
+                <htm:li>Up to two values of L that are NOT evenly divisible by h.</htm:li>
+                <htm:li>Location of the counter relative to fixed input data: before, after, or in the middle.<htm:ul>
+                  <htm:li>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
                   <htm:li>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
                   <htm:li>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li>                                  
                 </htm:ul></htm:li>
-                <htm:li>The length (I_length) of the input values I.</htm:li>
-                
+                <htm:li>The length (I_length) of the input values I.</htm:li>           
               </htm:ul><htm:br/>
-              For each supported combination of I_length, MAC, salt, PRF, counter location, value of r, and value of L, the evaluator shall generate 10 test vectors that include pseudorandom input values I, and pseudorandom salt values. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 test vectors for it. For each test vector, the evaluator shall supply this data to the <abbr linkend="TOE"/> in order to produce the keying material output.
-              <htm:br/><htm:br/>
-              
-              The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation.
-              <htm:br/><htm:br/>
-              
+                For each supported combination of I_length, MAC, salt, PRF, counter location, value of r, and value of L, the evaluator shall generate 10 test vectors that include pseudorandom input values I, and pseudorandom salt values. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 test vectors for it. For each test vector, the evaluator shall supply this data to the <abbr linkend="TOE"/> in order to produce the keying material output.<htm:br/><htm:br/>
+                The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation. <htm:br/><htm:br/>
               <htm:b>Feedback Mode Tests:</htm:b>
               <htm:br/>
-              The evaluator shall determine the following characteristics of the key derivation function:<htm:br/>
-              <htm:ul><htm:li>One or more pseudorandom functions that are supported by the implementation (PRF).</htm:li>
+              The evaluator shall determine the following characteristics of the key derivation function:<htm:br/><htm:ul>
+                <htm:li>One or more pseudorandom functions that are supported by the implementation (PRF).</htm:li>
                 <htm:li>The length (in bits) of the output of the PRF (h).</htm:li>
-                  <htm:li>Minimum and maximum values for the length (in bits) of the derived keying material (L). These values can be equal if only one value of L is supported. These must be evenly divisible by h.</htm:li>
-                    <htm:li>Up to two values of L that are NOT evenly divisible by h.</htm:li>
-                      <htm:li>Whether or not zero-length IVs are supported.</htm:li>
-                        <htm:li>Whether or not a counter is used, and if so:
-                          <htm:ul>
-                            <htm:li>One or more of the values {8, 16, 24, 32} that equal the length of the binary representation of the counter (r).</htm:li>
-                            <htm:li>Location of the counter relative to fixed input data: before, after, or in the middle.</htm:li>
-                            <htm:ul><htm:li>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
-                              <htm:li>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
-                              <htm:li>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li>
-                            </htm:ul>
-                          </htm:ul>
-                        </htm:li>
+                <htm:li>Minimum and maximum values for the length (in bits) of the derived keying material (L). These values can be equal if only one value of L is supported. These must be evenly divisible by h.</htm:li>
+                <htm:li>Up to two values of L that are NOT evenly divisible by h.</htm:li>
+                <htm:li>Whether or not zero-length IVs are supported.</htm:li>
+                <htm:li>Whether or not a counter is used, and if so:
+                  <htm:ul>
+                    <htm:li>One or more of the values {8, 16, 24, 32} that equal the length of the binary representation of the counter (r).</htm:li>
+                    <htm:li>Location of the counter relative to fixed input data: before, after, or in the middle.</htm:li>
+                    <htm:ul>
+                      <htm:li>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
+                      <htm:li>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
+                      <htm:li>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li>
+                    </htm:ul>
+                  </htm:ul>
+                </htm:li>
                 <htm:li>The length (I_length) of the input values I.</htm:li>
-                  </htm:ul><htm:br/>
-              For each supported combination of I_length, MAC, salt, PRF, counter location (if a counter is used), value of r (if a counter is used), and value of L, the evaluator shall generate 10 test vectors that include pseudorandom input values I and pseudorandom salt values. If the KDF supports zero-length IVs, five of these test vectors will be accompanied by pseudorandom IVs and the other five will use zero-length IVs. If zero-length IVs are not supported, each test vector will be accompanied by an pseudorandom IV. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 test vectors for it. 
-              <htm:br/><htm:br/>
-              For each test vector, the evaluator shall supply this data to the <abbr linkend="TOE"/> in order to produce the keying material output. The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation.
-              <htm:br/><htm:br/>
-             
-              <htm:b>Double Pipeline Iteration Mode Tests:</htm:b>
-              <htm:br/><htm:br/>
-              The evaluator shall determine the following characteristics of the key derivation function:
-              <htm:br/><htm:br/>
-              <htm:ul><htm:li>One or more pseudorandom functions that are supported by the implementation (PRF).</htm:li>
+              </htm:ul><htm:br/>
+                For each supported combination of I_length, MAC, salt, PRF, counter location (if a counter is used), value of r (if a counter is used), and value of L, the evaluator shall generate 10 test vectors that include pseudorandom input values I and pseudorandom salt values. If the KDF supports zero-length IVs, five of these test vectors will be accompanied by pseudorandom IVs and the other five will use zero-length IVs. If zero-length IVs are not supported, each test vector will be accompanied by an pseudorandom IV. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 test vectors for it.<htm:br/><htm:br/>            
+              For each test vector, the evaluator shall supply this data to the <abbr linkend="TOE"/> in order to produce the keying material output. The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation.<htm:br/><htm:br/>
+                       
+              <htm:b>Double Pipeline Iteration Mode Tests:</htm:b><htm:br/>            
+              The evaluator shall determine the following characteristics of the key derivation function:<htm:br/><htm:ul>
+                <htm:li>One or more pseudorandom functions that are supported by the implementation (PRF).</htm:li>
                 <htm:li>The length (in bits) of the output of the PRF (h).</htm:li>
-                  <htm:li>Minimum and maximum values for the length (in bits) of the derived keying material (L). These values can be equal if only one value of L is supported. These must be evenly divisible by h.</htm:li>
-                    <htm:li>Up to two values of L that are NOT evenly divisible by h.</htm:li>
-                      <htm:li>Whether or not a counter is used, and if so:
-                        <htm:ul>
-                          <htm:li>One or more of the values {8, 16, 24, 32} that equal the length of the binary representation of the counter (r).</htm:li>
-                          <htm:li>Location of the counter relative to fixed input data: before, after, or in the middle.
-                 <htm:ul><htm:li>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
-                              <htm:li>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
-                              <htm:li>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li>
-                            </htm:ul>       
-                        </htm:li>
-                        </htm:ul>
-                      </htm:li>
+                <htm:li>Minimum and maximum values for the length (in bits) of the derived keying material (L). These values can be equal if only one value of L is supported. These must be evenly divisible by h.</htm:li>
+                <htm:li>Up to two values of L that are NOT evenly divisible by h.</htm:li>
+                <htm:li>Whether or not a counter is used, and if so:<htm:ul>
+                  <htm:li>One or more of the values {8, 16, 24, 32} that equal the length of the binary representation of the counter (r).</htm:li>
+                  <htm:li>Location of the counter relative to fixed input data: before, after, or in the middle.
+                    <htm:ul>
+                      <htm:li>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
+                      <htm:li>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li>
+                      <htm:li>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li>
+                    </htm:ul>       
+                  </htm:li>
+                </htm:ul>
+                </htm:li>
                 <htm:li>The length (I_length) of the input values I.</htm:li>
-                      </htm:ul><htm:br/>
-              For each supported combination of I_length, MAC, salt, PRF, counter location (if a counter is used), value of r (if a counter is used), and value of L, the evaluator shall generate 10 test vectors that include pseudorandom input values I, and pseudorandom salt values. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 test vectors for it. 
-              <htm:br/><htm:br/>
+              </htm:ul><htm:br/>
+              For each supported combination of I_length, MAC, salt, PRF, counter location (if a counter is used), value of r (if a counter is used), and value of L, the evaluator shall generate 10 test vectors that include pseudorandom input values I, and pseudorandom salt values. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 test vectors for it. <htm:br/><htm:br/>             
               For each test vector, the evaluator shall supply this data to the <abbr linkend="TOE"/> in order to produce the keying material output. The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation.
-              </TSS>
+              </Tests>
             </aactivity>
           </f-element>
-        </f-component>
-        
+        </f-component>       
         <f-component id="fcs_ckm_ext.4" name="Extended: Key Destruction">         
           <f-element id="fcs_ckm_ext.4.1">
             <title>The <abbr linkend="TSF"/> shall destroy cryptographic keys in accordance with the specified cryptographic key destruction methods: 
@@ -1677,14 +1678,14 @@
               <htm:br/><htm:br/>
               The evaluator shall also verify that, for each type of key, the type of clearing procedure that is performed (cryptographic erase, overwrite with zeros, overwrite with random pattern, or block erase) is listed. If different types of memory are used to store the materials to be protected, the evaluator shall check to ensure that the  <abbr linkend="TSS"/> describes the clearing procedure in terms of the memory in which the data are stored. 
                 <htm:br/><htm:br/>
-              </TSS>
-              Assurance Activity Note 1: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products. 
-              <htm:br/><htm:br/>
-              For each software and firmware key clearing situation (including on system power off, on wipe function, on disconnection of trusted channels, when no longer needed by the trusted channel per the protocol, when transitioning to the locked state, and possibly including immediately after use, while in the locked state) the evaluator shall repeat the following tests. 
-              <htm:br/><htm:br/>
-              For these tests the evaluator shall utilize appropriate development environment (e.g. a Virtual Machine) and development tools (debuggers, simulators, etc.) to test that keys are cleared, including all copies of the key that may have been created internally by the <abbr linkend="TOE"/> during normal cryptographic processing with that key.
-              <htm:br/><htm:br/>
+              </TSS>           
               <Tests>
+                <htm:b>Assurance Activity Note:</htm:b>The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products. 
+                <htm:br/><htm:br/>
+                For each software and firmware key clearing situation (including on system power off, on wipe function, on disconnection of trusted channels, when no longer needed by the trusted channel per the protocol, when transitioning to the locked state, and possibly including immediately after use, while in the locked state) the evaluator shall repeat the following tests. 
+                <htm:br/><htm:br/>
+                For these tests the evaluator shall utilize appropriate development environment (e.g. a Virtual Machine) and development tools (debuggers, simulators, etc.) to test that keys are cleared, including all copies of the key that may have been created internally by the <abbr linkend="TOE"/> during normal cryptographic processing with that key.
+                <htm:br/><htm:br/>
               <testlist>
                 <test>
                   Applied to each key held as plaintext in volatile memory and subject to destruction by overwrite by the <abbr linkend="TOE"/> (whether or not the plaintext value is subsequently encrypted for storage in volatile or non-volatile memory). In the case where the only selection made for the destruction method key was removal of power, then this test is unnecessary. The evaluator shall:
@@ -1762,15 +1763,16 @@
           <f-element id="fcs_ckm_ext.5.2">
             <title>The <abbr linkend="TSF"/> shall perform a power cycle on conclusion of the wipe procedure.
             </title>
-            <note role="application">The <abbr linkend="ST"/> author shall select which method of wipe the <abbr linkend="TSF"/> performs.</note>
+            <note role="application">
+              The <abbr linkend="ST"/> author shall select which method of wipe the <abbr linkend="TSF"/> performs.</note>
             <aactivity>
               <TSS>
               The evaluator shall check to ensure the  <abbr linkend="TSS"/> describes how the device is wiped; and the type of clearing procedure that is performed (cryptographic erase or overwrite) and, if overwrite is performed, the overwrite procedure (overwrite with zeros, overwrite three or more times by a different alternating pattern, overwrite with random pattern, or block erase). If different types of memory are used to store the data to be protected, the evaluator shall check to ensure that the  <abbr linkend="TSS"/> describes the clearing procedure in terms of the memory in which the data are stored (for example, data stored on flash are cleared by overwriting once with zeros, while data stored on the internal persistent storage device are cleared by overwriting three times with a random pattern that is changed before each write).
                 <htm:br/><htm:br/>
-              </TSS>
-              Assurance Activity Note: The following test may require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
-              <htm:br/><htm:br/>
+              </TSS>             
               <Tests>
+                <htm:b>Assurance Activity Note:</htm:b> The following test may require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
+                <htm:br/><htm:br/>
               The evaluator shall perform one of the following tests. The test before and after the wipe command shall be identical. This test shall be repeated for each type of memory used to store the data to be protected. <htm:br/><htm:br/>
               <htm:i>Method 1 for File-based Methods:</htm:i><htm:br/>
               <testlist>
@@ -1845,10 +1847,10 @@
               <htm:br/><htm:br/>
               Note that to comply with the WLAN Client EP, AES CCMP (which uses AES in CCM as specified in SP 800-38C) with cryptographic key size of 128 bits must be implemented. Optionally, AES-CCMP-256 or AES-GCMP-256 with cryptographic key size of 256 bits may be implemented.
             </note>
-            <aactivity>
-              Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
-              <htm:br/><htm:br/>
+            <aactivity>             
             <Tests>
+              <htm:b>Assurance Activity Note:</htm:b> The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
+              <htm:br/><htm:br/>
               <testlist><htm:b><htm:u>AES-CBC Tests</htm:u></htm:b>
                 <test>AES-CBC Known Answer Tests
                   <htm:br/><htm:br/>
@@ -2054,9 +2056,10 @@
               </selectables>.
             </title>
             <note role="application">The <abbr linkend="ST"/> Author should choose the algorithm implemented to perform digital signatures; if more than one algorithm is available, this requirement should be iterated to specify the functionality. For the algorithm chosen, the <abbr linkend="ST"/> author should make the appropriate assignments/selections to specify the parameters that are implemented for that algorithm. </note> 
-            <aactivity>Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
-              <htm:br/>
+            <aactivity>
               <Tests>
+                <htm:b>Assurance Activity Note:</htm:b> The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
+                <htm:br/><htm:br/>
               <testlist>
                 <test><htm:b>ECDSA Algorithm Tests</htm:b><htm:br/>
                   <testlist>
@@ -2099,10 +2102,10 @@
           <aactivity>
             <TSS>
             The evaluator shall examine the  <abbr linkend="TSS"/> to ensure that it specifies the following values used by the HMAC function: key length, hash function used, block size, and output MAC length used. </TSS>
-            <htm:br/><htm:br/>
-            Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
-            <htm:br/><htm:br/>
+            <htm:br/><htm:br/>           
             <Tests>
+              <htm:b>Assurance Activity Note:</htm:b> The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
+              <htm:br/><htm:br/>
             For each of the supported parameter sets, the evaluator shall compose 15 sets of test data. Each set shall consist of a key and message data. The evaluator shall have the <abbr linkend="TSF"/> generate HMAC tags for these sets of test data. The resulting MAC tags shall be compared to the result of generating HMAC tags with the same key and IV using a known good implementation.</Tests>
           </aactivity>
         </f-element>
@@ -2138,15 +2141,18 @@
             </title>
           </f-element>
           <f-element id="fcs_https_ext.1.2">
-            <title>The <abbr linkend="TSF"/> shall implement HTTPS using TLS in accordance with the Package for Transport Layer Security. 
+            <title>The <abbr linkend="TSF"/> shall implement HTTPS using TLS as defined in the Package for Transport Layer Security. 
             </title>
             <note role="application">
               The Package for Transport Layer Security shall be included in the ST.
             </note>
           </f-element>
           <f-element id="fcs_https_ext.1.3">
-            <title>The <abbr linkend="TSF"/> shall notify the application and 
-              <selectables><selectable>not establish the connection</selectable><selectable>request application authorization to establish the connection</selectable><selectable exclusive="yes">no other action</selectable></selectables> if the peer certificate is deemed invalid. 
+            <title>The <abbr linkend="TSF"/> shall notify the application and <selectables>
+              <selectable>not establish the connection</selectable>
+              <selectable>request application authorization to establish the connection</selectable>
+              <selectable exclusive="yes">no other action</selectable>
+            </selectables> if the peer certificate is deemed invalid. 
             </title>
             <note role="application">
               Validity is determined by the certificate path, the expiration date, and the revocation status in accordance with RFC 5280.</note>
@@ -2170,9 +2176,13 @@
           <f-element id="fcs_iv_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall generate IVs in accordance with <ctr-ref refid="ivtable"/>: References and IV Requirements for NIST-approved Cipher Modes.
             </title>
-            <note role="application"><ctr-ref refid="ivtable"/> lists the requirements for composition of IVs according to the NIST Special Publications for each cipher mode. The composition of IVs generated for encryption according to a cryptographic protocol is addressed by the protocol. Thus, this requirement addresses only IVs generated for key storage and data storage encryption. </note>
+            <note role="application">
+              <ctr-ref refid="ivtable"/> lists the requirements for composition of IVs according to the NIST Special Publications for each cipher mode. The composition of IVs generated for encryption according to a cryptographic protocol is addressed by the protocol. Thus, this requirement addresses only IVs generated for key storage and data storage encryption. 
+            </note>
             <aactivity>
-              <TSS>The evaluator shall examine the key hierarchy section of the  <abbr linkend="TSS"/> to ensure that the encryption of all keys is described and the formation of the IVs for each key encrypted by the same <abbr linkend="KEK"/> meets <linkref linkend="FCS_IV_EXT.1"/>.</TSS>
+              <TSS>
+                The evaluator shall examine the key hierarchy section of the  <abbr linkend="TSS"/> to ensure that the encryption of all keys is described and the formation of the IVs for each key encrypted by the same <abbr linkend="KEK"/> meets <linkref linkend="FCS_IV_EXT.1"/>.
+              </TSS>
             </aactivity>
           </f-element>
         </f-component>
@@ -2213,7 +2223,7 @@
                 The evaluator shall also confirm that the operational guidance contains appropriate instructions for configuring the RNG functionality.<htm:br/><htm:br/>
               </Guidance>
               <Tests>
-                Assurance Activity Note: The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
+                <htm:b>Assurance Activity Note:</htm:b> The following tests require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on factory products.
                 <htm:br/><htm:br/>
               The evaluator shall perform 15 trials for the RNG implementation. If the RNG is configurable, the evaluator shall perform 15 trials for each configuration. 
               <htm:br/><htm:br/>
@@ -2237,7 +2247,9 @@
          <f-component id="fcs_rbg_ext.2" name="Extended: Cryptographic Operation (Random Bit Generation)" status="objective">
           <f-element id="fcs_rbg_ext.2.1">
             <title>The <abbr linkend="TSF"/> shall save the state of the deterministic RBG at power-off, and shall use this state as input to the deterministic RBG at startup.</title>
-            <note role="application">The capability to add the state saved at power-off as input to the RBG prevents an RBG that is slow to gather entropy from producing the same output regularly and across reboots. Since there is no guarantee of the protections provided when the state is stored (or a requirement for any such protection), it is assumed that the state is 'known', and therefore cannot contribute entropy to the RBG, but can introduce enough variation that the initial RBG values are not predictable and exploitable.</note>
+            <note role="application">
+              The capability to add the state saved at power-off as input to the RBG prevents an RBG that is slow to gather entropy from producing the same output regularly and across reboots. Since there is no guarantee of the protections provided when the state is stored (or a requirement for any such protection), it is assumed that the state is 'known', and therefore cannot contribute entropy to the RBG, but can introduce enough variation that the initial RBG values are not predictable and exploitable.
+            </note>
             <aactivity>
               <TSS>The evaluation activity for this requirement is captured in the RBG documentation for <appref linkend="entropy"/>. The evaluator shall verify that the documentation describes how the state is generated so as to be available for the next startup, how the state is used as input to the DRBG, and any protection measures used for the state while the <abbr linkend="TOE"/> is powered off. </TSS>
             </aactivity>
@@ -2539,9 +2551,10 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               For any services for which the user may grant access, the evaluator shall ensure that the  <abbr linkend="TSS"/> identifies whether the user is prompted for authorization when the application is installed, or during runtime. The evaluator shall ensure that the operational user guidance contains instructions for restricting application access to system services. 
               <htm:br/><htm:br/>
               </TSS>
-              Assurance Activity Note: The following tests require the vendor to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
-              <htm:br/><htm:br/>
+              
               <Tests>
+                <htm:b>Assurance Activity Note:</htm:b> The following tests require the vendor to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
+                <htm:br/><htm:br/>
                 The evaluator shall write, or the developer shall provide, applications for the purposes of the following tests.
               <htm:br/><htm:br/>          
               <testlist>
@@ -2706,11 +2719,12 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               <TSS>The evaluator shall verify that the  <abbr linkend="TSS"/> section of the <abbr linkend="ST"/> indicates which data is protected by the DAR implementation and what data is considered <abbr linkend="TSF"/> data. The evaluator shall ensure that this data includes all protected data.
               <htm:br/><htm:br/></TSS>
               <Guidance>
-              The evaluator shall review the AGD guidance to determine that the description of the configuration and use of the DAR protection does not require the user to perform any actions beyond configuration and providing the authentication credential. The evaluator shall also review the AGD guidance to determine that the configuration does not require the user to identify encryption on a per-file basis. 
-              <htm:br/><htm:br/></Guidance>
-              Assurance Activity Note: The following test requires the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
-              <htm:br/><htm:br/>
+              The evaluator shall review the AGD guidance to determine that the description of the configuration and use of the DAR protection does not require the user to perform any actions beyond configuration and providing the authentication credential. The evaluator shall also review the AGD guidance to determine that the configuration does not require the user to identify encryption on a per-file basis. <htm:br/><htm:br/>            
+              </Guidance>
+              
               <Tests>
+                <htm:b>Assurance Activity Note:</htm:b> The following test requires the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
+                <htm:br/><htm:br/>
               <testlist>
                 <test>The evaluator shall enable encryption according to the AGD guidance. The evaluator shall create user data (non-system) either by creating a file or by using an application. The evaluator shall use a tool provided by the developer to verify that this data is encrypted when the product is powered off, in conjunction with Test 1 for <linkref linkend="FIA_UAU_EXT.1"/>.</test>
               </testlist>
@@ -2836,24 +2850,24 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
         
         <f-component id="fdp_upc_ext.1" name="Extended: Inter-TSF user data transfer protection" >
           <f-element id="fdp_upc_ext.1.1">
-            <!-- TODO: Look at  -->
             <title>The <abbr linkend="TSF"/> shall provide a means for non-TSF applications executing on the <abbr linkend="TOE"/> to use <htm:ul>
-              <htm:li>TLS in accordance with the Package for Transport Layer Security,</htm:li> 
+              <htm:li>mutually authenticated TLS as defined in the Package for Transport Layer Security,</htm:li> 
               <htm:li>HTTPS,</htm:li> 
               <htm:li>Bluetooth BR/EDR in accordance with the PP-Module for Bluetooth,</htm:li> 
             </htm:ul>and <selectables linebreak="yes">
-              <selectable id="upc_dtls">DTLS in accordance with the Package for Transport Layer Security</selectable>
+              <selectable id="upc_dtls">mutually authenticated DTLS as defined in the Package for Transport Layer Security</selectable>
               <selectable>Bluetooth LE in accordance with the PP-Module for Bluetooth</selectable>
               <selectable>IPsec in accordance with the PP-Module for VPN Client</selectable>
               <selectable>no other protocol</selectable>
             </selectables> to provide a protected communication channel between the non-TSF application and another IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
             </title>
-            <!-- Need to update app note to point to packages/modules -->
-            <note role="application">The intent of this requirement is that one of the selected protocols is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. It should be noted that the FTP_ITC_EXT requires that all <abbr linkend="TSF"/> communications (meaning communications from the device to a gateway) be protected using the protocols indicated in that requirement, so the protocols required by this component ride "on top of" those listed in FTP_ITC_EXT.
+            <!-- TODO: Need to update app note to point to packages/modules -->
+            <note role="application">
+              The intent of this requirement is that one of the selected protocols is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. It should be noted that the <linkref linkend="FTP_ITC_EXT.1"/> requires that all <abbr linkend="TSF"/> communications be protected using the protocols indicated in that requirement, so the protocols required by this component ride "on top of" those listed in <linkref linkend="FTP_ITC_EXT.1"/>.<htm:br/><htm:br/>  
+              It should also be noted that some applications are part of the <abbr linkend="TSF"/>, and <linkref linkend="FTP_ITC_EXT.1"/> requires that <abbr linkend="TSF"/> applications be protected by at least one of the protocols in first selection in <linkref linkend="FTP_ITC_EXT.1"/>. It is not required to have two different implementations of a protocol, or two different protocols, to satisfy both this requirement (for non-TSF apps) and <linkref linkend="FTP_ITC_EXT.1"/> (for <abbr linkend="TSF"/> apps), as long as the services specified are provided.
               <htm:br/><htm:br/>
-              It should also be noted that some applications are part of the <abbr linkend="TSF"/>, and FTP_ITC_EXT requires that <abbr linkend="TSF"/> applications be protected by at least one of the protocols in first selection in <linkref linkend="FTP_ITC_EXT.1"/>. It is not required to have two different implementations of a protocol, or two different protocols, to satisfy both this requirement (for non-TSF apps) and FTP_ITC_EXT (for <abbr linkend="TSF"/> apps), as long as the services specified are provided.
-              <htm:br/><htm:br/>
-              The <abbr linkend="ST"/> author shall list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps. If the <abbr linkend="ST"/> author selects IPsec, the <abbr linkend="TSF"/> shall be validated against the "IPsec Virtual Private Network (VPN) Client Extended Package." <if-opt-app><appref linkend="sel-based"/> contains the requirements for implementing each of the other optional trusted channel protocols. </if-opt-app>The <abbr linkend="ST"/> author must include the security functional requirements for the trusted channel protocol selected in <linkref linkend="FDP_UPC_EXT.1"/> in the main body of the <abbr linkend="ST"/>.
+              The <abbr linkend="ST"/> author shall list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps. 
+              <!-- TODO: Need to update package names and possibly list out specific selections needed -->If the <abbr linkend="ST"/> author selects IPsec, the <abbr linkend="TSF"/> shall be validated against the "IPsec Virtual Private Network (VPN) Client Extended Package." <if-opt-app><appref linkend="sel-based"/> contains the requirements for implementing each of the other optional trusted channel protocols. </if-opt-app>The <abbr linkend="ST"/> author must include the security functional requirements for the trusted channel protocol selected in <linkref linkend="FDP_UPC_EXT.1"/> in the main body of the <abbr linkend="ST"/>.
             </note>
           </f-element>
           <f-element id="fdp_upc_ext.1.2">
@@ -2867,7 +2881,9 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
                 The evaluator shall confirm that the operational guidance contains instructions necessary for configuring the protocol(s) selected for use by the applications.<htm:br/><htm:br/>
               </Guidance>
               <Tests>
-                <!-- ToDo: add aa note -->The evaluator shall write, or the developer shall provide access to, an application that requests protected channel services by the <abbr linkend="TSF"/>. The evaluator shall verify that the results from the protected channel match the expected results according to the API documentation. This application may be used to assist in verifying the protected channel assurance activities for the protocol requirements. 
+                <htm:b>Assurance Activity Note:</htm:b> The following test requires the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
+                <htm:br/><htm:br/>
+                The evaluator shall write, or the developer shall provide access to, an application that requests protected channel services by the <abbr linkend="TSF"/>. The evaluator shall verify that the results from the protected channel match the expected results according to the API documentation. This application may be used to assist in verifying the protected channel assurance activities for the protocol requirements. 
                 The evaluator shall also perform the following tests:
               <testlist>
                 <test>The evaluators shall ensure that the application is able to initiate communications with an external IT entity using each protocol specified in the requirement, setting up the connections as described in the operational guidance and ensuring that communication is successful.
@@ -2966,159 +2982,6 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
             </aactivity>
           </f-element>
         </f-component>
-       
-       <!-- BT Module: This component is exactly the same. -->
-        <!--<f-component id="fia_blt_ext.1" name="Extended: Bluetooth User Authorization">
-          <f-element id="fia_blt_ext.1.1 ">
-            <title>The <abbr linkend="TSF"/> shall require explicit user authorization before pairing with a remote Bluetooth device.
-            </title>
-            <note role="application">User authorization includes explicit actions like affirming the remote device’s name, expressing an intent to connect to the remote device, and entering relevant pairing information (e.g. PINs, numeric codes, or "yes/no" responses). The user must have to explicitly permit all pairing attempts, even when bonding is not taking place.
-              <htm:br/><htm:br/>
-              Because explicit user action must be required to permit pairing, it must not be possible for applications to programmatically enter pairing information (e.g. PINs, numeric codes, or "yes/no" responses) during the pairing process. The absence of public APIs for programmatic authorization is not sufficient to meet this requirement; hidden or private APIs must be absent as well.
-            </note>
-            <aactivity>
-              The evaluator shall examine the  <abbr linkend="TSS"/> to ensure that it contains a description of when user permission is required for Bluetooth pairing, and that this description mandates explicit user authorization via manual input for all Bluetooth pairing, including application use of the Bluetooth trusted channel and situations where temporary (non-bonded) connections are formed. The evaluator shall examine the API documentation provided according to <secref linkend="adv"/> and verify that this API documentation does not include any API for programmatic entering of pairing information (e.g. PINs, numeric codes, or "yes/no" responses) intended to bypass manual user input during pairing.
-              <htm:br/><htm:br/>
-              The evaluator shall examine the AGD guidance to verify that these user authorization screens are clearly identified and instructions are given for authorizing Bluetooth pairings.
-              <htm:br/><htm:br/>
-              The evaluator shall perform the following test: 
-              <htm:br/><htm:br/>
-              <testlist>
-                <test>The evaluator shall perform the following steps:
-                  <htm:br/><htm:br/>
-                  Step 1: Initiate pairing with the <abbr linkend="TOE"/> from a remote Bluetooth device that requests no man-in-the-middle protection, no bonding, and claims to have NoInputNoOutput input-output (IO) capability. (Such a device will attempt to evoke behavior from the <abbr linkend="TOE"/> that represents the minimal level of user interaction that the <abbr linkend="TOE"/> supports during pairing.) 
-                  <htm:br/><htm:br/>
-                  Step 2: Verify that the <abbr linkend="TOE"/> does not permit any Bluetooth pairing without explicit authorization from the user (e.g. the user must have to minimally answer "yes" or "allow" in a prompt). 
-                </test>
-              </testlist>
-            </aactivity>
-          </f-element>
-        </f-component>-->
-        <!-- BT Module: This component is exactly the same. -->
-        <!--  <f-component id="fia_blt_ext.2" name="Extended: Bluetooth Mutual Authentication ">
-          <f-element id="fia_blt_ext.2.1">
-            <title>The <abbr linkend="TSF"/> shall require Bluetooth mutual authentication between devices prior to any data transfer over the Bluetooth link. 
-            </title>
-            <note role="application">If devices are not already paired, the pairing process must be initiated. If the devices are already paired, mutual authentication based on the current link key must succeed before any data passes over the link.</note>
-            <aactivity>The evaluator shall ensure that the  <abbr linkend="TSS"/> describes how data transfer of any type is prevented before the Bluetooth pairing is completed. The  <abbr linkend="TSS"/> shall specifically call out any supported RFCOMM and L2CAP data transfer mechanisms. The evaluator shall ensure that the data transfers are only completed after the Bluetooth devices are paired and mutually authenticated
-              The evaluator shall perform the following test:
-              <testlist>
-                <test>The evaluator shall use a Bluetooth tool to attempt to access <abbr linkend="TOE"/> files using the OBEX Object Push service and verify that pairing and mutual authentication are required by the <abbr linkend="TOE"/> before allowing access. (If the OBEX Object Push service is unsupported on the <abbr linkend="TOE"/>, a different service that transfers data over Bluetooth L2CAP and/or RFCOMM may be used in this test.) </test>
-              </testlist>
-            </aactivity>
-          </f-element>
-        </f-component>-->
-        <!-- BT Module: This component is exactly the same. -->
-        <!--  <f-component id="fia_blt_ext.3" name="Extended: Rejection of Duplicate Bluetooth Connections">
-          <f-element id="fia_blt_ext.3.1">
-            <title>The <abbr linkend="TSF"/> shall discard connection attempts from a Bluetooth device address (BD_ADDR) to which a current connection already exists.
-            </title>
-            <note role="application">If the <abbr linkend="TOE"/> already has a connection to a remote Bluetooth device, a new connection attempt from a device claiming the same Bluetooth device address may be malicious and should be rejected/ignored. Only one connection to a single remote BD_ADDR may be supported at a time.</note>
-            <aactivity>The evaluator shall ensure that the  <abbr linkend="TSS"/> describes how Bluetooth connections are maintained such that two devices with the same Bluetooth device address are not simultaneously connected and such that the initial connection is not superseded by any following connection attempts.
-              <htm:br/><htm:br/>
-              The evaluator shall perform the following test:
-              <testlist>
-                <test>The evaluator shall perform the following steps:
-                  <htm:br/><htm:br/>
-                  Step 1: Make a Bluetooth connection between the <abbr linkend="TOE"/> and a remote Bluetooth device with address a known address (BD_ADDR1). 
-                  <htm:br/><htm:br/>
-                  Step 2: Attempt a connection to the same <abbr linkend="TOE"/> from a second remote Bluetooth device claiming to have a Bluetooth device address matching BD_ADDR1. 
-                  <htm:br/><htm:br/>
-                  Step 3: Using a Bluetooth protocol analyzer, verify that the second connection attempt is ignored by the <abbr linkend="TOE"/> and that the initial connection to the device with BR_ADDR1 is unaffected. 
-                </test>
-              </testlist>
-            </aactivity>
-          </f-element>
-        </f-component>-->
-        <!-- BT Module: This component is exactly the same. -->
-        <!-- <f-component id="fia_blt_ext.4" name="Extended: Secure Simple Pairing">
-          <f-element id="fia_blt_ext.4.1">
-            <title>The <abbr linkend="TOE"/> shall support Bluetooth Secure Simple Pairing, both in the host and the controller. Furthermore, Secure Simple Pairing shall be used during the pairing process if the remote device also supports it. 
-            </title>
-            <note role="application">The Bluetooth host and controller each support a particular version of the Bluetooth Core Specification and a particular set of features. Support for various features is indicated by each side during the Link Manager Protocol (LMP) Features Exchange. Please see the Bluetooth specification (v4.2, Part 2, Vol. C, Sec. 3.2) for feature definitions, including the definitions of Secure Simple Pairing (Controller Support) and Secure Simple Pairing (Host Support). </note>
-            <aactivity>
-              <testlist>
-                <test>The evaluator shall perform the following steps:
-                  <htm:br/><htm:br/>
-                  Step 1: Initiate pairing with the <abbr linkend="TOE"/> from a remote Bluetooth device that supports Secure Simple Pairing. 
-                  <htm:br/><htm:br/>
-                  Step 2: During the pairing process, observe the packets in a Bluetooth protocol analyzer and verify that the <abbr linkend="TOE"/> claims support for both "Secure Simple Pairing (Host Support)" and "Secure Simple Pairing (Controller Support)" during the LMP Features Exchange.
-                  <htm:br/><htm:br/>
-                  Step 3: Verify that Secure Simple Pairing is used during the pairing process.
-                </test>
-              </testlist>
-            </aactivity>
-          </f-element>
-        </f-component> -->
-
-        <!-- BT Module: Component is still objective -->
-        <!--  <f-component id="fia_blt_ext.5" name="Extended: Bluetooth Authentication – Secure Connections Only" status="objective">
-          <f-element id="fia_blt_ext.5.1">
-            <title>The <abbr linkend="TOE"/> shall support Secure Connections Only mode for Bluetooth BR/EDR. </title>
-          </f-element>
-          <f-element id="fia_blt_ext.5.2">
-            <title>The <abbr linkend="TOE"/> shall support Secure Connections Only mode for Bluetooth LE.</title>          
-            <note role="application">The specification states that Secure Connections Only Mode, also called "FIPS Mode", should be used when security is more important than backwards compatibility. 
-              <htm:br/><htm:br/>
-              From the specification, (v4.2, Vol 1, Part A, pp 92-93) "The Host will enforce that the P-256 elliptic curve is used during pairing, the secure authentication sequences are used, and AES-CCM is used for encryption." Also, "if a BR/EDR/LE device is configured in Secure Connections Only Mode, then a transport will only be used when Secure Connections is supported by both devices." Note that AES is always used in LE when encryption is used.
-              <htm:br/><htm:br/>
-              This mode could be enabled or disabled via a user control/menu.
-            </note>
-            <aactivity>
-              <TSS/>The evaluator shall ensure that the <abbr linkend="TSS"/> describes support for Secure Connections Only mode for BR/EDR and LE.
-              <htm:br/><htm:br/>
-              <Tests/>
-              The evaluator shall perform the following tests once for BR/EDR and once for LE:
-              <testlist>
-                <test>The evaluator shall perform the following steps:<htm:br/><htm:br/>
-                  Step 1: Put the <abbr linkend="TOE"/> into Secure Connections Only mode.
-                  <htm:br/><htm:br/>
-                  Step 2: Attempt a pairing to a remote device that does not support Secure Connections Only mode.
-                  <htm:br/><htm:br/>
-                  Step 3: Verify that the pairing attempt fails.
-                </test><htm:br/>
-                <test>The evaluator shall perform the following steps:<htm:br/><htm:br/>
-                  Step 1: Put the <abbr linkend="TOE"/> into Secure Connections Only mode.
-                  <htm:br/><htm:br/>
-                  Step 2: Attempt a pairing to a remote device that contains support Secure Connections Only mode and has Secure Connections Only mode enabled.
-                  <htm:br/><htm:br/>
-                  Step 3: Verify that the pairing attempt succeeds and use a Bluetooth packet sniffer to verify that the parameters of the pairing and encryption are consistent with Secure Connections.
-                </test>
-              </testlist>
-            </aactivity>
-          </f-element>
-        </f-component>
-        -->
-        
-        <!-- BT Module: Component is now mandatory. SFR was split into 6.1 and 7.1, but text the same. -->
-        <!-- TODO: Update SFR references in mapping to objectives  -->
-        <!--  <f-component id="fia_blt_ext.6" name="Extended: Bluetooth User Authorization" status="objective">
-          <f-element id="fia_blt_ext.6.1">
-            <title>The <abbr linkend="TSF"/> shall require explicit user authorization before granting trusted remote devices access to services associated with the following Bluetooth profiles: 
-              <assignable>list of Bluetooth profiles</assignable>, and shall require explicit user authorization before granting untrusted remote devices access to services associated with the following Bluetooth profiles: 
-              <assignable>list of Bluetooth profiles</assignable>.</title>
-            <note role="application">In addition to pairing, it may be appropriate to require explicit user action to authorize a particular remote device to access certain Bluetooth services. The <abbr linkend="TSF"/> may choose to require this additional action for all devices, or only for those devices that do not have a required level of trust. 
-              <htm:br/><htm:br/>
-              The <abbr linkend="TSF"/> might designate certain devices as having a trusted device relationship with the <abbr linkend="TOE"/> and granting them "blanket" access to all services. However, it is strongly preferable that instead, for each service, the <abbr linkend="TSF"/> maintain a list of devices trusted to use that particular service. 
-              <htm:br/><htm:br/>
-              Furthermore, it may be the case that the <abbr linkend="TSF"/> allows movement of devices from the untrusted to the trusted category for a particular service after the user provides explicit authorization for the device to use the service. For example, it may be appropriate to require that the user provide explicit, manual authorization before a remote device may use the OBEX service for an object transfer the first time. The user might be given the option to permit future connections to that service by the particular device without requiring explicit authorization each time.
-              <htm:br/><htm:br/>
-              The <abbr linkend="ST"/> author shall list all Bluetooth profiles and services for which explicit user authorization is required before a remote device can gain access. Any difference in behavior based on whether or not the device has a trusted relationship with the <abbr linkend="TOE"/> for that service must be specified. 
-            </note>
-            <aactivity>
-              <Tests/>
-              The evaluator shall perform the following tests for each service protected according to this requirement:<htm:br/>
-              <testlist>
-                <test>While the service is in active use by an application on the <abbr linkend="TOE"/>, the evaluator shall attempt to gain access to a "protected" Bluetooth service (from the second list in the requirement) from a remote device that does not have the required level of trust to use the service. The evaluator shall verify that the user is explicitly asked for authorization by the <abbr linkend="TOE"/> to allow access to the service for the particular remote device. The evaluator shall deny the authorization on the <abbr linkend="TOE"/> and verify that the remote attempt to access the service fails due to lack of authorization. </test><htm:br/>
-                <test>The evaluator shall repeat Test 1, allow the authorization, and verify that the remote device successfully accesses the service. Note that this connection may involve pairing, if the untrusted remote device has not yet paired with the <abbr linkend="TOE"/>.</test><htm:br/>
-                <test>If the <abbr linkend="TSF"/> implementation differentiates between trusted and untrusted devices when determining if user authorization is required, repeat Test 1 with a service that appears in the second list in the requirement (but not in the first list) and a device that has the required level of trust to use the service. The evaluator shall verify that the user is not prompted for explicit authorization and the connection to the service succeeds.</test><htm:br/>
-                <test>If the <abbr linkend="TSF"/> implementation differentiates between trusted and untrusted devices when determining if user authorization is required, repeat Test 1 with a service that appears in the first list in the requirement and a device that has the required level of trust to use the service. The evaluator shall verify that the user is explicitly asked for authorization by the <abbr linkend="TOE"/> to allow access to the service for the particular remote device. The evaluator shall deny the authorization on the <abbr linkend="TOE"/> and verify that the remote attempt to access the service fails due to lack of authorization. </test><htm:br/>
-                <test>If the <abbr linkend="TSF"/> implementation differentiates between trusted and untrusted devices when determining if user authorization is required, repeat Test 2 with a service that appears in the first list in the requirement and a device that has the required level of trust to use the service.  The evaluator shall verify that the remote device successfully accesses the service if the user explicitly provides authorization.</test>
-              </testlist>
-            </aactivity>
-          </f-element>
-        </f-component>-->
-        
         <f-component id="fia_bmg_ext.1" name="Extended: Accuracy of Biometric Authentication" status="sel-based">
           <selection-depends req="fia_uau.5.1" ids="uau_fing,uau_iris,uau_face,uau_vox,uau_vein,uau_hybr"/>
           <f-element id="fia_bmg_ext.1.1">         
@@ -3247,7 +3110,7 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
             <aactivity>
               <TSS>The testing methodology specified in ISO 19989 Information technology — Security evaluation of presentation attack detection for biometrics <cite linkend="ISO19989"/>  is to be used to determine the efficacy of the <abbr linkend="PAD"/> for the selected attack potential. 
               <htm:br/><htm:br/></TSS>
-              Assurance Activity Note: ISO 19989 is in draft status at the time of publication of this <abbr linkend="PP"/>. Once the ISO standard is published, it shall be used to meet the assurance activity for this requirement. Henniger, Scheuermann, and Kniess <cite linkend="IBPC"/>,  provide a description of attack potential calculation with examples. Until such time as ISO 19989 is published, the vendor shall provide to the lab a description of the <abbr linkend="PAD"/> processing implemented in the <abbr linkend="TSF"/>, test procedures used to validate successful operation of <abbr linkend="PAD"/>, and test data with results of the <abbr linkend="PAD"/> validation testing. The lab may analyze the test procedures and data to validate vendor test results or, optionally, may conduct its own testing.
+              <htm:b>Assurance Activity Note:</htm:b> ISO 19989 is in draft status at the time of publication of this <abbr linkend="PP"/>. Once the ISO standard is published, it shall be used to meet the assurance activity for this requirement. Henniger, Scheuermann, and Kniess <cite linkend="IBPC"/>,  provide a description of attack potential calculation with examples. Until such time as ISO 19989 is published, the vendor shall provide to the lab a description of the <abbr linkend="PAD"/> processing implemented in the <abbr linkend="TSF"/>, test procedures used to validate successful operation of <abbr linkend="PAD"/>, and test data with results of the <abbr linkend="PAD"/> validation testing. The lab may analyze the test procedures and data to validate vendor test results or, optionally, may conduct its own testing.
               <htm:br/><htm:br/>
               <Tests>
               If the lab performs its own testing, it is highly recommended that the vendor provides spoof testing tools, as it is not expected for the lab to create a test procedure for modalities outside of established standards and easily implemented procedures. Labs can also expedite the testing process by purchasing the appropriate spoof kits and recipes from specialized biometrics testing labs.</Tests>
@@ -3255,7 +3118,7 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
           </f-element>
         </f-component>
        
-        <f-component id="fia_pmg_ext.1" name="Extended: Password Management ">
+        <f-component id="fia_pmg_ext.1" name="Extended: Password Management">
           <f-element id="fia_pmg_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall support the following for the Password Authentication Factor: 
               <htm:ol>
@@ -3425,7 +3288,7 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               <Tests>
               The following tests may be performed in conjunction with <linkref linkend="FDP_DAR_EXT.1"/> and <linkref linkend="FDP_DAR_EXT.2"/>.
               <htm:br/><htm:br/>
-              Assurance Activity Note: The following test require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
+              <htm:b>Assurance Activity Note:</htm:b> The following test require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
               <htm:br/><htm:br/>
               <testlist>
                 <test>The evaluator shall enable encryption of protected data and require user authentication according to the AGD guidance. The evaluator shall write, or the developer shall provide access to, an application that includes a unique string treated as protected data.
@@ -3547,10 +3410,9 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               <selectables><selectable id="x509_sys">code signing for system software updates</selectable><selectable id="x509_apps">code signing for mobile applications</selectable><selectable id="x509_sign">code signing for integrity verification</selectable><selectable> 
                 <assignable>other uses</assignable></selectable><selectable>no additional uses</selectable></selectables>. 
             </title>
-            <note role="application">The <abbr linkend="ST"/> author’s first selection shall match the selection of <linkref linkend="FTP_ITC_EXT.1.1"/>. <htm:br/><htm:br/> <!-- TODO: will need to update app note to point to other trusted channel requirements and point to the package -->
-              Certificates may optionally be used for trusted updates of system software (<linkref linkend="FPT_TUD_EXT.2.3"/>) and mobile applications (<linkref linkend="FPT_TUD_EXT.4.1"/>) and for integrity verification (<linkref linkend="FPT_TST_EXT.2(1)"/>). If "code signing for system software updates" or "code signing for mobile applications" is selected <linkref linkend="FPT_TUD_EXT.3.1"/> shall be included in the <abbr linkend="ST"/>. <htm:br/><htm:br/>
-              
-              If <linkref linkend="FPT_TUD_EXT.4.1"/> is included in the <abbr linkend="ST"/>, "code signing for mobile applications" must be included in the selection. </note>
+            <note role="application">The <abbr linkend="ST"/> author’s first selection shall match the selection of <linkref linkend="FDP_UPC_EXT.1.1"/> and <linkref linkend="FTP_ITC_EXT.1.1"/>.<htm:br/><htm:br/> 
+              Certificates may optionally be used for trusted updates of system software (<linkref linkend="FPT_TUD_EXT.2.3"/>) and mobile applications (<linkref linkend="FPT_TUD_EXT.4.1"/>) and for integrity verification (<linkref linkend="FPT_TST_EXT.2(1)"/>). If "code signing for system software updates" or "code signing for mobile applications" is selected <linkref linkend="FPT_TUD_EXT.3.1"/> shall be included in the <abbr linkend="ST"/>. <htm:br/><htm:br/>      
+              If <linkref linkend="FPT_TUD_EXT.4.1"/> is included in the <abbr linkend="ST"/>, "code signing for mobile applications" must be included in the selection.</note>
           </f-element>
           <f-element id="fia_x509_ext.2.2">
             <title>When the <abbr linkend="TSF"/> cannot establish a connection to determine the revocation status of a certificate, the <abbr linkend="TSF"/> shall 
@@ -3724,57 +3586,55 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
         <f-component id="fmt_smf_ext.1" name="Extended: Specification of Management Functions">
           <f-element id="fmt_smf_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall be capable of performing the following management functions: <htm:br/><htm:br/>             
-              <htm:b><ctr id="fmt_smf" ctr-type='Table'>: Management Functions</ctr></htm:b><htm:br/>
-              <htm:br/>
+              <htm:b><ctr id="fmt_smf" ctr-type='Table'>: Management Functions</ctr></htm:b><htm:br/><htm:br/>
               Status Markers:<htm:br/>
               M - Mandatory<htm:br/>
               O - Optional/Objective<htm:br/>             
-
-	      <management-function-set default="O">
-		<manager id="1">Impl.</manager>
-		<manager id="2">User Only</manager>
-		<manager id="3">Admin</manager>
-		<manager id="4">Admin Only</manager>
-		<management-function><text>
-		  <ctr id="pwd" pre="" ctr-type="function">.</ctr> configure password policy:
-		  <htm:ol type="a">
-		    <htm:li>minimum password length</htm:li> 
-		    <htm:li>minimum password complexity</htm:li> 
-		    <htm:li>maximum password lifetime</htm:li>
-		  </htm:ol>
-		</text>
-		<M ref="1"/><_ ref="2"/><M ref="3"/><M ref="4"/>
-		</management-function>
-		<management-function><text>
-		  2. configure session locking policy:
-		  <htm:ol type="a">
-		    <htm:li>screen-lock enabled/disabled</htm:li>
-		    <htm:li>screen lock timeout </htm:li>
-		    <htm:li>number of authentication failures</htm:li>
-		  </htm:ol>
-		</text>
-		<M ref="1"/><_ ref="2"/><M ref="3"/><M ref="4"/>
-		</management-function>
-		<management-function><text>
-		  3. enable/disable the VPN protection:
-		  <htm:ol type="a">                     
-		  <htm:li>across device</htm:li></htm:ol>
-		  <indent><selectables linebreak="yes">
+              <management-function-set default="O">
+                <manager id="1">Impl.</manager>
+                <manager id="2">User Only</manager>
+                <manager id="3">Admin</manager>
+                <manager id="4">Admin Only</manager>
+	        <!-- TODO: Update function numbers with ctr variables -->
+                <management-function><text>
+                  <!-- 1 --><ctr id="pwd" pre="" ctr-type="function">.</ctr> configure password policy:
+                  <htm:ol type="a">
+		              <htm:li>minimum password length</htm:li> 
+		              <htm:li>minimum password complexity</htm:li> 
+		              <htm:li>maximum password lifetime</htm:li>
+                  </htm:ol>
+                </text>
+                <M ref="1"/><_ ref="2"/><M ref="3"/><M ref="4"/>
+                </management-function>
+                <management-function><text>
+		              <!-- 2 --><ctr id="screenlock" pre="" ctr-type="function">.</ctr> configure session locking policy:
+		              <htm:ol type="a">
+		              <htm:li>screen-lock enabled/disabled</htm:li>
+		              <htm:li>screen lock timeout </htm:li>
+		              <htm:li>number of authentication failures</htm:li>
+		              </htm:ol>
+		            </text>
+		            <M ref="1"/><_ ref="2"/><M ref="3"/><M ref="4"/>
+		            </management-function>
+		            <management-function><text>
+		              <!-- 3 --><ctr id="vpn" pre="" ctr-type="function">.</ctr> enable/disable the VPN protection:
+		              <htm:ol type="a">                     
+		              <htm:li>across device</htm:li></htm:ol>
+		              <indent><selectables linebreak="yes">
                     <selectable>b. on a per-app basis</selectable>
                     <selectable>c. on a per-group of applications processes basis</selectable>
                     <selectable>d. no other method</selectable>
-		  </selectables></indent>
+		              </selectables></indent>
+		            </text>
+		            <M ref="1"/>
+		</management-function>
+		<management-function><text>
+		  <!--4--> <ctr id="radios" pre="" ctr-type="function">.</ctr> enable/disable <assignable>list of all radios</assignable>
 		</text>
 		<M ref="1"/>
 		</management-function>
 		<management-function><text>
-		  4. enable/disable 
-		  <assignable>list of all radios</assignable>
-		</text>
-		<M ref="1"/>
-		</management-function>
-		<management-function><text>
-		  5. enable/disable 
+		  <!-- 5. --> <ctr id="audioVisual" pre="" ctr-type="function">.</ctr> enable/disable 
 		  <assignable>list of audio or visual collection devices</assignable>:
 		  <htm:ol type="a">
 		  <htm:li>across device</htm:li></htm:ol>
@@ -3892,31 +3752,7 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
 		<_ ref="4"/>
 
 
-		</management-function>
-	        <!-- BT Module: Contained in Module b and c were combined, but otherwise the same -->
-	        <!-- TODO: Update numbers; try ctr type -->
-	        <!--  
-		<management-function><text>
-		  18. configure the Bluetooth trusted channel:
-		  <htm:ol type="a">              
-		    <htm:li>disable/enable the Discoverable mode (for BR/EDR)</htm:li>
-		    <htm:li>change the Bluetooth device name</htm:li>                       
-		    </htm:ol><indent>
-		    <selectables linebreak="yes">
-                      <selectable>c. change the Bluetooth device name (separately for BR/EDR and LE)</selectable>
-                      <selectable>d. provide separate controls for turning the BR/EDR and LE radios on and off</selectable>
-                      <selectable>e. allow/disallow additional wireless technologies to be used with Bluetooth</selectable> 
-                      <selectable>f. disable/enable Advertising (for LE)</selectable>
-                      <selectable>g. disable/enable the Connectable mode (for BR/EDR and LE)</selectable>
-                      <selectable>h. disable/enable the Bluetooth services and/or profiles available on the device (for BR/EDR and LE)</selectable>
-                      <selectable>i. specify minimum level of security for each pairing (for BR/EDR and LE)</selectable>
-                      <selectable>j. configure allowable methods of Out of Band pairing (for BR/EDR and LE)</selectable>
-                      <selectable>k. no other Bluetooth configuration</selectable>
-		    </selectables></indent>
-		    
-		  </text>
-		  <M ref="1"/>
-		</management-function>-->
+		</management-function>       
 		<management-function><text>
 		  19. enable/disable display notification in the locked state of: 
 		  <selectables linebreak="yes">
@@ -4392,7 +4228,7 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
                 </test><htm:br/>
                 
                 <htm:br/>
-                Assurance Activity Note: It should be noted that the following functions are optional capabilities, if the function is implemented, then the following assurance activities shall be performed. The notation of "[conditional] beside the function number indicates that if the function is not included in the <abbr linkend="ST"/>, then there is no expectation that the assurance activity be performed.
+                <htm:b>Assurance Activity Note:</htm:b> It should be noted that the following functions are optional capabilities, if the function is implemented, then the following assurance activities shall be performed. The notation of "[conditional] beside the function number indicates that if the function is not included in the <abbr linkend="ST"/>, then there is no expectation that the assurance activity be performed.
                 <htm:br/><htm:br/>
                 
                 <htm:b>Function 24 [conditional]</htm:b><htm:br/>
@@ -4573,11 +4409,11 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               Protected data is all non-TSF data, including all user or enterprise data. Some or all of this data may be considered sensitive data as well. If "wipe of protected data" is selected it is assumed that the sensitive data is wiped as well. However, if "wipe of sensitive data" is selected, it does not imply that all non-TSF data (protected data) is wiped. If "wipe of protected data" or "wipe of sensitive data" is selected the wipe shall be in accordance with <linkref linkend="FCS_CKM_EXT.5.1"/>. Thus cryptographically wiping the device is an acceptable remediation action. 
             </note>
             <aactivity>
-              <!-- TODO: Need to look at -->
               <TSS>
-              The evaluator shall verify that the  <abbr linkend="TSS"/> describes all available remediation actions, when they are available for use, and any other administrator-configured triggers. The evaluator shall verify that the  <abbr linkend="TSS"/> describes how the remediation actions are provided to the administrator. 
-              <htm:br/><htm:br/>
-              The evaluator shall use the test environment to iteratively configure the device to perform each remediation action in the selection. The evaluator shall configure the remediation action per how the  <abbr linkend="TSS"/> states it is provided to the administrator. The test environment could be a <abbr linkend="MDM"/> agent application, but can also be an application with administrator access.</TSS>
+              The evaluator shall verify that the  <abbr linkend="TSS"/> describes all available remediation actions, when they are available for use, and any other administrator-configured triggers. The evaluator shall verify that the  <abbr linkend="TSS"/> describes how the remediation actions are provided to the administrator. <htm:br/><htm:br/>
+              </TSS>
+              <Tests>
+              The evaluator shall use the test environment to iteratively configure the device to perform each remediation action in the selection. The evaluator shall configure the remediation action per how the <abbr linkend="TSS"/> states it is provided to the administrator. The test environment could be a <abbr linkend="MDM"/> agent application, but can also be an application with administrator access.</Tests>
              </aactivity>
           </f-element>
         </f-component>      
@@ -4605,7 +4441,7 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
             <aactivity>
               <TSS>The evaluator shall ensure that the  <abbr linkend="TSS"/> section of the <abbr linkend="ST"/> describes how the 8 bits are generated and provides a justification as to why those bits are unpredictable.
               <htm:br/><htm:br/></TSS>
-              Assurance Activity Note: The following test require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. <htm:br/>
+              <htm:b>Assurance Activity Note:</htm:b> The following test require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. <htm:br/>
               <Tests>
                <testlist>
                 <test>The evaluator shall select 3 apps included with the <abbr linkend="TSF"/>. These must include any web browser or mail client included with the <abbr linkend="TSF"/>. For each of these apps, the evaluator shall launch the same app on two separate Mobile Devices of the same type and compare all memory mapping locations. The evaluator must ensure that no memory mappings are placed in the same location on both devices. 
@@ -4669,8 +4505,9 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               The evaluator shall ensure that the  <abbr linkend="TSS"/> provides a description of the means by which unauthorized and undetected modification (that is, excluding cryptographically verified updates per <linkref linkend="FPT_TUD_EXT.2"/>) of the <abbr linkend="TSF"/> data over the wired interface in auxiliary boots modes is prevented. The lack of publicly available tools is not sufficient justification. Examples of sufficient justification include auditing of changes, cryptographic verification in the form of a digital signature or hash, disabling the auxiliary boot modes, and access control mechanisms that prevent writing to files or flashing partitions.
               <htm:br/><htm:br/>
               </TSS>
-              Assurance Activity Note: The following tests require the vendor to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. In addition, the vendor provides a list of files (e.g., system files, libraries, configuration files, audit logs) that make up the <abbr linkend="TSF"/> data. This list could be organized by folders/directories (e.g., /usr/sbin, /etc), as well as individual files that may exist outside of the identified directories. <htm:br/>
+              
               <Tests>
+                <htm:b>Assurance Activity Note:</htm:b> The following tests require the vendor to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. In addition, the vendor provides a list of files (e.g., system files, libraries, configuration files, audit logs) that make up the <abbr linkend="TSF"/> data. This list could be organized by folders/directories (e.g., /usr/sbin, /etc), as well as individual files that may exist outside of the identified directories. <htm:br/>
               <testlist>
                 <test>The evaluator shall create and load an app onto the Mobile Device. This app shall attempt to traverse over all file systems and report any locations to which data can be written or overwritten. The evaluator must ensure that none of these locations are part of the OS software, device drivers, system and security configuration files, key material, or another untrusted application’s image/data. For example, it is acceptable for a trusted photo editor app to have access to the data created by the camera app, but a calculator application shall not have access to the pictures.</test><htm:br/>
                 <test>For each available auxiliary boot mode, the evaluator shall attempt to modify a <abbr linkend="TSF"/> file of their choosing using the software and/or hardware tools described in the  <abbr linkend="TSS"/>. The evaluator shall verify that the modification fails.</test>
@@ -4691,9 +4528,11 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
             <note role="application">The 4 unpredictable bits may be provided by the <abbr linkend="TSF"/> RBG (as specified in <linkref linkend="FCS_RBG_EXT.1"/>). </note>
             <aactivity>
               <TSS>The evaluator shall ensure that the  <abbr linkend="TSS"/> section of the <abbr linkend="ST"/> describes how the 4 bits are generated and provides a justification as to why those bits are unpredictable.
-              <htm:br/><htm:br/></TSS>
-              Assurance Activity Note: The following test require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
+              <htm:br/><htm:br/>
+              </TSS>
+           
               <Tests>
+                <htm:b>Assurance Activity Note:</htm:b> The following test require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products.             
               <testlist>
                 <test>The evaluator shall reboot the <abbr linkend="TOE"/> at least five times. For each of these reboots, the evaluator shall examine memory mapping locations of the kernel. The evaluator must ensure that no memory mappings are placed in the same location on both devices.</test>
               </testlist>
@@ -4783,17 +4622,17 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
             </title>
             <note role="application">This requirement means that access to JTAG shall be disabled either through hardware and/or restricted through the use of a signing key.</note>
             <aactivity>
-              <!-- TODO: Need to look at this -->
+              <TSS>
+                If "disable access through hardware" is selected:<htm:br/>
+                The evaluator shall examine the <abbr linkend="TSS"/> to determine the location of the JTAG ports on the <abbr linkend="TSF"/>, to include the order of the ports (i.e. Data In, Data Out, Clock, etc.).<htm:br/><htm:br/>
+                If "control access by a signing key" is selected:<htm:br/>
+                The evaluator shall examine the <abbr linkend="TSS"/> to determine how access to the JTAG is controlled by a signing key. The evaluator shall examine the <abbr linkend="TSS"/> to determine when the JTAG can be accessed, i.e. what has the access to the signing key.<htm:br/><htm:br/>
+              </TSS>               
               <Tests>
-              If "disable access through hardware" is selected the evaluator shall perform the following test:
-              <htm:br/><htm:br/>
-              Assurance Activity Note: The following test requires the developer to provide access to a test platform that provides the evaluator with chip level access. 
-              <htm:br/><htm:br/>
-              The evaluator shall examine the <abbr linkend="TSS"/> to determine the location of the JTAG ports on the <abbr linkend="TSF"/>, to include the order of the ports (i.e. Data In, Data Out, Clock, etc.). The evaluator shall connect a packet analyzer to the JTAG ports. The evaluator shall query the JTAG port for its device ID and confirm that the device ID cannot be retrieved. <htm:br/><htm:br/>
-              
-              If "control access by a signing key" is selected the evaluator shall perform the following test:<htm:br/><htm:br/>
-              
-              The evaluator shall examine the <abbr linkend="TSS"/> to determine how access to the JTAG is controlled by a signing key. The evaluator shall examine the <abbr linkend="TSS"/> to determine when the JTAG can be accessed, i.e. what has the access to the signing key.
+                <htm:b>Assurance Activity Note:</htm:b> The following test requires the developer to provide access to a test platform that provides the evaluator with chip level access. <htm:br/><htm:br/>
+                
+                If "disable access through hardware" is selected:<htm:br/>              
+               The evaluator shall connect a packet analyzer to the JTAG ports. The evaluator shall query the JTAG port for its device ID and confirm that the device ID cannot be retrieved. <htm:br/><htm:br/>
               </Tests>
             </aactivity>
           </f-element>
@@ -4886,8 +4725,9 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
             <aactivity>
               <TSS>The evaluator shall verify that the  <abbr linkend="TSS"/> describes critical failures that may occur and the actions to be taken upon these critical failures. 
               <htm:br/><htm:br/></TSS>
-              Assurance Activity Note: The following test require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
+              
               <Tests>
+                <htm:b>Assurance Activity Note:</htm:b> The following test require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
               <testlist>
                 <test>The evaluator shall use a tool provided by the developer to modify files and processes in the system that correspond to critical failures specified in the second list. The evaluator shall verify that creating these critical failures causes the device to take the remediation actions specified in the first list.</test>
               </testlist>
@@ -4907,10 +4747,12 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               </TSS>
               <Guidance>
               If the integrity values are provided to the administrator, the evaluator shall verify that the AGD guidance contains instructions for retrieving these values and information for interpreting them. For example, if multiple measurements are taken, what those measurements are and how changes to those values relate to changes in the device state.
-              <htm:br/><htm:br/></Guidance>
-              Assurance Activity Note: The following test may require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
               <htm:br/><htm:br/>
+              </Guidance>
+              
               <Tests>
+                <htm:b>Assurance Activity Note:</htm:b> The following test may require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. 
+              <htm:br/><htm:br/>
               The evaluator shall repeat the following test for each measurement:
               <testlist>
                 <test>The evaluator shall boot the device in an approved state and record the measurement taken (either from the log or by using the administrative guidance to retrieve the value via an <abbr linkend="MDM"/> Agent). The evaluator shall modify the critical memory or value that is measured. The evaluator shall boot the device and verify that the measurement changed. </test>
@@ -4986,11 +4828,11 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               <htm:br/><htm:br/>
               </TSS>
               <Tests>
+               <htm:b>Assurance Activity Note:</htm:b> The following tests require the vendor to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products.<htm:br/><htm:br/>             
               The evaluator shall perform the following tests:
               <testlist>
                 <test>The evaluator shall perform actions to cause <abbr linkend="TSF"/> software to load and observe that the integrity mechanism does not flag any executables as containing integrity errors and that the <abbr linkend="TOE"/> properly boots. </test>
-                <htm:br/>
-                Assurance Activity Note: The following tests require the vendor to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products.<htm:br/><htm:br/>
+                <htm:br/>               
                 <test>The evaluator shall modify a <abbr linkend="TSF"/> executable that is integrity protected and cause that executable to be successfully loaded by the <abbr linkend="TSF"/>. The evaluator observes that an integrity violation is triggered and the <abbr linkend="TOE"/> does not boot. (Care must be taken so that the integrity violation is determined to be the cause of the failure to load the module, and not the fact that the module was modified so that it was rendered unable to run because its format was corrupt).</test><htm:br/>
                 <test>[conditional] If the <abbr linkend="ST"/> author indicates that the integrity verification is performed using a public key, the evaluator shall verify that the update mechanism includes a certificate validation according to FIA_X509_EXT.1. The evaluator shall digitally sign the <abbr linkend="TSF"/> executable with a certificate that does not have the Code Signing purpose in the extendedKeyUsage field and verify that an integrity violation is triggered. The evaluator shall repeat the test using a certificate that contains the Code Signing purpose and verify that the integrity verification succeeds. Ideally, the two certificates should be identical except for the extendedKeyUsage field.</test>
               </testlist>
@@ -5127,7 +4969,7 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
             </title>
             <note role="application">This requirement does not necessitate an X.509v3 certificate or certificate validation. X.509v3 certificates and certificate validation are addressed in <linkref linkend="FPT_TUD_EXT.4.1"/>.</note>
             <aactivity>
-              Assurance Activity Note: The following test does not have to be tested using the commercial application store.
+              <htm:b>Assurance Activity Note:</htm:b> The following test does not have to be tested using the commercial application store.
               <htm:br/><htm:br/>
               <TSS>The evaluator shall verify that the  <abbr linkend="TSS"/> describes how mobile application software is verified at installation. The evaluator shall ensure that this method uses a digital signature. <htm:br/></TSS>
               <Tests>
@@ -5284,28 +5126,29 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
           </f-element>
         </f-component>-->
        
-        <f-component id="ftp_itc_ext.1" name="Extended: Trusted channel Communication">
+        <f-component id="ftp_itc_ext.1" name="Extended: Trusted Channel Communication">
           <f-element id="ftp_itc_ext.1.1">
-            <!-- TODO: Should I move TLS outside of the slection? In previous versions of MDF it was mandatory -->
             <title>The <abbr linkend="TSF"/> shall use <htm:ul>
               <htm:li>802.11-2012 in accordance with the Extended Package for WLAN Clients,</htm:li>
               <htm:li>802.1X in accordance with the Extended Package for WLAN Clients,</htm:li>
               <htm:li>EAP-TLS in accordance with the Extended Package for WLAN Clients,</htm:li>
+              <htm:li>mutually authenticated TLS as defined in the Package for Transport Layer Security</htm:li>
             </htm:ul> and 
               <selectables linebreak="yes">
                 <selectable>IPsec in accordance with the PP-Module for VPN Client</selectable>
-                <selectable>TLS in accordance with the Package for Transport Layer Security</selectable>
-                <selectable id="itc_dtls">DTLS in accordance with the Package for Transport Layer Security</selectable>
+                <selectable id="itc_dtls">mutually authenticated DTLS as defined in the Package for Transport Layer Security</selectable>
                 <selectable>HTTPS</selectable>
               </selectables> protocol to provide a communication channel between itself and another trusted IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
             </title>
-            <note role="application">The intent of the mandatory portion of the above requirement is to use the cryptographic protocols identified in the requirement to establish and maintain a trusted channel between the <abbr linkend="TOE"/> and an access point, VPN Gateway, or other trusted IT product.<htm:br/><htm:br/>
+            <note role="application">
+              
+              The intent of the mandatory portion of the above requirement is to use the cryptographic protocols identified in the requirement to establish and maintain a trusted channel between the <abbr linkend="TOE"/> and an access point, VPN Gateway, or other trusted IT product.<htm:br/><htm:br/>
               The <abbr linkend="ST"/> author shall list which trusted channel protocols are implemented by the Mobile Device. <htm:br/><htm:br/>
-              The <abbr linkend="TSF"/> shall be validated against the Extended Package for WLAN Clients to satisfy the mandatory trusted channels of 802.11-2012, 802.1 X, and EAP-TLS. <htm:br/><htm:br/>
-              <!-- TODO: include if TLS is moved out of the selection: -->
-              <!-- The <abbr linkend="TSF"/> shall be validated against the TLS Functional Package to satisfy the mandatory trusted channel of TLS. <htm:br/><htm:br/>  -->
-              <!-- TODO: include if TLS stays in the selections: -->
-              <!-- If TLS is selected the TLS Functional Package shall be included in the <abbr linkend="ST"/>. <htm:br/><htm:br/>-->
+              The <abbr linkend="TSF"/> shall be validated against the Extended Package for WLAN Clients to satisfy the mandatory trusted channels of 802.11-2012, 802.1X, and EAP-TLS. <htm:br/><htm:br/>
+              The <abbr linkend="TSF"/> shall be validated against the TLS Functional Package to satisfy the mandatory trusted channel of TLS. <!-- TODO: Update to specify selections needed -->
+              
+              
+              <htm:br/><htm:br/>
               If the <abbr linkend="ST"/> author selects IPsec, the <abbr linkend="TSF"/> shall be validated against the IPsec Virtual Private Network (VPN) Client Extended Package. <htm:br/><htm:br/>
               <if-opt-app><appref linkend="sel-based"/> contains the requirements for implementing each of the other optional trusted channel protocols. </if-opt-app>The <abbr linkend="ST"/> author must include the security functional requirements for the trusted channel protocol selected in FTP_ITC_EXT.1 in the main body of the <abbr linkend="ST"/>.
               <htm:br/><htm:br/>
@@ -5345,13 +5188,9 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
     </section>
     <section id="sar" title="Security Assurance Requirements">
       The Security Objectives in <secref linkend="sobj"/> were constructed to address threats identified in <secref linkend="spd"/>. The Security Functional Requirements (<abbr linkend="SFR"/>s) in <secref linkend="sfr"/> are a formal instantiation of the Security Objectives. The PP identifies the Security Assurance Requirements (<abbr linkend="SAR"/>s) to frame the extent to which the evaluator assesses the documentation applicable for the evaluation and performs independent testing.<htm:br/><htm:br/> 
-      
-      This section lists the set of <abbr linkend="SAR"/>s from CC part 3 that are required in evaluations against this PP. Individual Assurance Activities
-      to be performed are specified both in <secref linkend="sfr"/> as well as in this section. <htm:br/><htm:br/>  
-      
-      The general model for evaluation of <abbr linkend="TOE"/>s against <abbr linkend="ST"/>s written to conform to this PP is as follows: <htm:br/> <htm:br/> 
-      
-      After the <abbr linkend="ST"/> has been approved for evaluation, the <abbr class="expanded" title="Information Technology Security Evaluation Facility">ITSEF</abbr> will obtain the <abbr linkend="TOE"/>, supporting environmental IT, and the administrative/user guides for the <abbr linkend="TOE"/>. The ITSEF is expected to perform actions mandated by the Common Evaluation Methodology (CEM) for the ASE and ALC SARs. The ITSEF also performs the Assurance Activities contained within <secref linkend="sfr"/>, which are intended to be an interpretation of the other CEM assurance requirements as they apply to the specific technology instantiated in the <abbr linkend="TOE"/>. The Assurance Activities that are captured in <secref linkend="sfr"/> also provide clarification as to what the developer needs to provide to demonstrate the <abbr linkend="TOE"/> is compliant with the PP. <htm:br/> <htm:br/> 
+      This section lists the set of <abbr linkend="SAR"/>s from CC part 3 that are required in evaluations against this PP. Individual Assurance Activities to be performed are specified both in <secref linkend="sfr"/> as well as in this section. <htm:br/><htm:br/>  
+      The general model for evaluation of <abbr linkend="TOE"/>s against <abbr linkend="ST"/>s written to conform to this PP is as follows:<htm:br/><htm:br/> 
+      After the <abbr linkend="ST"/> has been approved for evaluation, the <abbr class="expanded" title="Information Technology Security Evaluation Facility">ITSEF</abbr> will obtain the <abbr linkend="TOE"/>, supporting environmental IT, and the administrative/user guides for the <abbr linkend="TOE"/>. The ITSEF is expected to perform actions mandated by the Common Evaluation Methodology (CEM) for the ASE and ALC SARs. The ITSEF also performs the Assurance Activities contained within <secref linkend="sfr"/>, which are intended to be an interpretation of the other CEM assurance requirements as they apply to the specific technology instantiated in the <abbr linkend="TOE"/>. The Assurance Activities that are captured in <secref linkend="sfr"/> also provide clarification as to what the developer needs to provide to demonstrate the <abbr linkend="TOE"/> is compliant with the PP. <htm:br/><htm:br/> 
       
       The <abbr linkend="TOE"/> security assurance requirements are identified in <ctr-ref refid="sartable"/>.
       <ctr id="sartable" ctr-type='Table'>: Security Assurance Requirements</ctr>
@@ -5398,10 +5237,7 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
         The <abbr linkend="ST"/> is evaluated as per ASE activities defined in the CEM for ASE_CCL.1, ASE_ECD.1, ASE_INT.1, ASE_OBJ.2, ASE_REQ.2, ASE_SPD.1, and ASE_TSS.1. In addition, there may be Assurance Activities specified within <secref linkend="sfr"/> that call for necessary descriptions to be included in the <abbr linkend="TSS"/> that are specific to the <abbr linkend="TOE"/> technology type.</subsection> 
       <subsection id="adv" title="Class ADV: Development">
         The design information about the <abbr linkend="TOE"/> is contained in the guidance documentation available to the end user as well as the <abbr linkend="TSS"/> portion of the <abbr linkend="ST"/>, and any additional information required by this PP that is not to be made public.
-	
-
         <a-component id="adv_fsp.1" name="Basic Functional Specification">
-
           <summary>The functional specification describes the <abbr linkend="TOE"/> Security Functions Interface<abbr title="TSF Interface"> (TSFIs)</abbr>. It is not necessary to have a formal or complete specification of these interfaces. Additionally, because <abbr linkend="TOE"/>s conforming to this <abbr linkend="PP"/> will necessarily have interfaces to the Operational Environment that are not directly invokable by <abbr linkend="TOE"/> users, there is little point specifying that such interfaces be described in and of themselves since only indirect testing of such interfaces may be possible. For this <abbr linkend="PP"/>, the activities for this family should focus on understanding the interfaces presented in the <abbr linkend="TSS"/> in response to the functional requirements and the interfaces presented in the AGD documentation. No additional "functional specification" documentation is necessary to satisfy the assurance activities specified.  <htm:br/><htm:br/>
             The interfaces that need to be evaluated are characterized through the information needed to perform the assurance activities listed, rather than as an independent, abstract list.</summary> 
 	  <evalactionlabel title="Developer action elements:"/>
