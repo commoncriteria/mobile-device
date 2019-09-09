@@ -5,30 +5,42 @@
 
 <!--  <?xml-model href="../transforms/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>-->
 
+<!-- TODO_Future:
+
+- Can SHA1 be removed from FCS_COP - Does WLAN need it still?
+- EA for radio testing
+     -	FMT_SMF_EXT.1 Function 4 AA – need to fix it with respect to setting up the testing environment setup (RF noise floor, sweeping frequency…) and to address power up spikes (power to the radio before realizing that the device is in Airplane mode for both cellular and wifi)
+
+-->
+
+
 
 <!-- TODO: 
     - <selectables onlyone="yes"> for all selections where only one item can be selected
     - <selectable id= " "/> and selection depends ids for the selectable SFRs 
     
-- Joe - TD 366
+- Stuff marked as TODOs
 
-- IF BT HW exists then mandatory, if HW does not exist then not mandatory
+- Joe - TD 366 - look at email for Oct 2018
 
-- How do I disallow SHA1 cipher suites for TLS, but FCS_COP still allows it because WLAN client needs it - so can't use MDM app note in MDF to say that ciphersuites must align with FCS_COP.1
-      - App Note: 
-            If the ST author selects "mutually authenticated TLS as defined in the Package for Transport Layer Security" or "mutually authenticated DTLS as defined in the Package for Transport Layer Security", the TSF must be validated against requirements from the Package for Transport Layer Security, with the following selections made:
-          FCS_TLS_EXT.1:
-              - either TLS or DTLS is selected depending on the selection made in FTP_ITC.1.1(1)
-              - either client or server is selected as appropriate
-          FCS_TLSC_EXT.1.1 or FCS_TLSS_EXT.1.1 (as appropriate):
-              - The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.
-              - mutual authentication must be selected
-          FCS_DTLSC_EXT.1.1 or FCS_DTLSS_EXT.1.1 (as appropriate):
-              - The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.
-              - mutual authentication must be selected
+- TRRTs with PP change needed
+
+
+
+
+
+- IF BT HW exists then mandatory, if HW does not exist then not mandatory 
+    - Iterate the two trusted channels requirements to remove BT from the mandatory requirements and put iteration (just BT) in optional. Look at Section A.3 in PSP base.
+
+- Open Issues on github
+
+
+
+
+          
     
     - selection for FCS_TLSC_EXT.1.3 and FCS_DTLS_EXT.1.3 (in package) to not allow exceptions for when server cert is invalid.  
-            - MDF fcs_tlsc/dtls_ext.1.3 is similar to fcs_tlsc/dtls_ext.1.3 in package, but package has [selection: with no exceptions, except when override is authorized]. How do I specify which selection has to be made?? MDF: The <abbr linkend="TSF"/> shall not establish a trusted channel if the peer certificate is invalid. However, HTTPS over TLS requires different behavior, though HTTPS is implemented over TLS. This element addresses non-HTTPS TLS connections.
+            - MDF fcs_tlsc/dtls_ext.1.3 is similar to fcs_tlsc/dtls_ext.1.3 in package, but package has [selection: with no exceptions, except when override is authorized]. How do I specify which selection has to be made?? MDF: The <abbr linkend="TSF"/> shall not establish a trusted channel if the peer certificate is invalid. However, HTTPS requires different behavior, though HTTPS is implemented over TLS. This element addresses non-HTTPS TLS connections.
 
 -->
 
@@ -36,11 +48,9 @@
     - BT - keep SFRs mapped to MDF objectives, but need to update SFR numbers - DONE
     - All TDs as of 2019_09_01
     - mutual auth required for TLS and DTLS
-
+    -	EAs that include API documentation according to adv OR in entropy documentation – Just put at top of EA outside of TSS flag
+    - Move FAU_GEN table 1 and 2 move out of the EA and into the application note 
 -->
-
-
-
 
 <!-- NOTE: 
   - TLS package is mandatory in MDF, FDP_UPC_EXT.1 and FTP_ITC_EXT.1.1 mandates it
@@ -48,14 +58,14 @@
 
 Mapping to TLS Package: Client
      MDF   Package
-     1.1 = 1.1
+     1.1 = 1.1 - need to mandate that a ciphersuite other than SHA1 is selected. - do this just like MDM (and turn blind eye to the fact that FCS_COP.1 still allows SHA1)
      1.2 = 1.2
-     1.3 ~ 1.3
+     1.3 ~ 1.3 - need to mandate selection "with no exceptions"
      1.4 (man) = 2.1 (sel-based) - mandating mutual auth to be selected so 2.1 becomes mandatory
      2.1 = 5.1
      3.1 = 3.1
-     3.2 (man) = 4.1 (sel-based) - okay
-     3.3 (man) = 4.2 (sel-based) - okay
+     3.2 (man) = 4.1 (sel-based) - okay with change
+     3.3 (man) = 4.2 (sel-based) - okay with change
 --> 
 
 <!-- NOTE: 
@@ -382,7 +392,7 @@ spreadsheet
     <htm:br/><htm:br/>
     The Mobile Device provides essential services, such as cryptographic services, data-at-rest protection, and key storage services to support the secure operation of applications on the device. Additional security features such as security policy enforcement, application mandatory access control, anti-exploitation features, user authentication, and software integrity protection are implemented in order to address threats. 
     <htm:br/><htm:br/>
-    This assurance standard describes these essential security services provided by the Mobile Device and serves as a foundation for a secure mobile architecture. The wireless connectivity shall be validated against the Extended Package for WLAN Client. As illustrated in <figref refid="TOE"/>, it is expected that a typical deployment would also include either third-party or bundled components. Whether these components are bundled as part of the Mobile Device by the manufacturer or developed by a third-party, they must be separately validated against the related assurance standards such as the Extended Package for Mobile Device Management Agents, Extended Package for IPsec VPN Client, and VoIP Application Extended Package. It is the responsibility of the architect of the overall secure mobile architecture to ensure validation of these components. Additional applications that may come pre-installed on the Mobile Device that are not validated are considered to be potentially flawed, but not malicious. Examples include email client and web browser.
+    This assurance standard describes these essential security services provided by the Mobile Device and serves as a foundation for a secure mobile architecture. The wireless connectivity shall be validated against the Extended Package for WLAN Client. As illustrated in <figref refid="TOE"/>, it is expected that a typical deployment would also include either third-party or bundled components. Whether these components are bundled as part of the Mobile Device by the manufacturer or developed by a third-party, they must be separately validated against the related assurance standards such as the PP-Module for MDM Agent, PP-Module for VPN Client, and VoIP Application Extended Package. It is the responsibility of the architect of the overall secure mobile architecture to ensure validation of these components. Additional applications that may come pre-installed on the Mobile Device that are not validated are considered to be potentially flawed, but not malicious. Examples include email client and web browser.
     <htm:br/><htm:br/>
     <figure entity="images/figure2.jpg"
       title="Optional Additional Mobile Device Components"
@@ -766,51 +776,13 @@ spreadsheet
               <htm:br/><htm:br/>
               The <abbr linkend="TSF"/> shall generate an audit record for all events contained in <ctr-ref refid="manaudit"/>. Generating audit records for events in <ctr-ref refid="objaudit"/> is currently objective. It is acceptable to include individual <abbr linkend="SFR"/>s from <ctr-ref refid="objaudit"/> in the <abbr linkend="ST"/>, without including the entirety of <ctr-ref refid="objaudit"/>.
               <htm:br/><htm:br/>
-              <htm:b><ctr-ref refid="manaudit"/> Application Note:</htm:b> <linkref linkend="FPT_TST_EXT.1"/> – Audit of self-tests is required only at initial start-up. Since the <abbr linkend="TOE"/> "transitions to non-operational mode" upon failure of a self-test, per <linkref linkend="FPT_NOT_EXT.1"/>, this is considered equivalent evidence to an audit record for the failure of a self-test.
-              <linkref linkend="FDP_DAR_EXT.1"/> - "None" shall be selected, if the <abbr linkend="TOE"/> utilizes whole volume encryption for protected memory, since it is not feasible to audit when the encryption/decryption fails. If the <abbr linkend="TOE"/> utilizes file-based encryption for protected data and audits when this encryption/decryption fails, then that auditable event shall be selected.<htm:br/><htm:br/>
-              <htm:b><ctr-ref refid="objaudit"/> Application Note:</htm:b> If the audit event for <linkref linkend="FMT_SMF_EXT.1"/> is included in the <abbr linkend="ST"/>, it is acceptable for the initiation of the software update to be audited without indicating the outcome (success or failure) of the update.
-            </note>
-          </f-element>
-          <f-element id="fau_gen.1.2">
-            <title>The <abbr linkend="TSF"/> shall record within each audit record at least the following information:
-              <htm:ol>
-              <htm:li>Date and time of the event</htm:li> 
-              <htm:li>Type of event</htm:li>
-              <htm:li>Subject identity</htm:li> 
-              <htm:li>The outcome (success or failure) of the event</htm:li> 
-              <htm:li>Additional information in <ctr-ref refid="manaudit"/></htm:li>
-              <htm:li>
-                <selectables><selectable>Additional information in <ctr-ref refid="objaudit"/></selectable>
-                  <selectable> no additional information</selectable>
-                </selectables></htm:li>
-                </htm:ol>
-            </title>
-            <note role="application">
-              The subject identity is usually the process name/ID. The event type is often indicated by a severity level, for example, ‘info’, ‘warning’, or ‘error’.
-              <htm:br/><htm:br/>
-              If "no additional auditable events" is selected in the second selection of <linkref linkend="FAU_GEN.1.1"/>, then "no additional information" shall be selected. 
-              <htm:br/><htm:br/>
-              For each audit event selected from <ctr-ref refid="objaudit"/> in <linkref linkend="FAU_GEN.1.1"/> if additional information is required to be recorded within the audit record, it should be included in this selection. 
-            </note>
-            <aactivity>
-              <TSS>
-              The evaluator shall check the <abbr linkend="TSS"/> and ensure that it lists all of the auditable events and provides a format for audit records. Each audit record format type must be covered, along with a brief description of each field. The evaluator shall check to make sure that every audit event type mandated by the <abbr linkend="PP"/> is described and that the description of the fields contains the information required in <linkref linkend="FAU_GEN.1.2"/>. <htm:br/><htm:br/>
-              </TSS>
-              <Guidance>
-              The evaluator shall also make a determination of the administrative actions that are relevant in the context of this <abbr linkend="PP"/> including those listed in the Management section. The evaluator shall examine the administrative guide and make a determination of which administrative commands are related to the configuration (including enabling or disabling) of the mechanisms implemented in the <abbr linkend="TOE"/> that are necessary to enforce the requirements specified in the <abbr linkend="PP"/>. The evaluator shall document the methodology or approach taken while determining which actions in the administrative guide are security relevant with respect to this <abbr linkend="PP"/>. The evaluator may perform this activity as part of the activities associated with ensuring the AGD_OPE guidance satisfies the requirements.<htm:br/><htm:br/>
-              </Guidance>
-              <Tests>
-              The evaluator shall test the <abbr linkend="TOE"/>’s ability to correctly generate audit records by having the <abbr linkend="TOE"/> generate audit records for the events listed in the provided table and administrative actions. This should include all instances of an event. The evaluator shall test that audit records are generated for the establishment and termination of a channel for each of the cryptographic protocols contained in the <abbr linkend="ST"/>. For administrative actions, the evaluator shall test that each action determined by the evaluator above to be security relevant in the context of this <abbr linkend="PP"/> is auditable. When verifying the test results, the evaluator shall ensure the audit records generated during testing match the format specified in the administrative guide, and that the fields specified in <linkref linkend="FAU_GEN.1.2"/> are contained in each audit record.
-              <htm:br/><htm:br/>
-              Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms directly. For example, testing performed to ensure that the administrative guidance provided is correct verifies that AGD_OPE.1 is satisfied and should address the invocation of the administrative actions that are needed to verify the audit records are generated as expected.
-              <htm:br/><htm:br/>
               
-	      <htm:b>
-	      <ctr ctr-type='Table' id="manaudit">: Mandatory Auditable Events</ctr>
-	     </htm:b><htm:br/>
+
+              
+              <htm:b><ctr ctr-type='Table' id="manaudit">: Mandatory Auditable Events</ctr></htm:b><htm:br/>
               <htm:table>
                 <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Auditable Events</htm:td><htm:td>Additional Audit Record Contents</htm:td></htm:tr>
-               <htm:tr><htm:td>FAU_GEN.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
+                <htm:tr><htm:td>FAU_GEN.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FAU_STG.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FAU_STG.4</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_CKM_EXT.1</htm:td><htm:td>
@@ -833,7 +805,7 @@ spreadsheet
                 <htm:tr><htm:td>FCS_SRV_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>                
                 <htm:tr><htm:td rowspan="2">FCS_STG_EXT.1</htm:td><htm:td>Import or destruction of key.</htm:td><htm:td rowspan="2">Identity of key. Role and identity of requestor.</htm:td></htm:tr>
                 <htm:tr><htm:td><selectables><selectable>Exceptions to use and destruction rules</selectable><selectable exclusive="yes">No other events</selectable></selectables></htm:td>
-                  </htm:tr>
+                </htm:tr>
                 <htm:tr><htm:td>FCS_STG_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_STG_EXT.3</htm:td><htm:td>Failure to verify integrity of stored key.</htm:td><htm:td>Identity of key being verified.</htm:td></htm:tr>
                 <htm:tr><htm:td>FDP_DAR_EXT.1</htm:td><htm:td><selectables>
@@ -864,15 +836,17 @@ spreadsheet
                 <htm:tr><htm:td>FPT_TUD_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FTA_SSL_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
               </htm:table>
-              <htm:br/>
-                
+              <htm:br/><htm:br/>
+              
+              <htm:b><ctr-ref refid="manaudit"/> Application Note:</htm:b> <linkref linkend="FPT_TST_EXT.1"/> – Audit of self-tests is required only at initial start-up. Since the <abbr linkend="TOE"/> "transitions to non-operational mode" upon failure of a self-test, per <linkref linkend="FPT_NOT_EXT.1"/>, this is considered equivalent evidence to an audit record for the failure of a self-test. <htm:br/><htm:br/>        
+              <linkref linkend="FDP_DAR_EXT.1"/> - "None" shall be selected, if the <abbr linkend="TOE"/> utilizes whole volume encryption for protected memory, since it is not feasible to audit when the encryption/decryption fails. If the <abbr linkend="TOE"/> utilizes file-based encryption for protected data and audits when this encryption/decryption fails, then that auditable event shall be selected.<htm:br/><htm:br/>
+              
               <htm:b><ctr ctr-type='Table' id="objaudit">: Additional Auditable Events</ctr></htm:b><htm:br/>            
               <htm:table>
                 <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Auditable Events</htm:td><htm:td>Additional Audit Record Contents</htm:td></htm:tr>
                 <htm:tr><htm:td>FAU_SAR.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FAU_SEL.1</htm:td><htm:td>All modifications to the audit configuration that occur while the audit collection functions are operating. </htm:td><htm:td>No additional Information.</htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_CKM_EXT.7</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
-                <!-- <htm:tr><htm:td>FCS_CKM_EXT.8</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>  -->
                 <htm:tr><htm:td>FCS_DTLS_EXT.1 (TLS Package)</htm:td><htm:td>Failure of the certificate validity check.</htm:td><htm:td>Issuer Name and Subject Name of certificate. </htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_HTTPS_EXT.1</htm:td><htm:td>Failure of the certificate validity check.</htm:td>
                   <htm:td>Issuer Name and Subject Name of certificate.<htm:br/> 
@@ -881,9 +855,7 @@ spreadsheet
                 <htm:tr><htm:td>FCS_RBG_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_RBG_EXT.3</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_SRV_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>                
-                <htm:tr><htm:td rowspan="3">FCS_TLSC_EXT.1 (TLS Package)</htm:td><htm:td>Establishment/termination of a TLS session.</htm:td><htm:td>Non-<abbr linkend="TOE "/> endpoint of connection.</htm:td></htm:tr>
-                <htm:tr><htm:td>Failure to establish a TLS session.</htm:td><htm:td>Reason for failure.</htm:td></htm:tr>
-                <htm:tr><htm:td>Failure to verify presented identifier.</htm:td><htm:td>Presented identifier and reference identifier.</htm:td></htm:tr>
+                <htm:tr><htm:td rowspan="3">FCS_TLSC_EXT.1 (TLS Package)</htm:td><htm:td>Establishment/termination of a TLS session.</htm:td><htm:td>Non-<abbr linkend="TOE "/> endpoint of connection.</htm:td></htm:tr><htm:tr><htm:td>Failure to establish a TLS session.</htm:td><htm:td>Reason for failure.</htm:td></htm:tr><htm:tr><htm:td>Failure to verify presented identifier.</htm:td><htm:td>Presented identifier and reference identifier.</htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_TLSC_EXT.2 (TLS Package)</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FCS_TLSC_EXT.3 (TLS Package)</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FDP_ACF_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
@@ -894,14 +866,6 @@ spreadsheet
                 <htm:tr><htm:td>FDP_PBA_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FDP_UPC_EXT.1</htm:td><htm:td>Application initiation of trusted channel.</htm:td><htm:td>Name of application. Trusted channel protocol. Non-<abbr linkend="TOE "/> endpoint of connection.</htm:td></htm:tr>
                 <htm:tr><htm:td>FIA_AFL_EXT.1</htm:td><htm:td>Excess of authentication failure limit.</htm:td><htm:td>Authentication factor used.</htm:td></htm:tr>
-                <!-- BT Module -->
-                <!--  
-                <htm:tr><htm:td rowspan="2">FIA_BLT_EXT.1</htm:td><htm:td>User authorization of Bluetooth device.</htm:td><htm:td rowspan="2">User authorization decision.<htm:br/>Bluetooth address and name of device.<htm:br/>Bluetooth profile.<htm:br/>Identity of local service.</htm:td></htm:tr><htm:tr><htm:td>User authorization for local Bluetooth service.</htm:td></htm:tr>        
-                <htm:tr><htm:td rowspan="2">FIA_BLT_EXT.2</htm:td><htm:td>Initiation of Bluetooth connection.</htm:td><htm:td>Bluetooth address and name of device.</htm:td></htm:tr><htm:tr><htm:td>Failure of Bluetooth connection.</htm:td><htm:td>Reason for failure.</htm:td></htm:tr> 
-                <htm:tr><htm:td>FIA_BLT_EXT.3</htm:td><htm:td>Duplicate connection attempt.</htm:td><htm:td>BD_ADDR of connection attempt</htm:td></htm:tr>                   <htm:tr><htm:td>FIA_BLT_EXT.4</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
-                <htm:tr><htm:td>FIA_BLT_EXT.5</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
-                <htm:tr><htm:td>FIA_BLT_EXT.6</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
-                -->
                 <htm:tr><htm:td>FIA_BMG_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FIA_BMG_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FIA_BMG_EXT.3</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
@@ -938,22 +902,57 @@ spreadsheet
                 <htm:tr><htm:td>FPT_BBD_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FPT_BLT_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FPT_NOT_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
-                
                 <htm:tr><htm:td>FPT_TST_EXT.2(2)</htm:td><htm:td><selectables><selectable>Detected integrity violation</selectable><selectable>none</selectable></selectables></htm:td>
                   <htm:td><selectables><selectable>The <abbr linkend="TSF"/> code file that caused the integrity violation</selectable><selectable>No additional information</selectable></selectables></htm:td></htm:tr>
-                
                 <htm:tr><htm:td>FPT_TST_EXT.3</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td rowspan="2">FPT_TUD_EXT.2</htm:td><htm:td>Success or failure of signature verification for software updates.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
-                <htm:tr><htm:td>Success or failure of signature verification for applications.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
-                
+                <htm:tr><htm:td>Success or failure of signature verification for applications.</htm:td><htm:td>No additional information.</htm:td></htm:tr>             
                 <htm:tr><htm:td>FPT_TUD_EXT.3</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FPT_TUD_EXT.4</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FPT_TUD_EXT.5</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FTA_TAB.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FTP_BLT_EXT.1</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
-               <htm:tr><htm:td>FTP_BLT_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
+                <htm:tr><htm:td>FTP_BLT_EXT.2</htm:td><htm:td>None.</htm:td><htm:td></htm:td></htm:tr>
                 <htm:tr><htm:td>FTP_ITC_EXT.1</htm:td><htm:td>Initiation and termination of trusted channel.</htm:td><htm:td>Trusted channel protocol. Non-<abbr linkend="TOE "/> endpoint of connection.</htm:td></htm:tr>
               </htm:table>
+              <htm:br/><htm:br/>
+              <htm:b><ctr-ref refid="objaudit"/> Application Note:</htm:b> If the audit event for <linkref linkend="FMT_SMF_EXT.1"/> is included in the <abbr linkend="ST"/>, it is acceptable for the initiation of the software update to be audited without indicating the outcome (success or failure) of the update.<htm:br/>
+            </note>
+          </f-element>
+          <f-element id="fau_gen.1.2">
+            <title>The <abbr linkend="TSF"/> shall record within each audit record at least the following information:
+              <htm:ol>
+              <htm:li>Date and time of the event</htm:li> 
+              <htm:li>Type of event</htm:li>
+              <htm:li>Subject identity</htm:li> 
+              <htm:li>The outcome (success or failure) of the event</htm:li> 
+              <htm:li>Additional information in <ctr-ref refid="manaudit"/></htm:li>
+              <htm:li>
+                <selectables><selectable>Additional information in <ctr-ref refid="objaudit"/></selectable>
+                  <selectable> no additional information</selectable>
+                </selectables></htm:li>
+                </htm:ol>
+            </title>
+            <note role="application">
+              The subject identity is usually the process name/ID. The event type is often indicated by a severity level, for example, ‘info’, ‘warning’, or ‘error’.
+              <htm:br/><htm:br/>
+              If "no additional auditable events" is selected in the second selection of <linkref linkend="FAU_GEN.1.1"/>, then "no additional information" shall be selected. 
+              <htm:br/><htm:br/>
+              For each audit event selected from <ctr-ref refid="objaudit"/> in <linkref linkend="FAU_GEN.1.1"/> if additional information is required to be recorded within the audit record, it should be included in this selection. 
+            </note>
+            <aactivity>
+              <TSS>
+              The evaluator shall check the <abbr linkend="TSS"/> and ensure that it lists all of the auditable events and provides a format for audit records. Each audit record format type must be covered, along with a brief description of each field. The evaluator shall check to make sure that every audit event type mandated by the <abbr linkend="PP"/> is described and that the description of the fields contains the information required in <linkref linkend="FAU_GEN.1.2"/>. <htm:br/><htm:br/>
+              </TSS>
+              <Guidance>
+              The evaluator shall also make a determination of the administrative actions that are relevant in the context of this <abbr linkend="PP"/> including those listed in the Management section. The evaluator shall examine the administrative guide and make a determination of which administrative commands are related to the configuration (including enabling or disabling) of the mechanisms implemented in the <abbr linkend="TOE"/> that are necessary to enforce the requirements specified in the <abbr linkend="PP"/>. The evaluator shall document the methodology or approach taken while determining which actions in the administrative guide are security relevant with respect to this <abbr linkend="PP"/>. The evaluator may perform this activity as part of the activities associated with ensuring the AGD_OPE guidance satisfies the requirements.<htm:br/><htm:br/>
+              </Guidance>
+              <Tests>
+              The evaluator shall test the <abbr linkend="TOE"/>’s ability to correctly generate audit records by having the <abbr linkend="TOE"/> generate audit records for the events listed in the provided table and administrative actions. This should include all instances of an event. The evaluator shall test that audit records are generated for the establishment and termination of a channel for each of the cryptographic protocols contained in the <abbr linkend="ST"/>. For administrative actions, the evaluator shall test that each action determined by the evaluator above to be security relevant in the context of this <abbr linkend="PP"/> is auditable. When verifying the test results, the evaluator shall ensure the audit records generated during testing match the format specified in the administrative guide, and that the fields specified in <linkref linkend="FAU_GEN.1.2"/> are contained in each audit record.
+              <htm:br/><htm:br/>
+              Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms directly. For example, testing performed to ensure that the administrative guidance provided is correct verifies that AGD_OPE.1 is satisfied and should address the invocation of the administrative actions that are needed to verify the audit records are generated as expected.
+              <htm:br/><htm:br/>
+
               </Tests>
             </aactivity>
           </f-element>
@@ -2144,7 +2143,14 @@ spreadsheet
             <title>The <abbr linkend="TSF"/> shall implement HTTPS using TLS as defined in the Package for Transport Layer Security. 
             </title>
             <note role="application">
-              The Package for Transport Layer Security shall be included in the ST.
+              The Package for Transport Layer Security shall be included in the ST, with the following selections made:
+              <htm:ul>
+                <htm:li>FCS_TLS_EXT.1:</htm:li>
+                <htm:ul>
+                  <htm:li>TLS shall be selected</htm:li>
+                  <htm:li>Client shall be selected</htm:li>        
+                </htm:ul>            
+              </htm:ul>
             </note>
           </f-element>
           <f-element id="fcs_https_ext.1.3">
@@ -2213,12 +2219,10 @@ spreadsheet
               The <abbr linkend="ST"/> author may select either software or hardware noise sources. A hardware noise source is a component that produces data that cannot be explained by a deterministic rule, due to its physical nature. In other words, a hardware based noise source generates sequences of random numbers from a physical process that cannot be predicted. For example, a sampled ring oscillator consists of an odd number of inverter gates chained into a loop, with an electrical pulse traveling from inverter to inverter around the loop. The inverters are not clocked, so the precise time required for a complete circuit around the loop varies slightly as various physical effects modify the small delay time at each inverter on the line to the next inverter. This variance results in an approximate natural frequency that contains drift and jitter over time. The output of the ring oscillator consists of the oscillating binary value sampled at a constant rate from one of the inverters – a rate that is significantly slower than the oscillator’s natural frequency.
             </note>
             <aactivity>
-              <TSS>
                 Documentation shall be produced and the evaluator shall perform the activities in accordance with <appref linkend="entropy"/>, the "Clarification to the Entropy Documentation and Assessment". 
               <htm:br/><htm:br/>
               The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/>, includes the security functions described in <linkref linkend="FCS_RBG_EXT.1.3"/>.
-              <htm:br/><htm:br/>
-              </TSS>
+              <htm:br/><htm:br/>            
               <Guidance>
                 The evaluator shall also confirm that the operational guidance contains appropriate instructions for configuring the RNG functionality.<htm:br/><htm:br/>
               </Guidance>
@@ -2296,10 +2300,10 @@ spreadsheet
               For each of the listed FCS components in the bulleted list, the intent is that the <abbr linkend="TOE"/> will make available all algorithms specified for that component in the <abbr linkend="ST"/>. For example, if for <linkref linkend="FCS_COP.1(2)"/> the <abbr linkend="ST"/> author selects SHA-256, then the <abbr linkend="TOE"/> would have to make available an interface to perform SHA-1 (the "mandatory" portion of <linkref linkend="FCS_COP.1.1(2)"/>) and SHA-256 (the "selected" portion of <linkref linkend="FCS_COP.1.1(2)"/>). The exception is for <linkref linkend="FCS_COP.1(1)"/>, which does not require the <abbr linkend="TOE"/> to make available AES_CCMP, AES_XTS, AES_GCMP-256, or AES_CCMP_256 even though they may be implemented to perform <abbr linkend="TSF"/>-related functions. However, the <abbr linkend="ST"/> author is expected to select (for <linkref linkend="FCS_COP.1(1)"/> selection in this component) algorithms that match those selected in the <abbr linkend="ST"/> for the <linkref linkend="FCS_COP.1(1)"/> component.
             </note>
             <aactivity>
-              The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/> includes the security functions (cryptographic algorithms) described in these requirements.
-              <htm:br/><htm:br/>
+              The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/> includes the security functions (cryptographic algorithms) described in these requirements.<htm:br/><htm:br/>
               <Tests>
-              The evaluator shall write, or the developer shall provide access to, an application that requests cryptographic operations by the <abbr linkend="TSF"/>. The evaluator shall verify that the results from the operation match the expected results according to the API documentation. This application may be used to assist in verifying the cryptographic operation assurance activities for the other algorithm services requirements. </Tests>
+              The evaluator shall write, or the developer shall provide access to, an application that requests cryptographic operations by the <abbr linkend="TSF"/>. The evaluator shall verify that the results from the operation match the expected results according to the API documentation. This application may be used to assist in verifying the cryptographic operation assurance activities for the other algorithm services requirements. 
+              </Tests>
             </aactivity>
           </f-element>
         </f-component>  
@@ -2375,10 +2379,13 @@ This section also describes the secure key storage services to be provided by th
             <note role="application">If the <abbr linkend="ST"/> Author selects user or administrator, the <abbr linkend="ST"/> Author must also select function 35 in <linkref linkend="FMT_SMF_EXT.1.1"/>. If the <abbr linkend="ST"/> Author selects only user, the <abbr linkend="ST"/> Author shall select function 35 in <linkref linkend="FMT_MOF_EXT.1.1"/>. </note>
             
             <aactivity>
-              <TSS>The evaluator shall review the  <abbr linkend="TSS"/> to determine that the <abbr linkend="TOE"/>’s implements the required secure key storage. The evaluator shall ensure that the  <abbr linkend="TSS"/> contains a description of the key storage mechanism that justifies the selection of "mutable hardware" or "software-based".
-              <htm:br/><htm:br/></TSS>
-              <Guidance>The evaluator shall review the AGD guidance to determine that it describes the steps needed to import or destroy keys/secrets. The evaluator shall also verify that the API documentation provided according to <secref linkend="adv"/> includes the security functions (import, use, and destruction) described in these requirements. The API documentation shall include the method by which applications restrict access to their keys/secrets in order to meet <linkref linkend="FCS_STG_EXT.1.4"/>. 
-              <htm:br/><htm:br/></Guidance>
+              The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/> includes the security functions (import, use, and destruction) described in these requirements. The API documentation shall include the method by which applications restrict access to their keys/secrets in order to meet <linkref linkend="FCS_STG_EXT.1.4"/>. <htm:br/><htm:br/>
+              <TSS>
+                The evaluator shall review the  <abbr linkend="TSS"/> to determine that the <abbr linkend="TOE"/>’s implements the required secure key storage. The evaluator shall ensure that the  <abbr linkend="TSS"/> contains a description of the key storage mechanism that justifies the selection of "mutable hardware" or "software-based". <htm:br/><htm:br/>
+              </TSS>
+              <Guidance>
+                The evaluator shall review the AGD guidance to determine that it describes the steps needed to import or destroy keys/secrets.<htm:br/><htm:br/>
+              </Guidance>
               <Tests>
               The evaluator shall test the functionality of each security function:             
               <testlist>
@@ -2404,9 +2411,9 @@ This section also describes the secure key storage services to be provided by th
                       <htm:li>The evaluator shall repeat the test, allowing the approvals to verify that the application is able to use the key/secret as described.</htm:li>
                     </htm:ul>
                   <htm:br/>
-                  If the <abbr linkend="ST"/> Author has selected "common application developer", this test is performed by either using applications from different developers or appropriately (according to API documentation) not authorizing sharing.
+                  If the <abbr linkend="ST"/> Author has selected "common application developer", this test is performed by either using applications from different developers or appropriately (according to API documentation) not authorizing sharing.<htm:br/>
                 </test>
-                <htm:br/>
+                
                 <test>The evaluator shall destroy keys/secrets of each supported type according to the AGD guidance. The evaluator shall write, or the developer shall provide access to, an application that destroys an imported key/secret.
                   <htm:br/><htm:br/>
                   The evaluator shall repeat this test with the application-imported keys/secrets and a different application’s imported keys/secrets. The evaluator shall verify that the <abbr linkend="TOE"/> requires approval before allowing the application to destroy the key/secret imported by the administrator or by a different application:
@@ -2803,7 +2810,7 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               <htm:br/><htm:br/>
               If no native IPsec client is validated or third-party VPN clients may also implement the required Information Flow Control, the first option shall be selected. In these cases, the <abbr linkend="TOE"/> provides an API to third-party VPN clients that allow them to configure the <abbr linkend="TOE"/>’s network stack to perform the required Information Flow Control.
               <htm:br/><htm:br/>
-              The <abbr linkend="ST"/> author shall select the second option if the <abbr linkend="TSF"/> implements a native VPN client (IPsec is selected in <linkref linkend="FTP_ITC_EXT.1"/>). Thus the <abbr linkend="TSF"/> shall be validated against the IPsec Virtual Private Network (VPN) Client Extended Package and the <abbr linkend="ST"/> author shall also include FDP_IFC_EXT from the VPN Client Extended Profile.
+              The <abbr linkend="ST"/> author shall select the second option if the <abbr linkend="TSF"/> implements a native VPN client (IPsec is selected in <linkref linkend="FTP_ITC_EXT.1"/>). Thus the <abbr linkend="TSF"/> shall be validated against the PP-Module for VPN Client and the <abbr linkend="ST"/> author shall also include FDP_IFC_EXT from the PP-Module for VPN Client.
               <htm:br/><htm:br/>
               It is optional for the VPN client to be configured to be always-on per <linkref linkend="FMT_SMF_EXT.1"/> Function 45. Always-on means the establishment of an IPsec trusted channel to allow any communication by the <abbr linkend="TSF"/>. 
             </note>
@@ -2860,21 +2867,50 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               <selectable>IPsec in accordance with the PP-Module for VPN Client</selectable>
               <selectable>no other protocol</selectable>
             </selectables> to provide a protected communication channel between the non-TSF application and another IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
-            </title>
-            <!-- TODO: Need to update app note to point to packages/modules -->
+            </title>          
             <note role="application">
               The intent of this requirement is that one of the selected protocols is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. It should be noted that the <linkref linkend="FTP_ITC_EXT.1"/> requires that all <abbr linkend="TSF"/> communications be protected using the protocols indicated in that requirement, so the protocols required by this component ride "on top of" those listed in <linkref linkend="FTP_ITC_EXT.1"/>.<htm:br/><htm:br/>  
               It should also be noted that some applications are part of the <abbr linkend="TSF"/>, and <linkref linkend="FTP_ITC_EXT.1"/> requires that <abbr linkend="TSF"/> applications be protected by at least one of the protocols in first selection in <linkref linkend="FTP_ITC_EXT.1"/>. It is not required to have two different implementations of a protocol, or two different protocols, to satisfy both this requirement (for non-TSF apps) and <linkref linkend="FTP_ITC_EXT.1"/> (for <abbr linkend="TSF"/> apps), as long as the services specified are provided.
               <htm:br/><htm:br/>
-              The <abbr linkend="ST"/> author shall list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps. 
-              <!-- TODO: Need to update package names and possibly list out specific selections needed -->If the <abbr linkend="ST"/> author selects IPsec, the <abbr linkend="TSF"/> shall be validated against the "IPsec Virtual Private Network (VPN) Client Extended Package." <if-opt-app><appref linkend="sel-based"/> contains the requirements for implementing each of the other optional trusted channel protocols. </if-opt-app>The <abbr linkend="ST"/> author must include the security functional requirements for the trusted channel protocol selected in <linkref linkend="FDP_UPC_EXT.1"/> in the main body of the <abbr linkend="ST"/>.
+              The <abbr linkend="ST"/> author shall list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps.<htm:br/><htm:br/>          
+              The TSF shall be validated against requirements from the Package for Transport Layer Security, with the following selections made:
+              <htm:ul>
+                <htm:li>FCS_TLS_EXT.1:</htm:li>
+                <htm:ul>
+                  <htm:li>TLS is selected</htm:li>
+                  <htm:li>client is selected</htm:li>                             
+                </htm:ul>
+                <htm:li>FCS_TLSC_EXT.1.1:</htm:li>
+                <htm:ul>
+                  <htm:li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</htm:li>
+                  <htm:li>mutual authentication must be selected</htm:li>              
+                </htm:ul> 
+              </htm:ul>
+              <htm:br/><htm:br/>
+              
+              The TSF shall be validated against requirements from the PP-Module for Bluetooth. <htm:br/><htm:br/>     
+              If "mutually authenticated DTLS as defined in the Package for Transport Layer Security" is selected, the TSF shall be validated against requirements from the Package for Transport Layer Security, with the following selections made:
+              <htm:ul>
+                <htm:li>FCS_TLS_EXT.1:</htm:li>
+                <htm:ul>
+                  <htm:li>DTLS is selected</htm:li>
+                  <htm:li>client is selected</htm:li>                             
+                </htm:ul>
+                <htm:li>FCS_DTLSC_EXT.1.1:</htm:li>
+                <htm:ul>
+                  <htm:li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</htm:li>
+                  <htm:li>mutual authentication must be selected</htm:li>              
+                </htm:ul> 
+              </htm:ul>
+              <htm:br/><htm:br/>           
+             If the <abbr linkend="ST"/> author selects IPsec, the <abbr linkend="TSF"/> shall be validated against the PP-Module for Virtual Private Network (VPN) Clients.
             </note>
           </f-element>
           <f-element id="fdp_upc_ext.1.2">
               <title>The <abbr linkend="TSF"/> shall permit the non-TSF applications to initiate communication via the trusted channel.</title>
             <aactivity>
-              <TSS>
               The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/> includes the security functions (protection channel) described in these requirements, and verify that the APIs implemented to support this requirement include the appropriate settings/parameters so that the application can both provide and obtain the information needed to assure mutual identification of the endpoints of the communication as required by this component. <htm:br/><htm:br/>
+              <TSS>             
                 The evaluator shall examine the  <abbr linkend="TSS"/> to determine that it describes that all protocols listed in the  <abbr linkend="TSS"/> are specified and included in the requirements in the <abbr linkend="ST"/>. <htm:br/><htm:br/>
                 </TSS>
               <Guidance>
@@ -3450,8 +3486,7 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
             </title>
             <note role="application">In order to comply with all of the rules in <linkref linkend="FIA_X509_EXT.1"/>, multiple API calls may be required; all of these calls should be clearly documented</note>
             <aactivity>
-              <TSS>The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/> includes the security function (certificate validation) described in this requirement. This documentation shall be clear as to which results indicate success and failure.<htm:br/><htm:br/>
-              </TSS>              
+              The evaluator shall verify that the API documentation provided according to <secref linkend="adv"/> includes the security function (certificate validation) described in this requirement. This documentation shall be clear as to which results indicate success and failure.<htm:br/><htm:br/>                        
               <Tests>
               The evaluator shall write, or the developer shall provide access to, an application that requests certificate validation by the <abbr linkend="TSF"/>. The evaluator shall verify that the results from the validation match the expected results according to the API documentation. This application may be used to verify that import, removal, modification, and validation are performed correctly according to the tests required by <linkref linkend="FDP_STG_EXT.1"/>, <linkref linkend="FTP_ITC_EXT.1"/>, <linkref linkend="FMT_SMF_EXT.1.1"/>, and <linkref linkend="FIA_X509_EXT.1"/>.</Tests>
             </aactivity>
@@ -3956,7 +3991,7 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               <htm:br/><htm:br/>
               <htm:b>Function-specific Application Notes:</htm:b> For functions 3, 5 and 22, the function must be implemented on a device-wide basis but may also be implemented on a per-app basis or on a per-group of applications basis in which the configuration includes the list of applications or groups of applications to which the enable/disable applies.
               <htm:br/><htm:br/>
-              Function 3 addresses enabling and disabling the IPsec VPN only. The configuration of the VPN Client itself (with information such as VPN Gateway, certificates, and algorithms) is addressed by the IPsec VPN Client Extended Package. The administrator options should only be listed if the administrator can remotely enable/disable the VPN connection.
+              Function 3 addresses enabling and disabling the IPsec VPN only. The configuration of the VPN Client itself (with information such as VPN Gateway, certificates, and algorithms) is addressed by the PP-Module for VPN Client. The administrator options should only be listed if the administrator can remotely enable/disable the VPN connection.
               <htm:br/><htm:br/>
               Function 3 optionally allows the VPN to be configured per-app or per-groups of apps. If this configuration is selected, it does not void <linkref linkend="FDP_IFC_EXT.1"/>. Instead <linkref linkend="FDP_IFC_EXT.1"/> is applied to the application or group of applications the VPN is applied to. In other words, all traffic destined for the VPN-enabled application or group of applications, must travel through the VPN, but traffic not destined for that application or group of applications can travel outside the VPN. When the VPN is configured across the device <linkref linkend="FDP_IFC_EXT.1"/> applies to all traffic and the VPN must not split tunnel.
               <htm:br/><htm:br/>
@@ -4038,7 +4073,7 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               <htm:br/><htm:br/>
               For function 44, <linkref linkend="FMT_SMF_EXT.2.1"/> specifies actions to be performed when the <abbr linkend="TOE"/> is unenrolled from management.
               <htm:br/><htm:br/>
-              For function 45, shall be included in the <abbr linkend="ST"/> if IPsec is selected in <linkref linkend="FTP_ITC_EXT.1"/> and the native IPsec VPN client can be configured to be Always-On. Always-On is defined as when the <abbr linkend="TOE"/> has a network connection the VPN attempts to connect, all data leaving the device uses the VPN when the VPN is connected and no data leaves that device when the VPN is disconnected. The configuration of the VPN Client itself (with information such as VPN Gateway, certificates, and algorithms) is addressed by the IPsec VPN Client Extended Package.
+              For function 45, shall be included in the <abbr linkend="ST"/> if IPsec is selected in <linkref linkend="FTP_ITC_EXT.1"/> and the native IPsec VPN client can be configured to be Always-On. Always-On is defined as when the <abbr linkend="TOE"/> has a network connection the VPN attempts to connect, all data leaving the device uses the VPN when the VPN is connected and no data leaves that device when the VPN is disconnected. The configuration of the VPN Client itself (with information such as VPN Gateway, certificates, and algorithms) is addressed by the PP-Module for VPN Client.
             </note>
             <aactivity>
               <TSS>The evaluator shall verify that the  <abbr linkend="TSS"/> describes all management functions, what role(s) can perform each function, and how these functions are (or can be) restricted to the roles identified by <linkref linkend="FMT_MOF_EXT.1"/>. 
@@ -5145,11 +5180,21 @@ Long-term trusted channel key material includes WPA2 (PSKs), IPsec (PSKs and cli
               The intent of the mandatory portion of the above requirement is to use the cryptographic protocols identified in the requirement to establish and maintain a trusted channel between the <abbr linkend="TOE"/> and an access point, VPN Gateway, or other trusted IT product.<htm:br/><htm:br/>
               The <abbr linkend="ST"/> author shall list which trusted channel protocols are implemented by the Mobile Device. <htm:br/><htm:br/>
               The <abbr linkend="TSF"/> shall be validated against the Extended Package for WLAN Clients to satisfy the mandatory trusted channels of 802.11-2012, 802.1X, and EAP-TLS. <htm:br/><htm:br/>
-              The <abbr linkend="TSF"/> shall be validated against the TLS Functional Package to satisfy the mandatory trusted channel of TLS. <!-- TODO: Update to specify selections needed -->
-              
-              
+              To satisfy the mandatory trusted channel of TLS and if "mutually authenticated DTLS as defined in the Package for Transport Layer Security" is selected, the <abbr linkend="TSF"/> shall be validated against the TLS Functional Package, with the following selections made: 
+              <htm:ul>
+                <htm:li>FCS_TLS_EXT.1:</htm:li>
+                <htm:ul>
+                  <htm:li>either TLS or DTLS is selected as appropriate</htm:li>
+                  <htm:li>client is selected</htm:li>
+                </htm:ul>
+                <htm:li>FCS_TLSC_EXT.1.1 or FCS_DTLSC_EXT.1.1 (as appropriate): </htm:li>
+                <htm:ul>
+                  <htm:li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</htm:li>
+                  <htm:li>mutual authentication must be selected</htm:li>
+                </htm:ul>         
+              </htm:ul>
               <htm:br/><htm:br/>
-              If the <abbr linkend="ST"/> author selects IPsec, the <abbr linkend="TSF"/> shall be validated against the IPsec Virtual Private Network (VPN) Client Extended Package. <htm:br/><htm:br/>
+              If the <abbr linkend="ST"/> author selects IPsec, the <abbr linkend="TSF"/> shall be validated against the PP-Module for VPN Client. <htm:br/><htm:br/>
               <if-opt-app><appref linkend="sel-based"/> contains the requirements for implementing each of the other optional trusted channel protocols. </if-opt-app>The <abbr linkend="ST"/> author must include the security functional requirements for the trusted channel protocol selected in FTP_ITC_EXT.1 in the main body of the <abbr linkend="ST"/>.
               <htm:br/><htm:br/>
               Assured identification of endpoints is performed according to the authentication mechanisms used by the listed trusted channel protocols.
