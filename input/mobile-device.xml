@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xsl-stylesheet type="text/xsl" href="../transforms/pp2html.xsl"?>
 
-<?xml-model href="https://github.com/commoncriteria/transforms/raw/master/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<!--  <?xml-model href="https://github.com/commoncriteria/transforms/raw/master/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>-->
 
-<!--  <?xml-model href="../transforms/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>-->
+<?xml-model href="../transforms/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
+<!-- Kevin:
+Allow boilerplate=no for aptional appendix
+Add in second type of optional requirements (A.3) in PSD into schema -->
 
 <!-- TODO_Future:
+ - cert stapling:
+      - OSCP stapling for establishing the WLAN connection
+      - Can this fix the what to do when a connection is not available to verify the validity?
 
-- Can SHA1 be removed from FCS_COP - Does WLAN need it still?
 - EA for radio testing
      -	FMT_SMF_EXT.1 Function 4 AA – need to fix it with respect to setting up the testing environment setup (RF noise floor, sweeping frequency…) and to address power up spikes (power to the radio before realizing that the device is in Airplane mode for both cellular and wifi)
 
+- <selectable id= " "/> and selection depends ids for the selectable SFRs 
 -->
 
 
 
 <!-- TODO: 
-    - <selectables onlyone="yes"> for all selections where only one item can be selected
-    - <selectable id= " "/> and selection depends ids for the selectable SFRs 
-    
-- Stuff marked as TODOs
-
-- Joe - TD 366 - look at email for Oct 2018
+  
+  - Can SHA1 be removed from FCS_COP - Does WLAN need it still? - Arnold and I think that we can remove it, but need to check IEEE standard
 
 - TRRTs with PP change needed
 
-
-
-
-
 - IF BT HW exists then mandatory, if HW does not exist then not mandatory 
     - Iterate the two trusted channels requirements to remove BT from the mandatory requirements and put iteration (just BT) in optional. Look at Section A.3 in PSP base.
+    - STATUS: Have made 
 
 - Open Issues on github
 
-
-
-
-          
-    
     - selection for FCS_TLSC_EXT.1.3 and FCS_DTLS_EXT.1.3 (in package) to not allow exceptions for when server cert is invalid.  
             - MDF fcs_tlsc/dtls_ext.1.3 is similar to fcs_tlsc/dtls_ext.1.3 in package, but package has [selection: with no exceptions, except when override is authorized]. How do I specify which selection has to be made?? MDF: The <abbr linkend="TSF"/> shall not establish a trusted channel if the peer certificate is invalid. However, HTTPS requires different behavior, though HTTPS is implemented over TLS. This element addresses non-HTTPS TLS connections.
+            Implement in FMT_SMF
 
 -->
 
@@ -50,11 +46,58 @@
     - mutual auth required for TLS and DTLS
     -	EAs that include API documentation according to adv OR in entropy documentation – Just put at top of EA outside of TSS flag
     - Move FAU_GEN table 1 and 2 move out of the EA and into the application note 
+    - Updated FMT_SMF function numbers to be ctr variables
 -->
 
+<!-- NOTE: Trusted Channels/RF protocols
+  
+  WLAN -> WLAN Client Module
+    - WLAN (specifically 802.11-2012,  802.1X, EAP-TLS) is mandatory to be included in a MDF ST, FTP_ITC_EXT.1.1 mandates it 
+        - TODO: Determine if this wording needs to change when WLAN Client is updated to module
+    - Mapping to threat/objectives -> in WLAN Client Module
+    - Audit -> in WLAN Client Module 
+
+  Bluetooth -> Bluetooth Module
+    - Bluetooth is mandatory to be included in a MDF ST (if HW exists), FDP_UPC_EXT.1(2) mandates BR/EDR but LE is selecatable 
+    - Mapping to threat/objectives -> in MDF
+    - Audit -> in BT Module
+    - Still trying to determine where the line is drawn for what is in module and what stays in MDF b/c some of the "BT" SFRs are actually done by the OS
+    - Mapping between MDF v3.1 and BT module - spreadsheet
+                       
+  TLS -> TLS Package
+    - TLS is mandatory to be included in MDF ST, FDP_UPC_EXT.1 and FTP_ITC_EXT.1.1 mandates it
+    - Mapping to threat/objectives -> in MDF
+    - Audit -> in MDF
+   
+   DTLS -> TLS Package
+   - DTLS is NOT mandatory, but selectable in FDP_UPC_EXT.1 and FTP_ITC_EXT.1.1
+   - Mapping to threat/objectives -> in MDF
+   - Audit -> in MDF
+   
+   IPSec -> VPN Client Module
+   - IPSec is NOT mandatory, but selectable in FDP_UPC_EXT.1, FTP_ITC_EXT.1.1 and FDP_IFC_EXT.1.1
+   - Flow contol (i.e. don't allow a split tunnel) is mandatory for the platform to implement (whether it be the native VPN client and/or a 3rd party application)
+   - Mapping to threat/objectives -> in VPN Client Module
+   - Audit -> in VPN Client Module (but currently objective)
+
+  HTTPS -> MDF (but really covered in TLS Package)
+  - HTTPS is mandatory (SFRs in Section 5) b/c FDP_UPC_EXT.1.1 mandates it, also selectable in FTP_ITC_EXT.1.1
+      - HTTPS SFRs in MDF (FCS_HTTPS_EXT.1.2) requires "implement HTTPS using TLS as defined in the Package for Transport Layer Security." 
+  - Mapping to threat/objectives -> in MDF
+  - Audit -> in MDF
+  - Cert ->
+      - If peer cert is deemed invalid, allow override (FCS_HTTPS_EXT.1.3 and FMT function ctr-id: CertInvalid)
+      - If peer cert validity cannot be determined, __________
+  
+
+-->
+
+
 <!-- NOTE: 
-  - TLS package is mandatory in MDF, FDP_UPC_EXT.1 and FTP_ITC_EXT.1.1 mandates it
-  - TLS package SFRs will still be mapped to objectives and included in audit table (FAU_GEN) in MDF
+  FMT_SMF functions use ctr variables crt-type=functions in the MOOO table, so that they do not have to be renumbered when one is added or removed. For the app notes and AAs they do need to be in the same order as the functions. The list of IDs for each function is at the end of the xml.-->
+
+<!-- NOTE: 
+ 
 
 Mapping to TLS Package: Client
      MDF   Package
@@ -69,11 +112,7 @@ Mapping to TLS Package: Client
 --> 
 
 <!-- NOTE: 
-  - Bluetooth module will be mandatory (if HW exists), 
-  - Bluetooth module SFRs will still be mapped to objectives in MDF, but module has its own audit requirement (FAU_GEN), so BT SFRs will not be included in audit table (FAU_GEN) in MDF
-                       
-Mapping to Bluetooth Module:
-spreadsheet
+  
 
 
 -->
@@ -185,16 +224,19 @@ spreadsheet
     </entry>
   </RevisionHistory>
   <chapter id="int" title="Introduction" boilerplate="no">
-    <section title="Objectives of Document" id="objdoc"> This document presents the Common Criteria
+    <section title="Objectives of Document" id="objdoc"> 
+      This document presents the Common Criteria
       (CC) Protection Profile (PP) to express the fundamental security and evaluation requirements
       for a Mobile Device. </section>
-    <section title="Scope of Document" id="scope"> The scope of the Protection Profile within the
+    <section title="Scope of Document" id="scope"> 
+      The scope of the Protection Profile within the
       development and evaluation process is described in the Common Criteria for Information
       Technology Security Evaluation <cite linkend="CC"/>. In particular, a <abbr linkend="PP"/>
       defines the IT security requirements of a generic type of <abbr linkend="TOE"/> and specifies
       the functional and assurance security measures to be offered by that <abbr linkend="TOE"/> to
       meet stated requirements <cite linkend="CC"/>. </section>
-    <section title="Intended Readership" id="intread"> The target audiences of this <abbr
+    <section title="Intended Readership" id="intread"> 
+      The target audiences of this <abbr
         linkend="PP"/> are Mobile Device developers, <abbr linkend="CC"/> consumers, evaluators and
       schemes. </section>
     <section title="Terms" id="terms">
@@ -700,7 +742,8 @@ spreadsheet
         </glossary>
       </subsection>
     </section>
-    <section title="TOE Overview" id="toeov"> This assurance standard specifies information security
+    <section title="TOE Overview" id="toeov"> 
+      This assurance standard specifies information security
       requirements for Mobile Devices for use in an enterprise. A Mobile Device in the context of
       this assurance standard is a device, which is composed of a hardware platform and its system
       software. The device typically provides wireless connectivity and may include software for
@@ -719,7 +762,7 @@ spreadsheet
       authentication, and software integrity protection are implemented in order to address threats.
       <htm:br/><htm:br/> This assurance standard describes these essential security services
       provided by the Mobile Device and serves as a foundation for a secure mobile architecture. The
-      wireless connectivity shall be validated against the Extended Package for WLAN Client. As
+      wireless connectivity shall be validated against the Extended Package for WLAN Client. <!-- Need to add a note at if BT HW then needs to be evaluated against BT Module and TLS package -->As
       illustrated in <figref refid="TOE"/>, it is expected that a typical deployment would also
       include either third-party or bundled components. Whether these components are bundled as part
       of the Mobile Device by the manufacturer or developed by a third-party, they must be
@@ -733,7 +776,8 @@ spreadsheet
         id="TOE"/>
       <htm:br/>
     </section>
-    <section title="TOE Usage" id="toeus"> The Mobile Device may be operated in a number of use
+    <section title="TOE Usage" id="toeus"> 
+      The Mobile Device may be operated in a number of use
       cases. <appref linkend="use"/> provides use case templates that list those selections,
       assignments, and objective requirements that best support the use cases identified by this
       Protection Profile. In addition to providing essential security services, the Mobile Device
@@ -997,7 +1041,8 @@ spreadsheet
       Device. </section>
   </chapter>
   <chapter title="Security Objectives" id="sobj" boilerplate="no">
-    <section title="Security Objectives for the TOE" id="sot"> The security objectives for the
+    <section title="Security Objectives for the TOE" id="sot"> 
+      The security objectives for the
       Mobile Device are defined as follows. <SOs>
         <SO id="O.PROTECTED_COMMS">
           <description> To address the network eavesdropping (T.EAVESDROP) and network attack
@@ -1577,7 +1622,8 @@ spreadsheet
               </Tests>
             </aactivity>
           </f-element>
-        </f-component> <f-component id="fau_sar.1" name="Audit Review" status="objective">
+        </f-component> 
+        <f-component id="fau_sar.1" name="Audit Review" status="objective">
           <f-element id="fau_sar.1.1">
             <title>The <abbr linkend="TSF"/> shall provide <refinement>the
                 administrator</refinement> with the capability to read <refinement>all audited
@@ -3538,38 +3584,31 @@ spreadsheet
               of NIST SP 800-132 recommends setting the iteration count in order to increase the
               computation needed to derive a key from a password and, therefore, increase the
               workload of performing a dictionary attack. </note>
-            <aactivity>
-              <!-- AA updated per TD 366. TODO: Check with Joe to make sure that commented out parts should be deleted -->
+            <aactivity>          
               <TSS>The evaluator shall check that the <abbr linkend="TSS"/> describes the method by
                 which the password is first encoded and then fed to the SHA algorithm and verify the
-                SHA algorithm matches the first selection.<htm:br/><htm:br/> If a key stretching
-                function, such as PBKDF2, is selected the settings for the algorithm (padding,
-                blocking, etc.) shall be described.
-                <!-- The evaluator shall verify that these are supported by the selections in this component as well as the selections concerning the hash function itself. -->
-                The evaluator shall verify that the <abbr linkend="TSS"/> contains a description of
+                SHA algorithm matches the first selection.<htm:br/><htm:br/> 
+                If a key stretching function, such as PBKDF2, is selected the settings for the algorithm (padding,
+                blocking, etc.) shall be described. The evaluator shall verify that the <abbr linkend="TSS"/> contains a description of
                 how the output of the hash function or key stretching function is used to form the
                 submask that will be input into the function and is the same length as the <abbr
                   linkend="KEK"/> as specified in <linkref linkend="FCS_CKM_EXT.3"/>. <htm:br/><htm:br/>
-                <!--  For the NIST SP 800-132-based conditioning of the passphrase, the required assurance activities will be performed when doing the assurance activities for the appropriate requirements (<linkref linkend="FCS_COP.1.1(4)"/>).-->
+                
                 If any manipulation of the key is performed in forming the submask that will be used
                 to form the <abbr linkend="KEK"/>, that process shall be described in the <abbr
                   linkend="TSS"/>. <htm:br/><htm:br/> No explicit testing of the formation of the
-                submask from the input password is required. <htm:br/><htm:br/>
-                <!--   The evaluator shall verify that the iteration count for PBKDFs performed by the <abbr linkend="TOE"/> comply with NIST SP 800-132 by ensuring that the  <abbr linkend="TSS"/> contains a description of the estimated time required to derive key material from passwords and how the <abbr linkend="TOE"/> increases the computation time for password-based key derivation (including but not limited to increasing the iteration count).-->
+                submask from the input password is required. <htm:br/><htm:br/>            
               </TSS>
             </aactivity>
           </f-element>
         </f-component>
         <f-component id="fcs_https_ext.1" name="Extended: HTTPS Protocol">
           <f-element id="fcs_https_ext.1.1">
-            <title>The <abbr linkend="TSF"/> shall implement the HTTPS protocol that complies with
-              RFC 2818. </title>
+            <title>The <abbr linkend="TSF"/> shall implement the HTTPS protocol that complies with RFC 2818. </title>
           </f-element>
           <f-element id="fcs_https_ext.1.2">
-            <title>The <abbr linkend="TSF"/> shall implement HTTPS using TLS as defined in the
-              Package for Transport Layer Security. </title>
-            <note role="application"> The Package for Transport Layer Security shall be included in
-              the ST, with the following selections made: <htm:ul>
+            <title>The <abbr linkend="TSF"/> shall implement HTTPS using TLS as defined in the Package for Transport Layer Security. </title>
+            <note role="application"> The Package for Transport Layer Security shall be included in the ST, with the following selections made: <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
                 <htm:ul>
                   <htm:li>TLS shall be selected</htm:li>
@@ -3581,13 +3620,20 @@ spreadsheet
           <f-element id="fcs_https_ext.1.3">
             <title>The <abbr linkend="TSF"/> shall notify the application and <selectables>
                 <selectable>not establish the connection</selectable>
-                <selectable>request application authorization to establish the
-                  connection</selectable>
+                <selectable>request application authorization to establish the connection</selectable>
                 <selectable exclusive="yes">no other action</selectable>
               </selectables> if the peer certificate is deemed invalid. </title>
-            <note role="application"> Validity is determined by the certificate path, the expiration
-              date, and the revocation status in accordance with RFC 5280.</note>
+            <note role="application"> Validity is determined by the certificate path, the expiration date, and the revocation status in accordance with RFC 5280. <htm:br/><htm:br/>
+              If "not establish the connection" is selected then "with no exceptions" shall be selected for FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. If "request application authorization to establish the connection" is selected then "except when override is authorized" shall be selected for FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. If "no other action" is selected either selection can be made in FCS_TLSC_EXT.1.3.<htm:br/><htm:br/>
+              <linkref linkend="FMT_SMF_EXT.1"/> Function <ctr-ref refid="certInvalid"/> configures whether to allow/disallow the establishment of a trusted channel if the peer certificate is deemed invalid.
+              
+              
+            
+
+            
+            </note>
             <aactivity>
+              <!-- TODO: Need to fix EA and interweave FMT_SMF_EXT function certInvalid -->
               <Tests>
                 <testlist>
                   <test>The evaluator shall attempt to establish an HTTPS connection with a
@@ -4719,18 +4765,17 @@ spreadsheet
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fdp_upc_ext.1" name="Extended: Inter-TSF user data transfer protection">
-          <f-element id="fdp_upc_ext.1.1">
+        
+        <f-component id="fdp_upc_ext.1(1)" name="Extended: Inter-TSF user data transfer protection">
+          <f-element id="fdp_upc_ext.1.1(1)">
             <title>The <abbr linkend="TSF"/> shall provide a means for non-TSF applications
               executing on the <abbr linkend="TOE"/> to use <htm:ul>
                 <htm:li>mutually authenticated TLS as defined in the Package for Transport Layer
                   Security,</htm:li>
-                <htm:li>HTTPS,</htm:li>
-                <htm:li>Bluetooth BR/EDR in accordance with the PP-Module for Bluetooth,</htm:li>
+                <htm:li>HTTPS,</htm:li>             
               </htm:ul>and <selectables linebreak="yes">
                 <selectable id="upc_dtls">mutually authenticated DTLS as defined in the Package for
-                  Transport Layer Security</selectable>
-                <selectable>Bluetooth LE in accordance with the PP-Module for Bluetooth</selectable>
+                  Transport Layer Security</selectable>              
                 <selectable>IPsec in accordance with the PP-Module for VPN Client</selectable>
                 <selectable>no other protocol</selectable>
               </selectables> to provide a protected communication channel between the non-TSF
@@ -4767,8 +4812,8 @@ spreadsheet
                   <htm:li>mutual authentication must be selected</htm:li>
                 </htm:ul>
               </htm:ul>
-              <htm:br/><htm:br/> The TSF shall be validated against requirements from the PP-Module
-              for Bluetooth. <htm:br/><htm:br/> If "mutually authenticated DTLS as defined in the
+              <htm:br/><htm:br/>  
+              If "mutually authenticated DTLS as defined in the
               Package for Transport Layer Security" is selected, the TSF shall be validated against
               requirements from the Package for Transport Layer Security, with the following
               selections made: <htm:ul>
@@ -4826,6 +4871,67 @@ spreadsheet
             </aactivity>
           </f-element>
         </f-component>
+      
+        <f-component id="fdp_upc_ext.1(2)" name="Extended: Inter-TSF user data transfer protection - Bluetooth" status="optional"> <!-- SPECIAL Optional -->
+          <f-element id="fdp_upc_ext.1.1(2)">
+            <title>The <abbr linkend="TSF"/> shall provide a means for non-TSF applications executing on the <abbr linkend="TOE"/> to use <htm:ul>              
+                <htm:li>Bluetooth BR/EDR in accordance with the PP-Module for Bluetooth,</htm:li>
+              </htm:ul>and <selectables linebreak="yes">              
+                <selectable>Bluetooth LE in accordance with the PP-Module for Bluetooth</selectable>              
+                <selectable>no other protocol</selectable>
+              </selectables> to provide a protected communication channel between the non-TSF
+              application and another IT product that is logically distinct from other communication
+              channels, provides assured identification of its end points, protects channel data
+              from disclosure, and detects modification of the channel data. </title>
+            <note role="application"> 
+              If the TOE includes Bluetooth hardware <!-- Fix wording --> this requirement shall be included in the ST. The intent of this requirement is that Bluetooth BR/EDR and optionally Bluetooth LE is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. The <abbr linkend="ST"/> author shall list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps.<htm:br/><htm:br/> 
+              The TSF shall be validated against requirements from the PP-Module for Bluetooth.
+              
+              It should be noted that the <linkref linkend="FTP_ITC_EXT.1"/>
+              requires that all <abbr linkend="TSF"/> communications be protected using the
+              protocols indicated in that requirement, so the protocols required by this component
+              ride "on top of" those listed in <linkref linkend="FTP_ITC_EXT.1"/>.<htm:br/><htm:br/>
+            </note> 
+          </f-element>
+          <f-element id="fdp_upc_ext.1.2">
+            <title>The <abbr linkend="TSF"/> shall permit the non-TSF applications to initiate
+              communication via the trusted channel.</title>
+            <aactivity> The evaluator shall verify that the API documentation provided according to
+              <secref linkend="adv"/> includes the security functions (protection channel)
+              described in these requirements, and verify that the APIs implemented to support this
+              requirement include the appropriate settings/parameters so that the application can
+              both provide and obtain the information needed to assure mutual identification of the
+              endpoints of the communication as required by this component. <htm:br/><htm:br/>
+              <TSS> The evaluator shall examine the <abbr linkend="TSS"/> to determine that it
+                describes that all protocols listed in the <abbr linkend="TSS"/> are specified and
+                included in the requirements in the <abbr linkend="ST"/>. <htm:br/><htm:br/>
+              </TSS>
+              <Guidance> The evaluator shall confirm that the operational guidance contains
+                instructions necessary for configuring the protocol(s) selected for use by the
+                applications.<htm:br/><htm:br/>
+              </Guidance>
+              <Tests>
+                <htm:b>Assurance Activity Note:</htm:b> The following test requires the developer to
+                provide access to a test platform that provides the evaluator with tools that are
+                typically not found on consumer Mobile Device products. <htm:br/><htm:br/> The
+                evaluator shall write, or the developer shall provide access to, an application that
+                requests protected channel services by the <abbr linkend="TSF"/>. The evaluator
+                shall verify that the results from the protected channel match the expected results
+                according to the API documentation. This application may be used to assist in
+                verifying the protected channel assurance activities for the protocol requirements.
+                The evaluator shall also perform the following tests: <testlist>
+                  <test>The evaluators shall ensure that the application is able to initiate
+                    communications with an external IT entity using each protocol specified in the
+                    requirement, setting up the connections as described in the operational guidance
+                    and ensuring that communication is successful. </test>
+                  <test>The evaluator shall ensure, for each communication channel with an
+                    authorized IT entity, the channel data are not sent in plaintext.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      
       </subsection>
       <subsection id="fia" title="Class: Identification and Authentication (FIA)">
         <f-component id="fia_afl_ext.1" name="Extended: Authentication failure handling">
@@ -5803,48 +5909,33 @@ spreadsheet
               </Tests>
             </aactivity>
           </f-element>
-        </f-component> <f-component id="fia_x509_ext.2"
-          name="Extended: X.509 certificate authentication">
+        </f-component> 
+        <f-component id="fia_x509_ext.2" name="Extended: X.509 certificate authentication">
           <f-element id="fia_x509_ext.2.1">
-            <title>The <abbr linkend="TSF"/> shall use X.509v3 certificates as defined by RFC 5280
-              to support authentication for
-                  <selectables><selectable>IPsec</selectable><selectable>TLS</selectable><selectable>HTTPS</selectable><selectable
-                  id="x509_dtls">DTLS</selectable></selectables>, and <selectables><selectable
-                  id="x509_sys">code signing for system software updates</selectable><selectable
-                  id="x509_apps">code signing for mobile applications</selectable><selectable
-                  id="x509_sign">code signing for integrity verification</selectable><selectable>
-                  <assignable>other uses</assignable></selectable><selectable>no additional
-                  uses</selectable></selectables>. </title>
-            <note role="application">The <abbr linkend="ST"/> author’s first selection shall match
-              the selection of <linkref linkend="FDP_UPC_EXT.1.1"/> and <linkref
-                linkend="FTP_ITC_EXT.1.1"/>.<htm:br/><htm:br/> Certificates may optionally be used
-              for trusted updates of system software (<linkref linkend="FPT_TUD_EXT.2.3"/>) and
-              mobile applications (<linkref linkend="FPT_TUD_EXT.4.1"/>) and for integrity
-              verification (<linkref linkend="FPT_TST_EXT.2(1)"/>). If "code signing for system
-              software updates" or "code signing for mobile applications" is selected <linkref
-                linkend="FPT_TUD_EXT.3.1"/> shall be included in the <abbr linkend="ST"/>.
-              <htm:br/><htm:br/> If <linkref linkend="FPT_TUD_EXT.4.1"/> is included in the <abbr
-                linkend="ST"/>, "code signing for mobile applications" must be included in the
-              selection.</note>
+            <title>The <abbr linkend="TSF"/> shall use X.509v3 certificates as defined by RFC 5280 to support authentication for mutually authenticated TLS as defined in the Package for Transport Layer Security, HTTPS
+              <selectables>
+                <selectable>IPsec in accordance with the PP-Module for VPN Client</selectable>
+                <selectable id="x509_dtls">mutually authenticated DTLS as defined in the Package for Transport Layer Security</selectable>
+            </selectables>, and <selectables>
+              <selectable id="x509_sys">code signing for system software updates</selectable>
+              <selectable id="x509_apps">code signing for mobile applications</selectable>
+              <selectable id="x509_sign">code signing for integrity verification</selectable>
+              <selectable><assignable>other uses</assignable></selectable>
+              <selectable>no additional uses</selectable></selectables>. </title>
+            <note role="application">The <abbr linkend="ST"/> author’s first selection shall match the selection of <linkref linkend="FDP_UPC_EXT.1.1"/> and <linkref linkend="FTP_ITC_EXT.1.1"/>.<htm:br/><htm:br/> 
+              Certificates may optionally be used for trusted updates of system software (<linkref linkend="FPT_TUD_EXT.2.3"/>) and mobile applications (<linkref linkend="FPT_TUD_EXT.4.1"/>) and for integrity verification (<linkref linkend="FPT_TST_EXT.2(1)"/>). If "code signing for system software updates" or "code signing for mobile applications" is selected <linkref linkend="FPT_TUD_EXT.3.1"/> shall be included in the <abbr linkend="ST"/>. <htm:br/><htm:br/> 
+              If <linkref linkend="FPT_TUD_EXT.4.1"/> is included in the <abbr linkend="ST"/>, "code signing for mobile applications" must be included in the selection.
+            </note>
           </f-element>
           <f-element id="fia_x509_ext.2.2">
-            <title>When the <abbr linkend="TSF"/> cannot establish a connection to determine the
-              revocation status of a certificate, the <abbr linkend="TSF"/> shall
-                  <selectables><selectable>allow the administrator to choose whether to accept the
-                  certificate in these cases</selectable><selectable>allow the user to choose
-                  whether to accept the certificate in these cases</selectable><selectable>accept
-                  the certificate</selectable><selectable>not accept the
-                certificate</selectable></selectables>. </title>
-            <note role="application">Often a connection must be established to perform a
-              verification of the revocation status of a certificate - either to download a CRL or
-              to perform OCSP. The selection is used to describe the behavior in the event that such
-              a connection cannot be established (for example, due to a network error). If the <abbr
-                linkend="TOE"/> has determined the certificate valid according to all other rules in
-                <linkref linkend="FIA_X509_EXT.1"/>, the behavior indicated in the selection shall
-              determine the validity. The <abbr linkend="TOE"/> must not accept the certificate if
-              it fails any of the other validation rules in <linkref linkend="FIA_X509_EXT.1"/>. If
-              the administrator-configured or user-configured option is selected by the <abbr
-                linkend="ST"/> Author, the <abbr linkend="ST"/> Author must also select function
+            <title>When the <abbr linkend="TSF"/> cannot establish a connection to determine the revocation status of a certificate, the <abbr linkend="TSF"/> shall <selectables>
+              <selectable>allow the administrator to choose whether to accept the certificate in these cases</selectable>
+              <selectable>allow the user to choose whether to accept the certificate in these cases</selectable>
+              <selectable>accept the certificate</selectable>
+              <selectable>not accept the certificate</selectable>
+            </selectables>.</title>
+            <note role="application">
+              The <abbr linkend="TOE"/> must not accept the certificate if it fails any of the other validation rules in <linkref linkend="FIA_X509_EXT.1"/>. However, often a connection must be established to perform a verification of the revocation status of a certificate - either to download a CRL or to perform OCSP. The selection is used to describe the behavior in the event that such a connection cannot be established (for example, due to a network error). If the <abbr linkend="TOE"/> has determined the certificate valid according to all other rules in <linkref linkend="FIA_X509_EXT.1"/>, the behavior indicated in the selection shall determine the validity.  If the administrator-configured or user-configured option is selected, the <abbr linkend="ST"/> Author must also select function
                 <ctr-ref refid="certValidity"/> in <linkref linkend="FMT_SMF_EXT.1"/>.
               <htm:br/><htm:br/> The <abbr linkend="TOE"/> may behave differently depending on the
               trusted channel; for example, in the case of WLAN where connections are unlikely to be
@@ -6196,18 +6287,14 @@ spreadsheet
         </f-component>
         <f-component id="fmt_smf_ext.1" name="Extended: Specification of Management Functions">
           <f-element id="fmt_smf_ext.1.1">
-            <title>The <abbr linkend="TSF"/> shall be capable of performing the following management
-              functions: <htm:br/><htm:br/>
-              <htm:b><ctr id="fmt_smf" ctr-type="Table">: Management
-              Functions</ctr></htm:b><htm:br/><htm:br/> Status Markers:<htm:br/> M -
-              Mandatory<htm:br/> O - Optional/Objective<htm:br/>
+            <title>The <abbr linkend="TSF"/> shall be capable of performing the following management functions: <htm:br/><htm:br/>
+              <htm:b><ctr id="fmt_smf" ctr-type="Table">: Management Functions</ctr></htm:b><htm:br/><htm:br/> Status Markers:<htm:br/> M - Mandatory<htm:br/> O - Optional/Objective<htm:br/>
               <management-function-set default="O">
                 <manager id="1">Impl.</manager>
                 <manager id="2">User Only</manager>
                 <manager id="3">Admin</manager>
                 <manager id="4">Admin Only</manager>              
                 <management-function><text>
-                    <!-- 1 -->
                     <ctr id="pwd" pre="" ctr-type="function">.</ctr> configure password policy:
                       <htm:ol type="a">
                       <htm:li>minimum password length</htm:li>
@@ -6218,9 +6305,7 @@ spreadsheet
                   <M ref="1"/><_ ref="2"/><M ref="3"/><M ref="4"/>
                 </management-function>
                 <management-function><text>
-                    <!-- 2 -->
-                    <ctr id="screenlock" pre="" ctr-type="function">.</ctr> configure session
-                    locking policy: <htm:ol type="a">
+                    <ctr id="screenlock" pre="" ctr-type="function">.</ctr> configure session locking policy: <htm:ol type="a">
                       <htm:li>screen-lock enabled/disabled</htm:li>
                       <htm:li>screen lock timeout </htm:li>
                       <htm:li>number of authentication failures</htm:li>
@@ -6229,9 +6314,7 @@ spreadsheet
                   <M ref="1"/><_ ref="2"/><M ref="3"/><M ref="4"/>
                 </management-function>
                 <management-function><text>
-                    <!-- 3 -->
-                    <ctr id="vpn" pre="" ctr-type="function">.</ctr> enable/disable the VPN
-                    protection: <htm:ol type="a">
+                    <ctr id="vpn" pre="" ctr-type="function">.</ctr> enable/disable the VPN protection: <htm:ol type="a">
                       <htm:li>across device</htm:li></htm:ol>
                     <indent><selectables linebreak="yes">
                         <selectable>b. on a per-app basis</selectable>
@@ -6242,14 +6325,10 @@ spreadsheet
                   <M ref="1"/>
                 </management-function>
                 <management-function><text>
-                    <!--4-->
-                    <ctr id="radios" pre="" ctr-type="function">.</ctr> enable/disable
-                      <assignable>list of all radios</assignable>
-                  </text>
+                    <ctr id="radios" pre="" ctr-type="function">.</ctr> enable/disable <assignable>list of all radios</assignable></text>
                   <M ref="1"/>
                 </management-function>
                 <management-function><text>
-                    <!-- 5. -->
                     <ctr id="audioVisual" pre="" ctr-type="function">.</ctr> enable/disable
                       <assignable>list of audio or visual collection devices</assignable>: <htm:ol
                       type="a">
@@ -6410,8 +6489,7 @@ spreadsheet
                   </text>
                   <M ref="1"/>
                 </management-function>
-                <management-function><text>
-                    <!-- 23. -->
+                <management-function><text>                  
                     <ctr id="authFactors" pre="" ctr-type="function">.</ctr> Enable/disable the use
                     of <selectables>
                       <selectable>Biometric Authentication Factor</selectable>
@@ -6420,108 +6498,83 @@ spreadsheet
                   </text>
                   <M ref="1"/>
                 </management-function>
+                <management-function>
+                  <text>
+                    <ctr id="certInvalid" pre="" ctr-type="function">.</ctr> configure whether to allow/disallow establishment of a trusted channel if the peer/server certificate is deemed invalid.</text>
+                  <M ref="1"/>
+                </management-function>
+                
+                
+                <!-- Start of the Optional to implement functions -->
                 <management-function><text>
-                    <!-- 24. -->
-                    <ctr id="externalPorts" pre="" ctr-type="function">.</ctr> enable/disable all
-                    data signaling over <assignable>list of externally accessible hardware
-                      ports</assignable>
+                    <ctr id="externalPorts" pre="" ctr-type="function">.</ctr> enable/disable all data signaling over <assignable>list of externally accessible hardware ports</assignable>
                   </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 25. -->
                     <ctr id="serverProtocols" pre="" ctr-type="function">.</ctr> enable/disable
                       <assignable>list of protocols where the device acts as a server</assignable>
                   </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 26. -->
                     <ctr id="devModes" pre="" ctr-type="function">.</ctr> enable/disable developer
                     modes </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 27. -->
                     <ctr id="authBypass" pre="" ctr-type="function">.</ctr> enable/disable bypass of
                     local user authentication </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 28. -->
                     <ctr id="wipeEntData" pre="" ctr-type="function">.</ctr> wipe Enterprise data </text>
                   <_ ref="4"/>
                 </management-function>
                 <management-function><text>
-                    <!-- 29. -->
-                    <ctr id="appCert" pre="" ctr-type="function">.</ctr>approve <selectables>
+                    <ctr id="appCert" pre="" ctr-type="function">.</ctr> approve <selectables>
                       <selectable>import</selectable>
                       <selectable>removal</selectable></selectables> by applications of X.509v3
                     certificates in the Trust Anchor Database </text>
                 </management-function>
+                <management-function><text>                
+                  <ctr id="certValidity" pre="" ctr-type="function">.</ctr> configure whether to allow/disallow establishment of a trusted channel if the <abbr linkend="TSF"/> cannot establish a connection to determine the validity of a certificate</text>                 
+                </management-function>           
                 <management-function><text>
-                    <!-- 30. -->
-                    <ctr id="certValidity" pre="" ctr-type="function">.</ctr> configure whether to
-                    establish a trusted channel or disallow establishment if the <abbr linkend="TSF"
-                    /> cannot establish a connection to determine the validity of a certificate
-                  </text>
+                    <ctr id="cellular" pre="" ctr-type="function">.</ctr> enable/disable the cellular protocols used to connect to cellular network base stations </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 31. -->
-                    <ctr id="cellular" pre="" ctr-type="function">.</ctr>enable/disable the cellular
-                    protocols used to connect to cellular network base stations </text>
-                </management-function>
-                <management-function><text>
-                    <!-- 32. -->
-                    <ctr id="auditLogs" pre="" ctr-type="function">.</ctr> read audit logs kept by
-                    the <abbr linkend="TSF"/>
+                    <ctr id="auditLogs" pre="" ctr-type="function">.</ctr> read audit logs kept by the <abbr linkend="TSF"/>
                   </text>
                   <_ ref="4"/>
                 </management-function>
                 <management-function><text>
-                    <!-- 33. -->
                     <ctr id="digSign" pre="" ctr-type="function">.</ctr> configure <selectables>
                       <selectable>certificate</selectable>
-                      <selectable>public-key</selectable></selectables> used to validate digital
-                    signature on applications </text>
+                      <selectable>public-key</selectable></selectables> used to validate digital signature on applications </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 34. -->
-                    <ctr id="sharedKeys" pre="" ctr-type="function">.</ctr> approve exceptions for
-                    shared use of keys/secrets by multiple applications </text>
+                    <ctr id="sharedKeys" pre="" ctr-type="function">.</ctr> approve exceptions for shared use of keys/secrets by multiple applications </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 35. -->
-                    <ctr id="keyWipeRules" pre="" ctr-type="function">.</ctr> approve exceptions for
-                    destruction of keys/secrets by applications that did not import the key/secret
-                  </text>
+                    <ctr id="keyWipeRules" pre="" ctr-type="function">.</ctr> approve exceptions for destruction of keys/secrets by applications that did not import the key/secret </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 36. -->
-                    <ctr id="unlockBanner" pre="" ctr-type="function">.</ctr> configure the unlock
-                    banner </text>
+                    <ctr id="unlockBanner" pre="" ctr-type="function">.</ctr> configure the unlock banner </text>
                   <_ ref="2"/>
                 </management-function>
                 <management-function><text>
-                    <!-- 37. -->
-                    <ctr id="auditItems" pre="" ctr-type="function">.</ctr>configure the auditable
-                    items </text>
+                    <ctr id="auditItems" pre="" ctr-type="function">.</ctr> configure the auditable items </text>
                   <_ ref="2"/>
                 </management-function>
                 <management-function><text>
-                    <!-- 38. -->
-                    <ctr id="integ" pre="" ctr-type="function">.</ctr>retrieve <abbr linkend="TSF"
-                    />-software integrity verification values </text>
+                    <ctr id="integ" pre="" ctr-type="function">.</ctr> retrieve <abbr linkend="TSF"/>-software integrity verification values </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 39. -->
-                    <ctr id="USB" pre="" ctr-type="function">.</ctr> enable/disable <selectables
-                      linebreak="yes">
+                    <ctr id="USB" pre="" ctr-type="function">.</ctr> enable/disable <selectables linebreak="yes">
                       <selectable>USB mass storage mode</selectable>
                       <selectable>USB data transfer without user authentication</selectable>
-                      <selectable>USB data transfer without authentication of the connecting
-                        system</selectable>
+                      <selectable>USB data transfer without authentication of the connecting system</selectable>
                     </selectables>
                   </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 40. -->
                     <ctr id="backup" pre="" ctr-type="function">.</ctr> enable/disable backup of <selectables>
                       <selectable>all applications</selectable>
                       <selectable>selected applications</selectable>
@@ -6533,9 +6586,7 @@ spreadsheet
                   </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 41. -->
-                    <ctr id="hotspot" pre="" ctr-type="function">.</ctr> enable/disable <selectables
-                      linebreak="yes">
+                    <ctr id="hotspot" pre="" ctr-type="function">.</ctr> enable/disable <selectables linebreak="yes">
                       <selectable>Hotspot functionality authenticated by <selectables>
                           <selectable>pre-shared key</selectable>
                           <selectable>passcode</selectable>
@@ -6551,41 +6602,25 @@ spreadsheet
                   </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 42. -->
-                    <ctr id="dataSharing" pre="" ctr-type="function">.</ctr> approve exceptions for
-                    sharing data between
-                        <selectables><selectable>application</selectable><selectable>groups of
-                        application</selectable></selectables>
-                  </text>
+                    <ctr id="dataSharing" pre="" ctr-type="function">.</ctr> approve exceptions for sharing data between <selectables>
+                      <selectable>application</selectable>
+                      <selectable>groups of application</selectable>
+                    </selectables></text>
                 </management-function>
                 <management-function><text>
-                    <!-- 43. -->
-                    <ctr id="appGroups" pre="" ctr-type="function">.</ctr> place applications into
-                    application groups based on <assignable>enterprise configuration
-                      settings</assignable>
-                  </text>
+                    <ctr id="appGroups" pre="" ctr-type="function">.</ctr> place applications into application groups based on <assignable>enterprise configuration settings</assignable></text>
                 </management-function>
                 <management-function><text>
-                    <!-- 44. -->
-                    <ctr id="unenroll" pre="" ctr-type="function">.</ctr> Unenroll the <abbr
-                      linkend="TOE"/> from management </text>
+                    <ctr id="unenroll" pre="" ctr-type="function">.</ctr> unenroll the <abbr linkend="TOE"/> from management </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 45. -->
-                    <ctr id="alwaysOnVPN" pre="" ctr-type="function">.</ctr> Enable/disable the
-                    Always On VPN protection </text>
+                    <ctr id="alwaysOnVPN" pre="" ctr-type="function">.</ctr> enable/disable the Always On VPN protection </text>
                 </management-function>
                 <management-function><text>
-                    <!-- 46. -->
-                    <ctr id="bioRevoke" pre="" ctr-type="function">.</ctr> Revoke Biometric template
-                  </text>
+                    <ctr id="bioRevoke" pre="" ctr-type="function">.</ctr> revoke Biometric template</text>
                 </management-function>
                 <management-function><text>
-                    <!-- 47. -->
-                    <ctr id="other" pre="" ctr-type="function">.</ctr>
-                    <assignable>list of other management functions to be provided by the <abbr
-                        linkend="TSF"/></assignable>
-                  </text>
+                    <ctr id="other" pre="" ctr-type="function">.</ctr> <assignable>list of other management functions to be provided by the <abbr linkend="TSF"/></assignable></text>
                 </management-function>
               </management-function-set>
             </title>
@@ -6681,51 +6716,42 @@ spreadsheet
                 linkend="FIA_UAU.5.1"/>, this applies to all different modalities. If "hybrid" is
               selected in <linkref linkend="FIA_UAU.5.1"/> it shall be selected and the user or
               admin shall have the option to disable the use of it. <htm:br/><htm:br/> 
-              The
-              assignment in function <ctr-ref refid="externalPorts"/> consists of all externally accessible hardware ports, such
-              as USB, the SD card, and HDMI, whose data transfer capabilities can be enabled and
-              disabled by either the user or administrator. Disablement of data transfer over an
-              external port must be effective during and after boot into the normal operative mode
-              of the device. If the <abbr linkend="TOE"/> supports states in which configured
-              security management policy is inaccessible, for example, due to data-at-rest
-              protection, it is acceptable to meet this requirement by ensuring that data transfer
-              is disabled by default while in these states. Each of the ports may be enabled or
-              disabled separately. The configuration policy need not disable all ports together. In
-              the case of USB, chagrining is still allowed if data transfer capabilities have been
-              disabled. <htm:br/><htm:br/> The assignment in function <ctr-ref refid="serverProtocols"/> consists of all protocols
-              where the <abbr linkend="TSF"/> acts as a server, which can be enabled and disabled by
-              either the user or administrator. <htm:br/><htm:br/> Function <ctr-ref refid="devModes"/> must be included in
-              the selection if developer modes are supported by the <abbr linkend="TSF"/>.
-              <htm:br/><htm:br/> Function <ctr-ref refid="authBypass"/> must be included in the selection if bypass of local
-              user authentication, such as a "Forgot Password", password hint, or remote
-              authentication feature, is supported. <htm:br/><htm:br/> Function <ctr-ref refid="appCert"/> must be included
-              in the selection if the <abbr linkend="TSF"/> allows applications, other than the
-                <abbr linkend="MDM"/> Agents, to import or remove X.509v3 certificates from the
-              Trust Anchor Database. The <abbr linkend="MDM"/> Agent is considered the
-              administrator. This function does not apply to applications trusting a certificate for
-              its own validations. The function only applies to situations where the application
-              modifies the device-wide Trust Anchor Database, affecting the validations performed by
-              the <abbr linkend="TSF"/> for other applications. The user or administrator may be
-              provided the ability to globally allow or deny any application requests in order to
-              meet this requirement. <htm:br/><htm:br/> Function <ctr-ref refid="certValidity"/> must be included in the
-              selection if the "administrator-configured option" is selection in <linkref
-                linkend="FIA_X509_EXT.2.2"/>. <htm:br/><htm:br/> Function <ctr-ref refid="digSign"/> should be included in
+              
+              <!-- Should this be something like for TLS do not approve any exceptions, for HTTP this is per FCS_HTTPS_EXT.1.3?? How do I force the selection of no exceptions for all (non-HTTPS) TLS connections? -->
+              For function <ctr-ref refid="certInvalid"/> the approval can be completed for only specific trusted can be c
+              
+              <!-- Start of the optional to include functions -->
+              The assignment in function <ctr-ref refid="externalPorts"/> consists of all externally accessible hardware ports, such as USB, the SD card, and HDMI, whose data transfer capabilities can be enabled and disabled by either the user or administrator. Disablement of data transfer over an external port must be effective during and after boot into the normal operative mode of the device. If the <abbr linkend="TOE"/> supports states in which configured security management policy is inaccessible, for example, due to data-at-rest protection, it is acceptable to meet this requirement by ensuring that data transfer is disabled by default while in these states. Each of the ports may be enabled or disabled separately. The configuration policy need not disable all ports together. In the case of USB, chagrining is still allowed if data transfer capabilities have been disabled. <htm:br/><htm:br/> 
+              The assignment in function <ctr-ref refid="serverProtocols"/> consists of all protocols where the <abbr linkend="TSF"/> acts as a server, which can be enabled and disabled by either the user or administrator. <htm:br/><htm:br/> 
+              Function <ctr-ref refid="devModes"/> must be included in the selection if developer modes are supported by the <abbr linkend="TSF"/>. <htm:br/><htm:br/> 
+              Function <ctr-ref refid="authBypass"/> must be included in the selection if bypass of local user authentication, such as a "Forgot Password", password hint, or remote authentication feature, is supported. <htm:br/><htm:br/> 
+              Function <ctr-ref refid="appCert"/> must be included in the selection if the <abbr linkend="TSF"/> allows applications, other than the <abbr linkend="MDM"/> Agents, to import or remove X.509v3 certificates from the Trust Anchor Database. The <abbr linkend="MDM"/> Agent is considered the administrator. This function does not apply to applications trusting a certificate for its own validations. The function only applies to situations where the application modifies the device-wide Trust Anchor Database, affecting the validations performed by the <abbr linkend="TSF"/> for other applications. The user or administrator may be provided the ability to globally allow or deny any application requests in order to meet this requirement. <htm:br/><htm:br/> 
+              
+              Function <ctr-ref refid="certValidity"/> must be included in the <abbr linkend="ST"/> if "administrator-configured option" is selection in <linkref linkend="FIA_X509_EXT.2.2"/>. <htm:br/><htm:br/> 
+                          
+              Function <ctr-ref refid="digSign"/> should be included in
               the selection if <linkref linkend="FPT_TUD_EXT.4.1"/> is included in the <abbr
-                linkend="ST"/> and the configurable option is selected. <htm:br/><htm:br/> Function
+                linkend="ST"/> and the configurable option is selected. <htm:br/><htm:br/> 
+              
+              Function
               <ctr-ref refid="sharedKeys"/> should be included in the selection if user or administrator is selected in
-              <linkref linkend="FCS_STG_EXT.1.4"/>. <htm:br/><htm:br/> Function <ctr-ref refid="keyWipeRules"/> should be
-              included in the selection if user or administrator is selected in <linkref
-                linkend="FCS_STG_EXT.1.5"/>. <htm:br/><htm:br/> Function <ctr-ref refid="unlockBanner"/> must be included in the
+              <linkref linkend="FCS_STG_EXT.1.4"/>. <htm:br/><htm:br/> 
+              
+              Function <ctr-ref refid="keyWipeRules"/> should be included in the selection if user or administrator is selected in <linkref linkend="FCS_STG_EXT.1.5"/>. <htm:br/><htm:br/> 
+              
+              Function <ctr-ref refid="unlockBanner"/> must be included in the
               selection if <linkref linkend="FTA_TAB.1"/> is included in the <abbr linkend="ST"/>.
-              <htm:br/><htm:br/> Function <ctr-ref refid="auditItems"/> must be included in the selection if <linkref
-                linkend="FAU_SEL.1"/> is included in the <abbr linkend="ST"/>. <htm:br/><htm:br/>
-              For function <ctr-ref refid="hotspot"/>, hotspot functionality refers to the condition in which the mobile
-              device is serving as an access point to other devices, not the connection of the <abbr
-                linkend="TOE"/> to external hotspots. <htm:br/><htm:br/> Functions <ctr-ref refid="dataSharing"/> and <ctr-ref refid="appGroups"/>
-              correspond to <linkref linkend="FDP_ACF_EXT.1.2"/>. <htm:br/><htm:br/> For function
-              <ctr-ref refid="unenroll"/>, <linkref linkend="FMT_SMF_EXT.2.1"/> specifies actions to be performed when the
-                <abbr linkend="TOE"/> is unenrolled from management. <htm:br/><htm:br/> For function
-              <ctr-ref refid="alwaysOnVPN"/>, shall be included in the <abbr linkend="ST"/> if IPsec is selected in <linkref
+              <htm:br/><htm:br/> 
+              
+              Function <ctr-ref refid="auditItems"/> must be included in the selection if <linkref linkend="FAU_SEL.1"/> is included in the <abbr linkend="ST"/>. <htm:br/><htm:br/>
+                         
+              For function <ctr-ref refid="hotspot"/>, hotspot functionality refers to the condition in which the mobile device is serving as an access point to other devices, not the connection of the <abbr linkend="TOE"/> to external hotspots. <htm:br/><htm:br/> 
+              
+              Functions <ctr-ref refid="dataSharing"/> and <ctr-ref refid="appGroups"/> correspond to <linkref linkend="FDP_ACF_EXT.1.2"/>. <htm:br/><htm:br/> 
+              
+              For function <ctr-ref refid="unenroll"/>, <linkref linkend="FMT_SMF_EXT.2.1"/> specifies actions to be performed when the <abbr linkend="TOE"/> is unenrolled from management. <htm:br/><htm:br/> 
+              
+              For function <ctr-ref refid="alwaysOnVPN"/>, shall be included in the <abbr linkend="ST"/> if IPsec is selected in <linkref
                 linkend="FTP_ITC_EXT.1"/> and the native IPsec VPN client can be configured to be
               Always-On. Always-On is defined as when the <abbr linkend="TOE"/> has a network
               connection the VPN attempts to connect, all data leaving the device uses the VPN when
@@ -7050,6 +7076,16 @@ spreadsheet
                   beside the function number indicates that if the function is not included in the
                     <abbr linkend="ST"/>, then there is no expectation that the assurance activity
                   be performed. <htm:br/><htm:br/>
+                  
+                  
+                  <!-- TODO: Look AT -->
+                  <htm:b>Function <ctr-ref refid="certInvalid"/> [conditional]</htm:b><htm:br/>
+                  <test>The test of this function is performed in conjunction with <linkref linkend="FIA_X509_EXT.2.2"/>, FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. </test><htm:br/>
+                  
+                  
+                  
+                  
+                  <!-- Start of optional to include these functions -->
                   <htm:b>Function <ctr-ref refid="externalPorts"/> [conditional]</htm:b><htm:br/> The evaluator shall verify that
                   the <abbr linkend="TSS"/> includes a list of each externally accessible hardware
                   port and an indication of if data transfer over that port can be enabled/disabled.
@@ -7128,8 +7164,8 @@ spreadsheet
                     that the application is able to remove/modify the certificate and that
                     validation no longer occurs. </test><htm:br/>
                   <htm:b>Function <ctr-ref refid="certValidity"/> [conditional]</htm:b><htm:br/>
-                  <test>The test of this function is performed in conjunction with <linkref
-                      linkend="FIA_X509_EXT.2.2"/>. </test><htm:br/>
+                  <test>The test of this function is performed in conjunction with <linkref linkend="FIA_X509_EXT.2.2"/>. </test><htm:br/>
+                  
                   <htm:b>Function <ctr-ref refid="cellular"/> [conditional]</htm:b><htm:br/> The evaluator shall ensure that
                   the <abbr linkend="TSS"/> describes which cellular protocols can be disabled. The
                   evaluator shall confirm that the AGD guidance describes the procedure for
@@ -9099,26 +9135,38 @@ spreadsheet
       </subsection>
     </section>
   </chapter>
-  <appendix id="optional" title="Optional Requirements">
-    <htm:br/><htm:br/> At this time there are no requirements that are strictly optional based on
-    the discretion of the <abbr linkend="ST"/> author. All requirements indicated in these
-    appendices are conditionally optional, either because they are included in the event that a
-    certain selection is made in a mandatory <abbr linkend="SFR"/> or because claiming that the
-      <abbr linkend="TOE"/> supports a particular use case mandates the inclusion of one or more of
-    them. </appendix>
-  <appendix id="sel-based" title="Selection-Based Requirements"> As indicated in the introduction to
-    this <abbr linkend="PP"/>, the baseline requirements (those that must be performed by the <abbr
-      linkend="TOE"/> or its underlying platform) are contained in the body of this <abbr
-      linkend="PP"/>. There are additional requirements based on selections in the body of the <abbr
-      linkend="PP"/>: if certain selections are made, then additional requirements below will need
-    to be included. </appendix>
-  <appendix id="objective" title="Objective Requirements"> This Appendix includes requirements that
-    specify security functionality, which also addresses threats. The requirements are not currently
-    mandated in the body of this <abbr linkend="PP"/> as they describe security functionality not
-    yet widely-available in commercial technology. However, these requirements may be included in
-    the <abbr linkend="ST"/> such that the <abbr linkend="TOE"/> is still conformant to this <abbr
-      linkend="PP"/>, and it is expected that they be included as soon as possible. </appendix>
-  <appendix id="entropy" title="Entropy Documentation And Assessment"> The documentation of the
+  <appendix id="optional" title="Optional Requirements" boilerplate="no">
+    As indicated in <secref linkend="ccl"/> the baseline requirements (those that must be performed by the TOE) are contained in the body of this PP. Additionally, there are three other types of requirements specified in
+    <appref linkend="optional"/>, <appref linkend="sel-based"/>, and <appref linkend="objective"/>. Note that the ST author is responsible for ensuring that requirements that may be associated with those in <appref linkend="optional"/>, <appref linkend="sel-based"/>, and <appref linkend="objective"/> but are not listed (e.g., FMT-type requirements) are also included in the ST. <htm:br/><htm:br/>
+
+The first type (in this Appendix) are requirements that can be included in the <abbr title="Security Target">ST</abbr>. This Appendix contains two types of optional requirements that may be included in the ST.<htm:br/><htm:br/>
+
+The first type (in A.1) are strictly optional requirements that are independent of the TOE implementing
+any function. If the TOE fulfills any of these requirements or supports a certain functionality, the vendor
+is encouraged but not required to add the related SFRs.<htm:br/><htm:br/>
+<!-- In next major version, consider moving all objective requirements to this type of optional requirements -->
+<!--  The second type (in A.2) are objective requirements that describe security functionality not yet widely
+available in commercial technology. The requirements are not currently mandated in the body of this PP,
+but will be included in the baseline requirements in future versions of this PP. Adoption by vendors is
+encouraged and expected as soon as possible.-->
+The second type (in A.2) are implementation‐dependent requirements that are dependent on the TOE
+implementing a particular function. If the TOE fulfills any of these requirements, the vendor must 
+add the related SFR.<htm:br/><htm:br/>
+
+
+    
+    
+    
+    
+    
+    
+  </appendix>
+  <appendix id="sel-based" title="Selection-Based Requirements"> 
+  </appendix>
+  <appendix id="objective" title="Objective Requirements"> 
+  </appendix>
+  <appendix id="entropy" title="Entropy Documentation And Assessment"> 
+    The documentation of the
     entropy source should be detailed enough that, after reading, the evaluator will thoroughly
     understand the entropy source and why it can be relied upon to provide entropy. This
     documentation should include multiple detailed sections: design description, entropy
@@ -9138,7 +9186,8 @@ spreadsheet
       <htm:br/><htm:br/> If implemented, the design description shall include a description of how
       third-party applications can add entropy to the RBG. A description of any RBG state saving
       between power-off and power-on shall be included. </section>
-    <section id="justification" title="Entropy Justification">There should be a technical argument
+    <section id="justification" title="Entropy Justification">
+      There should be a technical argument
       for where the unpredictability in the source comes from and why there is confidence in the
       entropy source exhibiting probabilistic behavior (an explanation of the probability
       distribution and justification for that distribution given the particular source is one way to
@@ -9148,13 +9197,15 @@ spreadsheet
       entropy source can be relied upon to produce bits with entropy. <htm:br/><htm:br/> The entropy
       justification shall not include any data added from any third-party application or from any
       state saving between restarts. </section>
-    <section id="conditions" title="Operating Conditions">Documentation will also include the range
+    <section id="conditions" title="Operating Conditions">
+      Documentation will also include the range
       of operating conditions under which the entropy source is expected to generate random data. It
       will clearly describe the measures that have been taken in the system design to ensure the
       entropy source continues to operate under those conditions. Similarly, documentation shall
       describe the conditions under which the entropy source is known to malfunction or become
       inconsistent. Methods used to detect failure or degradation of the source shall be included. </section>
-    <section id="testing" title="Health Testing">More specifically, all entropy source health tests
+    <section id="testing" title="Health Testing">
+      More specifically, all entropy source health tests
       and their rationale will be documented. This will include a description of the health tests,
       the rate and conditions under which each health test is performed (e.g., at startup,
       continuously, or on-demand), the expected results for each health test, and rationale
@@ -9498,12 +9549,12 @@ spreadsheet
       </entry>
       <entry>
         <term>XTS</term>
-        <description>XEX (XOR Encrypt XOR) Tweakable Block Cipher with Ciphertext
-          Stealing</description>
+        <description>XEX (XOR Encrypt XOR) Tweakable Block Cipher with Ciphertext Stealing</description>
       </entry>
     </acronyms>
   </appendix>
-  <appendix id="use" title="Use Case Templates"> The following use case templates list those
+  <appendix id="use" title="Use Case Templates"> 
+    The following use case templates list those
     selections, assignments, and objective requirements that best support the use cases identified
     by this Protection Profile. Note that the templates assume that all <abbr linkend="SFR"/>s
     listed in <secref linkend="sfr"/> are included in the <abbr linkend="ST"/>, not just those
@@ -9515,8 +9566,8 @@ spreadsheet
     requirements to be made mandatory in the next revision of this protection profile, and industry
     should aim to include that security functionality in products in the near-term.
     <htm:br/><htm:br/> Where selections for a particular requirement are not identified in a use
-    case template, all available selections are equally applicable to the use case. <section
-      id="case1" title="[USE CASE 1] Enterprise-owned device for general-purpose enterprise use">
+    case template, all available selections are equally applicable to the use case. 
+    <section id="usecase1" title="[USE CASE 1] Enterprise-owned device for general-purpose enterprise use">
       <ctr id="uc1" ctr-type="Table">: Enterprise-Owned Template</ctr>
       <htm:table>
         <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Action</htm:td></htm:tr>
@@ -10133,7 +10184,8 @@ spreadsheet
       </entry>
     </bibliography>
   </appendix>
-  <appendix id="ack" title="Acknowledgements"> This protection profile was developed by the Mobility
+  <appendix id="ack" title="Acknowledgements"> 
+    This protection profile was developed by the Mobility
     Technical Community with representatives from industry, U.S. Government agencies, Common
     Criteria Test Laboratories, and international Common Criteria schemes. The National Information
     Assurance Partnership wishes to acknowledge and thank the members of this group whose dedicated
@@ -10168,3 +10220,54 @@ spreadsheet
     .sel-based::after { content: "(SEL-BASED)" } .SOlist .objective::after { content: "(OBJECTIVE)"
     } </extra-css>
 </PP>
+
+
+
+<!-- FMT_SMF function mapping to IDs for ctr variables
+1	pwd
+2	screenlock
+3	vpn
+4	radios
+5	audioVisual
+6	lockState
+7	wipe
+8	appInstallRules
+9	keyStorage
+10	keyWipe
+11	certImport
+12	certWipe
+13	enroll
+14	appRemove
+15	update
+16	appInstall
+17	entAppRemove
+18	notifications
+19	dar
+20	rmediaDar
+21	location
+22	authFactors
+23	externalPorts
+24	serverProtocols
+25	devModes
+26	authBypass
+27	wipeEntData
+28	appCert
+29	certValidity
+30	certInvalid
+31	cellular
+32	auditLogs
+33	digSign
+34	sharedKeys
+35	keyWipeRules
+36	unlockBanner
+37	auditItems
+38	integ
+39	USB
+40	backup
+41	hotspot
+42	dataSharing
+43	appGroups
+44	unenroll
+45	alwaysOnVPN
+46	bioRevoke
+47	other-->
