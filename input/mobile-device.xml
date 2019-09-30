@@ -6,8 +6,9 @@
 <?xml-model href="../transforms/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 
 <!-- Kevin:
-Allow boilerplate=no for aptional appendix
-Add in second type of optional requirements (A.3) in PSD into schema -->
+Allow boilerplate=no for optional appendix
+Banner for strictly optional, maybe add in use cases.
+-->
 
 <!-- TODO_Future:
  - cert stapling:
@@ -98,7 +99,6 @@ Add in second type of optional requirements (A.3) in PSD into schema -->
 
 <!-- NOTE: 
  
-
 Mapping to TLS Package: Client
      MDF   Package
      1.1 = 1.1 - need to mandate that a ciphersuite other than SHA1 is selected. - do this just like MDM (and turn blind eye to the fact that FCS_COP.1 still allows SHA1)
@@ -111,11 +111,6 @@ Mapping to TLS Package: Client
      3.3 (man) = 4.2 (sel-based) - okay with change
 --> 
 
-<!-- NOTE: 
-  
-
-
--->
 
 
 <PP xmlns="https://niap-ccevs.org/cc/v1" name="Mobile Device Fundamentals"
@@ -1265,9 +1260,9 @@ Mapping to TLS Package: Client
       <InsertSPDCorrespondence/></section>
   </chapter>
   <chapter id="sr" title="Security Requirements" boilerplate="no">
-    <section title="Security Fundamental Requirements" id="sfr"> The individual security functional
-      requirements are specified in the sections below. <htm:br/><htm:br/> The following conventions
-      are used for the completion of operations:<htm:br/>
+    <section title="Security Fundamental Requirements" id="sfr"> 
+      The individual security functional requirements are specified in the sections below. <htm:br/><htm:br/> 
+      The following conventions are used for the completion of operations:<htm:br/>
       <htm:ul>
         <htm:li>[<htm:i>Italicized text within square brackets</htm:i>] indicates an operation to be
           completed by the <abbr linkend="ST"/> author</htm:li>
@@ -1707,7 +1702,8 @@ Mapping to TLS Package: Client
           </f-element>
         </f-component>
       </subsection>
-      <subsection id="fcs" title="Class: Cryptographic Support (FCS)"> This section describes how
+      <subsection id="fcs" title="Class: Cryptographic Support (FCS)"> 
+        This section describes how
         keys are generated, derived, combined, released and destroyed. There are two major types of
         keys: <abbr linkend="DEK"/>s and <abbr linkend="KEK"/>s. (A <abbr linkend="REK"/> is
         considered a <abbr linkend="KEK"/>.) <abbr linkend="DEK"/>s are used to protect data (as in
@@ -3509,16 +3505,20 @@ Mapping to TLS Package: Client
           <f-element id="fcs_cop.1.1(4)">
             <title>The <abbr linkend="TSF"/> shall perform <refinement>keyed-hash message
                 authentication</refinement> in accordance with a specified cryptographic algorithm
-                <refinement>HMAC-SHA-1 and
-                    <selectables><selectable>HMAC-SHA-256</selectable><selectable>HMAC-SHA-384</selectable><selectable>HMAC-SHA-512</selectable><selectable
-                    exclusive="yes">no other algorithms</selectable></selectables></refinement> and
-              cryptographic key sizes <assignable>key size (in bits) used in
-                HMAC</assignable><refinement> and message digest sizes 160 and
-                    <selectables><selectable>256</selectable><selectable>384</selectable><selectable>512</selectable><selectable
-                    exclusive="yes">no other</selectable></selectables> bits</refinement> that meet
+                <refinement>HMAC-SHA-1 and <selectables>
+                      <selectable>HMAC-SHA-256</selectable>
+                  <selectable>HMAC-SHA-384</selectable>
+                  <selectable>HMAC-SHA-512</selectable>
+                  <selectable exclusive="yes">no other algorithms</selectable>
+                </selectables></refinement> and cryptographic key sizes <assignable>key size (in bits) used in HMAC</assignable><refinement> and message digest sizes 160 and <selectables>
+                  <selectable>256</selectable>
+                  <selectable>384</selectable>
+                  <selectable>512</selectable>
+                  <selectable exclusive="yes">no other</selectable></selectables> bits</refinement> that meet
               the following: <refinement>FIPS Pub 198-1, "The Keyed-Hash Message Authentication
                 Code", and FIPS Pub 180-4, "Secure Hash Standard"</refinement>. </title>
-            <note role="application">The selection in this requirement must be consistent with the
+            <note role="application">
+              The selection in this requirement must be consistent with the
               key size specified for the size of the keys used in conjunction with the keyed-hash
               message authentication. HMAC-SHA-1 is currently required in order to comply with the
               WLAN Client EP.</note>
@@ -3657,8 +3657,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_rbg_ext.1"
-          name="Extended: Cryptographic Operation (Random Bit Generation)">
+        <f-component id="fcs_rbg_ext.1" name="Extended: Cryptographic Operation (Random Bit Generation)">
           <f-element id="fcs_rbg_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall perform all deterministic random bit generation
               services in accordance with NIST Special Publication 800-90A using
@@ -3762,8 +3761,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_rbg_ext.2"
-          name="Extended: Cryptographic Operation (Random Bit Generation)" status="objective">
+        <f-component id="fcs_rbg_ext.2" name="Extended: Cryptographic Operation (Random Bit Generation)" status="objective">
           <f-element id="fcs_rbg_ext.2.1">
             <title>The <abbr linkend="TSF"/> shall save the state of the deterministic RBG at
               power-off, and shall use this state as input to the deterministic RBG at
@@ -3784,8 +3782,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_rbg_ext.3"
-          name="Extended: Cryptographic Operation (Random Bit Generation)" status="objective">
+        <f-component id="fcs_rbg_ext.3" name="Extended: Cryptographic Operation (Random Bit Generation)" status="objective">
           <f-element id="fcs_rbg_ext.3.1">
             <title>The <abbr linkend="TSF"/> shall allow applications to add data to the
               deterministic RBG using the Personalization String as defined in SP 800-90A. </title>
@@ -3867,8 +3864,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_srv_ext.2" name="Extended: Cryptographic Algorithm Services"
-          status="objective">
+        <f-component id="fcs_srv_ext.2" name="Extended: Cryptographic Algorithm Services" status="objective">
           <f-element id="fcs_srv_ext.2.1">
             <title>The <abbr linkend="TSF"/> shall provide a mechanism for applications to request
               the <abbr linkend="TSF"/> to perform the following cryptographic operations: <htm:ul>
@@ -4369,16 +4365,6 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <!-- BT Module: Will be added to module as objective-->
-        <!--  <f-component id="fdp_blt_ext.1" name="Extended: Limitation of Bluetooth Device Access" status="objective">
-          <f-element id="fdp_blt_ext.1.1">
-            <title>The <abbr linkend="TSF"/> shall limit the applications that may communicate with a particular paired Bluetooth device.</title>
-            <note role="application">Not every application with privileges to use Bluetooth should be permitted to communicate with every paired Bluetooth device. For example, the <abbr linkend="TSF"/> may choose to require that only the application that initiated the current connection may communicate with the device, or it may strictly tie the paired device to the first application that makes a socket connection to the device following initial pairing. Additionally, for more flexibility, the <abbr linkend="TSF"/> may choose to provide the user with a way to select which applications on the device may communicate with or observe communications with each paired Bluetooth device.</note>
-            <aactivity>
-              <TSS/>The evaluator shall ensure that the  <abbr linkend="TSS"/> describes the mechanism used to prevent unrestricted access to paired Bluetooth devices (and/or their communication data) by every application with access to the Bluetooth system service on the <abbr linkend="TOE"/> (as listed in <linkref linkend="FDP_ACF_EXT.1"/>). The evaluator shall verify that this method either restricts access to a single application or provides explicit control of the applications that may communicate with the paired Bluetooth device.
-            </aactivity>
-          </f-element>
-        </f-component>-->
         <f-component id="fdp_bck_ext.1" name="Extended: Application Backup" status="objective">
           <f-element id="fdp_bck_ext.1.1">
             <title>The <abbr linkend="TSF"/> shall provide a mechanism for applications to mark
@@ -4436,7 +4422,8 @@ Mapping to TLS Package: Client
           <f-element id="">
             <title/>
           </f-element>
-        </f-component> Three levels of data-at-rest protection are addressed: <abbr linkend="TSF"/>
+        </f-component> 
+        Three levels of data-at-rest protection are addressed: <abbr linkend="TSF"/>
         data, Protected Data (and keys), and sensitive data. <ctr-ref refid="datalevels"/> addresses
         the level of protection required for each level of data-at-rest. <htm:br/><htm:br/>
         <htm:b><ctr id="datalevels" ctr-type="Table">: Protection of Data Levels</ctr></htm:b>
@@ -4747,8 +4734,7 @@ Mapping to TLS Package: Client
                   linkend="FMT_MOF_EXT.1.1"/>.</TSS>
             </aactivity>
           </f-element>
-        </f-component>
-        
+        </f-component>       
         <f-component id="fdp_upc_ext.1(1)" name="Extended: Inter-TSF user data transfer protection">
           <f-element id="fdp_upc_ext.1.1(1)">
             <title>The <abbr linkend="TSF"/> shall provide a means for non-TSF applications
@@ -4854,29 +4840,10 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-
-<!--
-        <f-component id="fdp_test.1" name="Test Requirement">
-            <depends on="implements" ref-id="test"/>
-            <f-element id="fdp_test.1.1" >
-                <title> This is a test.</title>
-                <aactivity><Tests>Something</Tests></aactivity>
-            </f-element>
-        </f-component>
-
-        <f-component id="fdp_test2.1" name="Test2 Requirement">
-            <depends on="implements" ref-id="test"/>
-            <f-element id="fdp_test2.1.1" >
-                <title> This is a test.</title>
-                <aactivity><Tests>Something</Tests></aactivity>
-            </f-element>
-        </f-component>
--->
-
-        <f-component id="fdp_upc_ext.1(2)" name="Extended: Inter-TSF user data transfer protection - Bluetooth"> <!-- SPECIAL Optional -->
-          <depends on="implements" ref-id="bluetooth"/>
+        <f-component id="fdp_upc_ext.1(2)" name="Extended: Inter-TSF user data transfer protection - Bluetooth"> 
+          <depends on="implements" ref-id="bluetooth"/>  <!-- Implementation Dependent -->
           <f-element id="fdp_upc_ext.1.1(2)">
-            <title>The <abbr linkend="TSF"/> shall provide a means for non-TSF applications executing on the <abbr linkend="TOE"/> to use <htm:ul>              
+            <title>The <abbr linkend="TSF"/> shall provide a means for non-TSF applications executing on the <abbr linkend="TOE"/> to use <htm:ul>       
                 <htm:li>Bluetooth BR/EDR in accordance with the PP-Module for Bluetooth,</htm:li>
               </htm:ul>and <selectables linebreak="yes">              
                 <selectable>Bluetooth LE in accordance with the PP-Module for Bluetooth</selectable>              
@@ -4932,8 +4899,7 @@ Mapping to TLS Package: Client
               </Tests>
             </aactivity>
           </f-element>
-        </f-component>
-      
+        </f-component>   
       </subsection>
       <subsection id="fia" title="Class: Identification and Authentication (FIA)">
         <f-component id="fia_afl_ext.1" name="Extended: Authentication failure handling">
@@ -6184,7 +6150,8 @@ Mapping to TLS Package: Client
           </f-element>
         </f-component>
       </subsection>
-      <subsection id="fmt" title="Class: Security Management (FMT)"> Both the user and the
+      <subsection id="fmt" title="Class: Security Management (FMT)"> 
+        Both the user and the
         administrator may manage the <abbr linkend="TOE"/>. This administrator is likely to be
         acting remotely and could be the Mobile Device Management (MDM) Administrator acting through
         an <abbr linkend="MDM"/> Agent. <htm:br/><htm:br/> The Administrator is responsible for
@@ -8594,8 +8561,8 @@ Mapping to TLS Package: Client
         </f-component>
       </subsection>
     </section>
-    <section id="sar" title="Security Assurance Requirements"> The Security Objectives in <secref
-        linkend="sobj"/> were constructed to address threats identified in <secref linkend="spd"/>.
+    <section id="sar" title="Security Assurance Requirements"> 
+      The Security Objectives in <secref linkend="sobj"/> were constructed to address threats identified in <secref linkend="spd"/>.
       The Security Functional Requirements (<abbr linkend="SFR"/>s) in <secref linkend="sfr"/> are a
       formal instantiation of the Security Objectives. The PP identifies the Security Assurance
       Requirements (<abbr linkend="SAR"/>s) to frame the extent to which the evaluator assesses the
@@ -9137,31 +9104,7 @@ Mapping to TLS Package: Client
       </subsection>
     </section>
   </chapter>
-  <appendix id="optional" title="Optional Requirements" boilerplate="no">
-    As indicated in <secref linkend="ccl"/> the baseline requirements (those that must be performed by the TOE) are contained in the body of this PP. Additionally, there are three other types of requirements specified in
-    <appref linkend="optional"/>, <appref linkend="sel-based"/>, and <appref linkend="objective"/>. Note that the ST author is responsible for ensuring that requirements that may be associated with those in <appref linkend="optional"/>, <appref linkend="sel-based"/>, and <appref linkend="objective"/> but are not listed (e.g., FMT-type requirements) are also included in the ST. <htm:br/><htm:br/>
-
-The first type (in this Appendix) are requirements that can be included in the <abbr title="Security Target">ST</abbr>. This Appendix contains two types of optional requirements that may be included in the ST.<htm:br/><htm:br/>
-
-The first type (in A.1) are strictly optional requirements that are independent of the TOE implementing
-any function. If the TOE fulfills any of these requirements or supports a certain functionality, the vendor
-is encouraged but not required to add the related SFRs.<htm:br/><htm:br/>
-<!-- In next major version, consider moving all objective requirements to this type of optional requirements -->
-<!--  The second type (in A.2) are objective requirements that describe security functionality not yet widely
-available in commercial technology. The requirements are not currently mandated in the body of this PP,
-but will be included in the baseline requirements in future versions of this PP. Adoption by vendors is
-encouraged and expected as soon as possible.-->
-The second type (in A.2) are implementation‐dependent requirements that are dependent on the TOE
-implementing a particular function. If the TOE fulfills any of these requirements, the vendor must 
-add the related SFR.<htm:br/><htm:br/>
-
-
-    
-    
-    
-    
-    
-    
+  <appendix id="optional" title="Optional Requirements">
   </appendix>
   <appendix id="sel-based" title="Selection-Based Requirements"> 
   </appendix>
@@ -10214,9 +10157,8 @@ add the related SFR.<htm:br/><htm:br/>
 -->
     <feature id="bluetooth" name="Bluetooth or something implementation QQQ">
        <description>
-If the TSF supports some sort of bluetooth thing may, 
-the followign SFRs must be all claimed or the functionality disabled
-          <htm:ul><htm:li>fdp_upc_ext.1(2) <linkref linkend="fdp_upc_ext.1(2)"/></htm:li></htm:ul>
+If the TOE includes Bluetooth hardware, the followign SFRs must be all claimed:
+          <htm:ul><htm:li><!-- fdp_upc_ext.1(2) --> <linkref linkend="fdp_upc_ext.1(2)"/></htm:li></htm:ul>
        </description>
     </feature>
   </implements>
@@ -10227,7 +10169,8 @@ the followign SFRs must be all claimed or the functionality disabled
   .LsVerySpecificUseCase { text-decoration: line-through;}
   .LsVerySpecificUseCase::after { content: "]"; }-->
     <!-- <htm:div class="LsVerySpecificUseCase">-->
-    <!-- DO NOT DELETE --> .SOlist .optional::after { content: "(OPTIONAL)" } .SOlist
+    <!-- DO NOT DELETE --> 
+    .SOlist .optional::after { content: "(OPTIONAL)" } .SOlist
     .sel-based::after { content: "(SEL-BASED)" } .SOlist .objective::after { content: "(OBJECTIVE)"
     } </extra-css>
 </PP>
