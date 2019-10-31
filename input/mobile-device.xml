@@ -239,7 +239,339 @@ Mapping to TLS Package: Client
   <chapter id="int" title="Introduction" boilerplate="no">
     <section title="Objectives of Document" id="objdoc"> 
       This document presents the Common Criteria (CC) Protection Profile (PP) to express the fundamental security and evaluation requirements for a Mobile Device. </section>
-    <section title="Scope of Document" id="scope"> 
+      <tech-terms>
+	<term full="Adaptive (template)">
+	  Authentication templates that evolve with each sample that is verified and
+	  introduced into the biometrics database or gallery.
+	</term>
+	<term abbr="AES" full="Advanced Encryption Standard"/>
+	<term abbr="AEAD" full="Authenticated Encryption with Associated Data"/>
+	<term abbr="ASLR" full="Address Space Layout Randomization">
+	  An anti-exploitation feature, which loads memory mappings into
+	  unpredictable locations. ASLR makes it more difficult for an attacker to redirect
+	  control to code that they have introduced into the address space of a process or the
+	kernel.</term>
+	<term full="Administrator">The Administrator is responsible for management activities, including
+	setting the policy that is applied by the enterprise on the Mobile Device. This
+	administrator is likely to be acting remotely and could be the Mobile Device
+	Management (MDM) Administrator acting through an MDM Agent. If the
+	device is unenrolled, the user is the administrator.</term>
+	<term abbr="ANSI" full="American National Standards Institute"/>
+	<term abbr="AP" full="Application Processor"/>
+	<term abbr="API" full="Application Programming Interface"/>
+	<term abbr="ASLR" full="Address Space Layout Randomization"/>
+	<term full="Authentication Template">
+	  A digital representation of an individual’s distinct characteristics,
+	  representing information extracted from a biometric sample. Such templates are used
+	  during biometric authentication and verification as the basis for comparison. Unlike
+	enrollment templates, these templates can be adaptive.</term>
+	<term full="Auxiliary Boot Modes">
+	  Auxiliary boot modes are states in which the device provides power to one
+	  or more components to provide an interface that enables an unauthenticated user to
+	  interact with either a specific component or several components that exist outside of
+	the device’s fully authenticated, operational state.</term>
+	<term full="Biometric Authentication Factor" abbr="BAF">Authentication factor, which uses biometric sample, matched to a biometric
+	authentication template to help establish identity.</term>
+	<term full="Biometric Data">
+	  Digital data created during a biometric process. It encompasses raw sensor
+	  observations, biometric samples, models, templates, and/or similarity scores, among
+	  other data. This data is used to describe the information collected during an
+	  enrollment, verification, or identification process, but does not apply to end user
+	  information such as user name, password (unless tied to the biometric modality),
+	demographic information, and authorizations.</term>
+	<term full="Biometric Sample">
+	  Information or computer data obtained from a biometric sensor device or
+	captured from an individual to the sensor.</term>
+	<term full="Biometric System">
+	  Multiple individual components (such as sensor, matching algorithm, and
+	  result delay) that combine to make a fully operational system. A biometric system is
+	  automated and capable of: <htm:ol>
+	  <htm:li>Capturing a biometric sample from an end user</htm:li>
+	  <htm:li>Extracting and processing the biometric data from that sample</htm:li>
+	  <htm:li>Generating various templates based on processing of that sample during
+	  enrollment, or, if adaptive, during verification as well</htm:li>
+	  <htm:li>Storing the extracted information in a database on the device, for the
+	  purposes of this PP</htm:li>
+	  <htm:li>Comparing the biometric data with data contained in one or more
+	  authentication templates</htm:li>
+	  <htm:li>Deciding how well they match and indicating whether or not an identification
+	  or verification of identity has been achieved.</htm:li>
+	</htm:ol></term>
+	<term abbr="BP" full="Baseband Processor"/>
+	<term abbr="BR/EDR" full="(Bluetooth) Basic Rate/Enhanced Data Rate"/>
+	<term abbr="CA" full="Certificate Authority"/>
+	<term abbr="CBC" full="Cipher Block Chaining"/>
+	<term abbr="CCM" full="Counter with CBC-Message Authentication Code"/>
+	<term abbr="CCMP" full="CCM Protocol"/>
+	<term abbr="CMC" full="Certificate Management over Cryptographic Message Syntax (CMS)"/>
+	<term abbr="CPU" full="Central Processing Unit"/>
+	<term abbr="CRL" full="Certificate Revocation List"/>
+	<term abbr="CSP" full="Critical Security Parameters"/>
+	<term full="Common Application Developer">
+	  Application developers (or software companies) often produce many
+	  applications under the same name. Mobile devices often allow shared resources by such
+	applications where otherwise resources would not be shared. </term>
+	<term full="Critical Security Parameter" abbr="CSP">
+	  Security-related information whose disclosure or modification can
+	  compromise the security of a cryptographic module and/or authentication
+	  system.
+	</term>
+	<term full="Data">
+	  Program/application or data files that are stored or transmitted by a
+	server or Mobile Device (MD). </term>
+	<term full="Data Encryption Key" abbr="DEK">A key used to encrypt data-at-rest.</term>
+	<term full="Developer Modes">
+	  Developer modes are states in which additional services are available to a
+	  user in order to provide enhanced system access for debugging of software.
+	</term>
+	<term abbr="DAR" full="Data At Rest"/>
+	<term abbr="DEK" full="Data Encryption Key"/>
+	<term abbr="DEP" full="Data Execution Prevention"/>
+	<term abbr="DH" full="Diffie-Hellman"/>
+	<term abbr="DNS" full="Domain Name System"/>
+	<term abbr="DSA" full="Digital Signature Algorithm"/>
+	<term abbr="DTLS" full="Datagram Transport Layer Security"/>
+	<term full="Encrypted Software Keys">
+	  These keys are stored in the main file system encrypted by another key and
+	can be changed and sanitized.</term>
+	<term full="Enrolled state">
+	  The state in which the Mobile Device is managed with active policy settings
+	from the administrator.</term>
+	<term full="Enrollment (Biometrics)">
+	  The process of collecting a biometric sample from an end user, converting
+	  it into an enrollment and/or authentication template, and storing it in the biometric
+	  system’s database. If an enrollment template is generated, it is used during the
+	  enrollment process for later comparison to other enrollment templates already stored.
+	  If there are multiple enrollment templates, they may be fused, averaged, or otherwise,
+	  in order to create authentication templates, which are used for later comparison in
+	verification.</term>
+	<term full="Enrollment Template">
+	  A digital representation of an individual’s distinct characteristics,
+	  representing information extracted from a biometric sample. Such templates are
+	  generated during the enrollment process and utilized in various ways (including
+	  averaging, fusion, etc.) in order to generate an authentication
+	template.</term>
+	<term full="Enterprise Applications">
+	Applications that are provided and managed by the enterprise.</term>
+	<term full="Enterprise Data">
+	  Enterprise data is any data residing in the enterprise servers, or
+	  temporarily stored on Mobile Devices to which the Mobile Device user is allowed access
+	  according to security policy defined by the enterprise and implemented by the
+	administrator.</term>
+	<term full="Ephemeral Keys">
+	These keys are stored in volatile memory.</term>
+	<term abbr="EAP" full="Extensible Authentication Protocol"/>
+	<term abbr="EAPOL" full="EAP Over LAN"/>
+	<term abbr="ECDH" full="Elliptic Curve Diffie Hellman"/>
+	<term abbr="ECDSA" full="Elliptic Curve Digital Signature Algorithm"/>
+	<term abbr="EEPROM" full="Electrically Erasable Programmable Read-Only Memory "/>
+	<term abbr="EST" full="Enrollment over Secure Transport"/>
+	<term full="False Accept Rate" abbr="FAR">
+	  A statistic used to measure biometric performance when operating in
+	  verification, defined as the percentage of times a system produces a false accept,
+	  which occurs when an individual is incorrectly matched to another individual’s
+	  existing biometric. For example, Mallory claims to be Alice and the system verifies
+	the claim.</term>
+	<term full="False Reject Rate" abbr="FRR">
+	  A statistic used to measure biometric performance in verification, defined
+	  as the percentage of times the system produces a false reject. A false reject occurs
+	  when an individual is not matched to his or her own existing biometric template. For
+	  example, John claims to be John, but the system incorrectly denies the
+	claim.</term>
+	<term abbr="FIPS" full="Federal Information Processing Standards"/>
+	<term abbr="FM" full="Frequency Modulation"/>
+	<term abbr="FQDN" full="Fully Qualified Domain Name"/>
+	<term full="(Biometric) Feature(s)">
+	  Distinctive mathematical characteristic(s) derived from a biometric sample,
+	used to generate enrollment or authentication templates.</term>
+	<term full="File Encryption Key" abbr="FEK">
+	  A DEK used to encrypt a file or a director when File Encryption is used.
+	  FEKs are unique to each encrypted file or directory.
+	</term>
+	<term abbr="GCM" full="Galois Counter Mode"/>
+	<term abbr="GPS" full="Global Positioning System"/>
+	<term abbr="GPU" full="Graphics Processing Unit"/>
+	<term full="Hardware-Isolated Keys">
+	  The Rich OS can only access these keys by reference, if at all, during runtime.
+	</term>
+	<term abbr="HDMI" full="High Definition Multimedia Interface"/>
+	<term abbr="HMAC" full="Keyed-Hash Message Authentication Code"/>
+	<term abbr="HTTPS" full="HyperText Transfer Protocol Secure"/>
+	<term full="Hybrid Authentication">
+	  A hybrid authentication factor is one where a user has to submit a
+	  combination of biometric sample and PIN or password with both to pass and without the
+	user being made aware of which factor failed, if either fails.</term>
+	<term full="Immutable Hardware Key">
+	  These keys are stored as hardware-protected raw key and cannot be changed
+	or sanitized.</term>
+	<term abbr="IEEE" full="Institute of Electrical and Electronics Engineers"/>
+	<term abbr="IP" full="Internet Protocol"/>
+	<term abbr="IPC" full="Inter-Process Communication"/>
+	<term abbr="IPsec" full="Internet Protocol Security"/>
+	<term full="Key Chaining">
+	  The method of using multiple layers of encryption keys to protect data. A
+	  top layer key encrypts a lower layer key, which encrypts the data; this method can
+	have any number of layers.</term>
+	<term full="Key Encryption Key" abbr="KEK">
+	  A key used to encrypt other keys, such as DEKs or storage
+	that contains keys.</term>
+	<term full="Liveness Detection">
+	  A technique used to ensure that the biometric sample submitted is from an
+	  end user. A liveness detection method can help protect the system against some types
+	of spoofing attacks.</term>
+	<term full="Locked State">
+	  Powered on but most functionality is unavailable for use. User
+	authentication is required to access functionality.</term>
+	<term abbr="LE" full="(Bluetooth) Low Energy"/>
+	<term abbr="LTE" full="Long Term Evolution"/>
+	<term full="Mobile Device" abbr="MD">A device which is composed of a hardware platform and its system software.
+	The device typically provides wireless connectivity and may include software for
+	functions like secure messaging, email, web, VPN connection, and VoIP (Voice over IP),
+	for access to the protected enterprise network, enterprise data and applications, and
+	for communicating to other Mobile Devices. </term>
+	<term full="Mobile Device Management" abbr="MDM">
+	  Mobile device management (MDM) products allow enterprises to apply security
+	  policies to mobile devices. This system consists of two primary components: the MDM Server and the MDM Agent.
+	</term>
+	<term abbr="MMI" full="Man-Machine Interface"/>
+	<term abbr="MMS" full="Multimedia Messaging Service"/>
+	<term full="MDM Agent">
+	  The MDM Agent is installed on a Mobile Device as an
+	  application or is part of the Mobile Device’s OS. The MDM Agent
+	  establishes a secure connection back to the MDM Server controlled by
+	the administrator.</term>
+	<term full="Minutia Point">
+	  Friction ridge characteristics that are used to individualize a fingerprint
+	  image. Minutia are the points where friction ridges begin, terminate, or split into
+	  two or more ridges. In many fingerprint systems, the minutia points are compared for
+	recognition purposes.</term>
+	<term full="Mobile Device User (User)">
+	  The individual authorized to physically control and operate the Mobile
+	  Device. Depending on the use case, this can be the device owner or an individual
+	authorized by the device owner.</term>
+	<term full="(Biometric) Modality">
+	  A type or class of biometric system, such as fingerprint recognition,
+	  facial recognition, iris recognition, voice recognition, signature/sign, and
+	others.</term>
+	<term full="Mutable Hardware Key">
+	  These keys are stored as hardware-protected raw key and can be changed or
+	sanitized.</term>
+	<term full="NIST Fingerprint Image Quality" abbr="NFIQ">
+	  A machine-learning algorithm that reflects the predictive positive or
+	  negative contribution of an individual sample to the overall performance of a
+	  fingerprint matching system. <htm:br/> NFIQ 1.0 scores are calculated on a scale from
+	  1 to 5, where NFIQ = 1 indicates high quality samples and NFIQ = 5 indicates poor
+	  quality samples <cite linkend="NFIQ1.0"/>. <htm:br/> NFIQ 2.0 scores are calculated on
+	  a scale from 0 to 100, where NFIQ = 0 indicates poor quality samples and NFIQ = 100
+	  indicates high quality samples <cite linkend="NFIQ2.0"/>.
+	</term>
+	<term abbr="NFC" full="Near Field Communication"/>
+	<term abbr="NIST" full="National Institute of Standards and Technology"/>
+	<term abbr="NX" full="Never Execute"/>
+	<term full="Operating System" abbr="OS">
+	  Software, which runs at the highest, privilege level and can directly
+	  control hardware resources. Modern Mobile Devices typically have at least two primary
+	  operating systems: one, which runs on the cellular baseband processor and one, which
+	  runs on the application processor. The OS of the application
+	  processor handles most user interaction and provides the execution environment for
+	  apps. The OS of the cellular baseband processor handles
+	  communications with the cellular network and may control other peripherals. The term
+	  OS, without context, may be assumed to refer to the OS of the application processor. 
+	</term>
+	<term abbr="OCSP" full="Online Certificate Status Protocol"/>
+	<term abbr="OID" full="Object Identifier"/>
+	<term abbr="OTA" full="Over the Air"/>
+	<term full="Password Authentication Factor">
+	  A type of authentication factor requiring the user to provide a secret set
+	of characters to gain access.</term>
+	<term full="PIN">
+	  A PIN factor is a set of numeric or alphabetic characters that may be used
+	  in addition to a biometric factor to provide a hybrid authentication factor. At this
+	time it is not considered as a standalone authentication mechanism.</term>
+	<term full="Presentation Attack Detection" abbr="PAD">
+	  A technique used to ensure that the biometric sample submitted is from an
+	  end user. A presentation attack detection method can help protect the system against
+	  some types of spoofing attacks.
+	</term>
+	<term full="Powered Off State">
+	  The device has been shut down such that no TOE function
+	can be performed.</term>
+	<term abbr="PAE" full="Port Access Entity"/>
+	<term abbr="PBKDF" full="Password-Based Key Derivation Function"/>
+	<term abbr="PMK" full="Pairwise Master Key"/>
+	<term abbr="PTK" full="Pairwise Temporal Key"/>
+	<term abbr="PD" full="Protected Data">
+	  Protected data is all non-TSF data, including all user or enterprise data.
+	  Protected data includes all keys in software-based secure key storage. Some or all of
+	this data may be considered sensitive data as well. </term>
+	<term full="Rich Operating System (Rich OS)">
+	  This term is a synonym used to refer to the primary operating system of the
+	  application processor defined above under "Operating System (OS)". This term is used
+	  to distinguish the primary operating system from an operating system executing in a
+	  smaller, isolated execution environment that may be present on the
+	processor.</term>
+	<term full="Root Encryption Key" abbr="REK">
+	  A key tied to the device used to encrypt other keys.
+	</term>
+	<term abbr="RA" full="Registration Authority"/>
+	<term abbr="RBG" full="Random Bit Generator"/>
+	<term abbr="ROM" full="Read-only memory"/>
+	<term abbr="RSA" full="Rivest Shamir Adleman Algorithm"/>
+	<term full="Sensitive data">
+	  Sensitive data shall be identified in the TSS section of
+	  the Security Target (ST) by the ST author.
+	  Sensitive data is a subset or all of the Protected data. Sensitive data may include
+	  all user or enterprise data or may be specific application data such as emails,
+	  messaging, documents, calendar items, and contacts. Sensitive data is protected while
+	  in the locked state (<linkref linkend="FDP_DAR_EXT.2"/>). Sensitive data must
+	minimally include some or all keys in software-based key storage.</term>
+	<term full="Software Keys">
+	  The Rich OS access the raw bytes of these keys during
+	runtime.</term>
+	<term abbr="SHA" full="Secure Hash Algorithm"/>
+	<term abbr="SMS" full="Short Messaging Service"/>
+	<term abbr="SPI" full="Security Parameter Index"/>
+	<term abbr="SSH" full="Secure Shell"/>
+	<term abbr="SSID" full="Service Set Identifier"/>
+	<term abbr="ST" full="Security Target"/>
+	<term full="(Biometric) Template">
+	  A digital representation of an individual’s distinct characteristics,
+	  representing information extracted from a biometric sample. This PP
+	further defines enrollment templates and authentication templates.</term>
+	<term full="Threshold">
+	  A user setting for biometric systems operating in verification. Thresholds
+	  are also used in enrollment if enrollment templates are created and compared to each
+	  other. The acceptance or rejection of biometric data in verification is dependent on
+	  the match score falling above or below the threshold. The threshold is adjustable so
+	  that the biometric system can be more or less strict, depending on the requirements of
+	any given biometric application.</term>
+	<term full="Trust Anchor Database">
+	A list of trusted root Certificate Authority certificates.</term>
+	<term full="TSF Data">
+	  Data for the operation of the TSF upon which the
+	enforcement of the requirements relies.</term>
+	<term abbr="TLS" full="Transport Layer Security"/>
+	<term abbr="TSF" full="TOE Security Functionality"/>
+	<term abbr="TSS" full="TOE Summary Specification"/>
+	<term full="Unenrolled state">
+	The state in which the Mobile Device is not managed. </term>
+	<term full="Unlocked State">
+	  Powered on and device functionality is available for use. Implies user
+	authentication has occurred (when so configured).</term>
+	<term abbr="URI" full="Uniform Resource Identifier"/>
+	<term abbr="USB" full="Universal Serial Bus"/>
+	<term abbr="USSD" full="Unstructured Supplementary Service Data"/>
+	<term full="Verification (Biometrics)">
+	  A task where the biometric system attempts to confirm an individual’s
+	  claimed identity by comparing a submitted sample to one or more previously enrolled
+	authentication templates.</term>
+	<term abbr="VPN" full="Virtual Private Network"/>
+        <term abbr="Wi-Fi" full="Wireless Fidelity"/>
+        <term abbr="XCCDF" full="eXtensible Configuration Checklist Description Format"/>
+        <term abbr="XTS" full="XEX (XOR Encrypt XOR) Tweakable Block Cipher with Ciphertext Stealing"/>
+      </tech-terms>
+
+      <section title="Scope of Document" id="scope"> 
       The scope of the Protection Profile within the
       development and evaluation process is described in the Common Criteria for Information
       Technology Security Evaluation <citeCC/>. In particular, a <abbr linkend="PP"/>
@@ -247,512 +579,9 @@ Mapping to TLS Package: Client
       the functional and assurance security measures to be offered by that <abbr linkend="TOE"/> to
       meet stated requirements <citeCC/>. </section>
     <section title="Intended Readership" id="intread"> 
-      The target audiences of this <abbr
-        linkend="PP"/> are Mobile Device developers, <abbr linkend="CC"/> consumers, evaluators and
+      The target audiences of this PP are Mobile Device developers, CC consumers, evaluators and
       schemes. </section>
-    <section title="Terms" id="terms">
-      <subsection id="ccterms" title="Common Criteria Terms">
-        <glossary>
-          <entry>
-            <term>
-              <abbr title="Common Criteria">CC</abbr>
-            </term>
-            <description>Common Criteria for Information Technology Security Evaluation
-              (International Standard ISO/IEC 15408). </description>
-          </entry>
-          <entry>
-            <term>Common Criteria Testing Laboratory</term>
-            <description>Within the context of the Common Criteria Evaluation and Validation Scheme
-              (CCEVS), an IT security evaluation facility, accredited by the National Voluntary
-              Laboratory Accreditation Program (NVLAP) and approved by the NIAP Validation Body to
-              conduct Common Criteria-based evaluations. </description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Common Evaluation Methodology">CEM</abbr>
-            </term>
-            <description>Common Evaluation Methodology for Information Technology Security
-              Evaluation.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Module">Module</abbr>
-            </term>
-            <description>An implementation-independent set of security requirements for a specific
-              subset of products described by a <abbr linkend="PP"/>.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Protection Profile">PP</abbr>
-            </term>
-            <description>An implementation-independent set of security requirements for a category
-              of products. </description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Security Assurance Requirement">SAR</abbr>
-            </term>
-            <description>A requirement for how the <abbr linkend="TOE"/>'s proper implementation of
-              the <abbr linkend="SFR"/>'s is verified by an evaluator. </description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Security Functional Requirement">SFR</abbr>
-            </term>
-            <description>A requirement for security enforcement by the <abbr linkend="TOE"
-              />.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Security Target">ST</abbr>
-            </term>
-            <description>A set of implementation-dependent security requirements for a specific
-              product.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Target of Evaluation">TOE</abbr>
-            </term>
-            <description>The product under evaluation.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="TOE Security Functionality">TSF</abbr>
-            </term>
-            <description>The security functionality of the product under evaluation. </description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="TOE Summary Specification">TSS</abbr>
-            </term>
-            <description>A description of how a <abbr linkend="TOE"/> satisfies the <abbr
-                linkend="SFR"/>s in an <abbr linkend="ST"/>.</description>
-          </entry>
-          <entry>
-            <term>TSF Data</term>
-            <description>Data for the operation of the <abbr linkend="TSF"/> that is used to enforce
-              its security requirements.</description>
-          </entry>
-        </glossary>
-      </subsection>
-      <subsection id="techterms" title="Technology Terms">
-        <glossary>
-          <entry>
-            <term>Adaptive (template)</term>
-            <description>Authentication templates that evolve with each sample that is verified and
-              introduced into the biometrics database or gallery.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Address Space Layout Randomization">ASLR</abbr>
-            </term>
-            <description>An anti-exploitation feature, which loads memory mappings into
-              unpredictable locations. ASLR makes it more difficult for an attacker to redirect
-              control to code that they have introduced into the address space of a process or the
-              kernel.</description>
-          </entry>
-          <entry>
-            <term>Administrator</term>
-            <description>The Administrator is responsible for management activities, including
-              setting the policy that is applied by the enterprise on the Mobile Device. This
-              administrator is likely to be acting remotely and could be the Mobile Device
-              Management (MDM) Administrator acting through an <abbr linkend="MDM"/> Agent. If the
-              device is unenrolled, the user is the administrator.</description>
-          </entry>
-          <entry>
-            <term>Authentication Template</term>
-            <description>A digital representation of an individual’s distinct characteristics,
-              representing information extracted from a biometric sample. Such templates are used
-              during biometric authentication and verification as the basis for comparison. Unlike
-              enrollment templates, these templates can be adaptive.</description>
-          </entry>
-          <entry>
-            <term>Auxiliary Boot Modes</term>
-            <description>Auxiliary boot modes are states in which the device provides power to one
-              or more components to provide an interface that enables an unauthenticated user to
-              interact with either a specific component or several components that exist outside of
-              the device’s fully authenticated, operational state.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Biometric Authentication Factor">BAF</abbr>
-            </term>
-            <description>Authentication factor, which uses biometric sample, matched to a biometric
-              authentication template to help establish identity.</description>
-          </entry>
-          <entry>
-            <term>Biometric Data</term>
-            <description>Digital data created during a biometric process. It encompasses raw sensor
-              observations, biometric samples, models, templates, and/or similarity scores, among
-              other data. This data is used to describe the information collected during an
-              enrollment, verification, or identification process, but does not apply to end user
-              information such as user name, password (unless tied to the biometric modality),
-              demographic information, and authorizations.</description>
-          </entry>
-          <entry>
-            <term>Biometric Sample</term>
-            <description>Information or computer data obtained from a biometric sensor device or
-              captured from an individual to the sensor.</description>
-          </entry>
-          <entry>
-            <term>Biometric System</term>
-            <description>Multiple individual components (such as sensor, matching algorithm, and
-              result delay) that combine to make a fully operational system. A biometric system is
-              automated and capable of: <htm:ol>
-                <htm:li>Capturing a biometric sample from an end user</htm:li>
-                <htm:li>Extracting and processing the biometric data from that sample</htm:li>
-                <htm:li>Generating various templates based on processing of that sample during
-                  enrollment, or, if adaptive, during verification as well</htm:li>
-                <htm:li>Storing the extracted information in a database on the device, for the
-                  purposes of this PP</htm:li>
-                <htm:li>Comparing the biometric data with data contained in one or more
-                  authentication templates</htm:li>
-                <htm:li>Deciding how well they match and indicating whether or not an identification
-                  or verification of identity has been achieved.</htm:li>
-              </htm:ol></description>
-          </entry>
-          <entry>
-            <term>Common Application Developer</term>
-            <description>Application developers (or software companies) often produce many
-              applications under the same name. Mobile devices often allow shared resources by such
-              applications where otherwise resources would not be shared. </description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Critical Security Parameter">CSP</abbr>
-            </term>
-            <description>Security-related information whose disclosure or modification can
-              compromise the security of a cryptographic module and/or authentication
-              system.</description>
-          </entry>
-          <entry>
-            <term>Data</term>
-            <description>Program/application or data files that are stored or transmitted by a
-              server or Mobile Device (MD). </description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Data Encryption Key">DEK</abbr>
-            </term>
-            <description>A key used to encrypt data-at-rest.</description>
-          </entry>
-          <entry>
-            <term>Developer Modes</term>
-            <description>Developer modes are states in which additional services are available to a
-              user in order to provide enhanced system access for debugging of software.
-            </description>
-          </entry>
-          <entry>
-            <term>Encrypted Software Keys</term>
-            <description>These keys are stored in the main file system encrypted by another key and
-              can be changed and sanitized.</description>
-          </entry>
-          <entry>
-            <term>Enrolled state</term>
-            <description>The state in which the Mobile Device is managed with active policy settings
-              from the administrator.</description>
-          </entry>
-          <entry>
-            <term>Enrollment (Biometrics)</term>
-            <description>The process of collecting a biometric sample from an end user, converting
-              it into an enrollment and/or authentication template, and storing it in the biometric
-              system’s database. If an enrollment template is generated, it is used during the
-              enrollment process for later comparison to other enrollment templates already stored.
-              If there are multiple enrollment templates, they may be fused, averaged, or otherwise,
-              in order to create authentication templates, which are used for later comparison in
-              verification.</description>
-          </entry>
-          <entry>
-            <term>Enrollment Template</term>
-            <description>A digital representation of an individual’s distinct characteristics,
-              representing information extracted from a biometric sample. Such templates are
-              generated during the enrollment process and utilized in various ways (including
-              averaging, fusion, etc.) in order to generate an authentication
-              template.</description>
-          </entry>
-          <entry>
-            <term>Enterprise Applications</term>
-            <description>Applications that are provided and managed by the enterprise.</description>
-          </entry>
-          <entry>
-            <term>Enterprise Data</term>
-            <description>Enterprise data is any data residing in the enterprise servers, or
-              temporarily stored on Mobile Devices to which the Mobile Device user is allowed access
-              according to security policy defined by the enterprise and implemented by the
-              administrator.</description>
-          </entry>
-          <entry>
-            <term>Ephemeral Keys</term>
-            <description>These keys are stored in volatile memory.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="False Accept Rate">FAR</abbr>
-            </term>
-            <description>A statistic used to measure biometric performance when operating in
-              verification, defined as the percentage of times a system produces a false accept,
-              which occurs when an individual is incorrectly matched to another individual’s
-              existing biometric. For example, Mallory claims to be Alice and the system verifies
-              the claim.</description>
-          </entry>
-          <entry>
-            <term><abbr title="False Reject Rate">FRR</abbr>FRR</term>
-            <description>A statistic used to measure biometric performance in verification, defined
-              as the percentage of times the system produces a false reject. A false reject occurs
-              when an individual is not matched to his or her own existing biometric template. For
-              example, John claims to be John, but the system incorrectly denies the
-              claim.</description>
-          </entry>
-          <entry>
-            <term>(Biometric) Feature(s)</term>
-            <description>Distinctive mathematical characteristic(s) derived from a biometric sample,
-              used to generate enrollment or authentication templates.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="File Encryption Key">FEK</abbr>
-            </term>
-            <description>A <abbr linkend="DEK"/> used to encrypt a file or a directory when File
-              Encryption is used. <abbr linkend="FEK"/>s are unique to each encrypted file or
-              directory.</description>
-          </entry>
-          <entry>
-            <term>Hardware-Isolated Keys</term>
-            <description>The Rich OS can only access these keys by reference, if at all, during
-              runtime.</description>
-          </entry>
-          <entry>
-            <term>Hybrid Authentication</term>
-            <description>A hybrid authentication factor is one where a user has to submit a
-              combination of biometric sample and PIN or password with both to pass and without the
-              user being made aware of which factor failed, if either fails.</description>
-          </entry>
-          <entry>
-            <term>Immutable Hardware Key</term>
-            <description>These keys are stored as hardware-protected raw key and cannot be changed
-              or sanitized.</description>
-          </entry>
-          <entry>
-            <term>Key Chaining</term>
-            <description>The method of using multiple layers of encryption keys to protect data. A
-              top layer key encrypts a lower layer key, which encrypts the data; this method can
-              have any number of layers.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Key Encryption Key">KEK</abbr>
-            </term>
-            <description>A key used to encrypt other keys, such as <abbr linkend="DEK"/>s or storage
-              that contains keys.</description>
-          </entry>
-          <entry>
-            <term>Liveness Detection</term>
-            <description>A technique used to ensure that the biometric sample submitted is from an
-              end user. A liveness detection method can help protect the system against some types
-              of spoofing attacks.</description>
-          </entry>
-          <entry>
-            <term>Locked State</term>
-            <description>Powered on but most functionality is unavailable for use. User
-              authentication is required to access functionality.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Mobile Device">MD</abbr>
-            </term>
-            <description>A device which is composed of a hardware platform and its system software.
-              The device typically provides wireless connectivity and may include software for
-              functions like secure messaging, email, web, VPN connection, and VoIP (Voice over IP),
-              for access to the protected enterprise network, enterprise data and applications, and
-              for communicating to other Mobile Devices.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Mobile Device Management">MDM</abbr>
-            </term>
-            <description>Mobile device management (MDM) products allow enterprises to apply security
-              policies to mobile devices. This system consists of two primary components: the <abbr
-                linkend="MDM"/> Server and the <abbr linkend="MDM"/> Agent.</description>
-          </entry>
-          <entry>
-            <term>MDM Agent</term>
-            <description>The <abbr linkend="MDM"/> Agent is installed on a Mobile Device as an
-              application or is part of the Mobile Device’s OS. The <abbr linkend="MDM"/> Agent
-              establishes a secure connection back to the <abbr linkend="MDM"/> Server controlled by
-              the administrator.</description>
-          </entry>
-          <entry>
-            <term>Minutia Point</term>
-            <description>Friction ridge characteristics that are used to individualize a fingerprint
-              image. Minutia are the points where friction ridges begin, terminate, or split into
-              two or more ridges. In many fingerprint systems, the minutia points are compared for
-              recognition purposes.</description>
-          </entry>
-          <entry>
-            <term>Mobile Device User (User)</term>
-            <description>The individual authorized to physically control and operate the Mobile
-              Device. Depending on the use case, this can be the device owner or an individual
-              authorized by the device owner.</description>
-          </entry>
-          <entry>
-            <term>(Biometric) Modality</term>
-            <description>A type or class of biometric system, such as fingerprint recognition,
-              facial recognition, iris recognition, voice recognition, signature/sign, and
-              others.</description>
-          </entry>
-          <entry>
-            <term>Mutable Hardware Key</term>
-            <description>These keys are stored as hardware-protected raw key and can be changed or
-              sanitized.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="NIST Fingerprint Image Quality">NFIQ</abbr>
-            </term>
-            <description>A machine-learning algorithm that reflects the predictive positive or
-              negative contribution of an individual sample to the overall performance of a
-              fingerprint matching system. <htm:br/> NFIQ 1.0 scores are calculated on a scale from
-              1 to 5, where NFIQ = 1 indicates high quality samples and NFIQ = 5 indicates poor
-              quality samples <cite linkend="NFIQ1.0"/>. <htm:br/> NFIQ 2.0 scores are calculated on
-              a scale from 0 to 100, where NFIQ = 0 indicates poor quality samples and NFIQ = 100
-              indicates high quality samples <cite linkend="NFIQ2.0"/>. </description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Operating System">OS</abbr>
-            </term>
-            <description>Software, which runs at the highest, privilege level and can directly
-              control hardware resources. Modern Mobile Devices typically have at least two primary
-              operating systems: one, which runs on the cellular baseband processor and one, which
-              runs on the application processor. The <abbr linkend="OS"/> of the application
-              processor handles most user interaction and provides the execution environment for
-              apps. The <abbr linkend="OS"/> of the cellular baseband processor handles
-              communications with the cellular network and may control other peripherals. The term
-                <abbr linkend="OS"/>, without context, may be assumed to refer to the <abbr
-                linkend="OS"/> of the application processor.</description>
-          </entry>
-          <entry>
-            <term>Password Authentication Factor</term>
-            <description>A type of authentication factor requiring the user to provide a secret set
-              of characters to gain access.</description>
-          </entry>
-          <entry>
-            <term>PIN</term>
-            <description>A PIN factor is a set of numeric or alphabetic characters that may be used
-              in addition to a biometric factor to provide a hybrid authentication factor. At this
-              time it is not considered as a standalone authentication mechanism.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Presentation Attack Detection">PAD</abbr>
-            </term>
-            <description>A technique used to ensure that the biometric sample submitted is from an
-              end user. A presentation attack detection method can help protect the system against
-              some types of spoofing attacks.</description>
-          </entry>
-          <entry>
-            <term>Powered Off State</term>
-            <description>The device has been shut down such that no <abbr linkend="TOE"/> function
-              can be performed.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Protection Profile">PP</abbr>
-            </term>
-            <description>An implementation-independent set of security requirements for a category
-              of products.</description>
-          </entry>
-          <entry id="pd">
-            <term>Protected Data</term>
-            <description>Protected data is all non-TSF data, including all user or enterprise data.
-              Protected data includes all keys in software-based secure key storage. Some or all of
-              this data may be considered sensitive data as well. </description>
-          </entry>
-          <entry>
-            <term>Rich Operating System (Rich OS)</term>
-            <description>This term is a synonym used to refer to the primary operating system of the
-              application processor defined above under "Operating System (OS)". This term is used
-              to distinguish the primary operating system from an operating system executing in a
-              smaller, isolated execution environment that may be present on the
-              processor.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Root Encryption Key">REK</abbr>
-            </term>
-            <description>A key tied to the device used to encrypt other keys.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Security Assurance Requirement">SAR</abbr>
-            </term>
-            <description>A requirement to assure the security of the <abbr linkend="TOE"/>.
-            </description>
-          </entry>
-          <entry>
-            <term>Sensitive data</term>
-            <description>Sensitive data shall be identified in the <abbr linkend="TSS"/> section of
-              the Security Target (<abbr linkend="ST"/>) by the <abbr linkend="ST"/> author.
-              Sensitive data is a subset or all of the Protected data. Sensitive data may include
-              all user or enterprise data or may be specific application data such as emails,
-              messaging, documents, calendar items, and contacts. Sensitive data is protected while
-              in the locked state (<linkref linkend="FDP_DAR_EXT.2"/>). Sensitive data must
-              minimally include some or all keys in software-based key storage.</description>
-          </entry>
-          <entry>
-            <term>
-              <abbr title="Security Functional Requirement">SFR</abbr>
-            </term>
-            <description>A requirement for security enforcement by the <abbr linkend="TOE"/>.
-            </description>
-          </entry>
-          <entry>
-            <term>Software Keys</term>
-            <description>The Rich OS access the raw bytes of these keys during
-              runtime.</description>
-          </entry>
-          <entry>
-            <term>(Biometric) Template</term>
-            <description>A digital representation of an individual’s distinct characteristics,
-              representing information extracted from a biometric sample. This <abbr linkend="PP"/>
-              further defines enrollment templates and authentication templates.</description>
-          </entry>
-          <entry>
-            <term>Threshold</term>
-            <description>A user setting for biometric systems operating in verification. Thresholds
-              are also used in enrollment if enrollment templates are created and compared to each
-              other. The acceptance or rejection of biometric data in verification is dependent on
-              the match score falling above or below the threshold. The threshold is adjustable so
-              that the biometric system can be more or less strict, depending on the requirements of
-              any given biometric application.</description>
-          </entry>
-          <entry>
-            <term>Trust Anchor Database</term>
-            <description>A list of trusted root Certificate Authority certificates.</description>
-          </entry>
-          <entry>
-            <term>TSF Data</term>
-            <description>Data for the operation of the <abbr linkend="TSF"/> upon which the
-              enforcement of the requirements relies.</description>
-          </entry>
-          <entry>
-            <term>Unenrolled state</term>
-            <description>The state in which the Mobile Device is not managed. </description>
-          </entry>
-          <entry>
-            <term>Unlocked State</term>
-            <description>Powered on and device functionality is available for use. Implies user
-              authentication has occurred (when so configured).</description>
-          </entry>
-          <entry>
-            <term>Verification (Biometrics)</term>
-            <description>A task where the biometric system attempts to confirm an individual’s
-              claimed identity by comparing a submitted sample to one or more previously enrolled
-              authentication templates.</description>
-          </entry>
-        </glossary>
-      </subsection>
-    </section>
+
     <section title="TOE Overview" id="toeov"> 
       This assurance standard specifies information security
       requirements for Mobile Devices for use in an enterprise. A Mobile Device in the context of
@@ -854,22 +683,22 @@ Mapping to TLS Package: Client
         linkend="sr"/> of this <abbr linkend="PP"/> are sufficient for the secure implementation of
       this BYOD use case. </section>
   </chapter>
-  <chapter title="Conformance Claims" id="ccl" boilerplate="no">
+  <chapter title="Conformance Claims" id="ccl">
     <cclaims>
-      <cclaim id="Conformance Statement">
+      <cclaim title="Conformance Statement">
         <description> An ST must claim exact conformance to this PP, as defined in the CC and CEM
           addenda for Exact Conformance, Selection-Based SFRs, and Optional SFRs (dated May 2017).
         </description>
       </cclaim>
-      <cclaim id="CC Conformance Claims">
+      <cclaim title="CC Conformance Claims">
         <description>This PP is conformant to Parts 2 (extended) and 3 (conformant) of Common
           Criteria Version 3.1, Revision 5.</description>
       </cclaim>
-      <cclaim id="PP Claim">
+      <cclaim title="PP Claim">
         <description>This PP does not claim conformance to any Protection Profile.</description>
         <!-- TODO: Need to deteremine how to reference the Biometric cPP-->
       </cclaim>
-      <cclaim id="Module Claim">
+      <cclaim title="Module Claim">
         <description>The following PP-Modules are allowed to be specified in a PP-Configuration with
           this PP.<htm:ul>
             <htm:li>PP-Module for VPN Client, Version 2.1</htm:li>
@@ -879,7 +708,7 @@ Mapping to TLS Package: Client
           </htm:ul>
         </description>
       </cclaim>
-      <cclaim id="Package Claim">
+      <cclaim title="Package Claim">
         <description>This PP is TLS Package Conformant.</description>
       </cclaim>
     </cclaims>
@@ -1071,82 +900,33 @@ Mapping to TLS Package: Client
               linkend="SFR"/>s defined in this <abbr linkend="PP"/>, they may support additional
             algorithms and protocols. If such additional mechanisms are not evaluated, guidance must
             be given to the administrator to make clear the fact that they were not evaluated. </description>
-          <component-refer ref="FCS_CKM.1"/>
-          <component-refer ref="FCS_CKM.2(1)"/>
-          <component-refer ref="FCS_CKM.2(2)"/>
-          <component-refer ref="FCS_CKM_EXT.8 (Bluetooth Module)"/>
-          <component-refer ref="FCS_COP.1(1)"/>
-          <component-refer ref="FCS_COP.1(2)"/>
-          <component-refer ref="FCS_COP.1(3)"/>
-          <component-refer ref="FCS_COP.1(4)"/>
-          <component-refer ref="FCS_COP.1(5)"/>
-          <component-refer ref="FCS_DTLS_EXT.1 (TLS Package)"/>
-          <component-refer ref="FCS_HTTPS_EXT.1"/>
-          <component-refer ref="FCS_RBG_EXT.1"/>
-          <component-refer ref="FCS_RBG_EXT.2"/>
-          <component-refer ref="FCS_RBG_EXT.3"/>
-          <component-refer ref="FCS_SRV_EXT.1"/>
-          <component-refer ref="FCS_SRV_EXT.2"/>
-          <component-refer ref="FCS_TLSC_EXT.1 (TLS Package)"/>
-          <component-refer ref="FCS_TLSC_EXT.2 (TLS Package)"/>
-          <component-refer ref="FCS_TLSC_EXT.3 (TLS Package)"/>
-          <component-refer ref="FDP_BLT_EXT.1 (Bluetooth Module)"/>
-          <component-refer ref="FDP_IFC_EXT.1"/>
-          <component-refer ref="FDP_STG_EXT.1"/>
-          <component-refer ref="FDP_UPC_EXT.1(1)"/>
-          <component-refer ref="FDP_UPC_EXT.1(2)"/>
-          <component-refer ref="FIA_BLT_EXT.1 (Bluetooth Module)"/>
-          <component-refer ref="FIA_BLT_EXT.2 (Bluetooth Module)"/>
-          <component-refer ref="FIA_BLT_EXT.3 (Bluetooth Module)"/>
-          <component-refer ref="FIA_BLT_EXT.4 (Bluetooth Module)"/>
-          <component-refer ref="FIA_BLT_EXT.5 (Bluetooth Module)"/>
-          <component-refer ref="FIA_BLT_EXT.6 (Bluetooth Module)"/>
-          <component-refer ref="FIA_BLT_EXT.7 (Bluetooth Module)"/>
-          <component-refer ref="FIA_X509_EXT.1"/>
-          <component-refer ref="FIA_X509_EXT.2"/>
-          <component-refer ref="FIA_X509_EXT.3"/>
-          <component-refer ref="FIA_X509_EXT.4"/>
-          <component-refer ref="FIA_X509_EXT.5"/>
-          <component-refer ref="FPT_BLT_EXT.1"/>
-          <component-refer ref="FTP_BLT_EXT.1 (Bluetooth Module)"/>
-          <component-refer ref="FTP_BLT_EXT.2 (Bluetooth Module)"/>
-          <component-refer ref="FTP_BLT_EXT.3/BR (Bluetooth Module)"/>
-          <component-refer ref="FTP_BLT_EXT.3/LE (Bluetooth Module)"/>
-          <component-refer ref="FTP_ITC_EXT.1"/>
+            <addressed-by>
+              FCS_CKM.1, FCS_CKM.2/UNLOCKED, FCS_CKM.2/LOCKED, FCS_CKM_EXT.8 (Bluetooth Module), FCS_COP.1/1, 
+              FCS_COP.1/2, FCS_COP.1/3, FCS_COP.1/4, FCS_COP.1/5, FCS_DTLS_EXT.1 (TLS Package), FCS_HTTPS_EXT.1, 
+              FCS_RBG_EXT.1, FCS_RBG_EXT.2(Objective), FCS_RBG_EXT.3(Objective), FCS_SRV_EXT.1, CS_SRV_EXT.2(Objective), 
+              FCS_TLSC_EXT.1 (TLS Package), 
+              FCS_TLSC_EXT.2 (TLS Package), FCS_TLSC_EXT.3 (TLS Package), FDP_BLT_EXT.1 (Bluetooth Module), 
+              FDP_IFC_EXT.1, FDP_STG_EXT.1, FDP_UPC_EXT.1/1, FDP_UPC_EXT.1/2, FIA_BLT_EXT.1 (Bluetooth Module), 
+              FIA_BLT_EXT.2 (Bluetooth Module), FIA_BLT_EXT.3 (Bluetooth Module), FIA_BLT_EXT.4 (Bluetooth Module), 
+              FIA_BLT_EXT.5 (Bluetooth Module), FIA_BLT_EXT.6 (Bluetooth Module), FIA_BLT_EXT.7 (Bluetooth Module), 
+              FIA_X509_EXT.1, FIA_X509_EXT.2, FIA_X509_EXT.3, FIA_X509_EXT.4(Objective), FIA_X509_EXT.5(Objective), 
+              FPT_BLT_EXT.1(Objective), FTP_BLT_EXT.1 (Bluetooth Module), 
+              FTP_BLT_EXT.2 (Bluetooth Module), FTP_BLT_EXT.3/BR (Bluetooth Module), FTP_BLT_EXT.3/LE (Bluetooth Module), FTP_ITC_EXT.1
+            </addressed-by>
         </SO>
         <SO id="O.PROTECTED_STORAGE">
           <description> To address the issue of loss of confidentiality of user data in the event of
             loss of a Mobile Device (T.PHYSICAL), conformant <abbr linkend="TOE"/>s will use
             data-at-rest protection. The <abbr linkend="TOE"/> will be capable of encrypting data
             and keys stored on the device and will prevent unauthorized access to encrypted data. </description>
-          <component-refer ref="FCS_CKM_EXT.1"/>
-          <component-refer ref="FCS_CKM_EXT.2"/>
-          <component-refer ref="FCS_CKM_EXT.3"/>
-          <component-refer ref="FCS_CKM_EXT.4"/>
-          <component-refer ref="FCS_CKM_EXT.5"/>
-          <component-refer ref="FCS_CKM_EXT.6"/>
-          <component-refer ref="FCS_CKM_EXT.7"/>
-          <component-refer ref="FCS_COP.1(1)"/>
-          <component-refer ref="FCS_COP.1(2)"/>
-          <component-refer ref="FCS_COP.1(3)"/>
-          <component-refer ref="FCS_COP.1(4)"/>
-          <component-refer ref="FCS_COP.1(5)"/>
-          <component-refer ref="FCS_IV_EXT.1"/>
-          <component-refer ref="FCS_RBG_EXT.1"/>
-          <component-refer ref="FCS_RBG_EXT.2"/>
-          <component-refer ref="FCS_RBG_EXT.3"/>
-          <component-refer ref="FCS_STG_EXT.1"/>
-          <component-refer ref="FCS_STG_EXT.2"/>
-          <component-refer ref="FCS_STG_EXT.3"/>
-          <component-refer ref="FDP_ACF_EXT.2"/>
-          <component-refer ref="FDP_ACF_EXT.3"/>
-          <component-refer ref="FDP_DAR_EXT.1"/>
-          <component-refer ref="FDP_DAR_EXT.2"/>
-          <component-refer ref="FIA_UAU_EXT.1"/>
-          <component-refer ref="FPT_KST_EXT.1"/>
-          <component-refer ref="FPT_KST_EXT.2"/>
-          <component-refer ref="FPT_KST_EXT.3"/>
-          <component-refer ref="FPT_JTA_EXT.1"/>
+            <addressed-by>
+              FCS_CKM_EXT.1, FCS_CKM_EXT.2, FCS_CKM_EXT.3, FCS_CKM_EXT.4, FCS_CKM_EXT.5, 
+              FCS_CKM_EXT.6, FCS_CKM_EXT.7(Sel-Based), FCS_COP.1(1), FCS_COP.1(2), FCS_COP.1(3), 
+              FCS_COP.1(4), FCS_COP.1(5), FCS_IV_EXT.1, FCS_RBG_EXT.1, FCS_RBG_EXT.2(Objective),
+              FCS_RBG_EXT.3(Objective), FCS_STG_EXT.1, FCS_STG_EXT.2, FCS_STG_EXT.3, FDP_ACF_EXT.2(Sel-Based), 
+              FDP_ACF_EXT.3(Objective), FDP_DAR_EXT.1, FDP_DAR_EXT.2, FIA_UAU_EXT.1, FPT_KST_EXT.1, 
+              FPT_KST_EXT.2, FPT_KST_EXT.3, FPT_JTA_EXT.1
+            </addressed-by>
         </SO>
         <SO id="O.CONFIGURATION">
           <description> To ensure a Mobile Device protects user and enterprise data that it may
@@ -1154,10 +934,9 @@ Mapping to TLS Package: Client
             configure and apply security policies defined by the user and the Enterprise
             Administrator. If Enterprise security policies are configured these must be applied in
             precedence of user specified security policies. </description>
-          <component-refer ref="FMT_MOF_EXT.1"/>
-          <component-refer ref="FMT_SMF_EXT.1"/>
-          <component-refer ref="FMT_SMF_EXT.2"/>
-          <component-refer ref="FTA_TAB.1"/>
+            <addressed-by>
+              FMT_MOF_EXT.1, FMT_SMF_EXT.1, FMT_SMF_EXT.2, FTA_TAB.1(Objective)
+            </addressed-by> 
         </SO>
         <SO id="O.AUTH">
           <description> To address the issue of loss of confidentiality of user data in the event of
@@ -1173,30 +952,14 @@ Mapping to TLS Package: Client
             authorize to the <abbr linkend="TSF"/> will be limited or throttled to enforce a delay
             between unsuccessful attempts.<htm:br/>
           </description>
-          <component-refer ref="FCS_CKM.2(1)"/>
-          <component-refer ref="FDP_PBA_EXT.1"/>
-          <component-refer ref="FIA_AFL_EXT.1"/>
-          <component-refer ref="FIA_BLT_EXT.1 (Bluetooth Module)"/>
-          <component-refer ref="FIA_BLT_EXT.2 (Bluetooth Module)"/>
-          <component-refer ref="FIA_BLT_EXT.3 (Bluetooth Module)"/>
-          <component-refer ref="FIA_BMG_EXT.1"/>
-          <component-refer ref="FIA_BMG_EXT.2"/>
-          <component-refer ref="FIA_BMG_EXT.3"/>
-          <component-refer ref="FIA_BMG_EXT.4"/>
-          <component-refer ref="FIA_BMG_EXT.5"/>
-          <component-refer ref="FIA_BMG_EXT.6"/>
-          <component-refer ref="FIA_PMG_EXT.1"/>
-          <component-refer ref="FIA_TRT_EXT.1"/>
-          <component-refer ref="FIA_UAU_EXT.1"/>
-          <component-refer ref="FIA_UAU_EXT.2"/>
-          <component-refer ref="FIA_UAU_EXT.4"/>
-          <component-refer ref="FIA_UAU.5"/>
-          <component-refer ref="FIA_UAU.6"/>
-          <component-refer ref="FIA_UAU.7"/>
-          <component-refer ref="FIA_X509_EXT.2"/>
-          <component-refer ref="FIA_X509_EXT.4"/>
-          <component-refer ref="FIA_X509_EXT.5"/>
-          <component-refer ref="FTA_SSL_EXT.1"/>
+          <addressed-by>
+            FCS_CKM.2(1), FDP_PBA_EXT.1(Sel-Based), FIA_AFL_EXT.1, FIA_BLT_EXT.1 (Bluetooth Module), 
+            FIA_BLT_EXT.2 (Bluetooth Module), FIA_BLT_EXT.3 (Bluetooth Module), FIA_BMG_EXT.1(Sel-Based)
+            FIA_BMG_EXT.2(Objective), FIA_BMG_EXT.3(Objective), FIA_BMG_EXT.4(Objective), FIA_BMG_EXT.5(Objective),
+            FIA_BMG_EXT.6(Objective), FIA_PMG_EXT.1, FIA_TRT_EXT.1, FIA_UAU_EXT.1, FIA_UAU_EXT.2, FIA_UAU_EXT.4(Optional), 
+            FIA_UAU.5, FIA_UAU.6, FIA_UAU.7, FIA_X509_EXT.2, FIA_X509_EXT.4(Objective), 
+            FIA_X509_EXT.5, FTA_SSL_EXT.1
+          </addressed-by>
         </SO>
         <SO id="O.INTEGRITY">
           <description> To ensure the integrity of the Mobile Device is maintained conformant <abbr
@@ -1209,36 +972,16 @@ Mapping to TLS Package: Client
             Mobile Device. In addition, the <abbr linkend="TOE"/> will restrict applications to only
             have access to the system services and data they are permitted to interact with. The
               <abbr linkend="TOE"/> will further protect against malicious applications from gaining
-            access to data they are not authorized to access by randomizing the memory layout. </description>
-          <component-refer ref="FAU_GEN.1"/>
-          <component-refer ref="FAU_SAR.1"/>
-          <component-refer ref="FAU_SEL.1"/>
-          <component-refer ref="FAU_STG.1"/>
-          <component-refer ref="FAU_STG.4"/>
-          <component-refer ref="FCS_COP.1(2)"/>
-          <component-refer ref="FCS_COP.1(3)"/>
-          <component-refer ref="FDP_ACF_EXT.1"/>
-          <component-refer ref="FDP_ACF_EXT.3"/>
-          <component-refer ref="FPT_AEX_EXT.1"/>
-          <component-refer ref="FPT_AEX_EXT.2"/>
-          <component-refer ref="FPT_AEX_EXT.3"/>
-          <component-refer ref="FPT_AEX_EXT.4"/>
-          <component-refer ref="FPT_AEX_EXT.5"/>
-          <component-refer ref="FPT_AEX_EXT.6"/>
-          <component-refer ref="FPT_AEX_EXT.7"/>
-          <component-refer ref="FPT_BBD_EXT.1"/>
-          <component-refer ref="FPT_NOT_EXT.1"/>
-          <component-refer ref="FPT_NOT_EXT.2"/>
-          <component-refer ref="FPT_STM.1"/>
-          <component-refer ref="FPT_TST_EXT.1"/>
-          <component-refer ref="FPT_TST_EXT.2(1)"/>
-          <component-refer ref="FPT_TST_EXT.2(2)"/>
-          <component-refer ref="FPT_TST_EXT.3"/>
-          <component-refer ref="FPT_TUD_EXT.1"/>
-          <component-refer ref="FPT_TUD_EXT.2"/>
-          <component-refer ref="FPT_TUD_EXT.3"/>
-          <component-refer ref="FPT_TUD_EXT.4"/>
-          <component-refer ref="FPT_TUD_EXT.5"/>
+            access to data they are not authorized to access by randomizing the memory layout. 
+          </description>
+          <addressed-by>
+            FAU_GEN.1, FAU_SAR.1(Objective), FAU_SEL.1(Objective), FAU_STG.1, FAU_STG.4,
+            FCS_COP.1(2), FCS_COP.1(3), FDP_ACF_EXT.1, FDP_ACF_EXT.3(Objective), FPT_AEX_EXT.1,
+            FPT_AEX_EXT.2, FPT_AEX_EXT.3, FPT_AEX_EXT.4, FPT_AEX_EXT.5(Objective), FPT_AEX_EXT.6(Objective),
+            FPT_AEX_EXT.7(Objective), FPT_BBD_EXT.1(Objective), FPT_NOT_EXT.1, FPT_NOT_EXT.2(Objective),
+            FPT_STM.1, FPT_TST_EXT.1, FPT_TST_EXT.2(1), FPT_TST_EXT.2(2), FPT_TST_EXT.3(Sel-Based), FPT_TUD_EXT.1,
+            FPT_TUD_EXT.2, FPT_TUD_EXT.3(Sel-Based), FPT_TUD_EXT.4(Objective), FPT_TUD_EXT.5(Objective)
+          </addressed-by>
         </SO>
         <SO id="O.PRIVACY">
           <description> In a BYOD environment (use cases 3 and 4), a personally-owned mobile device
@@ -1248,10 +991,9 @@ Mapping to TLS Package: Client
             addition, since there are limited controls that the enterprise can enforce on the
             personal side, separation of personal and enterprise data is needed. This will protect
             against the T.FLAWAPP and T.PERSISTENT threats. </description>
-          <component-refer ref="FDP_ACF_EXT.1"/>
-          <component-refer ref="FDP_BCK_EXT.1"/>
-          <component-refer ref="FMT_SMF_EXT.1"/>
-          <component-refer ref="FMT_SMF_EXT.3"/>
+          <addressed-by>
+            FDP_ACF_EXT.1, FDP_BCK_EXT.1(Objective), FMT_SMF_EXT.1, FMT_SMF_EXT.3(Objective)
+          </addressed-by>
         </SO>
       </SOs>
     </section>
@@ -9193,344 +8935,7 @@ Mapping to TLS Package: Client
   </appendix>
   <appendix id="acro" title="Acronyms">
     <ctr id="acronyms" ctr-type="Table">: Acronyms</ctr>
-    <acronyms>
-      <entry>
-        <term>AEAD</term>
-        <description>Authenticated Encryption with Associated Data</description>
-      </entry>
-      <entry>
-        <term>AES</term>
-        <description>Advanced Encryption Standard</description>
-      </entry>
-      <entry>
-        <term>ANSI</term>
-        <description>American National Standards Institute</description>
-      </entry>
-      <entry>
-        <term>AP</term>
-        <description>Application Processor</description>
-      </entry>
-      <entry>
-        <term>API</term>
-        <description>Application Programming Interface</description>
-      </entry>
-      <entry>
-        <term>ASLR</term>
-        <description>Address Space Layout Randomization</description>
-      </entry>
-      <entry>
-        <term>BAF</term>
-        <description>Biometric Authentication Factor</description>
-      </entry>
-      <entry>
-        <term>BP</term>
-        <description>Baseband Processor</description>
-      </entry>
-      <entry>
-        <term>BR/EDR</term>
-        <description>(Bluetooth) Basic Rate/Enhanced Data Rate</description>
-      </entry>
-      <entry>
-        <term>CA</term>
-        <description>Certificate Authority</description>
-      </entry>
-      <entry>
-        <term>CBC</term>
-        <description>Cipher Block Chaining</description>
-      </entry>
-      <entry>
-        <term>CCM</term>
-        <description>Counter with CBC-Message Authentication Code</description>
-      </entry>
-      <entry>
-        <term>CCMP</term>
-        <description>CCM Protocol</description>
-      </entry>
-      <entry>
-        <term>CMC</term>
-        <description>Certificate Management over Cryptographic Message Syntax (CMS)</description>
-      </entry>
-      <entry>
-        <term>CPU</term>
-        <description>Central Processing Unit</description>
-      </entry>
-      <entry>
-        <term>CRL</term>
-        <description>Certificate Revocation List</description>
-      </entry>
-      <entry>
-        <term>CSP</term>
-        <description>Critical Security Parameters</description>
-      </entry>
-      <entry>
-        <term>DAR</term>
-        <description>Data At Rest</description>
-      </entry>
-      <entry>
-        <term>DEK</term>
-        <description>Data Encryption Key</description>
-      </entry>
-      <entry>
-        <term>DEP</term>
-        <description>Data Execution Prevention</description>
-      </entry>
-      <entry>
-        <term>DH</term>
-        <description>Diffie-Hellman</description>
-      </entry>
-      <entry>
-        <term>DNS</term>
-        <description>Domain Name System</description>
-      </entry>
-      <entry>
-        <term>DSA</term>
-        <description>Digital Signature Algorithm</description>
-      </entry>
-      <entry>
-        <term>DTLS</term>
-        <description>Datagram Transport Layer Security</description>
-      </entry>
-      <entry>
-        <term>EAP</term>
-        <description>Extensible Authentication Protocol</description>
-      </entry>
-      <entry>
-        <term>EAPOL</term>
-        <description>EAP Over LAN</description>
-      </entry>
-      <entry>
-        <term>ECDH</term>
-        <description>Elliptic Curve Diffie Hellman</description>
-      </entry>
-      <entry>
-        <term>ECDSA</term>
-        <description>Elliptic Curve Digital Signature Algorithm</description>
-      </entry>
-      <entry>
-        <term>EEPROM</term>
-        <description>Electrically Erasable Programmable Read-Only Memory </description>
-      </entry>
-      <entry>
-        <term>EST</term>
-        <description>Enrollment over Secure Transport</description>
-      </entry>
-      <entry>
-        <term>FIPS</term>
-        <description>Federal Information Processing Standards</description>
-      </entry>
-      <entry>
-        <term>FM</term>
-        <description>Frequency Modulation</description>
-      </entry>
-      <entry>
-        <term>FQDN</term>
-        <description>Fully Qualified Domain Name</description>
-      </entry>
-      <entry>
-        <term>GCM</term>
-        <description>Galois Counter Mode</description>
-      </entry>
-      <entry>
-        <term>GPS</term>
-        <description>Global Positioning System</description>
-      </entry>
-      <entry>
-        <term>GPU</term>
-        <description>Graphics Processing Unit</description>
-      </entry>
-      <entry>
-        <term>HDMI</term>
-        <description>High Definition Multimedia Interface</description>
-      </entry>
-      <entry>
-        <term>HMAC</term>
-        <description>Keyed-Hash Message Authentication Code</description>
-      </entry>
-      <entry>
-        <term>HTTPS</term>
-        <description>HyperText Transfer Protocol Secure</description>
-      </entry>
-      <entry>
-        <term>IEEE</term>
-        <description>Institute of Electrical and Electronics Engineers</description>
-      </entry>
-      <entry>
-        <term>IP</term>
-        <description>Internet Protocol</description>
-      </entry>
-      <entry>
-        <term>IPC</term>
-        <description>Inter-Process Communication</description>
-      </entry>
-      <entry>
-        <term>IPsec</term>
-        <description>Internet Protocol Security</description>
-      </entry>
-      <entry>
-        <term>KEK</term>
-        <description>Key Encryption Key</description>
-      </entry>
-      <entry>
-        <term>LE</term>
-        <description>(Bluetooth) Low Energy</description>
-      </entry>
-      <entry>
-        <term>LTE</term>
-        <description>Long Term Evolution</description>
-      </entry>
-      <entry>
-        <term>MD</term>
-        <description>Mobile Device</description>
-      </entry>
-      <entry>
-        <term>MDM</term>
-        <description>Mobile Device Management</description>
-      </entry>
-      <entry>
-        <term>MMI</term>
-        <description>Man-Machine Interface</description>
-      </entry>
-      <entry>
-        <term>MMS</term>
-        <description>Multimedia Messaging Service</description>
-      </entry>
-      <entry>
-        <term>NFC</term>
-        <description>Near Field Communication</description>
-      </entry>
-      <entry>
-        <term>NIST</term>
-        <description>National Institute of Standards and Technology</description>
-      </entry>
-      <entry>
-        <term>NX</term>
-        <description>Never Execute</description>
-      </entry>
-      <entry>
-        <term>OCSP</term>
-        <description>Online Certificate Status Protocol</description>
-      </entry>
-      <entry>
-        <term>OID</term>
-        <description>Object Identifier</description>
-      </entry>
-      <entry>
-        <term>OS</term>
-        <description>Operating System</description>
-      </entry>
-      <entry>
-        <term>OTA</term>
-        <description>Over the Air</description>
-      </entry>
-      <entry>
-        <term>PAE</term>
-        <description>Port Access Entity</description>
-      </entry>
-      <entry>
-        <term>PBKDF</term>
-        <description>Password-Based Key Derivation Function</description>
-      </entry>
-      <entry>
-        <term>PMK</term>
-        <description>Pairwise Master Key</description>
-      </entry>
-      <entry>
-        <term>PP</term>
-        <description>Protection Profile</description>
-      </entry>
-      <entry>
-        <term>PTK</term>
-        <description>Pairwise Temporal Key</description>
-      </entry>
-      <entry>
-        <term>RA</term>
-        <description>Registration Authority</description>
-      </entry>
-      <entry>
-        <term>RBG</term>
-        <description>Random Bit Generator</description>
-      </entry>
-      <entry>
-        <term>REK</term>
-        <description>Root Encryption Key</description>
-      </entry>
-      <entry>
-        <term>ROM</term>
-        <description>Read-only memory</description>
-      </entry>
-      <entry>
-        <term>RSA</term>
-        <description>Rivest Shamir Adleman Algorithm</description>
-      </entry>
-      <entry>
-        <term>SHA</term>
-        <description>Secure Hash Algorithm</description>
-      </entry>
-      <entry>
-        <term>SMS</term>
-        <description>Short Messaging Service</description>
-      </entry>
-      <entry>
-        <term>SPI</term>
-        <description>Security Parameter Index</description>
-      </entry>
-      <entry>
-        <term>SSH</term>
-        <description>Secure Shell</description>
-      </entry>
-      <entry>
-        <term>SSID</term>
-        <description>Service Set Identifier</description>
-      </entry>
-      <entry>
-        <term>ST</term>
-        <description>Security Target</description>
-      </entry>
-      <entry>
-        <term>TLS</term>
-        <description>Transport Layer Security</description>
-      </entry>
-      <entry>
-        <term>TOE</term>
-        <description>Target of Evaluation</description>
-      </entry>
-      <entry>
-        <term>TSF</term>
-        <description>TOE Security Functionality</description>
-      </entry>
-      <entry>
-        <term>TSS</term>
-        <description>TOE Summary Specification</description>
-      </entry>
-      <entry>
-        <term>URI</term>
-        <description>Uniform Resource Identifier</description>
-      </entry>
-      <entry>
-        <term>USB</term>
-        <description>Universal Serial Bus</description>
-      </entry>
-      <entry>
-        <term>USSD</term>
-        <description>Unstructured Supplementary Service Data</description>
-      </entry>
-      <entry>
-        <term>VPN</term>
-        <description>Virtual Private Network</description>
-      </entry>
-      <entry>
-        <term>Wi-Fi</term>
-        <description>Wireless Fidelity</description>
-      </entry>
-      <entry>
-        <term>XCCDF</term>
-        <description>eXtensible Configuration Checklist Description Format</description>
-      </entry>
-      <entry>
-        <term>XTS</term>
-        <description>XEX (XOR Encrypt XOR) Tweakable Block Cipher with Ciphertext Stealing</description>
-      </entry>
-    </acronyms>
+    <acronyms/>
   </appendix>
   <appendix id="use" title="Use Case Templates"> 
     The following use case templates list those
