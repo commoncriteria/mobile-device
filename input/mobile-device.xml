@@ -13,12 +13,13 @@ Add implementation dependent as a marker for mapping SFRs to objectives
 <!-- TODO: 
 
 - TRRTs with PP change needed
+- INeed to rename iteration for - FDP_UPC_EXT.1/NORMAL
 
 - Open Issues on github
 
 - selection for FCS_TLSC_EXT.1.3 and FCS_DTLS_EXT.1.3 (in package) to not allow exceptions for when server cert is invalid.  
    - MDF fcs_tlsc/dtls_ext.1.3 is similar to fcs_tlsc/dtls_ext.1.3 in package, but package has [selection: with no exceptions, except when override is authorized]. How do I specify which selection has to be made?? MDF: The <abbr linkend="TSF"/> shall not establish a trusted channel if the peer certificate is invalid. However, HTTPS requires different behavior, though HTTPS is implemented over TLS. This element addresses non-HTTPS TLS connections.
-    - DONE: Added FMT_SMF Functio 21 and added app note to HTTPS.1.3
+    - DONE: Added FMT_SMF Function 21 and added app note to HTTPS.1.3
        
 BT Module - need to update with the TRRT
 
@@ -42,9 +43,6 @@ BT Module - need to update with the TRRT
     - Updated FMT_SMF function numbers to be ctr variables
 -->
 
-
-
-
 <!-- TODO_Future:
  - cert stapling:
       - OSCP stapling for establishing the WLAN connection
@@ -61,66 +59,7 @@ BT Module - need to update with the TRRT
 
 
 
-<!-- NOTE: Trusted Channels/RF protocols
-  
-WLAN -> WLAN Client Module
-    - WLAN (specifically 802.11-2012,  802.1X, EAP-TLS) is mandatory to be included in a MDF ST, FTP_ITC_EXT.1.1 mandates it 
-        - TODO: Determine if this wording needs to change when WLAN Client is updated to module
-    - Mapping to threat/objectives -> in WLAN Client Module
-    - Audit -> in WLAN Client Module 
 
-Bluetooth -> Bluetooth Module
-    - Bluetooth is mandatory to be included in a MDF ST (if HW exists), FDP_UPC_EXT.1(2) mandates BR/EDR but LE is selecatable 
-    - Mapping to threat/objectives -> in MDF
-    - Audit -> in BT Module
-    - Still trying to determine where the line is drawn for what is in module and what stays in MDF b/c some of the "BT" SFRs are actually done by the OS
-    - Mapping between MDF v3.1 and BT module - spreadsheet
-                       
-TLS -> TLS Package
-    - TLS is mandatory to be included in MDF ST, FDP_UPC_EXT.1(1) and FTP_ITC_EXT.1.1 mandates it
-    - Mapping to threat/objectives -> in MDF
-    - Audit -> in MDF
-   
-DTLS -> TLS Package
-   - DTLS is NOT mandatory, but selectable in FDP_UPC_EXT.1(1) and FTP_ITC_EXT.1.1
-   - Mapping to threat/objectives -> in MDF
-   - Audit -> in MDF
-   
-   IPSec -> VPN Client Module
-   - IPSec is NOT mandatory, but selectable in FDP_UPC_EXT.1(1), FTP_ITC_EXT.1.1 and FDP_IFC_EXT.1.1
-   - Flow contol (i.e. don't allow a split tunnel) is mandatory for the platform to implement (whether it be the native VPN client and/or a 3rd party application)
-   - Mapping to threat/objectives -> in VPN Client Module
-   - Audit -> in VPN Client Module (but currently objective)
-
-  HTTPS -> MDF (but really covered in TLS Package)
-  - HTTPS is mandatory (SFRs in Section 5) b/c FDP_UPC_EXT.1(1) mandates it, also selectable in FTP_ITC_EXT.1.1
-      - HTTPS SFRs in MDF (FCS_HTTPS_EXT.1.2) requires "implement HTTPS using TLS as defined in the Package for Transport Layer Security." 
-  - Mapping to threat/objectives -> in MDF
-  - Audit -> in MDF
-  - Cert ->
-      - If peer cert is deemed invalid, allow override (FCS_HTTPS_EXT.1.3 and FMT function ctr-id: CertInvalid)
-      - If peer cert validity cannot be determined, __________
-  
-
--->
-
-
-<!-- NOTE: 
-  FMT_SMF functions use ctr variables crt-type=functions in the MOOO table, so that they do not have to be renumbered when one is added or removed. For the app notes and AAs they do need to be in the same order as the functions. The list of IDs for each function is at the end of the xml.-->
-
-<!-- NOTE: 
- 
-Mapping to TLS Package: Client
-     MDF   Package
-     1.1 = 1.1 - need to mandate that a ciphersuite other than SHA1 is selected. - do this just like MDM (and turn blind eye to the fact that FCS_COP.1 still allows SHA1)
-     1.2 = 1.2
-     1.3 ~ 1.3 - need to mandate selection "with no exceptions"
-     1.4 (man) = 2.1 (sel-based) - mandating mutual auth to be selected so 2.1 becomes mandatory
-     2.1 = 5.1
-     3.1 = 3.1
-     3.2 (man) = 4.1 (sel-based) - okay with change
-     3.3 (man) = 4.2 (sel-based) - okay with change
---> 
 
 
 <PP xmlns="https://niap-ccevs.org/cc/v1" name="Mobile Device Fundamentals"
@@ -831,7 +770,7 @@ Mapping to TLS Package: Client
             (TLS Package), FCS_HTTPS_EXT.1, FCS_RBG_EXT.1, FCS_RBG_EXT.2(Objective),
             FCS_RBG_EXT.3(Objective), FCS_SRV_EXT.1, CS_SRV_EXT.2(Objective), FCS_TLSC_EXT.1 (TLS
             Package), FCS_TLSC_EXT.2 (TLS Package), FCS_TLSC_EXT.3 (TLS Package), FDP_BLT_EXT.1
-            (Bluetooth Module), FDP_IFC_EXT.1, FDP_STG_EXT.1, FDP_UPC_EXT.1/1, FDP_UPC_EXT.1/2,
+            (Bluetooth Module), FDP_IFC_EXT.1, FDP_STG_EXT.1, FDP_UPC_EXT.1/NORMAL, FDP_UPC_EXT.1/BLUETOOTH,
             FIA_BLT_EXT.1 (Bluetooth Module), FIA_BLT_EXT.2 (Bluetooth Module), FIA_BLT_EXT.3
             (Bluetooth Module), FIA_BLT_EXT.4 (Bluetooth Module), FIA_BLT_EXT.5 (Bluetooth Module),
             FIA_BLT_EXT.6 (Bluetooth Module), FIA_BLT_EXT.7 (Bluetooth Module), FIA_X509_EXT.1,
@@ -846,7 +785,7 @@ Mapping to TLS Package: Client
             The TOE will be capable of encrypting data and keys stored on the device and will
             prevent unauthorized access to encrypted data. </description>
           <addressed-by> FCS_CKM_EXT.1, FCS_CKM_EXT.2, FCS_CKM_EXT.3, FCS_CKM_EXT.4, FCS_CKM_EXT.5,
-            FCS_CKM_EXT.6, FCS_CKM_EXT.7(Sel-Based), FCS_COP.1/ENCRYPT, FCS_COP.1(2), FCS_COP.1/SIGN,
+            FCS_CKM_EXT.6, FCS_CKM_EXT.7(Sel-Based), FCS_COP.1/ENCRYPT, FCS_COP.1/HASH, FCS_COP.1/SIGN,
             FCS_COP.1/KEYHMAC, FCS_COP.1/CONDITION, FCS_IV_EXT.1, FCS_RBG_EXT.1, FCS_RBG_EXT.2(Objective),
             FCS_RBG_EXT.3(Objective), FCS_STG_EXT.1, FCS_STG_EXT.2, FCS_STG_EXT.3,
             FDP_ACF_EXT.2(Sel-Based), FDP_ACF_EXT.3(Objective), FDP_DAR_EXT.1, FDP_DAR_EXT.2,
@@ -876,7 +815,7 @@ Mapping to TLS Package: Client
             authorize to the TSF will be limited or throttled to enforce a delay between
             unsuccessful attempts.<htm:br/>
           </description>
-          <addressed-by> FCS_CKM.2(1), FDP_PBA_EXT.1(Sel-Based), FIA_AFL_EXT.1, FIA_BLT_EXT.1
+          <addressed-by> FCS_CKM.2/UNLOCKED, FDP_PBA_EXT.1(Sel-Based), FIA_AFL_EXT.1, FIA_BLT_EXT.1
             (Bluetooth Module), FIA_BLT_EXT.2 (Bluetooth Module), FIA_BLT_EXT.3 (Bluetooth Module),
             FIA_BMG_EXT.1(Sel-Based) FIA_BMG_EXT.2(Objective), FIA_BMG_EXT.3(Objective),
             FIA_BMG_EXT.4(Objective), FIA_BMG_EXT.5(Objective), FIA_BMG_EXT.6(Objective),
@@ -900,8 +839,8 @@ Mapping to TLS Package: Client
             FAU_STG.4, FCS_COP.1/HASH, FCS_COP.1/SIGN, FDP_ACF_EXT.1, FDP_ACF_EXT.3(Objective),
             FPT_AEX_EXT.1, FPT_AEX_EXT.2, FPT_AEX_EXT.3, FPT_AEX_EXT.4, FPT_AEX_EXT.5(Objective),
             FPT_AEX_EXT.6(Objective), FPT_AEX_EXT.7(Objective), FPT_BBD_EXT.1(Objective),
-            FPT_NOT_EXT.1, FPT_NOT_EXT.2(Objective), FPT_STM.1, FPT_TST_EXT.1, FPT_TST_EXT.2(1),
-            FPT_TST_EXT.2(2), FPT_TST_EXT.3(Sel-Based), FPT_TUD_EXT.1, FPT_TUD_EXT.2,
+            FPT_NOT_EXT.1, FPT_NOT_EXT.2(Objective), FPT_STM.1, FPT_TST_EXT.1, FPT_TST_EXT.2/PREKERNEL,
+            FPT_TST_EXT.2/POSTKERNEL, FPT_TST_EXT.3(Sel-Based), FPT_TUD_EXT.1, FPT_TUD_EXT.2,
             FPT_TUD_EXT.3(Sel-Based), FPT_TUD_EXT.4(Objective), FPT_TUD_EXT.5(Objective)
           </addressed-by>
         </SO>
@@ -1057,7 +996,7 @@ Mapping to TLS Package: Client
                       <selectable>none</selectable>
                     </selectables></htm:td></htm:tr><htm:tr><htm:td>Failure of
                   self-test.</htm:td></htm:tr>
-                <htm:tr><htm:td rowspan="2">FPT_TST_EXT.2(1)</htm:td><htm:td>Start-up of
+                <htm:tr><htm:td rowspan="2">FPT_TST_EXT.2/PREKERNEL</htm:td><htm:td>Start-up of
                     TOE.</htm:td><htm:td>No additional information.</htm:td></htm:tr><htm:tr><htm:td><selectables>
                       <selectable>Detected integrity violation</selectable>
                       <selectable>none</selectable>
@@ -1110,10 +1049,10 @@ Mapping to TLS Package: Client
                 <htm:tr><htm:td>FDP_BCK_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
                 <htm:tr><htm:td>FDP_BLT_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
                 <htm:tr><htm:td>FDP_PBA_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FDP_UPC_EXT.1(1)</htm:td><htm:td>Application initiation of trusted
+                <htm:tr><htm:td>FDP_UPC_EXT.1/NORMAL</htm:td><htm:td>Application initiation of trusted
                     channel.</htm:td><htm:td>Name of application. Trusted channel protocol. Non-TOE
                     endpoint of connection.</htm:td></htm:tr>
-                <htm:tr><htm:td>FDP_UPC_EXT.1(2)</htm:td><htm:td>Application initiation of trusted
+                <htm:tr><htm:td>FDP_UPC_EXT.1/BLUETOOTH</htm:td><htm:td>Application initiation of trusted
                     channel.</htm:td><htm:td>Name of application. Trusted channel protocol. Non-TOE
                     endpoint of connection.</htm:td></htm:tr>
                 <htm:tr><htm:td>FIA_AFL_EXT.1</htm:td><htm:td>Excess of authentication failure
@@ -1193,7 +1132,7 @@ Mapping to TLS Package: Client
                 <htm:tr><htm:td>FPT_BBD_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
                 <htm:tr><htm:td>FPT_BLT_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
                 <htm:tr><htm:td>FPT_NOT_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_TST_EXT.2(2)</htm:td><htm:td><selectables>
+                <htm:tr><htm:td>FPT_TST_EXT.2/POSTKERNEL</htm:td><htm:td><selectables>
                       <selectable>Detected integrity violation</selectable>
                       <selectable>none</selectable>
                     </selectables></htm:td>
@@ -1589,7 +1528,7 @@ Mapping to TLS Package: Client
                 <htm:br/> for each FFC parameter set and key pair. <htm:h4>Diffie-Hellman Group 14
                   and FFC Schemes using "safe-prime" groups</htm:h4> Testing for FFC Schemes using
                 Diffie-Hellman group 14 and/or "safe-prime" groups is done as part of testing in
-                FCS_CKM.2.1(1). </Tests>
+                FCS_CKM.2/UNLOCKED. </Tests>
             </aactivity>
           </f-element>
         </f-component>
@@ -1639,7 +1578,7 @@ Mapping to TLS Package: Client
                 correspond to the key generation schemes identified in FCS_CKM.1.1. If the ST
                 specifies more than one scheme, the evaluator shall examine the TSS to verify that
                 it identifies the usage for each scheme. <htm:br/><htm:br/> If Diffie-Hellman group
-                14 is selected from FCS_CKM.2.1(1), the TSS shall describe how the implementation
+                14 is selected from FCS_CKM.2/UNLOCKED, the TSS shall describe how the implementation
                 meets RFC 3526 Section 3.<htm:br/><htm:br/>
               </TSS>
               <Guidance> The evaluator shall verify that the AGD guidance instructs the
@@ -1729,7 +1668,7 @@ Mapping to TLS Package: Client
                 in the test vector. <htm:br/><htm:br/> If the TOE acts as a receiver, the following
                 assurance activities shall be performed to ensure the proper operation of every TOE
                 supported combination of RSA-based key establishment scheme: <htm:br/> To conduct
-                this test the evaluator shall generate or obtain test vectors FCS_CKM.2.1(2) from a
+                this test the evaluator shall generate or obtain test vectors FCS_CKM.2.1/LOCKED from a
                 known good implementation of the TOE supported schemes. For each combination of
                 supported key establishment scheme and its options (with our without key
                 confirmation if supported, for each supported key confirmation MAC function if key
@@ -1770,8 +1709,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_ckm.2" iteration="LOCKED"
-          name="Cryptographic key establishment (While device is locked)">
+        <f-component id="fcs_ckm.2" iteration="LOCKED" name="Cryptographic key establishment (While device is locked)">
           <f-element>
             <title>The TSF shall <refinement>perform</refinement> cryptographic <refinement>key
                 establishment</refinement> in accordance with a specified cryptographic key
@@ -1807,7 +1745,7 @@ Mapping to TLS Package: Client
               FCS_CKM.1.1. </note>
             <aactivity>
               <Tests> The test for SP800-56A Revision 3 and SP800-56B key establishment schemes is
-                performed in association with FCS_CKM.2.1(1). <htm:br/><htm:br/>
+                performed in association with FCS_CKM.2/UNLOCKED. <htm:br/><htm:br/>
                 <htm:b>Curve25519 Key Establishment Schemes</htm:b><htm:br/><htm:br/> The evaluator
                 shall verify a TOE's implementation of the key agreement scheme using the following
                 Function and Validity tests. These validation tests for each key agreement scheme
@@ -2689,8 +2627,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_ckm_ext.7" name="Extended: Cryptographic Key Support (REK)"
-          status="sel-based">
+        <f-component id="fcs_ckm_ext.7" name="Extended: Cryptographic Key Support (REK)" status="sel-based">
           <selection-depends req="fel-mut-hard" ids="mutable_hardware"/>
           <f-element>
             <title>A REK shall not be able to be read from or exported from the hardware. </title>
@@ -3307,8 +3244,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_rbg_ext.1"
-          name="Extended: Cryptographic Operation (Random Bit Generation)">
+        <f-component id="fcs_rbg_ext.1" name="Extended: Cryptographic Operation (Random Bit Generation)">
           <f-element>
             <title>The TSF shall perform all deterministic random bit generation services in
               accordance with NIST Special Publication 800-90A using <selectables>
@@ -3413,8 +3349,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_rbg_ext.2"
-          name="Extended: Cryptographic Operation (Random Bit Generation)" status="objective">
+        <f-component id="fcs_rbg_ext.2" name="Extended: Cryptographic Operation (Random Bit Generation)" status="objective">
           <f-element>
             <title>The TSF shall save the state of the deterministic RBG at power-off, and shall use
               this state as input to the deterministic RBG at startup.</title>
@@ -3434,8 +3369,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_rbg_ext.3"
-          name="Extended: Cryptographic Operation (Random Bit Generation)" status="objective">
+        <f-component id="fcs_rbg_ext.3" name="Extended: Cryptographic Operation (Random Bit Generation)" status="objective">
           <f-element>
             <title>The TSF shall allow applications to add data to the deterministic RBG using the
               Personalization String as defined in SP 800-90A. </title>
@@ -3465,7 +3399,7 @@ Mapping to TLS Package: Client
                     <selectable>selected algorithms</selectable>
                     <selectable> selected algorithms with the exception of ECC over curve
                       25519-based algorithms</selectable>
-                  </selectables> in FCS_CKM.2(2)</htm:li>
+                  </selectables> in FCS_CKM.2/LOCKED</htm:li>
                 <htm:li>The following algorithms in FCS_COP.1/ENCRYPT: AES-CBC, <selectables>
                     <selectable>AES Key Wrap</selectable>
                     <selectable>AES Key Wrap with Padding</selectable>
@@ -3512,8 +3446,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_srv_ext.2" name="Extended: Cryptographic Algorithm Services"
-          status="objective">
+        <f-component id="fcs_srv_ext.2" name="Extended: Cryptographic Algorithm Services" status="objective">
           <f-element>
             <title>The TSF shall provide a mechanism for applications to request the TSF to perform
               the following cryptographic operations: <htm:ul>
@@ -3972,8 +3905,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fdp_acf_ext.3" name="Extended: Security attribute based access control"
-          status="objective">
+        <f-component id="fdp_acf_ext.3" name="Extended: Security attribute based access control" status="objective">
           <f-element>
             <title>The TSF shall enforce an access control policy that prohibits an application from
               granting both write and execute permission to a file on the device except for <selectables>
@@ -4029,8 +3961,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fdp_pba_ext.1" name="Extended: Storage of Critical Biometric Parameters"
-          status="sel-based">
+        <f-component id="fdp_pba_ext.1" name="Extended: Storage of Critical Biometric Parameters" status="sel-based">
           <selection-depends req="fel-uau"
             ids="uau_fing,uau_iris,uau_face,uau_vox,uau_vein,uau_hybr"/>
           <f-element>
@@ -4055,44 +3986,25 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <subsection title="Data-At-Rest Protection" id="fdp_dar"> Three levels of data-at-rest
-          protection are addressed: TSF data, Protected Data (and keys), and sensitive data.
-            <ctr-ref refid="datalevels"/> addresses the level of protection required for each level
-          of data-at-rest. <htm:br/><htm:br/>
+        <subsection title="Data-At-Rest Protection" id="fdp_dar"> 
+          Three levels of data-at-rest protection are addressed: TSF data, Protected Data (and keys), and sensitive data. <ctr-ref refid="datalevels"/> addresses the level of protection required for each level of data-at-rest. <htm:br/><htm:br/>
           <htm:b><ctr id="datalevels" ctr-type="Table">: Protection of Data Levels</ctr></htm:b>
           <htm:br/><htm:br/>
           <htm:table>
             <htm:tr class="header"><htm:td>Data Level</htm:td><htm:td>Protection
               Required</htm:td></htm:tr>
             <htm:tr><htm:td>TSF Data</htm:td><htm:td>TSF data does not require confidentiality, but
-                does require integrity protection (FPT_TST_EXT.2(1)).</htm:td></htm:tr>
+                does require integrity protection (FPT_TST_EXT.2/PREKERNEL).</htm:td></htm:tr>
             <htm:tr><htm:td>Protected Data</htm:td><htm:td>Protected data is encrypted while powered
                 off. (FDP_DAR_EXT.1)</htm:td></htm:tr>
             <htm:tr><htm:td>Sensitive Data</htm:td><htm:td>Sensitive data is encrypted while in the
                 locked state, in addition to while powered off. (FDP_DAR_EXT.2)</htm:td></htm:tr>
           </htm:table>
-          <htm:br/> All keys, protected data, and sensitive data must ultimately be protected by the
-          REK. Sensitive data must be protected by the password in addition to the REK. In
-          particular, <figref refid="Keys"/> has KEKs protected according to these requirements:
-          DEK_1 would be appropriate for sensitive data, DEK_2 would not be appropriate for
-          sensitive data, K_1 is not considered a sensitive key, and K_2 is considered a sensitive
-          key. <htm:br/><htm:br/> These requirements include a capability for encrypting sensitive
-          data received while in the locked state, which may be considered a separate sub-category
-          of sensitive data. This capability may be met by a key transport scheme (RSA) by using a
-          public key to encrypt the DEK while protecting the corresponding private key with a
-          password-derived or biometric-unlocked KEK. <htm:br/><htm:br/> This capability may also be
-          met by a key agreement scheme. To do so, the device generates a device-wide sensitive data
-          asymmetric pair (the private key of which is protected by a password-derived or
-          biometric-unlocked KEK) and an asymmetric pair for the received sensitive data to be
-          stored. In order to store the sensitive data, the device-wide public key and data private
-          key are used to generate a shared secret, which can be used as a KEK or a DEK. The data
-          private key and shared secret are cleared after the data is encrypted and the data public
-          key stored. Thus, no key material is available in the locked state to decrypt the newly
-          stored data. Upon unlock, the device-wide private key is decrypted and is used with each
-          data public key to regenerate the shared secret and decrypt the stored data. <figref
-            refid="KeysLocked"/>, below, illustrates this scheme. <htm:br/><htm:br/>
-          <figure id="KeysLocked" entity="images/figure4.jpg"
-            title="Key Agreement Scheme for Encrypting Received Sensitive Data in the Locked State"/>
+          <htm:br/> 
+          All keys, protected data, and sensitive data must ultimately be protected by the REK. Sensitive data must be protected by the password in addition to the REK. In particular, <figref refid="Keys"/> has KEKs protected according to these requirements: DEK_1 would be appropriate for sensitive data, DEK_2 would not be appropriate for sensitive data, K_1 is not considered a sensitive key, and K_2 is considered a sensitive key. <htm:br/><htm:br/> 
+          These requirements include a capability for encrypting sensitive data received while in the locked state, which may be considered a separate sub-category of sensitive data. This capability may be met by a key transport scheme (RSA) by using a public key to encrypt the DEK while protecting the corresponding private key with a password-derived or biometric-unlocked KEK. <htm:br/><htm:br/> 
+          This capability may also be met by a key agreement scheme. To do so, the device generates a device-wide sensitive data asymmetric pair (the private key of which is protected by a password-derived or biometric-unlocked KEK) and an asymmetric pair for the received sensitive data to be stored. In order to store the sensitive data, the device-wide public key and data private key are used to generate a shared secret, which can be used as a KEK or a DEK. The data private key and shared secret are cleared after the data is encrypted and the data public key stored. Thus, no key material is available in the locked state to decrypt the newly stored data. Upon unlock, the device-wide private key is decrypted and is used with each data public key to regenerate the shared secret and decrypt the stored data. <figref refid="KeysLocked"/>, below, illustrates this scheme. <htm:br/><htm:br/>
+          <figure id="KeysLocked" entity="images/figure4.jpg" title="Key Agreement Scheme for Encrypting Received Sensitive Data in the Locked State"/>
           <htm:br/><htm:br/>
         </subsection>
         <f-component id="fdp_dar_ext.1" name="Extended: Protected Data Encryption">
@@ -4178,7 +4090,7 @@ Mapping to TLS Package: Client
             <title>The TSF shall use an asymmetric key scheme to encrypt and store sensitive data
               received while the product is locked. </title>
             <note role="application">Sensitive data is encrypted according to FDP_DAR_EXT.1.2. The
-              asymmetric key scheme must be performed in accordance with FCS_CKM.2(2).
+              asymmetric key scheme must be performed in accordance with FCS_CKM.2/LOCKED.
               <htm:br/><htm:br/> The intent of this requirement is to allow the device to receive
               sensitive data while locked and to store the received data in such a way as to prevent
               unauthorized parties from decrypting it while in the locked state. If only a subset of
@@ -4353,8 +4265,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fdp_upc_ext.1" iteration="NORMAL"
-          name="Extended: Inter-TSF user data transfer protection">
+        <f-component id="fdp_upc_ext.1" iteration="NORMAL" name="Extended: Inter-TSF user data transfer protection">
           <f-element>
             <title>The TSF shall provide a means for non-TSF applications executing on the TOE to
               use <htm:ul>
@@ -4453,10 +4364,8 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fdp_upc_ext.1" iteration="BLUETOOTH"
-          name="Extended: Inter-TSF user data transfer protection - Bluetooth">
-          <depends on="implements" ref-id="bluetooth"/>
-          <!-- Implementation Dependent -->
+        <f-component id="fdp_upc_ext.1" iteration="BLUETOOTH" name="Extended: Inter-TSF user data transfer protection - Bluetooth"> <!-- Implementation Dependent -->
+          <depends on="implements" ref-id="bluetooth"/>       
           <f-element>
             <title>The TSF shall provide a means for non-TSF applications executing on the TOE to
               use <htm:ul>
@@ -4673,8 +4582,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fia_bmg_ext.1" name="Extended: Accuracy of Biometric Authentication"
-          status="sel-based">
+        <f-component id="fia_bmg_ext.1" name="Extended: Accuracy of Biometric Authentication" status="sel-based">
           <selection-depends req="fel-uau"
             ids="uau_fing,uau_iris,uau_face,uau_vox,uau_vein,uau_hybr"/>
           <f-element>
@@ -4871,8 +4779,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fia_bmg_ext.5" name="Extended: Handling Unusual Biometric Templates "
-          status="objective">
+        <f-component id="fia_bmg_ext.5" name="Extended: Handling Unusual Biometric Templates" status="objective">
           <f-element>
             <title>The matching algorithm shall handle properly formatted enrollment templates
               and/or authentication templates, especially those with unusual data properties,
@@ -4904,8 +4811,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fia_bmg_ext.6" name="Extended: Spoof Detections for Biometrics"
-          status="objective">
+        <f-component id="fia_bmg_ext.6" name="Extended: Spoof Detections for Biometrics" status="objective">
           <f-element>
             <title>The TSF shall perform Presentation Attack Detection testing up to the attack
               potential of <selectables onlyone="yes">
@@ -5174,7 +5080,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fia_uau.7" name="Protected authentication feedback ">
+        <f-component id="fia_uau.7" name="Protected Authentication Feedback ">
           <f-element>
             <title>The TSF shall provide only <refinement>obscured feedback to the device’s
                 display</refinement> to the user while the authentication is in progress. </title>
@@ -5301,8 +5207,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fia_uau_ext.4" name="Extended: Secondary User Authentication"
-          status="optional">
+        <f-component id="fia_uau_ext.4" name="Extended: Secondary User Authentication" status="optional">
           <f-element>
             <title>The TSF shall provide a secondary authentication mechanism for accessing
               Enterprise applications and resources. The secondary authentication mechanism shall
@@ -5381,7 +5286,7 @@ Mapping to TLS Package: Client
               The WLAN Client EP to which a MDF TOE must also conform requires that certificates are
               used for EAP-TLS; this use requires that the extendedKeyUsage rules are verified.
               Certificates may optionally be used for trusted updates of system software and
-              applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2(1)) and, if
+              applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2/PREKERNEL) and, if
               implemented, must be validated to contain the Code Signing purpose extendedKeyUsage.
               <htm:br/><htm:br/> While FIA_X509_EXT.1.1 requires that the TOE perform certain checks
               on the certificate presented by a TLS server, there are corresponding checks that the
@@ -5465,9 +5370,9 @@ Mapping to TLS Package: Client
                 <selectable>no additional uses</selectable>
               </selectables>. </title>
             <note role="application">The ST author’s first selection shall match the selection of
-              FDP_UPC_EXT.1.1(1) and FTP_ITC_EXT.1.1.<htm:br/><htm:br/> Certificates may optionally
+              FDP_UPC_EXT.1.1/NORMAL and FTP_ITC_EXT.1.1.<htm:br/><htm:br/> Certificates may optionally
               be used for trusted updates of system software (FPT_TUD_EXT.2.3) and mobile
-              applications (FPT_TUD_EXT.4.1) and for integrity verification (FPT_TST_EXT.2(1)). If
+              applications (FPT_TUD_EXT.4.1) and for integrity verification (FPT_TST_EXT.2/PREKERNEL). If
               "code signing for system software updates" or "code signing for mobile applications"
               is selected FPT_TUD_EXT.3.1 shall be included in the ST. <htm:br/><htm:br/> If
               FPT_TUD_EXT.4.1 is included in the ST, "code signing for mobile applications" must be
@@ -5546,8 +5451,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fia_x509_ext.4" name="Extended: X509 certificate enrollment"
-          status="objective">
+        <f-component id="fia_x509_ext.4" name="Extended: X509 certificate enrollment" status="objective">
           <f-element>
             <title>The TSF shall use the Enrollment over Secure Transport (EST) protocol as
               specified in RFC 7030 to request certificate enrollment using the simple enrollment
@@ -5672,8 +5576,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fia_x509_ext.5" name="Extended: X509 certificate enrollment"
-          status="objective">
+        <f-component id="fia_x509_ext.5" name="Extended: X509 certificate enrollment" status="objective">
           <f-element>
             <title>The TSF shall generate a Certificate Request Message as specified in RFC 2986 and
               be able to provide the following information in the request: public key and <selectables>
@@ -5722,19 +5625,11 @@ Mapping to TLS Package: Client
           </f-element>
         </f-component>
       </subsection>
-      <subsection id="fmt" title="Class: Security Management (FMT)"> Both the user and the
-        administrator may manage the TOE. This administrator is likely to be acting remotely and
-        could be the Mobile Device Management (MDM) Administrator acting through an MDM Agent.
-        <htm:br/><htm:br/> The Administrator is responsible for management activities, including
-        setting the policy that is applied by the enterprise on the Mobile Device. These management
-        functions are likely to be a different set than those management functions provided to the
-        user. Management functions that are provided to the user and not the administrator are
-        listed in FMT_MOF_EXT.1.1. Management functions for which the administrator may adopt a
-        policy that restricts the user from performing that function are listed in FMT_MOF_EXT.1.2. <htm:br/><htm:br/>
-        <ctr-ref refid="fmt_smf"/> compares the management functions required by this Protection
-        Profile in the following three requirements (FMT_MOF_EXT.1.1, FMT_MOF_EXT.1.2, and
-        FMT_SMF_EXT.1). <f-component id="fmt_mof_ext.1"
-          name="Extended: Management of security functions behavior">
+      <subsection id="fmt" title="Class: Security Management (FMT)"> 
+        Both the user and the administrator may manage the TOE. This administrator is likely to be acting remotely and could be the Mobile Device Management (MDM) Administrator acting through an MDM Agent. <htm:br/><htm:br/> 
+        The Administrator is responsible for management activities, including setting the policy that is applied by the enterprise on the Mobile Device. These management functions are likely to be a different set than those management functions provided to the user. Management functions that are provided to the user and not the administrator are listed in FMT_MOF_EXT.1.1. Management functions for which the administrator may adopt a policy that restricts the user from performing that function are listed in FMT_MOF_EXT.1.2. <htm:br/><htm:br/> 
+        <ctr-ref refid="fmt_smf"/> compares the management functions required by this Protection Profile in the following three requirements (FMT_MOF_EXT.1.1, FMT_MOF_EXT.1.2, and FMT_SMF_EXT.1).
+        <f-component id="fmt_mof_ext.1" name="Extended: Management of security functions behavior">
           <f-element>
             <title>The TSF shall restrict the ability to perform the functions in column 3 of
                 <ctr-ref refid="fmt_smf"/> to the user. </title>
@@ -5816,9 +5711,9 @@ Mapping to TLS Package: Client
         <f-component id="fmt_smf_ext.1" name="Extended: Specification of Management Functions">
           <f-element>
             <title>The TSF shall be capable of performing the following management functions: <htm:br/><htm:br/>
-              <htm:b><ctr id="fmt_smf" ctr-type="Table">: Management
-              Functions</ctr></htm:b><htm:br/><htm:br/> Status Markers:<htm:br/> M -
-              Mandatory<htm:br/> O - Optional/Objective<htm:br/>
+              <htm:b><ctr id="fmt_smf" ctr-type="Table">: Management Functions</ctr></htm:b><htm:br/><htm:br/> 
+              Status Markers:<htm:br/> M - Mandatory<htm:br/> O - Optional/Objective<htm:br/>
+              <!-- NOTE: management-function uses ctr variables crt-type=functions in the MOOO table, so that they do not have to be renumbered when one is added or removed. However app notes and AAs need to be in the same order as the functions. The list of IDs for each function is at the end of the xml.-->
               <management-function-set default="O">
                 <manager id="1">Impl.</manager>
                 <manager id="2">User Only</manager>
@@ -7046,8 +6941,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_aex_ext.2"
-          name="Extended: Anti-Exploitation Services (Memory Page Permissions)">
+        <f-component id="fpt_aex_ext.2" name="Extended: Anti-Exploitation Services (Memory Page Permissions)">
           <f-element>
             <title>The TSF shall be able to enforce read, write, and execute permissions on every
               page of physical memory. </title>
@@ -7058,8 +6952,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_aex_ext.3"
-          name="Extended: Anti-Exploitation Services (Overflow Protection)">
+        <f-component id="fpt_aex_ext.3" name="Extended: Anti-Exploitation Services (Overflow Protection)">
           <f-element>
             <title>TSF processes that execute in a non-privileged execution domain on the
               application processor shall implement stack-based buffer overflow protection. </title>
@@ -7162,8 +7055,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_aex_ext.5" name="Extended: Anti-Exploitation Services (ASLR)"
-          status="objective">
+        <f-component id="fpt_aex_ext.5" name="Extended: Anti-Exploitation Services (ASLR)" status="objective">
           <f-element>
             <title>The TSF shall provide address space layout randomization (ASLR) to the kernel.
             </title>
@@ -7191,8 +7083,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_aex_ext.6"
-          name="Extended: Anti-Exploitation Services (Memory Page Permissions)" status="objective">
+        <f-component id="fpt_aex_ext.6" name="Extended: Anti-Exploitation Services (Memory Page Permissions)" status="objective">
           <f-element>
             <title>The TSF shall prevent write and execute permissions from being simultaneously
               granted to any page of physical memory <selectables>
@@ -7216,8 +7107,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_aex_ext.7"
-          name="Extended: Anti-Exploitation Services (Overflow Protection)" status="objective">
+        <f-component id="fpt_aex_ext.7" name="Extended: Anti-Exploitation Services (Overflow Protection)" status="objective">
           <f-element>
             <title>The TSF shall include heap-based buffer overflow protections in the runtime
               environment it provides to processes that execute on the application
@@ -7244,8 +7134,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_bbd_ext.1" name="Extended: Application Processor Mediation"
-          status="objective">
+        <f-component id="fpt_bbd_ext.1" name="Extended: Application Processor Mediation" status="objective">
           <f-element>
             <title>The TSF shall prevent code executing on any baseband processor (BP) from
               accessing application processor (AP) resources except when mediated by the AP.</title>
@@ -7287,8 +7176,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_blt_ext.1" name="Extended: Limitation of Bluetooth Profile Support"
-          status="objective">
+        <f-component id="fpt_blt_ext.1" name="Extended: Limitation of Bluetooth Profile Support" status="objective">
           <f-element>
             <title>The TSF shall disable support for <assignable>list of Bluetooth
                 profiles</assignable> Bluetooth profiles when they are not currently being used by
@@ -7608,8 +7496,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_tst_ext.2" name="Extended: TSF Integrity Checking"
-          iteration="PREKERNEL">
+        <f-component id="fpt_tst_ext.2" name="Extended: TSF Integrity Checking" iteration="PREKERNEL">
           <f-element>
             <title>The TSF shall verify the integrity of the bootchain up through the Application
               Processor OS kernel stored in mutable media prior to its execution through the use of <selectables>
@@ -7624,7 +7511,7 @@ Mapping to TLS Package: Client
               software, including ROM, bootloader(s), and kernel, which ultimately result in loading
               the kernel on the Application Processor, regardless of which processor executes that
               code. Executable code that would be loaded after the kernel is covered in
-              FPT_TST_EXT.2(2). <htm:br/><htm:br/> In order to meet this requirement, the hardware
+              FPT_TST_EXT.2/POSTKERNEL. <htm:br/><htm:br/> In order to meet this requirement, the hardware
               protection may be transitive in nature: a hardware-protected public key, hash of an
               asymmetric key, or hash may be used to verify the mutable bootloader code which
               contains a key or hash used by the bootloader to verify the mutable OS kernel code,
@@ -7680,8 +7567,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_tst_ext.2" name="Extended: TSF Integrity Checking" status="objective"
-          iteration="POSTKERNEL">
+        <f-component id="fpt_tst_ext.2" name="Extended: TSF Integrity Checking" status="objective" iteration="POSTKERNEL">
           <f-element>
             <title>The TSF shall verify the integrity of <selectables>
                 <selectable>all executable code stored in mutable media</selectable>
@@ -7705,7 +7591,7 @@ Mapping to TLS Package: Client
               libraries) is verified, "all executable code stored in mutable media" should be
               selected. </note>
             <aactivity>
-              <Tests> The assurance activity shall be completed in conjunction with FPT_TST_EXT.2(1)
+              <Tests> The assurance activity shall be completed in conjunction with FPT_TST_EXT.2/PREKERNEL
                 for all executable code specified. </Tests>
             </aactivity>
           </f-element>
@@ -7715,13 +7601,13 @@ Mapping to TLS Package: Client
           <f-element>
             <title>The TSF shall not execute code if the code signing certificate is deemed invalid. </title>
             <note role="application">Certificates may optionally be used for code signing for
-              integrity verification (FPT_TST_EXT.2.1(1)). If "code signing for integrity
+              integrity verification (FPT_TST_EXT.2.1/PREKERNEL). If "code signing for integrity
               verification" is selected in FIA_X509_EXT.2.1, FPT_TST_EXT.3.1 must be included in the
               ST. <htm:br/><htm:br/> Validity is determined by the certificate path, the expiration
               date, and the revocation status in accordance with RFC 5280. </note>
             <aactivity>
               <Tests>Testing for this element is performed in conjunction with the assurance
-                activities for FPT_TST_EXT.2.1(1). </Tests>
+                activities for FPT_TST_EXT.2.1/PREKERNEL. </Tests>
             </aactivity>
           </f-element>
         </f-component>
@@ -7790,9 +7676,9 @@ Mapping to TLS Package: Client
                 <selectable>hash</selectable>
               </selectables>.</title>
             <note role="application">The key or hash updated via this requirement is used for
-              verifying software before execution in FPT_TST_EXT.2(1). The key or hash is verified
+              verifying software before execution in FPT_TST_EXT.2/PREKERNEL. The key or hash is verified
               as a part of the digital signature on an update, and the software which performs the
-              update of the key or hash is verified by FPT_TST_EXT.2(1). </note>
+              update of the key or hash is verified by FPT_TST_EXT.2/PREKERNEL. </note>
           </f-element>
           <f-element>
             <title>The TSF shall verify that the digital signature verification key used for TSF
@@ -7881,8 +7767,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_tud_ext.3" name="Extended: Trusted Update Verification"
-          status="sel-based">
+        <f-component id="fpt_tud_ext.3" name="Extended: Trusted Update Verification" status="sel-based">
           <selection-depends req="fel-cert-auth" ids="x509_sys,x509_apps"/>
           <f-element>
             <title>The TSF shall not install code if the code signing certificate is deemed invalid. </title>
@@ -7938,8 +7823,7 @@ Mapping to TLS Package: Client
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_tud_ext.5" name="Extended: Trusted Update Verification"
-          status="objective">
+        <f-component id="fpt_tud_ext.5" name="Extended: Trusted Update Verification" status="objective">
           <f-element>
             <title>The TSF shall verify that software updates to the TSF are a current or later
               version than the current version of the TSF. </title>
@@ -8800,7 +8684,7 @@ Mapping to TLS Package: Client
             /></htm:td><htm:td>Include in ST. Select both options.</htm:td></htm:tr>
         <htm:tr><htm:td>FPT_BBD_EXT.1.1</htm:td><htm:td>Include in
           ST.</htm:td></htm:tr>
-        <htm:tr><htm:td>FPT_TST_EXT.2.1(2)</htm:td><htm:td>Include in STand
+        <htm:tr><htm:td>FPT_TST_EXT.2.1/POSTKERNEL</htm:td><htm:td>Include in STand
             Select "all executable code stored in mutable media."</htm:td></htm:tr>
         <htm:tr><htm:td>FPT_TUD_EXT.4.1</htm:td><htm:td>Include in
           ST.</htm:td></htm:tr>
@@ -8813,8 +8697,8 @@ Mapping to TLS Package: Client
       <htm:table>
         <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Action</htm:td></htm:tr>
         <htm:tr><htm:td>FCS_CKM.1.1</htm:td><htm:td>Select RSA with key size of 3072 or select ECC schemes.</htm:td></htm:tr>
-        <htm:tr><htm:td>FCS_CKM.2.1(1)</htm:td><htm:td>Select ECC schemes, if ECC schemes are selected in FCS_CKM.1.1.</htm:td></htm:tr>
-        <htm:tr><htm:td>FCS_CKM.2.1(2)</htm:td><htm:td>Select "RSA schemes" or select "ECC schemes that meet NIST SP 800-56A Revision 3".</htm:td></htm:tr>
+        <htm:tr><htm:td>FCS_CKM.2.1/UNLOCKED</htm:td><htm:td>Select ECC schemes, if ECC schemes are selected in FCS_CKM.1.1.</htm:td></htm:tr>
+        <htm:tr><htm:td>FCS_CKM.2.1/LOCKED</htm:td><htm:td>Select "RSA schemes" or select "ECC schemes that meet NIST SP 800-56A Revision 3".</htm:td></htm:tr>
        <htm:tr><htm:td>FCS_CKM_EXT.1.1</htm:td><htm:td>If "symmetric" is selected then "256 bits" must be selected. If "asymmetric" is selected and RSA scheme is selected in FCS_CKM.1.1 then "128 bits" can be selected. If "asymmetric" is selected and ECC scheme is selected in FCS_CKM.1.1, then "192 bits" can be selected. </htm:td></htm:tr>
         <htm:tr><htm:td>FCS_CKM_EXT.2.1</htm:td><htm:td>Select 256 bits.</htm:td></htm:tr>
        <htm:tr><htm:td>FCS_CKM_EXT.3.1</htm:td><htm:td>If asymmetric KEKs is selected and RSA scheme is selected in FCS_CKM.1.1 then assign 128 bits security strength. If asymmetric KEKs is selected and ECC scheme is selected in FCS_CKM.1.1 then assign 192 bits security strength. If symmetric KEKs is selected, select 256 bit security strength.</htm:td></htm:tr>
@@ -9323,11 +9207,69 @@ Mapping to TLS Package: Client
 -->
     <feature id="bluetooth" title="Bluetooth">
       <description> If the TOE includes Bluetooth hardware, the following SFRs must be all claimed: <htm:ul><htm:li><!-- fdp_upc_ext.1(2) -->
-            fdp_upc_ext.1(2)</htm:li></htm:ul>
+            fdp_upc_ext.1/BLUETOOTH</htm:li></htm:ul>
       </description>
     </feature>
   </implements>
 </PP>
+
+
+<!-- Trusted Channels/RF protocols
+  
+WLAN -> WLAN Client Module
+    - WLAN (specifically 802.11-2012,  802.1X, EAP-TLS) is mandatory to be included in a MDF ST, FTP_ITC_EXT.1.1 mandates it 
+        - TODO: Determine if this wording needs to change when WLAN Client is updated to module
+    - Mapping to threat/objectives -> in WLAN Client Module
+    - Audit -> in WLAN Client Module 
+
+Bluetooth -> Bluetooth Module
+    - Bluetooth is mandatory to be included in a MDF ST (if HW exists), FDP_UPC_EXT.1/BLUETOOTH mandates BR/EDR but LE is selecatable 
+    - Mapping to threat/objectives -> in MDF
+    - Audit -> in BT Module
+    - Still trying to determine where the line is drawn for what is in module and what stays in MDF b/c some of the "BT" SFRs are actually done by the OS
+    - Mapping between MDF v3.1 and BT module - spreadsheet
+                       
+TLS -> TLS Package
+    - TLS is mandatory to be included in MDF ST, FDP_UPC_EXT.1/NORMAL and FTP_ITC_EXT.1.1 mandates it
+    - Mapping to threat/objectives -> in MDF
+    - Audit -> in MDF
+   
+DTLS -> TLS Package
+   - DTLS is NOT mandatory, but selectable in FDP_UPC_EXT.1/NORMAL and FTP_ITC_EXT.1.1
+   - Mapping to threat/objectives -> in MDF
+   - Audit -> in MDF
+   
+   IPSec -> VPN Client Module
+   - IPSec is NOT mandatory, but selectable in FDP_UPC_EXT.1/NORMAL, FTP_ITC_EXT.1.1 and FDP_IFC_EXT.1.1
+   - Flow contol (i.e. don't allow a split tunnel) is mandatory for the platform to implement (whether it be the native VPN client and/or a 3rd party application)
+   - Mapping to threat/objectives -> in VPN Client Module
+   - Audit -> in VPN Client Module (but currently objective)
+
+  HTTPS -> MDF (but really covered in TLS Package)
+  - HTTPS is mandatory (SFRs in Section 5) b/c FDP_UPC_EXT.1/NORMAL mandates it, also selectable in FTP_ITC_EXT.1.1
+      - HTTPS SFRs in MDF (FCS_HTTPS_EXT.1.2) requires "implement HTTPS using TLS as defined in the Package for Transport Layer Security." 
+  - Mapping to threat/objectives -> in MDF
+  - Audit -> in MDF
+  - Cert ->
+      - If peer cert is deemed invalid, allow override (FCS_HTTPS_EXT.1.3 and FMT function ctr-id: CertInvalid)
+      - If peer cert validity cannot be determined, __________
+  
+
+-->
+
+<!-- Mapping to TLS Package: 
+  
+     MDF   Package (Client) 
+     1.1 = 1.1 - need to mandate that a ciphersuite other than SHA1 is selected. - do this just like MDM (and turn blind eye to the fact that FCS_COP.1 still allows SHA1)
+     1.2 = 1.2
+     1.3 ~ 1.3 - need to mandate selection "with no exceptions"
+     1.4 (man) = 2.1 (sel-based) - mandating mutual auth to be selected so 2.1 becomes mandatory
+     2.1 = 5.1
+     3.1 = 3.1
+     3.2 (man) = 4.1 (sel-based) - okay with change
+     3.3 (man) = 4.2 (sel-based) - okay with change
+--> 
+
 <!-- FMT_SMF function mapping to IDs for ctr variables
 1	pwd
 2	screenlock
@@ -9376,3 +9318,20 @@ Mapping to TLS Package: Client
 45	alwaysOnVPN
 46	bioRevoke
 47	other-->
+
+<!-- Iterations
+FCS_CKM.2(1) — UNLOCKED
+FCS_CKM.2(2) — LOCKED
+FCS_COP.1(1) - ENCRYPT
+FCS_COP.1(2) - HASH
+FCS_COP.1(3) - SIGN
+FCS_COP.1(4) - KEYHMAC
+FCS_COP.1(5) - CONDITION
+FDP_UPC_EXT.1(1) - NORMAL
+FDP_UPC_EXT.1(2) - BLUETOOTH
+FPT_TST_EXT.2(1) - PREKERNEL
+FPT_TST_EXT.2(2) - POSTKERNEL
+
+
+
+-->
