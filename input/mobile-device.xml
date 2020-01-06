@@ -6,22 +6,16 @@
 <?xml-model href="../transforms/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 -->
 <!-- Kevin:
-Add implementation dependent as a marker for mapping SFRs to objectives 
-
+what is this: <htm:div class="comp">
+How is it differenet then me using subsection?
 -->
 
 <!-- TODO: 
 
-- TRRTs with PP change needed
-- INeed to rename iteration for - FDP_UPC_EXT.1/NORMAL
-
+- I need to rename iteration for - FDP_UPC_EXT.1/NORMAL
 - Open Issues on github
-
-- selection for FCS_TLSC_EXT.1.3 and FCS_DTLS_EXT.1.3 (in package) to not allow exceptions for when server cert is invalid.  
-   - MDF fcs_tlsc/dtls_ext.1.3 is similar to fcs_tlsc/dtls_ext.1.3 in package, but package has [selection: with no exceptions, except when override is authorized]. How do I specify which selection has to be made?? MDF: The <abbr linkend="TSF"/> shall not establish a trusted channel if the peer certificate is invalid. However, HTTPS requires different behavior, though HTTPS is implemented over TLS. This element addresses non-HTTPS TLS connections.
-    - DONE: Added FMT_SMF Function 21 and added app note to HTTPS.1.3
        
-BT Module - need to update with the TRRT
+
 
 -->
 
@@ -33,6 +27,8 @@ BT Module - need to update with the TRRT
 
 
 <!-- DONE:
+  BT Module - need to update with the TRRT/TD
+  - TRRTs with PP change needed
     - BT - keep SFRs mapped to MDF objectives, but need to update SFR numbers - DONE
     - Moved BT to implementation dependent - IF BT HW exists then mandatory, if BT HW does not exist then not mandatory 
           - Iterated FDP_UPC, removed BT from the mandatory iteration and iteration (just BT) in optional A.3 - implementation dependent. 
@@ -41,6 +37,9 @@ BT Module - need to update with the TRRT
     -	EAs that include API documentation according to adv OR in entropy documentation – Just put at top of EA outside of TSS flag
     - Move FAU_GEN table 1 and 2 move out of the EA and into the application note 
     - Updated FMT_SMF function numbers to be ctr variables
+    - selection for FCS_TLSC_EXT.1.3 and FCS_DTLS_EXT.1.3 (in package) to not allow exceptions for when server cert is invalid.  
+   - MDF fcs_tlsc/dtls_ext.1.3 is similar to fcs_tlsc/dtls_ext.1.3 in package, but package has [selection: with no exceptions, except when override is authorized]. How do I specify which selection has to be made?? MDF: The <abbr linkend="TSF"/> shall not establish a trusted channel if the peer certificate is invalid. However, HTTPS requires different behavior, though HTTPS is implemented over TLS. This element addresses non-HTTPS TLS connections.
+    - DONE: Added FMT_SMF Function 21 and added app note to HTTPS.1.3
 -->
 
 <!-- TODO_Future:
@@ -49,6 +48,7 @@ BT Module - need to update with the TRRT
       - Can this fix the what to do when a connection is not available to verify the validity?
  - EA for radio testing
      -	FMT_SMF_EXT.1 Function 4 AA – need to fix it with respect to setting up the testing environment setup (RF noise floor, sweeping frequency…) and to address power up spikes (power to the radio before realizing that the device is in Airplane mode for both cellular and wifi)
+     - Technical Query 839: FCS_STG_EXT.2.2 (and interaction with 3.1)
 
 - <selectable id= " "/> and selection depends ids for the selectable SFRs 
 -->
@@ -69,7 +69,7 @@ BT Module - need to update with the TRRT
       <PPTitle>Mobile Device Fundamentals</PPTitle>
       <PPVersion>3.2</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
-      <PPPubDate>2019-10-01</PPPubDate>
+      <PPPubDate>2020-01-07</PPPubDate>
       <Keywords>??</Keywords>
     </ReferenceTable>
   </PPReference>
@@ -1341,18 +1341,8 @@ BT Module - need to update with the TRRT
           </f-element>
         </f-component>
       </subsection>
-      <subsection id="fcs" title="Class: Cryptographic Support (FCS)"> This section describes how
-        keys are generated, derived, combined, released and destroyed. There are two major types of
-        keys: DEKs and KEKs. (A REK is considered a KEK.) DEKs are used to protect data (as in the
-        DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other
-        keys – DEKs, other KEKs, and other types of keys stored by the user or applications. The
-        following diagram shows an example key hierarchy to illustrate the concepts of this profile.
-        This example is not meant as an approved design, but ST authors will be expected to provide
-        a diagram illustrating their key hierarchy in order to demonstrate that they meet the
-        requirements of this profile. Please note if a BAF is selected in FIA_UAU.5.1, the BAF shall
-        be illustrated in the key hierarchy diagram, to include a description of when and how the
-        BAF is used to release keys. If "hybrid" is selected in FIA_UAU.5.1, meaning that a PIN or
-        password must be used in conjunction with the BAF this interaction shall be included.<htm:br/>
+      <subsection id="fcs" title="Class: Cryptographic Support (FCS)"> 
+        This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: DEKs and KEKs. (A REK is considered a KEK.) DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications. The following diagram shows an example key hierarchy to illustrate the concepts of this profile. This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. Please note if a BAF is selected in FIA_UAU.5.1, the BAF shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If "hybrid" is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF this interaction shall be included.<htm:br/>
         <figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"/>
         <f-component id="fcs_ckm.1" name="Cryptographic key generation">
           <f-element>
@@ -2520,80 +2510,49 @@ BT Module - need to update with the TRRT
         <f-component id="fcs_ckm_ext.5" name="Extended: TSF Wipe">
           <f-element>
             <title>The TSF shall wipe all protected data by <selectables linebreak="yes">
-                <selectable>Cryptographically erasing the encrypted DEKs and/or the KEKs in
-                  non-volatile memory by following the requirements in FCS_CKM_EXT.4.1</selectable>
+               <selectable>Cryptographically erasing the encrypted DEKs and/or the KEKs in non-volatile memory by following the requirements in FCS_CKM_EXT.4.1</selectable>
                 <selectable>Overwriting all <xref linkend="pd"/> according to the following rules: <htm:ul>
-                    <htm:li>For EEPROM, the destruction shall be executed by a single direct
-                      overwrite consisting of a pseudo random pattern using the TSF’s RBG (as
-                      specified in FCS_RBG_EXT.1, followed by a read-verify. </htm:li>
-                    <htm:li>For flash memory, that is not wear-leveled, the destruction shall be
-                      executed <selectables>
-                        <selectable>by a single direct overwrite consisting of zeros followed by a
-                          read-verify</selectable>
-                        <selectable>by a block erase that erases the reference to memory that stores
-                          data as well as the data itself</selectable>
+                    <htm:li>For EEPROM, the destruction shall be executed by a single direct overwrite consisting of a pseudo random pattern using the TSF’s RBG (as specified in FCS_RBG_EXT.1, followed by a read-verify. </htm:li>
+                    <htm:li>For flash memory, that is not wear-leveled, the destruction shall be executed <selectables>
+                        <selectable>by a single direct overwrite consisting of zeros followed by a read-verify</selectable>
+                        <selectable>by a block erase that erases the reference to memory that stores data as well as the data itself</selectable>
                       </selectables>. </htm:li>
-                    <htm:li>For flash memory, that is wear-leveled, the destruction shall be
-                      executed <selectables>
+                    <htm:li>For flash memory, that is wear-leveled, the destruction shall be executed <selectables>
                         <selectable>by a single direct overwrite consisting of zeros</selectable>
                         <selectable>by a block erase</selectable>
                       </selectables>. </htm:li>
-                    <htm:li>For non-volatile memory other than EEPROM and flash, the destruction
-                      shall be executed by a single direct overwrite with a random pattern that is
-                      changed before each write. </htm:li>
+                   <htm:li>For non-volatile memory other than EEPROM and flash, the destruction shall be executed by a single direct overwrite with a random pattern that is changed before each write. </htm:li>
                   </htm:ul>
                 </selectable>
-              </selectables>. </title>
-            <note role="Application"> Protected data is all non-TSF data, including all user or
-              enterprise data. Some or all of this data may be considered sensitive data as well.
+              </selectables>. 
+            </title>
+            <note role="Application"> 
+              Protected data is all non-TSF data, including all user or enterprise data. Some or all of this data may be considered sensitive data as well.
             </note>
           </f-element>
           <f-element>
             <title>The TSF shall perform a power cycle on conclusion of the wipe procedure. </title>
-            <note role="application"> The ST author shall select which method of wipe the TSF
-              performs.</note>
+            <note role="application"> 
+              The ST author shall select which method of wipe the TSF performs.</note>
             <aactivity>
-              <TSS> The evaluator shall check to ensure the TSS describes how the device is wiped;
-                and the type of clearing procedure that is performed (cryptographic erase or
-                overwrite) and, if overwrite is performed, the overwrite procedure (overwrite with
-                zeros, overwrite three or more times by a different alternating pattern, overwrite
-                with random pattern, or block erase). If different types of memory are used to store
-                the data to be protected, the evaluator shall check to ensure that the TSS describes
-                the clearing procedure in terms of the memory in which the data are stored (for
-                example, data stored on flash are cleared by overwriting once with zeros, while data
-                stored on the internal persistent storage device are cleared by overwriting three
-                times with a random pattern that is changed before each write). <htm:br/><htm:br/>
+              <TSS> 
+                The evaluator shall check to ensure the TSS describes how the device is wiped; and the type of clearing procedure that is performed (cryptographic erase or overwrite) and, if overwrite is performed, the overwrite procedure (overwrite with zeros, overwrite three or more times by a different alternating pattern, overwrite with random pattern, or block erase). If different types of memory are used to store the data to be protected, the evaluator shall check to ensure that the TSS describes the clearing procedure in terms of the memory in which the data are stored (for example, data stored on flash are cleared by overwriting once with zeros, while data stored on the internal persistent storage device are cleared by overwriting three times with a random pattern that is changed before each write). <htm:br/><htm:br/>
               </TSS>
               <Tests>
-                <htm:b>Assurance Activity Note:</htm:b> The following test may require the developer
-                to provide access to a test platform that provides the evaluator with tools that are
-                typically not found on consumer Mobile Device products. <htm:br/><htm:br/> The
-                evaluator shall perform one of the following tests. The test before and after the
-                wipe command shall be identical. This test shall be repeated for each type of memory
-                used to store the data to be protected. <htm:br/><htm:br/>
-                <htm:i>Method 1 for File-based Methods:</htm:i><htm:br/>
+                <htm:b>Assurance Activity Note:</htm:b> 
+                The following test may require the developer to provide access to a test platform that provides the evaluator with tools that are typically not found on consumer Mobile Device products. <htm:br/><htm:br/> 
                 <testlist>
-                  <test>The evaluator shall enable encryption according to the AGD guidance. The
-                    evaluator shall create a user data (protected data or sensitive data) file, for
-                    example, by using an application. The evaluator shall use a tool provided by the
-                    developer to examine this data stored in memory (for example, by examining a
-                    decrypted files). The evaluator shall initiate the wipe command according to the
-                    AGD guidance provided for FMT_SMF_EXT.1. The evaluator shall use a tool provided
-                    by the developer to examine the same data location in memory to verify that the
-                    data has been wiped according to the method described in the TSS (for example,
-                    the files are still encrypted and cannot be accessed). </test>
-                </testlist>
-                <htm:i>Method 2 for Volume-based Methods:</htm:i><htm:br/>
-                <testlist>
-                  <test>The evaluator shall enable encryption according to the AGD guidance. The
-                    evaluator shall create a unique data string, for example, by using an
-                    application. The evaluator shall use a tool provided by the developer to search
-                    decrypted data for the unique string. The evaluator shall initiate the wipe
-                    command according to the AGD guidance provided for FMT_SMF_EXT.1. The evaluator
-                    shall use a tool provided by the developer to search for the same unique string
-                    in decrypted memory to verify that the data has been wiped according to the
-                    method described in the TSS (for example, the files are still encrypted and
-                    cannot be accessed).</test>
+                  <test>The evaluator shall perform one of the following tests. The test before and after the wipe command shall be identical. This test shall be repeated for each type of memory used to store the data to be protected. <htm:br/><htm:br/>
+                  <testlist>
+                    <test><htm:b>For File-based Methods:</htm:b><htm:br/>
+                      The evaluator shall enable encryption according to the AGD guidance. The evaluator shall create a user data (protected data or sensitive data) file, for example, by using an application. The evaluator shall use a tool provided by the developer to examine this data stored in memory (for example, by examining a decrypted files). The evaluator shall initiate the wipe command according to the AGD guidance provided for FMT_SMF_EXT.1. The evaluator shall use a tool provided by the developer to examine the same data location in memory to verify that the data has been wiped according to the method described in the TSS (for example, the files are still encrypted and cannot be accessed). </test>
+                    <test><htm:b>For Volume-based Methods:</htm:b><htm:br/>
+                      The evaluator shall enable encryption according to the AGD guidance. The evaluator shall create a unique data string, for example, by using an application. The evaluator shall use a tool provided by the developer to search decrypted data for the unique string. The evaluator shall initiate the wipe command according to the AGD guidance provided for FMT_SMF_EXT.1. The evaluator shall use a tool provided by the developer to search for the same unique string in decrypted memory to verify that the data has been wiped according to the method described in the TSS (for example, the files are still encrypted and cannot be accessed).</test>
+                  </testlist>               
+                  </test>
+                  <test>
+                    The evaluator shall cause the device to wipe and verify that the wipe concludes with a power cycle.                                 
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -2647,39 +2606,25 @@ BT Module - need to update with the TRRT
             <title>The TSF shall perform encryption/decryption in accordance with a specified
               cryptographic algorithm: <htm:br/>
               <htm:ul>
-                <htm:li><refinement>AES-CBC (as defined in FIPS PUB 197, and NIST SP 800-38A)
-                    mode</refinement></htm:li>
-                <htm:li><refinement>AES-CCMP (as defined in FIPS PUB 197, NIST SP 800-38C and IEEE
-                    802.11-2012), and</refinement></htm:li>
-                <htm:li><selectables linebreak="yes">
-                    <selectable><refinement>AES Key Wrap (KW) (as defined in NIST SP
-                        800-38F)</refinement></selectable>
-                    <selectable><refinement>AES Key Wrap with Padding (KWP) (as defined in NIST SP
-                        800-38F)</refinement></selectable>
-                    <selectable><refinement>AES-GCM (as defined in NIST SP
-                      800-38D)</refinement></selectable>
-                    <selectable><refinement>AES-CCM (as defined in NIST SP
-                      800-38C)</refinement></selectable>
-                    <selectable><refinement>AES-XTS (as defined in NIST SP 800-38E)
-                        mode</refinement></selectable>
-                    <selectable><refinement>AES-CCMP-256 (as defined in NIST SP800-38C and IEEE
-                        802.11ac-2013)</refinement></selectable>
-                    <selectable><refinement>AES-GCMP-256 (as defined in NIST SP800-38D and IEEE
-                        802.11ac-2013)</refinement></selectable>
-                    <selectable exclusive="yes"><refinement>no other modes</refinement></selectable>
-                  </selectables></htm:li>
+                <htm:li><refinement>AES-CBC (as defined in FIPS PUB 197, and NIST SP 800-38A) mode</refinement></htm:li> 
+                <htm:li><refinement>AES-CCMP (as defined in FIPS PUB 197, NIST SP 800-38C and IEEE 802.11-2012), and</refinement></htm:li> 
+                <htm:li><selectables linebreak="yes"> 
+                  <selectable><refinement>AES Key Wrap (KW) (as defined in NIST SP 800-38F)</refinement></selectable> 
+                  <selectable><refinement>AES Key Wrap with Padding (KWP) (as defined in NIST SP 800-38F)</refinement></selectable> 
+                  <selectable><refinement>AES-GCM (as defined in NIST SP 800-38D)</refinement></selectable> 
+                  <selectable><refinement>AES-CCM (as defined in NIST SP 800-38C)</refinement></selectable> 
+                  <selectable><refinement>AES-XTS (as defined in NIST SP 800-38E) mode</refinement></selectable> 
+                  <selectable><refinement>AES-CCMP-256 (as defined in NIST SP800-38C and IEEE 802.11ac-2013)</refinement></selectable> 
+                  <selectable><refinement>AES-GCMP-256 (as defined in NIST SP800-38D and IEEE 802.11ac-2013)</refinement></selectable> 
+                  <selectable exclusive="yes"><refinement>no other modes</refinement></selectable> </selectables></htm:li>
               </htm:ul> and cryptographic key sizes 128-bit key sizes and <selectables>
                 <selectable><refinement>256-bit key sizes</refinement></selectable>
                 <selectable exclusive="yes"><refinement>no other key sizes</refinement></selectable>
               </selectables>. </title>
-            <note role="application">For the first selection, the ST author should choose the mode
-              or modes in which AES operates. For the second selection, the ST author should choose
-              the key sizes that are supported by this functionality. 128-bit CBC and CCMP are
-              required in order to comply with WLAN Client Extended Package. <htm:br/><htm:br/> Note
-              that to comply with the WLAN Client EP, AES CCMP (which uses AES in CCM as specified
-              in SP 800-38C) with cryptographic key size of 128 bits must be implemented.
-              Optionally, AES-CCMP-256 or AES-GCMP-256 with cryptographic key size of 256 bits may
-              be implemented. </note>
+            <note role="application">
+              For the first selection, the ST author should choose the mode or modes in which AES operates. For the second selection, the ST author should choose the key sizes that are supported by this functionality. 128-bit CBC and CCMP are required in order to comply with WLAN Client Extended Package. <htm:br/><htm:br/> 
+              Note that to comply with the WLAN Client EP, AES CCMP (which uses AES in CCM as specified in SP 800-38C) with cryptographic key size of 128 bits must be implemented. If CCM is only implemented to support CCMP for WLAN, AES-CCM does not need be selected. Optionally, AES-CCMP-256 or AES-GCMP-256 with cryptographic key size of 256 bits may be implemented. 
+            </note>
             <aactivity>
               <Tests>
                 <htm:b>Assurance Activity Note:</htm:b> The following tests require the developer to
@@ -3423,17 +3368,10 @@ BT Module - need to update with the TRRT
                   </selectables>
                 </htm:li>
               </htm:ul>
-            </title>
-            <note role="application"> For each of the listed FCS components in the bulleted list,
-              the intent is that the TOE will make available all algorithms specified for that
-              component in the ST. For example, if for FCS_COP.1/HASH the ST author selects SHA-256,
-              then the TOE would have to make available an interface to perform SHA-1 (the
-              "mandatory" portion of FCS_COP.1/HASH) and SHA-256 (the "selected" portion of
-              FCS_COP.1/HASH). The exception is for FCS_COP.1/ENCRYPT, which does not require the
-              TOE to make available AES_CCMP, AES_XTS, AES_GCMP-256, or AES_CCMP_256 even though
-              they may be implemented to perform TSF-related functions. However, the ST author is
-              expected to select (for FCS_COP.1/ENCRYPT selection in this component) algorithms that
-              match those selected in the ST for the FCS_COP.1/ENCRYPT component. </note>
+            </title><note role="application"> 
+              For each of the listed FCS components in the bulleted list, the intent is that the TOE will make available all algorithms specified for that component in the ST. For example, if for FCS_COP.1/HASH the ST author selects SHA-256, then the TOE would have to make available an interface to perform SHA-1 (the "mandatory" portion of FCS_COP.1/HASH) and SHA-256 (the "selected" portion of FCS_COP.1/HASH).<htm:br/><htm:br/> 
+              The exception is for FCS_COP.1/ENCRYPT. The TOE is not require to make available AES_CCMP, AES_XTS, AES_GCMP-256, or AES_CCMP_256 even though they may be implemented to perform TSF-related functions. It is acceptable for the platform to not provide AES Key Wrap (KW) and AES Key Wrap with Padding (KWP) to applications even if selected in FCS_COP.1/ENCRYPT. <!-- NIAP: I do not want to remove Key Wrap from selection, but I am basically negating the SFR in the app note.  --> However, the ST author is expected to select AES-GCM and/or AES-CCM if it is selected in the ST for the FCS_COP.1/ENCRYPT component. 
+            </note>
             <aactivity> The evaluator shall verify that the API documentation provided according to
                 <secref linkend="adv"/> includes the security functions (cryptographic algorithms)
               described in these requirements.<htm:br/><htm:br/>
@@ -3986,19 +3924,15 @@ BT Module - need to update with the TRRT
             </aactivity>
           </f-element>
         </f-component>
-        <subsection title="Data-At-Rest Protection" id="fdp_dar"> 
+        <subsection title="Data-At-Rest Protection (FDP_DAR)" id="fdp_dar"> 
           Three levels of data-at-rest protection are addressed: TSF data, Protected Data (and keys), and sensitive data. <ctr-ref refid="datalevels"/> addresses the level of protection required for each level of data-at-rest. <htm:br/><htm:br/>
           <htm:b><ctr id="datalevels" ctr-type="Table">: Protection of Data Levels</ctr></htm:b>
           <htm:br/><htm:br/>
           <htm:table>
-            <htm:tr class="header"><htm:td>Data Level</htm:td><htm:td>Protection
-              Required</htm:td></htm:tr>
-            <htm:tr><htm:td>TSF Data</htm:td><htm:td>TSF data does not require confidentiality, but
-                does require integrity protection (FPT_TST_EXT.2/PREKERNEL).</htm:td></htm:tr>
-            <htm:tr><htm:td>Protected Data</htm:td><htm:td>Protected data is encrypted while powered
-                off. (FDP_DAR_EXT.1)</htm:td></htm:tr>
-            <htm:tr><htm:td>Sensitive Data</htm:td><htm:td>Sensitive data is encrypted while in the
-                locked state, in addition to while powered off. (FDP_DAR_EXT.2)</htm:td></htm:tr>
+            <htm:tr class="header"><htm:td>Data Level</htm:td><htm:td>Protection Required</htm:td></htm:tr>
+           <htm:tr><htm:td>TSF Data</htm:td><htm:td>TSF data does not require confidentiality, but does require integrity protection. (FPT_TST_EXT.2/PREKERNEL)</htm:td></htm:tr>
+            <htm:tr><htm:td>Protected Data</htm:td><htm:td>Protected data is encrypted while powered off. (FDP_DAR_EXT.1)</htm:td></htm:tr>
+            <htm:tr><htm:td>Sensitive Data</htm:td><htm:td>Sensitive data is encrypted while in the locked state, in addition to while powered off. (FDP_DAR_EXT.2)</htm:td></htm:tr>
           </htm:table>
           <htm:br/> 
           All keys, protected data, and sensitive data must ultimately be protected by the REK. Sensitive data must be protected by the password in addition to the REK. In particular, <figref refid="Keys"/> has KEKs protected according to these requirements: DEK_1 would be appropriate for sensitive data, DEK_2 would not be appropriate for sensitive data, K_1 is not considered a sensitive key, and K_2 is considered a sensitive key. <htm:br/><htm:br/> 
@@ -8639,7 +8573,8 @@ BT Module - need to update with the TRRT
     <ctr id="acronyms" ctr-type="Table">: Acronyms</ctr>
     <acronyms/>
   </appendix>
-  <appendix id="use" title="Use Case Templates"> The following use case templates list those
+  <appendix id="use" title="Use Case Templates"> 
+    The following use case templates list those
     selections, assignments, and objective requirements that best support the use cases identified
     by this Protection Profile. Note that the templates assume that all SFRs listed in <secref
       linkend="sfr"/> are included in the ST, not just those listed in the templates. These
@@ -9179,23 +9114,8 @@ BT Module - need to update with the TRRT
       </entry>
     </bibliography>
   </appendix>
-  <appendix id="ack" title="Acknowledgements"> This protection profile was developed by the Mobility
-    Technical Community with representatives from industry, U.S. Government agencies, Common
-    Criteria Test Laboratories, and international Common Criteria schemes. The National Information
-    Assurance Partnership wishes to acknowledge and thank the members of this group whose dedicated
-    efforts contributed significantly to the publication. These organizations include: <htm:br/><htm:br/>
-    <htm:b>U.S. Government</htm:b><htm:br/> Defense Information Systems Agency (DISA)<htm:br/>
-    Information Assurance Directorate (IAD)<htm:br/> National Information Assurance Partnership
-    (NIAP)<htm:br/> National Institute of Standards and Technology (NIST)<htm:br/><htm:br/>
-    <htm:b>International Common Criteria Schemes</htm:b><htm:br/> Australasian Information Security
-    Evaluation Program (AISEP)<htm:br/> Canadian Common Criteria Evaluation and Certification Scheme
-    (CSEC)<htm:br/> Information-technology Promotion Agency, Japan (IPA)<htm:br/> UK IT Security
-    Evaluation and Certificate Scheme (NCSC)<htm:br/><htm:br/>
-    <htm:b>Industry</htm:b><htm:br/> Apple, Inc.<htm:br/> BlackBerry<htm:br/> LG Electronics,
-    Inc.<htm:br/> Microsoft Corporation<htm:br/> Motorola Solutions<htm:br/> Samsung Electronics
-    Co., Ltd.<htm:br/> Other Members of the Mobility Technical Community<htm:br/><htm:br/>
-    <htm:b>Common Criteria Test Laboratories</htm:b><htm:br/> EWA-Canada, Ltd.<htm:br/> Gossamer
-    Security Solutions<htm:br/>
+  <appendix id="ack" title="Acknowledgements"> 
+    This protection profile was developed by the Mobility Technical Community with representatives from industry, U.S. Government agencies, Common Criteria Test Laboratories, and international Common Criteria schemes. The National Information Assurance Partnership wishes to acknowledge and thank the members of this group whose dedicated efforts contributed significantly to the publication. These organizations include: <htm:br/><htm:br/> <htm:b>U.S. Government</htm:b><htm:br/> Defense Information Systems Agency (DISA)<htm:br/> Information Assurance Directorate (IAD)<htm:br/> National Information Assurance Partnership (NIAP)<htm:br/> National Institute of Standards and Technology (NIST)<htm:br/><htm:br/> <htm:b>International Common Criteria Schemes</htm:b><htm:br/> Australasian Information Security Evaluation Program (AISEP)<htm:br/> Canadian Common Criteria Evaluation and Certification Scheme (CSEC)<htm:br/> Information-technology Promotion Agency, Japan (IPA)<htm:br/> UK IT Security Evaluation and Certificate Scheme (NCSC)<htm:br/><htm:br/> <htm:b>Industry</htm:b><htm:br/> Apple, Inc.<htm:br/> BlackBerry<htm:br/> LG Electronics, Inc.<htm:br/> Microsoft Corporation<htm:br/> Motorola Solutions<htm:br/> Samsung Electronics Co., Ltd.<htm:br/> Other Members of the Mobility Technical Community<htm:br/><htm:br/> <htm:b>Common Criteria Test Laboratories</htm:b><htm:br/> EWA-Canada, Ltd.<htm:br/> Gossamer Security Solutions<htm:br/>
   </appendix>
 
   <implements>
