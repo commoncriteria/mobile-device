@@ -3688,8 +3688,31 @@ How is it differenet then me using subsection?
 
         
        
-      <subsection id="fdp" title="Class: User Data Protection (FDP)">
-        <f-component cc-id="fdp_acf_ext.1" name="Extended: Security access control">
+	<subsection id="fdp" title="Class: User Data Protection (FDP)">
+	  <htm:p>
+	    A subset of the User Data Protection focuses on protecting Data-At-Rest, namely FDP_DAR_EXT.1 and FDP_DAR_EXT.2.
+            Three levels of data-at-rest protection are addressed: TSF data, Protected Data (and keys), and sensitive data.
+	    <ctr-ref ref-id="datalevels"/> addresses the level of protection required for each level of data-at-rest.
+	  </htm:p>
+          <htm:b><ctr id="datalevels" ctr-type="Table">: Protection of Data Levels</ctr></htm:b>
+          <htm:br/><htm:br/>
+          <htm:table>
+            <htm:tr class="header"><htm:td>Data Level</htm:td><htm:td>Protection Required</htm:td></htm:tr>
+           <htm:tr><htm:td>TSF Data</htm:td><htm:td>TSF data does not require confidentiality, but does require integrity protection. (FPT_TST_EXT.2/PREKERNEL)</htm:td></htm:tr>
+            <htm:tr><htm:td>Protected Data</htm:td><htm:td>Protected data is encrypted while powered off. (FDP_DAR_EXT.1)</htm:td></htm:tr>
+            <htm:tr><htm:td>Sensitive Data</htm:td><htm:td>Sensitive data is encrypted while in the locked state, in addition to while powered off. (FDP_DAR_EXT.2)</htm:td></htm:tr>
+          </htm:table>
+          <htm:br/> 
+          All keys, protected data, and sensitive data must ultimately be protected by the REK. Sensitive data must be protected by the password in addition to the REK. In particular, <figref ref-id="Keys"/> has KEKs protected according to these requirements: DEK_1 would be appropriate for sensitive data, DEK_2 would not be appropriate for sensitive data, K_1 is not considered a sensitive key, and K_2 is considered a sensitive key. <htm:br/><htm:br/> 
+          These requirements include a capability for encrypting sensitive data received while in the locked state, which may be considered a separate sub-category of sensitive data. This capability may be met by a key transport scheme (RSA) by using a public key to encrypt the DEK while protecting the corresponding private key with a password-derived or biometric-unlocked KEK. <htm:br/><htm:br/> 
+          This capability may also be met by a key agreement scheme. To do so, the device generates a device-wide sensitive data asymmetric pair (the private key of which is protected by a password-derived or biometric-unlocked KEK) and an asymmetric pair for the received sensitive data to be stored. In order to store the sensitive data, the device-wide public key and data private key are used to generate a shared secret, which can be used as a KEK or a DEK. The data private key and shared secret are cleared after the data is encrypted and the data public key stored. Thus, no key material is available in the locked state to decrypt the newly stored data. Upon unlock, the device-wide private key is decrypted and is used with each data public key to regenerate the shared secret and decrypt the stored data.
+	  <figref ref-id="KeysLocked"/>, below, illustrates this scheme. <htm:br/><htm:br/>
+          <figure id="KeysLocked" entity="images/figure4.jpg" title="Key Agreement Scheme for Encrypting Received Sensitive Data in the Locked State"/>
+          <htm:br/><htm:br/>
+
+
+
+	<f-component cc-id="fdp_acf_ext.1" name="Extended: Security access control">
           <f-element>
             <title>The TSF shall provide a mechanism to restrict the system services that are
               accessible to an application. </title>
@@ -3923,23 +3946,6 @@ How is it differenet then me using subsection?
             </aactivity>
           </f-element>
         </f-component>
-        <subsection title="Data-At-Rest Protection (FDP_DAR)" id="fdp_dar"> 
-          Three levels of data-at-rest protection are addressed: TSF data, Protected Data (and keys), and sensitive data. <ctr-ref ref-id="datalevels"/> addresses the level of protection required for each level of data-at-rest. <htm:br/><htm:br/>
-          <htm:b><ctr id="datalevels" ctr-type="Table">: Protection of Data Levels</ctr></htm:b>
-          <htm:br/><htm:br/>
-          <htm:table>
-            <htm:tr class="header"><htm:td>Data Level</htm:td><htm:td>Protection Required</htm:td></htm:tr>
-           <htm:tr><htm:td>TSF Data</htm:td><htm:td>TSF data does not require confidentiality, but does require integrity protection. (FPT_TST_EXT.2/PREKERNEL)</htm:td></htm:tr>
-            <htm:tr><htm:td>Protected Data</htm:td><htm:td>Protected data is encrypted while powered off. (FDP_DAR_EXT.1)</htm:td></htm:tr>
-            <htm:tr><htm:td>Sensitive Data</htm:td><htm:td>Sensitive data is encrypted while in the locked state, in addition to while powered off. (FDP_DAR_EXT.2)</htm:td></htm:tr>
-          </htm:table>
-          <htm:br/> 
-          All keys, protected data, and sensitive data must ultimately be protected by the REK. Sensitive data must be protected by the password in addition to the REK. In particular, <figref ref-id="Keys"/> has KEKs protected according to these requirements: DEK_1 would be appropriate for sensitive data, DEK_2 would not be appropriate for sensitive data, K_1 is not considered a sensitive key, and K_2 is considered a sensitive key. <htm:br/><htm:br/> 
-          These requirements include a capability for encrypting sensitive data received while in the locked state, which may be considered a separate sub-category of sensitive data. This capability may be met by a key transport scheme (RSA) by using a public key to encrypt the DEK while protecting the corresponding private key with a password-derived or biometric-unlocked KEK. <htm:br/><htm:br/> 
-          This capability may also be met by a key agreement scheme. To do so, the device generates a device-wide sensitive data asymmetric pair (the private key of which is protected by a password-derived or biometric-unlocked KEK) and an asymmetric pair for the received sensitive data to be stored. In order to store the sensitive data, the device-wide public key and data private key are used to generate a shared secret, which can be used as a KEK or a DEK. The data private key and shared secret are cleared after the data is encrypted and the data public key stored. Thus, no key material is available in the locked state to decrypt the newly stored data. Upon unlock, the device-wide private key is decrypted and is used with each data public key to regenerate the shared secret and decrypt the stored data. <figref ref-id="KeysLocked"/>, below, illustrates this scheme. <htm:br/><htm:br/>
-          <figure id="KeysLocked" entity="images/figure4.jpg" title="Key Agreement Scheme for Encrypting Received Sensitive Data in the Locked State"/>
-          <htm:br/><htm:br/>
-
 	
         <f-component cc-id="fdp_dar_ext.1" name="Extended: Protected Data Encryption">
           <f-element>
@@ -4098,7 +4104,6 @@ How is it differenet then me using subsection?
             </aactivity>
           </f-element>
         </f-component>
-      </subsection>
         <f-component cc-id="fdp_ifc_ext.1" name="Extended: Subset information flow control">
           <f-element>
             <title>The TSF shall <selectables linebreak="yes">
