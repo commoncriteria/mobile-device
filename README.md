@@ -35,6 +35,11 @@ To clone this project along with its _transforms_ submodule run:
 ````
   git clone --recursive git@github.com:commoncriteria/mobile-device.git
 ````
+or
+````
+  git clone --recursive https://github.com/commoncriteria/mobile-device.git
+````
+
 To pull updates from the upstream _transforms_ submodule and commit them run:
 ````
  git submodule update --remote transforms
