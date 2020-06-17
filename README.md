@@ -42,8 +42,8 @@ or
 
 To pull updates from the upstream _transforms_ submodule and commit them run:
 ````
- git submodule update --remote transforms
- git add transforms
+ git submodule update --remote transforms &&\
+ git add transforms                       &&\
  git commit
 ````
 
