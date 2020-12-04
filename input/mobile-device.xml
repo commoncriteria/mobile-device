@@ -523,14 +523,17 @@ How is it differenet then me using subsection?
         <config>
           <not><ref-id>import-user</ref-id></not>
           <ref-id>mf-location</ref-id>
-           
-          <free-text><obj>FMT_MOF_EXT.1.2 <xref linkend="mf-location"/></obj><act>Include in the ST.</act></free-text>
+          <assign-hint><ref-id>a-server</ref-id><hint>Include personal Hotspot connections in the assignment</hint></assign-hint>
+          <ref-id>mf-unlockBanner</ref-id>
+          <ref-id>s-usbstore</ref-id>
+          <ref-id>s-tether</ref-id>
+          <ref-id>fc-ap_med</ref-id>
+          <ref-id>s-all-exe</ref-id>
         </config>
         </usecase>
       </usecases>
     </section>
 <!--
-        <htm:tr><htm:td>FMT_MOF_EXT.1.2 <xref linkend=""/><ctr-ref ref-id="location"/></htm:td><htm:td>Include in the ST.</htm:td></htm:tr>
         <htm:tr><htm:td>FMT_MOF_EXT.1.2 Function <ctr-ref
               ref-id="serverProtocols"/></htm:td><htm:td>Include in ST. Assign personal Hotspot
             connections (if feature exists).</htm:td></htm:tr>
@@ -6026,7 +6029,7 @@ How is it differenet then me using subsection?
                 <management-function id="mf-serverProtocols">
                   <text>
                     enable/disable
-                      <assignable>list of protocols where the device acts as a server</assignable>
+                      <assignable id="a-server">list of protocols where the device acts as a server</assignable>
                   </text>
                 </management-function>
                 <management-function id="mf-devModes">
@@ -6108,7 +6111,7 @@ How is it differenet then me using subsection?
                   <text>
                     enable/disable <selectables
                       linebreak="yes">
-                      <selectable>USB mass storage mode</selectable>
+                      <selectable id="s-usbstore">USB mass storage mode</selectable>
                       <selectable>USB data transfer without user authentication</selectable>
                       <selectable>USB data transfer without authentication of the connecting
                         system</selectable>
@@ -6137,7 +6140,7 @@ How is it differenet then me using subsection?
                           <selectable>passcode</selectable>
                           <selectable>no authentication</selectable>
                         </selectables></selectable>
-                      <selectable>USB tethering authenticated by <selectables>
+                      <selectable id="s-tether">USB tethering authenticated by <selectables>
                           <selectable>pre-shared key</selectable>
                           <selectable>passcode</selectable>
                           <selectable>no authentication</selectable>
@@ -7194,7 +7197,7 @@ How is it differenet then me using subsection?
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fpt_bbd_ext.1" name="Extended: Application Processor Mediation" status="objective">
+        <f-component id="fc-ap_med" cc-id="fpt_bbd_ext.1" name="Extended: Application Processor Mediation" status="objective">
           <f-element>
             <title>The TSF shall prevent code executing on any baseband processor (BP) from
               accessing application processor (AP) resources except when mediated by the AP.</title>
@@ -7630,7 +7633,7 @@ How is it differenet then me using subsection?
         <f-component cc-id="fpt_tst_ext.2" name="Extended: TSF Integrity Checking" status="objective" iteration="POSTKERNEL">
           <f-element>
             <title>The TSF shall verify the integrity of <selectables>
-                <selectable>all executable code stored in mutable media</selectable>
+                <selectable id="s-all-exe">all executable code stored in mutable media</selectable>
                 <selectable><assignable>list of other executable code</assignable></selectable>
               </selectables>, stored in mutable media prior to its execution through the use of <selectables>
                 <selectable>a digital signature using an immutable hardware asymmetric
