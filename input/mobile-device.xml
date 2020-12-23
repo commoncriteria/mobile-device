@@ -570,7 +570,7 @@ How is it differenet then me using subsection?
 				<and>
 					<guidance><ref-id>a-keygen-rsa-size</ref-id>Set to 3072</guidance>
 					<or>
-						<and><ref-id>s-rek-sym</ref-id ><ref-id>s-rek-256</ref-id></and>
+						<and><ref-id>s-rek-sym</ref-id><ref-id>s-rek-256</ref-id></and>
 						<and><ref-id>s-rek-asym</ref-id><ref-id>s-rek-128</ref-id></and>
 					</or>	
 					<or>
@@ -581,7 +581,7 @@ How is it differenet then me using subsection?
 				<and>
 					<ref-id>s-keygen-ecc</ref-id>
 					<or>
-						<and><ref-id>s-rek-sym</ref-id ><ref-id>s-rek-256</ref-id></and>
+						<and><ref-id>s-rek-sym</ref-id><ref-id>s-rek-256</ref-id></and>
 						<and><ref-id>s-rek-asym</ref-id><ref-id>s-rek-192</ref-id></and>
 					</or>	
 					<or>
@@ -591,6 +591,18 @@ How is it differenet then me using subsection?
                     <doc ref="tls"><ref-id>secp384r1</ref-id></doc>
 				</and>
 			</or>
+			<or><ref-id>s-locked-ecc-800-56A</ref-id><ref-id>s-locked-rsa</ref-id></or>
+			<ref-id>s-encrypt-256</ref-id>
+			<ref-id>s-rbg-256</ref-id>
+			<ref-id>s-dar-256</ref-id>
+			<or><ref-id>s-revoke-admin</ref-id><ref-id>s-revoke-deny</ref-id></or>
+			<ref-id>mf-vpn</ref-id>
+			<guidance><ref-id>mf-radios</ref-id>assign all radios on TSF</guidance>
+			<guidance><ref-id>a-audiovisual-devs</ref-id>assign all audio or visual collection devices on TSF</guidance>
+			<ref-id>mf-dar</ref-id>
+			<ref-id>mf-location</ref-id>
+			<ref-id>mf-unenroll</ref-id>
+<!--			<ref-id>mf-alwaysOnVPN</ref-id> -->
 		</config>
     </usecase>
 <!-- 
@@ -1507,7 +1519,7 @@ A personally-owned device, which is used, for both personal activities and enter
                     <refinement><assignable id="a-keygen-rsa-size">2048-bit or greater</assignable></refinement> that meet <refinement>FIPS PUB
                     186-4, "Digital Signature Standard (DSS)", Appendix
                   B.3</refinement></selectable>
-                <selectable id="s-keygen-ecc"><refinement>ECC schemes using </refinement><selectables linebreak="yes">
+                <selectable id="s-keygen-ecc"><refinement><snip>ECC schemes</snip> using </refinement><selectables linebreak="yes">
                     <selectable><refinement>"NIST curves" P-384 and </refinement><selectables>
                         <selectable><refinement>P-256</refinement></selectable>
                         <selectable><refinement>P-521</refinement></selectable>
@@ -1858,13 +1870,13 @@ A personally-owned device, which is used, for both personal activities and enter
             <title>The TSF shall <refinement>perform</refinement> cryptographic <refinement>key
                 establishment</refinement> in accordance with a specified cryptographic key
                 <refinement>establishment</refinement> method: <selectables linebreak="yes">
-                <selectable><refinement>RSA-based key establishment schemes that meet the following:
+                <selectable id="s-locked-rsa"><refinement><snip>RSA-based key establishment schemes</snip> that meet the following:
                     NIST Special Publication 800-56B, “Recommendation for Pair-Wise Key
                     Establishment Schemes Using Integer Factorization
                   Cryptography”</refinement></selectable>
-                <selectable><refinement>Elliptic curve-based key establishment schemes</refinement>
+                <selectable><refinement><snip>Elliptic curve-based key establishment schemes</snip></refinement>
                   that meets the following: <selectables linebreak="yes">
-                    <selectable><refinement>NIST Special Publication 800-56A Revision 3,
+                    <selectable id="s-locked-ecc-800-56A"><refinement><snip>NIST Special Publication 800-56A Revision 3</snip>,
                         "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete
                         Logarithm Cryptography"</refinement></selectable>
                     <selectable><refinement>RFC 7748, "Elliptic Curves for
@@ -2008,7 +2020,7 @@ A personally-owned device, which is used, for both personal activities and enter
                   </selectables></selectable>
               </selectables> with entropy corresponding to the security strength of AES key sizes of <selectables>
                 <selectable>128</selectable>
-                <selectable>256</selectable>
+                <selectable id="s-dek-256">256</selectable>
               </selectables> bits. </title>
             <note role="application"> The intent of this requirement is to ensure that the DEK
               cannot be recovered with less work than a full exhaust of the key space for AES. The
@@ -2236,9 +2248,9 @@ A personally-owned device, which is used, for both personal activities and enter
         <f-component cc-id="fcs_ckm_ext.3" name="Extended: Cryptographic Key Generation">
           <f-element>
             <title>The TSF shall use <selectables>
-                <selectable id="s-kek-asym">asymmetric KEKs of <assignable id="a-kek-asym-size">security strength greater than or equal
+                <selectable id="s-kek-asym"><snip>asymmetric KEKs</snip> of <assignable id="a-kek-asym-size">security strength greater than or equal
                     to 112 bits</assignable> security strength</selectable>
-                <selectable id="s-kek-sym">symmetric KEKs of <selectables>
+                <selectable id="s-kek-sym"><snip>symmetric KEKs</snip> of <selectables>
                     <selectable>128-bit</selectable>
                     <selectable id="s-kek-sym-256">256-bit</selectable>
                   </selectables> security strength corresponding to at least the security strength
@@ -2775,7 +2787,7 @@ A personally-owned device, which is used, for both personal activities and enter
                   <selectable><refinement>AES-GCMP-256 (as defined in NIST SP800-38D and IEEE 802.11ac-2013)</refinement></selectable> 
                   <selectable exclusive="yes"><refinement>no other modes</refinement></selectable> </selectables></htm:li>
               </htm:ul> and cryptographic key sizes 128-bit key sizes and <selectables>
-                <selectable><refinement>256-bit key sizes</refinement></selectable>
+                <selectable id="s-encrypt-256"><refinement>256-bit key sizes</refinement></selectable>
                 <selectable exclusive="yes"><refinement>no other key sizes</refinement></selectable>
               </selectables>. </title>
             <note role="application">
@@ -3361,7 +3373,7 @@ A personally-owned device, which is used, for both personal activities and enter
                 <selectable>TSF-hardware-based noise source</selectable>
               </selectables> with a minimum of <selectables>
                 <selectable>128 bits</selectable>
-                <selectable>256 bits</selectable>
+                <selectable id="s-rbg-256">256 bits</selectable>
               </selectables> of entropy at least equal to the greatest security strength (according
               to NIST SP 800-57) of the keys and hashes that it will generate. </title>
           </f-element>
@@ -4129,7 +4141,7 @@ A personally-owned device, which is used, for both personal activities and enter
                 <selectable>GCM</selectable>
               </selectables> mode with key size <selectables>
                 <selectable>128</selectable>
-                <selectable>256</selectable>
+                <selectable id="s-dar-256">256</selectable>
               </selectables> bits. </title>
             <note role="application">IVs shall be generated in accordance with
               FCS_IV_EXT.1.1.</note>
@@ -5482,12 +5494,12 @@ A personally-owned device, which is used, for both personal activities and enter
           <f-element>
             <title>When the TSF cannot establish a connection to determine the revocation status of
               a certificate, the TSF shall <selectables>
-                <selectable>allow the administrator to choose whether to accept the certificate in
+                <selectable id="s-revoke-admin"><snip>allow the administrator to choose</snip> whether to accept the certificate in
                   these cases</selectable>
                 <selectable>allow the user to choose whether to accept the certificate in these
                   cases</selectable>
                 <selectable>accept the certificate</selectable>
-                <selectable>not accept the certificate</selectable>
+                <selectable id="s-revoke-deny">not accept the certificate</selectable>
               </selectables>.</title>
             <note role="application"> The TOE must not accept the certificate if it fails any of the
               other validation rules in FIA_X509_EXT.1. However, often a connection must be
@@ -6015,7 +6027,7 @@ A personally-owned device, which is used, for both personal activities and enter
           <management-function id="mf-audioVisual">
             <text>
               enable/disable
-              <assignable>list of audio or visual collection devices</assignable>: <htm:ol
+              <assignable id="a-audiovisual-devs">list of audio or visual collection devices</assignable>: <htm:ol
               type="a">
               <htm:li>across device</htm:li></htm:ol>
               <indent><selectables linebreak="yes">
@@ -6909,7 +6921,7 @@ The assignment in function
 				      <selectable>passcode</selectable>
 				      <selectable>no authentication</selectable>
 				    </selectables></selectable>
-				    <selectable id="s-tether">USB tethering authenticated by <selectables>
+				    <selectable id="s-tether"><snip>USB tethering</snip> authenticated by <selectables>
 				    <selectable>pre-shared key</selectable>
 				    <selectable>passcode</selectable>
 				    <selectable>no authentication</selectable>
