@@ -5166,48 +5166,26 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         <f-component cc-id="fia_x509_ext.1" name="Extended: X.509 Validation of certificates">
           <f-element>
             <title>The TSF shall validate certificates in accordance with the following rules: <htm:ul>
-                <htm:li>RFC 5280 certificate validation and certificate path validation</htm:li>
-                <htm:li>The certificate path must terminate with a certificate in the Trust Anchor
-                  Database</htm:li>
-                <htm:li>The TSF shall validate a certificate path by ensuring the presence of the
-                  basicConstraints extension and that the CA flag is set to TRUE for all CA
-                  certificates</htm:li>
-                <htm:li>The TSF shall validate the revocation status of the certificate using <selectables>
-                    <selectable>the Online Certificate Status Protocol (OCSP) as specified in RFC
-                      2560</selectable>
-                    <selectable>a Certificate Revocation List (CRL) as specified in RFC
-                      5759</selectable>
-                  </selectables></htm:li>
-                <htm:li>The TSF shall validate the extendedKeyUsage field according to the following
-                  rules: <htm:ul>
-                    <htm:li>Certificates used for trusted updates and executable code integrity
-                      verification shall have the Code Signing purpose (id-kp 3 with OID
-                      1.3.6.1.5.5.7.3.3) in the extendedKeyUsage field</htm:li>
-                    <htm:li>Server certificates presented for TLS shall have the Server
-                      Authentication purpose (id-kp 1 with OID 1.3.6.1.5.5.7.3.1) in the
-                      extendedKeyUsage field</htm:li>
-                    <htm:li>(Conditional) Server certificates presented for EST shall have the CMC
-                      Registration Authority (RA) purpose (id-kp-cmcRA with OID 1.3.6.1.5.5.7.3.28)
-                      in the extendedKeyUsage field</htm:li>
-                  </htm:ul>
-                </htm:li>
+              <htm:li>RFC 5280 certificate validation and certificate path validation.</htm:li>              
+              <htm:li>The certificate path must terminate with a certificate in the Trust Anchor Database.</htm:li>
+              <htm:li>The TSF shall validate a certificate path by ensuring the presence of the basicConstraints extension, that the CA flag is set to TRUE for all CA certificates, and that any path constraints are met.</htm:li>
+              <htm:li>The TSF shall validate that any CA certificate includes caSigning purpose in the key usage field</htm:li>
+              <htm:li>The TSF shall validate the revocation status of the certificate using <selectables>
+                <selectable>OCSP as specified in RFC 6960</selectable>
+                <selectable>CRL as specified in RFC 5759</selectable>
+                <selectable>an OCSP TLS Status Request Extension (OCSP stapling) as specified in RFC 6066</selectable>
+                <selectable>OCSP TLS Multi-Certificate Status Request Extension (i.e., OCSP Multi-Stapling) as specified in RFC 6961</selectable>
+              </selectables>.</htm:li>
+              <htm:li>The TSF shall validate the extendedKeyUsage field according to the following rules:<htm:ul>
+                <htm:li>Certificates used for trusted updates and executable code integrity verification shall have the Code Signing Purpose (id-kp 3 with OID 1.3.6.1.5.5.7.3.3) in the extendedKeyUsage field.</htm:li>
+                <htm:li>Server certificates presented for TLS shall have the Server Authentication purpose (id-kp 1 with OID 1.3.6.1.5.5.7.3.1) in the extendedKeyUsage field.</htm:li>
+                <htm:li>Server certificates presented for EST shall have the CMC Registration Authority (RA) purpose (id-kp-cmcRA with OID 1.3.6.1.5.5.7.3.28) in the EKU field. [conditional]</htm:li>
+                <htm:li>Client certificates presented for TLS shall have the Client Authentication purpose (id-kp 2 with OID 1.3.6.1.5.5.7.3.2) in the EKU field.</htm:li>
+                <htm:li>OCSP certificates presented for OCSP responses shall have the OCSP Signing purpose (id-kp 9 with OID 1.3.6.1.5.5.7.3.9) in the EKU field. [conditional]</htm:li></htm:ul></htm:li>
               </htm:ul>
             </title>
-            <note role="application">FIA_X509_EXT.1.1 lists the rules for validating certificates.
-              The ST author shall select whether revocation status is verified using OCSP or CRLs.
-              The WLAN Client EP to which a MDF TOE must also conform requires that certificates are
-              used for EAP-TLS; this use requires that the extendedKeyUsage rules are verified.
-              Certificates may optionally be used for trusted updates of system software and
-              applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2/PREKERNEL) and, if
-              implemented, must be validated to contain the Code Signing purpose extendedKeyUsage.
-              <htm:br/><htm:br/> While FIA_X509_EXT.1.1 requires that the TOE perform certain checks
-              on the certificate presented by a TLS server, there are corresponding checks that the
-              authentication server will have to perform on the certificate presented by the client;
-              namely that the extendedKeyUsage field of the client certificate includes "Client
-              Authentication" and that the key agreement bit (for the Diffie-Hellman ciphersuites)
-              or the key encipherment bit (for RSA ciphersuites) be set. Certificates obtained for
-              use by the TOE will have to conform to these requirements in order to be used in the
-              enterprise. This check is required to support EAP-TLS for the WLAN Client EP. </note>
+            <note role="application">FIA_X509_EXT.1.1 lists the rules for validating certificates. The ST author shall select whether revocation status is verified using OCSP or CRLs. OCSP stapling and OCSP multi-stapling only support TLS server certificate validation. If other certificate types are validated, either OCSP or CRL should be claimed. The WLAN Client EP to which a MDF TOE must also conform requires that certificates are used for EAP-TLS; this use requires that the extendedKeyUsage rules are verified. Certificates may optionally be used for trusted updates of system software and applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2(1)) and, if implemented, must be validated to contain the Code Signing purpose extendedKeyUsage.<htm:br/><htm:br/>
+              While FIA_X509_EXT.1.1 requires that the TOE perform certain chcecks on the certificate presented by a TLS server, there are corresponding checks that the authentication server will have to perform on the certificate presented by the client; namely that the extendedKeyUsage field of the client certificate includes “Client Authentication” and that the key agreement bit (for the Diffie-Hellman ciphersuites) or the key encipherment bit (for RSA ciphersuites) be set. Certificates obtained for use by the TOE will have to conform to these requirements in order to be used in the enterprise. This check is required to support EAP-TLS for the WLAN Client EP.</note>
           </f-element>
           <f-element>
             <title>The TSF shall only treat a certificate as a CA certificate if the
@@ -5216,51 +5194,42 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               processed by the TSF and restricts the certificates that may be added to the Trust
               Anchor Database.</note>
             <aactivity>
-              <TSS>The evaluator shall ensure the TSS describes where the check of validity of the
-                certificates takes place. The evaluator ensures the TSS also provides a description
-                of the certificate path validation algorithm. <htm:br/><htm:br/></TSS>
-              <Tests> The tests described must be performed in conjunction with the other
-                Certificate Services Evaluation Activities, including the use cases in
-                FIA_X509_EXT.2.1 and FIA_X509_EXT.3. The tests for the extendedKeyUsage rules are
-                performed in conjunction with the uses that require those rules. The evaluator shall
-                create a chain of at least four certificates: the node certificate to be tested, two
-                Intermediate CAs, and the self-signed Root CA. <htm:br/><htm:br/>
-                <testlist>
-                  <test>The evaluator shall then load a certificate or certificates to the Trust
-                    Anchor Database needed to validate the certificate to be used in the function
-                    (e.g. application validation, trusted channel setup, or trusted software
-                    update), and demonstrate that the function succeeds. The evaluator then shall
-                    delete one of the certificates, and show that the function fails.</test><htm:br/>
-                  <test>The evaluator shall demonstrate that validating an expired certificate
-                    results in the function failing. </test><htm:br/>
-                  <test>The evaluator shall test that the TOE can properly handle revoked
-                    certificates-conditional on whether CRL or OCSP is selected; if both are
-                    selected, then a test shall be performed for each method. The evaluator shall
-                    test revocation of the node certificate and revocation of the intermediate CA
-                    certificate (i.e. the intermediate CA certificate should be revoked by the root
-                    CA). For the test of the WLAN use case, only pre-stored CRLs are used. The
-                    evaluator shall ensure that a valid certificate is used, and that the validation
-                    function succeeds. The evaluator then attempts the test with a certificate that
-                    has been revoked (for each method chosen in the selection) to ensure when the
-                    certificate is no longer valid that the validation function fails.</test><htm:br/>
-                  <test>The evaluator shall construct a certificate path, such that the certificate
-                    of the CA issuing the TOE’s certificate does not contain the basicConstraints
-                    extension. The validation of the certificate path fails.</test><htm:br/>
-                  <test>The evaluator shall construct a certificate path, such that the certificate
-                    of the CA issuing the TOE’s certificate has the cA flag in the basicConstraints
-                    extension not set. The validation of the certificate path fails.</test><htm:br/>
-                  <test>The evaluator shall construct a certificate path, such that the certificate
-                    of the CA issuing the TOE’s certificate has the cA flag in the basicConstraints
-                    extension set to TRUE. The validation of the certificate path succeeds.</test><htm:br/>
-                  <test>The evaluator shall modify any byte in the first eight bytes of the
-                    certificate and demonstrate that the certificate fails to validate (the
-                    certificate will fail to parse correctly).</test><htm:br/>
-                  <test>The evaluator shall modify any bit in the last byte of the signature
-                    algorithm of the certificate and demonstrate that the certificate fails to
-                    validate (the signature on the certificate will not validate).</test><htm:br/>
-                  <test>The evaluator shall modify any byte in the public key of the certificate and
-                    demonstrate that the certificate fails to validate (the signature on the
-                    certificate will not validate).</test><htm:br/>
+              <TSS>The evaluator shall ensure the TSS describes where the check of validity of the certificates takes place. The evaluator ensures the TSS also provides a description of the certificate path validation algorithm. <htm:br/><htm:br/></TSS>
+              <Tests> The tests described must be performed in conjunction with the other Certificate Services assurance activities, including the use cases in FIA_X509_EXT.2.1 and FIA_X509_EXT.3. The tests for the extendedKeyUsage rules are performed in conjunction with the uses that require those rules. The evaluator shall create a chain of at least four certificates: the node certificate to be tested, two Intermediate CAs, and the self-signed Root CA.
+                <testlist>             
+                <test> The evaluator shall demonstrate that validating a certificate without a valid certification path results in the function failing, for each of the following reasons, in turn:<htm:ul>
+                  <htm:li>by establishing a certificate path in which one of the issuing certificates is not a CA certificate,</htm:li>    
+                  <htm:li>by omitting the basicConstraints field in one of the issuing certificates,</htm:li>
+                  <htm:li>by setting the basicConstraints field in an issuing certificate to have CA=False,</htm:li>
+                  <htm:li>by omitting the CA signing bit of the key usage field in an issuing certificate, and</htm:li>
+                  <htm:li>by setting the path length field of a valid CA field to a value strictly less than the certificate path.</htm:li>
+                </htm:ul>
+                The evaluator shall then establish a valid certificate path consisting of valid CA certificates, and demonstrate that the function succeeds. The evaluator shall then remove trust in one of the CA certificates, and show that the function fails.
+                </test><htm:br/>
+                <test>The evaluator shall demonstrate that validating an expired certificate results in the function failing.
+                </test><htm:br/>
+                  <test>The evaluator shall test that the TOE can properly handle revoked certificates-conditional on whether CRL, OCSP, OSCP stapling, or OCSP multi-stapling is selected; if multiple methods are selected, then the following tests shall be performed for each method:<htm:br/><htm:br/>
+                
+                The evaluator shall test revocation of the node certificate.<htm:br/><htm:br/>
+                
+                The evaluator shall also test revocation of the intermediate CA certificate (i.e. the intermediate CA certificate should be revoked by the root CA). For the test of the WLAN use case, only pre-stored CRLs are used. If OCSP stapling per RFC 6066 is the only supported revocation method, this test is omitted.<htm:br/><htm:br/>
+                
+                The evaluator shall ensure that a valid certificate is used, and that the validation function succeeds. The evaluator then attempts the test with a certificate that has been revoked (for each method chosen in the selection) to ensure when the certificate is no longer valid that the validation function fails.<htm:br/>
+                  </test><htm:br/>
+                <test>If any OCSP option is selected, the evaluator shall configure the OCSP server or use a man-in-the-middle tool to present a certificate that does not have the OCSP signing purpose and verify that validation of the OCSP response fails. If CRL is selected, the evaluator shall configure the CA to sign a CRL with a certificate that does not have the cRLsign key usage bit set, and verify that validation of the CRL fails.
+                </test><htm:br/>
+                <test>The evaluator shall modify any byte in the first eight bytes of the certificate and demonstrate that the certificate fails to validate (the certificate will fail to parse correctly).
+                </test> <htm:br/>
+                <test>The evaluator shall modify any bit in the last byte of the signature algorithm of the certificate and demonstrate that the certificate fails to validate (the signature on the certificate will not validate).
+                </test><htm:br/>
+                <test>The evaluator shall modify any byte in the public key of the certificate and demonstrate that the certificate fails to validate (the signature on the certificate will not validate).
+                </test> <htm:br/>
+                <test>
+                  <testlist>
+                    <test>(Conditional on support for EC certificates as indicated in FCS_COP.1(3)). The evaluator shall establish a valid, trusted certificate chain consisting of an EC leaf certificate, an EC Intermediate CA certificate not designated as a trust anchor, and an EC certificate designated as a trusted anchor, where the elliptic curve parameters are specified as a named curve. The evaluator shall confirm that the TOE validates the certificate chain.</test><htm:br/>
+                    <test>(Conditional on support for EC certificates as indicated in FCS_COP.1(3)). The evaluator shall replace the intermediate certificate in the certificate chain for Test 8a with a modified certificate, where the modified intermediate CA has a public key information field where the EC parameters uses an explicit format version of the Elliptic Curve parameters in the public key information field of the intermediate CA certificate from Test 8a, and the modified Intermediate CA certificate is signed by the trusted EC root CA, but having no other changes. The evaluator shall confirm the TOE treats the certificate as invalid.</test><htm:br/>
+                  </testlist>
+                </test>
                 </testlist>
               </Tests>
             </aactivity>
