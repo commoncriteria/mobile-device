@@ -1344,19 +1344,16 @@ How is it differenet then me using subsection?
                         7748</refinement></selectable>
                   </selectables>
                 </selectable>
-                <selectable><refinement>FFC schemes using </refinement><selectables>
+                <selectable><refinement>FFC schemes using </refinement><selectables linebreak="yes">
                     <selectable>cryptographic key sizes of <refinement>2048-bit or
                         greater</refinement> that meet the following: <refinement>FIPS PUB 186-4,
                         "Digital Signature Standard (DSS)", Appendix B.1</refinement></selectable>
                     <selectable><refinement>Diffie-Hellman group 14 </refinement>that meet the
-                        following:<refinement> RFC3526, Section 3</refinement></selectable>
+                        following:<refinement> RFC3526</refinement></selectable>
                     <selectable><refinement>"safe-prime" groups</refinement> that meet the
                         following:<refinement> 'NIST Special Publication 800-56A Revision 3,
                         "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete
-                        Logarithm Cryptography"', and </refinement><selectables>
-                        <selectable><refinement>RFC 3526</refinement></selectable>
-                        <selectable><refinement>RFC 7919</refinement></selectable>
-                      </selectables></selectable>
+                        Logarithm Cryptography"'</refinement></selectable>
                   </selectables></selectable>
               </selectables>. </title>
             <note role="application"> The ST author shall select all key generation schemes used for
@@ -1437,27 +1434,21 @@ How is it differenet then me using subsection?
                 implementation and modify five of the public key values so that they are incorrect,
                 leaving five values unchanged (i.e. correct). The evaluator shall obtain in response
                 a set of 10 PASS/FAIL values. <htm:br/><htm:br/>
-                <htm:i><htm:b>Key Generation for Curve25519</htm:b></htm:i><htm:br/><htm:br/> The
-                evaluator shall require the implementation under test (IUT) to generate 10
-                private/public key pairs. The private key shall be generated as specified in RFC
-                7748 using an approved random bit generator (RBG) and shall be written in
-                little-endian order (least significant byte first). To determine correctness, the
-                evaluator shall submit the generated key pairs to the public key verification (PKV)
-                function of a known good implementation. <htm:br/><htm:br/> Note: Assuming the PKV
-                function of the good implementation will (using little-endian order): <htm:ol
-                  type="a">
-                  <htm:li>confirm the private and public keys are 32-byte values</htm:li>
-                  <htm:li>confirm the three least significant bits of the first byte of the private
-                    key are zero</htm:li>
-                  <htm:li>confirm the most significant bit of the last byte is zero</htm:li>
-                  <htm:li>confirm the second most significant bit of the last byte is one </htm:li>
-                  <htm:li>calculate the expected public key from the private key and confirm it
-                    matches the supplied public key</htm:li>
+                
+                
+                <htm:i><htm:b>Key Generation for Curve25519</htm:b></htm:i><htm:br/><htm:br/> 
+                The evaluator shall require the implementation under test (IUT) to generate 10 private/public key pairs. The private key shall be generated as specified in RFC 7748 using an approved random bit generator (RBG) and shall be written in little-endian order (least significant byte first). To determine correctness, the evaluator shall submit the generated key pairs to the public key verification (PKV) function of a known good implementation.<htm:br/><htm:br/> 
+                Note: Assuming the PKV function of the good implementation will (using little-endian order):
+                <htm:ol type="a">                
+                  <htm:li>confirm the private and public keys are 32-byte values</htm:li>                 
+                  <htm:li>confirm the three least significant bits of the first byte of the private key are zero</htm:li>                 
+                  <htm:li>confirm the most significant bit of the last byte is zero</htm:li>                 
+                  <htm:li>confirm the second most significant bit of the last byte is one</htm:li>                 
+                  <htm:li>calculate the expected public key from the private key and confirm it matches the supplied public key</htm:li>
                 </htm:ol>
-                <htm:br/><htm:br/> The evaluator shall generate 10 private/public key pairs using
-                the key generation function of a known good implementation and modify 5 of the
-                public key values so that they are incorrect, leaving five values unchanged (i.e.
-                correct). The evaluator shall obtain in response a set of 10 PASS/FAIL values. <htm:br/><htm:br/>
+                <htm:br/>
+The evaluator shall generate 10 private/public key pairs using the key generation function of a known good implementation and modify 5 of the public key values so that they are incorrect, leaving five values unchanged (i.e. correct). The evaluator shall obtain in response a set of 10 PASS/FAIL values.
+                <htm:br/><htm:br/>
                 <htm:i><htm:b>Key Generation for Finite-Field Cryptography
                 (FFC)</htm:b></htm:i><htm:br/> The evaluator shall verify the implementation of the
                 Parameters Generation and the Key Generation for FFC by the TOE using the Parameter
@@ -1494,10 +1485,10 @@ How is it differenet then me using subsection?
                   <htm:li>g^q mod p = 1</htm:li>
                   <htm:li>g^x mod p = y</htm:li>
                 </htm:ul>
-                <htm:br/> for each FFC parameter set and key pair. <htm:h4>Diffie-Hellman Group 14
-                  and FFC Schemes using "safe-prime" groups</htm:h4> Testing for FFC Schemes using
-                Diffie-Hellman group 14 and/or "safe-prime" groups is done as part of testing in
-                FCS_CKM.2/UNLOCKED. </Tests>
+                <htm:br/> for each FFC parameter set and key pair. 
+                              
+              <htm:h4>Diffie-Hellman Group 14 and FFC Schemes using "safe-prime" groups</htm:h4>             
+                Testing for FFC Schemes using Diffie-Hellman group 14 and/or "safe-prime" groups is done as part of testing in FCS_CKM.2/UNLOCKED. </Tests>
             </aactivity>
           </f-element>
         </f-component>
@@ -1513,7 +1504,7 @@ How is it differenet then me using subsection?
                         Cryptography”</selectable>
                       <selectable>RSAES-PKCS1-v1_5 as specified in Section 7.2 of RFC 8017,
                         "Public-Key Cryptography Standards (PKCS) #1:RSA Cryptography Specifications
-                        Version 2.1"</selectable>
+                        Version 2.2"</selectable>
                     </selectables></refinement></selectable>
                 <selectable><refinement>Elliptic curve-based key establishment schemes</refinement>
                   that meets the following: <refinement>NIST Special Publication 800-56A Revision 3,
@@ -1524,24 +1515,22 @@ How is it differenet then me using subsection?
                     "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm
                     Cryptography"</refinement></selectable>
                 <selectable><refinement>Key establishment schemes using Diffie-Hellman group 14 that
-                    meets the following: RFC 3526, Section 3</refinement></selectable>
-                <selectable><refinement>FFC schemes using "safe-prime" groups that meet the
+                    meets the following: RFC 3526</refinement></selectable>
+                  <!-- TD 502 - removed the below, however, I have a question into Dianne about this -->
+                <!--  <selectable><refinement>FFC schemes using "safe-prime" groups that meet the
                     following: 'NIST Special Publication 800-56A Revision 3, "Recommendation for
                     Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography"', and <selectables>
                       <selectable>RFC 3526</selectable>
                       <selectable>RFC 7919</selectable>
-                    </selectables></refinement></selectable>
-                <selectable exclusive="yes"><refinement>No other schemes</refinement></selectable>
+                    </selectables></refinement></selectable>-->
               </selectables>. </title>
-            <note role="application"> The ST author shall select all key establishment schemes used
-              for the selected cryptographic protocols.<htm:br/><htm:br/> The RSA-based key
-              establishment schemes are described in Section 9 of NIST SP 800-56B; however, Section
-              9 relies on implementation of other sections in SP 800-56B. If the TOE acts as a
-              receiver in the RSA key establishment scheme, the TOE does not need to implement RSA
-              key generation.<htm:br/><htm:br/> The elliptic curves used for the key establishment
-              scheme shall correlate with the curves specified in FCS_CKM.1.1. <htm:br/><htm:br/>
-              The domain parameters used for the finite field-based key establishment scheme are
-              specified by the key generation according to FCS_CKM.1.1. </note>
+            <note role="application">  
+            The ST author shall select all key establishment schemes used for the selected cryptographic protocols and any RSA-based key establishment schemes that may used to satisfy FDP_DAR or FCS_STG. Also, FCS_TLSC_EXT.1 requires ciphersuites that use RSA-based key establishment schemes.<htm:br/><htm:br/>
+            The RSA-based key establishment schemes are described in Section 9 of NIST SP 800-56B; however, Section 9 relies on implementation of other sections in SP 800-56B. If the TOE only acts as a receiver in the RSA key establishment scheme, the TOE does not need to implement RSA key generation.<htm:br/><htm:br/>
+            The elliptic curves used for the key establishment scheme shall correlate with the curves specified in FCS_CKM.1.1.<htm:br/><htm:br/>
+            The domain parameters used for the finite field-based key establishment scheme are specified by the key generation according to FCS_CKM.1.1.
+            </note>
+            
             <aactivity>
               <TSS> The evaluator shall ensure that the supported key establishment schemes
                 correspond to the key generation schemes identified in FCS_CKM.1.1. If the ST
