@@ -12,7 +12,7 @@ How is it differenet then me using subsection?
 
 <!-- TODO: 
 
-- I need to rename iteration for - FDP_UPC_EXT.1/NORMAL
+
 - Open Issues on github
 - HW Equivalency - see Dianne's email
 - Fix biometric equations per example in PP template
@@ -770,7 +770,7 @@ How is it differenet then me using subsection?
             (TLS Package), FCS_HTTPS_EXT.1, FCS_RBG_EXT.1, FCS_RBG_EXT.2(Objective),
             FCS_RBG_EXT.3(Objective), FCS_SRV_EXT.1, CS_SRV_EXT.2(Objective), FCS_TLSC_EXT.1 (TLS
             Package), FCS_TLSC_EXT.2 (TLS Package), FCS_TLSC_EXT.3 (TLS Package), FDP_BLT_EXT.1
-            (Bluetooth Module), FDP_IFC_EXT.1, FDP_STG_EXT.1, FDP_UPC_EXT.1/NORMAL, FDP_UPC_EXT.1/BLUETOOTH,
+            (Bluetooth Module), FDP_IFC_EXT.1, FDP_STG_EXT.1, FDP_UPC_EXT.1/APPS, FDP_UPC_EXT.1/BLUETOOTH,
             FIA_BLT_EXT.1 (Bluetooth Module), FIA_BLT_EXT.2 (Bluetooth Module), FIA_BLT_EXT.3
             (Bluetooth Module), FIA_BLT_EXT.4 (Bluetooth Module), FIA_BLT_EXT.5 (Bluetooth Module),
             FIA_BLT_EXT.6 (Bluetooth Module), FIA_BLT_EXT.7 (Bluetooth Module), FIA_X509_EXT.1,
@@ -1030,7 +1030,7 @@ How is it differenet then me using subsection?
                 <htm:tr><htm:td>FDP_ACF_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
                 <htm:tr><htm:td>FDP_BCK_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
                 <htm:tr><htm:td>FDP_PBA_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FDP_UPC_EXT.1/NORMAL</htm:td><htm:td>Application initiation of trusted
+                <htm:tr><htm:td>FDP_UPC_EXT.1/APPS</htm:td><htm:td>Application initiation of trusted
                     channel.</htm:td><htm:td>Name of application. Trusted channel protocol. Non-TOE
                     endpoint of connection.</htm:td></htm:tr>
                 <htm:tr><htm:td>FDP_UPC_EXT.1/BLUETOOTH</htm:td><htm:td>Application initiation of trusted
@@ -3533,17 +3533,17 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <selectable>all software-based key storage</selectable>
                   <selectable exclusive="yes">no other keys</selectable>
                 </selectables> by KEKs that are <selectables linebreak="yes">
-                  <selectable>Protected by the REK with <selectables linebreak="yes">
-                    <selectable>encryption by a REK</selectable>
-                    <selectable>encryption by a KEK chaining from a REK</selectable>
-                    <selectable>encryption by a KEK that is derived from a REK</selectable>
+                  <selectable>1. Protected by the REK with <selectables linebreak="yes">
+                    <selectable>a. encryption by a REK</selectable>
+                    <selectable>b. encryption by a KEK chaining from a REK</selectable>
+                    <selectable>c. encryption by a KEK that is derived from a REK</selectable>
                   </selectables>
                   </selectable>
-                  <selectable>Protected by the REK and the password with <selectables linebreak="yes">
-                    <selectable>encryption by a REK and the password-derived KEK</selectable>
-                    <selectable>encryption by a KEK chaining to a REK and the password-derived or
+                  <selectable>2. Protected by the REK and the password with <selectables linebreak="yes">
+                    <selectable>a. encryption by a REK and the password-derived KEK</selectable>
+                    <selectable>b. encryption by a KEK chaining to a REK and the password-derived or
                       biometric-unlocked KEK</selectable>
-                    <selectable>encryption by a KEK that is derived from a REK and the
+                    <selectable>c. encryption by a KEK that is derived from a REK and the
                       password-derived or biometric-unlocked KEK</selectable>
                   </selectables>
                   </selectable>
@@ -3551,14 +3551,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <note role="application">The ST author must select "all software-based key storage" if
                 "software-based" is selected in FCS_STG_EXT.1.1. If the ST author selects "mutable
                 hardware" in FCS_STG_EXT.1.1, the secure key storage is not subject to this
-                requirement. REKs are not subject to this requirement. <htm:br/><htm:br/> A REK and
+                requirement. REKs are not subject to this requirement. <htm:br/><htm:br/> 
+                A REK and
                 the password-derived KEK may be combined to form a combined KEK (as described in
-                FCS_CKM_EXT.3) in order to meet this requirement. <htm:br/><htm:br/> Sensitive data is
-                protected by the REK and the password or biometric. Sensitive data includes some or
-                all user or enterprise data. Software-based key storage itself shall be considered
-                sensitive data and be protected accordingly, i.e. by the password or biometric and
-                REK. <htm:br/><htm:br/> All keys must ultimately be protected by a REK. Sensitive data
-                must be protected by the password or biometric (selection 2). In particular, <figref
+                FCS_CKM_EXT.3) in order to meet this requirement. <htm:br/><htm:br/> 
+                Software-based key storage shall be protected by the password or biometric and
+                REK. <htm:br/><htm:br/> 
+                All keys must ultimately be protected by a REK.  In particular, <figref
                   ref-id="Keys"/> has KEKs protected according to these requirements: DEK_1 meets 2a
                 and would be appropriate for sensitive data, DEK_2 meets 1b and would not be
                 appropriate for sensitive data, K_1 meets 1a and is not considered a sensitive key,
@@ -3901,7 +3900,22 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fdp_pba_ext.1" name="Extended: Storage of Critical Biometric Parameters" status="sel-based">
+	      <f-component name="Limitation of Bluetooth Device Access" cc-id="fdp_blt_ext.1" status="objective">
+	        <f-element>
+	          <title>
+	            The TSF shall limit the applications that may communicate with a particular paired Bluetooth device. 
+	          </title>
+	          <note role="Application">
+	            Not every application with privileges to use Bluetooth should be permitted to communicate with every paired Bluetooth device. For example, the TSF may choose to require that only the application that initiated the current connection may communicate with the device, or it may strictly tie the paired device to the first application that makes a socket connection to the device following initial pairing. Additionally, for more flexibility, the TSF may choose to provide the user with a way to select which applications on the device may communicate with or observe communications with each paired Bluetooth device.   
+	          </note>
+	          <aactivity><!-- TODO:Need to update -->
+	            <TSS>The evaluator shall ensure that the TSS describes the mechanism used to prevent unrestricted access to paired Bluetooth devices (and/or their communication data) by every application with access to the Bluetooth system service on the TOE. The evaluator shall verify that this method either restricts access to a single application or provides explicit control of the applications that may communicate with the paired Bluetooth device. </TSS>
+	            <Guidance>There are no guidance evaluation activities for this component. </Guidance>
+	            <Tests>There are no test evaluation activities for this component.</Tests>
+	          </aactivity>
+	        </f-element>
+	      </f-component>
+	      <f-component cc-id="fdp_pba_ext.1" name="Extended: Storage of Critical Biometric Parameters" status="sel-based">
           <selection-depends req="fel-uau"
             ids="uau_fing,uau_iris,uau_face,uau_vox,uau_vein,uau_hybr"/>
           <f-element>
@@ -4185,7 +4199,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fdp_upc_ext.1" iteration="NORMAL" name="Extended: Inter-TSF user data transfer protection">
+        <f-component cc-id="fdp_upc_ext.1" iteration="APPS" name="Extended: Inter-TSF user data transfer protection">
           <f-element>
             <title>The TSF shall provide a means for non-TSF applications executing on the TOE to use <htm:ul>
                 <htm:li>mutually authenticated TLS as defined in the Package for Transport Layer Security,</htm:li>
@@ -7800,52 +7814,6 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         </f-component>
       </subsection>
       <subsection id="ftp" title="Class: Trusted Path/Channels (FTP)">
-        <!-- BT Module: This component was split into 1.1 & 1.1/BR, 1.2/BR (now mandatory) & 1.1/LE,1.2/LE (sel-based). I agree with the split. Overall requirement is the same -->
-        <!--  <f-component cc-id="ftp_blt_ext.1" name="Extended: Bluetooth Encryption" status="objective">
-          <f-element>
-            <title>The TSF shall enforce the use of encryption when transmitting data over the Bluetooth trusted channel. The TSF shall set the minimum encryption key size to 
-              <assignable>key size larger than or equal to 128 bits</assignable> for BR/EDR and 
-              <assignable>key size larger than or equal to 128 bits</assignable> for LE and shall not negotiate smaller encryption key sizes.</title>
-            <note role="application">Encryption is mandatory for BR/EDR connections when both devices support Secure Simple Pairing (at least specification version 2.1), but many devices support legacy pairing with or without encryption for backwards compatibility. The specification does not mandate encryption for LE connections. However, encryption must always be used to protect user data. Minimum encryption requirements shall be set and verified for each Bluetooth profile/application. </note>
-            <aactivity>The evaluator shall examine the  TSS to ensure that it specifies the minimum encryption key sizes for both BR/EDR and LE. 
-              <htm:br/><htm:br/>
-              The evaluator shall perform the following tests: 
-              <testlist>
-                <test>The evaluator shall perform the following steps using a Bluetooth protocol analyzer to observe packets pertaining to the encryption key size:
-                  <htm:br/><htm:br/>
-                  Step 1: Initiate pairing with the TOE from a remote Bluetooth device that has been configured to have a maximum encryption key size of 1 byte. (This can be done using certain commercially-available tools that can send the appropriate command to certain commercially-available Bluetooth controllers.) 
-                  <htm:br/><htm:br/>
-                  Step 2: Verify that the encryption key size suggested by the remote device is not accepted by the TOE and that the connection is not completed. 
-                </test><htm:br/>
-                <test>The evaluator shall perform the following steps using a Bluetooth protocol analyzer to observe packets pertaining to the encryption key size:
-                  <htm:br/><htm:br/>
-                  Step 1: Initiate pairing with the TOE from a remote Bluetooth device that has been configured to have a minimum encryption key size that is equal to or greater than that of the TOE. (This can be done using certain commercially-available tools that can send the appropriate command to certain commercially-available Bluetooth controllers.) 
-                  <htm:br/><htm:br/>
-                  Step 2: Use a Bluetooth packet sniffer to verify that the encryption key size negotiated for the connection is at least as large as the minimum encryption key size defined for the TOE.
-                </test>
-              </testlist>
-            </aactivity>
-          </f-element>
-        </f-component>-->
-        <!-- BT Module: component was split into .2.1 & 2.2 (now mandatory), overall requirements stayed same -->
-        <!--   <f-component cc-id="ftp_blt_ext.2" name="Extended: Bluetooth Encryption" status="objective">
-          <f-element>
-            <title>The TSF shall always require the use of encryption during data transmission and shall either restart encryption or terminate the connection if the remote device stops encryption while connected.</title>
-            <note role="application">Permitting devices to terminate and/or restart encryption in the middle of a connection weakens user data protection. Note that an encryption pause request, which includes a request to stop encryption, stops encryption only temporarily. This requirement is not intended to address the encryption pause feature.</note>
-            <aactivity>
-              <testlist>
-                <test>The evaluator shall perform the following steps using a Bluetooth protocol analyzer to observe packets pertaining to the encryption key size:
-                  <htm:br/><htm:br/>
-                  Step 1: Initiate pairing with the TOE from a remote Bluetooth device that has been configured to have a minimum encryption key size that is equal to or greater than that of the TOE. 
-                  <htm:br/><htm:br/>
-                  Step 2: After pairing has successfully finished and while a connection exists between the TOE and the remote device, turn off encryption on the remote device. This can be done using commercially-available tools.
-                  <htm:br/><htm:br/>
-                  Step 3: Verify that the TOE either restarts encryption with the remote device or terminates the connection with the remote device.
-                </test>
-              </testlist>
-            </aactivity>
-          </f-element>
-        </f-component>-->
         <f-component cc-id="ftp_itc_ext.1" name="Extended: Trusted Channel Communication">
           <f-element>
             <title>The TSF shall use <htm:ul>
@@ -9086,23 +9054,23 @@ Bluetooth -> Bluetooth Module
     - Mapping between MDF v3.1 and BT module - spreadsheet
                        
 TLS -> TLS Package
-    - TLS is mandatory to be included in MDF ST, FDP_UPC_EXT.1/NORMAL and FTP_ITC_EXT.1.1 mandates it
+    - TLS is mandatory to be included in MDF ST, FDP_UPC_EXT.1/APPS and FTP_ITC_EXT.1.1 mandates it
     - Mapping to threat/objectives -> in MDF
     - Audit -> in MDF
    
 DTLS -> TLS Package
-   - DTLS is NOT mandatory, but selectable in FDP_UPC_EXT.1/NORMAL and FTP_ITC_EXT.1.1
+   - DTLS is NOT mandatory, but selectable in FDP_UPC_EXT.1/APPS and FTP_ITC_EXT.1.1
    - Mapping to threat/objectives -> in MDF
    - Audit -> in MDF
    
    IPSec -> VPN Client Module
-   - IPSec is NOT mandatory, but selectable in FDP_UPC_EXT.1/NORMAL, FTP_ITC_EXT.1.1 and FDP_IFC_EXT.1.1
+   - IPSec is NOT mandatory, but selectable in FDP_UPC_EXT.1/APPS, FTP_ITC_EXT.1.1 and FDP_IFC_EXT.1.1
    - Flow contol (i.e. don't allow a split tunnel) is mandatory for the platform to implement (whether it be the native VPN client and/or a 3rd party application)
    - Mapping to threat/objectives -> in VPN Client Module
    - Audit -> in VPN Client Module (but currently objective)
 
   HTTPS -> MDF (but really covered in TLS Package)
-  - HTTPS is mandatory (SFRs in Section 5) b/c FDP_UPC_EXT.1/NORMAL mandates it, also selectable in FTP_ITC_EXT.1.1
+  - HTTPS is mandatory (SFRs in Section 5) b/c FDP_UPC_EXT.1/APPS mandates it, also selectable in FTP_ITC_EXT.1.1
       - HTTPS SFRs in MDF (FCS_HTTPS_EXT.1.2) requires "implement HTTPS using TLS as defined in the Package for Transport Layer Security." 
   - Mapping to threat/objectives -> in MDF
   - Audit -> in MDF
