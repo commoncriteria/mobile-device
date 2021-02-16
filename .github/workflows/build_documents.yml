@@ -38,13 +38,8 @@ jobs:
             ./output/${PWD##*/}-release.pdf;
       - name: Make Zip Output Directory
         run: mkdir -p commoncriteria
-      - name: Package it up
-        run: echo ${GITHUB_REPOSITORY} && cd output && zip -r ../${GITHUB_REPOSITORY}.zip .
-      - name: Update release
-        uses: johnwbyrd/update-release@v1.0.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          files: ./${{ github.repository }}.zip 
+      - name: Make a directory listing
+        run: make output/index.html
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.0.0
         with:
