@@ -1,0 +1,69 @@
+# This is a basic workflow that is manually triggered
+
+name: Common Criteria PP CI
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on: [push, workflow_dispatch]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-project:
+
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout project and transforms
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Install Build Packages
+        run: sudo apt-get update && sudo apt-get install -y libfontconfig python3-bs4 wkhtmltopdf xsltproc xvfb
+
+      - name: Debug
+        run: echo "The trigger was " ${{ github.event_name }}
+
+      - name: Convert XML to HTML
+        run: make
+
+      - name: Checkout commoncriteria.github.io
+        uses: actions/checkout@v2
+        with:
+          repository: commoncriteria/commoncriteria.github.io
+          path: commoncriteria.github.io
+
+      - name: Checkout CI Scripts
+        uses: actions/checkout@v2
+        with:
+          repository: commoncriteria/ci-scripts
+          ref: github-actions
+          path: ci-scripts
+
+      - name: Make CI Scripts Executable
+        run: chmod 700 ci-scripts/generate_pdfs.sh && chmod 700 ci-scripts/create_site.sh
+
+      - name: Make GitHub Pages PP directory
+        run: mkdir -p commoncriteria.github.io/pp/$(basename $GITHUB_REPOSITORY)
+
+      - name: Deleting previous version of PP documents
+        run: rm -rf commoncriteria.github.io/pp/$(basename $GITHUB_REPOSITORY)/*
+
+      - name: Copy newest version of PP into Github Pages
+        run: cp -r output/* commoncriteria.github.io/pp/$(basename $GITHUB_REPOSITORY)
+
+      - name: Create PDFs
+        #if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: ./ci-scripts/generate_pdfs.sh
+
+      - name: Update commoncriteria.github.io with latest revision
+        run: ./ci-scripts/create_site.sh
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.0.0
+        with:
+          repository-name: commoncriteria/commoncriteria.github.io
+          branch: master # The branch the action should deploy to.
+          folder: commoncriteria.github.io # The folder the action should deploy.
+          token: ${{ secrets.DEPLOY_TOKEN }}
