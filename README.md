@@ -1,6 +1,6 @@
 Protection Profile for Mobile Device Fundamentals 
 =============================================
-![Common Criteria PP CI](https://github.com/commoncriteria/mobile-device/workflows/Common%20Criteria%20PP%20CI/badge.svg)
+![Build](https://github.com/commoncriteria/mobile-device/workflows/Build/badge.svg)
 [![GitHub issues Open](https://img.shields.io/github/issues/commoncriteria/mobile-device.svg?maxAge=2592000)](https://github.com/commoncriteria/mobile-device/issues) 
 ![license](https://img.shields.io/badge/license-Unlicensed-blue.svg)
 
