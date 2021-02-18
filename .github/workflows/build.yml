@@ -1,6 +1,6 @@
-# This is a basic workflow that is manually triggered
+# This is a the Common Criteria build workflow that is triggered on push
 
-name: Common Criteria PP CI
+name: Build
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: commoncriteria/ci-scripts
-          ref: github-actions
+          ref: master
           path: ci-scripts
 
       - name: Make CI Scripts Executable
@@ -54,6 +54,7 @@ jobs:
         run: cp -r output/* commoncriteria.github.io/pp/$(basename $GITHUB_REPOSITORY)
 
       - name: Create PDFs
+        # Uncomment below to only build PDFs when workflow is manually triggered
         #if: ${{ github.event_name == 'workflow_dispatch' }}
         run: ./ci-scripts/generate_pdfs.sh
 
