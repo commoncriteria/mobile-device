@@ -478,7 +478,7 @@ How is it differenet then me using subsection?
       third-party or bundled components. Whether these components are bundled as part of the Mobile
       Device by the manufacturer or developed by a third-party, they must be separately validated
       against the related assurance standards such as the PP-Module for MDM Agent, PP-Module for VPN
-      Client, and VoIP Application Extended Package. It is the responsibility of the architect of
+      Client, and PP-Module for VVoIP. It is the responsibility of the architect of
       the overall secure mobile architecture to ensure validation of these components. Additional
       applications that may come pre-installed on the Mobile Device that are not validated are
       considered to be potentially flawed, but not malicious. Examples include email client and web
@@ -556,7 +556,13 @@ How is it differenet then me using subsection?
     <cclaims>
       <cclaim name="Conformance Statement">
         <description> An ST must claim exact conformance to this PP, as defined in the CC and CEM
-          addenda for Exact Conformance, Selection-Based SFRs, and Optional SFRs (dated May 2017).
+          addenda for Exact Conformance, Selection-Based SFRs, and Optional SFRs (dated May 2017).<htm:p/>
+          The following PP-Modules are allowed to be specified in a PP-Configuration with this PP.
+          <htm:ul>
+                <htm:li>PP-Module for VPN Client, Version 2.1</htm:li>
+                <htm:li>PP-Module for Bluetooth, Version 1.0</htm:li>
+                <htm:li>PP-Module for MDM Agent, Version 1.0</htm:li>
+              </htm:ul>
         </description>
       </cclaim>
       <cclaim name="CC Conformance Claims">
@@ -566,16 +572,6 @@ How is it differenet then me using subsection?
       <cclaim name="PP Claim">
         <description>This PP does not claim conformance to any Protection Profile.</description>
         <!-- TODO: Need to deteremine how to reference the Biometric cPP-->
-      </cclaim>
-      <cclaim name="Module Claim">
-        <description>The following PP-Modules are allowed to be specified in a PP-Configuration with
-          this PP.<htm:ul>
-            <htm:li>PP-Module for VPN Client, Version 2.1</htm:li>
-            <htm:li>PP-Module for Bluetooth, Version 1.0</htm:li>
-            <htm:li>PP-Module for WLAN Clients, Version 1.0</htm:li>
-            <htm:li>PP-Module for MDM Agent, Version 1.0</htm:li>
-          </htm:ul>
-        </description>
       </cclaim>
       <cclaim name="Package Claim">
         <description>This PP is TLS Package Conformant.</description>
@@ -1970,17 +1966,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               the selection appropriate for the device. A DEK is used in addition to the KEK so that
               authentication factors can be changed without having to re-encrypt all of the user
               data on the device.<htm:br/><htm:br/> The ST author selects all applicable DEK
-              generation types implemented by the TOE.<htm:br/><htm:br/> If combined, the ST author
-              shall describe which method of combination is used in order to justify that the
-              effective entropy of each factor is preserved, and the ST author shall describe that
-              each combined value was originally generated from an Approved DRBG described in
-              FCS_RBG_EXT.1 <htm:br/><htm:br/> The documentation of the product's encryption key
-              management should be detailed enough that, after reading, the evaluator will
-              thoroughly understand the product's key management and how it meets the requirements
-              to ensure the keys are adequately protected. This documentation should include an
-              essay and diagram(s). This documentation is not required to be part of the TSS - it
-              can be submitted as a separate document and marked as developer
-              proprietary.<htm:br/><htm:br/> SP 800-56C specifies a two-step key derivation
+              generation types implemented by the TOE.<htm:br/><htm:br/> SP 800-56C specifies a two-step key derivation
               procedure that employs an extraction-then-expansion technique for deriving keying
               material from a shared secret generated during a key establishment scheme. The
               Randomness Extraction step as described in Section 5 of SP 800-56C is followed by Key
@@ -1992,7 +1978,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 the formation of all DEKs is described and that the key sizes match that described
                 by the ST author. The evaluator shall examine the key hierarchy section of the TSS
                 to ensure that each DEK is generated or combined from keys of equal or greater
-                security strength using one of the selected methods.<htm:br/>
+                security strength using one of the selected methods.<htm:br/>                
+              <htm:br/> The evaluator shall also ensure that the documentation of the product's encryption key
+                management is detailed enough that, after reading, the product's key management hierarchy is clear 
+                and that it meets the requirements to ensure the keys are adequately protected. The evaluator shall ensure
+                that the documentation includes both an essay and one or more diagrams. Note that this may also be documented as 
+                separate proprietary evidence rather than being included in the TSS.<htm:br/> 
+                
                 <htm:ul>
                   <htm:li>If the symmetric DEK is generated by an RBG, the evaluator shall review
                     the TSS to determine that it describes how the functionality described by
@@ -2003,7 +1995,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     data.</htm:li>
                   <htm:li>If the DEK is formed from a combination, the evaluator shall verify that
                     the TSS describes the method of combination and that this method is either an
-                    XOR, or a KDF.</htm:li>
+                    XOR or a KDF to justify that the effective entropy of each factor is preserved. 
+                    The evaluator shall also verify that each combined value was originally generated 
+                  from an Approved DRBG described in FCS_RBG_EXT.1.</htm:li>
                   <htm:li>If “concatenating the keys and using a KDF (as described in (SP 800-56C)”
                     is selected, the evaluator shall ensure the TSS includes a description of the
                     randomness extraction step.</htm:li>
@@ -2230,13 +2224,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               asymmetric key generated using a key generation scheme according to FCS_CKM.1.
               <htm:br/><htm:br/> If combined, the ST author shall describe which method of
               combination is used in order to justify that the effective entropy of each factor is
-              preserved. <htm:br/><htm:br/> The documentation of the product's encryption key
-              management should be detailed enough that, after reading, the evaluator will
-              thoroughly understand the product's key management and how it meets the requirements
-              to ensure the keys are adequately protected. This documentation should include an
-              essay and diagram(s). This documentation is not required to be part of the TSS - it
-              can be submitted as a separate document and marked as developer proprietary.
-              <htm:br/><htm:br/> SP 800-56C specifies a two-step key derivation procedure that
+              preserved. <htm:br/><htm:br/>SP 800-56C specifies a two-step key derivation procedure that
               employs an extraction-then-expansion technique for deriving keying material from a
               shared secret generated during a key establishment scheme. The Randomness Extraction
               step as described in Section 5 of SP 800-56C is followed by Key Expansion using the
@@ -2300,6 +2288,11 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                       same length as the AES key (i.e. 128, 192, or 256 bits). </htm:li>
                   </htm:ul>
                 </htm:ul><htm:br/>
+                <htm:br/> The evaluator shall also ensure that the documentation of the product's encryption key
+                management is detailed enough that, after reading, the product's key management hierarchy is clear 
+                and that it meets the requirements to ensure the keys are adequately protected. The evaluator shall ensure
+                that the documentation includes both an essay and one or more diagrams. Note that this may also be documented as 
+                separate proprietary evidence rather than being included in the TSS.<htm:br/> 
               </TSS>
               <Guidance>There are no guidance evaluation activities for this component.<htm:br/><htm:br/></Guidance>
               <Tests> If a KDF is used, the evaluator shall perform one or more of the following
@@ -2640,8 +2633,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
           <f-element>
             <title>The TSF shall perform a power cycle on conclusion of the wipe procedure. </title>
-            <note role="application"> 
-              The ST author must select which method of wipe the TSF performs.</note>
+            
             <aactivity>
               <TSS> 
                 The evaluator shall check to ensure the TSS describes how the device is wiped, the type of clearing procedure that is performed (cryptographic erase or overwrite) and, if overwrite is performed, the overwrite procedure (overwrite with zeros, overwrite three or more times by a different alternating pattern, overwrite with random pattern, or block erase). <htm:br/><htm:br/>
@@ -3083,7 +3075,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <f-element>
             <title>The TSF shall perform <refinement>cryptographic signature services (generation
                 and verification)</refinement> in accordance with a specified cryptographic
-                algorithm<selectables linebreak="yes">
+                algorithm <selectables linebreak="yes">
                 <selectable><refinement>RSA schemes using cryptographic key sizes of 2048-bit or
                     greater that meet the following: FIPS PUB 186-4, "Digital Signature Standard
                     (DSS)", Section 4</refinement></selectable>
@@ -3093,7 +3085,6 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                       <selectable exclusive="yes">no other curves</selectable>
                     </selectables> that meet the following: FIPS PUB 186-4, "Digital Signature
                     Standard (DSS)", Section 5</refinement></selectable>
-                <selectable exclusive="yes">No other algorithms</selectable>
               </selectables>. </title>
             <note role="application">The ST author should choose the algorithm implemented to
               perform digital signatures; if more than one algorithm is available, this requirement
@@ -3108,9 +3099,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 provide access to a test platform that provides the evaluator with tools that are
                 typically not found on factory products. <htm:br/><htm:br/>
                 <testlist>
-                  <test><htm:b>ECDSA Algorithm Tests</htm:b><htm:br/>
+                  <test><htm:b>[conditional] "ECDSA schemes..." is selected in FCS_COP.1.1/SIGN</htm:b><htm:br/>
                     <testlist>
-                      <test><htm:b>ECDSA FIPS 186-4 Signature Generation Test</htm:b><htm:br/> For
+                      <test><htm:b>ECDSA FIPS 186-4 Signature Generation Test </htm:b><htm:br/> For
                         each supported NIST curve (i.e. P-256, P-384 and P-521) and SHA function
                         pair, the evaluator shall generate 10 1024-bit long messages and obtain for
                         each message a public key and the resulting signature values R and S. To
@@ -3124,7 +3115,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                         a set of 10 PASS/FAIL values. </test>
                     </testlist>
                   </test>
-                  <test><htm:b>RSA Signature Algorithm Tests</htm:b><htm:br/>
+                  <test><htm:b>[conditional] "RSA schemes..." is selected in FCS_COP.1.1/SIGN</htm:b><htm:br/>
                     <testlist>
                       <test><htm:b>Signature Generation Test</htm:b><htm:br/> The evaluator shall
                         verify the implementation of RSA Signature Generation by the TOE using the
@@ -3485,7 +3476,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     <selectable exclusive="yes">no other modes</selectable>
                   </selectables>
                 </htm:li>
-                <htm:li>All mandatory and selected algorithms in FCS_COP.1/SIGN</htm:li>
+                <htm:li>All selected algorithms in FCS_COP.1/SIGN</htm:li>
                 <htm:li>All mandatory and selected algorithms in FCS_COP.1/HASH</htm:li>
                 <htm:li>All mandatory and selected algorithms in FCS_COP.1/KEYHMAC</htm:li>
                 <htm:li>
@@ -3699,17 +3690,17 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <selectable>all software-based key storage</selectable>
                   <selectable exclusive="yes">no other keys</selectable>
                 </selectables> by KEKs that are <selectables linebreak="yes">
-                  <selectable>1. Protected by the REK with <selectables linebreak="yes">
-                    <selectable>a. encryption by a REK</selectable>
-                    <selectable>b. encryption by a KEK chaining from a REK</selectable>
-                    <selectable>c. encryption by a KEK that is derived from a REK</selectable>
+                  <selectable>Protected by the REK with <selectables linebreak="yes">
+                    <selectable>encryption by a REK</selectable>
+                    <selectable>encryption by a KEK chaining from a REK</selectable>
+                    <selectable>encryption by a KEK that is derived from a REK</selectable>
                   </selectables>
                   </selectable>
-                  <selectable>2. Protected by the REK and the password with <selectables linebreak="yes">
-                    <selectable>a. encryption by a REK and the password-derived KEK</selectable>
-                    <selectable>b. encryption by a KEK chaining to a REK and the password-derived or
+                  <selectable>Protected by the REK and the password with <selectables linebreak="yes">
+                    <selectable>encryption by a REK and the password-derived KEK</selectable>
+                    <selectable>encryption by a KEK chaining to a REK and the password-derived or
                       biometric-unlocked KEK</selectable>
-                    <selectable>c. encryption by a KEK that is derived from a REK and the
+                    <selectable>encryption by a KEK that is derived from a REK and the
                       password-derived or biometric-unlocked KEK</selectable>
                   </selectables>
                   </selectable>
@@ -3724,21 +3715,16 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 Software-based key storage must be protected by the password or biometric and
                 REK. <htm:br/><htm:br/> 
                 All keys must ultimately be protected by a REK.  In particular, <figref
-                  ref-id="Keys"/> has KEKs protected according to these requirements: DEK_1 meets 2a
-                and would be appropriate for sensitive data, DEK_2 meets 1b and would not be
-                appropriate for sensitive data, K_1 meets 1a and is not considered a sensitive key,
-                and K_2 meets 2b and is considered a sensitive key. <htm:br/><htm:br/> Long-term
+                  ref-id="Keys"/> has KEKs protected according to these requirements: DEK_1 meets the
+                "encryption by a REK and the password-derived KEK" case
+                and would be appropriate for sensitive data, DEK_2 meets the "encryption by a KEK chaining from a REK" case and would not be
+                appropriate for sensitive data, K_1 meets the "encryption by a REK" case and is not considered a sensitive key,
+                and K_2 meets the "encryption by a KEK chaining to a REK and the password-derived or biometric-unlocked KEK" case and is considered a sensitive key. <htm:br/><htm:br/> Long-term
                 trusted channel key material includes Wi-Fi (PSKs), IPsec (PSKs and client
                 certificates) and Bluetooth keys. These keys must not be protected by the password,
                 as they may be necessary in the locked state. For clarity, the ST author must assign
                 any Long-term trusted channel key material supported by the TOE . At a minimum, a TOE
-                must support at least Wi-Fi and Bluetooth keys. <htm:br/><htm:br/> The documentation of
-                the product's encryption key management should be detailed enough that, after reading,
-                the evaluator will thoroughly understand the product's key management and how it meets
-                the requirements to ensure the keys are adequately protected. This documentation
-                should include an essay and diagram(s). This documentation is not required to be part
-                of the TSS - it can be submitted as a separate document and marked as developer
-                proprietary. </note>
+                must support at least Wi-Fi and Bluetooth keys.</note>
               <aactivity>
                 <TSS>The evaluator shall review the TSS to determine that the TSS includes key
                   hierarchy description of the protection of each DEK for data-at-rest, of
@@ -3752,7 +3738,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   derived, or combined according to FCS_CKM_EXT.3), the integrity protection method
                   for each encrypted key (FCS_STG_EXT.3), and the IV generation for each key encrypted
                   by the same KEK (FCS_IV_EXT.1). More detail for each task follows the corresponding
-                  requirement.<htm:br/><htm:br/></TSS>
+                  requirement.<htm:br/>
+                  <htm:br/> The evaluator shall also ensure that the documentation of the product's encryption key
+                  management is detailed enough that, after reading, the product's key management hierarchy is clear 
+                  and that it meets the requirements to ensure the keys are adequately protected. The evaluator shall ensure
+                  that the documentation includes both an essay and one or more diagrams. Note that this may also be documented as 
+                  separate proprietary evidence rather than being included in the TSS.<htm:br/> 
+                </TSS>
                 <Guidance>There are no guidance evaluation activities for this element.<htm:br/><htm:br/></Guidance>
                 <Tests>There are no test evaluation activities for this element.</Tests>
               </aactivity>
@@ -3823,16 +3815,17 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 for one type of key and a different method for other types of keys. The explicit
                 Evaluation Activities for each of the options will be addressed in each of the
                 requirements (FCS_COP.1.1/HASH, FCS_COP.1.1/KEYHMAC). <htm:br/><htm:br/> Key Wrapping
-                must be implemented per SP800-38F.<htm:br/><htm:br/> The documentation of the
-                product's encryption key management should be detailed enough that, after reading, the
-                evaluator will thoroughly understand the product's key management and how it meets the
-                requirements to ensure the keys are adequately protected. This documentation should
-                include an essay and diagram(s). This documentation is not required to be part of the
-                TSS - it can be submitted as a separate document and marked as developer proprietary. </note>
+                must be implemented per SP800-38F.</note>
               <aactivity>
                 <TSS>The evaluator shall examine the key hierarchy description in the TSS section to
                   verify that each encrypted key is integrity protected according to one of the
-                  options in FCS_STG_EXT.3.<htm:br/><htm:br/></TSS>
+                  options in FCS_STG_EXT.3.<htm:br/>
+                  <htm:br/> The evaluator shall also ensure that the documentation of the product's encryption key
+                  management is detailed enough that, after reading, the product's key management hierarchy is clear 
+                  and that it meets the requirements to ensure the keys are adequately protected. The evaluator shall ensure
+                  that the documentation includes both an essay and one or more diagrams. Note that this may also be documented as 
+                  separate proprietary evidence rather than being included in the TSS.<htm:br/> 
+                </TSS>
                 <Guidance>There are no guidance evaluation activities for this component.<htm:br/><htm:br/></Guidance>
                 <Tests>There are no test evaluation activities for this component.</Tests>
               </aactivity>
@@ -4248,12 +4241,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               REK and password-derived or biometric-unlocked KEK. A stored private key of the
               asymmetric key scheme for encrypting data in the locked state must be encrypted with
               (or chain to a KEK encrypted with) the REK and password-derived or biometric-unlocked
-              KEK. <htm:br/><htm:br/> The documentation of the product's encryption key management
-              should be detailed enough that, after reading, the evaluator will thoroughly
-              understand the product's key management and how it meets the requirements to ensure
-              the keys are adequately protected. This documentation should include an essay and
-              diagram(s). This documentation is not required to be part of the TSS - it can be
-              submitted as a separate document and marked as developer proprietary. </note>
+              KEK.</note>
             <aactivity>
               <TSS>The evaluator shall verify that the key hierarchy section of the TSS required for
                 FCS_STG_EXT.2.1 includes the symmetric encryption keys (DEKs) used to encrypt
@@ -4264,7 +4252,12 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 of any private keys of the asymmetric pairs. The evaluator shall ensure that any
                 private keys that are not wiped and are stored by the TSF are stored encrypted by a
                 key encrypted with (or chain to a KEK encrypted with) the REK and password-derived
-                or biometric-unlocked KEK. <htm:br/><htm:br/>
+                or biometric-unlocked KEK. <htm:br/>
+                <htm:br/> The evaluator shall also ensure that the documentation of the product's encryption key
+                management is detailed enough that, after reading, the product's key management hierarchy is clear 
+                and that it meets the requirements to ensure the keys are adequately protected. The evaluator shall ensure
+                that the documentation includes both an essay and one or more diagrams. Note that this may also be documented as 
+                separate proprietary evidence rather than being included in the TSS.<htm:br/> 
               </TSS>
               <Guidance>There are no guidance evaluation activities for this element.<htm:br/><htm:br/></Guidance>
               <Tests>There are no test evaluation activities for this element.<htm:br/></Tests>
@@ -4293,7 +4286,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable>provide an interface which allows a VPN client to protect all IP traffic
                   using IPsec</selectable>
                 <selectable>provide a VPN client which can protect all IP traffic using
-                  IPsec</selectable>
+                  IPsec <htm:b>as defined in the PP-Module for VPN Client</htm:b></selectable>
               </selectables> with the exception of IP traffic required to establish the VPN
               connection. </title>
             <note role="application">Typically, the traffic required to establish the VPN connection
@@ -4397,7 +4390,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <htm:li>HTTPS,</htm:li>
               </htm:ul>and <selectables linebreak="yes">
                 <selectable id="upc_dtls">mutually authenticated DTLS as defined in the Package for Transport Layer Security</selectable>
-                <selectable>IPsec in accordance with the PP-Module for VPN Client</selectable>
+                <selectable>IPsec as defined in the PP-Module for VPN Client</selectable>
                 <selectable>no other protocol</selectable>
               </selectables> to provide a protected communication channel between the non-TSF
               application and another IT product that is logically distinct from other communication
@@ -5110,29 +5103,30 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
           <f-element>
             <title>The TSF shall authenticate any user's claimed identity according to the
-                <assignable>rules describing how each authentication mechanism provides
+                <assignable>rules describing how each authentication mechanism selected in FIA_UAU.5.1 provides
                 authentication</assignable>.</title>
-            <note role="application">For all authentication mechanisms specified in FIA_UAU.5.1, the
-              TSS must describe the rules as to how each authentication mechanism is used. Example
-              rules are how the authentication mechanism authenticates the user (i.e. how does the
-              TSF verify that the correct password or biometric sample was entered), the result of a
-              successful authentication (i.e. is the user input used to derive or unlock a key) and
-              which authentication mechanism can be used at which authentication factor interfaces
-              (i.e. if there are times, for example, after a reboot, that only specific
-              authentication mechanisms can be used). If multiple BAFs are supported per
-              FIA_UAU.5.1, the interaction between the BAFs must be described. For example, whether the
-              multiple BAFs can be enabled at the same time. Rules regarding how the authentication
+            <note role="application">Rules regarding how the authentication
               factors interact in terms of unsuccessful authentication are covered in
               FIA_AFL_EXT.1.</note>
             <aactivity>
               <TSS>The evaluator shall ensure that the TSS describes each mechanism provided to
                 support user authentication and the rules describing how the authentication
-                mechanism(s) provide authentication. <htm:br/><htm:br/></TSS>
+                mechanism(s) provide authentication. <htm:br/><htm:br/>
+                Specifically, for all authentication mechanisms specified in FIA_UAU.5.1, the
+                TSS must describe the rules as to how each authentication mechanism is used. Example
+                rules are how the authentication mechanism authenticates the user (i.e. how does the
+                TSF verify that the correct password or biometric sample was entered), the result of a
+                successful authentication (i.e. is the user input used to derive or unlock a key) and
+                which authentication mechanism can be used at which authentication factor interfaces
+                (i.e. if there are times, for example, after a reboot, that only specific
+                authentication mechanisms can be used). If multiple BAFs are supported per
+                FIA_UAU.5.1, the interaction between the BAFs must be described. For example, whether the
+                multiple BAFs can be enabled at the same time.<htm:br/><htm:br/></TSS>
               <Guidance> The evaluator shall verify that configuration guidance for each
                 authentication mechanism is addressed in the AGD guidance.<htm:br/><htm:br/></Guidance>
               <Tests>
                 <testlist>
-                  <test>For each authentication mechanism selected, the evaluator shall enable that
+                  <test>For each authentication mechanism selected in FIA_UAU.5.1, the evaluator shall enable that
                     mechanism and verify that it can be used to authenticate the user at the
                     specified authentication factor interfaces. </test>
                   <test>For each authentication mechanism rule, the evaluator shall ensure that the
@@ -5480,7 +5474,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable>no additional uses</selectable>
               </selectables>. </title>
             <note role="application">The ST author’s first selection must match the selection of
-              FDP_UPC_EXT.1.1/NORMAL and FTP_ITC_EXT.1.1.<htm:br/><htm:br/> Certificates may optionally
+              FDP_UPC_EXT.1.1/APPS and FTP_ITC_EXT.1.1.<htm:br/><htm:br/> Certificates may optionally
               be used for trusted updates of system software (FPT_TUD_EXT.2.3) and mobile
               applications (FPT_TUD_EXT.5.1) and for integrity verification (FPT_TST_EXT.2/PREKERNEL). If
               "code signing for system software updates" or "code signing for mobile applications"
@@ -5845,7 +5839,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     </htm:ol>
                   </text>
                   <M ref="1"/>
-                  <_ ref="2"/>
+                  <na ref="2"/>
                   <M ref="3"/>
                   <M ref="4"/>
                 </management-function>
@@ -5859,7 +5853,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     </htm:ol>
                   </text>
                   <M ref="1"/>
-                  <_ ref="2"/>
+                  <na ref="2"/>
                   <M ref="3"/>
                   <M ref="4"/>
                 </management-function>
@@ -5902,18 +5896,18 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     <ctr id="lockState" pre="" ctr-type="function">.</ctr> transition to the locked
                     state </text>
                   <M ref="1"/>
-                  <_ ref="2"/>
+                  <na ref="2"/>
                   <M ref="3"/>
-                  <_ ref="4"/>
+                  <na ref="4"/>
                 </management-function>
                 <management-function>
                   <text>
                     <!-- 7. -->
                     <ctr id="wipe" pre="" ctr-type="function">.</ctr> TSF wipe of protected data </text>
                   <M ref="1"/>
-                  <_ ref="2"/>
+                  <na ref="2"/>
                   <M ref="3"/>
-                  <_ ref="4"/>
+                  <na ref="4"/>
                 </management-function>
                 <management-function>
                   <text>
@@ -5927,7 +5921,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                       </selectables></indent>
                   </text>
                   <M ref="1"/>
-                  <_ ref="2"/>
+                  <na ref="2"/>
                   <M ref="3"/>
                   <M ref="4"/>
                 </management-function>
@@ -5937,7 +5931,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     <ctr id="keyStorage" pre="" ctr-type="function">.</ctr> import keys/secrets into
                     the secure key storage </text>
                   <M ref="1"/>
-                  <_ ref="4"/>
+                  <na ref="4"/>
                 </management-function>
                 <management-function>
                   <text>
@@ -5949,7 +5943,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                         keys/secrets</assignable></selectable>
                     </selectables> in the secure key storage </text>
                   <M ref="1"/>
-                  <_ ref="4"/>
+                  <na ref="4"/>
                 </management-function>
                 <management-function>
                   <text>
@@ -5957,7 +5951,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     <ctr id="certImport" pre="" ctr-type="function">.</ctr> import X.509v3
                     certificates into the Trust Anchor Database </text>
                   <M ref="1"/>
-                  <_ ref="2"/>
+                  <na ref="2"/>
                   <M ref="3"/>
                 </management-function>
                 <management-function>
@@ -5970,7 +5964,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                           certificates</assignable></selectable>
                     </selectables> in the Trust Anchor Database </text>
                   <M ref="1"/>
-                  <_ ref="4"/>
+                  <na ref="4"/>
                 </management-function>
                 <management-function>
                   <text>
@@ -5986,7 +5980,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     <!-- 14. -->
                     <ctr id="appRemove" pre="" ctr-type="function">.</ctr> remove applications </text>
                   <M ref="1"/>
-                  <_ ref="2"/>
+                  <na ref="2"/>
                   <M ref="3"/>
                 </management-function>
                 <management-function>
@@ -5994,7 +5988,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     <!-- 15 -->
                     <ctr id="update" pre="" ctr-type="function">.</ctr> update system software </text>
                   <M ref="1"/>
-                  <_ ref="2"/>
+                  <na ref="2"/>
                   <M ref="3"/>
                 </management-function>
                 <management-function>
@@ -6002,7 +5996,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     <!-- 16. -->
                     <ctr id="appInstall" pre="" ctr-type="function">.</ctr> install applications </text>
                   <M ref="1"/>
-                  <_ ref="2"/>
+                  <na ref="2"/>
                   <M ref="3"/>
                 </management-function>
                 <management-function>
@@ -6011,9 +6005,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     <ctr id="entAppRemove" pre="" ctr-type="function">.</ctr> remove Enterprise
                     applications </text>
                   <M ref="1"/>
-                  <_ ref="2"/>
+                  <na ref="2"/>
                   <M ref="3"/>
-                  <_ ref="4"/>
+                  <na ref="4"/>
                 </management-function>
                 <management-function>
                   <text>
@@ -6101,7 +6095,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <management-function>
                   <text>
                     <ctr id="wipeEntData" pre="" ctr-type="function">.</ctr> wipe Enterprise data </text>
-                  <_ ref="4"/>
+                  <na ref="4"/>
                 </management-function>
                 <management-function>
                   <text>
@@ -6126,7 +6120,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <text>
                     <ctr id="auditLogs" pre="" ctr-type="function">.</ctr> read audit logs kept by
                     the TSF </text>
-                  <_ ref="4"/>
+                  <na ref="4"/>
                 </management-function>
                 <management-function>
                   <text>
@@ -6150,13 +6144,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <text>
                     <ctr id="unlockBanner" pre="" ctr-type="function">.</ctr> configure the unlock
                     banner </text>
-                  <_ ref="2"/>
+                  <na ref="2"/>
                 </management-function>
                 <management-function>
                   <text>
                     <ctr id="auditItems" pre="" ctr-type="function">.</ctr> configure the auditable
                     items </text>
-                  <_ ref="2"/>
+                  <na ref="2"/>
                 </management-function>
                 <management-function>
                   <text>
@@ -7338,11 +7332,11 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               OBEX Push Profile until a user on the Mobile Device pushes a button in an application
               indicating readiness to transfer an object. After completion of the object transfer,
               support for the OBEX profile should be suspended until the next time the user requests
-              its use. <htm:br/><htm:br/> The ST author must list all Bluetooth profiles which are
-              disabled while not in use by an application and which need explicit user action in
-              order to become enabled. </note>
+              its use.</note>
             <aactivity>
-              <TSS>There are no TSS evaluation activities for this component.<htm:br/><htm:br/></TSS>
+              <TSS>The evaluator shall ensure that the TSS lists all Bluetooth profiles that are
+                disabled while not in use by an application and which need explicit user action in
+                order to become enabled.<htm:br/><htm:br/></TSS>
               <Guidance>There are no guidance evaluation activities for this component.<htm:br/><htm:br/></Guidance><Tests>The evaluator shall perform the following tests: <testlist>
                   <test>While the service is not in active use by an application on the TOE, the
                     evaluator shall attempt to discover a service associated with a "protected"
@@ -7726,9 +7720,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         <f-component cc-id="fpt_tst_ext.2" name="TSF Integrity Checking (Post-Kernel)" status="objective" iteration="POSTKERNEL">
           <f-element>
             <title>The TSF shall verify the integrity of <selectables>
-                <selectable>all executable code stored in mutable media</selectable>
-                <selectable><assignable>list of other executable code</assignable></selectable>
-              </selectables>, stored in mutable media prior to its execution through the use of <selectables>
+                <selectable>all executable code</selectable>
+                <selectable><assignable>subset of executable code</assignable></selectable>
+              </selectables> stored in mutable media prior to its execution through the use of <selectables>
                 <selectable>a digital signature using an immutable hardware asymmetric
                   key</selectable>
                 <selectable>an immutable hardware hash of an asymmetric key</selectable>
