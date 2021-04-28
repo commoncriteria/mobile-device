@@ -65,8 +65,8 @@ How is it differenet then me using subsection?
 <PP xmlns="https://niap-ccevs.org/cc/v1"
     xmlns:cc="https://niap-ccevs.org/cc/v1"
     xmlns:sec="https://niap-ccevs.org/cc/v1/section" 
-    name="Mobile Device Fundamentals"
-  xmlns:htm="http://www.w3.org/1999/xhtml" boilerplate="yes">
+    target-products="mobile devices"
+    xmlns:htm="http://www.w3.org/1999/xhtml" boilerplate="yes">
   <PPReference>
     <ReferenceTable>
       <PPTitle>Mobile Device Fundamentals</PPTitle>
@@ -170,10 +170,10 @@ How is it differenet then me using subsection?
       </subject>
     </entry>
   </RevisionHistory>
-    <include-pkg id="pkg-tls">
-		<url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=417&amp;id=417</url>
-	    <raw-url>	https://github.com/commoncriteria/tls/raw/master/input/tls.xml</raw-url>
-	</include-pkg>
+  <include-pkg id="pkg-tls">
+    <raw-url>https://github.com/commoncriteria/tls/raw/master/input/tls.xml</raw-url>
+    <url>    https://www.niap-ccevs.org/Profile/Info.cfm?PPID=417&amp;id=417</url>
+  </include-pkg>
   <sec:Introduction boilerplate="no">
     <section title="Objectives of Document" id="objdoc"> This document presents the Common Criteria
       (CC) Protection Profile (PP) to express the fundamental security and evaluation requirements
@@ -943,9 +943,9 @@ A personally-owned device, which is used, for both personal activities and enter
         </assumption>
       </assumptions>
     </section>
-    <section title="Organizational Security Policies" id="osp"> 
-      There are no OSPs for the Mobile Device. 
-    </section>
+    <sec:osp title="Organizational Security Policies"> 
+      <OSPs/>
+    </sec:osp>
   </sec:Security_Problem_Description>
   <sec:Security_Objectives>
     <section title="Security Objectives for the TOE" id="sot"> 
@@ -2763,7 +2763,7 @@ A personally-owned device, which is used, for both personal activities and enter
           </f-element>
         </f-component>
         <f-component cc-id="fcs_ckm_ext.7" name="Extended: Cryptographic Key Support (REK)" status="sel-based">
-          <selection-depends req="fel-mut-hard" ids="mutable_hardware"/>
+          <depends on="mutable_hardware"/>
           <f-element id="fel-rek-stay-hardware">
             <title>A REK shall not be able to be read from or exported from the hardware. </title>
             <note role="application">If "mutable-hardware" is selected in FCS_CKM_EXT.1.1,
@@ -4027,7 +4027,7 @@ A personally-owned device, which is used, for both personal activities and enter
           </f-element>
         </f-component>
         <f-component cc-id="fdp_acf_ext.2" name="Extended: Security access control" status="sel-based">
-          <selection-depends req="fel-acp" ids="fdp_group"/>
+          <depends on="fdp_group"/>
           <f-element id="fel-per-app-resources">
             <title>The TSF shall provide a separate <selectables>
                 <selectable>address book</selectable>
@@ -4109,8 +4109,7 @@ A personally-owned device, which is used, for both personal activities and enter
           </f-element>
         </f-component>
         <f-component cc-id="fdp_pba_ext.1" name="Extended: Storage of Critical Biometric Parameters" status="sel-based">
-          <selection-depends req="fel-uau"
-            ids="uau_fing,uau_iris,uau_face,uau_vox,uau_vein,uau_hybr"/>
+          <depends on1="uau_fing" on2="uau_iris" on3="uau_face" on4="uau_vox" on5="uau_vein" on6="uau_hybr"/>
           <f-element id="fel-bio-protect">
             <title>The TSF shall protect the authentication template <selectables>
                 <selectable>using a PIN as an additional factor</selectable>
@@ -4484,7 +4483,7 @@ A personally-owned device, which is used, for both personal activities and enter
           </f-element>
         </f-component>
         <f-component cc-id="fdp_upc_ext.1" iteration="BLUETOOTH" name="Extended: Inter-TSF user data transfer protection - Bluetooth" status="feat-based"> <!-- Implementation Dependent -->
-          <depends on="implements"><ref-id>bluetooth</ref-id></depends>       
+          <depends on="bluetooth"/>
           <f-element id="fel-bluetooth">
             <title>The TSF shall provide a means for non-TSF applications executing on the TOE to
               use <htm:ul>
@@ -4702,8 +4701,8 @@ A personally-owned device, which is used, for both personal activities and enter
           </f-element>
         </f-component>
         <f-component cc-id="fia_bmg_ext.1" name="Extended: Accuracy of Biometric Authentication" status="sel-based">
-          <selection-depends req="fel-uau"
-            ids="uau_fing,uau_iris,uau_face,uau_vox,uau_vein,uau_hybr"/>
+          <depends
+            on1="uau_fing" on2="uau_iris" on3="uau_face" on4="uau_vox" on5="uau_vein" on6="uau_hybr"/>
           <f-element id="fel-baf-far">
             <title>The one-attempt BAF False Accept Rate (FAR) for <assignable>biometric modality
                 selected in FIA_UAU.5.1</assignable>shall not exceed <assignable> claimed FAR no
@@ -5900,11 +5899,11 @@ A personally-owned device, which is used, for both personal activities and enter
                   enable/disable the VPN
                   protection: <htm:ol type="a">
                   <htm:li>across device</htm:li></htm:ol>
-                  <indent><selectables linebreak="yes">
+                  <htm:div class="indent"><selectables linebreak="yes">
                     <selectable>b. on a per-app basis</selectable>
                     <selectable>c. on a per-group of applications processes basis</selectable>
                     <selectable>d. no other method</selectable>
-                  </selectables></indent>
+                  </selectables></htm:div>
                 </text>
                 <M ref="I"/>
                 <app-note>
@@ -6037,11 +6036,11 @@ A personally-owned device, which is used, for both personal activities and enter
               <assignable id="a-audiovisual-devs">list of audio or visual collection devices</assignable>: <htm:ol
               type="a">
               <htm:li>across device</htm:li></htm:ol>
-              <indent><selectables linebreak="yes">
+              <htm:div class="indent"><selectables linebreak="yes">
                 <selectable>b. on a per-app basis</selectable>
                 <selectable>c. on a per-group of applications processes basis</selectable>
                 <selectable>d. no other method</selectable>
-              </selectables></indent>
+              </selectables></htm:div>
             </text>
             <M ref="I"/>
             <app-note>The assignment in <_/>
@@ -6122,12 +6121,12 @@ A personally-owned device, which is used, for both personal activities and enter
               <text>
                 <!--8. -->
                 configure
-                application installation policy by <indent><selectables linebreak="yes">
+                application installation policy by <htm:div class="indent"><selectables linebreak="yes">
                 <selectable>a. restricting the sources of applications</selectable>
                 <selectable>b. specifying a set of allowed applications based on
                 <assignable>application characteristics</assignable> (an application allowlist)</selectable>
                 <selectable>c. denying installation of applications</selectable>
-              </selectables></indent>
+              </selectables></htm:div>
             </text>
           <M ref="I"/>          <NA ref="UO"/>          <M ref="A"/>          <M ref="AO"/>
 	    <app-note>
@@ -6435,11 +6434,11 @@ A personally-owned device, which is used, for both personal activities and enter
 				enable/disable location
 				services: <htm:ol type="a">
 				<htm:li>across device</htm:li></htm:ol>
-				<indent><selectables linebreak="yes">
+				<htm:div class="indent"><selectables linebreak="yes">
 				  <selectable>b. on a per-app basis</selectable>
 				  <selectable>c. on a per-group of applications processes basis</selectable>
 				  <selectable>d. no other method</selectable>
-				</selectables></indent>
+				</selectables></htm:div>
 			      </text>
 			    <M ref="I"/>
 			      <app-note>
@@ -7886,7 +7885,7 @@ The assignment in function
           </f-element>
         </f-component>
         <f-component cc-id="fpt_tst_ext.3" name="Extended: TSF Integrity Testing" status="sel-based">
-          <selection-depends req="fel-cert-auth" ids="x509_sign"/>
+          <depends on="x509_sign"/>
           <f-element id="fel-integrity-fail">
             <title>The TSF shall not execute code if the code signing certificate is deemed invalid. </title>
             <note role="application">Certificates may optionally be used for code signing for
@@ -8058,7 +8057,7 @@ The assignment in function
           </f-element>
         </f-component>
         <f-component cc-id="fpt_tud_ext.3" name="Extended: Trusted Update Verification" status="sel-based">
-          <selection-depends req="fel-cert-auth" ids="x509_sys,x509_apps"/>
+          <depends on="x509_sys" also="x509_apps"/>
           <f-element id="fel-update-int-fail">
             <title>The TSF shall not install code if the code signing certificate is deemed invalid. </title>
             <note role="application">Certificates may optionally be used for code signing of system
@@ -8921,10 +8920,6 @@ The assignment in function
       indicating why each test is believed to be appropriate for detecting one or more failures in
       the entropy source.</section>
   </appendix>
-  <appendix id="acro" title="Acronyms">
-    <ctr id="acronyms" ctr-type="Table">: Acronyms</ctr>
-    <acronyms/>
-  </appendix>
   <appendix id="use" title="Use Case Templates"> 
     The following use case templates list those
     selections, assignments, and objective requirements that best support the use cases identified
@@ -9395,8 +9390,16 @@ The assignment in function
       </htm:ol>
     </section>
   </appendix>
-  <appendix id="biblio" title="References">
-    <bibliography>
+ <appendix id="ack" title="Acknowledgements"> 
+    This protection profile was developed by the Mobility Technical Community with representatives from industry, U.S. Government agencies, Common Criteria Test Laboratories, and international Common Criteria schemes. The National Information Assurance Partnership wishes to acknowledge and thank the members of this group whose dedicated efforts contributed significantly to the publication. These organizations include: <htm:br/><htm:br/> <htm:b>U.S. Government</htm:b><htm:br/> Defense Information Systems Agency (DISA)<htm:br/> Information Assurance Directorate (IAD)<htm:br/> National Information Assurance Partnership (NIAP)<htm:br/> National Institute of Standards and Technology (NIST)<htm:br/><htm:br/> <htm:b>International Common Criteria Schemes</htm:b><htm:br/> Australasian Information Security Evaluation Program (AISEP)<htm:br/> Canadian Common Criteria Evaluation and Certification Scheme (CSEC)<htm:br/> Information-technology Promotion Agency, Japan (IPA)<htm:br/> UK IT Security Evaluation and Certificate Scheme (NCSC)<htm:br/><htm:br/> <htm:b>Industry</htm:b><htm:br/> Apple, Inc.<htm:br/> BlackBerry<htm:br/> LG Electronics, Inc.<htm:br/> Microsoft Corporation<htm:br/> Motorola Solutions<htm:br/> Samsung Electronics Co., Ltd.<htm:br/> Other Members of the Mobility Technical Community<htm:br/><htm:br/> <htm:b>Common Criteria Test Laboratories</htm:b><htm:br/> EWA-Canada, Ltd.<htm:br/> Gossamer Security Solutions<htm:br/>
+  </appendix>
+  <implements>
+    <feature id="bluetooth" title="Bluetooth">
+      <description> If the TOE includes Bluetooth hardware, the following SFRs must be claimed:
+      </description>
+    </feature>
+  </implements>
+  <bibliography>
       <entry id="CEM">
         <tag>CEM</tag>
         <description>
@@ -9464,17 +9467,7 @@ The assignment in function
             Estimation for a Binomial Proportion.</htm:a>Brown, Cai, and DasGupta. </description>
       </entry>
     </bibliography>
-  </appendix>
-  <appendix id="ack" title="Acknowledgements"> 
-    This protection profile was developed by the Mobility Technical Community with representatives from industry, U.S. Government agencies, Common Criteria Test Laboratories, and international Common Criteria schemes. The National Information Assurance Partnership wishes to acknowledge and thank the members of this group whose dedicated efforts contributed significantly to the publication. These organizations include: <htm:br/><htm:br/> <htm:b>U.S. Government</htm:b><htm:br/> Defense Information Systems Agency (DISA)<htm:br/> Information Assurance Directorate (IAD)<htm:br/> National Information Assurance Partnership (NIAP)<htm:br/> National Institute of Standards and Technology (NIST)<htm:br/><htm:br/> <htm:b>International Common Criteria Schemes</htm:b><htm:br/> Australasian Information Security Evaluation Program (AISEP)<htm:br/> Canadian Common Criteria Evaluation and Certification Scheme (CSEC)<htm:br/> Information-technology Promotion Agency, Japan (IPA)<htm:br/> UK IT Security Evaluation and Certificate Scheme (NCSC)<htm:br/><htm:br/> <htm:b>Industry</htm:b><htm:br/> Apple, Inc.<htm:br/> BlackBerry<htm:br/> LG Electronics, Inc.<htm:br/> Microsoft Corporation<htm:br/> Motorola Solutions<htm:br/> Samsung Electronics Co., Ltd.<htm:br/> Other Members of the Mobility Technical Community<htm:br/><htm:br/> <htm:b>Common Criteria Test Laboratories</htm:b><htm:br/> EWA-Canada, Ltd.<htm:br/> Gossamer Security Solutions<htm:br/>
-  </appendix>
-
-  <implements>
-    <feature id="bluetooth" title="Bluetooth">
-      <description> If the TOE includes Bluetooth hardware, the following SFRs must be claimed:
-      </description>
-    </feature>
-  </implements>
+ 
 </PP>
 
 
