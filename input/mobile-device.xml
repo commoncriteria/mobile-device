@@ -553,8 +553,8 @@ How is it differenet then me using section?
       need to enforce any security policies on the device. However, the enterprise may want secure
       email and web browsing with assurance that the services being provided to those clients by the
       Mobile Device are not compromised. Based upon the operational environment and the acceptable
-      risk level of the enterprise, those security functional requirements outlined in <secref
-        linkend="sr"/> of this PP are sufficient for the secure implementation of this BYOD use
+      risk level of the enterprise, those security functional requirements outlined in <xref
+        to="sr"/> of this PP are sufficient for the secure implementation of this BYOD use
       case. </section>
   </section>
   <section title="Conformance Claims" id="ccl" boilerplate="no">
@@ -749,8 +749,9 @@ How is it differenet then me using section?
       </assumptions>
     </section>
     <section title="Organizational Security Policies" id="osp"> 
-      There are no OSPs for the Mobile Device. 
-    </section>
+<!--      There are no OSPs for the Mobile Device.  -->
+		<OSPs/>
+    </section> 
   </section>
   <section title="Security Objectives" id="sobj">
     <section title="Security Objectives for the TOE" id="sot"> 
@@ -2697,7 +2698,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fcs_ckm_ext.7" name="Cryptographic Key Support (REK)" status="sel-based">
-          <selection-depends req="fel-mut-hard" ids="mutable_hardware"/>
+          <depends on-sel="mutable_hardware"/>
           <f-element id="fcs-ckm-ext-7e1">
             <title>A REK shall not be able to be read from or exported from the hardware. </title>
             <note role="application">If "mutable-hardware" is selected in FCS_CKM_EXT.1.1,
@@ -3990,7 +3991,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fdp_acf_ext.2" name="Access Control for System Resources" status="sel-based">
-          <selection-depends req="fel-acp" ids="fdp_group"/>
+          <depends on-sel="fdp_group"/>
           <f-element id="fdp-acf-ext-2e1">
             <title>The TSF shall provide a separate <selectables>
                 <selectable>address book</selectable>
@@ -4091,7 +4092,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
 	        </f-element>
 	      </f-component>
 	      <f-component cc-id="fdp_pba_ext.1" name="Storage of Critical Biometric Parameters" status="sel-based">
-          <selection-depends req="fel-uau"
+          <depends on-sel="fel-uau"
             ids="uau_fing,uau_iris,uau_face,uau_vox,uau_vein,uau_hybr"/>
           <f-element id="fdp-pba-ext-1e1">
             <title>The TSF shall protect the authentication template <selectables>
@@ -4697,7 +4698,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fia_bmg_ext.1" name="Accuracy of Biometric Authentication" status="sel-based">
-          <selection-depends req="fel-uau"
+          <depends on-sel="fel-uau"
             ids="uau_fing,uau_iris,uau_face,uau_vox,uau_vein,uau_hybr"/>
           <f-element id="fia-bmg-ext-1e1">
             <title>The one-attempt BAF False Accept Rate (FAR) for <assignable>biometric modality
@@ -4737,8 +4738,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <TSS> The evaluator shall verify that the TSS contains evidence supporting the testing
                 and calculations completed to determine the FAR and FRR. <xref to="biometric"
                 /> provides guidance to how this testing could be completed and to what error bars
-                are expected when the Rule of 3 is applied. The evaluator shall consult <appref
-                  linkend="biometric"/> as a reference, but should not treat it as a mandate. The
+                are expected when the Rule of 3 is applied. The evaluator shall consult <xref
+                  to="biometric"/> as a reference, but should not treat it as a mandate. The
                 evaluator shall verify that the TSS contains evidence of whether online or offline
                 testing was used. If offline testing was completed, evidence describing the
                 differences between the biometric system used for testing and the TOE in the
@@ -4796,8 +4797,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </note>
             <aactivity>
               <TSS>The evaluator shall verify that the TSS indicates which SAFAR the TOE is
-                targeting and contains evidence supporting the calculations, per <appref
-                  linkend="biometric3"/>, completed to determine the SAFAR. The evaluator shall
+                targeting and contains evidence supporting the calculations, per <xref
+                  to="biometric3"/>, completed to determine the SAFAR. The evaluator shall
                 verify that the TSS contains evidence of how the authentication factors interact,
                 per FIA_UAU.5.2 and FIA_AFL_EXT.1. The evaluator shall verify that the TSS, contains
                 the combination(s) of authentication factors needed to meet the SAFAR, and the
@@ -7753,7 +7754,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fpt_tst_ext.3" name="TSF Integrity Testing" status="sel-based">
-          <selection-depends req="fel-cert-auth" ids="x509_sign"/>
+          <depends on-sel="x509_sign"/>
           <f-element id="fpt-tst-ext-3e1">
             <title>The TSF shall not execute code if the code signing certificate is deemed invalid. </title>
             <note role="application">Certificates may optionally be used for code signing for
@@ -7928,7 +7929,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fpt_tud_ext.4" name="Trusted Update Verification" status="sel-based">
-          <selection-depends req="fel-cert-auth" ids="x509_sys,x509_apps"/>
+          <depends on-sel="x509_sys,x509_apps"/>
           <f-element id="fpt-tud-ext-4e1">
             <title>The TSF shall not install code if the code signing certificate is deemed invalid. </title>
             <note role="application">Certificates may optionally be used for code signing of system
@@ -8176,8 +8177,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
       </section>
     </section>
     <section id="sar" title="Security Assurance Requirements"> 
-      The Security Objectives in <secref
-        linkend="sobj"/> were constructed to address threats identified in <xref to="spd"/>.
+      The Security Objectives in <xref
+        to="sobj"/> were constructed to address threats identified in <xref to="spd"/>.
       The Security Functional Requirements (SFRs) in <xref to="sfr"/> are a formal
       instantiation of the Security Objectives. The PP identifies the Security Assurance
       Requirements (SARs) to frame the extent to which the evaluator assesses the documentation
@@ -8190,8 +8191,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         title="Information Technology Security Evaluation Facility">ITSEF</abbr> will obtain the
       TOE, supporting environmental IT, and the administrative/user guides for the TOE. The ITSEF is
       expected to perform actions mandated by the Common Evaluation Methodology (CEM) for the ASE
-      and ALC SARs. The ITSEF also performs the Evaluation Activities contained within <secref
-        linkend="sfr"/>, which are intended to be an interpretation of the other CEM evaluation
+      and ALC SARs. The ITSEF also performs the Evaluation Activities contained within <xref
+        to="sfr"/>, which are intended to be an interpretation of the other CEM evaluation
       requirements as they apply to the specific technology instantiated in the TOE. The Evaluation
       Activities that are captured in <xref to="sfr"/> also provide clarification as to what
       the developer needs to provide to demonstrate the TOE is compliant with the PP.
@@ -8593,8 +8594,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         Mobile Devices. <a-component cc-id="ate_ind.1" name="Independent Testing – Conformance">
           <summary>Testing is performed to confirm the functionality described in the TSS as well as
             the administrative (including configuration and operational) documentation provided. The
-            focus of the testing is to confirm that the requirements specified in <secref
-              linkend="sfr"/> being met, although some additional testing is specified for SARs in
+            focus of the testing is to confirm that the requirements specified in <xref
+              to="sfr"/> being met, although some additional testing is specified for SARs in
               <xref to="sar"/>. The Evaluation Activities identify the additional testing
             activities associated with these components. The evaluator produces a test report
             documenting the plan for and results of testing, as well as coverage arguments focused
@@ -8793,8 +8794,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
   <appendix id="use" title="Use Case Templates"> 
     The following use case templates list those
     selections, assignments, and objective requirements that best support the use cases identified
-    by this Protection Profile. Note that the templates assume that all SFRs listed in <secref
-      linkend="sfr"/> are included in the ST, not just those listed in the templates. These
+    by this Protection Profile. Note that the templates assume that all SFRs listed in <xref
+      to="sfr"/> are included in the ST, not just those listed in the templates. These
     templates and deviations from the template should be identified in the Security Target to assist
     customers with making risk-based purchasing decisions. Products that do not meet these templates
     are not precluded from use in the scenarios identified by this Protection Profile.
