@@ -175,9 +175,9 @@ How is it differenet then me using subsection?
     <url>    https://www.niap-ccevs.org/Profile/Info.cfm?PPID=417&amp;id=417</url>
   </include-pkg>
   <sec:Introduction boilerplate="no">
-    <section title="Objectives of Document" id="objdoc"> This document presents the Common Criteria
-      (CC) Protection Profile (PP) to express the fundamental security and evaluation requirements
-      for a Mobile Device. </section>
+    <sec:Objectives_of_Document>
+The scope of this Protection Profile (PP) is to describe the security functionality of mobile devices in terms of [CC] and to define functional and assurance requirements for such devices.		
+    </sec:Objectives_of_Document>
     <tech-terms>
       <term full="Adaptive (template)"> Authentication templates that evolve with each sample that
         is verified and introduced into the biometrics database or gallery. </term>
@@ -481,7 +481,7 @@ How is it differenet then me using subsection?
       third-party or bundled components. Whether these components are bundled as part of the Mobile
       Device by the manufacturer or developed by a third-party, they must be separately validated
       against the related assurance standards such as the PP-Module for MDM Agent, PP-Module for VPN
-      Client, and VoIP Application Extended Package. It is the responsibility of the architect of
+      Client, and PP-Module for VVoIP. It is the responsibility of the architect of
       the overall secure mobile architecture to ensure validation of these components. Additional
       applications that may come pre-installed on the Mobile Device that are not validated are
       considered to be potentially flawed, but not malicious. Examples include email client and web
@@ -490,7 +490,7 @@ How is it differenet then me using subsection?
         id="TOE"/>
       <htm:br/>
     </section>
-    <section title="Use Cases" id="usecases">
+    <sec:TOE_Usage>
       <htm:p>
         The Mobile Device may be operated in a number of use cases. 
         <xref to="use"/> provides use case templates that list those selections,
@@ -682,8 +682,9 @@ A personally-owned device, which is used, for both personal activities and enter
           </description>
         </usecase>
       </usecases>
-    </section>
-    <section title="TOE Usage" id="toeus"> The Mobile Device may be operated in a number of use
+    </sec:TOE_Usage>
+
+	  <section title="TOE Usage" id="toeus"> The Mobile Device may be operated in a number of use
       cases. <xref to="use"/> provides use case templates that list those selections,
       assignments, and objective requirements that best support the use cases identified by this
       Protection Profile. In addition to providing essential security services, the Mobile Device
@@ -751,9 +752,18 @@ A personally-owned device, which is used, for both personal activities and enter
   <sec:Conformance_Claims boilerplate="no">
     <cclaims>
       <cclaim name="Conformance Statement">
-        <description> An ST must claim exact conformance to this PP, as defined in the CC and CEM
+        <description><htm:p>
+		  An ST must claim exact conformance to this PP, as defined in the CC and CEM
           addenda for Exact Conformance, Selection-Based SFRs, and Optional SFRs (dated May 2017).
-        </description>
+        </htm:p><htm:p>
+			
+		The following PP-Modules are allowed to be specified in a PP-Configuration with this PP.
+           <htm:ul>
+             <htm:li>PP-Module for VPN Client, Version 2.2</htm:li>
+             <htm:li>PP-Module for Bluetooth, Version 1.0</htm:li>
+             <htm:li>PP-Module for MDM Agent, Version 1.0</htm:li>
+           </htm:ul>
+		</htm:p>htm:p></description>
       </cclaim>
       <cclaim name="CC Conformance Claims">
         <description>This PP is conformant to Parts 2 (extended) and 3 (extended) of Common
@@ -762,16 +772,6 @@ A personally-owned device, which is used, for both personal activities and enter
       <cclaim name="PP Claim">
         <description>This PP does not claim conformance to any Protection Profile.</description>
         <!-- TODO: Need to deteremine how to reference the Biometric cPP-->
-      </cclaim>
-      <cclaim name="Module Claim">
-        <description>The following PP-Modules are allowed to be specified in a PP-Configuration with
-          this PP.<htm:ul>
-            <htm:li>PP-Module for VPN Client, Version 2.1</htm:li>
-            <htm:li>PP-Module for Bluetooth, Version 1</htm:li>
-            <!-- TODO When WLAN Client is updated -->
-            <!--  <htm:li>PP-Module for WLAN Client, Version X</htm:li> -->
-          </htm:ul>
-        </description>
       </cclaim>
       <cclaim name="Package Claim">
         <description>This PP is TLS Package Conformant.</description>
@@ -934,7 +934,7 @@ A personally-owned device, which is used, for both personal activities and enter
         </assumption>
         <!-- Add for MDM Agent Module; and probably should have had it from the beginning -->
         <assumption name="A.PROPER_USER">
-          <description> Mobile device users are not willfully negligent or hostile, and use the
+          <description> Mobile Device users are not willfully negligent or hostile, and use the
             device within compliance of a reasonable Enterprise security policy. </description>
           <objective-refer ref="OE.DATA_PROPER_USER">
             <rationale>The operational environment objective OE.DATA_PROPER_USER is realized through
@@ -980,7 +980,7 @@ A personally-owned device, which is used, for both personal activities and enter
             FTP_ITC_EXT.1 </addressed-by>
             <rationale>FILL IN </rationale>
         </SO>
-        <SO name="O.PROTECTED_STORAGE">
+        <SO name="O.STORAGE">
           <description> To address the issue of loss of confidentiality of user data in the event of
             loss of a Mobile Device (T.PHYSICAL), conformant TOEs will use data-at-rest protection.
             The TOE will be capable of encrypting data and keys stored on the device and will
@@ -994,7 +994,7 @@ A personally-owned device, which is used, for both personal activities and enter
           </addressed-by>
             <rationale>FILL IN </rationale>
       </SO>
-        <SO name="O.CONFIGURATION">
+        <SO name="O.CONFIG">
           <description> To ensure a Mobile Device protects user and enterprise data that it may
             store or process, conformant TOEs will provide the capability to configure and apply
             security policies defined by the user and the Enterprise Administrator. If Enterprise
@@ -1077,8 +1077,11 @@ A personally-owned device, which is used, for both personal activities and enter
             Device is lost or stolen.</description>
         </SOE>
         <SOE name="OE.PRECAUTION">
-          <description>The Mobile User exercises precautions to reduce the risk of loss or theft of
+          <description>The mobile device user exercises precautions to reduce the risk of loss or theft of
             the Mobile Device.</description>
+        </SOE>
+	    <SOE name="OE.DATA_PROPER_USER">
+          <description>Administrators take measures to ensure that mobile device users are adequately vetted against malicious intent and are made aware of the expectations for appropriate use of the device.</description>      
         </SOE>
       </SOEs>
     </section>
@@ -1098,8 +1101,10 @@ A personally-owned device, which is used, for both personal activities and enter
                 <htm:li><refinement>Insertion or removal of removable media</refinement></htm:li>
                 <htm:li><refinement>Specifically defined auditable events in <xref to="manaudit"/></refinement></htm:li>
                 <htm:li><refinement><selectables>
-                      <selectable>Audit records reaching <assignable>integer value less than 100</assignable> percentage of audit capacity</selectable>
-                      <selectable><assignable>other auditable events derived from this profile</assignable></selectable>
+                  <selectable>Audit records reaching <assignable>integer value less than 100</assignable> percentage of audit capacity</selectable>
+                  <selectable><assignable>other auditable events derived from this Protection Profile</assignable></selectable>
+			      <selectable>no additional auditable events</selectable>
+					
                     </selectables></refinement></htm:li>
                 <htm:li><refinement><selectables>
                       <selectable>Specifically defined auditable event in <xref to="objaudit" /></selectable>
@@ -1339,13 +1344,15 @@ A personally-owned device, which is used, for both personal activities and enter
             <note role="application"> Administrator actions are defined as functions labeled as
               mandatory for FMT_MOF_EXT.1.2 (i.e. ‘M-MM’ in <xref to="fmt_smf"/>). If the TSF
               does not support removable media, number 4 is implicitly met. <htm:br/><htm:br/> The
-              TSF shall generate an audit record for all events contained in <xref to="manaudit"/>. Generating audit records for events in <xref to="objaudit"
-              /> is currently objective. It is acceptable to include individual SFRs from <xref to="objaudit"/> in the ST, without including the entirety of <xref to="objaudit"/>. <htm:br/><htm:br/>
+              TSF must generate an audit record for all events contained in <xref to="manaudit"/>. 
+			  Generating audit records for events in <xref to="objaudit"/> is currently objective.
+			  It is acceptable to include individual SFRs from <xref to="objaudit"/> in the ST,
+			  without including the entirety of <xref to="objaudit"/>. <htm:br/><htm:br/>
               <htm:b><xref to="manaudit"/> Application Note:</htm:b><htm:br/> FPT_TST_EXT.1 –
               Audit of self-tests is required only at initial start-up. Since the TOE "transitions
               to non-operational mode" upon failure of a self-test, per FPT_NOT_EXT.1, this is
               considered equivalent evidence to an audit record for the failure of a self-test.
-              <htm:br/><htm:br/> FDP_DAR_EXT.1 - "None" shall be selected, if the TOE utilizes whole
+              <htm:br/><htm:br/> FDP_DAR_EXT.1 - "None" must be selected, if the TOE utilizes whole
               volume encryption for protected memory, since it is not feasible to audit when the
               encryption/decryption fails. If the TOE utilizes file-based encryption for protected
               data and audits when this encryption/decryption fails, then that auditable event shall
@@ -1373,7 +1380,7 @@ A personally-owned device, which is used, for both personal activities and enter
             <note role="application"> The subject identity is usually the process name/ID. The event
               type is often indicated by a severity level, for example, ‘info’, ‘warning’, or
               ‘error’. <htm:br/><htm:br/> If "no additional auditable events" is selected in the
-              second selection of FAU_GEN.1.1, then "no additional information" shall be selected.
+              second selection of FAU_GEN.1.1, then "no additional information" must be selected.
               <htm:br/><htm:br/> For each audit event selected from <xref to="objaudit"/> in
               FAU_GEN.1.1 if additional information is required to be recorded within the audit
               record, it should be included in this selection. </note>
@@ -1517,7 +1524,7 @@ A personally-owned device, which is used, for both personal activities and enter
       <sec:fcs title="Class: Cryptographic Support (FCS)"> 
         This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: DEKs and KEKs. (A REK is considered a KEK.) DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications. The following diagram shows an example key hierarchy to illustrate the concepts of this profile. This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. Please note if a BAF is selected in FIA_UAU.5.1, the BAF shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If "hybrid" is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF this interaction shall be included.<htm:br/>
         <figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"/>
-        <f-component cc-id="fcs_ckm.1" name="Cryptographic key generation">
+        <f-component cc-id="fcs_ckm.1" name="Cryptographic Key Generation">
           <f-element id="fel-asym-key-gen">
             <title> The TSF shall generate <refinement>asymmetric</refinement> cryptographic keys in
               accordance with a specified cryptographic key generation algorithm 
@@ -1543,17 +1550,15 @@ A personally-owned device, which is used, for both personal activities and enter
                         greater</refinement> that meet the following: <refinement>FIPS PUB 186-4,
                         "Digital Signature Standard (DSS)", Appendix B.1</refinement></selectable>
                     <selectable><refinement>Diffie-Hellman group 14 </refinement>that meet the
-                        following:<refinement> RFC3526, Section 3</refinement></selectable>
+                        following:<refinement> RFC3526</refinement></selectable>
                     <selectable><refinement>"safe-prime" groups</refinement> that meet the
                         following:<refinement> 'NIST Special Publication 800-56A Revision 3,
                         "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete
-                        Logarithm Cryptography"', and </refinement><selectables>
-                        <selectable><refinement>RFC 3526</refinement></selectable>
-                        <selectable><refinement>RFC 7919</refinement></selectable>
+                        Logarithm Cryptography"'</refinement><selectables>
                       </selectables></selectable>
                   </selectables></selectable>
-              </selectables>. </title>
-            <note role="application"> The ST author shall select all key generation schemes used for
+              </selectables>.</title>
+            <note role="application"> The ST author must select all key generation schemes used for
               key establishment and entity authentication. When key generation is used for key
               establishment, the schemes in FCS_CKM.2/UNLOCKED and selected cryptographic protocols
               must match the selection. When key generation is used for entity authentication, the
@@ -1695,7 +1700,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_ckm.2" iteration="UNLOCKED" name="Cryptographic key establishment">
+        <f-component cc-id="fcs_ckm.2" iteration="UNLOCKED" name="Cryptographic Key Establishment">
           <f-element id="fel-unlocked-key">
             <title>The TSF shall <refinement>perform</refinement> cryptographic <refinement>key
                 establishment</refinement> in accordance with a specified cryptographic key
@@ -1707,7 +1712,7 @@ A personally-owned device, which is used, for both personal activities and enter
                         Cryptography”</selectable>
                       <selectable>RSAES-PKCS1-v1_5 as specified in Section 7.2 of RFC 8017,
                         "Public-Key Cryptography Standards (PKCS) #1:RSA Cryptography Specifications
-                        Version 2.1"</selectable>
+                        Version 2.2"</selectable>
                     </selectables></refinement></selectable>
                 <selectable><refinement>Elliptic curve-based key establishment schemes</refinement>
                   that meets the following: <refinement>NIST Special Publication 800-56A Revision 3,
@@ -1718,24 +1723,34 @@ A personally-owned device, which is used, for both personal activities and enter
                     "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm
                     Cryptography"</refinement></selectable>
                 <selectable><refinement>Key establishment schemes using Diffie-Hellman group 14 that
-                    meets the following: RFC 3526, Section 3</refinement></selectable>
-                <selectable><refinement>FFC schemes using "safe-prime" groups that meet the
+                    meets the following: RFC 3526</refinement></selectable>
+                <!-- TD 502 - removed the below, however, I have a question into Dianne about this -->
+                <!--  <selectable><refinement>FFC schemes using "safe-prime" groups that meet the
                     following: 'NIST Special Publication 800-56A Revision 3, "Recommendation for
                     Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography"', and <selectables>
                       <selectable>RFC 3526</selectable>
                       <selectable>RFC 7919</selectable>
-                    </selectables></refinement></selectable>
-                <selectable exclusive="yes"><refinement>No other schemes</refinement></selectable>
-              </selectables>. </title>
-            <note role="application"> The ST author shall select all key establishment schemes used
-              for the selected cryptographic protocols.<htm:br/><htm:br/> The RSA-based key
+                    </selectables></refinement></selectable>-->			  
+			  
+                </selectables>.</title>
+            <note role="application">
+			  The ST author must select all key establishment schemes used for the selected cryptographic protocols
+              and any RSA-based key establishment schemes that may be used to satisfy FDP_DAR or FCS_STG.
+		      Also, FCS_TLSC_EXT.1 requires ciphersuites that use RSA-based key establishment schemes.<htm:br/><htm:br/>				  
+			  The RSA-based key
               establishment schemes are described in Section 9 of NIST SP 800-56B; however, Section
-              9 relies on implementation of other sections in SP 800-56B. If the TOE acts as a
-              receiver in the RSA key establishment scheme, the TOE does not need to implement RSA
-              key generation.<htm:br/><htm:br/> The elliptic curves used for the key establishment
-              scheme shall correlate with the curves specified in FCS_CKM.1.1. <htm:br/><htm:br/>
+              9 relies on implementation of other sections in SP 800-56B.
+			  If the TOE only acts as a receiver in the RSA key establishment scheme,
+			  the TOE does not need to implement RSA key generation.<htm:br/><htm:br/>
+			  
+			  The elliptic curves used for the key establishment
+              scheme must correlate with the curves specified in FCS_CKM.1.1. <htm:br/><htm:br/>
+
               The domain parameters used for the finite field-based key establishment scheme are
-              specified by the key generation according to FCS_CKM.1.1. </note>
+              specified by the key generation according to FCS_CKM.1.1.
+			  The finite field-based key establishment schemes that conform to NIST SP 800-56A Revision 3
+			  correspond to the "safe-prime" groups selection in FCS_CKM.1.1.  
+			  </note>
             <aactivity>
               <TSS> The evaluator shall ensure that the supported key establishment schemes
                 correspond to the key generation schemes identified in FCS_CKM.1.1. If the ST
@@ -1872,7 +1887,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_ckm.2" iteration="LOCKED" name="Cryptographic key establishment">
+        <f-component cc-id="fcs_ckm.2" iteration="LOCKED" name="Cryptographic Key Establishment">
           <f-element id="fel-key-locked">
             <title>The TSF shall <refinement>perform</refinement> cryptographic <refinement>key
                 establishment</refinement> in accordance with a specified cryptographic key
@@ -1901,9 +1916,12 @@ A personally-owned device, which is used, for both personal activities and enter
             <note role="application"> The RSA-based key establishment schemes are described in
               Section 9 of NIST SP 800-56B; however, Section 9 relies on implementation of other
               sections in SP 800-56B. If the TOE acts as a receiver in the RSA key establishment
-              scheme, the TOE does not need to implement RSA key generation. <htm:br/><htm:br/> The
-              elliptic curves used for the key establishment scheme shall correlate with the curves
-              specified in FCS_CKM.1.1. <htm:br/><htm:br/> The domain parameters used for the finite
+              scheme, the TOE does not need to implement RSA key generation. <htm:br/><htm:br/>
+				
+			  The elliptic curves used for the key establishment scheme must correlate with the curves
+              specified in FCS_CKM.1.1. <htm:br/><htm:br/>
+			 
+			  The domain parameters used for the finite
               field-based key establishment scheme are specified by the key generation according to
               FCS_CKM.1.1. </note>
             <aactivity>
@@ -1942,7 +1960,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_ckm_ext.1" name="Extended: Cryptographic Key Support">
+        <f-component cc-id="fcs_ckm_ext.1" name="Cryptographic Key Support">
           <f-element id="fel-mut-hard">
             <title>The TSF shall support <selectables>
                 <selectable>immutable hardware</selectable>
@@ -1965,16 +1983,22 @@ A personally-owned device, which is used, for both personal activities and enter
             <note role="application"> Either asymmetric or symmetric keys are allowed; the ST author
               makes the selection appropriate for the device. Symmetric keys must be of size 128 or
               256 bits in order to correspond with FCS_COP.1/ENCRYPT. Asymmetric keys may be of any
-              strength corresponding to FCS_CKM.1. <htm:br/><htm:br/> The raw key material of
+              strength corresponding to FCS_CKM.1. <htm:br/><htm:br/>
+			  
+			  The raw key material of
               "immutable hardware" REK(s) is computationally processed by hardware and software
               cannot access the raw key material. Thus if "immutable-hardware" is selected in
               FCS_CKM_EXT.1.1 it implicitly meets FCS_CKM_EXT.7. If "mutable-hardware" is selected
-              in FCS_CKM_EXT.1.1, FCS_CKM_EXT.7 must be included in the ST. <htm:br/><htm:br/> The
+              in FCS_CKM_EXT.1.1, FCS_CKM_EXT.7 must be included in the ST.<htm:br/><htm:br/>
+			  
+			  The
               lack of a public/documented API for importing or exporting the REK, when a
               private/undocumented API exists, is not sufficient to meet this requirement.
-              <htm:br/><htm:br/> The RBG used to generate a REK may be a RBG native to the hardware
+              <htm:br/><htm:br/>
+			  
+			  The RBG used to generate a REK may be a RBG native to the hardware
               key container or may be an off-device RBG. If performed by an off-device RBG, the
-              device manufacturer shall not be able to access a REK after the manufacturing process
+              device manufacturer must not be able to access a REK after the manufacturing process
               has been completed. The Evaluation Activities for these two cases differ. </note>
             <aactivity>
               <TSS> The evaluator shall review the TSS to determine that a REK is supported by the
@@ -2013,7 +2037,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_ckm_ext.2" name="Extended: Cryptographic Key Random Generation">
+        <f-component cc-id="fcs_ckm_ext.2" name="Cryptographic Key Random Generation">
           <f-element id="fel-dek-gen">
             <title>All DEKs shall be <selectables>
                 <selectable>randomly generated</selectable>
@@ -2035,23 +2059,17 @@ A personally-owned device, which is used, for both personal activities and enter
               (FCS_RBG_EXT.1). Either 128-bit or 256-bit (or both) are allowed; the ST author makes
               the selection appropriate for the device. A DEK is used in addition to the KEK so that
               authentication factors can be changed without having to re-encrypt all of the user
-              data on the device.<htm:br/><htm:br/> The ST author selects all applicable DEK
-              generation types implemented by the TOE.<htm:br/><htm:br/> If combined, the ST author
-              shall describe which method of combination is used in order to justify that the
-              effective entropy of each factor is preserved, and the ST author shall describe that
-              each combined value was originally generated from an Approved DRBG described in
-              FCS_RBG_EXT.1 <htm:br/><htm:br/> The documentation of the product's encryption key
-              management should be detailed enough that, after reading, the evaluator will
-              thoroughly understand the product's key management and how it meets the requirements
-              to ensure the keys are adequately protected. This documentation should include an
-              essay and diagram(s). This documentation is not required to be part of the TSS - it
-              can be submitted as a separate document and marked as developer
-              proprietary.<htm:br/><htm:br/> SP 800-56C specifies a two-step key derivation
+              data on the device.<htm:br/><htm:br/>
+			  
+			  The ST author selects all applicable DEK
+              generation types implemented by the TOE.<htm:br/><htm:br/>
+			  
+			  SP 800-56C specifies a two-step key derivation
               procedure that employs an extraction-then-expansion technique for deriving keying
               material from a shared secret generated during a key establishment scheme. The
               Randomness Extraction step as described in Section 5 of SP 800-56C is followed by Key
               Expansion using the key derivation functions defined in SP 800-108 (as described in
-              Section 6 of SP 800-56C).<htm:br/><htm:br/>
+              Section 6 of SP 800-56C).
             </note>
             <aactivity>
               <TSS> The evaluator shall examine the key hierarchy section of the TSS to ensure that
@@ -2252,7 +2270,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_ckm_ext.3" name="Extended: Cryptographic Key Generation">
+        <f-component cc-id="fcs_ckm_ext.3" name="Cryptographic Key Generation">
           <f-element id="fel-kek-asym">
             <title>The TSF shall use <selectables>
                 <selectable id="s-kek-asym"><snip>asymmetric KEKs</snip> of <assignable id="a-kek-asym-size">security strength greater than or equal
@@ -2296,13 +2314,9 @@ A personally-owned device, which is used, for both personal activities and enter
               asymmetric key generated using a key generation scheme according to FCS_CKM.1.
               <htm:br/><htm:br/> If combined, the ST author shall describe which method of
               combination is used in order to justify that the effective entropy of each factor is
-              preserved. <htm:br/><htm:br/> The documentation of the product's encryption key
-              management should be detailed enough that, after reading, the evaluator will
-              thoroughly understand the product's key management and how it meets the requirements
-              to ensure the keys are adequately protected. This documentation should include an
-              essay and diagram(s). This documentation is not required to be part of the TSS - it
-              can be submitted as a separate document and marked as developer proprietary.
-              <htm:br/><htm:br/> SP 800-56C specifies a two-step key derivation procedure that
+              preserved. <htm:br/><htm:br/>
+			  
+			  SP 800-56C specifies a two-step key derivation procedure that
               employs an extraction-then-expansion technique for deriving keying material from a
               shared secret generated during a key establishment scheme. The Randomness Extraction
               step as described in Section 5 of SP 800-56C is followed by Key Expansion using the
@@ -2514,7 +2528,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_ckm_ext.4" name="Extended: Key Destruction">
+        <f-component cc-id="fcs_ckm_ext.4" name="Key Destruction">
           <f-element id="fel-key-kill-how">
             <title>The TSF shall destroy cryptographic keys in accordance with the specified cryptographic key destruction methods: <htm:br/>
               <htm:ul>
@@ -2679,7 +2693,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_ckm_ext.5" name="Extended: TSF Wipe">
+        <f-component cc-id="fcs_ckm_ext.5" name="TSF Wipe">
           <f-element id="fel-wipe-how">
             <title>The TSF shall wipe all protected data by <selectables linebreak="yes">
                <selectable>Cryptographically erasing the encrypted DEKs and/or the KEKs in non-volatile memory by following the requirements in FCS_CKM_EXT.4.1</selectable>
@@ -2699,13 +2713,12 @@ A personally-owned device, which is used, for both personal activities and enter
               </selectables>. 
             </title>
             <note role="Application"> 
-              Protected data is all non-TSF data, including all user or enterprise data. Some or all of this data may be considered sensitive data as well.
+              Protected data is all non-TSF data, including all user or enterprise data.
+			 Some or all of this data may be considered sensitive data as well.
             </note>
           </f-element>
           <f-element id="fel-wipe-power">
             <title>The TSF shall perform a power cycle on conclusion of the wipe procedure. </title>
-            <note role="application"> 
-              The ST author shall select which method of wipe the TSF performs.</note>
             <aactivity>
               <TSS> 
                 The evaluator shall check to ensure the TSS describes how the device is wiped, the type of clearing procedure that is performed (cryptographic erase or overwrite) and, if overwrite is performed, the overwrite procedure (overwrite with zeros, overwrite three or more times by a different alternating pattern, overwrite with random pattern, or block erase). <htm:br/><htm:br/>
@@ -2734,7 +2747,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_ckm_ext.6" name="Extended: Salt Generation">
+        <f-component cc-id="fcs_ckm_ext.6" name="Salt Generation">
           <f-element id="fel-salt-gen">
             <title>The TSF shall generate all salts using a RBG that meets FCS_RBG_EXT.1. </title>
             <note role="application">This requirement refers only to salt generation. In the
@@ -2777,7 +2790,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_cop.1" name="Cryptographic operation" iteration="ENCRYPT">
+        <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="ENCRYPT">
           <f-element id="fel-crypt-how">
             <title>The TSF shall perform encryption/decryption in accordance with a specified
               cryptographic algorithm: <htm:br/>
@@ -3043,7 +3056,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_cop.1" name="Cryptographic operation" iteration="HASH">
+        <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="HASH">
           <f-element id="fel-hash-how">
             <title>The TSF shall perform <refinement>cryptographic hashing</refinement> in
               accordance with a specified cryptographic algorithm <refinement>SHA-1 and <selectables>
@@ -3071,10 +3084,10 @@ A personally-owned device, which is used, for both personal activities and enter
               function. The hash selection must support the message digest size selection. The hash
               selection should be consistent with the overall strength of the algorithm used (for
               example, SHA 256 for 128-bit keys). <htm:br/><htm:br/> The TSF hashing functions can
-              be implemented in one of two modes. The first mode is the byte­oriented mode. In this
+              be implemented in one of two modes. The first mode is the byte-oriented mode. In this
               mode the TSF only hashes messages that are an integral number of bytes in length; i.e.
               the length (in bits) of the message to be hashed is divisible by 8. The second mode is
-              the bit­oriented mode. In this mode the TSF hashes messages of arbitrary length. The
+              the bit-oriented mode. In this mode the TSF hashes messages of arbitrary length. The
               TSF may implement either bit-oriented or byte-oriented; both implementations are not
               required. </note>
             <aactivity>
@@ -3136,7 +3149,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_cop.1" name="Cryptographic operation" iteration="SIGN">
+        <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="SIGN">
           <f-element id="fel-sign-how">
             <title>The TSF shall perform <refinement>cryptographic signature services (generation
                 and verification)</refinement> in accordance with a specified cryptographic
@@ -3152,7 +3165,7 @@ A personally-owned device, which is used, for both personal activities and enter
                     Standard (DSS)", Section 5</refinement></selectable>
                 <selectable exclusive="yes">No other algorithms</selectable>
               </selectables>. </title>
-            <note role="application">The ST Author should choose the algorithm implemented to
+            <note role="application">The ST author should choose the algorithm implemented to
               perform digital signatures; if more than one algorithm is available, this requirement
               should be iterated to specify the functionality. For the algorithm chosen, the ST
               author should make the appropriate assignments/selections to specify the parameters
@@ -3205,7 +3218,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_cop.1" name="Cryptographic operation" iteration="KEYHMAC">
+        <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="KEYHMAC">
           <f-element id="fel-keyed-hash-how">
             <title>The TSF shall perform <refinement>keyed-hash message authentication</refinement>
               in accordance with a specified cryptographic algorithm <refinement>HMAC-SHA-1 and <selectables>
@@ -3242,7 +3255,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_cop.1" name="Cryptographic operation" iteration="CONDITION">
+        <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="CONDITION">
           <f-element id="fel-cond-how">
             <title>The TSF shall perform <refinement>conditioning</refinement> in accordance with a
               specified cryptographic algorithm <refinement>HMAC-<selectables>
@@ -3268,7 +3281,7 @@ A personally-owned device, which is used, for both personal activities and enter
               <htm:br/><htm:br/> This password must be conditioned into a string of bits that forms
               the submask to be used as input into the KEK. Conditioning can be performed using one
               of the identified hash functions and may include a key stretching function; the method
-              used is selected by the ST Author. If selected, NIST SP 800-132 requires the use of a
+              used is selected by the ST author. If selected, NIST SP 800-132 requires the use of a
               pseudo-random function (PRF) consisting of HMAC with an approved hash function. The ST
               author selects the hash function used, also includes the appropriate requirements for
               HMAC and the hash function. <htm:br/><htm:br/> Appendix A of NIST SP 800-132
@@ -3291,18 +3304,19 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_https_ext.1" name="Extended: HTTPS Protocol">
+        <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol">
           <f-element id="fel-https-how">
             <title>The TSF shall implement the HTTPS protocol that complies with RFC 2818. </title>
           </f-element>
           <f-element id="fel-https-tls">
             <title>The TSF shall implement HTTPS using TLS as defined in the Package for Transport Layer Security. </title>
             <note role="application"> 
-              The Package for Transport Layer Security shall be included in the ST, with the following selections made: <htm:ul>
+              The Package for Transport Layer Security must be included in the ST, with the following selections made:
+			  <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
                 <htm:ul>
-                  <htm:li>TLS shall be selected</htm:li>
-                  <htm:li>Client shall be selected</htm:li>
+                  <htm:li>TLS must be selected</htm:li>
+                  <htm:li>Client must be selected</htm:li>
                 </htm:ul>
               </htm:ul>
             </note>
@@ -3315,15 +3329,18 @@ A personally-owned device, which is used, for both personal activities and enter
                 <selectable exclusive="yes">no other action</selectable>
               </selectables> if the peer certificate is deemed invalid. </title>
             <note role="application"> Validity is determined by the certificate path, the expiration
-              date, and the revocation status in accordance with RFC 5280. <htm:br/><htm:br/> If
-              "not establish the connection" is selected then "with no exceptions" shall be selected
-              for FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. If "request
-              application authorization to establish the connection" is selected then "except when
-              override is authorized" shall be selected for FCS_TLSC_EXT.1.3 in the Package for
-              Transport Layer Security. If "no other action" is selected either selection can be
+              date, and the revocation status in accordance with RFC 5280. <htm:br/><htm:br/>
+			  
+			  If "not establish the connection" is selected then "with no exceptions" must be selected
+              for FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security.
+			  If "request application authorization to establish the connection" is selected then "except when
+              override is authorized" must be selected for FCS_TLSC_EXT.1.3 in the Package for
+              Transport Layer Security.
+			  If "no other action" is selected either selection can be
               made in FCS_TLSC_EXT.1.3.<htm:br/><htm:br/>
-	      FMT_SMF_EXT.1 <xref to="mf-certInvalid"/> configures whether to allow/disallow the establishment of a
-              trusted channel if the peer certificate is deemed invalid. </note>
+				
+	          FMT_SMF_EXT.1 <xref to="mf-certInvalid"/> configures whether to allow/disallow the establishment of a
+              trusted channel if the peer certificate is deemed invalid.</note>
             <aactivity>
               <!-- TODO: Need to fix EA and interweave FMT_SMF_EXT function certInvalid -->
               <Tests>
@@ -3347,7 +3364,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_iv_ext.1" name="Extended: Initialization Vector Generation">
+        <f-component cc-id="fcs_iv_ext.1" name="Initialization Vector Generation">
           <f-element id="fel-ivs-how">
             <title>The TSF shall generate IVs in accordance with <xref to="ivtable"/>:
               References and IV Requirements for NIST-approved Cipher Modes. </title>
@@ -3364,7 +3381,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_rbg_ext.1" name="Extended: Cryptographic Operation (Random Bit Generation)">
+        <f-component cc-id="fcs_rbg_ext.1" name="Random Bit Generation">
           <f-element id="fel-rbg-how">
             <title>The TSF shall perform all deterministic random bit generation services in
               accordance with NIST Special Publication 800-90A using <selectables>
@@ -3469,8 +3486,8 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_rbg_ext.2" name="Extended: Cryptographic Operation (Random Bit Generation)" status="objective">
-          <f-element id="fel-rbg-power">
+        <f-component cc-id="fcs_rbg_ext.2" name=S"Random Bit Generator State Preservation" status="objective">
+          <f-element id="fel-rbg-state-preserve">
             <title>The TSF shall save the state of the deterministic RBG at power-off, and shall use
               this state as input to the deterministic RBG at startup.</title>
             <note role="application"> The capability to add the state saved at power-off as input to
@@ -3489,8 +3506,8 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_rbg_ext.3" name="Extended: Cryptographic Operation (Random Bit Generation)" status="objective">
-          <f-element id="fel-rbg-appadd">
+        <f-component cc-id="fcs_rbg_ext.3" name="Support for Personalization String" status="objective">
+          <f-element id="fel-rbg-person-string">
             <title>The TSF shall allow applications to add data to the deterministic RBG using the
               Personalization String as defined in SP 800-90A. </title>
             <note role="application"> As specified in SP 800-90A the TSF shall not count data input
@@ -3528,7 +3545,7 @@ A personally-owned device, which is used, for both personal activities and enter
                     <selectable exclusive="yes">no other modes</selectable>
                   </selectables>
                 </htm:li>
-                <htm:li>All mandatory and selected algorithms in FCS_COP.1/SIGN</htm:li>
+                <htm:li>All selected algorithms in FCS_COP.1/SIGN</htm:li>
                 <htm:li>All mandatory and selected algorithms in FCS_COP.1/HASH</htm:li>
                 <htm:li>All mandatory and selected algorithms in FCS_COP.1/KEYHMAC</htm:li>
                 <htm:li>
@@ -3598,7 +3615,7 @@ A personally-owned device, which is used, for both personal activities and enter
             Device for use by applications and users, applying the same level of protection for
             these keys as keys internal to the OS. </htm:p>
         </htm:div>-->
-          <f-component cc-id="fcs_stg_ext.1" name="Extended: Cryptographic Key Storage">
+          <f-component cc-id="fcs_stg_ext.1" name="Cryptographic Key Storage">
             <f-element id="fel-key-store">
               <title>The TSF shall provide <selectables>
                 <selectable>mutable hardware</selectable>
@@ -3610,11 +3627,18 @@ A personally-owned device, which is used, for both personal activities and enter
               </selectables>. </title>
               <note role="application">A hardware keystore can be exposed to the TSF through a variety
                 of interfaces, including embedded on the motherboard, USB, microSD, and Bluetooth.
-                <htm:br/><htm:br/> Immutable hardware is considered outside of this requirement and
-                will be covered elsewhere. <htm:br/><htm:br/> If the secure key storage is implemented
-                in software that is protected as required by FCS_STG_EXT.2, the ST author shall select
-                "software-based." If "software-based" is selected, the ST author shall select "all
-                software-based key storage" in FCS_STG_EXT.2. <htm:br/><htm:br/> Support for secure
+                <htm:br/><htm:br/>
+
+				Immutable hardware is considered outside of this requirement and
+                will be covered elsewhere. <htm:br/><htm:br/>
+				  
+				If the secure key storage is implemented
+                in software that is protected as required by FCS_STG_EXT.2, the ST author must select
+                "software-based."
+				If "software-based" is selected, the ST author must select "all
+                software-based key storage" in FCS_STG_EXT.2. <htm:br/><htm:br/>
+				
+				Support for secure
                 key storage for all symmetric keys and persistent secrets will be required in future
                 revisions. </note>
             </f-element>
@@ -3622,12 +3646,12 @@ A personally-owned device, which is used, for both personal activities and enter
               <title>The TSF shall be capable of importing keys/secrets into the secure key storage
                 upon request of <selectables>
                   <selectable id="import-user">the user</selectable>
-                  <selectable>the administrator</selectable>
+                  <selectable id="s-import-admin">the administrator</selectable>
                 </selectables> and <selectables>
                   <selectable>applications running on the TSF</selectable>
                   <selectable exclusive="yes">no other subjects</selectable>
                 </selectables>. </title>
-              <note role="application"> If the ST Author selects only user, the ST Author shall select
+              <note role="application"> If the ST selects only <xref to="import-user"/>, the ST author must select
                 <xref to="mf-keyStorage"/> in FMT_MOF_EXT.1.1. </note>
             </f-element>
             <f-element id="fel-keystore-kill">
@@ -3636,7 +3660,7 @@ A personally-owned device, which is used, for both personal activities and enter
                   <selectable>the user</selectable>
                   <selectable>the administrator</selectable>
                 </selectables>. </title>
-              <note role="application">If the ST Author selects only user, the ST Author shall select
+              <note role="application">If the ST selects <xref to="import-user"/>, the ST author must select
                 <xref to="mf-keyWipe"/> in FMT_MOF_EXT.1.1. </note>
             </f-element>
             <f-element id="fel-keystore-who-access">
@@ -3646,20 +3670,23 @@ A personally-owned device, which is used, for both personal activities and enter
                   <selectable>the administrator</selectable>
                   <selectable>a common application developer</selectable>
                 </selectables>. </title>
-              <note role="application">If the ST Author selects user or administrator, the ST Author
-                must also select <xref to="mf-sharedKeys"/> in FMT_SMF_EXT.1.1. If the ST
-                Author selects only user, the ST Author shall select <xref to="mf-sharedKeys"/> in FMT_MOF_EXT.1.1. </note>
+              <note role="application">If the ST selects <xref to="import-user"/> or <xref to="s-import-admin"/>,
+				the ST author must also select <xref to="mf-sharedKeys"/> in FMT_SMF_EXT.1.1.
+				If the ST selects <xref to="import-user"/>, the ST author must select
+				<xref to="mf-sharedKeys"/> in FMT_MOF_EXT.1.1.
+			  </note>
             </f-element>
             <f-element id="fel-keystore-who-kill">
               <title>The TSF shall allow only the application that imported the key/secret to request
                 that the key/secret be destroyed. Exceptions may only be explicitly authorized by <selectables>
-                  <selectable>the user</selectable>
-                  <selectable>the administrator</selectable>
+                  <selectable id="s-killkey-user">the user</selectable>
+                  <selectable id="s-killkey-admin">the administrator</selectable>
                   <selectable>a common application developer</selectable>
                 </selectables>. </title>
-              <note role="application">If the ST Author selects user or administrator, the ST Author
-                must also select <xref to="mf-keyWipeRules"/> in FMT_SMF_EXT.1.1. If the
-                ST Author selects only user, the ST Author shall select <xref to="mf-keyWipeRules"/> in FMT_MOF_EXT.1.1. </note>
+              <note role="application">If the ST selects <xref to="s-killkey-user"/> or <xref to="s-killkey-admin"/>,
+				the ST author must also select <xref to="mf-keyWipeRules"/> in FMT_SMF_EXT.1.1.
+				If the ST selects only <xref to="s-killkey-user"/>, 
+				the ST author must select <xref to="mf-keyWipeRules"/> in FMT_MOF_EXT.1.1. </note>
               <aactivity> The evaluator shall verify that the API documentation provided according to
                 <xref to="adv"/> includes the security functions (import, use, and
                 destruction) described in these requirements. The API documentation shall include the
@@ -3702,7 +3729,7 @@ A personally-owned device, which is used, for both personal activities and enter
                       <htm:li>The evaluator shall repeat the test, allowing the approvals to verify
                         that the application is able to use the key/secret as described.</htm:li>
                     </htm:ul>
-                    <htm:br/> If the ST Author has selected "common application developer", this
+                    <htm:br/> If the ST author has selected "common application developer", this
                     test is performed by either using applications from different developers or
                     appropriately (according to API documentation) not authorizing sharing.<htm:br/>
                   </test>
@@ -3721,7 +3748,7 @@ A personally-owned device, which is used, for both personal activities and enter
                         verifying that the application is no longer able to use the key/secret as
                         described.</htm:li>
                     </htm:ul>
-                    <htm:br/> If the ST Author has selected "common application developer", this
+                    <htm:br/> If the ST author has selected "common application developer", this
                     test is performed by either using applications from different developers or
                     appropriately (according to API documentation) not authorizing sharing. </test>
                 </testlist>
@@ -3729,7 +3756,7 @@ A personally-owned device, which is used, for both personal activities and enter
               </aactivity>
             </f-element>
           </f-component>
-          <f-component cc-id="fcs_stg_ext.2" name="Extended: Encrypted Cryptographic Key Storage">
+          <f-component cc-id="fcs_stg_ext.2" name="Encrypted Cryptographic Key Storage">
             <f-element id="fel-encrypt-key-what">
               <title>The TSF shall encrypt all DEKs, KEKs, <assignable>any long-term trusted channel
                 key material</assignable> and <selectables>
@@ -3756,28 +3783,26 @@ A personally-owned device, which is used, for both personal activities and enter
                 hardware" in FCS_STG_EXT.1.1, the secure key storage is not subject to this
                 requirement. REKs are not subject to this requirement. <htm:br/><htm:br/> A REK and
                 the password-derived KEK may be combined to form a combined KEK (as described in
-                FCS_CKM_EXT.3) in order to meet this requirement. <htm:br/><htm:br/> Sensitive data is
-                protected by the REK and the password or biometric. Sensitive data includes some or
-                all user or enterprise data. Software-based key storage itself shall be considered
-                sensitive data and be protected accordingly, i.e. by the password or biometric and
-                REK. <htm:br/><htm:br/> All keys must ultimately be protected by a REK. Sensitive data
-                must be protected by the password or biometric (selection 2).
+                FCS_CKM_EXT.3) in order to meet this requirement. <htm:br/><htm:br/>
+				
+				Software-based key storage must be protected by the password or biometric and
+                REK. <htm:br/><htm:br/>
+				  
+				All keys must ultimately be protected by a REK. 
 				In particular, <xref to="Keys"/> has KEKs protected according to these requirements: 
-				DEK_1 meets 2a
-                and would be appropriate for sensitive data, DEK_2 meets 1b and would not be
-                appropriate for sensitive data, K_1 meets 1a and is not considered a sensitive key,
-                and K_2 meets 2b and is considered a sensitive key. <htm:br/><htm:br/> Long-term
+				DEK_1 meets the "encryption by a REK and the password-derived KEK" case and 
+				would be appropriate for sensitive data, 
+				DEK_2 meets the "encryption by a REK and the password-derived KEK" case and would not be
+                appropriate for sensitive data, K_1 meets "the encryption by a REK" case and is not considered a sensitive key,
+                and K_2 meets the "encryption by a KEK chaining to a REK and the password-dervied or biometric-unlocked KEK" case and is considered a sensitive key. <htm:br/><htm:br/>
+				  
+				Long-term
                 trusted channel key material includes Wi-Fi (PSKs), IPsec (PSKs and client
-                certificates) and Bluetooth keys. These keys shall not be protected by the password,
+                certificates) and Bluetooth keys.
+				These keys must not be protected by the password,
                 as they may be necessary in the locked state. For clarity, the ST author must assign
                 any Long-term trusted channel key material supported by the TOE . At a minimum, a TOE
-                must support at least Wi-Fi and Bluetooth keys. <htm:br/><htm:br/> The documentation of
-                the product's encryption key management should be detailed enough that, after reading,
-                the evaluator will thoroughly understand the product's key management and how it meets
-                the requirements to ensure the keys are adequately protected. This documentation
-                should include an essay and diagram(s). This documentation is not required to be part
-                of the TSS - it can be submitted as a separate document and marked as developer
-                proprietary. </note>
+                must support at least Wi-Fi and Bluetooth keys.</note>
               <aactivity>
                 <TSS>The evaluator shall review the TSS to determine that the TSS includes key
                   hierarchy description of the protection of each DEK for data-at-rest, of
@@ -3820,7 +3845,7 @@ A personally-owned device, which is used, for both personal activities and enter
               </aactivity>
             </f-element>
           </f-component>
-          <f-component cc-id="fcs_stg_ext.3" name="Extended: Integrity of encrypted key storage">
+          <f-component cc-id="fcs_stg_ext.3" name="Integrity of Encrypted Key Storage">
             <f-element id="fel-protect-key-what">
               <title>The TSF shall protect the integrity of any encrypted DEKs and KEKs and <selectables>
                 <selectable>long-term trusted channel key material</selectable>
@@ -3857,13 +3882,10 @@ A personally-owned device, which is used, for both personal activities and enter
                 multiple of these methods; however, a product may use one integrity-protection method
                 for one type of key and a different method for other types of keys. The explicit
                 Evaluation Activities for each of the options will be addressed in each of the
-                requirements (FCS_COP.1.1/HASH, FCS_COP.1.1/KEYHMAC). <htm:br/><htm:br/> Key Wrapping
-                shall be implemented per SP800-38F.<htm:br/><htm:br/> The documentation of the
-                product's encryption key management should be detailed enough that, after reading, the
-                evaluator will thoroughly understand the product's key management and how it meets the
-                requirements to ensure the keys are adequately protected. This documentation should
-                include an essay and diagram(s). This documentation is not required to be part of the
-                TSS - it can be submitted as a separate document and marked as developer proprietary. </note>
+                requirements (FCS_COP.1.1/HASH, FCS_COP.1.1/KEYHMAC). <htm:br/><htm:br/>
+				  
+				Key Wrapping must be implemented per SP800-38F.
+			  </note>
               <aactivity>
                 <TSS>The evaluator shall examine the key hierarchy description in the TSS section to
                   verify that each encrypted key is integrity protected according to one of the
@@ -3899,7 +3921,7 @@ A personally-owned device, which is used, for both personal activities and enter
 
 
 
-	<f-component cc-id="fdp_acf_ext.1" name="Extended: Security access control">
+	<f-component cc-id="fdp_acf_ext.1" name="Access Control for System Services">
           <f-element id="fel-restrict-sys-service">
             <title>The TSF shall provide a mechanism to restrict the system services that are
               accessible to an application. </title>
@@ -4026,7 +4048,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fdp_acf_ext.2" name="Extended: Security access control" status="sel-based">
+        <f-component cc-id="fdp_acf_ext.2" name="Access Control for System Resources" status="sel-based">
           <depends on="fdp_group"/>
           <f-element id="fel-per-app-resources">
             <title>The TSF shall provide a separate <selectables>
@@ -4133,7 +4155,7 @@ A personally-owned device, which is used, for both personal activities and enter
           </f-element>
         </f-component>
 	
-        <f-component cc-id="fdp_dar_ext.1" name="Extended: Protected Data Encryption">
+        <f-component cc-id="fdp_dar_ext.1" name="Protected Data Encryption">
           <f-element id="fel-dar-what">
             <title>Encryption shall cover all protected data. </title>
             <note role="application"> Protected data is all non-TSF data, including all user or
@@ -4149,7 +4171,7 @@ A personally-owned device, which is used, for both personal activities and enter
                 <selectable>128</selectable>
                 <selectable id="s-dar-256">256</selectable>
               </selectables> bits. </title>
-            <note role="application">IVs shall be generated in accordance with
+            <note role="application">IVs must be generated in accordance with
               FCS_IV_EXT.1.1.</note>
             <aactivity>
               <TSS>The evaluator shall verify that the TSS section of the ST indicates which data is
@@ -4178,7 +4200,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fdp_dar_ext.2" name="Extended: Sensitive Data Encryption">
+        <f-component cc-id="fdp_dar_ext.2" name="Sensitive Data Encryption">
           <f-element id="fel-dar-app-what">
             <title>The TSF shall provide a mechanism for applications to mark data and keys as
               sensitive. </title>
@@ -4257,12 +4279,7 @@ A personally-owned device, which is used, for both personal activities and enter
               REK and password-derived or biometric-unlocked KEK. A stored private key of the
               asymmetric key scheme for encrypting data in the locked state must be encrypted with
               (or chain to a KEK encrypted with) the REK and password-derived or biometric-unlocked
-              KEK. <htm:br/><htm:br/> The documentation of the product's encryption key management
-              should be detailed enough that, after reading, the evaluator will thoroughly
-              understand the product's key management and how it meets the requirements to ensure
-              the keys are adequately protected. This documentation should include an essay and
-              diagram(s). This documentation is not required to be part of the TSS - it can be
-              submitted as a separate document and marked as developer proprietary. </note>
+              KEK.</note>
             <aactivity>
               <TSS>The evaluator shall verify that the key hierarchy section of the TSS required for
                 FCS_STG_EXT.2.1 includes the symmetric encryption keys (DEKs) used to encrypt
@@ -4290,29 +4307,37 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fdp_ifc_ext.1" name="Extended: Subset information flow control">
+        <f-component cc-id="fdp_ifc_ext.1" name="Subset Information Flow Control">
           <f-element id="fel-vpn-service">
             <title>The TSF shall <selectables linebreak="yes">
                 <selectable>provide an interface which allows a VPN client to protect all IP traffic
                   using IPsec</selectable>
                 <selectable>provide a VPN client which can protect all IP traffic using
-                  IPsec</selectable>
+                  IPsec <htm:b>as defined in the PP-Module for VPN Client</htm:b></selectable>
               </selectables> with the exception of IP traffic required to establish the VPN
               connection. </title>
             <note role="application">Typically, the traffic required to establish the VPN connection
               is referred to as "Control Plane" traffic; whereas, the IP traffic protected by the
               IPsec VPN is referred to as "Data Plane" traffic. All "Data Plane" traffic must flow
-              through the VPN connection and the VPN must not split-tunnel. <htm:br/><htm:br/> If no
+              through the VPN connection and the VPN must not split-tunnel. <htm:br/><htm:br/>
+				
+		      If no
               native IPsec client is validated or third-party VPN clients may also implement the
-              required Information Flow Control, the first option shall be selected. In these cases,
+              required Information Flow Control, the first option must be selected.
+			  In these cases,
               the TOE provides an API to third-party VPN clients that allow them to configure the
-              TOE’s network stack to perform the required Information Flow Control.
-              <htm:br/><htm:br/> The ST author shall select the second option if the TSF implements
-              a native VPN client (IPsec is selected in FTP_ITC_EXT.1). Thus the TSF shall be
-              validated against the PP-Module for VPN Client and the ST author shall also include
-              FDP_IFC_EXT from the PP-Module for VPN Client. <htm:br/><htm:br/> It is optional for
+              TOE’s network stack to perform the required Information Flow Control.<htm:br/><htm:br/>
+				
+			  The ST author must select the second option if the TSF implements
+              a native VPN client (IPsec is selected in FTP_ITC_EXT.1).
+			  Thus the TSF must be validated against the PP-Module for VPN Client and
+		      the ST author must also include
+              FDP_IFC_EXT.1 from the PP-Module for VPN Client. <htm:br/><htm:br/>
+				
+			  It is optional for
               the VPN client to be configured to be always-on per FMT_SMF_EXT.1 
-			  <xref to="mf-alwaysOnVPN"/>. Always-on means the establishment of an IPsec trusted channel
+			  <xref to="mf-alwaysOnVPN"/>.
+			  Always-on means the establishment of an IPsec trusted channel
               to allow any communication by the TSF. </note>
             <aactivity>
               <TSS>The evaluator shall verify that the TSS section of the ST describes the routing
@@ -4378,7 +4403,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fdp_stg_ext.1" name="Extended: User Data Storage">
+        <f-component cc-id="fdp_stg_ext.1" name="User Data Storage">
           <f-element id="fel-trust-anchor">
             <title>The TSF shall provide protected storage for the Trust Anchor Database. </title>
             <aactivity>
@@ -4391,14 +4416,14 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fdp_upc_ext.1" iteration="NORMAL" name="Extended: Inter-TSF user data transfer protection">
+        <f-component cc-id="fdp_upc_ext.1" iteration="APPS" name="Inter-TSF User Data Transfer Protection (Applications)">
           <f-element id="fel-tls-app">
             <title>The TSF shall provide a means for non-TSF applications executing on the TOE to use <htm:ul>
                 <htm:li>mutually authenticated TLS as defined in the Package for Transport Layer Security,</htm:li>
                 <htm:li>HTTPS,</htm:li>
               </htm:ul>and <selectables linebreak="yes">
                 <selectable id="upc_dtls">mutually authenticated DTLS as defined in the Package for Transport Layer Security</selectable>
-                <selectable>IPsec in accordance with the PP-Module for VPN Client</selectable>
+                <selectable id="s-upc-ipsec">IPsec as defined in the PP-Module for VPN Client</selectable>
                 <selectable>no other protocol</selectable>
               </selectables> to provide a protected communication channel between the non-TSF
               application and another IT product that is logically distinct from other communication
@@ -4406,9 +4431,11 @@ A personally-owned device, which is used, for both personal activities and enter
               from disclosure, and detects modification of the channel data. </title>
             <note role="application"> 
               The intent of this requirement is that one of the selected protocols is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. It should be noted that the FTP_ITC_EXT.1 requires that all TSF communications be protected using the protocols indicated in that requirement, so the protocols required by this component ride "on top of" those listed in FTP_ITC_EXT.1.<htm:br/><htm:br/> 
-              It should also be noted that some applications are part of the TSF, and FTP_ITC_EXT.1 requires that TSF applications be protected by at least one of the protocols in first selection in FTP_ITC_EXT.1. It is not required to have two different implementations of a protocol, or two different protocols, to satisfy both this requirement (for non-TSF apps) and FTP_ITC_EXT.1 (for TSF apps), as long as the services specified are provided. <htm:br/><htm:br/> 
-              The ST author shall list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps.<htm:br/><htm:br/> 
-              The TSF shall be validated against requirements from the Package for Transport Layer Security, with the following selections made: <htm:ul>
+              It should also be noted that some applications are part of the TSF, and FTP_ITC_EXT.1 requires that TSF applications be protected by at least one of the protocols in first selection in FTP_ITC_EXT.1. It is not required to have two different implementations of a protocol, or two different protocols, to satisfy both this requirement (for non-TSF apps) and FTP_ITC_EXT.1 (for TSF apps), as long as the services specified are provided. <htm:br/><htm:br/>
+
+              The ST author must list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps.<htm:br/><htm:br/> 
+				
+              The TSF must be validated against requirements from the Package for Transport Layer Security, with the following selections made: <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
                 <htm:ul>
                   <htm:li>TLS is selected</htm:li>
@@ -4425,7 +4452,7 @@ A personally-owned device, which is used, for both personal activities and enter
                 </htm:ul>
               </htm:ul>            
               <htm:br/> 
-              If "mutually authenticated DTLS as defined in the Package for Transport Layer Security" is selected, the TSF shall be validated against requirements from the Package for Transport Layer Security, with the following selections made: <htm:ul>
+              If <xref to="upc_dtls"/> is selected, the TSF must be validated against requirements from the Package for Transport Layer Security, with the following selections made: <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
                 <htm:ul>
                   <htm:li>DTLS is selected</htm:li>
@@ -4441,7 +4468,9 @@ A personally-owned device, which is used, for both personal activities and enter
                   <htm:li>With no exceptions is selected.</htm:li>
                 </htm:ul>
               </htm:ul>
-              <htm:br/> If the ST author selects IPsec, the TSF shall be validated against the PP-Module for Virtual Private Network (VPN) Clients. 
+              <htm:br/>
+			  If the ST author <xref to="s-upc-ipsec"/>, 
+			  the TSF must be validated against the PP-Module for Virtual Private Network (VPN) Clients. 
             </note>
           </f-element>
           <f-element id="fel-tls-app-init">
@@ -4548,23 +4577,26 @@ A personally-owned device, which is used, for both personal activities and enter
         </f-component>
       </sec:fdp>
       <sec:fia title="Class: Identification and Authentication (FIA)">
-        <f-component cc-id="fia_afl_ext.1" name="Extended: Authentication failure handling">
+        <f-component cc-id="fia_afl_ext.1" name="Authentication Failure Handling">
           <f-element id="fel-authfail-what">
             <title>The TSF shall consider password and <selectables>
                 <selectable>fingerprint</selectable>
-                <selectable> iris</selectable>
-                <selectable> face</selectable>
-                <selectable> voice</selectable>
-                <selectable> vein</selectable>
-                <selectable> hybrid</selectable>
-                <selectable> no other</selectable>
+                <selectable>iris</selectable>
+                <selectable>face</selectable>
+                <selectable>voice</selectable>
+                <selectable>vein</selectable>
+                <selectable>hybrid</selectable>
+                <selectable id="s-authfail-noother"> no other</selectable>
               </selectables> as critical authentication mechanisms. </title>
             <note role="application">A critical authentication mechanism is one in which
               countermeasures are triggered (i.e. wipe of the device) when the maximum number of
               unsuccessful authentication attempts is exceeded, rendering the other factors
-              unavailable. <htm:br/><htm:br/> If no additional authentication mechanisms are
-              selected in FIA_UAU.5.1, then ‘no other’ shall be selected. If an additional
-              authentication mechanism is selected in FIA_UAU.5.1, then it shall only be selected in
+              unavailable. <htm:br/><htm:br/>
+				
+			  If no additional authentication mechanisms are
+              selected in FIA_UAU.5.1, then <xref to="s-authfail-noother"/> must be selected.
+			  If an additional
+              authentication mechanism is selected in FIA_UAU.5.1, then it must only be selected in
               FIA_AFL_EXT.1.1 if surpassing the authentication failure threshold for biometric data
               causes a countermeasure to be triggered regardless of the failure status of the other
               authentication mechanisms. <htm:br/><htm:br/> If the TOE implements multiple
@@ -4578,29 +4610,39 @@ A personally-owned device, which is used, for both personal activities and enter
             <title>The TSF shall detect when a configurable positive integer within
                 <assignable>range of acceptable values for each authentication
                 mechanism</assignable> of <selectables>
-                <selectable>unique</selectable>
-                <selectable>non-unique</selectable>
+                <selectable id="s-authfail-num-unique">unique</selectable>
+                <selectable id="s-authfail-num-non-unique">non-unique</selectable>
               </selectables> unsuccessful authentication attempts occur related to last successful
               authentication for each authentication mechanism. </title>
             <note role="application">The positive integer(s) is configured according to
-              FMT_SMF_EXT.1.1 <xref to="mf-screenlock"/>. <htm:br/><htm:br/> An unique
+              FMT_SMF_EXT.1.1 <xref to="mf-screenlock"/>.<htm:br/><htm:br/>
+			  
+			  An unique
               authentication attempt is defined as any attempt to verify a password or biometric
-              sample, in which the input is different from a previous attempt. ‘Unique’ shall be
+              sample, in which the input is different from a previous attempt.
+			  <xref to=="s-authfail-num-unique"/> must be
               selected if the authentication system increments the counter only for unique
               unsuccessful authentication attempts. For example, if the same incorrect password is
-              attempted twice the authentication system increments the counter once. ‘Non-unique’
-              shall be selected if the authentication system increments the counter for each
+              attempted twice the authentication system increments the counter once.
+			  <xref to=id="s-authfail-num-non-unique"/> must be selected if the authentication system
+			  increments the counter for each
               unsuccessful authentication attempt, regardless of if the input is unique. For
               example, if the same incorrect password is attempted twice the authentication system
-              increments the counter twice. <htm:br/><htm:br/> If hybrid authentication (i.e. a
+              increments the counter twice. <htm:br/><htm:br/>
+			  
+			  If hybrid authentication (i.e. a
               combination of biometric and pin/password) is supported, a failed authentication
               attempt can be counted as a single attempt, even if both the biometric and
-              pin/password were incorrect. <htm:br/><htm:br/> If the TOE supports multiple
+              pin/password were incorrect. <htm:br/><htm:br/>
+				
+			  If the TOE supports multiple
               authentication mechanisms per FIA_UAU.5.1, this component applies to all
               authentication mechanisms. It is acceptable for each authentication mechanism to
               utilize an independent counter or for multiple authentication mechanisms to utilize a
               shared counter. The interaction between the authentication factors in regards to the
-              authentication counter shall be in accordance with FIA_UAU.5.2. <htm:br/><htm:br/> If
+              authentication counter must be in accordance with FIA_UAU.5.2. <htm:br/><htm:br/>
+			  
+			  If
               the TOE implements multiple Authentication Factor interfaces (for example, a DAR
               decryption interface, a lockscreen interface, an auxiliary boot mode interface), this
               component applies to all available interfaces. However, it is acceptable for each
@@ -4992,7 +5034,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fia_pmg_ext.1" name="Extended: Password Management">
+        <f-component cc-id="fia_pmg_ext.1" name="Password Management">
           <f-element id="fel-password-manage">
             <title>The TSF shall support the following for the Password Authentication Factor: <htm:ol>
                 <htm:li>Passwords shall be able to be composed of any combination of <selectables>
@@ -5011,7 +5053,7 @@ A personally-owned device, which is used, for both personal activities and enter
                     <selectable>"("</selectable>
                     <selectable>")"</selectable>
                     <selectable><assignable>other characters</assignable></selectable>
-                  </selectables> ; </htm:li>
+                  </selectables>;</htm:li>
                 <htm:li>Password length up to <assignable>an integer greater than or equal to
                     14</assignable> characters shall be supported. </htm:li>
               </htm:ol>
@@ -5046,7 +5088,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fia_trt_ext.1" name="Extended: Authentication Throttling">
+        <f-component cc-id="fia_trt_ext.1" name="Authentication Throttling">
           <f-element id="fel-auth-throttle">
             <title>The TSF shall limit automated user authentication attempts by <selectables>
                 <selectable>preventing authentication via an external port</selectable>
@@ -5087,30 +5129,28 @@ A personally-owned device, which is used, for both personal activities and enter
               optionally implement a BAF, in the form of a fingerprint, iris, face, voice and
               (finger/palm) vein. A hybrid authentication factor is where a user has to submit a
               combination of PIN/password and biometric sample where both have to pass and if either
-              fails the user is not made aware of which factor failed. <htm:br/><htm:br/> If
-              "hybrid" is selected, a biometric modality does not need to be selected, but should be
+              fails the user is not made aware of which factor failed. <htm:br/><htm:br/>
+			 
+			  If <xref to="uau_hybr"/> is selected, a biometric modality does not need to be selected, but should be
               selected if the biometric authentication can be used independent of the hybrid
-              authentication, i.e. without having to enter a PIN/password. <htm:br/><htm:br/> If a
-              biometric modality or "hybrid" is selected, then FIA_BMG_EXT.1 and FDP_PBA_EXT.1 must
-              be included in the ST. <htm:br/><htm:br/> If "using a PIN as an additional factor" or
+              authentication, i.e. without having to enter a PIN/password. <htm:br/><htm:br/>
+			  
+			  If a
+              biometric modality or <xref to="uau_hybr"/> is selected, then FIA_BMG_EXT.1 and FDP_PBA_EXT.1 must
+              be included in the ST. <htm:br/><htm:br/>
+			  
+			  If "using a PIN as an additional factor" or
               "using a password as an additional factor" is selected in FDP_PBA_EXT.1.1, then
-              "hybrid" shall be selected. <htm:br/><htm:br/> The Password Authentication Factor is
+              <xref to="uau_hybr"/> must be selected. <htm:br/><htm:br/>
+				
+			  The Password Authentication Factor is
               configured according to FIA_PMG_EXT.1. </note>
           </f-element>
           <f-element id="fel-auth-claim">
             <title>The TSF shall authenticate any user's claimed identity according to the
-                <assignable>rules describing how each authentication mechanism provides
+                <assignable>rules describing how each authentication mechanism selected in FIA_UAU.5.1 provides 
                 authentication</assignable>.</title>
-            <note role="application">For all authentication mechanisms specified in FIA_UAU.5.1, the
-              TSS shall describe the rules as to how each authentication mechanism is used. Example
-              rules are how the authentication mechanism authenticates the user (i.e. how does the
-              TSF verify that the correct password or biometric sample was entered), the result of a
-              successful authentication (i.e. is the user input used to derive or unlock a key) and
-              which authentication mechanism can be used at which authentication factor interfaces
-              (i.e. if there are times, for example, after a reboot, that only specific
-              authentication mechanisms can be used). If multiple BAFs are supported per
-              FIA_UAU.5.1, the interaction between the BAFs, shall be described. For example, if the
-              multiple BAFs can be enabled at the same time. Rules regarding how the authentication
+            <note role="application">Rules regarding how the authentication
               factors interact in terms of unsuccessful authentication are covered in
               FIA_AFL_EXT.1.</note>
             <aactivity>
@@ -5206,13 +5246,16 @@ A personally-owned device, which is used, for both personal activities and enter
             <note role="application">This applies to all authentication methods specified in
               FIA_UAU.5.1. The TSF may briefly (1 second or less) display each character or provide
               an option to allow the user to unmask the password; however, the password must be
-              obscured by default. <htm:br/><htm:br/> If a BAF is selected in FIA_UAU.5.1, the TSF
-              shall not display sensitive information regarding the biometric that could aid an
+              obscured by default. <htm:br/><htm:br/>
+				
+			  If a BAF is selected in FIA_UAU.5.1, the TSF
+              must not display sensitive information regarding the biometric that could aid an
               adversary in identifying and/or spoofing the respective biometric characteristics of a
               given human user. While it is true that biometric samples, by themselves, are not
               secret, the analysis performed by the respective biometric algorithms, as well as
-              output data from these biometric algorithms, is considered sensitive and shall be kept
-              secret. Where applicable, the TSF shall not reveal or make public the reason(s) for
+              output data from these biometric algorithms, is considered sensitive and must be kept
+              secret.
+			  Where applicable, the TSF must not reveal or make public the reason(s) for
               authentication failure. </note>
             <aactivity>
               <TSS>The evaluator shall ensure that the TSS describes the means of obscuring the
@@ -5241,7 +5284,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fia_uau_ext.1" name="Extended: Authentication for Cryptographic Operation">
+        <f-component cc-id="fia_uau_ext.1" name="Authentication for Cryptographic Operation">
           <f-element id="fel-auth-before-decrypt">
             <title>The TSF shall require the user to present the Password Authentication Factor
               prior to decryption of protected data and encrypted DEKs, KEKs and <selectables>
@@ -5299,7 +5342,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fia_uau_ext.2" name="Extended: Timing of Authentication">
+        <f-component cc-id="fia_uau_ext.2" name="Timing of Authentication">
           <f-element id="fel-before-auth-what">
             <title>The TSF shall allow <selectables>
                 <selectable>
@@ -5326,7 +5369,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fia_uau_ext.4" name="Extended: Secondary User Authentication" status="optional">
+        <f-component cc-id="fia_uau_ext.4" name="Secondary User Authentication" status="optional">
           <f-element id="fel-two-auths">
             <title>The TSF shall provide a secondary authentication mechanism for accessing
               Enterprise applications and resources. The secondary authentication mechanism shall
@@ -5370,44 +5413,46 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fia_x509_ext.1" name="Extended: X.509 Validation of certificates">
+        <f-component cc-id="fia_x509_ext.1" name="X.509 Validation of Certificates">
           <f-element id="fel-val-certs">
             <title>The TSF shall validate certificates in accordance with the following rules: <htm:ul>
                 <htm:li>RFC 5280 certificate validation and certificate path validation</htm:li>
                 <htm:li>The certificate path must terminate with a certificate in the Trust Anchor
                   Database</htm:li>
                 <htm:li>The TSF shall validate a certificate path by ensuring the presence of the
-                  basicConstraints extension and that the CA flag is set to TRUE for all CA
-                  certificates</htm:li>
-                <htm:li>The TSF shall validate the revocation status of the certificate using <selectables>
-                    <selectable>the Online Certificate Status Protocol (OCSP) as specified in RFC
-                      2560</selectable>
-                    <selectable>a Certificate Revocation List (CRL) as specified in RFC
-                      5759</selectable>
-                  </selectables></htm:li>
+                  <htm:i>basicConstraints</htm:i> extension that the CA flag is set to TRUE for all CA
+                  certificates, and that any path constraints are met.</htm:li>
+				  <htm:li>The TSF shall validate that any CA certificate includes caSigning purpose in the key usage field</htm:li>						
+              <htm:li>The TSF shall validate the revocation status of the certificate using <selectables>
+                <selectable>OCSP as specified in RFC 6960</selectable>
+                <selectable>CRL as specified in RFC 5759</selectable>
+                <selectable>an OCSP TLS Status Request Extension (OCSP stapling) as specified in RFC 6066</selectable>
+                <selectable>OCSP TLS Multi-Certificate Status Request Extension (i.e., OCSP Multi-Stapling) as specified in RFC 6961</selectable>
+              </selectables>
                 <htm:li>The TSF shall validate the extendedKeyUsage field according to the following
-                  rules: <htm:ul>
-                    <htm:li>Certificates used for trusted updates and executable code integrity
-                      verification shall have the Code Signing purpose (id-kp 3 with OID
-                      1.3.6.1.5.5.7.3.3) in the extendedKeyUsage field</htm:li>
-                    <htm:li>Server certificates presented for TLS shall have the Server
-                      Authentication purpose (id-kp 1 with OID 1.3.6.1.5.5.7.3.1) in the
-                      extendedKeyUsage field</htm:li>
-                    <htm:li>(Conditional) Server certificates presented for EST shall have the CMC
-                      Registration Authority (RA) purpose (id-kp-cmcRA with OID 1.3.6.1.5.5.7.3.28)
-                      in the extendedKeyUsage field</htm:li>
-                  </htm:ul>
-                </htm:li>
-              </htm:ul>
+                  rules: 
+					<htm:ul>
+						<htm:li>Certificates used for trusted updates and executable code integrity verification shall have the Code Signing Purpose (id-kp 3 with OID 1.3.6.1.5.5.7.3.3) in the extendedKeyUsage field.</htm:li>
+                		<htm:li>Server certificates presented for TLS shall have the Server Authentication purpose (id-kp 1 with OID 1.3.6.1.5.5.7.3.1) in the extendedKeyUsage field.</htm:li>
+                		<htm:li>Server certificates presented for EST shall have the CMC Registration Authority (RA) purpose (id-kp-cmcRA with OID 1.3.6.1.5.5.7.3.28) in the EKU field. [conditional]</htm:li>
+                		<htm:li>Client certificates presented for TLS shall have the Client Authentication purpose (id-kp 2 with OID 1.3.6.1.5.5.7.3.2) in the EKU field.</htm:li>
+                		<htm:li>OCSP certificates presented for OCSP responses shall have the OCSP Signing purpose (id-kp 9 with OID 1.3.6.1.5.5.7.3.9) in the EKU field. [conditional]	</htm:li>
+	                </htm:ul>
+			    </htm:li></htm:li></htm:ul>
             </title>
             <note role="application">FIA_X509_EXT.1.1 lists the rules for validating certificates.
-              The ST author shall select whether revocation status is verified using OCSP or CRLs.
+              The ST author must select whether revocation status is verified using OCSP or CRLs.
+			  OCSP stapling and OCSP multi-stapling only support TLS server certificate validation.
+			  If other certificate types are validated, either OCSP or CRL should be claimed.S
               The WLAN Client EP to which a MDF TOE must also conform requires that certificates are
               used for EAP-TLS; this use requires that the extendedKeyUsage rules are verified.
               Certificates may optionally be used for trusted updates of system software and
-              applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2/PREKERNEL) and, if
+				<!--TODO check (1) in next line-->
+              applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2(1)) and, if
               implemented, must be validated to contain the Code Signing purpose extendedKeyUsage.
-              <htm:br/><htm:br/> While FIA_X509_EXT.1.1 requires that the TOE perform certain checks
+              <htm:br/><htm:br/>
+				
+			  While FIA_X509_EXT.1.1 requires that the TOE perform certain checks
               on the certificate presented by a TLS server, there are corresponding checks that the
               authentication server will have to perform on the certificate presented by the client;
               namely that the extendedKeyUsage field of the client certificate includes "Client
@@ -5473,7 +5518,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fia_x509_ext.2" name="Extended: X.509 certificate authentication">
+        <f-component cc-id="fia_x509_ext.2" name="X.509 Certificate Authentication">
           <f-element id="fel-cert-auth">
             <title>The TSF shall use X.509v3 certificates as defined by RFC 5280 to support
               authentication for mutually authenticated TLS as defined in the Package for Transport
@@ -5488,13 +5533,16 @@ A personally-owned device, which is used, for both personal activities and enter
                 <selectable><assignable>other uses</assignable></selectable>
                 <selectable>no additional uses</selectable>
               </selectables>. </title>
-            <note role="application">The ST author’s first selection shall match the selection of
-              FDP_UPC_EXT.1.1/NORMAL and FTP_ITC_EXT.1.1.<htm:br/><htm:br/> Certificates may optionally
-              be used for trusted updates of system software (FPT_TUD_EXT.2.3) and mobile
-              applications (FPT_TUD_EXT.4.1) and for integrity verification (FPT_TST_EXT.2/PREKERNEL). If
-              "code signing for system software updates" or "code signing for mobile applications"
-              is selected FPT_TUD_EXT.3.1 shall be included in the ST. <htm:br/><htm:br/> If
-              FPT_TUD_EXT.4.1 is included in the ST, "code signing for mobile applications" must be
+            <note role="application">The ST author’s first selection must match the selection of
+              <xref to="fel-tls-app"/>and <xref to="fel-wlan"/>.<htm:br/><htm:br/>
+			
+			  Certificates may optionally
+              be used for trusted updates of system software (<xref to="fel-update-key-verify"/>) and mobile
+              applications (<xref to="fel-updates-inc-version"/>) and for integrity verification (FPT_TST_EXT.2/PREKERNEL).
+			  If <xref to="x509_sys"/> or <xref to="x509_apps"/>
+              is selected <xref to="fel-update-int-fail"/> must be included in the ST. <htm:br/><htm:br/>
+				
+			  If <xref to="fel-app-verify-how"/> is included in the ST, <xref to="x509_apps"/> must be
               included in the selection. </note>
           </f-element>
           <f-element id="fel-fail-crt">
@@ -5512,11 +5560,13 @@ A personally-owned device, which is used, for both personal activities and enter
               established to perform a verification of the revocation status of a certificate -
               either to download a CRL or to perform OCSP. The selection is used to describe the
               behavior in the event that such a connection cannot be established (for example, due
-              to a network error). If the TOE has determined the certificate valid according to all
-              other rules in FIA_X509_EXT.1, the behavior indicated in the selection shall determine
+              to a network error). If the TOE has determined the certificate is valid according to all
+              other rules in FIA_X509_EXT.1, the behavior indicated in the selection must determine
               the validity. If the administrator-configured or user-configured option is selected,
-              the ST Author must also select <xref to="mf-certValidity"/> in
-              FMT_SMF_EXT.1. <htm:br/><htm:br/> The TOE may behave differently depending on the
+              the ST author must also select <xref to="mf-certValidity"/> in
+              FMT_SMF_EXT.1. <htm:br/><htm:br/>
+				
+		      The TOE may behave differently depending on the
               trusted channel; for example, in the case of WLAN where connections are unlikely to be
               established, the TOE may accept the certificate even though certificates are not
               accepted for other channels. The ST author should select all applicable behaviors. </note>
@@ -5547,7 +5597,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fia_x509_ext.3" name="Extended: Request Validation of certificates">
+        <f-component cc-id="fia_x509_ext.3" name="Request Validation of Certificates">
           <f-element id="fel-certval-app-service">
             <title>The TSF shall provide a certificate validation service to applications. </title>
           </f-element>
@@ -5570,7 +5620,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fia_x509_ext.4" name="Extended: X509 certificate enrollment" status="objective">
+        <f-component cc-id="fia_x509_ext.4" name="X509 Certificate Enrollment" status="objective">
           <f-element id="fel-est-how">
             <title>The TSF shall use the Enrollment over Secure Transport (EST) protocol as
               specified in RFC 7030 to request certificate enrollment using the simple enrollment
@@ -5748,7 +5798,7 @@ A personally-owned device, which is used, for both personal activities and enter
         Both the user and the administrator may manage the TOE. This administrator is likely to be acting remotely and could be the Mobile Device Management (MDM) Administrator acting through an MDM Agent. <htm:br/><htm:br/> 
         The Administrator is responsible for management activities, including setting the policy that is applied by the enterprise on the Mobile Device. These management functions are likely to be a different set than those management functions provided to the user. Management functions that are provided to the user and not the administrator are listed in FMT_MOF_EXT.1.1. Management functions for which the administrator may adopt a policy that restricts the user from performing that function are listed in FMT_MOF_EXT.1.2. <htm:br/><htm:br/> 
         <xref to="fmt_smf"/> compares the management functions required by this Protection Profile in the following three requirements (FMT_MOF_EXT.1.1, FMT_MOF_EXT.1.2, and FMT_SMF_EXT.1).
-        <f-component cc-id="fmt_mof_ext.1" name="Extended: Management of security functions behavior">
+        <f-component cc-id="fmt_mof_ext.1" name="Management of Security Functions Behavior">
           <f-element id="fel-mof-est">
             <title>The TSF shall restrict the ability to perform the functions in column 3 of
                 <xref to="fmt_smf"/> to the user. </title>
@@ -5827,7 +5877,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fmt_smf_ext.1" name="Extended: Specification of Management Functions">
+        <f-component cc-id="fmt_smf_ext.1" name="Specification of Management Functions">
           <f-element id="fel-smf-ext">
             <title>The TSF shall be capable of performing the following management functions: <htm:br/><htm:br/>
               <htm:b><ctr id="fmt_smf" ctr-type="Table">: Management Functions</ctr></htm:b><htm:br/><htm:br/> 
@@ -7093,7 +7143,9 @@ The assignment in function
               also be available to the administrator. Functions available to the administrator can
               still be available to the user, as long as the function is not restricted to the
               administrator (column 5). Thus, if the TOE must offer these functions to the
-              administrator to perform the fourth column shall be selected. <htm:br/><htm:br/> The
+              administrator to perform the fourth column must be selected.<htm:br/><htm:br/>
+			  
+			  The
               fifth column (FMT_MOF_EXT.1.2) indicates whether the function is to be restricted to
               the administrator when the device is enrolled and the administrator applies the
               indicated policy. If the function is restricted to the administrator the function is
@@ -7127,7 +7179,7 @@ The assignment in function
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fmt_smf_ext.2" name="Extended: Specification of Remediation Actions">
+        <f-component cc-id="fmt_smf_ext.2" name="Specification of Remediation Actions">
           <f-element id="fmt-smf-ext-acts">
             <title>The TSF shall offer <selectables>
                 <selectable>wipe of protected data</selectable>
