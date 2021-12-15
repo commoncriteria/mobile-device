@@ -7,12 +7,6 @@ Protection Profile for Mobile Device Fundamentals
 [![QuickBuild](https://github.com/commoncriteria/mobile-device/actions/workflows/quick_build.yml/badge.svg)](https://commoncriteria.github.io/mobile-device/mobile-device-release.html)
 [![GitHub issues Open](https://img.shields.io/github/issues/commoncriteria/mobile-device.svg?maxAge=2592000)](https://github.com/commoncriteria/mobile-device/issues) 
 
-
-
-[![Build Status](https://travis-ci.com/commoncriteria/mobile-device.svg?branch=master)](https://travis-ci.com/commoncriteria/mobile-device)
-[![GitHub issues Open](https://img.shields.io/github/issues/commoncriteria/mobile-device.svg?maxAge=2592000)](https://github.com/commoncriteria/mobile-device/issues) 
-![license](https://img.shields.io/badge/license-Unlicensed-blue.svg)
-
 This repository hosts the draft version of the Protection Profile for Mobile Device Fundamentals based on the 
 [Essential Security Requirements (ESR)](https://commoncriteria.github.io/pp/mobile-device/mobile-device-esr.html) for this technology class of 
 products. This repository is used to facilitate collaboration and development on the draft document. 

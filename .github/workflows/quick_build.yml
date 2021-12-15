@@ -1,0 +1,119 @@
+name: QuickBuild
+
+on:
+  push:
+    branches:
+    - '*'
+    - '!gh-pages'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Quick Build
+    steps:
+    - name: Checkout project and transforms
+      uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    - name: Install Build Packages
+      run: "sudo apt-get update && sudo apt-get install -y xsltproc hunspell"
+
+    - name: Quick Build
+      run: make release 
+
+    - id: spellcheck
+      run: |
+        make spellcheck-release
+        echo ::set-output name=LINES::$(wc -l output/SpellCheckReport.txt | { read first rest ; echo $first ; } )
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@4.0.0
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: output # The folder the action should deploy.
+
+    # Get current banch name to use it as dest directory
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+
+    - name: Prepare environment
+      id: coverage
+      run: |
+        # Generates a GitHub Workflow output named `lines` with a coverage value
+        echo "##[set-output name=spellcolor;]$(if [ 0 = ${{ steps.spellcheck.outputs.LINES }} ]; then echo green; else echo red; fi)"
+        # Output values to be used by other steps
+        echo "##[set-output name=path;]${BADGE_PATH}"
+        echo "##[set-output name=branch;]${BRANCH}"
+      env:
+        BADGE_PATH: ${{ steps.extract_branch.outputs.branch }}/warnings-badge.svg
+        BRANCH: gh-pages
+
+    - name: Get Status
+      run: |
+         echo ::set-output name=WORD::$(if [ -s output/SanityChecksOutput.md ]; then echo some; else echo none; fi )
+         echo ::set-output name=COLOR::$(if [ -s output/SanityChecksOutput.md ]; then echo red; else echo green; fi )
+      id: status
+      
+
+    - uses: actions/checkout@v1
+      with:
+        ref: ${{ steps.coverage.outputs.branch }}
+
+    # Create the directory where badges will be saved, if needed
+    - name: Create destination directory
+      env:
+        BADGE_PATH: ${{ steps.coverage.outputs.path }}
+      run: mkdir -p "${BADGE_PATH%/*}"
+
+
+     # Use the output from the `coverage` step
+    - name: Generate the spelling badge SVG image
+      uses: emibcn/badge-action@v1
+      with:
+        label: 'Misspellings'
+        status: ${{ steps.spellcheck.outputs.LINES }}
+        color: ${{ steps.coverage.outputs.spellcolor }}
+        path: ${{ steps.extract_branch.outputs.branch }}/spell-badge.svg
+
+    - name: Upload badge as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: badge
+        path: ${{ steps.extract_branch.outputs.branch }}/spell-badge.svg
+        if-no-files-found: error
+
+   # Use the output from the `coverage` step
+    - name: Generate the badge SVG image
+      uses: emibcn/badge-action@v1
+      with:
+        label: 'Warnings'
+        status: ${{ steps.status.outputs.WORD }}
+        color: ${{ steps.status.outputs.COLOR }}
+        path: ${{ steps.coverage.outputs.path }}
+
+    - name: Upload badge as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: badge
+        path: ${{ steps.coverage.outputs.path }}
+        if-no-files-found: error
+
+    - name: Commit badges
+      continue-on-error: true
+      env:
+        BADGE: ${{ steps.coverage.outputs.path }}
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add "${{ steps.extract_branch.outputs.branch }}"
+        git commit -m "Add/Update badges"
+
+    - name: Push badge commit
+      uses: ad-m/github-push-action@master
+      if: ${{ success() }}
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ steps.coverage.outputs.branch }}
