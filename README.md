@@ -1,5 +1,14 @@
 Protection Profile for Mobile Device Fundamentals 
 =============================================
+![Build](https://github.com/commoncriteria/mobile-device/workflows/Build/badge.svg)
+![Validate](https://github.com/commoncriteria/mobile-device/workflows/Validate/badge.svg)
+[![SanityChecks](https://raw.githubusercontent.com/commoncriteria/mobile-device/gh-pages/master/warnings-badge.svg)](https://github.com/commoncriteria/mobile-device/blob/gh-pages/SanityChecksOutput.md)
+[![SpellCheck](https://raw.githubusercontent.com/commoncriteria/mobile-device/gh-pages/master/spell-badge.svg)](https://github.com/commoncriteria/mobile-device/blob/gh-pages/SpellCheckReport.txt)
+[![QuickBuild](https://github.com/commoncriteria/mobile-device/actions/workflows/quick_build.yml/badge.svg)](https://commoncriteria.github.io/mobile-device/mobile-device-release.html)
+[![GitHub issues Open](https://img.shields.io/github/issues/commoncriteria/mobile-device.svg?maxAge=2592000)](https://github.com/commoncriteria/mobile-device/issues) 
+
+
+
 [![Build Status](https://travis-ci.com/commoncriteria/mobile-device.svg?branch=master)](https://travis-ci.com/commoncriteria/mobile-device)
 [![GitHub issues Open](https://img.shields.io/github/issues/commoncriteria/mobile-device.svg?maxAge=2592000)](https://github.com/commoncriteria/mobile-device/issues) 
 ![license](https://img.shields.io/badge/license-Unlicensed-blue.svg)
