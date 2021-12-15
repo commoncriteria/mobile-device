@@ -573,45 +573,45 @@ The scope of this Protection Profile (PP) is to describe the security functional
        <description>
      An enterprise-owned device with intentionally limited network connectivity, tightly controlled configuration, and limited software inventory is appropriate for specialized, high-security use cases. For example, the device may not be permitted connectivity to any external peripherals. It may only be able to communicate via its Wi-Fi or cellular radios with the enterprise-run network, which may not even permit connectivity to the Internet. Use of the device may entail compliance with policies that are more restrictive than those in any general-purpose use case, yet may mitigate risks to highly sensitive information. As in the previous case, the enterprise will look for additional applications providing enterprise connectivity and services to have a similar level of assurance as the platform.
        </description>
-		<config>
-			<or>
-				<and>
-					<guidance><ref-id>a-keygen-rsa-size</ref-id>Set to 3072</guidance>
-					<or>
-						<and><ref-id>s-rek-sym</ref-id><ref-id>s-rek-256</ref-id></and>
-						<and><ref-id>s-rek-asym</ref-id><ref-id>s-rek-128</ref-id></and>
-					</or>	
-					<or>
-						<ref-id>s-kek-sym-256</ref-id>
-						<guidance><ref-id>a-kek-asym-size</ref-id>128</guidance>
-					</or>
-				</and>
-				<and>
-					<ref-id>s-keygen-ecc</ref-id>
-					<or>
-						<and><ref-id>s-rek-sym</ref-id><ref-id>s-rek-256</ref-id></and>
-						<and><ref-id>s-rek-asym</ref-id><ref-id>s-rek-192</ref-id></and>
-					</or>	
-					<or>
-						<ref-id>s-kek-sym-256</ref-id>
-						<guidance><ref-id>a-kek-asym-size</ref-id>128</guidance>
-					</or>
-                                        <doc ref="pkg-tls"><ref-id>secp384r1</ref-id></doc>
-				</and>
-			</or>
-			<or><ref-id>s-locked-ecc-800-56A</ref-id><ref-id>s-locked-rsa</ref-id></or>
-			<ref-id>s-encrypt-256</ref-id>
-			<ref-id>s-rbg-256</ref-id>
-			<ref-id>s-dar-256</ref-id>
-			<or><ref-id>s-revoke-admin</ref-id><ref-id>s-revoke-deny</ref-id></or>
-			<ref-id>mf-vpn</ref-id>
-			<guidance><ref-id>mf-radios</ref-id>assign all radios on TSF</guidance>
-			<guidance><ref-id>a-audiovisual-devs</ref-id>assign all audio or visual collection devices on TSF</guidance>
-			<ref-id>mf-dar</ref-id>
-			<ref-id>mf-location</ref-id>
-			<ref-id>mf-unenroll</ref-id>
-<!--			<ref-id>mf-alwaysOnVPN</ref-id> -->
-		</config>
+       <config>
+	 <or>
+	   <and>
+	     <guidance><ref-id>a-keygen-rsa-size</ref-id>Set to 3072</guidance>
+	     <or>
+	       <and><ref-id>s-rek-sym</ref-id><ref-id>s-rek-256</ref-id></and>
+	       <and><ref-id>s-rek-asym</ref-id><ref-id>s-rek-128</ref-id></and>
+	     </or>	
+	     <or>
+	       <ref-id>s-kek-sym-256</ref-id>
+	       <guidance><ref-id>a-kek-asym-size</ref-id>128</guidance>
+	     </or>
+	   </and>
+	   <and>
+	     <ref-id>s-keygen-ecc</ref-id>
+	     <or>
+	       <and><ref-id>s-rek-sym</ref-id><ref-id>s-rek-256</ref-id></and>
+	       <and><ref-id>s-rek-asym</ref-id><ref-id>s-rek-192</ref-id></and>
+	     </or>	
+	     <or>
+	       <ref-id>s-kek-sym-256</ref-id>
+	       <guidance><ref-id>a-kek-asym-size</ref-id>128</guidance>
+	     </or>
+             <doc ref="pkg-tls"><ref-id>secp384r1</ref-id></doc>
+	   </and>
+	 </or>
+	 <or><ref-id>s-locked-ecc-800-56A</ref-id><ref-id>s-locked-rsa</ref-id></or>
+	 <ref-id>s-encrypt-256</ref-id>
+	 <ref-id>s-rbg-256</ref-id>
+	 <ref-id>s-dar-256</ref-id>
+	 <or><ref-id>s-revoke-admin</ref-id><ref-id>s-revoke-deny</ref-id></or>
+	 <ref-id>mf-vpn</ref-id>
+	 <guidance><ref-id>a-mf-radios</ref-id>assign all radios on TSF</guidance>
+	 <guidance><ref-id>a-audiovisual-devs</ref-id>assign all audio or visual collection devices on TSF</guidance>
+	 <ref-id>mf-dar</ref-id>
+	 <ref-id>mf-location</ref-id>
+	 <ref-id>mf-unenroll</ref-id>
+	 <!--			<ref-id>mf-alwaysOnVPN</ref-id> -->
+       </config>
     </usecase>
 <!-- 
     <section id="usecase2" title="[USE CASE 2] Enterprise-owned device for specialized, high-security use">
@@ -672,10 +672,27 @@ The scope of this Protection Profile (PP) is to describe the security functional
     </section>
  
 -->
-        <usecase id="uc-personal" title="Personally-owned device for personal and limited enterprise use">
+        <usecase id="uc-personal" title="Personally-owned device for personal and enterprise use">
            <description>
 			A personally-owned device, which is used, for both personal activities and enterprise data is commonly called Bring Your Own Device (BYOD). The device may be provisioned for access to enterprise resources after significant personal usage has occurred. Unlike in the enterprise-owned cases, the enterprise is limited in what security policies it can enforce because the user purchased the device primarily for personal use and is unlikely to accept policies that limit the functionality of the device. However, because the enterprise allows the user full (or nearly full) access to the enterprise network, the enterprise will require their own security controls to ensure that enterprise resources are protected from potential threats posed by the personal activities on the device. These controls could potentially be enforced by a separation mechanism built-in to the device itself to distinguish between enterprise and personal activities, or by a third-party application that provides access to enterprise resources and leverages security capabilities provided by the mobile device. Based upon the operational environment and the acceptable risk level of the enterprise, those security functional requirements outlined in <xref to="Security_Requirements"/> of this PP along with the selections in the Use Case 3 template defined in Appendix F - Use Case Templates are sufficient for the secure implementation of this BYOD use case.
-			</description>
+	   </description>
+	   <config>
+	     <or><ref-id>s-vpn-per-app</ref-id><ref-id>s-vpn-per-appgroup</ref-id><and><ref-id>s-vpn-per-app</ref-id><ref-id>s-vpn-per-appgroup</ref-id></and></or>
+	     <or><ref-id>s-audiovisual-per-app</ref-id><ref-id>s-audiovisual-per-appgroup</ref-id><and><ref-id>s-audiovisual-per-app</ref-id><ref-id>s-audiovisual-per-appgroup</ref-id></and></or>
+	     <ref-id>mf-entAppRemove</ref-id>
+	     <ref-id>mf-wipeEntData</ref-id>
+	     <ref-id>mf-unenroll</ref-id>
+	     <ref-id>s-smf-ext-2-rem-ent-app</ref-id>
+	     <ref-id>fdp_group</ref-id>
+	     <ref-id>fc_access_control_system</ref-id>
+        <!-- <htm:tr><htm:td>FMT_SMF_EXT.1.1 <xref to="mf-entAppRemove"/></htm:td><htm:td>Include in ST.</htm:td></htm:tr> -->
+        <!-- <htm:tr><htm:td>FMT_SMF_EXT.1.1 <xref to="mf-wipeEntData"/></htm:td><htm:td>Include in ST.</htm:td></htm:tr> -->
+        <!-- <htm:tr><htm:td>FMT_SMF_EXT.1.1 <xref to="mf-unenroll"/></htm:td><htm:td>Include in ST (M-M-)</htm:td></htm:tr> -->
+        <!-- <htm:tr><htm:td>FMT_SMF_EXT.2.1</htm:td><htm:td>Select "Remove Enterprise Applications"</htm:td></htm:tr> -->
+        <!-- <htm:tr><htm:td>FDP_ACF_EXT.1.2</htm:td><htm:td>Select "Groups of Applications"</htm:td></htm:tr> -->
+        <!-- <htm:tr><htm:td>FDP_ACF_EXT.2.1</htm:td><htm:td>Include in ST.</htm:td></htm:tr> -->
+
+	   </config>
         </usecase>
         <usecase id="uc-personal-limited" title="Personally-owned device for personal and limited enterprise use">
           <description>
@@ -980,8 +997,7 @@ A personally-owned device, which is used, for both personal activities and enter
             Module), FTP_BLT_EXT.3/BR (Bluetooth Module), FTP_BLT_EXT.3/LE (Bluetooth Module),
             FTP_ITC_EXT.1 </addressed-by>
             <rationale>
-			
-		      FCS_CKM.1 supports the objective by defining the key generation algorithms that are used for protected communications.<htm:br/>
+	      FCS_CKM.1 supports the objective by defining the key generation algorithms that are used for protected communications.<htm:br/>
               FCS_CKM.2/UNLOCKED supports the objective by defining the key establishment algorithms that are used for protected communications.<htm:br/>
               FCS_CKM_EXT.8 supports the objective by requiring the TSF to perform key rotation for Bluetooth to limit the window of opportunity for an attacker to determine the key value.<htm:br/>
               FCS_COP.1/ENCRYPT supports the objective by requiring the TSF to implement symmetric encryption algorithms that are used in support of protected communications.<htm:br/>
@@ -4186,7 +4202,7 @@ A personally-owned device, which is used, for both personal activities and enter
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fdp_acf_ext.2" name="Access Control for System Resources" status="sel-based">
+        <f-component id="fc_access_control_system" cc-id="fdp_acf_ext.2" name="Access Control for System Resources" status="sel-based">
           <depends on="fdp_group"/>
           <f-element id="fel-per-app-resources">
             <title>The TSF shall provide a separate <selectables>
@@ -6131,8 +6147,8 @@ A personally-owned device, which is used, for both personal activities and enter
                   protection: <htm:ol type="a">
                   <htm:li>across device</htm:li></htm:ol>
                   <htm:div class="indent"><selectables linebreak="yes">
-                    <selectable>b. on a per-app basis</selectable>
-                    <selectable>c. on a per-group of applications processes basis</selectable>
+                    <selectable id="s-vpn-per-app">b. on a per-app basis</selectable>
+                    <selectable id="s-vpn-per-appgroup">c. on a per-group of applications processes basis</selectable>
                     <selectable>d. no other method</selectable>
                   </selectables></htm:div>
                 </text>
@@ -6187,7 +6203,7 @@ A personally-owned device, which is used, for both personal activities and enter
           <management-function id="mf-radios">
             <text>
               enable/disable
-              <assignable>list of all radios</assignable></text>
+              <assignable id="a-mf-radios">list of all radios</assignable></text>
               <M ref="I"/>
 	      <app-note>
               The assignment in function <_/>
@@ -6271,8 +6287,8 @@ A personally-owned device, which is used, for both personal activities and enter
               type="a">
               <htm:li>across device</htm:li></htm:ol>
               <htm:div class="indent"><selectables linebreak="yes">
-                <selectable>b. on a per-app basis</selectable>
-                <selectable>c. on a per-group of applications processes basis</selectable>
+                <selectable id="s-audiovisual-per-app">b. on a per-app basis</selectable>
+                <selectable id="s-audiovisual-per-appgroup">c. on a per-group of applications processes basis</selectable>
                 <selectable>d. no other method</selectable>
               </selectables></htm:div>
             </text>
@@ -7366,7 +7382,7 @@ A personally-owned device, which is used, for both personal activities and enter
             <title>The TSF shall offer <selectables>
                 <selectable id="s-smf-wipe-pro">wipe of protected data</selectable>
                 <selectable id="s-smf-wipe-sen">wipe of sensitive data</selectable>
-                <selectable>remove Enterprise applications</selectable>
+                <selectable id="s-smf-ext-2-rem-ent-app">remove Enterprise applications</selectable>
                 <selectable>remove all device-stored Enterprise resource data</selectable>
                 <selectable>remove Enterprise secondary authentication data</selectable>
                 <selectable><assignable>list other available remediation
