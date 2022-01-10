@@ -10,9 +10,6 @@ Protection Profile for Mobile Device Fundamentals
 [![SpellCheck](https://raw.githubusercontent.com/commoncriteria/mobile-device/gh-pages/spell-badge.svg)](https://github.com/commoncriteria/mobile-device/blob/gh-pages/SpellCheckReport.txt)
 [![QuickBuild](https://github.com/commoncriteria/mobile-device/actions/workflows/quick_build.yml/badge.svg)](https://commoncriteria.github.io/mobile-device)
 
-
-
-
 [![GitHub issues Open](https://img.shields.io/github/issues/commoncriteria/mobile-device.svg?maxAge=2592000)](https://github.com/commoncriteria/mobile-device/issues) 
 
 This repository hosts the draft version of the Protection Profile for Mobile Device Fundamentals based on the 
