@@ -1,7 +1,7 @@
 Protection Profile for Mobile Device Fundamentals 
 =============================================
 ![Build](https://github.com/commoncriteria/mobile-device/workflows/Build/badge.svg)
-![Validate](https://github.com/commoncriteria/mobile-device/workflows/Validate/badge.svg)
+[![Validate](https://github.com/commoncriteria/mobile-device/workflows/Validate/badge.svg)](https://github.com/commoncriteria/mobile-device/blob/gh-pages/ValidationReport.md)
 [![SanityChecks](https://raw.githubusercontent.com/commoncriteria/mobile-device/gh-pages/master/warnings-badge.svg)](https://github.com/commoncriteria/mobile-device/blob/gh-pages/SanityChecksOutput.md)
 [![SpellCheck](https://raw.githubusercontent.com/commoncriteria/mobile-device/gh-pages/master/spell-badge.svg)](https://github.com/commoncriteria/mobile-device/blob/gh-pages/SpellCheckReport.txt)
 [![QuickBuild](https://github.com/commoncriteria/mobile-device/actions/workflows/quick_build.yml/badge.svg)](https://commoncriteria.github.io/mobile-device/mobile-device-release.html)
