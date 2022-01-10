@@ -1,10 +1,18 @@
 Protection Profile for Mobile Device Fundamentals 
 =============================================
+![Master Badges](https://img.shields.io/badge/Build-master-black.svg)
 ![Build](https://github.com/commoncriteria/mobile-device/workflows/Build/badge.svg)
-[![Validate](https://github.com/commoncriteria/mobile-device/workflows/Validate/badge.svg)](https://github.com/commoncriteria/mobile-device/blob/gh-pages/ValidationReport.md)
-[![SanityChecks](https://raw.githubusercontent.com/commoncriteria/mobile-device/gh-pages/master/warnings-badge.svg)](https://github.com/commoncriteria/mobile-device/blob/gh-pages/SanityChecksOutput.md)
-[![SpellCheck](https://raw.githubusercontent.com/commoncriteria/mobile-device/gh-pages/master/spell-badge.svg)](https://github.com/commoncriteria/mobile-device/blob/gh-pages/SpellCheckReport.txt)
-[![QuickBuild](https://github.com/commoncriteria/mobile-device/actions/workflows/quick_build.yml/badge.svg)](https://commoncriteria.github.io/mobile-device/mobile-device-release.html)
+![Validate](https://github.com/commoncriteria/mobile-device/workflows/Validate/badge.svg)
+
+![Last QuickBuilt Branch](https://raw.githubusercontent.com/commoncriteria/mobile-device/gh-pages/build-branch-badge.svg)
+[![Validation](https://raw.githubusercontent.com/commoncriteria/mobile-device/gh-pages/validation.svg)](https://github.com/commoncriteria/mobile-device/blob/gh-pages/ValidationReport.txt)
+[![SanityChecks](https://raw.githubusercontent.com/commoncriteria/mobile-device/gh-pages/warnings.svg)](https://github.com/commoncriteria/mobile-device/blob/gh-pages/SanityChecksOutput.md)
+[![SpellCheck](https://raw.githubusercontent.com/commoncriteria/mobile-device/gh-pages/spell-badge.svg)](https://github.com/commoncriteria/mobile-device/blob/gh-pages/SpellCheckReport.txt)
+[![QuickBuild](https://github.com/commoncriteria/mobile-device/actions/workflows/quick_build.yml/badge.svg)](https://commoncriteria.github.io/mobile-device)
+
+
+
+
 [![GitHub issues Open](https://img.shields.io/github/issues/commoncriteria/mobile-device.svg?maxAge=2592000)](https://github.com/commoncriteria/mobile-device/issues) 
 
 This repository hosts the draft version of the Protection Profile for Mobile Device Fundamentals based on the 
