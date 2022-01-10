@@ -256,9 +256,9 @@
             <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
             <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
             <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
-            <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
-            <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
-            <selectable>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
+            <selectable id="trsadhe1">TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
+            <selectable id="trsadhe2">TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+            <selectable id="trsadhe3">TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
             <selectable id="tecdhe1">TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
             <selectable id="tecdhe2">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
             <selectable id="tecdhe3">TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
@@ -808,6 +808,8 @@ during handshake.
 			on-sel5="tecdhe5" on-sel6="tecdhe6" on-sel7="tecdhe7" on-sel8="tecdhe8"/>
           <depends on-sel="decdhe1" on-sel2="decdhe2" on-sel3="decdhe3" on-sel4="decdhe4"
 			on-sel5="decdhe5" on-sel6="decdhe6" on-sel7="decdhe7" on-sel8="decdhe8"/>
+		  <depends on-sel="trsadhe1" on-sel2="trsadhe2" on-sel3="trsadhe3"/> 
+		  <depends on-sel="drsadhe1" on-sel2="drsadhe2" on-sel3="drsadhe3"/> 
           <f-element id="fel-hello-group-extension">
             <!-- TODO: IDs for ECC DHE curves -->
             <title> The product shall present the Supported Groups Extension in the Client Hello
@@ -1058,7 +1060,7 @@ during handshake.
                     <selectable>ffdhe4096</selectable>
                     <selectable>ffdhe6144</selectable>
                     <selectable>ffdhe8192</selectable>
-                    <selectable>no other groups</selectable>
+                    <selectable exclusive="yes">no other groups</selectable>
                   </selectables>
               </selectable>
               <selectable>ECDHE parameters using elliptic curves
@@ -1382,9 +1384,9 @@ during handshake.
       <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
       <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
       <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
-      <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
-      <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
-      <selectable>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
+      <selectable id="drsadhe1">TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
+      <selectable id="drsadhe2">TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+      <selectable id="drsadhe3">TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
       <selectable id="decdhe1">TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
       <selectable id="decdhe2">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
       <selectable id="decdhe3">TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
@@ -1462,7 +1464,7 @@ during handshake.
     </f-element>
     <f-element id="fel-dtlsc-fail">
     <title>The product shall
-    <selectables>
+    <selectables onlyone="yes">
       <selectable>terminate the DTLS session</selectable>
       <selectable>silently discard the record</selectable>
     </selectables>
@@ -1643,7 +1645,7 @@ during handshake.
               <selectable>ffdhe4096</selectable>
               <selectable>ffdhe6144</selectable>
               <selectable>ffdhe8192</selectable>
-              <selectable>no other groups</selectable>
+              <selectable exclusive="yes">no other groups</selectable>
             </selectables>
           </selectable>
           <selectable>ECDHE parameters using elliptic curves
@@ -1674,7 +1676,7 @@ during handshake.
     </f-element>
     <f-element id="fel-dtlss-kill-session">
       <title>The product shall
-      <selectables>
+      <selectables onlyone="yes">
         <selectable>terminate the DTLS session</selectable>
         <selectable>silently discard the record</selectable>
       </selectables>
