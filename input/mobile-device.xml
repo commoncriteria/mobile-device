@@ -5911,7 +5911,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   </text>
                   <M ref="I"/>
                   <app-note><also ref-id="mf-audioVisual"/><also ref-id="mf-location"/>
-		  For functions,  must be implemented on a device-wide basis but may also be
+		  For functions <_/>, <xref to="mf-audioVisual"/>, and <xref to="mf-location"/> ,
+		  must be implemented on a device-wide basis but may also be
 		  implemented on a per-app basis or on a per-group of applications basis in which the
 		  configuration includes the list of applications or groups of applications to which the
 		  enable/disable applies.</app-note>
@@ -6046,6 +6047,27 @@ The evaluator shall exercise the TSF configuration as the administrator and
                       </selectables></htm:div>
                   </text>
                   <M ref="I"/>
+		  <app-note>The assignment in function <_/>
+              consists of at least one audio and/or visual device, such as camera and microphone,
+              which can be enabled and disabled by either the user or administrator. Disablement of
+              the microphone does not imply that the microphone may not be enabled in order to place
+              emergency phone calls. If certain devices are able to be restricted to the enterprise
+              (either device-wide, per-app or per-group of applications) and others are able to be
+              restricted to users, then this function should be iterated in the table with the
+              appropriate table entries.
+	      <htm:p>
+		Regarding functions <xref to="mf-radios"/> and <xref to="mf-audioVisual"/>,
+		disablement of a particular
+              radio or audio/visual device must be effective as soon as the TOE has power.
+              Disablement must also apply when the TOE is booted into auxiliary boot modes, for
+              example, associated with updates or backup. If the TOE supports states in which
+              security management policy is inaccessible, for example, due to data-at-rest
+              protection, it is acceptable to meet this requirement by ensuring that these devices
+              are disabled by default while in these states. That these devices are disabled during
+              auxiliary boot modes does not imply that the device (particularly the cellular radio)
+              may not be enabled in order to perform emergency phone calls. 
+	      </htm:p>
+		  </app-note>
 		  <aactivity><TSS>
 		     The evaluator
                   shall verify that the TSS includes a description of each collection device and an
@@ -6102,6 +6124,11 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                   <NA ref="U"/>
                   <M ref="A"/>
                   <NA ref="AO"/>
+		  <app-note>
+		    Wipe  of the TSF (function <xref to="mf-wipe"/>) is performed according to
+		    FCS_CKM_EXT.5.
+		    Protected data is all non-TSF data, including all user or enterprise data. Some or all
+		  of this data may be considered sensitive data as well.</app-note>
                 </management-function>
                 <management-function id="mf-appInstallRules">
                   <text>
@@ -6115,6 +6142,23 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                       </selectables></htm:div>
                   </text>
                   <M ref="I"/><NA ref="U"/><M ref="A"/><M ref="AO"/>
+		  <app-note>
+		    The
+		    selection in function <xref to="mf-appInstallRules"/> allows the ST author to
+		    select which mechanisms are available to the administrator through the MDM Agent to
+		    restrict the applications which the user may install. The ST author must state if
+		    application allowlist is applied device-wide or if it can be specified to apply to
+		    either the Enterprise and/or Personal applications. <htm:ul>
+                    <htm:li>If the administrator can restrict the sources from which applications can be
+                    installed, the ST author selects option a. </htm:li>
+                    <htm:li>If the administrator can specify a allowlist of allowed applications, the ST
+                    author selects option b. The ST author should list any application characteristics
+                    (e.g. name, version, or developer) based on which the allowlist can be
+                    formed.</htm:li>
+                    <htm:li>If the administrator can prevent the user from installing additional
+                    applications, the ST author selects c. </htm:li>
+		  </htm:ul>
+		  </app-note>
 		  <aactivity><TSS>
 		     The evaluator
                   shall verify the TSS describes the allowable application installation policy
@@ -6197,6 +6241,14 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                           certificates</assignable></selectable>
                     </selectables> in the Trust Anchor Database </text>
                     <M ref="I"/><NA ref="AO"/>
+		    <app-note>
+		      In the future, function <xref to="mf-certWipe"/> may require
+              destruction or disabling of any default trusted CA certificates, excepting those CA
+              certificates necessary for continued operation of the TSF, such as the developer’s
+              certificate. At this time, the ST author must indicate in the assignment whether
+              pre-installed or any other category of X.509v3 certificates may be removed from the
+              Trust Anchor Database.
+		    </app-note>
 		    <aactivity>
 		      <TSS>
 			The evaluator shall
@@ -6217,6 +6269,13 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- 13. -->
                     <!-- <ctr id="enroll" pre="" ctr-type="function">.</ctr>--> enroll the TOE in management </text>
                     <M ref="I"/><O ref="U"/><O ref="A"/><O ref="AO"/>
+		    <app-note>
+		      For function <xref to="mf-enroll"/>, the
+		      enrollment function may be installing an MDM agent and includes the policies to be
+		      applied to the device. It is acceptable for the user approval notice to require the
+		      user to intentionally opt to view the policies (for example, by "tapping" on a "View"
+		      icon) rather than listing the policies in full in the notice.
+		    </app-note>
 		    <aactivity>
 		      <TSS>The evaluator shall
                   examine the TSS to ensure that it contains a description of each management
@@ -6258,6 +6317,16 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- 15 -->
                     <!-- <ctr id="update" pre="" ctr-type="function">.</ctr>--> update system software </text>
                     <M ref="I"/><NA ref="U"/><M ref="A"/>
+		    <app-note>
+		      For function <xref to="mf-update"/>, the administrator capability to update the system
+		      software may be limited to causing a prompt to the user to update rather than the
+		      ability to initiate the update itself. As the administrator is likely to be acting
+		      remotely, he/she would be unaware of inopportune situations, such as low power, which
+		      may cause the update to fail and the device to become inoperable. The user can refuse
+		      to accept the update in such situations. It is expected that system architects will be
+		      cognizant of this limitation and will enforce network access controls in order to
+		      enforce enterprise-critical updates.
+		    </app-note>
 		    <aactivity><Tests>The evaluator shall attempt to update the TSF system software following the
                     procedures in the AGD guidance and verify that updates correctly install and
                     that the version numbers of the system software increase.
@@ -6268,6 +6337,13 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- 16. -->
                     <!-- <ctr id="appInstall" pre="" ctr-type="function">.</ctr>--> install applications </text>
                     <M ref="I"/><NA ref="U"/><M ref="A"/>
+		    <app-note>
+		      Function <xref
+                to="mf-appInstall"/> addresses both installation and update. This protection profile
+              does not distinguish between installation and update of applications because mobile
+              devices typically completely overwrite the previous installation with a new
+              installation during an application update.
+		    </app-note>
                     <aactivity><Tests>The evaluator shall attempt to install an application following the
                     procedures in the AGD guidance and verify that the application is installed and
                     available on the TOE.</Tests></aactivity>
@@ -6278,6 +6354,15 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- <ctr id="entAppRemove" pre="" ctr-type="function">.</ctr>--> remove Enterprise
                   applications </text>
 		  <M ref="I"/><NA ref="U"/><M ref="A"/><NA ref="AO"/>
+		  <app-note>
+		    For function <xref
+                to="mf-entAppRemove"/>, "Enterprise applications" are those applications that belong
+              to the Enterprise application group. Applications installed by the enterprise
+              administrator (including automatic installation by the administrator after being
+              requested by the user from a catalog of enterprise applications) are by default placed
+              in the Enterprise application group unless an exception has been made in function
+              <xref to="mf-appGroups"/> of FMT_SMF_EXT.1.1.
+		  </app-note>
 		  <aactivity><Tests>
 		  The evaluator shall attempt to remove any Enterprise applications from the
                     device by following the administrator guidance. The evaluator shall verify that
@@ -6298,6 +6383,12 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     </selectables>
                   </text>
                   <M ref="I"/>
+		  <app-note>
+		    If the display
+              of notifications in the locked state is supported, the configuration of these
+              notifications (function <xref to="mf-notifications"/>) must be included in the
+              selection.
+		  </app-note>
 		  <aactivity><Guidance>The evaluator
                   shall examine the AGD Guidance to determine that it specifies, for at least each
                   category of information selected for Function <xref to="mf-notifications"/>,
@@ -6314,6 +6405,10 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- 20. -->
                     <!-- <ctr id="dar" pre="" ctr-type="function">.</ctr>--> enable data-at rest protection </text>
                     <M ref="I"/>
+		    <app-note>
+		      Function <xref to="mf-dar"/> must be included in the
+		      selection if data-at-rest protection is not natively enabled.
+		    </app-note>
 		    <aactivity><Tests>
 		      The evaluator shall exercise the TSF configuration as the administrator and,
                     if not restricted to the administrator, the user, to enable system-wide
@@ -6329,6 +6424,10 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- <ctr id="rmediaDar" pre="" ctr-type="function">.</ctr>--> enable removable media’s
                     data-at-rest protection </text>
                     <M ref="I"/>
+		    <app-note>
+		      Function <xref to="mf-rmediaDar"/> is implicitly met if the TSF does not support
+		      removable media.
+		    </app-note>
 		    <aactivity><Tests>
 		      The evaluator shall exercise the TSF configuration as the administrator and,
                     if not restricted to the administrator, the user, to enable removable media’s
@@ -6350,6 +6449,11 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                       </selectables></htm:div>
                   </text>
                   <M ref="I"/>
+		  <app-note>
+		                  For function <xref to="mf-location"/>, location
+              services include location information gathered from GPS, cellular, and Wi-Fi.
+
+		  </app-note>
 		  <aactivity><Tests>
 		    The evaluator shall perform the following tests. <htm:ol type="a">
                       <htm:li>The evaluator shall enable location services device-wide and shall
@@ -6375,6 +6479,15 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     </selectables>
                   </text>
                   <M ref="I"/>
+		  <app-note>
+		    Function <xref to="mf-authFactors"/> is implicitly met if the
+              TOE does not contain a BAF. This selection must correspond with the selection made in
+              FIA_UAU.5.1. If a BAF is selected in FIA_UAU.5.1, "Biometric Authentication Factor"
+              must be selected and the user or admin must have the option to disable the use of
+              it. If multiple BAFs are selected in FIA_UAU.5.1, this applies to all different
+              modalities. If "hybrid" is selected in FIA_UAU.5.1 it must be selected and the user
+              or admin must have the option to disable the use of it.
+		  </app-note>
 		  <aactivity><Tests>
 		    The evaluator shall verify that the TSS states if the TOE supports a BAF
                     and/or hybrid authentication. If the TOE does not include a BAF and/or hybrid
@@ -6404,6 +6517,11 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     allow/disallow establishment of a trusted channel if the peer/server certificate
                     is deemed invalid.</text>
                     <M ref="I"/>
+		    <app-note>
+		                    <!-- TODO: Should this be something like for TLS do not approve any exceptions, for HTTP this is per FCS_HTTPS_EXT.1.3?? How do I force the selection of no exceptions for all (non-HTTPS) TLS connections? -->
+              For function <xref to="mf-certInvalid"/>, the configuration can be different
+              depending on the specific trusted channel.
+		    </app-note>
 		    <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2,
                     FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. </Tests></aactivity>
                 </management-function>
@@ -6414,6 +6532,20 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     data signaling over <assignable>list of externally accessible hardware
                       ports</assignable>
                   </text>
+		  <app-note>
+		                  <!-- Start of the optional to include functions --> The assignment in function
+                <xref to="mf-externalPorts"/> consists of all externally accessible hardware
+              ports, such as USB, the SD card, and HDMI, whose data transfer capabilities can be
+              enabled and disabled by either the user or administrator. Disablement of data transfer
+              over an external port must be effective during and after boot into the normal
+              operative mode of the device. If the TOE supports states in which configured security
+              management policy is inaccessible, for example, due to data-at-rest protection, it is
+              acceptable to meet this requirement by ensuring that data transfer is disabled by
+              default while in these states. Each of the ports may be enabled or disabled
+              separately. The configuration policy need not disable all ports together. In the case
+              of USB, chagrining is still allowed if data transfer capabilities have been disabled.
+
+		  </app-note>
 		  <aactivity><TSS>
 		    The evaluator shall verify that the TSS includes a list of each externally
                     accessible hardware port and an indication of if data transfer over that port can
@@ -6434,6 +6566,11 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- <ctr id="serverProtocols" pre="" ctr-type="function">.</ctr>--> enable/disable
                       <assignable>list of protocols where the device acts as a server</assignable>
                   </text>
+		  <app-note>
+		    The assignment in function <xref to="mf-serverProtocols"/>
+              consists of all protocols where the TSF acts as a server, which can be enabled and
+              disabled by either the user or administrator.
+		  </app-note>
 		  <aactivity><TSS>
 		    The evaluator shall verify that the TSS describes how the TSF acts as a server in
                   each of the protocols listed in the ST, and the reason for acting as a server.</TSS>
@@ -6448,6 +6585,11 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                   <text>
                     <!-- <ctr id="devModes" pre="" ctr-type="function">.</ctr>--> enable/disable developer
                   modes </text>
+		  <app-note>
+		    Function <xref
+                to="mf-devModes"/> must be included in the selection if developer modes are
+		    supported by the TSF.
+		  </app-note>
 		  <aactivity><Tests>
 		    The evaluator shall exercise the TSF configuration as the administrator and,
                     if not restricted to the administrator, the user, to enable and disable any
@@ -6459,6 +6601,12 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                   <text>
                     <!-- <ctr id="authBypass" pre="" ctr-type="function">.</ctr>--> enable/disable bypass of
                   local user authentication </text>
+		  <app-note>
+		    Function <xref to="mf-authBypass"/> must
+              be included in the selection if bypass of local user authentication, such as a "Forgot
+              Password", password hint, or remote authentication feature, is supported.
+
+		  </app-note>
 		  <aactivity><Guidance>The
                   evaluator shall examine the AGD guidance to determine that it describes how to
                   enable and disable any "Forgot Password", password hint, or remote authentication
@@ -6485,6 +6633,17 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                       <selectable>removal</selectable>
                     </selectables> by applications of X.509v3 certificates in the Trust Anchor
                   Database </text>
+		  <app-note>
+		    Function <xref to="mf-appCert"/> must be included in the
+              selection if the TSF allows applications, other than the MDM Agents, to import or
+              remove X.509v3 certificates from the Trust Anchor Database. The MDM Agent is
+              considered the administrator. This function does not apply to applications trusting a
+              certificate for its own validations. The function only applies to situations where the
+              application modifies the device-wide Trust Anchor Database, affecting the validations
+              performed by the TSF for other applications. The user or administrator may be provided
+              the ability to globally allow or deny any application requests in order to meet this
+              requirement.
+		  </app-note>
 		  <aactivity><TSS>
 		    The
                   evaluator shall verify that the TSS describes how approval for an application to
@@ -6533,6 +6692,11 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- <ctr id="certValidity" pre="" ctr-type="function">.</ctr>--> configure whether to
                     allow/disallow establishment of a trusted channel if the TSF cannot establish a
                   connection to determine the validity of a certificate</text>
+		  <app-note>
+		    Function <xref to="mf-certValidity"/> must be
+              included in the ST if "administrator-configured option" is selection in
+              FIA_X509_EXT.2.2.
+		  </app-note>
 		  <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2.</Tests></aactivity>
                 </management-function>
                 <management-function id="mf-cellular">
@@ -6565,6 +6729,11 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                       <selectable>certificate</selectable>
                       <selectable>public-key</selectable>
                   </selectables> used to validate digital signature on applications </text>
+		  <app-note>
+		    Function <xref to="mf-digSign"/> should be
+              included in the selection if FPT_TUD_EXT.5.1 is included in the ST and the
+              configurable option is selected.
+		  </app-note>
 		  <aactivity><Tests>
 		    The test of this function is performed in conjunction with FPT_TUD_EXT.5.1.
 		  </Tests></aactivity>
@@ -6573,6 +6742,11 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                   <text>
                     <!-- <ctr id="sharedKeys" pre="" ctr-type="function">.</ctr>--> approve exceptions for
                   shared use of keys/secrets by multiple applications </text>
+		  <app-note>
+		    Function <xref
+                to="mf-sharedKeys"/> should be included in the selection if user or administrator is
+		    selected in FCS_STG_EXT.1.4.
+		  </app-note>
 		  <aactivity><TSS>The
                   evaluator shall verify that the TSS describes how the approval for exceptions for
                   shared use of keys/secrets by multiple applications is accomplished (e.g., a
@@ -6585,6 +6759,11 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- <ctr id="keyWipeRules" pre="" ctr-type="function">.</ctr>--> approve exceptions for
                     destruction of keys/secrets by applications that did not import the key/secret
                   </text>
+		  <app-note>
+		    Function <xref to="mf-keyWipeRules"
+              /> should be included in the selection if user or administrator is selected in
+		    FCS_STG_EXT.1.5.
+		  </app-note>
 		<aactivity><TSS>The
                   evaluator shall verify that the TSS describes how the approval for exceptions for
                   destruction of keys/secrets by applications that did not import the key/secret is
@@ -6599,6 +6778,10 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- <ctr id="unlockBanner" pre="" ctr-type="function">.</ctr>--> configure the unlock
                     banner </text>
                     <NA ref="U"/>
+		    <app-note>
+		      Function <xref to="mf-unlockBanner"/> must be
+		      included in the selection if FTA_TAB.1 is included in the ST.
+		    </app-note>
 		    <aactivity><TSS>
                   The evaluator shall verify that the TSS describes any restrictions in banner
                   settings (e.g., character limitations).
@@ -6611,6 +6794,10 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- <ctr id="auditItems" pre="" ctr-type="function">.</ctr>--> configure the auditable
                     items </text>
                     <NA ref="U"/>
+		    <app-note>
+		                    Function <xref to="mf-auditItems"/> must be included in the selection if FAU_SEL.1
+				    is included in the ST.
+		    </app-note>
 		    <aactivity><Tests>The test of this function is performed in conjunction with FAU_SEL.1.</Tests></aactivity>
                 </management-function>
                 <management-function id="mf-integ">
@@ -6706,6 +6893,12 @@ If "all applications" is selected, the evaluator shall disable each selected
                       </selectable>
                     </selectables>
                   </text>
+		  <app-note>
+		    For function <xref to="mf-hotspot"/>,
+              hotspot functionality refers to the condition in which the mobile device is serving as
+              an access point to other devices, not the connection of the TOE to external hotspots.
+
+		  </app-note>
 		  <aactivity><TSS> The
                   evaluator shall verify that the TSS includes a description of Hotspot
                   functionality and USB tethering to include any authentication for these.</TSS>
@@ -6729,6 +6922,10 @@ If "all applications" is selected, the evaluator shall disable each selected
                       <selectable>applications</selectable>
                       <selectable>groups of applications</selectable>
                   </selectables></text>
+		  <app-note>
+		    Functions <xref to="mf-dataSharing"/> and <xref
+                    to="mf-appGroups"/> correspond to FDP_ACF_EXT.1.2.
+		  </app-note>
 		  <aactivity><Tests>The test of this function is performed in conjunction with FDP_ACF_EXT.1.2.</Tests></aactivity>
                 </management-function>
                 <management-function id="mf-appGroups">
@@ -6746,6 +6943,11 @@ If "all applications" is selected, the evaluator shall disable each selected
                   <text>
                     <!-- <ctr id="unenroll" pre="" ctr-type="function">.</ctr>--> unenroll the TOE from
                   management </text>
+		  <app-note>
+		    For function
+                <xref to="mf-unenroll"/>, FMT_SMF_EXT.2.1 specifies actions to be performed when
+		the TOE is unenrolled from management.
+		  </app-note>
 		  <aactivity><Tests>The evaluator shall attempt to unenroll the device from management and
                     verify that the steps described in FMT_SMF_EXT.2.1 are performed. This test
                     should be performed in conjunction with the FMT_SMF_EXT.2.1 evaluation activity.
@@ -6763,6 +6965,16 @@ If "all applications" is selected, the evaluator shall disable each selected
                       <selectable>d. no other method</selectable>
                     </selectables></htm:div>                
                   </text>
+		  <app-note>
+		    For function <xref
+                to="mf-alwaysOnVPN"/>, must be included in the ST if IPsec is selected in
+              FTP_ITC_EXT.1 and the native IPsec VPN client can be configured to be Always-On.
+              Always-On is defined as when the TOE has a network connection the VPN attempts to
+              connect, all data leaving the device uses the VPN when the VPN is connected and no
+              data leaves that device when the VPN is disconnected. The configuration of the VPN
+              Client itself (with information such as VPN Gateway, certificates, and algorithms) is
+              addressed by the PP-Module for VPN Client.
+		  </app-note>
 		  <aactivity><TSS>The evaluator shall verify that the TSS contains guidance to configure the
                   VPN as Always-On.
 		  </TSS><Tests>The evaluator shall configure the VPN as Always-On and perform
@@ -6846,158 +7058,27 @@ If "all applications" is selected, the evaluator shall disable each selected
               For non-selectable sub-functions in an optional function, all sub-functions must be
               implemented in order for the function to be included. For functions with a "per-app
               basis" sub function and an assignment, the ST author must indicate which assigned
-              features are manageable on a per-app basis and which are not by iterating the row. <htm:br/><htm:br/>
-              <htm:b>Function-specific Application Notes:</htm:b><htm:br/><htm:br/> For functions
-                <xref to="mf-vpn"/>, <xref to="mf-audioVisual"/> and <xref to="mf-location"
-              />, the function must be implemented on a device-wide basis but may also be
-              implemented on a per-app basis or on a per-group of applications basis in which the
-              configuration includes the list of applications or groups of applications to which the
-              enable/disable applies. <htm:br/><htm:br/> Function <xref to="mf-vpn"/> addresses
-              enabling and disabling the IPsec VPN only. The configuration of the VPN Client itself
-              (with information such as VPN Gateway, certificates, and algorithms) is addressed by
-              the PP-Module for VPN Client. The administrator options should only be listed if the
-              administrator can remotely enable/disable the VPN connection. <htm:br/><htm:br/>
-              Function <xref to="mf-vpn"/> optionally allows the VPN to be configured per-app or
-              per-groups of apps. If this configuration is selected, it does not void FDP_IFC_EXT.1.
-              Instead FDP_IFC_EXT.1 is applied to the application or group of applications the VPN
-              is applied to. In other words, all traffic destined for the VPN-enabled application or
-              group of applications, must travel through the VPN, but traffic not destined for that
-              application or group of applications can travel outside the VPN. When the VPN is
-              configured across the device FDP_IFC_EXT.1 applies to all traffic and the VPN must not
-              split tunnel. <htm:br/><htm:br/> 
-
-	      <htm:br/><htm:br/> The assignment in function <xref to="mf-audioVisual"/>
-              consists of at least one audio and/or visual device, such as camera and microphone,
-              which can be enabled and disabled by either the user or administrator. Disablement of
-              the microphone does not imply that the microphone may not be enabled in order to place
-              emergency phone calls. If certain devices are able to be restricted to the enterprise
-              (either device-wide, per-app or per-group of applications) and others are able to be
-              restricted to users, then this function should be iterated in the table with the
-              appropriate table entries. <htm:br/><htm:br/> Regarding functions <xref
-                to="mf-radios"/> and <xref to="mf-audioVisual"/>, disablement of a particular
-              radio or audio/visual device must be effective as soon as the TOE has power.
-              Disablement must also apply when the TOE is booted into auxiliary boot modes, for
-              example, associated with updates or backup. If the TOE supports states in which
-              security management policy is inaccessible, for example, due to data-at-rest
-              protection, it is acceptable to meet this requirement by ensuring that these devices
-              are disabled by default while in these states. That these devices are disabled during
-              auxiliary boot modes does not imply that the device (particularly the cellular radio)
-              may not be enabled in order to perform emergency phone calls. <htm:br/><htm:br/> Wipe
-              of the TSF (function <xref to="mf-wipe"/>) is performed according to FCS_CKM_EXT.5.
-              Protected data is all non-TSF data, including all user or enterprise data. Some or all
-              of this data may be considered sensitive data as well. <htm:br/><htm:br/> The
-              selection in function <xref to="mf-appInstallRules"/> allows the ST author to
-              select which mechanisms are available to the administrator through the MDM Agent to
-              restrict the applications which the user may install. The ST author must state if
-              application allowlist is applied device-wide or if it can be specified to apply to
-              either the Enterprise and/or Personal applications. <htm:ul>
-                <htm:li>If the administrator can restrict the sources from which applications can be
-                  installed, the ST author selects option a. </htm:li>
-                <htm:li>If the administrator can specify a allowlist of allowed applications, the ST
-                  author selects option b. The ST author should list any application characteristics
-                  (e.g. name, version, or developer) based on which the allowlist can be
-                  formed.</htm:li>
-                <htm:li>If the administrator can prevent the user from installing additional
-                  applications, the ST author selects c. </htm:li>
-              </htm:ul>
-              <htm:br/>In the future, function <xref to="mf-certWipe"/> may require
-              destruction or disabling of any default trusted CA certificates, excepting those CA
-              certificates necessary for continued operation of the TSF, such as the developer’s
-              certificate. At this time, the ST author must indicate in the assignment whether
-              pre-installed or any other category of X.509v3 certificates may be removed from the
-              Trust Anchor Database. <htm:br/><htm:br/> 
-              For function <xref to="mf-enroll"/>, the
-              enrollment function may be installing an MDM agent and includes the policies to be
-              applied to the device. It is acceptable for the user approval notice to require the
-              user to intentionally opt to view the policies (for example, by "tapping" on a "View"
-              icon) rather than listing the policies in full in the notice. <htm:br/><htm:br/> For
-              function <xref to="mf-update"/>, the administrator capability to update the system
-              software may be limited to causing a prompt to the user to update rather than the
-              ability to initiate the update itself. As the administrator is likely to be acting
-              remotely, he/she would be unaware of inopportune situations, such as low power, which
-              may cause the update to fail and the device to become inoperable. The user can refuse
-              to accept the update in such situations. It is expected that system architects will be
-              cognizant of this limitation and will enforce network access controls in order to
-              enforce enterprise-critical updates. <htm:br/><htm:br/> Function <xref
-                to="mf-appInstall"/> addresses both installation and update. This protection profile
-              does not distinguish between installation and update of applications because mobile
-              devices typically completely overwrite the previous installation with a new
-              installation during an application update. <htm:br/><htm:br/> For function <xref
-                to="mf-entAppRemove"/>, "Enterprise applications" are those applications that belong
-              to the Enterprise application group. Applications installed by the enterprise
-              administrator (including automatic installation by the administrator after being
-              requested by the user from a catalog of enterprise applications) are by default placed
-              in the Enterprise application group unless an exception has been made in function
-                <xref to="mf-appGroups"/> of FMT_SMF_EXT.1.1. <htm:br/><htm:br/> If the display
-              of notifications in the locked state is supported, the configuration of these
-              notifications (function <xref to="mf-notifications"/>) must be included in the
-              selection. <htm:br/><htm:br/> Function <xref to="mf-dar"/> must be included in the
-              selection if data-at-rest protection is not natively enabled. <htm:br/><htm:br/>
-              Function <xref to="mf-rmediaDar"/> is implicitly met if the TSF does not support
-              removable media. <htm:br/><htm:br/> 
-              For function <xref to="mf-location"/>, location
-              services include location information gathered from GPS, cellular, and Wi-Fi.
-              <htm:br/><htm:br/> Function <xref to="mf-authFactors"/> is implicitly met if the
-              TOE does not contain a BAF. This selection must correspond with the selection made in
-              FIA_UAU.5.1. If a BAF is selected in FIA_UAU.5.1, "Biometric Authentication Factor"
-              must be selected and the user or admin must have the option to disable the use of
-              it. If multiple BAFs are selected in FIA_UAU.5.1, this applies to all different
-              modalities. If "hybrid" is selected in FIA_UAU.5.1 it must be selected and the user
-              or admin must have the option to disable the use of it. <htm:br/><htm:br/>
-              <!-- TODO: Should this be something like for TLS do not approve any exceptions, for HTTP this is per FCS_HTTPS_EXT.1.3?? How do I force the selection of no exceptions for all (non-HTTPS) TLS connections? -->
-              For function <xref to="mf-certInvalid"/>, the configuration can be different
-              depending on the specific trusted channel. <htm:br/><htm:br/>
-              <!-- Start of the optional to include functions --> The assignment in function
-                <xref to="mf-externalPorts"/> consists of all externally accessible hardware
-              ports, such as USB, the SD card, and HDMI, whose data transfer capabilities can be
-              enabled and disabled by either the user or administrator. Disablement of data transfer
-              over an external port must be effective during and after boot into the normal
-              operative mode of the device. If the TOE supports states in which configured security
-              management policy is inaccessible, for example, due to data-at-rest protection, it is
-              acceptable to meet this requirement by ensuring that data transfer is disabled by
-              default while in these states. Each of the ports may be enabled or disabled
-              separately. The configuration policy need not disable all ports together. In the case
-              of USB, chagrining is still allowed if data transfer capabilities have been disabled.
-              <htm:br/><htm:br/> The assignment in function <xref to="mf-serverProtocols"/>
-              consists of all protocols where the TSF acts as a server, which can be enabled and
-              disabled by either the user or administrator. <htm:br/><htm:br/> Function <xref
-                to="mf-devModes"/> must be included in the selection if developer modes are
-              supported by the TSF. <htm:br/><htm:br/> Function <xref to="mf-authBypass"/> must
-              be included in the selection if bypass of local user authentication, such as a "Forgot
-              Password", password hint, or remote authentication feature, is supported.
-              <htm:br/><htm:br/> Function <xref to="mf-appCert"/> must be included in the
-              selection if the TSF allows applications, other than the MDM Agents, to import or
-              remove X.509v3 certificates from the Trust Anchor Database. The MDM Agent is
-              considered the administrator. This function does not apply to applications trusting a
-              certificate for its own validations. The function only applies to situations where the
-              application modifies the device-wide Trust Anchor Database, affecting the validations
-              performed by the TSF for other applications. The user or administrator may be provided
-              the ability to globally allow or deny any application requests in order to meet this
-              requirement. <htm:br/><htm:br/> Function <xref to="mf-certValidity"/> must be
-              included in the ST if "administrator-configured option" is selection in
-              FIA_X509_EXT.2.2. <htm:br/><htm:br/> Function <xref to="mf-digSign"/> should be
-              included in the selection if FPT_TUD_EXT.5.1 is included in the ST and the
-              configurable option is selected. <htm:br/><htm:br/> Function <xref
-                to="mf-sharedKeys"/> should be included in the selection if user or administrator is
-              selected in FCS_STG_EXT.1.4. <htm:br/><htm:br/> Function <xref to="mf-keyWipeRules"
-              /> should be included in the selection if user or administrator is selected in
-              FCS_STG_EXT.1.5. <htm:br/><htm:br/> Function <xref to="mf-unlockBanner"/> must be
-              included in the selection if FTA_TAB.1 is included in the ST. <htm:br/><htm:br/>
-              Function <xref to="mf-auditItems"/> must be included in the selection if FAU_SEL.1
-              is included in the ST. <htm:br/><htm:br/> For function <xref to="mf-hotspot"/>,
-              hotspot functionality refers to the condition in which the mobile device is serving as
-              an access point to other devices, not the connection of the TOE to external hotspots.
-              <htm:br/><htm:br/> Functions <xref to="mf-dataSharing"/> and <xref
-                to="mf-appGroups"/> correspond to FDP_ACF_EXT.1.2. <htm:br/><htm:br/> For function
-                <xref to="mf-unenroll"/>, FMT_SMF_EXT.2.1 specifies actions to be performed when
-              the TOE is unenrolled from management. <htm:br/><htm:br/> For function <xref
-                to="mf-alwaysOnVPN"/>, must be included in the ST if IPsec is selected in
-              FTP_ITC_EXT.1 and the native IPsec VPN client can be configured to be Always-On.
-              Always-On is defined as when the TOE has a network connection the VPN attempts to
-              connect, all data leaving the device uses the VPN when the VPN is connected and no
-              data leaves that device when the VPN is disconnected. The configuration of the VPN
-              Client itself (with information such as VPN Gateway, certificates, and algorithms) is
-              addressed by the PP-Module for VPN Client. </note>
+              features are manageable on a per-app basis and which are not by iterating the row.
+	      <htm:br/><htm:br/>
+              <!-- <htm:b>Function-specific Application Notes:</htm:b><htm:br/><htm:br/> For functions -->
+              <!--   <xref to="mf-vpn"/>, <xref to="mf-audioVisual"/> and <xref to="mf-location" -->
+              <!-- />, the function must be implemented on a device-wide basis but may also be -->
+              <!-- implemented on a per-app basis or on a per-group of applications basis in which the -->
+              <!-- configuration includes the list of applications or groups of applications to which the -->
+              <!-- enable/disable applies. <htm:br/><htm:br/> Function <xref to="mf-vpn"/> addresses -->
+              <!-- enabling and disabling the IPsec VPN only. The configuration of the VPN Client itself -->
+              <!-- (with information such as VPN Gateway, certificates, and algorithms) is addressed by -->
+              <!-- the PP-Module for VPN Client. The administrator options should only be listed if the -->
+              <!-- administrator can remotely enable/disable the VPN connection. <htm:br/><htm:br/> -->
+              <!-- Function <xref to="mf-vpn"/> optionally allows the VPN to be configured per-app or -->
+              <!-- per-groups of apps. If this configuration is selected, it does not void FDP_IFC_EXT.1. -->
+              <!-- Instead FDP_IFC_EXT.1 is applied to the application or group of applications the VPN -->
+              <!-- is applied to. In other words, all traffic destined for the VPN-enabled application or -->
+              <!-- group of applications, must travel through the VPN, but traffic not destined for that -->
+              <!-- application or group of applications can travel outside the VPN. When the VPN is -->
+              <!-- configured across the device FDP_IFC_EXT.1 applies to all traffic and the VPN must not -->
+              <!-- split tunnel. -->
+	    </note>
             <aactivity>
               <TSS>The evaluator shall verify that the TSS describes all management functions, what
                 role(s) can perform each function, and how these functions are (or can be)
@@ -7012,519 +7093,519 @@ If "all applications" is selected, the evaluator shall disable each selected
                 how to perform each management function, including any configuration details. For
                 each specified management function tested, the evaluator shall confirm that the
                 underlying mechanism exhibits the configured setting. <htm:br/><htm:br/></Guidance>
-              <Tests>
-                <testlist>
-                  <htm:b>Function <xref to="mf-pwd"/></htm:b><htm:br/> The evaluator shall verify
-                  the TSS defines the allowable policy options: the range of values for both
-                  password length and lifetime, and a description of complexity to include character
-                  set and complexity policies (e.g., configuration and enforcement of number of
-                  uppercase, lowercase, and special characters per password).<htm:br/><htm:br/>
-                  <test>The evaluator shall exercise the TSF configuration as the administrator and
-                    perform positive and negative tests, with at least two values set for each
-                    variable setting, for each of the following: <htm:br/>
-                    <htm:ul>
-                      <htm:li>minimum password length</htm:li>
-                      <htm:li>minimum password complexity</htm:li>
-                      <htm:li>maximum password lifetime</htm:li>
-                    </htm:ul>
-                  </test><htm:br/>
-                  <htm:b>Function <xref to="mf-screenlock"/></htm:b><htm:br/> The evaluator shall
-                  verify the TSS defines the range of values for both timeout period and number of
-                  authentication failures for all supported authentication mechanisms.<htm:br/><htm:br/>
-                  <test> The evaluator shall exercise the TSF configuration as the administrator.
-                    The evaluator shall perform positive and negative tests, with at least two
-                    values set for each variable setting, for each of the following: <htm:br/>
-                    <htm:ul>
-                      <htm:li>screen-lock enabled/disabled</htm:li>
-                      <htm:li>screen lock timeout</htm:li>
-                      <htm:li>number of authentication failures (may be combined with test for
-                        FIA_AFL_EXT.1)</htm:li>
-                    </htm:ul>
-                  </test><htm:br/>
-                  <htm:b>Function <xref to="mf-vpn"/></htm:b><htm:br/>
-                  <test>The evaluator shall perform the following tests: <htm:ol type="a">
-                      <htm:li>The evaluator shall exercise the TSF configuration to enable the VPN
-                        protection. These configuration actions must be used for the testing of the
-                        FDP_IFC_EXT.1.1 requirement. </htm:li>
-                      <htm:li>[conditional] If "per-app basis" is selected, the evaluator shall
-                        create two applications and enable one to use the VPN and the other to not
-                        use the VPN. The evaluator shall exercise each application (attempting to
-                        access network resources; for example, by browsing different websites)
-                        individually while capturing packets from the TOE. The evaluator shall
-                        verify from the packet capture that the traffic from the VPN-enabled
-                        application is encapsulated in IPsec and that the traffic from the
-                        VPN-disabled application is not encapsulated in IPsec. </htm:li>
-                      <htm:li>[conditional] If "per-groups of application basis" is selected, the
-                        evaluator shall create two applications and the applications shall be placed
-                        into different groups. Enable one application group to use the VPN and the
-                        other to not use the VPN. The evaluator shall exercise each application
-                        (attempting to access network resources; for example, by browsing different
-                        websites) individually while capturing packets from the TOE. The evaluator
-                        shall verify from the packet capture that the traffic from the application
-                        in the VPN-enabled group is encapsulated in IPsec and that the traffic from
-                        the application in the VPN-disabled group is not encapsulated in IPsec.
-                      </htm:li>
-                    </htm:ol>
-                  </test><htm:br/>
-                  <htm:b>Function <xref to="mf-radios"/></htm:b><htm:br/> The evaluator shall
-                  verify that the TSS includes a description of each radio and an indication of if
-                  the radio can be enabled/disabled along with what role can do so. In addition the
-                  evaluator shall verify that the frequency ranges at which each radio operates is
-                  included in the TSS. The evaluator shall verify that the TSS includes at what point 
-                  in the boot sequence the radios are powered on and indicates if the radios are used 
-                  as part of the initialization of the device.            
-                  The evaluator shall confirm that the AGD guidance describes
-                  how to perform the enable/disable function for each radio.<htm:br/><htm:br/> The
-                  evaluator shall ensure that minimal signal leakage enters the RF shielded
-                  enclosure (i.e. Faraday bag, Faraday box, RF shielded room) by performing the
-                  following steps:<htm:br/><htm:br/> Step 1: Place the antenna of the spectrum
-                  analyzer inside the RF shielded enclosure.<htm:br/><htm:br/> Step 2: Enable "Max
-                  Hold" on the spectrum analyzer and perform a spectrum sweep of the frequency range
-                  between 300MHz – 6000MHz, in I KHz steps (this range should encompass 802.11,
-                  802.15, GSM, UMTS, and LTE). This range will not address NFC 13.56MHz, another
-                  test should be set up with similar constraints to address NFC.<htm:br/><htm:br/>
-                  If power above -90 dBm is observed, the Faraday box has too great of signal
-                  leakage and shall not be used to complete the test for Function <xref
-                    to="mf-radios"/>.<htm:br/><htm:br/>
-                  <test>The evaluator shall exercise the TSF configuration as the administrator and,
-                    if not restricted to the administrator, the user, to enable and disable the
-                    state of each radio (e.g. Wi-Fi, cellular, NFC, Bluetooth). Additionally,
-                    the evaluator shall repeat the steps below, booting into any auxiliary boot mode
-                    supported by the device. For each radio, the evaluator shall:<htm:br/><htm:br/>
-                    Step 1: Place the antenna of the spectrum analyzer inside the RF shielded
-                    enclosure. Configure the spectrum analyzer to sweep desired frequency range for
-                    the radio to be tested (based on range provided in the TSS)). The ambient noise
-                    floor shall be set to -110dBm. Place the TOE into the RF shielded enclosure to
-                    isolate them from all other RF traffic. <htm:br/><htm:br/> Step 2: The evaluator
-                    shall create a baseline of the expected behavior of RF signals. The evaluator
-                    shall power on the device, ensure the radio in question is enabled, power off
-                    the device, enable "Max Hold" on the spectrum analyzer and power on the device.
-                    The evaluator shall wait 2 minutes at each Authentication Factor interface prior
-                    to entering the necessary password to complete the boot process, waiting 5
-                    minutes after the device is fully booted. The evaluator shall observe that RF
-                    spikes are present at the expected uplink channel frequency. The evaluator shall
-                    clear the "Max Hold" on the spectrum analyzer. <htm:br/><htm:br/> Step 3: The
-                    evaluator shall verify the absence of RF activity for the uplink channel when
-                    the radio in question is disabled. The evaluator shall complete the following
-                    test five times. The evaluator shall power on the device, ensure the radio in
-                    question is disabled, power off the device, enable "Max Hold" on the spectrum
-                    analyzer and power on the device. The evaluator shall wait 2 minutes at each
-                    Authentication Factor interface prior to entering the necessary password to
-                    complete the boot process, waiting 5 minutes after the device is fully booted.
-                    The evaluator shall clear the "Max Hold" on the spectrum analyzer. If the radios 
-                    are used for device initialization, then a spike of RF activity for the uplink channel
-                    can be observed initially at device boot. However, if a spike of
-                    RF activity for the uplink channel of the specific radio frequency band is
-                    observed after the device is fully booted or at an Authentication Factor interface 
-                    it is deemed that the radio is enabled. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-audioVisual"/></htm:b><htm:br/> The evaluator
-                  shall verify that the TSS includes a description of each collection device and an
-                  indication of if it can be enabled/disabled along with what role can do so. The
-                  evaluator shall confirm that the AGD guidance describes how to perform the
-                  enable/disable function. <htm:br/><htm:br/>
-                  <test>The evaluator shall perform the following test(s): <htm:ol type="a">
-                      <htm:li>The evaluator shall exercise the TSF configuration as the
-                        administrator and, if not restricted to the administrator, the user, to
-                        enable and disable the state of each audio or visual collection devices
-                        (e.g. camera, microphone) listed by the ST author. For each collection
-                        device, the evaluator shall disable the device and then attempt to use its
-                        functionality. The evaluator shall reboot the TOE and verify that disabled
-                        collection devices may not be used during or early in the boot process.
-                        Additionally, the evaluator shall boot the device into each available
-                        auxiliary boot mode and verify that the collection device cannot be used. </htm:li>
-                      <htm:li>[conditional] If "per-app basis" is selected, the evaluator shall
-                        create two applications and enable one to use access the A/V device and the
-                        other to not access the A/V device. The evaluator shall exercise each
-                        application attempting to access the A/V device individually. The evaluator
-                        shall verify that the enabled application is able to access the A/V device
-                        and the disabled application is not able to access the A/V device. </htm:li>
-                      <htm:li>[conditional] If "per-groups of application basis" is selected, the
-                        evaluator shall create two applications and the applications shall be placed
-                        into different groups. Enable one group to access the A/V device and the
-                        other to not access the A/V device. The evaluator shall exercise each
-                        application attempting to access the A/V device individually. The evaluator
-                        shall verify that the application in the enabled group is able to access the
-                        A/V device and the application in the disabled group is not able to access
-                        the A/V device. </htm:li>
-                    </htm:ol>
-                  </test><htm:br/>
-                  <htm:b>Function <xref to="mf-lockState"/></htm:b><htm:br/>
-                  <test>The evaluator shall use the test environment to instruct the TSF, both as a
-                    user and as the administrator, to command the device to transition to a locked
-                    state, and verify that the device transitions to the locked state upon
-                    command.</test><htm:br/>
-                  <htm:b>Function <xref to="mf-wipe"/></htm:b><htm:br/>
-                  <test>The evaluator shall use the test environment to instruct the TSF, both as a
-                    user and as the administrator, to command the device to perform a wipe of
-                    protected data. The evaluator must ensure that this management setup is used
-                    when conducting the Evaluation Activities in FCS_CKM_EXT.5.</test><htm:br/>
-                  <htm:b>Function <xref to="mf-appInstallRules"/></htm:b><htm:br/> The evaluator
-                  shall verify the TSS describes the allowable application installation policy
-                  options based on the selection included in the ST. If the application allowlist is
-                  selected, the evaluator shall verify that the TSS includes a description of each
-                  application characteristic upon which the allowlist may be based.<htm:br/><htm:br/>
-                  <test> The evaluator shall exercise the TSF configuration as the administrator to
-                    restrict particular applications, sources of applications, or application
-                    installation according to the AGD guidance. The evaluator shall attempt to
-                    install unauthorized applications and ensure that this is not possible. The
-                    evaluator shall, in conjunction, perform the following specific tests: <htm:ol
-                      type="a">
-                      <htm:li>[conditional] The evaluator shall attempt to connect to an
-                        unauthorized repository in order to install applications. </htm:li>
-                      <htm:li>[conditional] The evaluator shall attempt to install two applications
-                        (one allowlisted, and one not) from a known allowed repository and verify
-                        that the application not on the allowlist is rejected. The evaluator shall
-                        also attempt to side-load executables or installation packages via USB
-                        connections to determine that the white list is still adhered to
-                      </htm:li></htm:ol>
-                  </test><htm:br/>
-                  <htm:b>Function <xref to="mf-keyStorage"/> &#38; Function <xref
-                      to="mf-keyWipe"/></htm:b><htm:br/> The evaluator shall verify that the TSS
-                  describes each category of keys/secrets that can be imported into the TSF’s secure
-                  key storage.<htm:br/><htm:br/>
-                  <test>The test of these functions is performed in association with FCS_STG_EXT.1. </test><htm:br/>
-                  <test>The test of these functions is performed in association with FCS_STG_EXT.1. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-certImport"/></htm:b><htm:br/> The evaluator shall
-                  review the AGD guidance to determine that it describes the steps needed to import,
-                  modify, or remove certificates in the Trust Anchor database, and that the users
-                  that have authority to import those certificates (e.g., only administrator, or
-                  both administrators and users) are identified. <htm:br/><htm:br/>
-                  <test>The evaluator shall import certificates according to the AGD guidance as the
-                    user and/or as the administrator, as determined by the administrative guidance.
-                    The evaluator shall verify that no errors occur during import. The evaluator
-                    should perform an action requiring use of the X.509v3 certificate to provide
-                    assurance that installation was completed properly. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-certWipe"/></htm:b><htm:br/> The evaluator shall
-                  verify that the TSS describes each additional category of X.509 certificates and
-                  their use within the TSF.<htm:br/><htm:br/>
-                  <test>The evaluator shall remove an administrator-imported certificate and any
-                    other categories of certificates included in the assignment of function <xref
-                      to="mf-appRemove"/> from the Trust Anchor Database according to the AGD
-                    guidance as the user and as the administrator. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-enroll"/></htm:b><htm:br/> The evaluator shall
-                  examine the TSS to ensure that it contains a description of each management
-                  function that will be enforced by the enterprise once the device is enrolled. The
-                  evaluator shall examine the AGD guidance to determine that this same information
-                  is present.<htm:br/><htm:br/>
-                  <test>The evaluator shall verify that user approval is required to enroll the
-                    device into management. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-appRemove"/></htm:b><htm:br/> The evaluator shall
-                  verify that the TSS includes an indication of what applications (e.g.,
-                  user-installed applications, Administrator-installed applications, or Enterprise
-                  applications) can be removed along with what role can do so. The evaluator shall
-                  examine the AGD guidance to determine that it details, for each type of
-                  application that can be removed, the procedures necessary to remove those
-                  applications and their associated data. For the purposes of this Evaluation
-                  Activity, "associated data" refers to data that are created by the app during its
-                  operation that do not exist independent of the app's existence, for instance,
-                  configuration data, or e-mail information that’s part of an e-mail client. It does
-                  not, on the other hand, refer to data such as word processing documents (for a
-                  word processing app) or photos (for a photo or camera app). <htm:br/><htm:br/>
-                  <test>The evaluator shall attempt to remove applications according to the AGD
-                    guidance and verify that the TOE no longer permits users to access those
-                    applications or their associated data. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-update"/></htm:b><htm:br/>
-                  <test>The evaluator shall attempt to update the TSF system software following the
-                    procedures in the AGD guidance and verify that updates correctly install and
-                    that the version numbers of the system software increase. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-appInstall"/></htm:b><htm:br/>
-                  <test>The evaluator shall attempt to install an application following the
-                    procedures in the AGD guidance and verify that the application is installed and
-                    available on the TOE. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-entAppRemove"/></htm:b><htm:br/>
-                  <test>The evaluator shall attempt to remove any Enterprise applications from the
-                    device by following the administrator guidance. The evaluator shall verify that
-                    the TOE no longer permits users to access those applications or their associated
-                    data. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-notifications"/></htm:b><htm:br/> The evaluator
-                  shall examine the AGD Guidance to determine that it specifies, for at least each
-                  category of information selected for Function <xref to="mf-notifications"/>,
-                  how to enable and disable display information for that type of information in the
-                  locked state.<htm:br/><htm:br/>
-                  <test>For each category of information listed in the AGD guidance, the evaluator
-                    shall verify that when that TSF is configured to limit the information according
-                    to the AGD, the information is no longer displayed in the locked state.</test><htm:br/>
-                  <htm:b>Function <xref to="mf-dar"/></htm:b><htm:br/>
-                  <test>The evaluator shall exercise the TSF configuration as the administrator and,
-                    if not restricted to the administrator, the user, to enable system-wide
-                    data-at-rest protection according to the AGD guidance. The evaluator shall
-                    ensure that all Evaluation Activities for DAR (FDP_DAR) are conducted with the
-                    device in this configuration. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-rmediaDar"/></htm:b><htm:br/>
-                  <test>The evaluator shall exercise the TSF configuration as the administrator and,
-                    if not restricted to the administrator, the user, to enable removable media’s
-                    data-at-rest protection according to the AGD guidance. The evaluator shall
-                    ensure that all Evaluation Activities for DAR (FDP_DAR) are conducted with the
-                    device in this configuration. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-location"/>
-                  </htm:b><htm:br/>
-                  <test>The evaluator shall perform the following tests. <htm:ol type="a">
-                      <htm:li>The evaluator shall enable location services device-wide and shall
-                        verify that an application (such as a mapping application) is able to access
-                        the TOE’s location information. The evaluator shall disable location
-                        services device-wide and shall verify that an application (such as a mapping
-                        application) is unable to access the TOE’s location information. </htm:li>
-                      <htm:li>[conditional] If "per-app basis" is selected, the evaluator shall
-                        create two applications and enable one to use access the location services
-                        and the other to not access the location services. The evaluator shall
-                        exercise each application attempting to access location services
-                        individually. The evaluator shall verify that the enabled application is
-                        able to access the location services and the disabled application is not
-                        able to access the location services. </htm:li>
-                    </htm:ol>
-                  </test><htm:br/>
-                  <htm:b>Function <xref to="mf-authFactors"/></htm:b><htm:br/>
-                  <test>The evaluator shall verify that the TSS states if the TOE supports a BAF
-                    and/or hybrid authentication. If the TOE does not include a BAF and/or hybrid
-                    authentication this test is implicitly met. <htm:ol type="a">
-                      <htm:li>[conditional] If a BAF is selected the evaluator shall verify that the
-                        TSS describes the procedure to enable/disable the BAF. If the TOE includes
-                        multiple BAFs, the evaluator shall verify that the TSS describes how to
-                        enable/disable each BAF, specifically if the different modalities can be
-                        individually enabled/disabled. The evaluator shall configure the TOE to
-                        allow each supported BAF to authenticate and verify that successful
-                        authentication can be achieved using the BAF. The evaluator shall configure
-                        the TOE to disable the use of each supported BAF for authentication and
-                        confirm that the BAF cannot be used to authenticate. </htm:li>
-                      <htm:li>[conditional] If "Hybrid" is selected the evaluator shall verify that
-                        the TSS describes the procedure to enable/disable the hybrid (biometric
-                        credential and PIN/password) authentication. The evaluator shall configure
-                        the TOE to allow hybrid authentication to authenticate and confirm that
-                        successful authentication can be achieved using the hybrid authentication.
-                        The evaluator shall configure the TOE to disable the use of hybrid
-                        authentication and confirm that the hybrid authentication cannot be used to
-                        authenticate. </htm:li>
-                    </htm:ol>
-                  </test><htm:br/>
-                  <htm:br/>
-                  <htm:b>Evaluation Activity Note:</htm:b> It should be noted that the following
-                  functions are optional capabilities, if the function is implemented, then the
-                  following Evaluation Activities shall be performed. The notation of "[conditional]"
-                  beside the function number indicates that if the function is not included in the
-                  ST, then there is no expectation that the evaluation activity be performed. <htm:br/><htm:br/>
-                  <!-- TODO: Look AT -->
-                  <htm:b>Function <xref to="mf-certInvalid"/> [conditional]</htm:b><htm:br/>
-                  <test>The test of this function is performed in conjunction with FIA_X509_EXT.2.2,
-                    FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. </test><htm:br/>
-                  <!-- Start of optional to include these functions -->
-                  <htm:b>Function <xref to="mf-externalPorts"/> [conditional]</htm:b><htm:br/>
-                  The evaluator shall verify that the TSS includes a list of each externally
-                  accessible hardware port and an indication of if data transfer over that port can
-                  be enabled/disabled. AGD guidance will describe how to perform the enable/disable function.<htm:br/><htm:br/>
-                  <test>The evaluator shall exercise the TSF configuration to enable and disable
-                    data transfer capabilities over each externally accessible hardware ports (e.g.
-                    USB, SD card, HDMI) listed by the ST author. The evaluator shall use test
-                    equipment for the particular interface to ensure that no low-level signaling is
-                    occurring on all pins used for data transfer when they are disabled. For each
-                    disabled data transfer capability, the evaluator shall repeat this test by
-                    rebooting the device into the normal operational mode and verifying that the
-                    capability is disabled throughout the boot and early execution stage of the
-                    device. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-serverProtocols"/> [conditional]</htm:b><htm:br/>
-                  The evaluator shall verify that the TSS describes how the TSF acts as a server in
-                  each of the protocols listed in the ST, and the reason for acting as a server.<htm:br/><htm:br/>
-                  <test>The evaluator shall attempt to disable each listed protocol in the
-                    assignment. The evaluator shall verify that remote devices can no longer access
-                    the TOE or TOE resources using any disabled protocols. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-devModes"/> [conditional]</htm:b><htm:br/>
-                  <test>The evaluator shall exercise the TSF configuration as the administrator and,
-                    if not restricted to the administrator, the user, to enable and disable any
-                    developer mode. The evaluator shall test that developer mode access is not
-                    available when its configuration is disabled. The evaluator shall verify the
-                    developer mode remains disabled during device reboot. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-authBypass"/> [conditional]</htm:b><htm:br/> The
-                  evaluator shall examine the AGD guidance to determine that it describes how to
-                  enable and disable any "Forgot Password", password hint, or remote authentication
-                  (to bypass local authentication mechanisms) capability.<htm:br/><htm:br/>
-                  <test>For each mechanism listed in the AGD guidance that provides a "Forgot
-                    Password" feature or other means where the local authentication process can be
-                    bypassed, the evaluator shall disable the feature and ensure that they are not
-                    able to bypass the local authentication process. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-wipeEntData"/> [conditional]</htm:b><htm:br/>
-                  <test>The evaluator shall attempt to wipe Enterprise data resident on the device
-                    according to the administrator guidance. The evaluator shall verify that the
-                    data is no longer accessible by the user. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-appCert"/> [conditional]</htm:b><htm:br/> The
-                  evaluator shall verify that the TSS describes how approval for an application to
-                  perform the selected action (import, removal) with respect to certificates in the
-                  Trust Anchor Database is accomplished (e.g., a pop-up, policy setting, etc.).
-                  <htm:br/><htm:br/> The evaluator shall also verify that the API documentation
-                  provided according to <xref to="adv"/> includes any security functions
-                  (import, modification, or destruction of the Trust Anchor Database) allowed by applications.<htm:br/><htm:br/>
-                  <test>The evaluator shall perform one of the following tests: <htm:ol type="a">
-                      <htm:li>[conditional] If applications may import certificates to the Trust
-                        Anchor Database, the evaluator shall write, or the developer shall provide
-                        access to, an application that imports a certificate into the Trust Anchor
-                        Database. The evaluator shall verify that the TOE requires approval before
-                        allowing the application to import the certificate: <htm:ul>
-                          <htm:li>The evaluator shall deny the approvals to verify that the
-                            application is not able to import the certificate. Failure of import
-                            shall be tested by attempting to validate a certificate that chains to
-                            the certificate whose import was attempted (as described in the
-                            evaluation activity for FIA_X509_EXT.1). </htm:li>
-                          <htm:li>The evaluator shall repeat the test, allowing the approval to
-                            verify that the application is able to import the certificate and that
-                            validation occurs. </htm:li>
-                        </htm:ul>
-                      </htm:li>
-                      <htm:li>[conditional] If applications may remove certificates in the Trust
-                        Anchor Database, the evaluator shall write, or the developer shall provide
-                        access to, an application that removes certificates from the Trust Anchor
-                        Database. The evaluator shall verify that the TOE requires approval before
-                        allowing the application to remove the certificate: <htm:ul>
-                          <htm:li>The evaluator shall deny the approvals to verify that the
-                            application is not able to remove the certificate. Failure of removal
-                            shall be tested by attempting to validate a certificate that chains to
-                            the certificate whose removal was attempted (as described in the
-                            evaluation activity for FIA_X509_EXT.1). </htm:li>
-                        </htm:ul>
-                      </htm:li>
-                    </htm:ol> The evaluator shall repeat the test, allowing the approval to verify
-                    that the application is able to remove/modify the certificate and that
-                    validation no longer occurs. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-certValidity"/> [conditional]</htm:b><htm:br/>
-                  <test>The test of this function is performed in conjunction with FIA_X509_EXT.2.2. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-cellular"/> [conditional]</htm:b><htm:br/> The
-                  evaluator shall ensure that the TSS describes which cellular protocols can be
-                  disabled. The evaluator shall confirm that the AGD guidance describes the
-                  procedure for disabling each cellular protocol identified in the TSS.<htm:br/><htm:br/>
-                  <test>The evaluator shall attempt to disable each cellular protocol according to
-                    the administrator guidance. The evaluator shall attempt to connect the device to
-                    a cellular network and, using network analysis tools, verify that the device
-                    does not allow negotiation of the disabled protocols. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-auditLogs"/> [conditional]</htm:b><htm:br/>
-                  <test>The evaluator shall attempt to read any device audit logs according to the
-                    administrator guidance and verify that the logs may be read. This test may be
-                    performed in conjunction with the evaluation activity of FAU_GEN.1. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-digSign"/> [conditional]</htm:b><htm:br/>
-                  <test>The test of this function is performed in conjunction with FPT_TUD_EXT.5.1. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-sharedKeys"/> [conditional]</htm:b><htm:br/> The
-                  evaluator shall verify that the TSS describes how the approval for exceptions for
-                  shared use of keys/secrets by multiple applications is accomplished (e.g., a
-                  pop-up, policy setting, etc.).<htm:br/><htm:br/>
-                  <test>The test of this function is performed in conjunction with FCS_STG_EXT.1. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-keyWipeRules"/> [conditional]</htm:b><htm:br/> The
-                  evaluator shall verify that the TSS describes how the approval for exceptions for
-                  destruction of keys/secrets by applications that did not import the key/secret is
-                  accomplished (e.g., a pop-up, policy setting, etc.).<htm:br/><htm:br/>
-                  <test>The test of this function is performed in conjunction with FCS_STG_EXT.1. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-unlockBanner"/> [conditional] </htm:b><htm:br/>
-                  The evaluator shall verify that the TSS describes any restrictions in banner
-                  settings (e.g., character limitations).<htm:br/><htm:br/>
-                  <test>The test of this function is performed in conjunction with FTA_TAB.1. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-auditItems"/> [conditional]</htm:b><htm:br/>
-                  <test>The test of this function is performed in conjunction with FAU_SEL.1. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-integ"/> [conditional]</htm:b><htm:br/>
-                  <test>The test of this function is performed in conjunction with FPT_NOT_EXT.2.1. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-USB"/> [conditional]</htm:b><htm:br/> The
-                  evaluator shall verify that the TSS includes a description of how data transfers
-                  can be managed over USB.<htm:br/><htm:br/>
-                  <test>The evaluator shall perform the following tests based on the selections made
-                    in the table: <htm:ol type="a">
-                      <htm:li>[conditional] The evaluator shall disable USB mass storage mode,
-                        attach the device to a computer, and verify that the computer cannot mount
-                        the TOE as a drive. The evaluator shall reboot the TOE and repeat this test
-                        with other supported auxiliary boot modes. </htm:li>
-                      <htm:li>[conditional] The evaluator shall disable USB data transfer without
-                        user authentication, attach the device to a computer, and verify that the
-                        TOE requires user authentication before the computer can access TOE data.
-                        The evaluator shall reboot the TOE and repeat this test with other supported
-                        auxiliary boot modes. </htm:li>
-                      <htm:li>[conditional] The evaluator shall disable USB data transfer without
-                        connecting system authentication, attach the device to a computer, and
-                        verify that the TOE requires connecting system authentication before the
-                        computer can access TOE data. The evaluator shall then connect the TOE to
-                        another computer and verify that the computer cannot access TOE data. The
-                        evaluator shall then connect the TOE to the original computer and verify
-                        that the computer can access TOE data. </htm:li>
-                    </htm:ol>
-                  </test><htm:br/>
-                  <htm:b>Function <xref to="mf-backup"/> [conditional]</htm:b><htm:br/> The
-                  evaluator shall verify that the TSS includes a description of available backup
-                  methods that can be enabled/disabled. If "selected applications or selected groups
-                  of applications are selected the TSS shall include which applications of groups of
-                  applications backup can be enabled/disabled.<htm:br/><htm:br/>
-                  <test>If "all applications" is selected, the evaluator shall disable each selected
-                    backup location in turn and verify that the TOE cannot complete a backup. The
-                    evaluator shall then enable each selected backup location in turn and verify
-                    that the TOE can perform a backup. <htm:br/><htm:br/> If "selected applications"
-                    is selected, the evaluator shall disable each selected backup location in turn
-                    and verify that for the selected application the TOE prevents backup from
-                    occurring. The evaluator shall then enable each selected backup location in turn
-                    and verify that for the selected application the TOE can perform a backup.
-                    <htm:br/><htm:br/> If "selected groups of applications" is selected, the
-                    evaluator shall disable each selected backup location in turn and verify that
-                    for a group of applications the TOE prevents the backup from occurring. The
-                    evaluator shall then enable each selected backup location in turn and verify for
-                    the group of application the TOE can perform a backup. <htm:br/><htm:br/> If
-                    "configuration data" is selected, the evaluator shall disable each selected
-                    backup location in turn and verify that the TOE prevents the backup of
-                    configuration data from occurring. The evaluator shall then enable each selected
-                    backup location in turn and verify that the TOE can perform a backup of
-                    configuration data. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-hotspot"/> [conditional] </htm:b><htm:br/> The
-                  evaluator shall verify that the TSS includes a description of Hotspot
-                  functionality and USB tethering to include any authentication for these. <htm:br/><htm:br/>
-                  <test>The evaluator shall perform the following tests based on the selections in
-                    Function <xref to="mf-hotspot"/>. <htm:ol type="a">
-                      <htm:li>[conditional] The evaluator shall enable hotspot functionality with
-                        each of the of the support authentication methods. The evaluator shall
-                        connect to the hotspot with another device and verify that the hotspot
-                        functionality requires the configured authentication method. </htm:li>
-                      <htm:li>[conditional] The evaluator shall enable USB tethering functionality
-                        with each of the of the support authentication methods. The evaluator shall
-                        connect to the TOE over USB with another device and verify that the
-                        tethering functionality requires the configured authentication method.
-                      </htm:li>
-                    </htm:ol>
-                  </test><htm:br/>
-                  <htm:b>Function <xref to="mf-dataSharing"/> [conditional]</htm:b><htm:br/>
-                  <test>The test of this function is performed in conjunction with FDP_ACF_EXT.1.2. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-appGroups"/> [conditional]</htm:b><htm:br/>
-                  <test>The evaluator shall set a policy to cause a designated application to be
-                    placed into a particular application group. The evaluator shall then install the
-                    designated application and verify that it was placed into the correct group. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-unenroll"/> [conditional]</htm:b><htm:br/>
-                  <test>The evaluator shall attempt to unenroll the device from management and
-                    verify that the steps described in FMT_SMF_EXT.2.1 are performed. This test
-                    should be performed in conjunction with the FMT_SMF_EXT.2.1 evaluation activity. </test><htm:br/>
-                  <htm:b>Function <xref to="mf-alwaysOnVPN"/> [conditional]</htm:b><htm:br/>
-                  <test>The evaluator shall verify that the TSS contains guidance to configure the
-                    VPN as Always-On. The evaluator shall configure the VPN as Always-On and perform
-                    the following test. <htm:ol type="a">
-                      <htm:li>The evaluator shall verify that when the VPN is connected all traffic
-                        is routed through the VPN. This test is performed in conjunction with
-                        FDP_IFC_EXT.1.1. </htm:li>
-                      <htm:li>The evaluator shall verify that when the VPN is not established, that
-                        no traffic leaves the device. The evaluator shall ensure that the TOE has
-                        network connectivity and that the VPN is established. The evaluator shall
-                        use a packet sniffing tool to capture the traffic leaving the TOE. The
-                        evaluator shall disable the VPN connection on the server side. The evaluator
-                        shall perform actions with the device such as navigating to websites, using
-                        provided applications, and accessing other Internet resources and verify
-                        that no traffic leaves the device. </htm:li>
-                      <htm:li>The evaluator shall verify that the TOE has network connectivity and
-                        that the VPN is established. The evaluator shall disable network
-                        connectivity (i.e. Airplane Mode) and verify that the VPN disconnects. The
-                        evaluator shall re-establish network connectivity and verify that the VPN
-                        automatically reconnects. </htm:li>
-                    </htm:ol>
-                  </test><htm:br/>
-                  <htm:b>Function <xref to="mf-bioRevoke"/> [conditional]</htm:b><htm:br/>
-                  <test>The evaluator shall verify that the TSS describes the procedure to revoke a
-                    biometric credential stored on the TOE. The evaluator shall configure the TOE to
-                    use BAF and confirm that the biometric can be used to authenticate to the
-                    device. The evaluator shall revoke the biometric credential’s ability to
-                    authenticate to the TOE and confirm that the same BAF cannot be used to
-                    authenticate to the device.</test><htm:br/>
-                  <htm:b>Function <xref to="mf-other"/></htm:b><htm:br/> The evaluator shall
-                  verify that the TSS describes all assigned security management functions and their
-                  intended behavior.<htm:br/><htm:br/>
-                  <test>The evaluator shall design and perform tests to demonstrate that the
-                    function may be configured and that the intended behavior of the function is
-                    enacted by the TOE.</test><htm:br/>
-                </testlist>
-              </Tests>
+              <!-- <Tests> -->
+              <!--   <testlist> -->
+              <!--     <htm:b>Function <xref to="mf-pwd"/></htm:b><htm:br/> The evaluator shall verify -->
+              <!--     the TSS defines the allowable policy options: the range of values for both -->
+              <!--     password length and lifetime, and a description of complexity to include character -->
+              <!--     set and complexity policies (e.g., configuration and enforcement of number of -->
+              <!--     uppercase, lowercase, and special characters per password).<htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall exercise the TSF configuration as the administrator and -->
+              <!--       perform positive and negative tests, with at least two values set for each -->
+              <!--       variable setting, for each of the following: <htm:br/> -->
+              <!--       <htm:ul> -->
+              <!--         <htm:li>minimum password length</htm:li> -->
+              <!--         <htm:li>minimum password complexity</htm:li> -->
+              <!--         <htm:li>maximum password lifetime</htm:li> -->
+              <!--       </htm:ul> -->
+              <!--     </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-screenlock"/></htm:b><htm:br/> The evaluator shall -->
+              <!--     verify the TSS defines the range of values for both timeout period and number of -->
+              <!--     authentication failures for all supported authentication mechanisms.<htm:br/><htm:br/> -->
+              <!--     <test> The evaluator shall exercise the TSF configuration as the administrator. -->
+              <!--       The evaluator shall perform positive and negative tests, with at least two -->
+              <!--       values set for each variable setting, for each of the following: <htm:br/> -->
+              <!--       <htm:ul> -->
+              <!--         <htm:li>screen-lock enabled/disabled</htm:li> -->
+              <!--         <htm:li>screen lock timeout</htm:li> -->
+              <!--         <htm:li>number of authentication failures (may be combined with test for -->
+              <!--           FIA_AFL_EXT.1)</htm:li> -->
+              <!--       </htm:ul> -->
+              <!--     </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-vpn"/></htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall perform the following tests: <htm:ol type="a"> -->
+              <!--         <htm:li>The evaluator shall exercise the TSF configuration to enable the VPN -->
+              <!--           protection. These configuration actions must be used for the testing of the -->
+              <!--           FDP_IFC_EXT.1.1 requirement. </htm:li> -->
+              <!--         <htm:li>[conditional] If "per-app basis" is selected, the evaluator shall -->
+              <!--           create two applications and enable one to use the VPN and the other to not -->
+              <!--           use the VPN. The evaluator shall exercise each application (attempting to -->
+              <!--           access network resources; for example, by browsing different websites) -->
+              <!--           individually while capturing packets from the TOE. The evaluator shall -->
+              <!--           verify from the packet capture that the traffic from the VPN-enabled -->
+              <!--           application is encapsulated in IPsec and that the traffic from the -->
+              <!--           VPN-disabled application is not encapsulated in IPsec. </htm:li> -->
+              <!--         <htm:li>[conditional] If "per-groups of application basis" is selected, the -->
+              <!--           evaluator shall create two applications and the applications shall be placed -->
+              <!--           into different groups. Enable one application group to use the VPN and the -->
+              <!--           other to not use the VPN. The evaluator shall exercise each application -->
+              <!--           (attempting to access network resources; for example, by browsing different -->
+              <!--           websites) individually while capturing packets from the TOE. The evaluator -->
+              <!--           shall verify from the packet capture that the traffic from the application -->
+              <!--           in the VPN-enabled group is encapsulated in IPsec and that the traffic from -->
+              <!--           the application in the VPN-disabled group is not encapsulated in IPsec. -->
+              <!--         </htm:li> -->
+              <!--       </htm:ol> -->
+              <!--     </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-radios"/></htm:b><htm:br/> The evaluator shall -->
+              <!--     verify that the TSS includes a description of each radio and an indication of if -->
+              <!--     the radio can be enabled/disabled along with what role can do so. In addition the -->
+              <!--     evaluator shall verify that the frequency ranges at which each radio operates is -->
+              <!--     included in the TSS. The evaluator shall verify that the TSS includes at what point  -->
+              <!--     in the boot sequence the radios are powered on and indicates if the radios are used  -->
+              <!--     as part of the initialization of the device.             -->
+              <!--     The evaluator shall confirm that the AGD guidance describes -->
+              <!--     how to perform the enable/disable function for each radio.<htm:br/><htm:br/> The -->
+              <!--     evaluator shall ensure that minimal signal leakage enters the RF shielded -->
+              <!--     enclosure (i.e. Faraday bag, Faraday box, RF shielded room) by performing the -->
+              <!--     following steps:<htm:br/><htm:br/> Step 1: Place the antenna of the spectrum -->
+              <!--     analyzer inside the RF shielded enclosure.<htm:br/><htm:br/> Step 2: Enable "Max -->
+              <!--     Hold" on the spectrum analyzer and perform a spectrum sweep of the frequency range -->
+              <!--     between 300MHz – 6000MHz, in I KHz steps (this range should encompass 802.11, -->
+              <!--     802.15, GSM, UMTS, and LTE). This range will not address NFC 13.56MHz, another -->
+              <!--     test should be set up with similar constraints to address NFC.<htm:br/><htm:br/> -->
+              <!--     If power above -90 dBm is observed, the Faraday box has too great of signal -->
+              <!--     leakage and shall not be used to complete the test for Function <xref -->
+              <!--       to="mf-radios"/>.<htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall exercise the TSF configuration as the administrator and, -->
+              <!--       if not restricted to the administrator, the user, to enable and disable the -->
+              <!--       state of each radio (e.g. Wi-Fi, cellular, NFC, Bluetooth). Additionally, -->
+              <!--       the evaluator shall repeat the steps below, booting into any auxiliary boot mode -->
+              <!--       supported by the device. For each radio, the evaluator shall:<htm:br/><htm:br/> -->
+              <!--       Step 1: Place the antenna of the spectrum analyzer inside the RF shielded -->
+              <!--       enclosure. Configure the spectrum analyzer to sweep desired frequency range for -->
+              <!--       the radio to be tested (based on range provided in the TSS)). The ambient noise -->
+              <!--       floor shall be set to -110dBm. Place the TOE into the RF shielded enclosure to -->
+              <!--       isolate them from all other RF traffic. <htm:br/><htm:br/> Step 2: The evaluator -->
+              <!--       shall create a baseline of the expected behavior of RF signals. The evaluator -->
+              <!--       shall power on the device, ensure the radio in question is enabled, power off -->
+              <!--       the device, enable "Max Hold" on the spectrum analyzer and power on the device. -->
+              <!--       The evaluator shall wait 2 minutes at each Authentication Factor interface prior -->
+              <!--       to entering the necessary password to complete the boot process, waiting 5 -->
+              <!--       minutes after the device is fully booted. The evaluator shall observe that RF -->
+              <!--       spikes are present at the expected uplink channel frequency. The evaluator shall -->
+              <!--       clear the "Max Hold" on the spectrum analyzer. <htm:br/><htm:br/> Step 3: The -->
+              <!--       evaluator shall verify the absence of RF activity for the uplink channel when -->
+              <!--       the radio in question is disabled. The evaluator shall complete the following -->
+              <!--       test five times. The evaluator shall power on the device, ensure the radio in -->
+              <!--       question is disabled, power off the device, enable "Max Hold" on the spectrum -->
+              <!--       analyzer and power on the device. The evaluator shall wait 2 minutes at each -->
+              <!--       Authentication Factor interface prior to entering the necessary password to -->
+              <!--       complete the boot process, waiting 5 minutes after the device is fully booted. -->
+              <!--       The evaluator shall clear the "Max Hold" on the spectrum analyzer. If the radios  -->
+              <!--       are used for device initialization, then a spike of RF activity for the uplink channel -->
+              <!--       can be observed initially at device boot. However, if a spike of -->
+              <!--       RF activity for the uplink channel of the specific radio frequency band is -->
+              <!--       observed after the device is fully booted or at an Authentication Factor interface  -->
+              <!--       it is deemed that the radio is enabled. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-audioVisual"/></htm:b><htm:br/> The evaluator -->
+              <!--     shall verify that the TSS includes a description of each collection device and an -->
+              <!--     indication of if it can be enabled/disabled along with what role can do so. The -->
+              <!--     evaluator shall confirm that the AGD guidance describes how to perform the -->
+              <!--     enable/disable function. <htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall perform the following test(s): <htm:ol type="a"> -->
+              <!--         <htm:li>The evaluator shall exercise the TSF configuration as the -->
+              <!--           administrator and, if not restricted to the administrator, the user, to -->
+              <!--           enable and disable the state of each audio or visual collection devices -->
+              <!--           (e.g. camera, microphone) listed by the ST author. For each collection -->
+              <!--           device, the evaluator shall disable the device and then attempt to use its -->
+              <!--           functionality. The evaluator shall reboot the TOE and verify that disabled -->
+              <!--           collection devices may not be used during or early in the boot process. -->
+              <!--           Additionally, the evaluator shall boot the device into each available -->
+              <!--           auxiliary boot mode and verify that the collection device cannot be used. </htm:li> -->
+              <!--         <htm:li>[conditional] If "per-app basis" is selected, the evaluator shall -->
+              <!--           create two applications and enable one to use access the A/V device and the -->
+              <!--           other to not access the A/V device. The evaluator shall exercise each -->
+              <!--           application attempting to access the A/V device individually. The evaluator -->
+              <!--           shall verify that the enabled application is able to access the A/V device -->
+              <!--           and the disabled application is not able to access the A/V device. </htm:li> -->
+              <!--         <htm:li>[conditional] If "per-groups of application basis" is selected, the -->
+              <!--           evaluator shall create two applications and the applications shall be placed -->
+              <!--           into different groups. Enable one group to access the A/V device and the -->
+              <!--           other to not access the A/V device. The evaluator shall exercise each -->
+              <!--           application attempting to access the A/V device individually. The evaluator -->
+              <!--           shall verify that the application in the enabled group is able to access the -->
+              <!--           A/V device and the application in the disabled group is not able to access -->
+              <!--           the A/V device. </htm:li> -->
+              <!--       </htm:ol> -->
+              <!--     </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-lockState"/></htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall use the test environment to instruct the TSF, both as a -->
+              <!--       user and as the administrator, to command the device to transition to a locked -->
+              <!--       state, and verify that the device transitions to the locked state upon -->
+              <!--       command.</test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-wipe"/></htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall use the test environment to instruct the TSF, both as a -->
+              <!--       user and as the administrator, to command the device to perform a wipe of -->
+              <!--       protected data. The evaluator must ensure that this management setup is used -->
+              <!--       when conducting the Evaluation Activities in FCS_CKM_EXT.5.</test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-appInstallRules"/></htm:b><htm:br/> The evaluator -->
+              <!--     shall verify the TSS describes the allowable application installation policy -->
+              <!--     options based on the selection included in the ST. If the application allowlist is -->
+              <!--     selected, the evaluator shall verify that the TSS includes a description of each -->
+              <!--     application characteristic upon which the allowlist may be based.<htm:br/><htm:br/> -->
+              <!--     <test> The evaluator shall exercise the TSF configuration as the administrator to -->
+              <!--       restrict particular applications, sources of applications, or application -->
+              <!--       installation according to the AGD guidance. The evaluator shall attempt to -->
+              <!--       install unauthorized applications and ensure that this is not possible. The -->
+              <!--       evaluator shall, in conjunction, perform the following specific tests: <htm:ol -->
+              <!--         type="a"> -->
+              <!--         <htm:li>[conditional] The evaluator shall attempt to connect to an -->
+              <!--           unauthorized repository in order to install applications. </htm:li> -->
+              <!--         <htm:li>[conditional] The evaluator shall attempt to install two applications -->
+              <!--           (one allowlisted, and one not) from a known allowed repository and verify -->
+              <!--           that the application not on the allowlist is rejected. The evaluator shall -->
+              <!--           also attempt to side-load executables or installation packages via USB -->
+              <!--           connections to determine that the white list is still adhered to -->
+              <!--         </htm:li></htm:ol> -->
+              <!--     </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-keyStorage"/> &#38; Function <xref -->
+              <!--         to="mf-keyWipe"/></htm:b><htm:br/> The evaluator shall verify that the TSS -->
+              <!--     describes each category of keys/secrets that can be imported into the TSF’s secure -->
+              <!--     key storage.<htm:br/><htm:br/> -->
+              <!--     <test>The test of these functions is performed in association with FCS_STG_EXT.1. </test><htm:br/> -->
+              <!--     <test>The test of these functions is performed in association with FCS_STG_EXT.1. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-certImport"/></htm:b><htm:br/> The evaluator shall -->
+              <!--     review the AGD guidance to determine that it describes the steps needed to import, -->
+              <!--     modify, or remove certificates in the Trust Anchor database, and that the users -->
+              <!--     that have authority to import those certificates (e.g., only administrator, or -->
+              <!--     both administrators and users) are identified. <htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall import certificates according to the AGD guidance as the -->
+              <!--       user and/or as the administrator, as determined by the administrative guidance. -->
+              <!--       The evaluator shall verify that no errors occur during import. The evaluator -->
+              <!--       should perform an action requiring use of the X.509v3 certificate to provide -->
+              <!--       assurance that installation was completed properly. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-certWipe"/></htm:b><htm:br/> The evaluator shall -->
+              <!--     verify that the TSS describes each additional category of X.509 certificates and -->
+              <!--     their use within the TSF.<htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall remove an administrator-imported certificate and any -->
+              <!--       other categories of certificates included in the assignment of function <xref -->
+              <!--         to="mf-appRemove"/> from the Trust Anchor Database according to the AGD -->
+              <!--       guidance as the user and as the administrator. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-enroll"/></htm:b><htm:br/> The evaluator shall -->
+              <!--     examine the TSS to ensure that it contains a description of each management -->
+              <!--     function that will be enforced by the enterprise once the device is enrolled. The -->
+              <!--     evaluator shall examine the AGD guidance to determine that this same information -->
+              <!--     is present.<htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall verify that user approval is required to enroll the -->
+              <!--       device into management. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-appRemove"/></htm:b><htm:br/> The evaluator shall -->
+              <!--     verify that the TSS includes an indication of what applications (e.g., -->
+              <!--     user-installed applications, Administrator-installed applications, or Enterprise -->
+              <!--     applications) can be removed along with what role can do so. The evaluator shall -->
+              <!--     examine the AGD guidance to determine that it details, for each type of -->
+              <!--     application that can be removed, the procedures necessary to remove those -->
+              <!--     applications and their associated data. For the purposes of this Evaluation -->
+              <!--     Activity, "associated data" refers to data that are created by the app during its -->
+              <!--     operation that do not exist independent of the app's existence, for instance, -->
+              <!--     configuration data, or e-mail information that’s part of an e-mail client. It does -->
+              <!--     not, on the other hand, refer to data such as word processing documents (for a -->
+              <!--     word processing app) or photos (for a photo or camera app). <htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall attempt to remove applications according to the AGD -->
+              <!--       guidance and verify that the TOE no longer permits users to access those -->
+              <!--       applications or their associated data. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-update"/></htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall attempt to update the TSF system software following the -->
+              <!--       procedures in the AGD guidance and verify that updates correctly install and -->
+              <!--       that the version numbers of the system software increase. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-appInstall"/></htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall attempt to install an application following the -->
+              <!--       procedures in the AGD guidance and verify that the application is installed and -->
+              <!--       available on the TOE. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-entAppRemove"/></htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall attempt to remove any Enterprise applications from the -->
+              <!--       device by following the administrator guidance. The evaluator shall verify that -->
+              <!--       the TOE no longer permits users to access those applications or their associated -->
+              <!--       data. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-notifications"/></htm:b><htm:br/> The evaluator -->
+              <!--     shall examine the AGD Guidance to determine that it specifies, for at least each -->
+              <!--     category of information selected for Function <xref to="mf-notifications"/>, -->
+              <!--     how to enable and disable display information for that type of information in the -->
+              <!--     locked state.<htm:br/><htm:br/> -->
+              <!--     <test>For each category of information listed in the AGD guidance, the evaluator -->
+              <!--       shall verify that when that TSF is configured to limit the information according -->
+              <!--       to the AGD, the information is no longer displayed in the locked state.</test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-dar"/></htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall exercise the TSF configuration as the administrator and, -->
+              <!--       if not restricted to the administrator, the user, to enable system-wide -->
+              <!--       data-at-rest protection according to the AGD guidance. The evaluator shall -->
+              <!--       ensure that all Evaluation Activities for DAR (FDP_DAR) are conducted with the -->
+              <!--       device in this configuration. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-rmediaDar"/></htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall exercise the TSF configuration as the administrator and, -->
+              <!--       if not restricted to the administrator, the user, to enable removable media’s -->
+              <!--       data-at-rest protection according to the AGD guidance. The evaluator shall -->
+              <!--       ensure that all Evaluation Activities for DAR (FDP_DAR) are conducted with the -->
+              <!--       device in this configuration. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-location"/> -->
+              <!--     </htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall perform the following tests. <htm:ol type="a"> -->
+              <!--         <htm:li>The evaluator shall enable location services device-wide and shall -->
+              <!--           verify that an application (such as a mapping application) is able to access -->
+              <!--           the TOE’s location information. The evaluator shall disable location -->
+              <!--           services device-wide and shall verify that an application (such as a mapping -->
+              <!--           application) is unable to access the TOE’s location information. </htm:li> -->
+              <!--         <htm:li>[conditional] If "per-app basis" is selected, the evaluator shall -->
+              <!--           create two applications and enable one to use access the location services -->
+              <!--           and the other to not access the location services. The evaluator shall -->
+              <!--           exercise each application attempting to access location services -->
+              <!--           individually. The evaluator shall verify that the enabled application is -->
+              <!--           able to access the location services and the disabled application is not -->
+              <!--           able to access the location services. </htm:li> -->
+              <!--       </htm:ol> -->
+              <!--     </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-authFactors"/></htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall verify that the TSS states if the TOE supports a BAF -->
+              <!--       and/or hybrid authentication. If the TOE does not include a BAF and/or hybrid -->
+              <!--       authentication this test is implicitly met. <htm:ol type="a"> -->
+              <!--         <htm:li>[conditional] If a BAF is selected the evaluator shall verify that the -->
+              <!--           TSS describes the procedure to enable/disable the BAF. If the TOE includes -->
+              <!--           multiple BAFs, the evaluator shall verify that the TSS describes how to -->
+              <!--           enable/disable each BAF, specifically if the different modalities can be -->
+              <!--           individually enabled/disabled. The evaluator shall configure the TOE to -->
+              <!--           allow each supported BAF to authenticate and verify that successful -->
+              <!--           authentication can be achieved using the BAF. The evaluator shall configure -->
+              <!--           the TOE to disable the use of each supported BAF for authentication and -->
+              <!--           confirm that the BAF cannot be used to authenticate. </htm:li> -->
+              <!--         <htm:li>[conditional] If "Hybrid" is selected the evaluator shall verify that -->
+              <!--           the TSS describes the procedure to enable/disable the hybrid (biometric -->
+              <!--           credential and PIN/password) authentication. The evaluator shall configure -->
+              <!--           the TOE to allow hybrid authentication to authenticate and confirm that -->
+              <!--           successful authentication can be achieved using the hybrid authentication. -->
+              <!--           The evaluator shall configure the TOE to disable the use of hybrid -->
+              <!--           authentication and confirm that the hybrid authentication cannot be used to -->
+              <!--           authenticate. </htm:li> -->
+              <!--       </htm:ol> -->
+              <!--     </test><htm:br/> -->
+              <!--     <htm:br/> -->
+              <!--     <htm:b>Evaluation Activity Note:</htm:b> It should be noted that the following -->
+              <!--     functions are optional capabilities, if the function is implemented, then the -->
+              <!--     following Evaluation Activities shall be performed. The notation of "[conditional]" -->
+              <!--     beside the function number indicates that if the function is not included in the -->
+              <!--     ST, then there is no expectation that the evaluation activity be performed. <htm:br/><htm:br/> -->
+              <!--     <!-\- TODO: Look AT -\-> -->
+              <!--     <htm:b>Function <xref to="mf-certInvalid"/> [conditional]</htm:b><htm:br/> -->
+              <!--     <test>The test of this function is performed in conjunction with FIA_X509_EXT.2.2, -->
+              <!--       FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. </test><htm:br/> -->
+              <!--     <!-\- Start of optional to include these functions -\-> -->
+              <!--     <htm:b>Function <xref to="mf-externalPorts"/> [conditional]</htm:b><htm:br/> -->
+              <!--     The evaluator shall verify that the TSS includes a list of each externally -->
+              <!--     accessible hardware port and an indication of if data transfer over that port can -->
+              <!--     be enabled/disabled. AGD guidance will describe how to perform the enable/disable function.<htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall exercise the TSF configuration to enable and disable -->
+              <!--       data transfer capabilities over each externally accessible hardware ports (e.g. -->
+              <!--       USB, SD card, HDMI) listed by the ST author. The evaluator shall use test -->
+              <!--       equipment for the particular interface to ensure that no low-level signaling is -->
+              <!--       occurring on all pins used for data transfer when they are disabled. For each -->
+              <!--       disabled data transfer capability, the evaluator shall repeat this test by -->
+              <!--       rebooting the device into the normal operational mode and verifying that the -->
+              <!--       capability is disabled throughout the boot and early execution stage of the -->
+              <!--       device. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-serverProtocols"/> [conditional]</htm:b><htm:br/> -->
+              <!--     The evaluator shall verify that the TSS describes how the TSF acts as a server in -->
+              <!--     each of the protocols listed in the ST, and the reason for acting as a server.<htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall attempt to disable each listed protocol in the -->
+              <!--       assignment. The evaluator shall verify that remote devices can no longer access -->
+              <!--       the TOE or TOE resources using any disabled protocols. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-devModes"/> [conditional]</htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall exercise the TSF configuration as the administrator and, -->
+              <!--       if not restricted to the administrator, the user, to enable and disable any -->
+              <!--       developer mode. The evaluator shall test that developer mode access is not -->
+              <!--       available when its configuration is disabled. The evaluator shall verify the -->
+              <!--       developer mode remains disabled during device reboot. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-authBypass"/> [conditional]</htm:b><htm:br/> The -->
+              <!--     evaluator shall examine the AGD guidance to determine that it describes how to -->
+              <!--     enable and disable any "Forgot Password", password hint, or remote authentication -->
+              <!--     (to bypass local authentication mechanisms) capability.<htm:br/><htm:br/> -->
+              <!--     <test>For each mechanism listed in the AGD guidance that provides a "Forgot -->
+              <!--       Password" feature or other means where the local authentication process can be -->
+              <!--       bypassed, the evaluator shall disable the feature and ensure that they are not -->
+              <!--       able to bypass the local authentication process. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-wipeEntData"/> [conditional]</htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall attempt to wipe Enterprise data resident on the device -->
+              <!--       according to the administrator guidance. The evaluator shall verify that the -->
+              <!--       data is no longer accessible by the user. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-appCert"/> [conditional]</htm:b><htm:br/> The -->
+              <!--     evaluator shall verify that the TSS describes how approval for an application to -->
+              <!--     perform the selected action (import, removal) with respect to certificates in the -->
+              <!--     Trust Anchor Database is accomplished (e.g., a pop-up, policy setting, etc.). -->
+              <!--     <htm:br/><htm:br/> The evaluator shall also verify that the API documentation -->
+              <!--     provided according to <xref to="adv"/> includes any security functions -->
+              <!--     (import, modification, or destruction of the Trust Anchor Database) allowed by applications.<htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall perform one of the following tests: <htm:ol type="a"> -->
+              <!--         <htm:li>[conditional] If applications may import certificates to the Trust -->
+              <!--           Anchor Database, the evaluator shall write, or the developer shall provide -->
+              <!--           access to, an application that imports a certificate into the Trust Anchor -->
+              <!--           Database. The evaluator shall verify that the TOE requires approval before -->
+              <!--           allowing the application to import the certificate: <htm:ul> -->
+              <!--             <htm:li>The evaluator shall deny the approvals to verify that the -->
+              <!--               application is not able to import the certificate. Failure of import -->
+              <!--               shall be tested by attempting to validate a certificate that chains to -->
+              <!--               the certificate whose import was attempted (as described in the -->
+              <!--               evaluation activity for FIA_X509_EXT.1). </htm:li> -->
+              <!--             <htm:li>The evaluator shall repeat the test, allowing the approval to -->
+              <!--               verify that the application is able to import the certificate and that -->
+              <!--               validation occurs. </htm:li> -->
+              <!--           </htm:ul> -->
+              <!--         </htm:li> -->
+              <!--         <htm:li>[conditional] If applications may remove certificates in the Trust -->
+              <!--           Anchor Database, the evaluator shall write, or the developer shall provide -->
+              <!--           access to, an application that removes certificates from the Trust Anchor -->
+              <!--           Database. The evaluator shall verify that the TOE requires approval before -->
+              <!--           allowing the application to remove the certificate: <htm:ul> -->
+              <!--             <htm:li>The evaluator shall deny the approvals to verify that the -->
+              <!--               application is not able to remove the certificate. Failure of removal -->
+              <!--               shall be tested by attempting to validate a certificate that chains to -->
+              <!--               the certificate whose removal was attempted (as described in the -->
+              <!--               evaluation activity for FIA_X509_EXT.1). </htm:li> -->
+              <!--           </htm:ul> -->
+              <!--         </htm:li> -->
+              <!--       </htm:ol> The evaluator shall repeat the test, allowing the approval to verify -->
+              <!--       that the application is able to remove/modify the certificate and that -->
+              <!--       validation no longer occurs. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-certValidity"/> [conditional]</htm:b><htm:br/> -->
+              <!--     <test>The test of this function is performed in conjunction with FIA_X509_EXT.2.2. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-cellular"/> [conditional]</htm:b><htm:br/> The -->
+              <!--     evaluator shall ensure that the TSS describes which cellular protocols can be -->
+              <!--     disabled. The evaluator shall confirm that the AGD guidance describes the -->
+              <!--     procedure for disabling each cellular protocol identified in the TSS.<htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall attempt to disable each cellular protocol according to -->
+              <!--       the administrator guidance. The evaluator shall attempt to connect the device to -->
+              <!--       a cellular network and, using network analysis tools, verify that the device -->
+              <!--       does not allow negotiation of the disabled protocols. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-auditLogs"/> [conditional]</htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall attempt to read any device audit logs according to the -->
+              <!--       administrator guidance and verify that the logs may be read. This test may be -->
+              <!--       performed in conjunction with the evaluation activity of FAU_GEN.1. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-digSign"/> [conditional]</htm:b><htm:br/> -->
+              <!--     <test>The test of this function is performed in conjunction with FPT_TUD_EXT.5.1. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-sharedKeys"/> [conditional]</htm:b><htm:br/> The -->
+              <!--     evaluator shall verify that the TSS describes how the approval for exceptions for -->
+              <!--     shared use of keys/secrets by multiple applications is accomplished (e.g., a -->
+              <!--     pop-up, policy setting, etc.).<htm:br/><htm:br/> -->
+              <!--     <test>The test of this function is performed in conjunction with FCS_STG_EXT.1. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-keyWipeRules"/> [conditional]</htm:b><htm:br/> The -->
+              <!--     evaluator shall verify that the TSS describes how the approval for exceptions for -->
+              <!--     destruction of keys/secrets by applications that did not import the key/secret is -->
+              <!--     accomplished (e.g., a pop-up, policy setting, etc.).<htm:br/><htm:br/> -->
+              <!--     <test>The test of this function is performed in conjunction with FCS_STG_EXT.1. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-unlockBanner"/> [conditional] </htm:b><htm:br/> -->
+              <!--     The evaluator shall verify that the TSS describes any restrictions in banner -->
+              <!--     settings (e.g., character limitations).<htm:br/><htm:br/> -->
+              <!--     <test>The test of this function is performed in conjunction with FTA_TAB.1. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-auditItems"/> [conditional]</htm:b><htm:br/> -->
+              <!--     <test>The test of this function is performed in conjunction with FAU_SEL.1. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-integ"/> [conditional]</htm:b><htm:br/> -->
+              <!--     <test>The test of this function is performed in conjunction with FPT_NOT_EXT.2.1. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-USB"/> [conditional]</htm:b><htm:br/> The -->
+              <!--     evaluator shall verify that the TSS includes a description of how data transfers -->
+              <!--     can be managed over USB.<htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall perform the following tests based on the selections made -->
+              <!--       in the table: <htm:ol type="a"> -->
+              <!--         <htm:li>[conditional] The evaluator shall disable USB mass storage mode, -->
+              <!--           attach the device to a computer, and verify that the computer cannot mount -->
+              <!--           the TOE as a drive. The evaluator shall reboot the TOE and repeat this test -->
+              <!--           with other supported auxiliary boot modes. </htm:li> -->
+              <!--         <htm:li>[conditional] The evaluator shall disable USB data transfer without -->
+              <!--           user authentication, attach the device to a computer, and verify that the -->
+              <!--           TOE requires user authentication before the computer can access TOE data. -->
+              <!--           The evaluator shall reboot the TOE and repeat this test with other supported -->
+              <!--           auxiliary boot modes. </htm:li> -->
+              <!--         <htm:li>[conditional] The evaluator shall disable USB data transfer without -->
+              <!--           connecting system authentication, attach the device to a computer, and -->
+              <!--           verify that the TOE requires connecting system authentication before the -->
+              <!--           computer can access TOE data. The evaluator shall then connect the TOE to -->
+              <!--           another computer and verify that the computer cannot access TOE data. The -->
+              <!--           evaluator shall then connect the TOE to the original computer and verify -->
+              <!--           that the computer can access TOE data. </htm:li> -->
+              <!--       </htm:ol> -->
+              <!--     </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-backup"/> [conditional]</htm:b><htm:br/> The -->
+              <!--     evaluator shall verify that the TSS includes a description of available backup -->
+              <!--     methods that can be enabled/disabled. If "selected applications or selected groups -->
+              <!--     of applications are selected the TSS shall include which applications of groups of -->
+              <!--     applications backup can be enabled/disabled.<htm:br/><htm:br/> -->
+              <!--     <test>If "all applications" is selected, the evaluator shall disable each selected -->
+              <!--       backup location in turn and verify that the TOE cannot complete a backup. The -->
+              <!--       evaluator shall then enable each selected backup location in turn and verify -->
+              <!--       that the TOE can perform a backup. <htm:br/><htm:br/> If "selected applications" -->
+              <!--       is selected, the evaluator shall disable each selected backup location in turn -->
+              <!--       and verify that for the selected application the TOE prevents backup from -->
+              <!--       occurring. The evaluator shall then enable each selected backup location in turn -->
+              <!--       and verify that for the selected application the TOE can perform a backup. -->
+              <!--       <htm:br/><htm:br/> If "selected groups of applications" is selected, the -->
+              <!--       evaluator shall disable each selected backup location in turn and verify that -->
+              <!--       for a group of applications the TOE prevents the backup from occurring. The -->
+              <!--       evaluator shall then enable each selected backup location in turn and verify for -->
+              <!--       the group of application the TOE can perform a backup. <htm:br/><htm:br/> If -->
+              <!--       "configuration data" is selected, the evaluator shall disable each selected -->
+              <!--       backup location in turn and verify that the TOE prevents the backup of -->
+              <!--       configuration data from occurring. The evaluator shall then enable each selected -->
+              <!--       backup location in turn and verify that the TOE can perform a backup of -->
+              <!--       configuration data. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-hotspot"/> [conditional] </htm:b><htm:br/> The -->
+              <!--     evaluator shall verify that the TSS includes a description of Hotspot -->
+              <!--     functionality and USB tethering to include any authentication for these. <htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall perform the following tests based on the selections in -->
+              <!--       Function <xref to="mf-hotspot"/>. <htm:ol type="a"> -->
+              <!--         <htm:li>[conditional] The evaluator shall enable hotspot functionality with -->
+              <!--           each of the of the support authentication methods. The evaluator shall -->
+              <!--           connect to the hotspot with another device and verify that the hotspot -->
+              <!--           functionality requires the configured authentication method. </htm:li> -->
+              <!--         <htm:li>[conditional] The evaluator shall enable USB tethering functionality -->
+              <!--           with each of the of the support authentication methods. The evaluator shall -->
+              <!--           connect to the TOE over USB with another device and verify that the -->
+              <!--           tethering functionality requires the configured authentication method. -->
+              <!--         </htm:li> -->
+              <!--       </htm:ol> -->
+              <!--     </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-dataSharing"/> [conditional]</htm:b><htm:br/> -->
+              <!--     <test>The test of this function is performed in conjunction with FDP_ACF_EXT.1.2. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-appGroups"/> [conditional]</htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall set a policy to cause a designated application to be -->
+              <!--       placed into a particular application group. The evaluator shall then install the -->
+              <!--       designated application and verify that it was placed into the correct group. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-unenroll"/> [conditional]</htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall attempt to unenroll the device from management and -->
+              <!--       verify that the steps described in FMT_SMF_EXT.2.1 are performed. This test -->
+              <!--       should be performed in conjunction with the FMT_SMF_EXT.2.1 evaluation activity. </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-alwaysOnVPN"/> [conditional]</htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall verify that the TSS contains guidance to configure the -->
+              <!--       VPN as Always-On. The evaluator shall configure the VPN as Always-On and perform -->
+              <!--       the following test. <htm:ol type="a"> -->
+              <!--         <htm:li>The evaluator shall verify that when the VPN is connected all traffic -->
+              <!--           is routed through the VPN. This test is performed in conjunction with -->
+              <!--           FDP_IFC_EXT.1.1. </htm:li> -->
+              <!--         <htm:li>The evaluator shall verify that when the VPN is not established, that -->
+              <!--           no traffic leaves the device. The evaluator shall ensure that the TOE has -->
+              <!--           network connectivity and that the VPN is established. The evaluator shall -->
+              <!--           use a packet sniffing tool to capture the traffic leaving the TOE. The -->
+              <!--           evaluator shall disable the VPN connection on the server side. The evaluator -->
+              <!--           shall perform actions with the device such as navigating to websites, using -->
+              <!--           provided applications, and accessing other Internet resources and verify -->
+              <!--           that no traffic leaves the device. </htm:li> -->
+              <!--         <htm:li>The evaluator shall verify that the TOE has network connectivity and -->
+              <!--           that the VPN is established. The evaluator shall disable network -->
+              <!--           connectivity (i.e. Airplane Mode) and verify that the VPN disconnects. The -->
+              <!--           evaluator shall re-establish network connectivity and verify that the VPN -->
+              <!--           automatically reconnects. </htm:li> -->
+              <!--       </htm:ol> -->
+              <!--     </test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-bioRevoke"/> [conditional]</htm:b><htm:br/> -->
+              <!--     <test>The evaluator shall verify that the TSS describes the procedure to revoke a -->
+              <!--       biometric credential stored on the TOE. The evaluator shall configure the TOE to -->
+              <!--       use BAF and confirm that the biometric can be used to authenticate to the -->
+              <!--       device. The evaluator shall revoke the biometric credential’s ability to -->
+              <!--       authenticate to the TOE and confirm that the same BAF cannot be used to -->
+              <!--       authenticate to the device.</test><htm:br/> -->
+              <!--     <htm:b>Function <xref to="mf-other"/></htm:b><htm:br/> The evaluator shall -->
+              <!--     verify that the TSS describes all assigned security management functions and their -->
+              <!--     intended behavior.<htm:br/><htm:br/> -->
+              <!--     <test>The evaluator shall design and perform tests to demonstrate that the -->
+              <!--       function may be configured and that the intended behavior of the function is -->
+              <!--       enacted by the TOE.</test><htm:br/> -->
+              <!--   </testlist> -->
+              <!-- </Tests> -->
             </aactivity>
           </f-element>
         </f-component>
