@@ -3209,7 +3209,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 key storage for all symmetric keys and persistent secrets will be required in future
                 revisions. </span></div></div></div>
             <div class="element"><div class="reqid" id="FCS_STG_EXT.1.2"><a href="#FCS_STG_EXT.1.2" class="abbr">FCS_STG_EXT.1.2</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of importing keys/secrets into the secure key storage
-                upon request of [<b>selection</b>: <i id="_s_185">the user</i>, <i id="_s_186">the administrator</i>] and [<b>selection</b>: <i id="_s_187">applications running on the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></i>, <i id="_s_188">no other subjects</i>]. <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects only user, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must select
+                upon request of [<b>selection</b>: <i id="s-importkeys-user">the user</i>, <i id="_s_186">the administrator</i>] and [<b>selection</b>: <i id="_s_187">applications running on the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></i>, <i id="_s_188">no other subjects</i>]. <div class="appnote"><span class="note-header">Application Note: </span><span class="note"> If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects <a href="#s-importkeys-user">the user</a>, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must select
                 function <a href="#mf-keyStorage">9</a> in <a href="#FMT_MOF_EXT.1.1">FMT_MOF_EXT.1.1</a>. </span></div></div></div>
             <div class="element"><div class="reqid" id="FCS_STG_EXT.1.3"><a href="#FCS_STG_EXT.1.3" class="abbr">FCS_STG_EXT.1.3</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of destroying keys/secrets in the secure key storage
                 upon request of [<b>selection</b>: <i id="_s_189">the user</i>, <i id="_s_190">the administrator</i>]. <div class="appnote"><span class="note-header">Application Note: </span><span class="note">If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects only user, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must select
@@ -4688,40 +4688,68 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               For non-selectable sub-functions in an optional function, all sub-functions must be
               implemented in order for the function to be included. For functions with a "per-app
               basis" sub function and an assignment, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must indicate which assigned
-              features are manageable on a per-app basis and which are not by iterating the row. <br/><br/>
-              <b>Function-specific Application Notes:</b><br/><br/> For functions
-                <a href="#mf-vpn">3</a>, <a href="#mf-audioVisual">5</a> and <a href="#mf-location">21</a>, the function must be implemented on a device-wide basis but may also be
-              implemented on a per-app basis or on a per-group of applications basis in which the
-              configuration includes the list of applications or groups of applications to which the
-              enable/disable applies. <br/><br/> Function <a href="#mf-vpn">3</a> addresses
-              enabling and disabling the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> only. The configuration of the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Client itself
-              (with information such as <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Gateway, certificates, and algorithms) is addressed by
-              the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Client. The administrator options should only be listed if the
-              administrator can remotely enable/disable the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> connection. <br/><br/>
-              Function <a href="#mf-vpn">3</a> optionally allows the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> to be configured per-app or
-              per-groups of apps. If this configuration is selected, it does not void <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a>.
-              Instead <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a> is applied to the application or group of applications the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>
-              is applied to. In other words, all traffic destined for the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>-enabled application or
-              group of applications, must travel through the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>, but traffic not destined for that
-              application or group of applications can travel outside the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>. When the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is
-              configured across the device <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a> applies to all traffic and the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> must not
-              split tunnel. <br/><br/> 
-              The assignment in function <a href="#mf-radios">4</a>
+              features are manageable on a per-app basis and which are not by iterating the row.
+	      <br/><br/>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+	    <br/><br/><b>Function-specific Application Notes:</b><br/><br/><p>
+		  For functions <a href="#mf-vpn">3</a>, <a href="#mf-audioVisual">5</a>, and <a href="#mf-location">21</a> ,
+		  must be implemented on a device-wide basis but may also be
+		  implemented on a per-app basis or on a per-group of applications basis in which the
+		  configuration includes the list of applications or groups of applications to which the
+		  enable/disable applies.</p><p>
+		  Function <a href="#mf-vpn">3</a> addresses
+		  enabling and disabling the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> only. The configuration of the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Client itself
+		  (with information such as <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Gateway, certificates, and algorithms) is addressed by
+		  the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Client. The administrator options should only be listed if the
+		  administrator can remotely enable/disable the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> connection.
+		  <p>
+		  Function <a href="#mf-vpn">3</a> optionally allows the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> to be configured per-app or
+		  per-groups of apps. If this configuration is selected, it does not void <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a>.
+		  Instead <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a> is applied to the application or group of applications the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>
+		  is applied to. In other words, all traffic destined for the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>-enabled application or
+		  group of applications, must travel through the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>, but traffic not destined for that
+		  application or group of applications can travel outside the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>. When the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is
+		  configured across the device <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a> applies to all traffic and the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> must not
+		  split tunnel.
+		  </p>
+		  </p><p>
+			The assignment in function <a href="#mf-radios">4</a>
               consists of all radios present on the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, such as Wi-Fi, cellular, <abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr>,
-              Bluetooth <abbr class="dyn-abbr"><a href="#abbr_BR/EDR">BR/EDR</a></abbr>, and Bluetooth <abbr class="dyn-abbr"><a href="#abbr_LE">LE</a></abbr>, which can be enabled and disabled. In the future,
+              Bluetooth <abbr class="dyn-abbr"><a href="#abbr_BR/EDR">BR/EDR</a></abbr>, and Bluetooth <abbr class="dyn-abbr"><a href="#abbr_LE">LE</a></abbr>, which can be enabled and disabled.
+	      In the future,
               if both Bluetooth <abbr class="dyn-abbr"><a href="#abbr_BR/EDR">BR/EDR</a></abbr> and Bluetooth <abbr class="dyn-abbr"><a href="#abbr_LE">LE</a></abbr> are supported, they will be required to be
               enabled and disabled separately. Disablement of the cellular radio does not imply that
               the radio may not be enabled in order to place emergency phone calls; however, it is
               not expected that a device in "airplane mode", where all radios are disabled, will
               automatically (without authorization) turn on the cellular radio to place emergency
-              calls. <br/><br/> The assignment in function <a href="#mf-audioVisual">5</a>
+              calls.</p><p>The assignment in function <a href="#mf-audioVisual">5</a>
               consists of at least one audio and/or visual device, such as camera and microphone,
               which can be enabled and disabled by either the user or administrator. Disablement of
               the microphone does not imply that the microphone may not be enabled in order to place
               emergency phone calls. If certain devices are able to be restricted to the enterprise
               (either device-wide, per-app or per-group of applications) and others are able to be
               restricted to users, then this function should be iterated in the table with the
-              appropriate table entries. <br/><br/> Regarding functions <a href="#mf-radios">4</a> and <a href="#mf-audioVisual">5</a>, disablement of a particular
+              appropriate table entries.
+	      <p>
+		Regarding functions <a href="#mf-radios">4</a> and <a href="#mf-audioVisual">5</a>,
+		disablement of a particular
               radio or audio/visual device must be effective as soon as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has power.
               Disablement must also apply when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is booted into auxiliary boot modes, for
               example, associated with updates or backup. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports states in which
@@ -4729,70 +4757,91 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               protection, it is acceptable to meet this requirement by ensuring that these devices
               are disabled by default while in these states. That these devices are disabled during
               auxiliary boot modes does not imply that the device (particularly the cellular radio)
-              may not be enabled in order to perform emergency phone calls. <br/><br/> Wipe
-              of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> (function <a href="#mf-wipe">7</a>) is performed according to <a href="#FCS_CKM_EXT.5">FCS_CKM_EXT.5</a>.
-              Protected data is all non-TSF data, including all user or enterprise data. Some or all
-              of this data may be considered sensitive data as well. <br/><br/> The
-              selection in function <a href="#mf-appInstallRules">8</a> allows the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author to
-              select which mechanisms are available to the administrator through the <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agent to
-              restrict the applications which the user may install. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must state if
-              application allowlist is applied device-wide or if it can be specified to apply to
-              either the Enterprise and/or Personal applications. <ul>
-                <li>If the administrator can restrict the sources from which applications can be
-                  installed, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects option a. </li>
-                <li>If the administrator can specify a allowlist of allowed applications, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>
-                  author selects option b. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should list any application characteristics
-                  (e.g. name, version, or developer) based on which the allowlist can be
-                  formed.</li>
-                <li>If the administrator can prevent the user from installing additional
-                  applications, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects c. </li>
-              </ul>
-              <br/>In the future, function <a href="#mf-certWipe">12</a> may require
+              may not be enabled in order to perform emergency phone calls. 
+	      </p>
+		  </p><p>
+		    Wipe  of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> (function <a href="#mf-wipe">7</a>) is performed according to
+		    <a href="#FCS_CKM_EXT.5">FCS_CKM_EXT.5</a>.
+		    Protected data is all non-TSF data, including all user or enterprise data. Some or all
+		  of this data may be considered sensitive data as well.</p><p>
+		    The
+		    selection in function <a href="#mf-appInstallRules">8</a> allows the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author to
+		    select which mechanisms are available to the administrator through the <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agent to
+		    restrict the applications which the user may install. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must state if
+		    application allowlist is applied device-wide or if it can be specified to apply to
+		    either the Enterprise and/or Personal applications. <ul>
+                    <li>If the administrator can restrict the sources from which applications can be
+                    installed, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects option a. </li>
+                    <li>If the administrator can specify a allowlist of allowed applications, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>
+                    author selects option b. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should list any application characteristics
+                    (e.g. name, version, or developer) based on which the allowlist can be
+                    formed.</li>
+                    <li>If the administrator can prevent the user from installing additional
+                    applications, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects c. </li>
+		  </ul>
+		  </p><p>
+		      In the future, function <a href="#mf-certWipe">12</a> may require
               destruction or disabling of any default trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificates, excepting those <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>
               certificates necessary for continued operation of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, such as the developer’s
               certificate. At this time, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must indicate in the assignment whether
               pre-installed or any other category of X.509v3 certificates may be removed from the
-              Trust Anchor Database. <br/><br/> 
-              For function <a href="#mf-enroll">13</a>, the
-              enrollment function may be installing an <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> agent and includes the policies to be
-              applied to the device. It is acceptable for the user approval notice to require the
-              user to intentionally opt to view the policies (for example, by "tapping" on a "View"
-              icon) rather than listing the policies in full in the notice. <br/><br/> For
-              function <a href="#mf-update">15</a>, the administrator capability to update the system
-              software may be limited to causing a prompt to the user to update rather than the
-              ability to initiate the update itself. As the administrator is likely to be acting
-              remotely, he/she would be unaware of inopportune situations, such as low power, which
-              may cause the update to fail and the device to become inoperable. The user can refuse
-              to accept the update in such situations. It is expected that system architects will be
-              cognizant of this limitation and will enforce network access controls in order to
-              enforce enterprise-critical updates. <br/><br/> Function <a href="#mf-appInstall">16</a> addresses both installation and update. This protection profile
+              Trust Anchor Database.
+		    </p><p>
+		      For function <a href="#mf-enroll">13</a>, the
+		      enrollment function may be installing an <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> agent and includes the policies to be
+		      applied to the device. It is acceptable for the user approval notice to require the
+		      user to intentionally opt to view the policies (for example, by "tapping" on a "View"
+		      icon) rather than listing the policies in full in the notice.
+		    </p><p>
+		      For function <a href="#mf-update">15</a>, the administrator capability to update the system
+		      software may be limited to causing a prompt to the user to update rather than the
+		      ability to initiate the update itself. As the administrator is likely to be acting
+		      remotely, he/she would be unaware of inopportune situations, such as low power, which
+		      may cause the update to fail and the device to become inoperable. The user can refuse
+		      to accept the update in such situations. It is expected that system architects will be
+		      cognizant of this limitation and will enforce network access controls in order to
+		      enforce enterprise-critical updates.
+		    </p><p>
+		      Function <a href="#mf-appInstall">16</a> addresses both installation and update. This protection profile
               does not distinguish between installation and update of applications because mobile
               devices typically completely overwrite the previous installation with a new
-              installation during an application update. <br/><br/> For function <a href="#mf-entAppRemove">17</a>, "Enterprise applications" are those applications that belong
+              installation during an application update.
+		    </p><p>
+		    For function <a href="#mf-entAppRemove">17</a>, "Enterprise applications" are those applications that belong
               to the Enterprise application group. Applications installed by the enterprise
               administrator (including automatic installation by the administrator after being
               requested by the user from a catalog of enterprise applications) are by default placed
               in the Enterprise application group unless an exception has been made in function
-                <a href="#mf-appGroups">43</a> of <a href="#FMT_SMF_EXT.1.1">FMT_SMF_EXT.1.1</a>. <br/><br/> If the display
+              <a href="#mf-appGroups">43</a> of <a href="#FMT_SMF_EXT.1.1">FMT_SMF_EXT.1.1</a>.
+		  </p><p>
+		    If the display
               of notifications in the locked state is supported, the configuration of these
               notifications (function <a href="#mf-notifications">18</a>) must be included in the
-              selection. <br/><br/> Function <a href="#mf-dar">19</a> must be included in the
-              selection if data-at-rest protection is not natively enabled. <br/><br/>
-              Function <a href="#mf-rmediaDar">20</a> is implicitly met if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not support
-              removable media. <br/><br/> 
-              For function <a href="#mf-location">21</a>, location
+              selection.
+		  </p><p>
+		      Function <a href="#mf-dar">19</a> must be included in the
+		      selection if data-at-rest protection is not natively enabled.
+		    </p><p>
+		      Function <a href="#mf-rmediaDar">20</a> is implicitly met if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not support
+		      removable media.
+		    </p><p>
+		                  For function <a href="#mf-location">21</a>, location
               services include location information gathered from <abbr class="dyn-abbr"><a href="#abbr_GPS">GPS</a></abbr>, cellular, and Wi-Fi.
-              <br/><br/> Function <a href="#mf-authFactors">22</a> is implicitly met if the
+
+		  </p><p>
+		    Function <a href="#mf-authFactors">22</a> is implicitly met if the
               <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not contain a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>. This selection must correspond with the selection made in
               <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>. If a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, "Biometric Authentication Factor"
               must be selected and the user or admin must have the option to disable the use of
               it. If multiple BAFs are selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, this applies to all different
               modalities. If "hybrid" is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a> it must be selected and the user
-              or admin must have the option to disable the use of it. <br/><br/>
-              
+              or admin must have the option to disable the use of it.
+		  </p><p>
+		                    
               For function <a href="#mf-certInvalid">23</a>, the configuration can be different
-              depending on the specific trusted channel. <br/><br/>
-               The assignment in function
+              depending on the specific trusted channel.
+		    </p><p>
+		                   The assignment in function
                 <a href="#mf-externalPorts">24</a> consists of all externally accessible hardware
               ports, such as <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr>, the SD card, and <abbr class="dyn-abbr"><a href="#abbr_HDMI">HDMI</a></abbr>, whose data transfer capabilities can be
               enabled and disabled by either the user or administrator. Disablement of data transfer
@@ -4803,13 +4852,21 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               default while in these states. Each of the ports may be enabled or disabled
               separately. The configuration policy need not disable all ports together. In the case
               of <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr>, chagrining is still allowed if data transfer capabilities have been disabled.
-              <br/><br/> The assignment in function <a href="#mf-serverProtocols">25</a>
+
+		  </p><p>
+		    The assignment in function <a href="#mf-serverProtocols">25</a>
               consists of all protocols where the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> acts as a server, which can be enabled and
-              disabled by either the user or administrator. <br/><br/> Function <a href="#mf-devModes">26</a> must be included in the selection if developer modes are
-              supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. <br/><br/> Function <a href="#mf-authBypass">27</a> must
+              disabled by either the user or administrator.
+		  </p><p>
+		    Function <a href="#mf-devModes">26</a> must be included in the selection if developer modes are
+		    supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
+		  </p><p>
+		    Function <a href="#mf-authBypass">27</a> must
               be included in the selection if bypass of local user authentication, such as a "Forgot
               Password", password hint, or remote authentication feature, is supported.
-              <br/><br/> Function <a href="#mf-appCert">29</a> must be included in the
+
+		  </p><p>
+		    Function <a href="#mf-appCert">29</a> must be included in the
               selection if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> allows applications, other than the <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agents, to import or
               remove X.509v3 certificates from the Trust Anchor Database. The <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agent is
               considered the administrator. This function does not apply to applications trusting a
@@ -4817,27 +4874,47 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               application modifies the device-wide Trust Anchor Database, affecting the validations
               performed by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> for other applications. The user or administrator may be provided
               the ability to globally allow or deny any application requests in order to meet this
-              requirement. <br/><br/> Function <a href="#mf-certValidity">30</a> must be
+              requirement.
+		  </p><p>
+		    Function <a href="#mf-certValidity">30</a> must be
               included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if "administrator-configured option" is selection in
-              <a href="#FIA_X509_EXT.2.2">FIA_X509_EXT.2.2</a>. <br/><br/> Function <a href="#mf-digSign">33</a> should be
+              <a href="#FIA_X509_EXT.2.2">FIA_X509_EXT.2.2</a>.
+		  </p><p>
+		    Function <a href="#mf-digSign">33</a> should be
               included in the selection if <a href="#FPT_TUD_EXT.5.1">FPT_TUD_EXT.5.1</a> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> and the
-              configurable option is selected. <br/><br/> Function <a href="#mf-sharedKeys">34</a> should be included in the selection if user or administrator is
-              selected in <a href="#FCS_STG_EXT.1.4">FCS_STG_EXT.1.4</a>. <br/><br/> Function <a href="#mf-keyWipeRules">35</a> should be included in the selection if user or administrator is selected in
-              <a href="#FCS_STG_EXT.1.5">FCS_STG_EXT.1.5</a>. <br/><br/> Function <a href="#mf-unlockBanner">36</a> must be
-              included in the selection if <a href="#FTA_TAB.1">FTA_TAB.1</a> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. <br/><br/>
-              Function <a href="#mf-auditItems">37</a> must be included in the selection if <a href="#FAU_SEL.1">FAU_SEL.1</a>
-              is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. <br/><br/> For function <a href="#mf-hotspot">41</a>,
+              configurable option is selected.
+		  </p><p>
+		    Function <a href="#mf-sharedKeys">34</a> should be included in the selection if user or administrator is
+		    selected in <a href="#FCS_STG_EXT.1.4">FCS_STG_EXT.1.4</a>.
+		  </p><p>
+		    Function <a href="#mf-keyWipeRules">35</a> should be included in the selection if user or administrator is selected in
+		    <a href="#FCS_STG_EXT.1.5">FCS_STG_EXT.1.5</a>.
+		  </p><p>
+		      Function <a href="#mf-unlockBanner">36</a> must be
+		      included in the selection if <a href="#FTA_TAB.1">FTA_TAB.1</a> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
+		    </p><p>
+		                    Function <a href="#mf-auditItems">37</a> must be included in the selection if <a href="#FAU_SEL.1">FAU_SEL.1</a>
+				    is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
+		    </p><p>
+		    For function <a href="#mf-hotspot">41</a>,
               hotspot functionality refers to the condition in which the mobile device is serving as
               an access point to other devices, not the connection of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to external hotspots.
-              <br/><br/> Functions <a href="#mf-dataSharing">42</a> and <a href="#mf-appGroups">43</a> correspond to <a href="#FDP_ACF_EXT.1.2">FDP_ACF_EXT.1.2</a>. <br/><br/> For function
+
+		  </p><p>
+		    Functions <a href="#mf-dataSharing">42</a> and <a href="#mf-appGroups">43</a> correspond to <a href="#FDP_ACF_EXT.1.2">FDP_ACF_EXT.1.2</a>.
+		  </p><p>
+		    For function
                 <a href="#mf-unenroll">44</a>, <a href="#FMT_SMF_EXT.2.1">FMT_SMF_EXT.2.1</a> specifies actions to be performed when
-              the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is unenrolled from management. <br/><br/> For function <a href="#mf-alwaysOnVPN">45</a>, must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> is selected in
+		the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is unenrolled from management.
+		  </p><p>
+		    For function <a href="#mf-alwaysOnVPN">45</a>, must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> is selected in
               <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a> and the native <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> client can be configured to be Always-On.
               Always-On is defined as when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has a network connection the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> attempts to
               connect, all data leaving the device uses the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> when the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is connected and no
               data leaves that device when the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is disconnected. The configuration of the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>
               Client itself (with information such as <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Gateway, certificates, and algorithms) is
-              addressed by the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Client. </span></div></div></div>
+              addressed by the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Client.
+		  </p></span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FMT_SMF_EXT.1">FMT_SMF_EXT.1</a></div>
 		    
 		  
@@ -4879,6 +4956,518 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               
               
               
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes all management functions, what
                 role(s) can perform each function, and how these functions are (or can be)
                 restricted to the roles identified by <a href="#FMT_MOF_EXT.1">FMT_MOF_EXT.1</a>. <br/><br/> The
@@ -4890,517 +5479,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 may perform the function. The evaluator shall verify that the AGD guidance describes
                 how to perform each management function, including any configuration details. For
                 each specified management function tested, the evaluator shall confirm that the
-                underlying mechanism exhibits the configured setting. <br/><br/><div class="eacategory">Tests</div>
-                <ul>
-                  <b>Function <a href="#mf-pwd">1</a></b><br/> The evaluator shall verify
-                  the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> defines the allowable policy options: the range of values for both
-                  password length and lifetime, and a description of complexity to include character
-                  set and complexity policies (e.g., configuration and enforcement of number of
-                  uppercase, lowercase, and special characters per password).<br/><br/>
-                  <li><b>Test 1: </b>The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration as the administrator and
-                    perform positive and negative tests, with at least two values set for each
-                    variable setting, for each of the following: <br/>
-                    <ul>
-                      <li>minimum password length</li>
-                      <li>minimum password complexity</li>
-                      <li>maximum password lifetime</li>
-                    </ul>
-                  </li><br/>
-                  <b>Function <a href="#mf-screenlock">2</a></b><br/> The evaluator shall
-                  verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> defines the range of values for both timeout period and number of
-                  authentication failures for all supported authentication mechanisms.<br/><br/>
-                  <li><b>Test 2: </b> The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration as the administrator.
-                    The evaluator shall perform positive and negative tests, with at least two
-                    values set for each variable setting, for each of the following: <br/>
-                    <ul>
-                      <li>screen-lock enabled/disabled</li>
-                      <li>screen lock timeout</li>
-                      <li>number of authentication failures (may be combined with test for
-                        <a href="#FIA_AFL_EXT.1">FIA_AFL_EXT.1</a>)</li>
-                    </ul>
-                  </li><br/>
-                  <b>Function <a href="#mf-vpn">3</a></b><br/>
-                  <li><b>Test 3: </b>The evaluator shall perform the following tests: <ol type="a">
-                      <li>The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration to enable the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>
-                        protection. These configuration actions must be used for the testing of the
-                        <a href="#FDP_IFC_EXT.1.1">FDP_IFC_EXT.1.1</a> requirement. </li>
-                      <li>[conditional] If "per-app basis" is selected, the evaluator shall
-                        create two applications and enable one to use the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> and the other to not
-                        use the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>. The evaluator shall exercise each application (attempting to
-                        access network resources; for example, by browsing different websites)
-                        individually while capturing packets from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluator shall
-                        verify from the packet capture that the traffic from the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>-enabled
-                        application is encapsulated in <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> and that the traffic from the
-                        <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>-disabled application is not encapsulated in <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>. </li>
-                      <li>[conditional] If "per-groups of application basis" is selected, the
-                        evaluator shall create two applications and the applications shall be placed
-                        into different groups. Enable one application group to use the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> and the
-                        other to not use the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>. The evaluator shall exercise each application
-                        (attempting to access network resources; for example, by browsing different
-                        websites) individually while capturing packets from the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluator
-                        shall verify from the packet capture that the traffic from the application
-                        in the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>-enabled group is encapsulated in <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> and that the traffic from
-                        the application in the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>-disabled group is not encapsulated in <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>.
-                      </li>
-                    </ol>
-                  </li><br/>
-                  <b>Function <a href="#mf-radios">4</a></b><br/> The evaluator shall
-                  verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of each radio and an indication of if
-                  the radio can be enabled/disabled along with what role can do so. In addition the
-                  evaluator shall verify that the frequency ranges at which each radio operates is
-                  included in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes at what point 
-                  in the boot sequence the radios are powered on and indicates if the radios are used 
-                  as part of the initialization of the device.            
-                  The evaluator shall confirm that the AGD guidance describes
-                  how to perform the enable/disable function for each radio.<br/><br/> The
-                  evaluator shall ensure that minimal signal leakage enters the RF shielded
-                  enclosure (i.e. Faraday bag, Faraday box, RF shielded room) by performing the
-                  following steps:<br/><br/> Step 1: Place the antenna of the spectrum
-                  analyzer inside the RF shielded enclosure.<br/><br/> Step 2: Enable "Max
-                  Hold" on the spectrum analyzer and perform a spectrum sweep of the frequency range
-                  between 300MHz – 6000MHz, in I KHz steps (this range should encompass 802.11,
-                  802.15, GSM, UMTS, and <abbr class="dyn-abbr"><a href="#abbr_LTE">LTE</a></abbr>). This range will not address <abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr> 13.56MHz, another
-                  test should be set up with similar constraints to address <abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr>.<br/><br/>
-                  If power above -90 dBm is observed, the Faraday box has too great of signal
-                  leakage and shall not be used to complete the test for Function <a href="#mf-radios">4</a>.<br/><br/>
-                  <li><b>Test 4: </b>The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration as the administrator and,
-                    if not restricted to the administrator, the user, to enable and disable the
-                    state of each radio (e.g. Wi-Fi, cellular, <abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr>, Bluetooth). Additionally,
-                    the evaluator shall repeat the steps below, booting into any auxiliary boot mode
-                    supported by the device. For each radio, the evaluator shall:<br/><br/>
-                    Step 1: Place the antenna of the spectrum analyzer inside the RF shielded
-                    enclosure. Configure the spectrum analyzer to sweep desired frequency range for
-                    the radio to be tested (based on range provided in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>)). The ambient noise
-                    floor shall be set to -110dBm. Place the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> into the RF shielded enclosure to
-                    isolate them from all other RF traffic. <br/><br/> Step 2: The evaluator
-                    shall create a baseline of the expected behavior of RF signals. The evaluator
-                    shall power on the device, ensure the radio in question is enabled, power off
-                    the device, enable "Max Hold" on the spectrum analyzer and power on the device.
-                    The evaluator shall wait 2 minutes at each Authentication Factor interface prior
-                    to entering the necessary password to complete the boot process, waiting 5
-                    minutes after the device is fully booted. The evaluator shall observe that RF
-                    spikes are present at the expected uplink channel frequency. The evaluator shall
-                    clear the "Max Hold" on the spectrum analyzer. <br/><br/> Step 3: The
-                    evaluator shall verify the absence of RF activity for the uplink channel when
-                    the radio in question is disabled. The evaluator shall complete the following
-                    test five times. The evaluator shall power on the device, ensure the radio in
-                    question is disabled, power off the device, enable "Max Hold" on the spectrum
-                    analyzer and power on the device. The evaluator shall wait 2 minutes at each
-                    Authentication Factor interface prior to entering the necessary password to
-                    complete the boot process, waiting 5 minutes after the device is fully booted.
-                    The evaluator shall clear the "Max Hold" on the spectrum analyzer. If the radios 
-                    are used for device initialization, then a spike of RF activity for the uplink channel
-                    can be observed initially at device boot. However, if a spike of
-                    RF activity for the uplink channel of the specific radio frequency band is
-                    observed after the device is fully booted or at an Authentication Factor interface 
-                    it is deemed that the radio is enabled. </li><br/>
-                  <b>Function <a href="#mf-audioVisual">5</a></b><br/> The evaluator
-                  shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of each collection device and an
-                  indication of if it can be enabled/disabled along with what role can do so. The
-                  evaluator shall confirm that the AGD guidance describes how to perform the
-                  enable/disable function. <br/><br/>
-                  <li><b>Test 5: </b>The evaluator shall perform the following test(s): <ol type="a">
-                      <li>The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration as the
-                        administrator and, if not restricted to the administrator, the user, to
-                        enable and disable the state of each audio or visual collection devices
-                        (e.g. camera, microphone) listed by the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author. For each collection
-                        device, the evaluator shall disable the device and then attempt to use its
-                        functionality. The evaluator shall reboot the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and verify that disabled
-                        collection devices may not be used during or early in the boot process.
-                        Additionally, the evaluator shall boot the device into each available
-                        auxiliary boot mode and verify that the collection device cannot be used. </li>
-                      <li>[conditional] If "per-app basis" is selected, the evaluator shall
-                        create two applications and enable one to use access the A/V device and the
-                        other to not access the A/V device. The evaluator shall exercise each
-                        application attempting to access the A/V device individually. The evaluator
-                        shall verify that the enabled application is able to access the A/V device
-                        and the disabled application is not able to access the A/V device. </li>
-                      <li>[conditional] If "per-groups of application basis" is selected, the
-                        evaluator shall create two applications and the applications shall be placed
-                        into different groups. Enable one group to access the A/V device and the
-                        other to not access the A/V device. The evaluator shall exercise each
-                        application attempting to access the A/V device individually. The evaluator
-                        shall verify that the application in the enabled group is able to access the
-                        A/V device and the application in the disabled group is not able to access
-                        the A/V device. </li>
-                    </ol>
-                  </li><br/>
-                  <b>Function <a href="#mf-lockState">6</a></b><br/>
-                  <li><b>Test 6: </b>The evaluator shall use the test environment to instruct the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, both as a
-                    user and as the administrator, to command the device to transition to a locked
-                    state, and verify that the device transitions to the locked state upon
-                    command.</li><br/>
-                  <b>Function <a href="#mf-wipe">7</a></b><br/>
-                  <li><b>Test 7: </b>The evaluator shall use the test environment to instruct the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, both as a
-                    user and as the administrator, to command the device to perform a wipe of
-                    protected data. The evaluator must ensure that this management setup is used
-                    when conducting the Evaluation Activities in <a href="#FCS_CKM_EXT.5">FCS_CKM_EXT.5</a>.</li><br/>
-                  <b>Function <a href="#mf-appInstallRules">8</a></b><br/> The evaluator
-                  shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the allowable application installation policy
-                  options based on the selection included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. If the application allowlist is
-                  selected, the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of each
-                  application characteristic upon which the allowlist may be based.<br/><br/>
-                  <li><b>Test 8: </b> The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration as the administrator to
-                    restrict particular applications, sources of applications, or application
-                    installation according to the AGD guidance. The evaluator shall attempt to
-                    install unauthorized applications and ensure that this is not possible. The
-                    evaluator shall, in conjunction, perform the following specific tests: <ol type="a">
-                      <li>[conditional] The evaluator shall attempt to connect to an
-                        unauthorized repository in order to install applications. </li>
-                      <li>[conditional] The evaluator shall attempt to install two applications
-                        (one allowlisted, and one not) from a known allowed repository and verify
-                        that the application not on the allowlist is rejected. The evaluator shall
-                        also attempt to side-load executables or installation packages via <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr>
-                        connections to determine that the white list is still adhered to
-                      </li></ol>
-                  </li><br/>
-                  <b>Function <a href="#mf-keyStorage">9</a> &amp; Function <a href="#mf-keyWipe">10</a></b><br/> The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
-                  describes each category of keys/secrets that can be imported into the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s secure
-                  key storage.<br/><br/>
-                  <li><b>Test 9: </b>The test of these functions is performed in association with <a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a>. </li><br/>
-                  <li><b>Test 10: </b>The test of these functions is performed in association with <a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a>. </li><br/>
-                  <b>Function <a href="#mf-certImport">11</a></b><br/> The evaluator shall
-                  review the AGD guidance to determine that it describes the steps needed to import,
-                  modify, or remove certificates in the Trust Anchor database, and that the users
-                  that have authority to import those certificates (e.g., only administrator, or
-                  both administrators and users) are identified. <br/><br/>
-                  <li><b>Test 11: </b>The evaluator shall import certificates according to the AGD guidance as the
-                    user and/or as the administrator, as determined by the administrative guidance.
-                    The evaluator shall verify that no errors occur during import. The evaluator
-                    should perform an action requiring use of the X.509v3 certificate to provide
-                    assurance that installation was completed properly. </li><br/>
-                  <b>Function <a href="#mf-certWipe">12</a></b><br/> The evaluator shall
-                  verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes each additional category of X.509 certificates and
-                  their use within the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.<br/><br/>
-                  <li><b>Test 12: </b>The evaluator shall remove an administrator-imported certificate and any
-                    other categories of certificates included in the assignment of function <a href="#mf-appRemove">14</a> from the Trust Anchor Database according to the AGD
-                    guidance as the user and as the administrator. </li><br/>
-                  <b>Function <a href="#mf-enroll">13</a></b><br/> The evaluator shall
-                  examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it contains a description of each management
-                  function that will be enforced by the enterprise once the device is enrolled. The
-                  evaluator shall examine the AGD guidance to determine that this same information
-                  is present.<br/><br/>
-                  <li><b>Test 13: </b>The evaluator shall verify that user approval is required to enroll the
-                    device into management. </li><br/>
-                  <b>Function <a href="#mf-appRemove">14</a></b><br/> The evaluator shall
-                  verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes an indication of what applications (e.g.,
-                  user-installed applications, Administrator-installed applications, or Enterprise
-                  applications) can be removed along with what role can do so. The evaluator shall
-                  examine the AGD guidance to determine that it details, for each type of
-                  application that can be removed, the procedures necessary to remove those
-                  applications and their associated data. For the purposes of this Evaluation
-                  Activity, "associated data" refers to data that are created by the app during its
-                  operation that do not exist independent of the app's existence, for instance,
-                  configuration data, or e-mail information that’s part of an e-mail client. It does
-                  not, on the other hand, refer to data such as word processing documents (for a
-                  word processing app) or photos (for a photo or camera app). <br/><br/>
-                  <li><b>Test 14: </b>The evaluator shall attempt to remove applications according to the AGD
-                    guidance and verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> no longer permits users to access those
-                    applications or their associated data. </li><br/>
-                  <b>Function <a href="#mf-update">15</a></b><br/>
-                  <li><b>Test 15: </b>The evaluator shall attempt to update the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> system software following the
-                    procedures in the AGD guidance and verify that updates correctly install and
-                    that the version numbers of the system software increase. </li><br/>
-                  <b>Function <a href="#mf-appInstall">16</a></b><br/>
-                  <li><b>Test 16: </b>The evaluator shall attempt to install an application following the
-                    procedures in the AGD guidance and verify that the application is installed and
-                    available on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. </li><br/>
-                  <b>Function <a href="#mf-entAppRemove">17</a></b><br/>
-                  <li><b>Test 17: </b>The evaluator shall attempt to remove any Enterprise applications from the
-                    device by following the administrator guidance. The evaluator shall verify that
-                    the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> no longer permits users to access those applications or their associated
-                    data. </li><br/>
-                  <b>Function <a href="#mf-notifications">18</a></b><br/> The evaluator
-                  shall examine the AGD Guidance to determine that it specifies, for at least each
-                  category of information selected for Function <a href="#mf-notifications">18</a>,
-                  how to enable and disable display information for that type of information in the
-                  locked state.<br/><br/>
-                  <li><b>Test 18: </b>For each category of information listed in the AGD guidance, the evaluator
-                    shall verify that when that <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is configured to limit the information according
-                    to the AGD, the information is no longer displayed in the locked state.</li><br/>
-                  <b>Function <a href="#mf-dar">19</a></b><br/>
-                  <li><b>Test 19: </b>The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration as the administrator and,
-                    if not restricted to the administrator, the user, to enable system-wide
-                    data-at-rest protection according to the AGD guidance. The evaluator shall
-                    ensure that all Evaluation Activities for <abbr class="dyn-abbr"><a href="#abbr_DAR">DAR</a></abbr> (FDP_DAR) are conducted with the
-                    device in this configuration. </li><br/>
-                  <b>Function <a href="#mf-rmediaDar">20</a></b><br/>
-                  <li><b>Test 20: </b>The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration as the administrator and,
-                    if not restricted to the administrator, the user, to enable removable media’s
-                    data-at-rest protection according to the AGD guidance. The evaluator shall
-                    ensure that all Evaluation Activities for <abbr class="dyn-abbr"><a href="#abbr_DAR">DAR</a></abbr> (FDP_DAR) are conducted with the
-                    device in this configuration. </li><br/>
-                  <b>Function <a href="#mf-location">21</a>
-                  </b><br/>
-                  <li><b>Test 21: </b>The evaluator shall perform the following tests. <ol type="a">
-                      <li>The evaluator shall enable location services device-wide and shall
-                        verify that an application (such as a mapping application) is able to access
-                        the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s location information. The evaluator shall disable location
-                        services device-wide and shall verify that an application (such as a mapping
-                        application) is unable to access the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s location information. </li>
-                      <li>[conditional] If "per-app basis" is selected, the evaluator shall
-                        create two applications and enable one to use access the location services
-                        and the other to not access the location services. The evaluator shall
-                        exercise each application attempting to access location services
-                        individually. The evaluator shall verify that the enabled application is
-                        able to access the location services and the disabled application is not
-                        able to access the location services. </li>
-                    </ol>
-                  </li><br/>
-                  <b>Function <a href="#mf-authFactors">22</a></b><br/>
-                  <li><b>Test 22: </b>The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> states if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>
-                    and/or hybrid authentication. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not include a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> and/or hybrid
-                    authentication this test is implicitly met. <ol type="a">
-                      <li>[conditional] If a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> is selected the evaluator shall verify that the
-                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the procedure to enable/disable the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> includes
-                        multiple BAFs, the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how to
-                        enable/disable each <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>, specifically if the different modalities can be
-                        individually enabled/disabled. The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to
-                        allow each supported <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> to authenticate and verify that successful
-                        authentication can be achieved using the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>. The evaluator shall configure
-                        the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to disable the use of each supported <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> for authentication and
-                        confirm that the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> cannot be used to authenticate. </li>
-                      <li>[conditional] If "Hybrid" is selected the evaluator shall verify that
-                        the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the procedure to enable/disable the hybrid (biometric
-                        credential and PIN/password) authentication. The evaluator shall configure
-                        the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to allow hybrid authentication to authenticate and confirm that
-                        successful authentication can be achieved using the hybrid authentication.
-                        The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to disable the use of hybrid
-                        authentication and confirm that the hybrid authentication cannot be used to
-                        authenticate. </li>
-                    </ol>
-                  </li><br/>
-                  <br/>
-                  <b>Evaluation Activity Note:</b> It should be noted that the following
-                  functions are optional capabilities, if the function is implemented, then the
-                  following Evaluation Activities shall be performed. The notation of "[conditional]"
-                  beside the function number indicates that if the function is not included in the
-                  <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, then there is no expectation that the evaluation activity be performed. <br/><br/>
-                  
-                  <b>Function <a href="#mf-certInvalid">23</a> [conditional]</b><br/>
-                  <li><b>Test 23: </b>The test of this function is performed in conjunction with <a href="#FIA_X509_EXT.2.2">FIA_X509_EXT.2.2</a>,
-                    FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. </li><br/>
-                  
-                  <b>Function <a href="#mf-externalPorts">24</a> [conditional]</b><br/>
-                  The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a list of each externally
-                  accessible hardware port and an indication of if data transfer over that port can
-                  be enabled/disabled. AGD guidance will describe how to perform the enable/disable function.<br/><br/>
-                  <li><b>Test 24: </b>The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration to enable and disable
-                    data transfer capabilities over each externally accessible hardware ports (e.g.
-                    <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr>, SD card, <abbr class="dyn-abbr"><a href="#abbr_HDMI">HDMI</a></abbr>) listed by the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author. The evaluator shall use test
-                    equipment for the particular interface to ensure that no low-level signaling is
-                    occurring on all pins used for data transfer when they are disabled. For each
-                    disabled data transfer capability, the evaluator shall repeat this test by
-                    rebooting the device into the normal operational mode and verifying that the
-                    capability is disabled throughout the boot and early execution stage of the
-                    device. </li><br/>
-                  <b>Function <a href="#mf-serverProtocols">25</a> [conditional]</b><br/>
-                  The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> acts as a server in
-                  each of the protocols listed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, and the reason for acting as a server.<br/><br/>
-                  <li><b>Test 25: </b>The evaluator shall attempt to disable each listed protocol in the
-                    assignment. The evaluator shall verify that remote devices can no longer access
-                    the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> resources using any disabled protocols. </li><br/>
-                  <b>Function <a href="#mf-devModes">26</a> [conditional]</b><br/>
-                  <li><b>Test 26: </b>The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration as the administrator and,
-                    if not restricted to the administrator, the user, to enable and disable any
-                    developer mode. The evaluator shall test that developer mode access is not
-                    available when its configuration is disabled. The evaluator shall verify the
-                    developer mode remains disabled during device reboot. </li><br/>
-                  <b>Function <a href="#mf-authBypass">27</a> [conditional]</b><br/> The
-                  evaluator shall examine the AGD guidance to determine that it describes how to
-                  enable and disable any "Forgot Password", password hint, or remote authentication
-                  (to bypass local authentication mechanisms) capability.<br/><br/>
-                  <li><b>Test 27: </b>For each mechanism listed in the AGD guidance that provides a "Forgot
-                    Password" feature or other means where the local authentication process can be
-                    bypassed, the evaluator shall disable the feature and ensure that they are not
-                    able to bypass the local authentication process. </li><br/>
-                  <b>Function <a href="#mf-wipeEntData">28</a> [conditional]</b><br/>
-                  <li><b>Test 28: </b>The evaluator shall attempt to wipe Enterprise data resident on the device
-                    according to the administrator guidance. The evaluator shall verify that the
-                    data is no longer accessible by the user. </li><br/>
-                  <b>Function <a href="#mf-appCert">29</a> [conditional]</b><br/> The
-                  evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how approval for an application to
-                  perform the selected action (import, removal) with respect to certificates in the
-                  Trust Anchor Database is accomplished (e.g., a pop-up, policy setting, etc.).
-                  <br/><br/> The evaluator shall also verify that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> documentation
-                  provided according to <a href="#adv" class="dynref">Section 5.2.2 Class ADV: Development</a> includes any security functions
-                  (import, modification, or destruction of the Trust Anchor Database) allowed by applications.<br/><br/>
-                  <li><b>Test 29: </b>The evaluator shall perform one of the following tests: <ol type="a">
-                      <li>[conditional] If applications may import certificates to the Trust
-                        Anchor Database, the evaluator shall write, or the developer shall provide
-                        access to, an application that imports a certificate into the Trust Anchor
-                        Database. The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> requires approval before
-                        allowing the application to import the certificate: <ul>
-                          <li>The evaluator shall deny the approvals to verify that the
-                            application is not able to import the certificate. Failure of import
-                            shall be tested by attempting to validate a certificate that chains to
-                            the certificate whose import was attempted (as described in the
-                            evaluation activity for <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>). </li>
-                          <li>The evaluator shall repeat the test, allowing the approval to
-                            verify that the application is able to import the certificate and that
-                            validation occurs. </li>
-                        </ul>
-                      </li>
-                      <li>[conditional] If applications may remove certificates in the Trust
-                        Anchor Database, the evaluator shall write, or the developer shall provide
-                        access to, an application that removes certificates from the Trust Anchor
-                        Database. The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> requires approval before
-                        allowing the application to remove the certificate: <ul>
-                          <li>The evaluator shall deny the approvals to verify that the
-                            application is not able to remove the certificate. Failure of removal
-                            shall be tested by attempting to validate a certificate that chains to
-                            the certificate whose removal was attempted (as described in the
-                            evaluation activity for <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>). </li>
-                        </ul>
-                      </li>
-                    </ol> The evaluator shall repeat the test, allowing the approval to verify
-                    that the application is able to remove/modify the certificate and that
-                    validation no longer occurs. </li><br/>
-                  <b>Function <a href="#mf-certValidity">30</a> [conditional]</b><br/>
-                  <li><b>Test 30: </b>The test of this function is performed in conjunction with <a href="#FIA_X509_EXT.2.2">FIA_X509_EXT.2.2</a>. </li><br/>
-                  <b>Function <a href="#mf-cellular">31</a> [conditional]</b><br/> The
-                  evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes which cellular protocols can be
-                  disabled. The evaluator shall confirm that the AGD guidance describes the
-                  procedure for disabling each cellular protocol identified in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.<br/><br/>
-                  <li><b>Test 31: </b>The evaluator shall attempt to disable each cellular protocol according to
-                    the administrator guidance. The evaluator shall attempt to connect the device to
-                    a cellular network and, using network analysis tools, verify that the device
-                    does not allow negotiation of the disabled protocols. </li><br/>
-                  <b>Function <a href="#mf-auditLogs">32</a> [conditional]</b><br/>
-                  <li><b>Test 32: </b>The evaluator shall attempt to read any device audit logs according to the
-                    administrator guidance and verify that the logs may be read. This test may be
-                    performed in conjunction with the evaluation activity of <a href="#FAU_GEN.1">FAU_GEN.1</a>. </li><br/>
-                  <b>Function <a href="#mf-digSign">33</a> [conditional]</b><br/>
-                  <li><b>Test 33: </b>The test of this function is performed in conjunction with <a href="#FPT_TUD_EXT.5.1">FPT_TUD_EXT.5.1</a>. </li><br/>
-                  <b>Function <a href="#mf-sharedKeys">34</a> [conditional]</b><br/> The
-                  evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the approval for exceptions for
-                  shared use of keys/secrets by multiple applications is accomplished (e.g., a
-                  pop-up, policy setting, etc.).<br/><br/>
-                  <li><b>Test 34: </b>The test of this function is performed in conjunction with <a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a>. </li><br/>
-                  <b>Function <a href="#mf-keyWipeRules">35</a> [conditional]</b><br/> The
-                  evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the approval for exceptions for
-                  destruction of keys/secrets by applications that did not import the key/secret is
-                  accomplished (e.g., a pop-up, policy setting, etc.).<br/><br/>
-                  <li><b>Test 35: </b>The test of this function is performed in conjunction with <a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a>. </li><br/>
-                  <b>Function <a href="#mf-unlockBanner">36</a> [conditional] </b><br/>
-                  The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes any restrictions in banner
-                  settings (e.g., character limitations).<br/><br/>
-                  <li><b>Test 36: </b>The test of this function is performed in conjunction with <a href="#FTA_TAB.1">FTA_TAB.1</a>. </li><br/>
-                  <b>Function <a href="#mf-auditItems">37</a> [conditional]</b><br/>
-                  <li><b>Test 37: </b>The test of this function is performed in conjunction with <a href="#FAU_SEL.1">FAU_SEL.1</a>. </li><br/>
-                  <b>Function <a href="#mf-integ">38</a> [conditional]</b><br/>
-                  <li><b>Test 38: </b>The test of this function is performed in conjunction with <a href="#FPT_NOT_EXT.2.1">FPT_NOT_EXT.2.1</a>. </li><br/>
-                  <b>Function <a href="#mf-USB">39</a> [conditional]</b><br/> The
-                  evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of how data transfers
-                  can be managed over <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr>.<br/><br/>
-                  <li><b>Test 39: </b>The evaluator shall perform the following tests based on the selections made
-                    in the table: <ol type="a">
-                      <li>[conditional] The evaluator shall disable <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr> mass storage mode,
-                        attach the device to a computer, and verify that the computer cannot mount
-                        the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as a drive. The evaluator shall reboot the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and repeat this test
-                        with other supported auxiliary boot modes. </li>
-                      <li>[conditional] The evaluator shall disable <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr> data transfer without
-                        user authentication, attach the device to a computer, and verify that the
-                        <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> requires user authentication before the computer can access <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> data.
-                        The evaluator shall reboot the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and repeat this test with other supported
-                        auxiliary boot modes. </li>
-                      <li>[conditional] The evaluator shall disable <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr> data transfer without
-                        connecting system authentication, attach the device to a computer, and
-                        verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> requires connecting system authentication before the
-                        computer can access <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> data. The evaluator shall then connect the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to
-                        another computer and verify that the computer cannot access <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> data. The
-                        evaluator shall then connect the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the original computer and verify
-                        that the computer can access <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> data. </li>
-                    </ol>
-                  </li><br/>
-                  <b>Function <a href="#mf-backup">40</a> [conditional]</b><br/> The
-                  evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of available backup
-                  methods that can be enabled/disabled. If "selected applications or selected groups
-                  of applications are selected the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> shall include which applications of groups of
-                  applications backup can be enabled/disabled.<br/><br/>
-                  <li><b>Test 40: </b>If "all applications" is selected, the evaluator shall disable each selected
-                    backup location in turn and verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> cannot complete a backup. The
-                    evaluator shall then enable each selected backup location in turn and verify
-                    that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can perform a backup. <br/><br/> If "selected applications"
-                    is selected, the evaluator shall disable each selected backup location in turn
-                    and verify that for the selected application the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> prevents backup from
-                    occurring. The evaluator shall then enable each selected backup location in turn
-                    and verify that for the selected application the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can perform a backup.
-                    <br/><br/> If "selected groups of applications" is selected, the
-                    evaluator shall disable each selected backup location in turn and verify that
-                    for a group of applications the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> prevents the backup from occurring. The
-                    evaluator shall then enable each selected backup location in turn and verify for
-                    the group of application the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can perform a backup. <br/><br/> If
-                    "configuration data" is selected, the evaluator shall disable each selected
-                    backup location in turn and verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> prevents the backup of
-                    configuration data from occurring. The evaluator shall then enable each selected
-                    backup location in turn and verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can perform a backup of
-                    configuration data. </li><br/>
-                  <b>Function <a href="#mf-hotspot">41</a> [conditional] </b><br/> The
-                  evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of Hotspot
-                  functionality and <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr> tethering to include any authentication for these. <br/><br/>
-                  <li><b>Test 41: </b>The evaluator shall perform the following tests based on the selections in
-                    Function <a href="#mf-hotspot">41</a>. <ol type="a">
-                      <li>[conditional] The evaluator shall enable hotspot functionality with
-                        each of the of the support authentication methods. The evaluator shall
-                        connect to the hotspot with another device and verify that the hotspot
-                        functionality requires the configured authentication method. </li>
-                      <li>[conditional] The evaluator shall enable <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr> tethering functionality
-                        with each of the of the support authentication methods. The evaluator shall
-                        connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> over <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr> with another device and verify that the
-                        tethering functionality requires the configured authentication method.
-                      </li>
-                    </ol>
-                  </li><br/>
-                  <b>Function <a href="#mf-dataSharing">42</a> [conditional]</b><br/>
-                  <li><b>Test 42: </b>The test of this function is performed in conjunction with <a href="#FDP_ACF_EXT.1.2">FDP_ACF_EXT.1.2</a>. </li><br/>
-                  <b>Function <a href="#mf-appGroups">43</a> [conditional]</b><br/>
-                  <li><b>Test 43: </b>The evaluator shall set a policy to cause a designated application to be
-                    placed into a particular application group. The evaluator shall then install the
-                    designated application and verify that it was placed into the correct group. </li><br/>
-                  <b>Function <a href="#mf-unenroll">44</a> [conditional]</b><br/>
-                  <li><b>Test 44: </b>The evaluator shall attempt to unenroll the device from management and
-                    verify that the steps described in <a href="#FMT_SMF_EXT.2.1">FMT_SMF_EXT.2.1</a> are performed. This test
-                    should be performed in conjunction with the <a href="#FMT_SMF_EXT.2.1">FMT_SMF_EXT.2.1</a> evaluation activity. </li><br/>
-                  <b>Function <a href="#mf-alwaysOnVPN">45</a> [conditional]</b><br/>
-                  <li><b>Test 45: </b>The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains guidance to configure the
-                    <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> as Always-On. The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> as Always-On and perform
-                    the following test. <ol type="a">
-                      <li>The evaluator shall verify that when the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is connected all traffic
-                        is routed through the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>. This test is performed in conjunction with
-                        <a href="#FDP_IFC_EXT.1.1">FDP_IFC_EXT.1.1</a>. </li>
-                      <li>The evaluator shall verify that when the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is not established, that
-                        no traffic leaves the device. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has
-                        network connectivity and that the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is established. The evaluator shall
-                        use a packet sniffing tool to capture the traffic leaving the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The
-                        evaluator shall disable the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> connection on the server side. The evaluator
-                        shall perform actions with the device such as navigating to websites, using
-                        provided applications, and accessing other Internet resources and verify
-                        that no traffic leaves the device. </li>
-                      <li>The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has network connectivity and
-                        that the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is established. The evaluator shall disable network
-                        connectivity (i.e. Airplane Mode) and verify that the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> disconnects. The
-                        evaluator shall re-establish network connectivity and verify that the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>
-                        automatically reconnects. </li>
-                    </ol>
-                  </li><br/>
-                  <b>Function <a href="#mf-bioRevoke">46</a> [conditional]</b><br/>
-                  <li><b>Test 46: </b>The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the procedure to revoke a
-                    biometric credential stored on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to
-                    use <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> and confirm that the biometric can be used to authenticate to the
-                    device. The evaluator shall revoke the biometric credential’s ability to
-                    authenticate to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and confirm that the same <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> cannot be used to
-                    authenticate to the device.</li><br/>
-                  <b>Function <a href="#mf-other">47</a></b><br/> The evaluator shall
-                  verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes all assigned security management functions and their
-                  intended behavior.<br/><br/>
-                  <li><b>Test 47: </b>The evaluator shall design and perform tests to demonstrate that the
-                    function may be configured and that the intended behavior of the function is
-                    enacted by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</li><br/>
-                </ul>
-              <div class="management_function_activities">
+                underlying mechanism exhibits the configured setting. <br/><br/><div class="management_function_activities">
 	    The following EAs correspond to specific management functions.
-	    <div class="management_function_ea"><b><a href="#mf-pwd">Function 1</a></b><br/>
+	    <div class="management_function_ea"><b>Function <a href="#mf-pwd">1</a></b><br/>
 		    <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall verify
                   the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> defines the allowable policy options: the range of values for both
                   password length and lifetime, and a description of complexity to include character
@@ -5416,7 +5497,7 @@ The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF<
                       <li>maximum password lifetime</li>
                     </ul>
 		    <br/>
-		  </div><div class="management_function_ea"><b><a href="#mf-screenlock">Function 2</a></b><br/>
+		  <br/></div><div class="management_function_ea"><b>Function <a href="#mf-screenlock">2</a></b><br/>
 		    <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall
                     verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> defines the range of values for both timeout period and number of
                     authentication failures for all supported authentication mechanisms.<br/>
@@ -5430,7 +5511,7 @@ The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF<
                         <a href="#FIA_AFL_EXT.1">FIA_AFL_EXT.1</a>)</li>
                     </ul>
 		    <br/>
-		  </div><div class="management_function_ea"><b><a href="#mf-vpn">Function 3</a></b><br/><div class="eacategory">Tests</div>
+		  <br/></div><div class="management_function_ea"><b>Function <a href="#mf-vpn">3</a></b><br/><div class="eacategory">Tests</div>
 		    The evaluator shall perform the following tests: <ol type="a">
                       <li>The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration to enable the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>
                         protection. These configuration actions must be used for the testing of the
@@ -5454,7 +5535,7 @@ The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF<
                         the application in the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>-disabled group is not encapsulated in <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr>.
                       </li>
                     </ol>
-		  <br/></div><div class="management_function_ea"><b><a href="#mf-radios">Function 4</a></b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+		  <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-radios">4</a></b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 			The evaluator shall
                   verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of each radio and an indication of if
                   the radio can be enabled/disabled along with what role can do so. In addition the
@@ -5510,7 +5591,7 @@ The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF<
                     RF activity for the uplink channel of the specific radio frequency band is
                     observed after the device is fully booted or at an Authentication Factor interface 
                     it is deemed that the radio is enabled. 
-		<br/></div><div class="management_function_ea"><b><a href="#mf-audioVisual">Function 5</a></b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+		<br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-audioVisual">5</a></b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 		     The evaluator
                   shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of each collection device and an
                   indication of if it can be enabled/disabled along with what role can do so. The
@@ -5543,12 +5624,12 @@ The evaluator shall perform the following test(s): <ol type="a">
                         the A/V device. </li>
                     </ol>
 		  <br/>
-		</div><div class="management_function_ea"><b><a href="#mf-lockState">Function 6</a></b><br/><div class="eacategory">Tests</div>
+		<br/></div><div class="management_function_ea"><b>Function <a href="#mf-lockState">6</a></b><br/><div class="eacategory">Tests</div>
 		      The evaluator shall use the test environment to instruct the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, both as a
                       user and as the administrator, to command the device to transition to a locked
                       state, and verify that the device transitions to the locked state upon
                       command.
-		    <br/></div><div class="management_function_ea"><b><a href="#mf-appInstallRules">Function 8</a></b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+		    <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-appInstallRules">8</a></b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 		     The evaluator
                   shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the allowable application installation policy
                   options based on the selection included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. If the application allowlist is
@@ -5569,15 +5650,14 @@ The evaluator shall perform the following test(s): <ol type="a">
                         connections to determine that the white list is still adhered to
                       </li></ol>
 		<br/>
-		  </div><div class="management_function_ea"><b><a href="#mf-keyStorage">Function 9</a>
-         /mf-keyWipe</b><br/>
+		  <br/></div><div class="management_function_ea"><b>Functions <a href="#mf-keyStorage">9</a>/<a href="#mf-keyWipe">10</a></b><br/>
 		    <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                   describes each category of keys/secrets that can be imported into the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s secure
                     key storage.<br/>
 		    <div class="eacategory">Tests</div>
 		      The test of these functions is performed in association with <a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a>.
 		    <br/>
-		    </div><div class="management_function_ea"><b><a href="#mf-certImport">Function 11</a></b><br/>
+		    <br/></div><div class="management_function_ea"><b>Function <a href="#mf-certImport">11</a></b><br/>
 		      <div class="eacategory">Guidance</div>The evaluator shall
                   review the AGD guidance to determine that it describes the steps needed to import,
                   modify, or remove certificates in the Trust Anchor database, and that the users
@@ -5591,7 +5671,7 @@ The evaluator shall perform the following test(s): <ol type="a">
 			should perform an action requiring use of the X.509v3 certificate to provide
 			assurance that installation was completed properly.
 		      <br/>
-		    </div><div class="management_function_ea"><b><a href="#mf-certWipe">Function 12</a></b><br/>
+		    <br/></div><div class="management_function_ea"><b>Function <a href="#mf-certWipe">12</a></b><br/>
 		      <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 			The evaluator shall
 			verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes each additional category of X.509 certificates and
@@ -5602,7 +5682,7 @@ The evaluator shall perform the following test(s): <ol type="a">
                     other categories of certificates included in the assignment of function <a href="#mf-appRemove">14</a> from the Trust Anchor Database according to the AGD
                     guidance as the user and as the administrator.
 		      <br/>
-		    </div><div class="management_function_ea"><b><a href="#mf-enroll">Function 13</a></b><br/>
+		    <br/></div><div class="management_function_ea"><b>Function <a href="#mf-enroll">13</a></b><br/>
 		      <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall
                   examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it contains a description of each management
                   function that will be enforced by the enterprise once the device is enrolled. The
@@ -5613,7 +5693,7 @@ The evaluator shall perform the following test(s): <ol type="a">
 		      The evaluator shall verify that user approval is required to enroll the
                       device into management.
 		      <br/>
-		    </div><div class="management_function_ea"><b><a href="#mf-appRemove">Function 14</a></b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+		    <br/></div><div class="management_function_ea"><b>Function <a href="#mf-appRemove">14</a></b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 		       The evaluator shall
                   verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes an indication of what applications (e.g.,
                   user-installed applications, Administrator-installed applications, or Enterprise
@@ -5629,16 +5709,16 @@ The evaluator shall perform the following test(s): <ol type="a">
 		  <br/><div class="eacategory">Tests</div>
 		  The evaluator shall attempt to remove applications according to the AGD
                     guidance and verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> no longer permits users to access those
-                    applications or their associated data.<br/></div><div class="management_function_ea"><b><a href="#mf-update">Function 15</a></b><br/><div class="eacategory">Tests</div>The evaluator shall attempt to update the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> system software following the
+                    applications or their associated data.<br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-update">15</a></b><br/><div class="eacategory">Tests</div>The evaluator shall attempt to update the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> system software following the
                     procedures in the AGD guidance and verify that updates correctly install and
                     that the version numbers of the system software increase.
-		    <br/></div><div class="management_function_ea"><b><a href="#mf-appInstall">Function 16</a></b><br/><div class="eacategory">Tests</div>The evaluator shall attempt to install an application following the
+		    <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-appInstall">16</a></b><br/><div class="eacategory">Tests</div>The evaluator shall attempt to install an application following the
                     procedures in the AGD guidance and verify that the application is installed and
-                    available on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.<br/></div><div class="management_function_ea"><b><a href="#mf-entAppRemove">Function 17</a></b><br/><div class="eacategory">Tests</div>
+                    available on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.<br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-entAppRemove">17</a></b><br/><div class="eacategory">Tests</div>
 		  The evaluator shall attempt to remove any Enterprise applications from the
                     device by following the administrator guidance. The evaluator shall verify that
                     the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> no longer permits users to access those applications or their associated
-                    data.<br/></div><div class="management_function_ea"><b><a href="#mf-notifications">Function 18</a></b><br/><div class="eacategory">Guidance</div>The evaluator
+                    data.<br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-notifications">18</a></b><br/><div class="eacategory">Guidance</div>The evaluator
                   shall examine the AGD Guidance to determine that it specifies, for at least each
                   category of information selected for Function <a href="#mf-notifications">18</a>,
                   how to enable and disable display information for that type of information in the
@@ -5647,19 +5727,19 @@ The evaluator shall perform the following test(s): <ol type="a">
 		<div class="eacategory">Tests</div>For each category of information listed in the AGD guidance, the evaluator
                     shall verify that when that <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is configured to limit the information according
                 to the AGD, the information is no longer displayed in the locked state.<br/>
-		</div><div class="management_function_ea"><b><a href="#mf-dar">Function 19</a></b><br/><div class="eacategory">Tests</div>
+		<br/></div><div class="management_function_ea"><b>Function <a href="#mf-dar">19</a></b><br/><div class="eacategory">Tests</div>
 		      The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration as the administrator and,
                     if not restricted to the administrator, the user, to enable system-wide
                     data-at-rest protection according to the AGD guidance. The evaluator shall
                     ensure that all Evaluation Activities for <abbr class="dyn-abbr"><a href="#abbr_DAR">DAR</a></abbr> (FDP_DAR) are conducted with the
                     device in this configuration.
-		    <br/></div><div class="management_function_ea"><b><a href="#mf-rmediaDar">Function 20</a></b><br/><div class="eacategory">Tests</div>
+		    <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-rmediaDar">20</a></b><br/><div class="eacategory">Tests</div>
 		      The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration as the administrator and,
                     if not restricted to the administrator, the user, to enable removable media’s
                     data-at-rest protection according to the AGD guidance. The evaluator shall
                     ensure that all Evaluation Activities for <abbr class="dyn-abbr"><a href="#abbr_DAR">DAR</a></abbr> (FDP_DAR) are conducted with the
                     device in this configuration.
-		    <br/></div><div class="management_function_ea"><b><a href="#mf-location">Function 21</a></b><br/><div class="eacategory">Tests</div>
+		    <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-location">21</a></b><br/><div class="eacategory">Tests</div>
 		    The evaluator shall perform the following tests. <ol type="a">
                       <li>The evaluator shall enable location services device-wide and shall
                         verify that an application (such as a mapping application) is able to access
@@ -5673,7 +5753,7 @@ The evaluator shall perform the following test(s): <ol type="a">
                         individually. The evaluator shall verify that the enabled application is
                         able to access the location services and the disabled application is not
                         able to access the location services. </li>
-                    </ol><br/></div><div class="management_function_ea"><b><a href="#mf-authFactors">Function 22</a></b><br/><div class="eacategory">Tests</div>
+                    </ol><br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-authFactors">22</a></b><br/><div class="eacategory">Tests</div>
 		    The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> states if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>
                     and/or hybrid authentication. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not include a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> and/or hybrid
                     authentication this test is implicitly met. <ol type="a">
@@ -5694,8 +5774,8 @@ The evaluator shall perform the following test(s): <ol type="a">
                         The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to disable the use of hybrid
                         authentication and confirm that the hybrid authentication cannot be used to
                         authenticate. </li>
-                    </ol><br/></div><div class="management_function_ea"><b><a href="#mf-certInvalid">Function 23</a></b><br/><div class="eacategory">Tests</div>The test of this function is performed in conjunction with <a href="#FIA_X509_EXT.2.2">FIA_X509_EXT.2.2</a>,
-                    FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. <br/></div><div class="management_function_ea"><b><a href="#mf-externalPorts">Function 24</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+                    </ol><br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-certInvalid">23</a></b><br/><div class="eacategory">Tests</div>The test of this function is performed in conjunction with <a href="#FIA_X509_EXT.2.2">FIA_X509_EXT.2.2</a>,
+                    FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-externalPorts">24</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 		    The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a list of each externally
                     accessible hardware port and an indication of if data transfer over that port can
                     be enabled/disabled. AGD guidance will describe how to perform the enable/disable function.<br/>
@@ -5708,7 +5788,7 @@ The evaluator shall perform the following test(s): <ol type="a">
                     rebooting the device into the normal operational mode and verifying that the
                     capability is disabled throughout the boot and early execution stage of the
                     device.<br/>
-		    </div><div class="management_function_ea"><b><a href="#mf-serverProtocols">Function 25</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+		    <br/></div><div class="management_function_ea"><b>Function <a href="#mf-serverProtocols">25</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 		    The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> acts as a server in
                   each of the protocols listed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, and the reason for acting as a server.<br/>
 		    <div class="eacategory">Tests</div>
@@ -5716,12 +5796,12 @@ The evaluator shall perform the following test(s): <ol type="a">
                     assignment. The evaluator shall verify that remote devices can no longer access
                     the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> resources using any disabled protocols.
 		    <br/>
-		    </div><div class="management_function_ea"><b><a href="#mf-devModes">Function 26</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>
+		    <br/></div><div class="management_function_ea"><b>Function <a href="#mf-devModes">26</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>
 		    The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> configuration as the administrator and,
                     if not restricted to the administrator, the user, to enable and disable any
                     developer mode. The evaluator shall test that developer mode access is not
                     available when its configuration is disabled. The evaluator shall verify the
-                    developer mode remains disabled during device reboot.<br/></div><div class="management_function_ea"><b><a href="#mf-authBypass">Function 27</a> [CONDITIONAL] </b><br/><div class="eacategory">Guidance</div>The
+                    developer mode remains disabled during device reboot.<br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-authBypass">27</a> [CONDITIONAL] </b><br/><div class="eacategory">Guidance</div>The
                   evaluator shall examine the AGD guidance to determine that it describes how to
                   enable and disable any "Forgot Password", password hint, or remote authentication
                   (to bypass local authentication mechanisms) capability.
@@ -5729,10 +5809,10 @@ The evaluator shall perform the following test(s): <ol type="a">
 		<div class="eacategory">Tests</div>For each mechanism listed in the AGD guidance that provides a "Forgot
                     Password" feature or other means where the local authentication process can be
                     bypassed, the evaluator shall disable the feature and ensure that they are not
-                    able to bypass the local authentication process.<br/></div><div class="management_function_ea"><b><a href="#mf-wipeEntData">Function 28</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>
+                    able to bypass the local authentication process.<br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-wipeEntData">28</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>
 		      The evaluator shall attempt to wipe Enterprise data resident on the device
                     according to the administrator guidance. The evaluator shall verify that the
-                    data is no longer accessible by the user.<br/></div><div class="management_function_ea"><b><a href="#mf-appCert">Function 29</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+                    data is no longer accessible by the user.<br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-appCert">29</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 		    The
                   evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how approval for an application to
                   perform the selected action (import, removal) with respect to certificates in the
@@ -5773,7 +5853,7 @@ The evaluator shall perform the following test(s): <ol type="a">
                     that the application is able to remove/modify the certificate and that
                     validation no longer occurs.
 		    <br/>
-		  </div><div class="management_function_ea"><b><a href="#mf-certValidity">Function 30</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>The test of this function is performed in conjunction with <a href="#FIA_X509_EXT.2.2">FIA_X509_EXT.2.2</a>.<br/></div><div class="management_function_ea"><b><a href="#mf-cellular">Function 31</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The
+		  <br/></div><div class="management_function_ea"><b>Function <a href="#mf-certValidity">30</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>The test of this function is performed in conjunction with <a href="#FIA_X509_EXT.2.2">FIA_X509_EXT.2.2</a>.<br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-cellular">31</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The
                   evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes which cellular protocols can be
                   disabled.<br/>
 		  <div class="eacategory">Guidance</div>The evaluator shall confirm that the AGD guidance describes the
@@ -5782,28 +5862,28 @@ The evaluator shall perform the following test(s): <ol type="a">
 		  <div class="eacategory">Tests</div>The evaluator shall attempt to disable each cellular protocol according to
                     the administrator guidance. The evaluator shall attempt to connect the device to
                     a cellular network and, using network analysis tools, verify that the device
-                    does not allow negotiation of the disabled protocols.<br/></div><div class="management_function_ea"><b><a href="#mf-auditLogs">Function 32</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>The evaluator shall attempt to read any device audit logs according to the
+                    does not allow negotiation of the disabled protocols.<br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-auditLogs">32</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>The evaluator shall attempt to read any device audit logs according to the
                     administrator guidance and verify that the logs may be read. This test may be
-                    performed in conjunction with the evaluation activity of <a href="#FAU_GEN.1">FAU_GEN.1</a>.<br/></div><div class="management_function_ea"><b><a href="#mf-digSign">Function 33</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>
+                    performed in conjunction with the evaluation activity of <a href="#FAU_GEN.1">FAU_GEN.1</a>.<br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-digSign">33</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>
 		    The test of this function is performed in conjunction with <a href="#FPT_TUD_EXT.5.1">FPT_TUD_EXT.5.1</a>.
-		  <br/></div><div class="management_function_ea"><b><a href="#mf-sharedKeys">Function 34</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The
+		  <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-sharedKeys">34</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The
                   evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the approval for exceptions for
                   shared use of keys/secrets by multiple applications is accomplished (e.g., a
                   pop-up, policy setting, etc.).<br/><div class="eacategory">Tests</div>
 		  The test of this function is performed in conjunction with <a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a>.
-		  <br/></div><div class="management_function_ea"><b><a href="#mf-keyWipeRules">Function 35</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The
+		  <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-keyWipeRules">35</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The
                   evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the approval for exceptions for
                   destruction of keys/secrets by applications that did not import the key/secret is
                   accomplished (e.g., a pop-up, policy setting, etc.).
 		  <br/><div class="eacategory">Tests</div>
 		  The test of this function is performed in conjunction with <a href="#FCS_STG_EXT.1">FCS_STG_EXT.1</a>.
 		<br/>
-		</div><div class="management_function_ea"><b><a href="#mf-unlockBanner">Function 36</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+		<br/></div><div class="management_function_ea"><b>Function <a href="#mf-unlockBanner">36</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
                   The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes any restrictions in banner
                   settings (e.g., character limitations).
 		  <br/><div class="eacategory">Tests</div>
 		  The test of this function is performed in conjunction with <a href="#FTA_TAB.1">FTA_TAB.1</a>.
-		    <br/></div><div class="management_function_ea"><b><a href="#mf-auditItems">Function 37</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>The test of this function is performed in conjunction with <a href="#FAU_SEL.1">FAU_SEL.1</a>.<br/></div><div class="management_function_ea"><b><a href="#mf-integ">Function 38</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>The test of this function is performed in conjunction with <a href="#FPT_NOT_EXT.2.1">FPT_NOT_EXT.2.1</a>.<br/></div><div class="management_function_ea"><b><a href="#mf-USB">Function 39</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The
+		    <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-auditItems">37</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>The test of this function is performed in conjunction with <a href="#FAU_SEL.1">FAU_SEL.1</a>.<br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-integ">38</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>The test of this function is performed in conjunction with <a href="#FPT_NOT_EXT.2.1">FPT_NOT_EXT.2.1</a>.<br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-USB">39</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The
                   evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of how data transfers
                   can be managed over <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr>.<br/><div class="eacategory">Tests</div>The evaluator shall perform the following tests based on the selections made
                     in the table: <ol type="a">
@@ -5824,7 +5904,7 @@ The evaluator shall perform the following test(s): <ol type="a">
                         evaluator shall then connect the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to the original computer and verify
                         that the computer can access <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> data. </li>
                       </ol><br/>
-		      </div><div class="management_function_ea"><b><a href="#mf-backup">Function 40</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The
+		      <br/></div><div class="management_function_ea"><b>Function <a href="#mf-backup">40</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The
                   evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of available backup
                   methods that can be enabled/disabled. If "selected applications" or "selected groups
                   of applications" are selected the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> shall include which applications of groups of
@@ -5847,7 +5927,7 @@ If "all applications" is selected, the evaluator shall disable each selected
                     configuration data from occurring. The evaluator shall then enable each selected
                     backup location in turn and verify that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can perform a backup of
                     configuration data.
-		    <br/></div><div class="management_function_ea"><b><a href="#mf-hotspot">Function 41</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div> The
+		    <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-hotspot">41</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div> The
                   evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of Hotspot
                   functionality and <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr> tethering to include any authentication for these.<br/>
 		  <div class="eacategory">Tests</div>The evaluator shall perform the following tests based on the selections in
@@ -5861,14 +5941,14 @@ If "all applications" is selected, the evaluator shall disable each selected
                         connect to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> over <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr> with another device and verify that the
                         tethering functionality requires the configured authentication method.
                       </li>
-                    </ol><br/></div><div class="management_function_ea"><b><a href="#mf-dataSharing">Function 42</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>The test of this function is performed in conjunction with <a href="#FDP_ACF_EXT.1.2">FDP_ACF_EXT.1.2</a>.<br/></div><div class="management_function_ea"><b><a href="#mf-appGroups">Function 43</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>
+                    </ol><br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-dataSharing">42</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>The test of this function is performed in conjunction with <a href="#FDP_ACF_EXT.1.2">FDP_ACF_EXT.1.2</a>.<br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-appGroups">43</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>
 		    The evaluator shall set a policy to cause a designated application to be
                     placed into a particular application group. The evaluator shall then install the
                     designated application and verify that it was placed into the correct group.
-		    <br/></div><div class="management_function_ea"><b><a href="#mf-unenroll">Function 44</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>The evaluator shall attempt to unenroll the device from management and
+		    <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-unenroll">44</a> [CONDITIONAL] </b><br/><div class="eacategory">Tests</div>The evaluator shall attempt to unenroll the device from management and
                     verify that the steps described in <a href="#FMT_SMF_EXT.2.1">FMT_SMF_EXT.2.1</a> are performed. This test
                     should be performed in conjunction with the <a href="#FMT_SMF_EXT.2.1">FMT_SMF_EXT.2.1</a> evaluation activity.
-		    <br/></div><div class="management_function_ea"><b><a href="#mf-alwaysOnVPN">Function 45</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains guidance to configure the
+		    <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-alwaysOnVPN">45</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains guidance to configure the
                   <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> as Always-On.
 		  <br/><div class="eacategory">Tests</div>The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> as Always-On and perform
                     the following test. <ol type="a">
@@ -5889,21 +5969,21 @@ If "all applications" is selected, the evaluator shall disable each selected
                         evaluator shall re-establish network connectivity and verify that the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>
                         automatically reconnects. </li>
                       </ol>
-		  <br/></div><div class="management_function_ea"><b><a href="#mf-bioRevoke">Function 46</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the procedure to revoke a
+		  <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-bioRevoke">46</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the procedure to revoke a
                   biometric credential stored on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
 		  <br/><div class="eacategory">Tests</div>The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to
                     use <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> and confirm that the biometric can be used to authenticate to the
                     device. The evaluator shall revoke the biometric credential’s ability to
                     authenticate to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and confirm that the same <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> cannot be used to
                     authenticate to the device.
-		  <br/></div><div class="management_function_ea"><b><a href="#mf-other">Function 47</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div> The evaluator shall
+		  <br/><br/></div><div class="management_function_ea"><b>Function <a href="#mf-other">47</a> [CONDITIONAL] </b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div> The evaluator shall
                   verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes all assigned security management functions and their
                   intended behavior.
 		  <br/>
                   <div class="eacategory">Tests</div>The evaluator shall design and perform tests to demonstrate that the
                     function may be configured and that the intended behavior of the function is
                     enacted by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
-		    <br/></div></div></div></div></div>
+		    <br/><br/></div></div></div></div></div>
         <div class="comp" id="FMT_SMF_EXT.2"><h4>FMT_SMF_EXT.2 Specification of Remediation Actions</h4>
           <div class="element"><div class="reqid" id="FMT_SMF_EXT.2.1"><a href="#FMT_SMF_EXT.2.1" class="abbr">FMT_SMF_EXT.2.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall offer [<b>selection</b>: <i id="_s_381">wipe of protected data</i>, <i id="_s_382">wipe of sensitive data</i>, <i id="_s_383">remove Enterprise applications</i>, <i id="_s_384">remove all device-stored Enterprise resource data</i>, <i id="_s_385">remove Enterprise secondary authentication data</i>, <i id="_s_386">[<b>assignment</b>: 
      <span class="assignable-content">list other available remediation
@@ -7496,7 +7576,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                 quality. The evaluator shall ensure that these claims are sound through appropriate
                 testing based on test programs provided by the vendor.<br/><br/><div class="eacategory">Guidance</div>There are no guidance evaluation activities for this component.<br/><br/><div class="eacategory">Tests</div>There are no test evaluation activities for this component.</div></div></div><div class="comp" id="FIA_BMG_EXT.6"><h4>FIA_BMG_EXT.6 Spoof Detections for Biometrics</h4>
           <div class="element"><div class="reqid" id="FIA_BMG_EXT.6.1"><a href="#FIA_BMG_EXT.6.1" class="abbr">FIA_BMG_EXT.6.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform Presentation Attack Detection testing up to the attack
-              potential of [<b>selection</b>, choose one of: <i id="_s_276">basic</i>, <i id="_s_277">intermediate</i>, <i id="_s_278">advanced</i>] attacks, for each biometric modalities selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a> on each
+              potential of [<b>selection</b><b>, choose one of</b>: <i id="_s_276">basic</i>, <i id="_s_277">intermediate</i>, <i id="_s_278">advanced</i>] attacks, for each biometric modalities selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a> on each
               enrollment and authentication attempt, rejecting detected spoofs. When an
               authentication attempt fails due to <abbr class="dyn-abbr"><a href="#abbr_PAD">PAD</a></abbr> testing, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall not indicate to the
               user the reason for failure to authenticate.<div class="appnote"><span class="note-header">Application Note: </span><span class="note"> Presentation Attack Detection (<abbr class="dyn-abbr"><a href="#abbr_PAD">PAD</a></abbr>) is also known as liveness
