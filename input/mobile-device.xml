@@ -3579,13 +3579,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <f-element id="fcs-stg-ext-1e2">
               <title>The TSF shall be capable of importing keys/secrets into the secure key storage
                 upon request of <selectables>
-                  <selectable>the user</selectable>
+                  <selectable id="s-importkeys-user">the user</selectable>
                   <selectable>the administrator</selectable>
                 </selectables> and <selectables>
                   <selectable>applications running on the TSF</selectable>
                   <selectable exclusive="yes">no other subjects</selectable>
                 </selectables>. </title>
-              <note role="application"> If the ST author selects only user, the ST author must select
+              <note role="application"> If the ST author selects <xref to="s-importkeys-user"/>, the ST author must select
                 function <xref to="mf-keyStorage"/> in FMT_MOF_EXT.1.1. </note>
             </f-element>
             <f-element id="fcs-stg-ext-1e3">
@@ -5838,10 +5838,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               Status Markers:<htm:br/> M - Mandatory<htm:br/> O - Optional/Objective<htm:br/>
               <!-- NOTE: management-function uses ctr variables crt-type=functions in the MOOO table, so that they do not have to be renumbered when one is added or removed. However app notes and AAs need to be in the same order as the functions. The list of IDs for each function is at the end of the xml.-->
               <management-function-set default="O">
-                <manager cid="1">Impl.</manager>
-                <manager cid="2">User Only</manager>
-                <manager cid="3">Admin</manager>
-                <manager cid="4">Admin Only</manager>
+                <manager cid="I">Impl.</manager>
+                <manager cid="U">User Only</manager>
+                <manager cid="A">Admin</manager>
+                <manager cid="AO">Admin Only</manager>
                 <management-function id="mf-pwd">
                   <text>
                     <!-- <ctr id="pwd" pre="" ctr-type="function">.</ctr>--> configure password policy:
@@ -5851,7 +5851,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                       <htm:li>maximum password lifetime</htm:li>
                     </htm:ol>
                   </text>
-                  <M ref="1"/> <NA ref="2"/><M ref="3"/><M ref="4"/>
+                  <M ref="I"/> <NA ref="U"/><M ref="A"/><M ref="AO"/>
 		  <aactivity>
 		    <TSS>The evaluator shall verify
                   the TSS defines the allowable policy options: the range of values for both
@@ -5880,7 +5880,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                       <htm:li>number of authentication failures</htm:li>
                     </htm:ol>
                   </text>
-                  <M ref="1"/><NA ref="2"/><M ref="3"/><M ref="4"/>
+                  <M ref="I"/><NA ref="U"/><M ref="A"/><M ref="AO"/>
 		  <aactivity>
 		    <TSS>The evaluator shall
                     verify the TSS defines the range of values for both timeout period and number of
@@ -5909,7 +5909,29 @@ The evaluator shall exercise the TSF configuration as the administrator and
                         <selectable>d. no other method</selectable>
                       </selectables></htm:div>
                   </text>
-                  <M ref="1"/>
+                  <M ref="I"/>
+                  <app-note><also ref-id="mf-audioVisual"/><also ref-id="mf-location"/>
+		  For functions,  must be implemented on a device-wide basis but may also be
+		  implemented on a per-app basis or on a per-group of applications basis in which the
+		  configuration includes the list of applications or groups of applications to which the
+		  enable/disable applies.</app-note>
+		  <app-note>
+		  Function <_/> addresses
+		  enabling and disabling the IPsec VPN only. The configuration of the VPN Client itself
+		  (with information such as VPN Gateway, certificates, and algorithms) is addressed by
+		  the PP-Module for VPN Client. The administrator options should only be listed if the
+		  administrator can remotely enable/disable the VPN connection.
+		  <htm:p>
+		  Function <xref to="mf-vpn"/> optionally allows the VPN to be configured per-app or
+		  per-groups of apps. If this configuration is selected, it does not void FDP_IFC_EXT.1.
+		  Instead FDP_IFC_EXT.1 is applied to the application or group of applications the VPN
+		  is applied to. In other words, all traffic destined for the VPN-enabled application or
+		  group of applications, must travel through the VPN, but traffic not destined for that
+		  application or group of applications can travel outside the VPN. When the VPN is
+		  configured across the device FDP_IFC_EXT.1 applies to all traffic and the VPN must not
+		  split tunnel.
+		  </htm:p>
+		  </app-note>
 		  <aactivity><Tests>
 		    The evaluator shall perform the following tests: <htm:ol type="a">
                       <htm:li>The evaluator shall exercise the TSF configuration to enable the VPN
@@ -5940,7 +5962,18 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   <text>
                     <!-- <ctr id="radios" pre="" ctr-type="function">.</ctr>--> enable/disable
                       <assignable>list of all radios</assignable></text>
-                      <M ref="1"/>
+                      <M ref="I"/>
+		      <app-note>
+			The assignment in function <_/>
+              consists of all radios present on the TSF, such as Wi-Fi, cellular, NFC,
+              Bluetooth BR/EDR, and Bluetooth LE, which can be enabled and disabled.
+	      In the future,
+              if both Bluetooth BR/EDR and Bluetooth LE are supported, they will be required to be
+              enabled and disabled separately. Disablement of the cellular radio does not imply that
+              the radio may not be enabled in order to place emergency phone calls; however, it is
+              not expected that a device in "airplane mode", where all radios are disabled, will
+              automatically (without authorization) turn on the cellular radio to place emergency
+              calls.</app-note>
 		      <aactivity><TSS>
 			The evaluator shall
                   verify that the TSS includes a description of each radio and an indication of if
@@ -6012,7 +6045,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                         <selectable>d. no other method</selectable>
                       </selectables></htm:div>
                   </text>
-                  <M ref="1"/>
+                  <M ref="I"/>
 		  <aactivity><TSS>
 		     The evaluator
                   shall verify that the TSS includes a description of each collection device and an
@@ -6053,7 +6086,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- 6. -->
                     <!-- <ctr id="lockState" pre="" ctr-type="function">.</ctr>--> transition to the locked
                     state </text>
-                    <M ref="1"/><NA ref="2"/><M ref="3"/><NA ref="4"/>
+                    <M ref="I"/><NA ref="U"/><M ref="A"/><NA ref="AO"/>
 		    <aactivity><Tests>
 		      The evaluator shall use the test environment to instruct the TSF, both as a
                       user and as the administrator, to command the device to transition to a locked
@@ -6065,10 +6098,10 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                   <text>
                     <!-- 7. -->
                     <!-- <ctr id="wipe" pre="" ctr-type="function">.</ctr>--> TSF wipe of protected data </text>
-                  <M ref="1"/>
-                  <NA ref="2"/>
-                  <M ref="3"/>
-                  <NA ref="4"/>
+                  <M ref="I"/>
+                  <NA ref="U"/>
+                  <M ref="A"/>
+                  <NA ref="AO"/>
                 </management-function>
                 <management-function id="mf-appInstallRules">
                   <text>
@@ -6081,7 +6114,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                         <selectable>c. denying installation of applications</selectable>
                       </selectables></htm:div>
                   </text>
-                  <M ref="1"/><NA ref="2"/><M ref="3"/><M ref="4"/>
+                  <M ref="I"/><NA ref="U"/><M ref="A"/><M ref="AO"/>
 		  <aactivity><TSS>
 		     The evaluator
                   shall verify the TSS describes the allowable application installation policy
@@ -6111,7 +6144,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- 9. -->
                     <!-- <ctr id="keyStorage" pre="" ctr-type="function">.</ctr>--> import keys/secrets into
                     the secure key storage </text>
-                    <M ref="1"/><NA ref="4"/>
+                    <M ref="I"/><NA ref="AO"/>
 		    <aactivity><also ref-id="mf-keyWipe"/>
 		    <TSS>The evaluator shall verify that the TSS
                   describes each category of keys/secrets that can be imported into the TSF’s secure
@@ -6130,14 +6163,14 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                       <selectable><assignable>list of other categories of
                         keys/secrets</assignable></selectable>
                     </selectables> in the secure key storage </text>
-                  <M ref="1"/><NA ref="4"/>
+                  <M ref="I"/><NA ref="AO"/>
                 </management-function>
                 <management-function id="mf-certImport">
                   <text>
                     <!-- 11. -->
                     <!-- <ctr id="certImport" pre="" ctr-type="function">.</ctr>--> import X.509v3
                     certificates into the Trust Anchor Database </text>
-                    <M ref="1"/><NA ref="2"/><M ref="3"/>
+                    <M ref="I"/><NA ref="U"/><M ref="A"/>
 		    <aactivity>
 		      <Guidance>The evaluator shall
                   review the AGD guidance to determine that it describes the steps needed to import,
@@ -6163,7 +6196,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                       <selectable><assignable>list of other categories of X.509v3
                           certificates</assignable></selectable>
                     </selectables> in the Trust Anchor Database </text>
-                    <M ref="1"/><NA ref="4"/>
+                    <M ref="I"/><NA ref="AO"/>
 		    <aactivity>
 		      <TSS>
 			The evaluator shall
@@ -6183,7 +6216,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                   <text>
                     <!-- 13. -->
                     <!-- <ctr id="enroll" pre="" ctr-type="function">.</ctr>--> enroll the TOE in management </text>
-                    <M ref="1"/><O ref="2"/><O ref="3"/><O ref="4"/>
+                    <M ref="I"/><O ref="U"/><O ref="A"/><O ref="AO"/>
 		    <aactivity>
 		      <TSS>The evaluator shall
                   examine the TSS to ensure that it contains a description of each management
@@ -6201,7 +6234,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                   <text>
                     <!-- 14. -->
                     <!-- <ctr id="appRemove" pre="" ctr-type="function">.</ctr>--> remove applications </text>
-                    <M ref="1"/><NA ref="2"/><M ref="3"/>
+                    <M ref="I"/><NA ref="U"/><M ref="A"/>
 		    <aactivity><TSS>
 		       The evaluator shall
                   verify that the TSS includes an indication of what applications (e.g.,
@@ -6224,7 +6257,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                   <text>
                     <!-- 15 -->
                     <!-- <ctr id="update" pre="" ctr-type="function">.</ctr>--> update system software </text>
-                    <M ref="1"/><NA ref="2"/><M ref="3"/>
+                    <M ref="I"/><NA ref="U"/><M ref="A"/>
 		    <aactivity><Tests>The evaluator shall attempt to update the TSF system software following the
                     procedures in the AGD guidance and verify that updates correctly install and
                     that the version numbers of the system software increase.
@@ -6234,7 +6267,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                   <text>
                     <!-- 16. -->
                     <!-- <ctr id="appInstall" pre="" ctr-type="function">.</ctr>--> install applications </text>
-                    <M ref="1"/><NA ref="2"/><M ref="3"/>
+                    <M ref="I"/><NA ref="U"/><M ref="A"/>
                     <aactivity><Tests>The evaluator shall attempt to install an application following the
                     procedures in the AGD guidance and verify that the application is installed and
                     available on the TOE.</Tests></aactivity>
@@ -6244,7 +6277,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- 17. -->
                     <!-- <ctr id="entAppRemove" pre="" ctr-type="function">.</ctr>--> remove Enterprise
                   applications </text>
-		  <M ref="1"/><NA ref="2"/><M ref="3"/><NA ref="4"/>
+		  <M ref="I"/><NA ref="U"/><M ref="A"/><NA ref="AO"/>
 		  <aactivity><Tests>
 		  The evaluator shall attempt to remove any Enterprise applications from the
                     device by following the administrator guidance. The evaluator shall verify that
@@ -6264,7 +6297,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                       <selectable>f. all notifications</selectable>
                     </selectables>
                   </text>
-                  <M ref="1"/>
+                  <M ref="I"/>
 		  <aactivity><Guidance>The evaluator
                   shall examine the AGD Guidance to determine that it specifies, for at least each
                   category of information selected for Function <xref to="mf-notifications"/>,
@@ -6280,7 +6313,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                   <text>
                     <!-- 20. -->
                     <!-- <ctr id="dar" pre="" ctr-type="function">.</ctr>--> enable data-at rest protection </text>
-                    <M ref="1"/>
+                    <M ref="I"/>
 		    <aactivity><Tests>
 		      The evaluator shall exercise the TSF configuration as the administrator and,
                     if not restricted to the administrator, the user, to enable system-wide
@@ -6295,7 +6328,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- 21. -->
                     <!-- <ctr id="rmediaDar" pre="" ctr-type="function">.</ctr>--> enable removable media’s
                     data-at-rest protection </text>
-                    <M ref="1"/>
+                    <M ref="I"/>
 		    <aactivity><Tests>
 		      The evaluator shall exercise the TSF configuration as the administrator and,
                     if not restricted to the administrator, the user, to enable removable media’s
@@ -6316,7 +6349,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                         <selectable>d. no other method</selectable>
                       </selectables></htm:div>
                   </text>
-                  <M ref="1"/>
+                  <M ref="I"/>
 		  <aactivity><Tests>
 		    The evaluator shall perform the following tests. <htm:ol type="a">
                       <htm:li>The evaluator shall enable location services device-wide and shall
@@ -6341,7 +6374,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                       <selectable>Hybrid Authentication Factor</selectable>
                     </selectables>
                   </text>
-                  <M ref="1"/>
+                  <M ref="I"/>
 		  <aactivity><Tests>
 		    The evaluator shall verify that the TSS states if the TOE supports a BAF
                     and/or hybrid authentication. If the TOE does not include a BAF and/or hybrid
@@ -6370,7 +6403,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                     <!-- <ctr id="certInvalid" pre="" ctr-type="function">.</ctr>--> configure whether to
                     allow/disallow establishment of a trusted channel if the peer/server certificate
                     is deemed invalid.</text>
-                    <M ref="1"/>
+                    <M ref="I"/>
 		    <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2,
                     FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. </Tests></aactivity>
                 </management-function>
@@ -6439,7 +6472,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                 <management-function id="mf-wipeEntData">
                   <text>
                     <!-- <ctr id="wipeEntData" pre="" ctr-type="function">.</ctr>--> wipe Enterprise data </text>
-                    <NA ref="4"/>
+                    <NA ref="AO"/>
 		    <aactivity><Tests>
 		      The evaluator shall attempt to wipe Enterprise data resident on the device
                     according to the administrator guidance. The evaluator shall verify that the
@@ -6521,7 +6554,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                   <text>
                     <!-- <ctr id="auditLogs" pre="" ctr-type="function">.</ctr>--> read audit logs kept by
                     the TSF </text>
-                    <NA ref="4"/>
+                    <NA ref="AO"/>
 		    <aactivity><Tests>The evaluator shall attempt to read any device audit logs according to the
                     administrator guidance and verify that the logs may be read. This test may be
                     performed in conjunction with the evaluation activity of FAU_GEN.1.</Tests></aactivity>
@@ -6565,7 +6598,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                   <text>
                     <!-- <ctr id="unlockBanner" pre="" ctr-type="function">.</ctr>--> configure the unlock
                     banner </text>
-                    <NA ref="2"/>
+                    <NA ref="U"/>
 		    <aactivity><TSS>
                   The evaluator shall verify that the TSS describes any restrictions in banner
                   settings (e.g., character limitations).
@@ -6577,7 +6610,7 @@ The evaluator shall perform the following test(s): <htm:ol type="a">
                   <text>
                     <!-- <ctr id="auditItems" pre="" ctr-type="function">.</ctr>--> configure the auditable
                     items </text>
-                    <NA ref="2"/>
+                    <NA ref="U"/>
 		    <aactivity><Tests>The test of this function is performed in conjunction with FAU_SEL.1.</Tests></aactivity>
                 </management-function>
                 <management-function id="mf-integ">
@@ -6832,15 +6865,8 @@ If "all applications" is selected, the evaluator shall disable each selected
               application or group of applications can travel outside the VPN. When the VPN is
               configured across the device FDP_IFC_EXT.1 applies to all traffic and the VPN must not
               split tunnel. <htm:br/><htm:br/> 
-              The assignment in function <xref to="mf-radios"/>
-              consists of all radios present on the TSF, such as Wi-Fi, cellular, NFC,
-              Bluetooth BR/EDR, and Bluetooth LE, which can be enabled and disabled. In the future,
-              if both Bluetooth BR/EDR and Bluetooth LE are supported, they will be required to be
-              enabled and disabled separately. Disablement of the cellular radio does not imply that
-              the radio may not be enabled in order to place emergency phone calls; however, it is
-              not expected that a device in "airplane mode", where all radios are disabled, will
-              automatically (without authorization) turn on the cellular radio to place emergency
-              calls. <htm:br/><htm:br/> The assignment in function <xref to="mf-audioVisual"/>
+
+	      <htm:br/><htm:br/> The assignment in function <xref to="mf-audioVisual"/>
               consists of at least one audio and/or visual device, such as camera and microphone,
               which can be enabled and disabled by either the user or administrator. Disablement of
               the microphone does not imply that the microphone may not be enabled in order to place
