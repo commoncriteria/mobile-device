@@ -32,6 +32,15 @@ jobs:
       run: |
         WARN_PATH="output/SanityChecksOutput.md" make release 
 
+    - name: PDFify
+      if: ${{ github.ref_name != 'master' }}
+      run: |
+        sudo apt-get install -y wkhtmltopdf xvfb
+        xvfb-run --auto-servernum --server-args='-screen 0, 1024x768x16' /usr/bin/wkhtmltopdf \
+          --javascript-delay 15000 --footer-right '[page]' \
+          file://${PWD}/output/gpcp-release.html?expand=on \
+        output/gpcp-release-paged.pdf
+
     - id: validate
       run: |
         RNG_OUT="output/ValidationReport.txt" make validate || true
