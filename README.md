@@ -24,7 +24,7 @@ A list of products that have passed evaluation against this Protection Profile c
 * [Protection Profile for Mobile Device Fundamentals ](https://commoncriteria.github.io/pp/mobile-device/mobile-device-release.pdf) (pdf)
 
 ## Release Version
-* [Protection Profile for Mobile Device Fundamentals v3.1](https://www.niap-ccevs.org/Profile/Info.cfm?id=417)
+* [Protection Profile for Mobile Device Fundamentals v3.2](https://www.niap-ccevs.org/Profile/Info.cfm?PPID=455&id=455)
 
 ## Contributing
 
