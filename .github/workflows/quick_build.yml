@@ -55,13 +55,6 @@ jobs:
       run: |
         echo "##[set-output name=TDATE;]$(cd transforms && git log -1 --format=%cs; cd -)"
 
-    - name: Generate the transforms badge
-      uses: emibcn/badge-action@v1
-      with:
-        label: 'Transforms'
-        status: ${{ steps.tdate.outputs.TDATE }}
-        color: gray
-        path: transforms.svg
         
 
     - name: diff
@@ -157,6 +150,14 @@ jobs:
         status: ${{ steps.status.outputs.WORD }}
         color: ${{ steps.status.outputs.COLOR }}
         path: warnings.svg
+
+    - name: Generate the transforms badge
+      uses: emibcn/badge-action@v1
+      with:
+        label: 'Transforms'
+        status: ${{ steps.tdate.outputs.TDATE }}
+        color: gray
+        path: transforms.svg
         
         
      # Use the output from the `coverage` step
