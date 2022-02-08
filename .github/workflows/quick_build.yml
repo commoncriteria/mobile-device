@@ -51,6 +51,19 @@ jobs:
         SPELL_OUT="output/SpellCheckReport.txt" make spellcheck
         echo ::set-output name=LINES::$(wc -l output/SpellCheckReport.txt | { read first rest ; echo $first ; } )
 
+    - id: tdate
+      run: |
+        echo "##[set-output name=TDATE;]$(cd transforms && git log -1 --format=%cs)"
+
+    - name: Generate the transforms badge
+      uses: emibcn/badge-action@v1
+      with:
+        label: 'Transforms'
+        status: ${{ steps.tdate.outputs.TDATE }}
+        color: gray
+        path: transforms.svg
+        
+
     - name: diff
       run: make diff || true; 
     # Little diff depends on having a git history. 
@@ -162,7 +175,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add warnings.svg validation.svg build-branch-badge.svg spell-badge.svg
+        git add warnings.svg validation.svg build-branch-badge.svg spell-badge.svg transforms.svg
         git commit -m "Add/Update badges"
         
         # - name: Upload badge as artifact
