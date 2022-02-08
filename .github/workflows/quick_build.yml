@@ -38,8 +38,8 @@ jobs:
         sudo apt-get install -y wkhtmltopdf xvfb
         xvfb-run --auto-servernum --server-args='-screen 0, 1024x768x16' /usr/bin/wkhtmltopdf \
           --javascript-delay 15000 --footer-right '[page]' \
-          file://${PWD}/output/gpcp-release.html?expand=on \
-        output/gpcp-release-paged.pdf
+          file://${PWD}/output/${PWD##*/}.html?expand=on \
+        output/${PWD##*/}-paged.pdf
 
     - id: validate
       run: |
@@ -50,6 +50,12 @@ jobs:
       run: |
         SPELL_OUT="output/SpellCheckReport.txt" make spellcheck
         echo ::set-output name=LINES::$(wc -l output/SpellCheckReport.txt | { read first rest ; echo $first ; } )
+
+    - id: tdate
+      run: |
+        echo "##[set-output name=TDATE;]$(cd transforms && git log -1 --format=%cs; cd -)"
+
+        
 
     - name: diff
       run: make diff || true; 
@@ -144,6 +150,14 @@ jobs:
         status: ${{ steps.status.outputs.WORD }}
         color: ${{ steps.status.outputs.COLOR }}
         path: warnings.svg
+
+    - name: Generate the transforms badge
+      uses: emibcn/badge-action@v1
+      with:
+        label: 'Transforms'
+        status: ${{ steps.tdate.outputs.TDATE }}
+        color: gray
+        path: transforms.svg
         
         
      # Use the output from the `coverage` step
@@ -162,7 +176,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add warnings.svg validation.svg build-branch-badge.svg spell-badge.svg
+        git add warnings.svg validation.svg build-branch-badge.svg spell-badge.svg transforms.svg
         git commit -m "Add/Update badges"
         
         # - name: Upload badge as artifact
