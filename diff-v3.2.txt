@@ -1330,8 +1330,6 @@ Conformance Statement									Conformance Statement
     -   [PP-Module](#abbr_PP-Module) for [MDM](#abbr_MDM) Agent, Version		    -   [PP-Module](#abbr_PP-Module) for [MDM](#abbr_MDM) Agent, Version
         1.0										        1.0
 
-										      >	    htm:p\>
-										      >
 CC Conformance Claims									CC Conformance Claims
 :   This [PP](#abbr_PP) is conformant to Parts 2 (extended) and 3			:   This [PP](#abbr_PP) is conformant to Parts 2 (extended) and 3
     (extended) of Common Criteria Version 3.1, Revision 5.				    (extended) of Common Criteria Version 3.1, Revision 5.
@@ -8895,8 +8893,8 @@ uses*\].										uses*\].
 
 ::: {.appnote}										::: {.appnote}
 [Application Note: ]{.note-header}[The [ST](#abbr_ST) author's first			[Application Note: ]{.note-header}[The [ST](#abbr_ST) author's first
-selection must match the selection of						      |	selection must match the selection of FDP\_UPC\_EXT.1.1/APPSand
-[FDP\_UPC\_EXT.1.1/APPS](#FDP_UPC_EXT.1.1/APPS) and				      <
+selection must match the selection of							selection must match the selection of
+[FDP\_UPC\_EXT.1.1/APPS](#FDP_UPC_EXT.1.1/APPS) and					[FDP\_UPC\_EXT.1.1/APPS](#FDP_UPC_EXT.1.1/APPS) and
 [FTP\_ITC\_EXT.1.1](#FTP_ITC_EXT.1.1).\							[FTP\_ITC\_EXT.1.1](#FTP_ITC_EXT.1.1).\
 \											\
 Certificates may optionally be used for trusted updates of system			Certificates may optionally be used for trusted updates of system
@@ -11165,8 +11163,8 @@ mechanism exhibits the configured setting.\						mechanism exhibits the configur
 										      >	-   minimum password complexity
 										      >	-   maximum password lifetime
 										      >
-										      >	\
 \											\
+										      >	\
 										      >	:::
 										      >
 										      >	::: {.management_function_ea}
@@ -11242,377 +11240,748 @@ Tests											Tests
     in the [TSS](#abbr_TSS))). The ambient noise floor shall be set to		      |
     -110dBm. Place the [TOE](#abbr_TOE) into the RF shielded enclosure		      |	::: {.management_function_ea}
     to isolate them from all other RF traffic.\					      |	**Function [4](#mf-radios)**\
-    \										      |
-    Step 2: The evaluator shall create a baseline of the expected		      |	::: {.eacategory}
-    behavior of RF signals. The evaluator shall power on the device,		      |	[TSS](#abbr_TSS)
-    ensure the radio in question is enabled, power off the device,		      |	:::
-    enable \"Max Hold\" on the spectrum analyzer and power on the		      |
-    device. The evaluator shall wait 2 minutes at each Authentication		      |	The evaluator shall verify that the [TSS](#abbr_TSS) includes a
-    Factor interface prior to entering the necessary password to		      |	description of each radio and an indication of if the radio can be
-    complete the boot process, waiting 5 minutes after the device is		      |	enabled/disabled along with what role can do so. In addition the
-    fully booted. The evaluator shall observe that RF spikes are present	      |	evaluator shall verify that the frequency ranges at which each radio
-    at the expected uplink channel frequency. The evaluator shall clear		      |	operates is included in the [TSS](#abbr_TSS). The evaluator shall verify
-    the \"Max Hold\" on the spectrum analyzer.\					      |	that the [TSS](#abbr_TSS) includes at what point in the boot sequence
-    \										      |	the radios are powered on and indicates if the radios are used as part
-    Step 3: The evaluator shall verify the absence of RF activity for		      |	of the initialization of the device.\
-    the uplink channel when the radio in question is disabled. The		      |
-    evaluator shall complete the following test five times. The			      |	::: {.eacategory}
-    evaluator shall power on the device, ensure the radio in question is	      |	Guidance
-    disabled, power off the device, enable \"Max Hold\" on the spectrum		      |	:::
-    analyzer and power on the device. The evaluator shall wait 2 minutes	      |
-    at each Authentication Factor interface prior to entering the		      |	The evaluator shall confirm that the AGD guidance describes how to
-    necessary password to complete the boot process, waiting 5 minutes		      |	perform the enable/disable function for each radio.\
-    after the device is fully booted. The evaluator shall clear the		      |	\
-    \"Max Hold\" on the spectrum analyzer. If the radios are used for		      |	\
-    device initialization, then a spike of RF activity for the uplink		      |
-    channel can be observed initially at device boot. However, if a		      |	::: {.eacategory}
-    spike of RF activity for the uplink channel of the specific radio		      |	Tests
-    frequency band is observed after the device is fully booted or at an	      |	:::
-    Authentication Factor interface it is deemed that the radio is		      |
-    enabled.									      |	The evaluator shall ensure that minimal signal leakage enters the RF
--   **Test 5:** The evaluator shall perform the following test(s):		      |	shielded enclosure (i.e. Faraday bag, Faraday box, RF shielded room) by
-    a.  The evaluator shall exercise the [TSF](#abbr_TSF) configuration		      |	performing the following steps:\
-        as the administrator and, if not restricted to the			      |	\
-        administrator, the user, to enable and disable the state of each	      |	Step 1: Place the antenna of the spectrum analyzer inside the RF
-        audio or visual collection devices (e.g. camera, microphone)		      |	shielded enclosure.\
-        listed by the [ST](#abbr_ST) author. For each collection device,	      |	\
-        the evaluator shall disable the device and then attempt to use		      |	Step 2: Enable \"Max Hold\" on the spectrum analyzer and perform a
-        its functionality. The evaluator shall reboot the			      |	spectrum sweep of the frequency range between 300 MHz -- 6000 MHz, in I
-        [TOE](#abbr_TOE) and verify that disabled collection devices may	      |	kHz steps (this range should encompass 802.11, 802.15, GSM, UMTS, and
-        not be used during or early in the boot process. Additionally,		      |	[LTE](#abbr_LTE)). This range will not address [NFC](#abbr_NFC)
-        the evaluator shall boot the device into each available			      |	13.56.MHz, another test should be set up with similar constraints to
-        auxiliary boot mode and verify that the collection device cannot	      |	address [NFC](#abbr_NFC).\
-        be used.								      |	\
-    b.  \[conditional\] If \"per-app basis\" is selected, the evaluator		      |	If power above -90 dBm is observed, the Faraday box has too great of
-        shall create two applications and enable one to use access the		      |	signal leakage and shall not be used to complete the test for Function
-        A/V device and the other to not access the A/V device. The		      |	[4](#mf-radios). The evaluator shall exercise the [TSF](#abbr_TSF)
-        evaluator shall exercise each application attempting to access		      |	configuration as the administrator and, if not restricted to the
-        the A/V device individually. The evaluator shall verify that the	      |	administrator, the user, to enable and disable the state of each radio
-        enabled application is able to access the A/V device and the		      |	(e.g. Wi-Fi, cellular, [NFC](#abbr_NFC), Bluetooth). Additionally, the
-        disabled application is not able to access the A/V device.		      |	evaluator shall repeat the steps below, booting into any auxiliary boot
-    c.  \[conditional\] If \"per-groups of application basis\" is		      |	mode supported by the device. For each radio, the evaluator shall:\
-        selected, the evaluator shall create two applications and the		      |	\
-        applications shall be placed into different groups. Enable one		      |	Step 1: Place the antenna of the spectrum analyzer inside the RF
-        group to access the A/V device and the other to not access the		      |	shielded enclosure. Configure the spectrum analyzer to sweep desired
-        A/V device. The evaluator shall exercise each application		      |	frequency range for the radio to be tested (based on range provided in
-        attempting to access the A/V device individually. The evaluator		      |	the [TSS](#abbr_TSS))). The ambient noise floor shall be set to -110
-        shall verify that the application in the enabled group is able		      |	dBm. Place the [TOE](#abbr_TOE) into the RF shielded enclosure to
-        to access the A/V device and the application in the disabled		      |	isolate them from all other RF traffic.\
-        group is not able to access the A/V device.				      |	\
--   **Test 6:** The evaluator shall use the test environment to instruct	      |	Step 2: The evaluator shall create a baseline of the expected behavior
-    the [TSF](#abbr_TSF), both as a user and as the administrator, to		      |	of RF signals. The evaluator shall power on the device, ensure the radio
-    command the device to transition to a locked state, and verify that		      |	in question is enabled, power off the device, enable \"Max Hold\" on the
-    the device transitions to the locked state upon command.			      |	spectrum analyzer and power on the device. The evaluator shall wait 2
--   **Test 7:** The evaluator shall use the test environment to instruct	      |	minutes at each Authentication Factor interface prior to entering the
-    the [TSF](#abbr_TSF), both as a user and as the administrator, to		      |	necessary password to complete the boot process, waiting 5 minutes after
-    command the device to perform a wipe of protected data. The			      |	the device is fully booted. The evaluator shall observe that RF spikes
-    evaluator must ensure that this management setup is used when		      |	are present at the expected uplink channel frequency. The evaluator
-    conducting the Evaluation Activities in					      |	shall clear the \"Max Hold\" on the spectrum analyzer.\
-    [FCS\_CKM\_EXT.5](#FCS_CKM_EXT.5).						      |	\
--   **Test 8:** The evaluator shall exercise the [TSF](#abbr_TSF)		      |	Step 3: The evaluator shall verify the absence of RF activity for the
-    configuration as the administrator to restrict particular			      |	uplink channel when the radio in question is disabled. The evaluator
-    applications, sources of applications, or application installation		      |	shall complete the following test five times. The evaluator shall power
-    according to the AGD guidance. The evaluator shall attempt to		      |	on the device, ensure the radio in question is disabled, power off the
-    install unauthorized applications and ensure that this is not		      |	device, enable \"Max Hold\" on the spectrum analyzer and power on the
-    possible. The evaluator shall, in conjunction, perform the following	      |	device. The evaluator shall wait 2 minutes at each Authentication Factor
-    specific tests:								      |	interface prior to entering the necessary password to complete the boot
-    a.  \[conditional\] The evaluator shall attempt to connect to an		      |	process, waiting 5 minutes after the device is fully booted. The
-        unauthorized repository in order to install applications.		      |	evaluator shall clear the \"Max Hold\" on the spectrum analyzer. If the
-    b.  \[conditional\] The evaluator shall attempt to install two		      |	radios are used for device initialization, then a spike of RF activity
-        applications (one allowlisted, and one not) from a known allowed	      |	for the uplink channel can be observed initially at device boot.
-        repository and verify that the application not on the allowlist		      |	However, if a spike of RF activity for the uplink channel of the
-        is rejected. The evaluator shall also attempt to side-load		      |	specific radio frequency band is observed after the device is fully
-        executables or installation packages via [USB](#abbr_USB)		      |	booted or at an Authentication Factor interface it is deemed that the
-        connections to determine that the white list is still adhered to	      |	radio is enabled.\
--   **Test 9:** The test of these functions is performed in association		      |	\
-    with [FCS\_STG\_EXT.1](#FCS_STG_EXT.1).					      |	:::
--   **Test 10:** The test of these functions is performed in association	      |
-    with [FCS\_STG\_EXT.1](#FCS_STG_EXT.1).					      |	::: {.management_function_ea}
--   **Test 11:** The evaluator shall import certificates according to		      |	**Function [5](#mf-audioVisual)**\
-    the AGD guidance as the user and/or as the administrator, as		      |
-    determined by the administrative guidance. The evaluator shall		      |	::: {.eacategory}
-    verify that no errors occur during import. The evaluator should		      |	[TSS](#abbr_TSS)
-    perform an action requiring use of the X.509v3 certificate to		      |	:::
-    provide assurance that installation was completed properly.			      |
--   **Test 12:** The evaluator shall remove an administrator-imported		      |	The evaluator shall verify that the [TSS](#abbr_TSS) includes a
-    certificate and any other categories of certificates included in the	      |	description of each collection device and an indication of if it can be
-    assignment of function [[14]{.counter}](#appRemove){.appRemove-ref}		      |	enabled/disabled along with what role can do so. The evaluator shall
-    from the Trust Anchor Database according to the AGD guidance as the		      |	confirm that the AGD guidance describes how to perform the
-    user and as the administrator.						      |	enable/disable function.\
--   **Test 13:** The evaluator shall verify that user approval is		      |
-    required to enroll the device into management.				      |	::: {.eacategory}
--   **Test 14:** The evaluator shall attempt to remove applications		      |	Tests
-    according to the AGD guidance and verify that the [TOE](#abbr_TOE)		      |	:::
-    no longer permits users to access those applications or their		      |
-    associated data.								      |	The evaluator shall perform the following test(s):
--   **Test 15:** The evaluator shall attempt to update the			      |
-    [TSF](#abbr_TSF) system software following the procedures in the AGD	      |	a.  The evaluator shall exercise the [TSF](#abbr_TSF) configuration as
-    guidance and verify that updates correctly install and that the		      |	    the administrator and, if not restricted to the administrator, the
-    version numbers of the system software increase.				      |	    user, to enable and disable the state of each audio or visual
--   **Test 16:** The evaluator shall attempt to install an application		      |	    collection devices (e.g. camera, microphone) listed by the
-    following the procedures in the AGD guidance and verify that the		      |	    [ST](#abbr_ST) author. For each collection device, the evaluator
-    application is installed and available on the [TOE](#abbr_TOE).		      |	    shall disable the device and then attempt to use its functionality.
--   **Test 17:** The evaluator shall attempt to remove any Enterprise		      |	    The evaluator shall reboot the [TOE](#abbr_TOE) and verify that
-    applications from the device by following the administrator			      |	    disabled collection devices may not be used during or early in the
-    guidance. The evaluator shall verify that the [TOE](#abbr_TOE) no		      |	    boot process. Additionally, the evaluator shall boot the device into
-    longer permits users to access those applications or their			      |	    each available auxiliary boot mode and verify that the collection
-    associated data.								      |	    device cannot be used.
--   **Test 18:** For each category of information listed in the AGD		      |	b.  \[conditional\] If \"per-app basis\" is selected, the evaluator
-    guidance, the evaluator shall verify that when that [TSF](#abbr_TSF)	      |	    shall create two applications and enable one to use access the A/V
-    is configured to limit the information according to the AGD, the		      |	    device and the other to not access the A/V device. The evaluator
-    information is no longer displayed in the locked state.			      |	    shall exercise each application attempting to access the A/V device
--   **Test 19:** The evaluator shall exercise the [TSF](#abbr_TSF)		      |	    individually. The evaluator shall verify that the enabled
-    configuration as the administrator and, if not restricted to the		      |	    application is able to access the A/V device and the disabled
-    administrator, the user, to enable system-wide data-at-rest			      |	    application is not able to access the A/V device.
-    protection according to the AGD guidance. The evaluator shall ensure	      |	c.  \[conditional\] If \"per-groups of application basis\" is selected,
-    that all Evaluation Activities for [DAR](#abbr_DAR) (FDP\_DAR) are		      |	    the evaluator shall create two applications and the applications
-    conducted with the device in this configuration.				      |	    shall be placed into different groups. Enable one group to access
--   **Test 20:** The evaluator shall exercise the [TSF](#abbr_TSF)		      |	    the A/V device and the other to not access the A/V device. The
-    configuration as the administrator and, if not restricted to the		      |	    evaluator shall exercise each application attempting to access the
-    administrator, the user, to enable removable media's data-at-rest		      |	    A/V device individually. The evaluator shall verify that the
-    protection according to the AGD guidance. The evaluator shall ensure	      |	    application in the enabled group is able to access the A/V device
-    that all Evaluation Activities for [DAR](#abbr_DAR) (FDP\_DAR) are		      |	    and the application in the disabled group is not able to access the
-    conducted with the device in this configuration.				      |	    A/V device.
--   **Test 21:** The evaluator shall perform the following tests.		      |
-    a.  The evaluator shall enable location services device-wide and		      |	\
-        shall verify that an application (such as a mapping application)	      |	\
-        is able to access the [TOE](#abbr_TOE)'s location information.		      |	:::
-        The evaluator shall disable location services device-wide and		      |
-        shall verify that an application (such as a mapping application)	      |	::: {.management_function_ea}
-        is unable to access the [TOE](#abbr_TOE)'s location information.	      |	**Function [6](#mf-lockState)**\
-    b.  \[conditional\] If \"per-app basis\" is selected, the evaluator		      |
-        shall create two applications and enable one to use access the		      |	::: {.eacategory}
-        location services and the other to not access the location		      |	Tests
-        services. The evaluator shall exercise each application			      |	:::
-        attempting to access location services individually. The		      |
-        evaluator shall verify that the enabled application is able to		      |	The evaluator shall use the test environment to instruct the
-        access the location services and the disabled application is not	      |	[TSF](#abbr_TSF), both as a user and as the administrator, to command
-        able to access the location services.					      |	the device to transition to a locked state, and verify that the device
--   **Test 22:** The evaluator shall verify that the [TSS](#abbr_TSS)		      |	transitions to the locked state upon command.\
-    states if the [TOE](#abbr_TOE) supports a [BAF](#abbr_BAF) and/or		      |	\
-    hybrid authentication. If the [TOE](#abbr_TOE) does not include a		      |	:::
-    [BAF](#abbr_BAF) and/or hybrid authentication this test is			      |
-    implicitly met.								      |	::: {.management_function_ea}
-    a.  \[conditional\] If a [BAF](#abbr_BAF) is selected the evaluator		      |	**Function [8](#mf-appInstallRules)**\
-        shall verify that the [TSS](#abbr_TSS) describes the procedure		      |
-        to enable/disable the [BAF](#abbr_BAF). If the [TOE](#abbr_TOE)		      |	::: {.eacategory}
-        includes multiple BAFs, the evaluator shall verify that the		      |	[TSS](#abbr_TSS)
-        [TSS](#abbr_TSS) describes how to enable/disable each			      |	:::
-        [BAF](#abbr_BAF), specifically if the different modalities can		      |
-        be individually enabled/disabled. The evaluator shall configure		      |	The evaluator shall verify the [TSS](#abbr_TSS) describes the allowable
-        the [TOE](#abbr_TOE) to allow each supported [BAF](#abbr_BAF) to	      |	application installation policy options based on the selection included
-        authenticate and verify that successful authentication can be		      |	in the [ST](#abbr_ST). If the application allowlist is selected, the
-        achieved using the [BAF](#abbr_BAF). The evaluator shall		      |	evaluator shall verify that the [TSS](#abbr_TSS) includes a description
-        configure the [TOE](#abbr_TOE) to disable the use of each		      |	of each application characteristic upon which the allowlist may be
-        supported [BAF](#abbr_BAF) for authentication and confirm that		      |	based.\
-        the [BAF](#abbr_BAF) cannot be used to authenticate.			      |
-    b.  \[conditional\] If \"Hybrid\" is selected the evaluator shall		      |	::: {.eacategory}
-        verify that the [TSS](#abbr_TSS) describes the procedure to		      |	Tests
-        enable/disable the hybrid (biometric credential and			      |	:::
-        PIN/password) authentication. The evaluator shall configure the		      |
-        [TOE](#abbr_TOE) to allow hybrid authentication to authenticate		      |	The evaluator shall exercise the [TSF](#abbr_TSF) configuration as the
-        and confirm that successful authentication can be achieved using	      |	administrator to restrict particular applications, sources of
-        the hybrid authentication. The evaluator shall configure the		      |	applications, or application installation according to the AGD guidance.
-        [TOE](#abbr_TOE) to disable the use of hybrid authentication and	      |	The evaluator shall attempt to install unauthorized applications and
-        confirm that the hybrid authentication cannot be used to		      |	ensure that this is not possible. The evaluator shall, in conjunction,
-        authenticate.								      |	perform the following specific tests:
--   **Test 23:** The test of this function is performed in conjunction		      |
-    with [FIA\_X509\_EXT.2.2](#FIA_X509_EXT.2.2), FCS\_TLSC\_EXT.1.3 in		      |	a.  \[conditional\] The evaluator shall attempt to connect to an
-    the Package for Transport Layer Security.					      |	    unauthorized repository in order to install applications.
--   **Test 24:** The evaluator shall exercise the [TSF](#abbr_TSF)		      |	b.  \[conditional\] The evaluator shall attempt to install two
-    configuration to enable and disable data transfer capabilities over		      |	    applications (one allowlisted, and one not) from a known allowed
-    each externally accessible hardware ports (e.g. [USB](#abbr_USB), SD	      |	    repository and verify that the application not on the allowlist is
-    card, [HDMI](#abbr_HDMI)) listed by the [ST](#abbr_ST) author. The		      |	    rejected. The evaluator shall also attempt to side-load executables
-    evaluator shall use test equipment for the particular interface to		      |	    or installation packages via [USB](#abbr_USB) connections to
-    ensure that no low-level signaling is occurring on all pins used for	      |	    determine that the white list is still adhered to
-    data transfer when they are disabled. For each disabled data		      |
-    transfer capability, the evaluator shall repeat this test by		      |	\
-    rebooting the device into the normal operational mode and verifying		      |	\
-    that the capability is disabled throughout the boot and early		      |	:::
-    execution stage of the device.						      |
--   **Test 25:** The evaluator shall attempt to disable each listed		      |	::: {.management_function_ea}
-    protocol in the assignment. The evaluator shall verify that remote		      |	**Functions [9](#mf-keyStorage)/[10](#mf-keyWipe)**\
-    devices can no longer access the [TOE](#abbr_TOE) or			      |
-    [TOE](#abbr_TOE) resources using any disabled protocols.			      |	::: {.eacategory}
--   **Test 26:** The evaluator shall exercise the [TSF](#abbr_TSF)		      |	[TSS](#abbr_TSS)
-    configuration as the administrator and, if not restricted to the		      |	:::
-    administrator, the user, to enable and disable any developer mode.		      |
-    The evaluator shall test that developer mode access is not available	      |	The evaluator shall verify that the [TSS](#abbr_TSS) describes each
-    when its configuration is disabled. The evaluator shall verify the		      |	category of keys/secrets that can be imported into the
-    developer mode remains disabled during device reboot.			      |	[TSF](#abbr_TSF)'s secure key storage.\
--   **Test 27:** For each mechanism listed in the AGD guidance that		      |
-    provides a \"Forgot Password\" feature or other means where the		      |	::: {.eacategory}
-    local authentication process can be bypassed, the evaluator shall		      |	Tests
-    disable the feature and ensure that they are not able to bypass the		      |	:::
-    local authentication process.						      |
--   **Test 28:** The evaluator shall attempt to wipe Enterprise data		      |	The test of these functions is performed in association with
-    resident on the device according to the administrator guidance. The		      |	[FCS\_STG\_EXT.1](#FCS_STG_EXT.1).\
-    evaluator shall verify that the data is no longer accessible by the		      |	\
-    user.									      |	:::
--   **Test 29:** The evaluator shall perform one of the following tests:	      |
-    a.  \[conditional\] If applications may import certificates to the		      |	::: {.management_function_ea}
-        Trust Anchor Database, the evaluator shall write, or the		      |	**Function [11](#mf-certImport)**\
-        developer shall provide access to, an application that imports a	      |
-        certificate into the Trust Anchor Database. The evaluator shall		      |	::: {.eacategory}
-        verify that the [TOE](#abbr_TOE) requires approval before		      |	Guidance
-        allowing the application to import the certificate:			      |	:::
-        -   The evaluator shall deny the approvals to verify that the		      |
-            application is not able to import the certificate. Failure		      |	The evaluator shall review the AGD guidance to determine that it
-            of import shall be tested by attempting to validate a		      |	describes the steps needed to import, modify, or remove certificates in
-            certificate that chains to the certificate whose import was		      |	the Trust Anchor database, and that the users that have authority to
-            attempted (as described in the evaluation activity for		      |	import those certificates (e.g., only administrator, or both
-            [FIA\_X509\_EXT.1](#FIA_X509_EXT.1)).				      |	administrators and users) are identified.\
-        -   The evaluator shall repeat the test, allowing the approval		      |
-            to verify that the application is able to import the		      |	::: {.eacategory}
-            certificate and that validation occurs.				      |	Tests
-    b.  \[conditional\] If applications may remove certificates in the		      |	:::
-        Trust Anchor Database, the evaluator shall write, or the		      |
-        developer shall provide access to, an application that removes		      |	The evaluator shall import certificates according to the AGD guidance as
-        certificates from the Trust Anchor Database. The evaluator shall	      |	the user and/or as the administrator, as determined by the
-        verify that the [TOE](#abbr_TOE) requires approval before		      |	administrative guidance. The evaluator shall verify that no errors occur
-        allowing the application to remove the certificate:			      |	during import. The evaluator should perform an action requiring use of
-        -   The evaluator shall deny the approvals to verify that the		      |	the X.509v3 certificate to provide assurance that installation was
-            application is not able to remove the certificate. Failure		      |	completed properly.\
-            of removal shall be tested by attempting to validate a		      |	\
-            certificate that chains to the certificate whose removal was	      |	:::
-            attempted (as described in the evaluation activity for		      |
-            [FIA\_X509\_EXT.1](#FIA_X509_EXT.1)).				      |	::: {.management_function_ea}
-										      |	**Function [12](#mf-certWipe)**\
-    The evaluator shall repeat the test, allowing the approval to verify	      |
-    that the application is able to remove/modify the certificate and		      |	::: {.eacategory}
-    that validation no longer occurs.						      |	[TSS](#abbr_TSS)
--   **Test 30:** The test of this function is performed in conjunction		      |	:::
-    with [FIA\_X509\_EXT.2.2](#FIA_X509_EXT.2.2).				      |
--   **Test 31:** The evaluator shall attempt to disable each cellular		      |	The evaluator shall verify that the [TSS](#abbr_TSS) describes each
-    protocol according to the administrator guidance. The evaluator		      |	additional category of X.509 certificates and their use within the
-    shall attempt to connect the device to a cellular network and, using	      |	[TSF](#abbr_TSF).\
-    network analysis tools, verify that the device does not allow		      |
-    negotiation of the disabled protocols.					      |	::: {.eacategory}
--   **Test 32:** The evaluator shall attempt to read any device audit		      |	Tests
-    logs according to the administrator guidance and verify that the		      |	:::
-    logs may be read. This test may be performed in conjunction with the	      |
-    evaluation activity of [FAU\_GEN.1](#FAU_GEN.1).				      |	The evaluator shall remove an administrator-imported certificate and any
--   **Test 33:** The test of this function is performed in conjunction		      |	other categories of certificates included in the assignment of function
-    with [FPT\_TUD\_EXT.5.1](#FPT_TUD_EXT.5.1).					      |	[14](#mf-appRemove) from the Trust Anchor Database according to the AGD
--   **Test 34:** The test of this function is performed in conjunction		      |	guidance as the user and as the administrator.\
-    with [FCS\_STG\_EXT.1](#FCS_STG_EXT.1).					      |	\
--   **Test 35:** The test of this function is performed in conjunction		      |	:::
-    with [FCS\_STG\_EXT.1](#FCS_STG_EXT.1).					      |
--   **Test 36:** The test of this function is performed in conjunction		      |	::: {.management_function_ea}
-    with [FTA\_TAB.1](#FTA_TAB.1).						      |	**Function [13](#mf-enroll)**\
--   **Test 37:** The test of this function is performed in conjunction		      |
-    with [FAU\_SEL.1](#FAU_SEL.1).						      |	::: {.eacategory}
--   **Test 38:** The test of this function is performed in conjunction		      |	[TSS](#abbr_TSS)
-    with [FPT\_NOT\_EXT.2.1](#FPT_NOT_EXT.2.1).					      |	:::
--   **Test 39:** The evaluator shall perform the following tests based		      |
-    on the selections made in the table:					      |	The evaluator shall examine the [TSS](#abbr_TSS) to ensure that it
-    a.  \[conditional\] The evaluator shall disable [USB](#abbr_USB)		      |	contains a description of each management function that will be enforced
-        mass storage mode, attach the device to a computer, and verify		      |	by the enterprise once the device is enrolled. The evaluator shall
-        that the computer cannot mount the [TOE](#abbr_TOE) as a drive.		      |	examine the AGD guidance to determine that this same information is
-        The evaluator shall reboot the [TOE](#abbr_TOE) and repeat this		      |	present.\
-        test with other supported auxiliary boot modes.				      |
-    b.  \[conditional\] The evaluator shall disable [USB](#abbr_USB)		      |	::: {.eacategory}
-        data transfer without user authentication, attach the device to		      |	Tests
-        a computer, and verify that the [TOE](#abbr_TOE) requires user		      |	:::
-        authentication before the computer can access [TOE](#abbr_TOE)		      |
-        data. The evaluator shall reboot the [TOE](#abbr_TOE) and repeat	      |	The evaluator shall verify that user approval is required to enroll the
-        this test with other supported auxiliary boot modes.			      |	device into management.\
-    c.  \[conditional\] The evaluator shall disable [USB](#abbr_USB)		      |	\
-        data transfer without connecting system authentication, attach		      |	:::
-        the device to a computer, and verify that the [TOE](#abbr_TOE)		      |
-        requires connecting system authentication before the computer		      |	::: {.management_function_ea}
-        can access [TOE](#abbr_TOE) data. The evaluator shall then		      |	**Function [14](#mf-appRemove)**\
-        connect the [TOE](#abbr_TOE) to another computer and verify that	      |
-        the computer cannot access [TOE](#abbr_TOE) data. The evaluator		      |	::: {.eacategory}
-        shall then connect the [TOE](#abbr_TOE) to the original computer	      |	[TSS](#abbr_TSS)
-        and verify that the computer can access [TOE](#abbr_TOE) data.		      |	:::
--   **Test 40:** If \"all applications\" is selected, the evaluator		      |
-    shall disable each selected backup location in turn and verify that		      |	The evaluator shall verify that the [TSS](#abbr_TSS) includes an
-    the [TOE](#abbr_TOE) cannot complete a backup. The evaluator shall		      |	indication of what applications (e.g., user-installed applications,
-    then enable each selected backup location in turn and verify that		      |	Administrator-installed applications, or Enterprise applications) can be
-    the [TOE](#abbr_TOE) can perform a backup.\					      |	removed along with what role can do so. The evaluator shall examine the
-    \										      |	AGD guidance to determine that it details, for each type of application
-    If \"selected applications\" is selected, the evaluator shall		      |	that can be removed, the procedures necessary to remove those
-    disable each selected backup location in turn and verify that for		      |	applications and their associated data. For the purposes of this
-    the selected application the [TOE](#abbr_TOE) prevents backup from		      |	Evaluation Activity, \"associated data\" refers to data that are created
-    occurring. The evaluator shall then enable each selected backup		      |	by the app during its operation that do not exist independent of the
-    location in turn and verify that for the selected application the		      |	app\'s existence, for instance, configuration data, or e-mail
-    [TOE](#abbr_TOE) can perform a backup.\					      |	information that's part of an e-mail client. It does not, on the other
-    \										      |	hand, refer to data such as word processing documents (for a word
-    If \"selected groups of applications\" is selected, the evaluator		      |	processing app) or photos (for a photo or camera app).\
-    shall disable each selected backup location in turn and verify that		      |
-    for a group of applications the [TOE](#abbr_TOE) prevents the backup	      |	::: {.eacategory}
-    from occurring. The evaluator shall then enable each selected backup	      |	Tests
-    location in turn and verify for the group of application the		      |	:::
-    [TOE](#abbr_TOE) can perform a backup.\					      |
-    \										      |	The evaluator shall attempt to remove applications according to the AGD
-    If \"configuration data\" is selected, the evaluator shall disable		      |	guidance and verify that the [TOE](#abbr_TOE) no longer permits users to
-    each selected backup location in turn and verify that the			      |	access those applications or their associated data.\
-    [TOE](#abbr_TOE) prevents the backup of configuration data from		      |	\
-    occurring. The evaluator shall then enable each selected backup		      |	:::
-    location in turn and verify that the [TOE](#abbr_TOE) can perform a		      |
-    backup of configuration data.						      |	::: {.management_function_ea}
--   **Test 41:** The evaluator shall perform the following tests based		      |	**Function [15](#mf-update)**\
-    on the selections in Function						      |
-    [[41]{.counter}](#hotspot){.hotspot-ref}.					      |	::: {.eacategory}
-    a.  \[conditional\] The evaluator shall enable hotspot functionality	      |	Tests
-        with each of the of the support authentication methods. The		      |	:::
-        evaluator shall connect to the hotspot with another device and		      |
-        verify that the hotspot functionality requires the configured		      |	The evaluator shall attempt to update the [TSF](#abbr_TSF) system
-        authentication method.							      |	software following the procedures in the AGD guidance and verify that
-    b.  \[conditional\] The evaluator shall enable [USB](#abbr_USB)		      |	updates correctly install and that the version numbers of the system
-        tethering functionality with each of the of the support			      |	software increase.\
-        authentication methods. The evaluator shall connect to the		      |	\
-        [TOE](#abbr_TOE) over [USB](#abbr_USB) with another device and		      |	:::
-        verify that the tethering functionality requires the configured		      |
-        authentication method.							      |	::: {.management_function_ea}
--   **Test 42:** The test of this function is performed in conjunction		      |	**Function [16](#mf-appInstall)**\
-    with [FDP\_ACF\_EXT.1.2](#FDP_ACF_EXT.1.2).					      |
--   **Test 43:** The evaluator shall set a policy to cause a designated		      |	::: {.eacategory}
-    application to be placed into a particular application group. The		      |	Tests
-    evaluator shall then install the designated application and verify		      |	:::
-    that it was placed into the correct group.					      |
--   **Test 44:** The evaluator shall attempt to unenroll the device from	      |	The evaluator shall attempt to install an application following the
-    management and verify that the steps described in				      |	procedures in the AGD guidance and verify that the application is
-    [FMT\_SMF\_EXT.2.1](#FMT_SMF_EXT.2.1) are performed. This test		      |	installed and available on the [TOE](#abbr_TOE).\
-    should be performed in conjunction with the					      |	\
-    [FMT\_SMF\_EXT.2.1](#FMT_SMF_EXT.2.1) evaluation activity.			      |	:::
--   **Test 45:** The evaluator shall verify that the [TSS](#abbr_TSS)		      |
-    contains guidance to configure the [VPN](#abbr_VPN) as Always-On.		      |	::: {.management_function_ea}
-    The evaluator shall configure the [VPN](#abbr_VPN) as Always-On and		      |	**Function [17](#mf-entAppRemove)**\
-    perform the following test.							      |
-    a.  The evaluator shall verify that when the [VPN](#abbr_VPN) is		      |	::: {.eacategory}
-        connected all traffic is routed through the [VPN](#abbr_VPN).		      |	Tests
-        This test is performed in conjunction with				      |	:::
-        [FDP\_IFC\_EXT.1.1](#FDP_IFC_EXT.1.1).					      |
-    b.  The evaluator shall verify that when the [VPN](#abbr_VPN) is not	      |	The evaluator shall attempt to remove any Enterprise applications from
-        established, that no traffic leaves the device. The evaluator		      |	the device by following the administrator guidance. The evaluator shall
-        shall ensure that the [TOE](#abbr_TOE) has network connectivity		      |	verify that the [TOE](#abbr_TOE) no longer permits users to access those
-        and that the [VPN](#abbr_VPN) is established. The evaluator		      |	applications or their associated data.\
-        shall use a packet sniffing tool to capture the traffic leaving		      |	\
-        the [TOE](#abbr_TOE). The evaluator shall disable the			      |	:::
-        [VPN](#abbr_VPN) connection on the server side. The evaluator		      |
-        shall perform actions with the device such as navigating to		      |	::: {.management_function_ea}
-        websites, using provided applications, and accessing other		      |	**Function [18](#mf-notifications)**\
-        Internet resources and verify that no traffic leaves the device.	      |
-    c.  The evaluator shall verify that the [TOE](#abbr_TOE) has network	      |	::: {.eacategory}
-        connectivity and that the [VPN](#abbr_VPN) is established. The		      |	Guidance
-        evaluator shall disable network connectivity (i.e. Airplane		      |	:::
-        Mode) and verify that the [VPN](#abbr_VPN) disconnects. The		      |
-        evaluator shall re-establish network connectivity and verify		      |	The evaluator shall examine the AGD Guidance to determine that it
-        that the [VPN](#abbr_VPN) automatically reconnects.			      |	specifies, for at least each category of information selected for
--   **Test 46:** The evaluator shall verify that the [TSS](#abbr_TSS)		      |	Function [18](#mf-notifications), how to enable and disable display
-    describes the procedure to revoke a biometric credential stored on		      |	information for that type of information in the locked state.\
-    the [TOE](#abbr_TOE). The evaluator shall configure the			      |
-    [TOE](#abbr_TOE) to use [BAF](#abbr_BAF) and confirm that the		      |	::: {.eacategory}
-    biometric can be used to authenticate to the device. The evaluator		      |	Tests
-    shall revoke the biometric credential's ability to authenticate to		      |	:::
-    the [TOE](#abbr_TOE) and confirm that the same [BAF](#abbr_BAF)		      |
-    cannot be used to authenticate to the device.				      |	For each category of information listed in the AGD guidance, the
--   **Test 47:** The evaluator shall design and perform tests to		      |	evaluator shall verify that when that [TSF](#abbr_TSF) is configured to
-    demonstrate that the function may be configured and that the		      |	limit the information according to the AGD, the information is no longer
-    intended behavior of the function is enacted by the				      |	displayed in the locked state.\
-    [TOE](#abbr_TOE).								      |	\
+    \										      <
+    Step 2: The evaluator shall create a baseline of the expected		      <
+    behavior of RF signals. The evaluator shall power on the device,		      <
+    ensure the radio in question is enabled, power off the device,		      <
+    enable \"Max Hold\" on the spectrum analyzer and power on the		      <
+    device. The evaluator shall wait 2 minutes at each Authentication		      <
+    Factor interface prior to entering the necessary password to		      <
+    complete the boot process, waiting 5 minutes after the device is		      <
+    fully booted. The evaluator shall observe that RF spikes are present	      <
+    at the expected uplink channel frequency. The evaluator shall clear		      <
+    the \"Max Hold\" on the spectrum analyzer.\					      <
+    \										      <
+    Step 3: The evaluator shall verify the absence of RF activity for		      <
+    the uplink channel when the radio in question is disabled. The		      <
+    evaluator shall complete the following test five times. The			      <
+    evaluator shall power on the device, ensure the radio in question is	      <
+    disabled, power off the device, enable \"Max Hold\" on the spectrum		      <
+    analyzer and power on the device. The evaluator shall wait 2 minutes	      <
+    at each Authentication Factor interface prior to entering the		      <
+    necessary password to complete the boot process, waiting 5 minutes		      <
+    after the device is fully booted. The evaluator shall clear the		      <
+    \"Max Hold\" on the spectrum analyzer. If the radios are used for		      <
+    device initialization, then a spike of RF activity for the uplink		      <
+    channel can be observed initially at device boot. However, if a		      <
+    spike of RF activity for the uplink channel of the specific radio		      <
+    frequency band is observed after the device is fully booted or at an	      <
+    Authentication Factor interface it is deemed that the radio is		      <
+    enabled.									      <
+-   **Test 5:** The evaluator shall perform the following test(s):		      <
+    a.  The evaluator shall exercise the [TSF](#abbr_TSF) configuration		      <
+        as the administrator and, if not restricted to the			      <
+        administrator, the user, to enable and disable the state of each	      <
+        audio or visual collection devices (e.g. camera, microphone)		      <
+        listed by the [ST](#abbr_ST) author. For each collection device,	      <
+        the evaluator shall disable the device and then attempt to use		      <
+        its functionality. The evaluator shall reboot the			      <
+        [TOE](#abbr_TOE) and verify that disabled collection devices may	      <
+        not be used during or early in the boot process. Additionally,		      <
+        the evaluator shall boot the device into each available			      <
+        auxiliary boot mode and verify that the collection device cannot	      <
+        be used.								      <
+    b.  \[conditional\] If \"per-app basis\" is selected, the evaluator		      <
+        shall create two applications and enable one to use access the		      <
+        A/V device and the other to not access the A/V device. The		      <
+        evaluator shall exercise each application attempting to access		      <
+        the A/V device individually. The evaluator shall verify that the	      <
+        enabled application is able to access the A/V device and the		      <
+        disabled application is not able to access the A/V device.		      <
+    c.  \[conditional\] If \"per-groups of application basis\" is		      <
+        selected, the evaluator shall create two applications and the		      <
+        applications shall be placed into different groups. Enable one		      <
+        group to access the A/V device and the other to not access the		      <
+        A/V device. The evaluator shall exercise each application		      <
+        attempting to access the A/V device individually. The evaluator		      <
+        shall verify that the application in the enabled group is able		      <
+        to access the A/V device and the application in the disabled		      <
+        group is not able to access the A/V device.				      <
+-   **Test 6:** The evaluator shall use the test environment to instruct	      <
+    the [TSF](#abbr_TSF), both as a user and as the administrator, to		      <
+    command the device to transition to a locked state, and verify that		      <
+    the device transitions to the locked state upon command.			      <
+-   **Test 7:** The evaluator shall use the test environment to instruct	      <
+    the [TSF](#abbr_TSF), both as a user and as the administrator, to		      <
+    command the device to perform a wipe of protected data. The			      <
+    evaluator must ensure that this management setup is used when		      <
+    conducting the Evaluation Activities in					      <
+    [FCS\_CKM\_EXT.5](#FCS_CKM_EXT.5).						      <
+-   **Test 8:** The evaluator shall exercise the [TSF](#abbr_TSF)		      <
+    configuration as the administrator to restrict particular			      <
+    applications, sources of applications, or application installation		      <
+    according to the AGD guidance. The evaluator shall attempt to		      <
+    install unauthorized applications and ensure that this is not		      <
+    possible. The evaluator shall, in conjunction, perform the following	      <
+    specific tests:								      <
+    a.  \[conditional\] The evaluator shall attempt to connect to an		      <
+        unauthorized repository in order to install applications.		      <
+    b.  \[conditional\] The evaluator shall attempt to install two		      <
+        applications (one allowlisted, and one not) from a known allowed	      <
+        repository and verify that the application not on the allowlist		      <
+        is rejected. The evaluator shall also attempt to side-load		      <
+        executables or installation packages via [USB](#abbr_USB)		      <
+        connections to determine that the white list is still adhered to	      <
+-   **Test 9:** The test of these functions is performed in association		      <
+    with [FCS\_STG\_EXT.1](#FCS_STG_EXT.1).					      <
+-   **Test 10:** The test of these functions is performed in association	      <
+    with [FCS\_STG\_EXT.1](#FCS_STG_EXT.1).					      <
+-   **Test 11:** The evaluator shall import certificates according to		      <
+    the AGD guidance as the user and/or as the administrator, as		      <
+    determined by the administrative guidance. The evaluator shall		      <
+    verify that no errors occur during import. The evaluator should		      <
+    perform an action requiring use of the X.509v3 certificate to		      <
+    provide assurance that installation was completed properly.			      <
+-   **Test 12:** The evaluator shall remove an administrator-imported		      <
+    certificate and any other categories of certificates included in the	      <
+    assignment of function [[14]{.counter}](#appRemove){.appRemove-ref}		      <
+    from the Trust Anchor Database according to the AGD guidance as the		      <
+    user and as the administrator.						      <
+-   **Test 13:** The evaluator shall verify that user approval is		      <
+    required to enroll the device into management.				      <
+-   **Test 14:** The evaluator shall attempt to remove applications		      <
+    according to the AGD guidance and verify that the [TOE](#abbr_TOE)		      <
+    no longer permits users to access those applications or their		      <
+    associated data.								      <
+-   **Test 15:** The evaluator shall attempt to update the			      <
+    [TSF](#abbr_TSF) system software following the procedures in the AGD	      <
+    guidance and verify that updates correctly install and that the		      <
+    version numbers of the system software increase.				      <
+-   **Test 16:** The evaluator shall attempt to install an application		      <
+    following the procedures in the AGD guidance and verify that the		      <
+    application is installed and available on the [TOE](#abbr_TOE).		      <
+-   **Test 17:** The evaluator shall attempt to remove any Enterprise		      <
+    applications from the device by following the administrator			      <
+    guidance. The evaluator shall verify that the [TOE](#abbr_TOE) no		      <
+    longer permits users to access those applications or their			      <
+    associated data.								      <
+-   **Test 18:** For each category of information listed in the AGD		      <
+    guidance, the evaluator shall verify that when that [TSF](#abbr_TSF)	      <
+    is configured to limit the information according to the AGD, the		      <
+    information is no longer displayed in the locked state.			      <
+-   **Test 19:** The evaluator shall exercise the [TSF](#abbr_TSF)		      <
+    configuration as the administrator and, if not restricted to the		      <
+    administrator, the user, to enable system-wide data-at-rest			      <
+    protection according to the AGD guidance. The evaluator shall ensure	      <
+    that all Evaluation Activities for [DAR](#abbr_DAR) (FDP\_DAR) are		      <
+    conducted with the device in this configuration.				      <
+-   **Test 20:** The evaluator shall exercise the [TSF](#abbr_TSF)		      <
+    configuration as the administrator and, if not restricted to the		      <
+    administrator, the user, to enable removable media's data-at-rest		      <
+    protection according to the AGD guidance. The evaluator shall ensure	      <
+    that all Evaluation Activities for [DAR](#abbr_DAR) (FDP\_DAR) are		      <
+    conducted with the device in this configuration.				      <
+-   **Test 21:** The evaluator shall perform the following tests.		      <
+    a.  The evaluator shall enable location services device-wide and		      <
+        shall verify that an application (such as a mapping application)	      <
+        is able to access the [TOE](#abbr_TOE)'s location information.		      <
+        The evaluator shall disable location services device-wide and		      <
+        shall verify that an application (such as a mapping application)	      <
+        is unable to access the [TOE](#abbr_TOE)'s location information.	      <
+    b.  \[conditional\] If \"per-app basis\" is selected, the evaluator		      <
+        shall create two applications and enable one to use access the		      <
+        location services and the other to not access the location		      <
+        services. The evaluator shall exercise each application			      <
+        attempting to access location services individually. The		      <
+        evaluator shall verify that the enabled application is able to		      <
+        access the location services and the disabled application is not	      <
+        able to access the location services.					      <
+-   **Test 22:** The evaluator shall verify that the [TSS](#abbr_TSS)		      <
+    states if the [TOE](#abbr_TOE) supports a [BAF](#abbr_BAF) and/or		      <
+    hybrid authentication. If the [TOE](#abbr_TOE) does not include a		      <
+    [BAF](#abbr_BAF) and/or hybrid authentication this test is			      <
+    implicitly met.								      <
+    a.  \[conditional\] If a [BAF](#abbr_BAF) is selected the evaluator		      <
+        shall verify that the [TSS](#abbr_TSS) describes the procedure		      <
+        to enable/disable the [BAF](#abbr_BAF). If the [TOE](#abbr_TOE)		      <
+        includes multiple BAFs, the evaluator shall verify that the		      <
+        [TSS](#abbr_TSS) describes how to enable/disable each			      <
+        [BAF](#abbr_BAF), specifically if the different modalities can		      <
+        be individually enabled/disabled. The evaluator shall configure		      <
+        the [TOE](#abbr_TOE) to allow each supported [BAF](#abbr_BAF) to	      <
+        authenticate and verify that successful authentication can be		      <
+        achieved using the [BAF](#abbr_BAF). The evaluator shall		      <
+        configure the [TOE](#abbr_TOE) to disable the use of each		      <
+        supported [BAF](#abbr_BAF) for authentication and confirm that		      <
+        the [BAF](#abbr_BAF) cannot be used to authenticate.			      <
+    b.  \[conditional\] If \"Hybrid\" is selected the evaluator shall		      <
+        verify that the [TSS](#abbr_TSS) describes the procedure to		      <
+        enable/disable the hybrid (biometric credential and			      <
+        PIN/password) authentication. The evaluator shall configure the		      <
+        [TOE](#abbr_TOE) to allow hybrid authentication to authenticate		      <
+        and confirm that successful authentication can be achieved using	      <
+        the hybrid authentication. The evaluator shall configure the		      <
+        [TOE](#abbr_TOE) to disable the use of hybrid authentication and	      <
+        confirm that the hybrid authentication cannot be used to		      <
+        authenticate.								      <
+-   **Test 23:** The test of this function is performed in conjunction		      <
+    with [FIA\_X509\_EXT.2.2](#FIA_X509_EXT.2.2), FCS\_TLSC\_EXT.1.3 in		      <
+    the Package for Transport Layer Security.					      <
+-   **Test 24:** The evaluator shall exercise the [TSF](#abbr_TSF)		      <
+    configuration to enable and disable data transfer capabilities over		      <
+    each externally accessible hardware ports (e.g. [USB](#abbr_USB), SD	      <
+    card, [HDMI](#abbr_HDMI)) listed by the [ST](#abbr_ST) author. The		      <
+    evaluator shall use test equipment for the particular interface to		      <
+    ensure that no low-level signaling is occurring on all pins used for	      <
+    data transfer when they are disabled. For each disabled data		      <
+    transfer capability, the evaluator shall repeat this test by		      <
+    rebooting the device into the normal operational mode and verifying		      <
+    that the capability is disabled throughout the boot and early		      <
+    execution stage of the device.						      <
+-   **Test 25:** The evaluator shall attempt to disable each listed		      <
+    protocol in the assignment. The evaluator shall verify that remote		      <
+    devices can no longer access the [TOE](#abbr_TOE) or			      <
+    [TOE](#abbr_TOE) resources using any disabled protocols.			      <
+-   **Test 26:** The evaluator shall exercise the [TSF](#abbr_TSF)		      <
+    configuration as the administrator and, if not restricted to the		      <
+    administrator, the user, to enable and disable any developer mode.		      <
+    The evaluator shall test that developer mode access is not available	      <
+    when its configuration is disabled. The evaluator shall verify the		      <
+    developer mode remains disabled during device reboot.			      <
+-   **Test 27:** For each mechanism listed in the AGD guidance that		      <
+    provides a \"Forgot Password\" feature or other means where the		      <
+    local authentication process can be bypassed, the evaluator shall		      <
+    disable the feature and ensure that they are not able to bypass the		      <
+    local authentication process.						      <
+-   **Test 28:** The evaluator shall attempt to wipe Enterprise data		      <
+    resident on the device according to the administrator guidance. The		      <
+    evaluator shall verify that the data is no longer accessible by the		      <
+    user.									      <
+-   **Test 29:** The evaluator shall perform one of the following tests:	      <
+    a.  \[conditional\] If applications may import certificates to the		      <
+        Trust Anchor Database, the evaluator shall write, or the		      <
+        developer shall provide access to, an application that imports a	      <
+        certificate into the Trust Anchor Database. The evaluator shall		      <
+        verify that the [TOE](#abbr_TOE) requires approval before		      <
+        allowing the application to import the certificate:			      <
+        -   The evaluator shall deny the approvals to verify that the		      <
+            application is not able to import the certificate. Failure		      <
+            of import shall be tested by attempting to validate a		      <
+            certificate that chains to the certificate whose import was		      <
+            attempted (as described in the evaluation activity for		      <
+            [FIA\_X509\_EXT.1](#FIA_X509_EXT.1)).				      <
+        -   The evaluator shall repeat the test, allowing the approval		      <
+            to verify that the application is able to import the		      <
+            certificate and that validation occurs.				      <
+    b.  \[conditional\] If applications may remove certificates in the		      <
+        Trust Anchor Database, the evaluator shall write, or the		      <
+        developer shall provide access to, an application that removes		      <
+        certificates from the Trust Anchor Database. The evaluator shall	      <
+        verify that the [TOE](#abbr_TOE) requires approval before		      <
+        allowing the application to remove the certificate:			      <
+        -   The evaluator shall deny the approvals to verify that the		      <
+            application is not able to remove the certificate. Failure		      <
+            of removal shall be tested by attempting to validate a		      <
+            certificate that chains to the certificate whose removal was	      <
+            attempted (as described in the evaluation activity for		      <
+            [FIA\_X509\_EXT.1](#FIA_X509_EXT.1)).				      <
+										      <
+    The evaluator shall repeat the test, allowing the approval to verify	      <
+    that the application is able to remove/modify the certificate and		      <
+    that validation no longer occurs.						      <
+-   **Test 30:** The test of this function is performed in conjunction		      <
+    with [FIA\_X509\_EXT.2.2](#FIA_X509_EXT.2.2).				      <
+-   **Test 31:** The evaluator shall attempt to disable each cellular		      <
+    protocol according to the administrator guidance. The evaluator		      <
+    shall attempt to connect the device to a cellular network and, using	      <
+    network analysis tools, verify that the device does not allow		      <
+    negotiation of the disabled protocols.					      <
+-   **Test 32:** The evaluator shall attempt to read any device audit		      <
+    logs according to the administrator guidance and verify that the		      <
+    logs may be read. This test may be performed in conjunction with the	      <
+    evaluation activity of [FAU\_GEN.1](#FAU_GEN.1).				      <
+-   **Test 33:** The test of this function is performed in conjunction		      <
+    with [FPT\_TUD\_EXT.5.1](#FPT_TUD_EXT.5.1).					      <
+-   **Test 34:** The test of this function is performed in conjunction		      <
+    with [FCS\_STG\_EXT.1](#FCS_STG_EXT.1).					      <
+-   **Test 35:** The test of this function is performed in conjunction		      <
+    with [FCS\_STG\_EXT.1](#FCS_STG_EXT.1).					      <
+-   **Test 36:** The test of this function is performed in conjunction		      <
+    with [FTA\_TAB.1](#FTA_TAB.1).						      <
+-   **Test 37:** The test of this function is performed in conjunction		      <
+    with [FAU\_SEL.1](#FAU_SEL.1).						      <
+-   **Test 38:** The test of this function is performed in conjunction		      <
+    with [FPT\_NOT\_EXT.2.1](#FPT_NOT_EXT.2.1).					      <
+-   **Test 39:** The evaluator shall perform the following tests based		      <
+    on the selections made in the table:					      <
+    a.  \[conditional\] The evaluator shall disable [USB](#abbr_USB)		      <
+        mass storage mode, attach the device to a computer, and verify		      <
+        that the computer cannot mount the [TOE](#abbr_TOE) as a drive.		      <
+        The evaluator shall reboot the [TOE](#abbr_TOE) and repeat this		      <
+        test with other supported auxiliary boot modes.				      <
+    b.  \[conditional\] The evaluator shall disable [USB](#abbr_USB)		      <
+        data transfer without user authentication, attach the device to		      <
+        a computer, and verify that the [TOE](#abbr_TOE) requires user		      <
+        authentication before the computer can access [TOE](#abbr_TOE)		      <
+        data. The evaluator shall reboot the [TOE](#abbr_TOE) and repeat	      <
+        this test with other supported auxiliary boot modes.			      <
+    c.  \[conditional\] The evaluator shall disable [USB](#abbr_USB)		      <
+        data transfer without connecting system authentication, attach		      <
+        the device to a computer, and verify that the [TOE](#abbr_TOE)		      <
+        requires connecting system authentication before the computer		      <
+        can access [TOE](#abbr_TOE) data. The evaluator shall then		      <
+        connect the [TOE](#abbr_TOE) to another computer and verify that	      <
+        the computer cannot access [TOE](#abbr_TOE) data. The evaluator		      <
+        shall then connect the [TOE](#abbr_TOE) to the original computer	      <
+        and verify that the computer can access [TOE](#abbr_TOE) data.		      <
+-   **Test 40:** If \"all applications\" is selected, the evaluator		      <
+    shall disable each selected backup location in turn and verify that		      <
+    the [TOE](#abbr_TOE) cannot complete a backup. The evaluator shall		      <
+    then enable each selected backup location in turn and verify that		      <
+    the [TOE](#abbr_TOE) can perform a backup.\					      <
+    \										      <
+    If \"selected applications\" is selected, the evaluator shall		      <
+    disable each selected backup location in turn and verify that for		      <
+    the selected application the [TOE](#abbr_TOE) prevents backup from		      <
+    occurring. The evaluator shall then enable each selected backup		      <
+    location in turn and verify that for the selected application the		      <
+    [TOE](#abbr_TOE) can perform a backup.\					      <
+    \										      <
+    If \"selected groups of applications\" is selected, the evaluator		      <
+    shall disable each selected backup location in turn and verify that		      <
+    for a group of applications the [TOE](#abbr_TOE) prevents the backup	      <
+    from occurring. The evaluator shall then enable each selected backup	      <
+    location in turn and verify for the group of application the		      <
+    [TOE](#abbr_TOE) can perform a backup.\					      <
+    \										      <
+    If \"configuration data\" is selected, the evaluator shall disable		      <
+    each selected backup location in turn and verify that the			      <
+    [TOE](#abbr_TOE) prevents the backup of configuration data from		      <
+    occurring. The evaluator shall then enable each selected backup		      <
+    location in turn and verify that the [TOE](#abbr_TOE) can perform a		      <
+    backup of configuration data.						      <
+-   **Test 41:** The evaluator shall perform the following tests based		      <
+    on the selections in Function						      <
+    [[41]{.counter}](#hotspot){.hotspot-ref}.					      <
+    a.  \[conditional\] The evaluator shall enable hotspot functionality	      <
+        with each of the of the support authentication methods. The		      <
+        evaluator shall connect to the hotspot with another device and		      <
+        verify that the hotspot functionality requires the configured		      <
+        authentication method.							      <
+    b.  \[conditional\] The evaluator shall enable [USB](#abbr_USB)		      <
+        tethering functionality with each of the of the support			      <
+        authentication methods. The evaluator shall connect to the		      <
+        [TOE](#abbr_TOE) over [USB](#abbr_USB) with another device and		      <
+        verify that the tethering functionality requires the configured		      <
+        authentication method.							      <
+-   **Test 42:** The test of this function is performed in conjunction		      <
+    with [FDP\_ACF\_EXT.1.2](#FDP_ACF_EXT.1.2).					      <
+-   **Test 43:** The evaluator shall set a policy to cause a designated		      <
+    application to be placed into a particular application group. The		      <
+    evaluator shall then install the designated application and verify		      <
+    that it was placed into the correct group.					      <
+-   **Test 44:** The evaluator shall attempt to unenroll the device from	      <
+    management and verify that the steps described in				      <
+    [FMT\_SMF\_EXT.2.1](#FMT_SMF_EXT.2.1) are performed. This test		      <
+    should be performed in conjunction with the					      <
+    [FMT\_SMF\_EXT.2.1](#FMT_SMF_EXT.2.1) evaluation activity.			      <
+-   **Test 45:** The evaluator shall verify that the [TSS](#abbr_TSS)		      <
+    contains guidance to configure the [VPN](#abbr_VPN) as Always-On.		      <
+    The evaluator shall configure the [VPN](#abbr_VPN) as Always-On and		      <
+    perform the following test.							      <
+    a.  The evaluator shall verify that when the [VPN](#abbr_VPN) is		      <
+        connected all traffic is routed through the [VPN](#abbr_VPN).		      <
+        This test is performed in conjunction with				      <
+        [FDP\_IFC\_EXT.1.1](#FDP_IFC_EXT.1.1).					      <
+    b.  The evaluator shall verify that when the [VPN](#abbr_VPN) is not	      <
+        established, that no traffic leaves the device. The evaluator		      <
+        shall ensure that the [TOE](#abbr_TOE) has network connectivity		      <
+        and that the [VPN](#abbr_VPN) is established. The evaluator		      <
+        shall use a packet sniffing tool to capture the traffic leaving		      <
+        the [TOE](#abbr_TOE). The evaluator shall disable the			      <
+        [VPN](#abbr_VPN) connection on the server side. The evaluator		      <
+        shall perform actions with the device such as navigating to		      <
+        websites, using provided applications, and accessing other		      <
+        Internet resources and verify that no traffic leaves the device.	      <
+    c.  The evaluator shall verify that the [TOE](#abbr_TOE) has network	      <
+        connectivity and that the [VPN](#abbr_VPN) is established. The		      <
+        evaluator shall disable network connectivity (i.e. Airplane		      <
+        Mode) and verify that the [VPN](#abbr_VPN) disconnects. The		      <
+        evaluator shall re-establish network connectivity and verify		      <
+        that the [VPN](#abbr_VPN) automatically reconnects.			      <
+-   **Test 46:** The evaluator shall verify that the [TSS](#abbr_TSS)		      <
+    describes the procedure to revoke a biometric credential stored on		      <
+    the [TOE](#abbr_TOE). The evaluator shall configure the			      <
+    [TOE](#abbr_TOE) to use [BAF](#abbr_BAF) and confirm that the		      <
+    biometric can be used to authenticate to the device. The evaluator		      <
+    shall revoke the biometric credential's ability to authenticate to		      <
+    the [TOE](#abbr_TOE) and confirm that the same [BAF](#abbr_BAF)		      <
+    cannot be used to authenticate to the device.				      <
+-   **Test 47:** The evaluator shall design and perform tests to		      <
+    demonstrate that the function may be configured and that the		      <
+    intended behavior of the function is enacted by the				      <
+    [TOE](#abbr_TOE).								      <
+
+										      >	::: {.eacategory}
+										      >	[TSS](#abbr_TSS)
+										      >	:::
+										      >
+										      >	The evaluator shall verify that the [TSS](#abbr_TSS) includes a
+										      >	description of each radio and an indication of if the radio can be
+										      >	enabled/disabled along with what role can do so. In addition the
+										      >	evaluator shall verify that the frequency ranges at which each radio
+										      >	operates is included in the [TSS](#abbr_TSS). The evaluator shall verify
+										      >	that the [TSS](#abbr_TSS) includes at what point in the boot sequence
+										      >	the radios are powered on and indicates if the radios are used as part
+										      >	of the initialization of the device.\
+										      >
+										      >	::: {.eacategory}
+										      >	Guidance
+										      >	:::
+										      >
+										      >	The evaluator shall confirm that the AGD guidance describes how to
+										      >	perform the enable/disable function for each radio.\
+										      >	\
+										      >	\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+										      >	:::
+										      >
+										      >	The evaluator shall ensure that minimal signal leakage enters the RF
+										      >	shielded enclosure (i.e. Faraday bag, Faraday box, RF shielded room) by
+										      >	performing the following steps:\
+										      >	\
+										      >	Step 1: Place the antenna of the spectrum analyzer inside the RF
+										      >	shielded enclosure.\
+										      >	\
+										      >	Step 2: Enable \"Max Hold\" on the spectrum analyzer and perform a
+										      >	spectrum sweep of the frequency range between 300 MHz -- 6000 MHz, in I
+										      >	kHz steps (this range should encompass 802.11, 802.15, GSM, UMTS, and
+										      >	[LTE](#abbr_LTE)). This range will not address [NFC](#abbr_NFC)
+										      >	13.56.MHz, another test should be set up with similar constraints to
+										      >	address [NFC](#abbr_NFC).\
+										      >	\
+										      >	If power above -90 dBm is observed, the Faraday box has too great of
+										      >	signal leakage and shall not be used to complete the test for Function
+										      >	[4](#mf-radios). The evaluator shall exercise the [TSF](#abbr_TSF)
+										      >	configuration as the administrator and, if not restricted to the
+										      >	administrator, the user, to enable and disable the state of each radio
+										      >	(e.g. Wi-Fi, cellular, [NFC](#abbr_NFC), Bluetooth). Additionally, the
+										      >	evaluator shall repeat the steps below, booting into any auxiliary boot
+										      >	mode supported by the device. For each radio, the evaluator shall:\
+										      >	\
+										      >	Step 1: Place the antenna of the spectrum analyzer inside the RF
+										      >	shielded enclosure. Configure the spectrum analyzer to sweep desired
+										      >	frequency range for the radio to be tested (based on range provided in
+										      >	the [TSS](#abbr_TSS))). The ambient noise floor shall be set to -110
+										      >	dBm. Place the [TOE](#abbr_TOE) into the RF shielded enclosure to
+										      >	isolate them from all other RF traffic.\
+										      >	\
+										      >	Step 2: The evaluator shall create a baseline of the expected behavior
+										      >	of RF signals. The evaluator shall power on the device, ensure the radio
+										      >	in question is enabled, power off the device, enable \"Max Hold\" on the
+										      >	spectrum analyzer and power on the device. The evaluator shall wait 2
+										      >	minutes at each Authentication Factor interface prior to entering the
+										      >	necessary password to complete the boot process, waiting 5 minutes after
+										      >	the device is fully booted. The evaluator shall observe that RF spikes
+										      >	are present at the expected uplink channel frequency. The evaluator
+										      >	shall clear the \"Max Hold\" on the spectrum analyzer.\
+										      >	\
+										      >	Step 3: The evaluator shall verify the absence of RF activity for the
+										      >	uplink channel when the radio in question is disabled. The evaluator
+										      >	shall complete the following test five times. The evaluator shall power
+										      >	on the device, ensure the radio in question is disabled, power off the
+										      >	device, enable \"Max Hold\" on the spectrum analyzer and power on the
+										      >	device. The evaluator shall wait 2 minutes at each Authentication Factor
+										      >	interface prior to entering the necessary password to complete the boot
+										      >	process, waiting 5 minutes after the device is fully booted. The
+										      >	evaluator shall clear the \"Max Hold\" on the spectrum analyzer. If the
+										      >	radios are used for device initialization, then a spike of RF activity
+										      >	for the uplink channel can be observed initially at device boot.
+										      >	However, if a spike of RF activity for the uplink channel of the
+										      >	specific radio frequency band is observed after the device is fully
+										      >	booted or at an Authentication Factor interface it is deemed that the
+										      >	radio is enabled.\
+										      >	\
+										      >	:::
+										      >
+										      >	::: {.management_function_ea}
+										      >	**Function [5](#mf-audioVisual)**\
+										      >
+										      >	::: {.eacategory}
+										      >	[TSS](#abbr_TSS)
+										      >	:::
+										      >
+										      >	The evaluator shall verify that the [TSS](#abbr_TSS) includes a
+										      >	description of each collection device and an indication of if it can be
+										      >	enabled/disabled along with what role can do so. The evaluator shall
+										      >	confirm that the AGD guidance describes how to perform the
+										      >	enable/disable function.\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+										      >	:::
+										      >
+										      >	The evaluator shall perform the following test(s):
+										      >
+										      >	a.  The evaluator shall exercise the [TSF](#abbr_TSF) configuration as
+										      >	    the administrator and, if not restricted to the administrator, the
+										      >	    user, to enable and disable the state of each audio or visual
+										      >	    collection devices (e.g. camera, microphone) listed by the
+										      >	    [ST](#abbr_ST) author. For each collection device, the evaluator
+										      >	    shall disable the device and then attempt to use its functionality.
+										      >	    The evaluator shall reboot the [TOE](#abbr_TOE) and verify that
+										      >	    disabled collection devices may not be used during or early in the
+										      >	    boot process. Additionally, the evaluator shall boot the device into
+										      >	    each available auxiliary boot mode and verify that the collection
+										      >	    device cannot be used.
+										      >	b.  \[conditional\] If \"per-app basis\" is selected, the evaluator
+										      >	    shall create two applications and enable one to use access the A/V
+										      >	    device and the other to not access the A/V device. The evaluator
+										      >	    shall exercise each application attempting to access the A/V device
+										      >	    individually. The evaluator shall verify that the enabled
+										      >	    application is able to access the A/V device and the disabled
+										      >	    application is not able to access the A/V device.
+										      >	c.  \[conditional\] If \"per-groups of application basis\" is selected,
+										      >	    the evaluator shall create two applications and the applications
+										      >	    shall be placed into different groups. Enable one group to access
+										      >	    the A/V device and the other to not access the A/V device. The
+										      >	    evaluator shall exercise each application attempting to access the
+										      >	    A/V device individually. The evaluator shall verify that the
+										      >	    application in the enabled group is able to access the A/V device
+										      >	    and the application in the disabled group is not able to access the
+										      >	    A/V device.
+										      >
+										      >	\
+										      >	\
+										      >	:::
+										      >
+										      >	::: {.management_function_ea}
+										      >	**Function [6](#mf-lockState)**\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+										      >	:::
+										      >
+										      >	The evaluator shall use the test environment to instruct the
+										      >	[TSF](#abbr_TSF), both as a user and as the administrator, to command
+										      >	the device to transition to a locked state, and verify that the device
+										      >	transitions to the locked state upon command.\
+										      >	\
+										      >	:::
+										      >
+										      >	::: {.management_function_ea}
+										      >	**Function [8](#mf-appInstallRules)**\
+										      >
+										      >	::: {.eacategory}
+										      >	[TSS](#abbr_TSS)
+										      >	:::
+										      >
+										      >	The evaluator shall verify the [TSS](#abbr_TSS) describes the allowable
+										      >	application installation policy options based on the selection included
+										      >	in the [ST](#abbr_ST). If the application allowlist is selected, the
+										      >	evaluator shall verify that the [TSS](#abbr_TSS) includes a description
+										      >	of each application characteristic upon which the allowlist may be
+										      >	based.\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+										      >	:::
+										      >
+										      >	The evaluator shall exercise the [TSF](#abbr_TSF) configuration as the
+										      >	administrator to restrict particular applications, sources of
+										      >	applications, or application installation according to the AGD guidance.
+										      >	The evaluator shall attempt to install unauthorized applications and
+										      >	ensure that this is not possible. The evaluator shall, in conjunction,
+										      >	perform the following specific tests:
+										      >
+										      >	a.  \[conditional\] The evaluator shall attempt to connect to an
+										      >	    unauthorized repository in order to install applications.
+										      >	b.  \[conditional\] The evaluator shall attempt to install two
+										      >	    applications (one allowlisted, and one not) from a known allowed
+										      >	    repository and verify that the application not on the allowlist is
+										      >	    rejected. The evaluator shall also attempt to side-load executables
+										      >	    or installation packages via [USB](#abbr_USB) connections to
+										      >	    determine that the white list is still adhered to
+										      >
+										      >	\
+										      >	\
+										      >	:::
+										      >
+										      >	::: {.management_function_ea}
+										      >	**Functions [9](#mf-keyStorage)/[10](#mf-keyWipe)**\
+										      >
+										      >	::: {.eacategory}
+										      >	[TSS](#abbr_TSS)
+										      >	:::
+										      >
+										      >	The evaluator shall verify that the [TSS](#abbr_TSS) describes each
+										      >	category of keys/secrets that can be imported into the
+										      >	[TSF](#abbr_TSF)'s secure key storage.\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+										      >	:::
+										      >
+										      >	The test of these functions is performed in association with
+										      >	[FCS\_STG\_EXT.1](#FCS_STG_EXT.1).\
+\											\
+:::											:::
+										      >
+										      >	::: {.management_function_ea}
+										      >	**Function [11](#mf-certImport)**\
+										      >
+										      >	::: {.eacategory}
+										      >	Guidance
+										      >	:::
+										      >
+										      >	The evaluator shall review the AGD guidance to determine that it
+										      >	describes the steps needed to import, modify, or remove certificates in
+										      >	the Trust Anchor database, and that the users that have authority to
+										      >	import those certificates (e.g., only administrator, or both
+										      >	administrators and users) are identified.\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+										      >	:::
+										      >
+										      >	The evaluator shall import certificates according to the AGD guidance as
+										      >	the user and/or as the administrator, as determined by the
+										      >	administrative guidance. The evaluator shall verify that no errors occur
+										      >	during import. The evaluator should perform an action requiring use of
+										      >	the X.509v3 certificate to provide assurance that installation was
+										      >	completed properly.\
+										      >	\
+										      >	:::
+										      >
+										      >	::: {.management_function_ea}
+										      >	**Function [12](#mf-certWipe)**\
+										      >
+										      >	::: {.eacategory}
+										      >	[TSS](#abbr_TSS)
+										      >	:::
+										      >
+										      >	The evaluator shall verify that the [TSS](#abbr_TSS) describes each
+										      >	additional category of X.509 certificates and their use within the
+										      >	[TSF](#abbr_TSF).\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+										      >	:::
+										      >
+										      >	The evaluator shall remove an administrator-imported certificate and any
+										      >	other categories of certificates included in the assignment of function
+										      >	[14](#mf-appRemove) from the Trust Anchor Database according to the AGD
+										      >	guidance as the user and as the administrator.\
+										      >	\
+										      >	:::
+										      >
+										      >	::: {.management_function_ea}
+										      >	**Function [13](#mf-enroll)**\
+										      >
+										      >	::: {.eacategory}
+										      >	[TSS](#abbr_TSS)
+										      >	:::
+										      >
+										      >	The evaluator shall examine the [TSS](#abbr_TSS) to ensure that it
+										      >	contains a description of each management function that will be enforced
+										      >	by the enterprise once the device is enrolled. The evaluator shall
+										      >	examine the AGD guidance to determine that this same information is
+										      >	present.\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+										      >	:::
+										      >
+										      >	The evaluator shall verify that user approval is required to enroll the
+										      >	device into management.\
+										      >	\
+										      >	:::
+										      >
+										      >	::: {.management_function_ea}
+										      >	**Function [14](#mf-appRemove)**\
+										      >
+										      >	::: {.eacategory}
+										      >	[TSS](#abbr_TSS)
+										      >	:::
+										      >
+										      >	The evaluator shall verify that the [TSS](#abbr_TSS) includes an
+										      >	indication of what applications (e.g., user-installed applications,
+										      >	Administrator-installed applications, or Enterprise applications) can be
+										      >	removed along with what role can do so. The evaluator shall examine the
+										      >	AGD guidance to determine that it details, for each type of application
+										      >	that can be removed, the procedures necessary to remove those
+										      >	applications and their associated data. For the purposes of this
+										      >	Evaluation Activity, \"associated data\" refers to data that are created
+										      >	by the app during its operation that do not exist independent of the
+										      >	app\'s existence, for instance, configuration data, or e-mail
+										      >	information that's part of an e-mail client. It does not, on the other
+										      >	hand, refer to data such as word processing documents (for a word
+										      >	processing app) or photos (for a photo or camera app).\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+										      >	:::
+										      >
+										      >	The evaluator shall attempt to remove applications according to the AGD
+										      >	guidance and verify that the [TOE](#abbr_TOE) no longer permits users to
+										      >	access those applications or their associated data.\
+										      >	\
+										      >	:::
+										      >
+										      >	::: {.management_function_ea}
+										      >	**Function [15](#mf-update)**\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+										      >	:::
+										      >
+										      >	The evaluator shall attempt to update the [TSF](#abbr_TSF) system
+										      >	software following the procedures in the AGD guidance and verify that
+										      >	updates correctly install and that the version numbers of the system
+										      >	software increase.\
+										      >	\
+										      >	:::
+										      >
+										      >	::: {.management_function_ea}
+										      >	**Function [16](#mf-appInstall)**\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+										      >	:::
+										      >
+										      >	The evaluator shall attempt to install an application following the
+										      >	procedures in the AGD guidance and verify that the application is
+										      >	installed and available on the [TOE](#abbr_TOE).\
+										      >	\
+										      >	:::
+										      >
+										      >	::: {.management_function_ea}
+										      >	**Function [17](#mf-entAppRemove)**\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+										      >	:::
+										      >
+										      >	The evaluator shall attempt to remove any Enterprise applications from
+										      >	the device by following the administrator guidance. The evaluator shall
+										      >	verify that the [TOE](#abbr_TOE) no longer permits users to access those
+										      >	applications or their associated data.\
+										      >	\
+										      >	:::
+										      >
+										      >	::: {.management_function_ea}
+										      >	**Function [18](#mf-notifications)**\
+										      >
+										      >	::: {.eacategory}
+										      >	Guidance
+										      >	:::
+										      >
+										      >	The evaluator shall examine the AGD Guidance to determine that it
+										      >	specifies, for at least each category of information selected for
+										      >	Function [18](#mf-notifications), how to enable and disable display
+										      >	information for that type of information in the locked state.\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+										      >	:::
+										      >
+										      >	For each category of information listed in the AGD guidance, the
+										      >	evaluator shall verify that when that [TSF](#abbr_TSF) is configured to
+										      >	limit the information according to the AGD, the information is no longer
+										      >	displayed in the locked state.\
+										      >	\
 										      >	:::
 										      >
 										      >	::: {.management_function_ea}
@@ -12186,7 +12555,7 @@ Tests											Tests
 										      >	the correct group.\
 										      >	\
 										      >	:::
-
+										      >
 										      >	::: {.management_function_ea}
 										      >	**Function [44](#mf-unenroll) \[CONDITIONAL\]**\
 										      >
@@ -12198,8 +12567,8 @@ Tests											Tests
 										      >	verify that the steps described in [FMT\_SMF\_EXT.2.1](#FMT_SMF_EXT.2.1)
 										      >	are performed. This test should be performed in conjunction with the
 										      >	[FMT\_SMF\_EXT.2.1](#FMT_SMF_EXT.2.1) evaluation activity.\
-\											\
-:::											:::
+										      >	\
+										      >	:::
 										      >
 										      >	::: {.management_function_ea}
 										      >	**Function [45](#mf-alwaysOnVPN) \[CONDITIONAL\]**\
@@ -14251,95 +14620,95 @@ to meet and achieve the security objectives:\						to meet and achieve the secur
                                                                                       |	[FDP\_BLT\_EXT.1](#FDP_BLT_EXT.1) supports the objective by limiting the
                                                                                       |	applications that are authorized to use the Bluetooth interface, which
                                                                                       |	may include a trusted channel.
-                                                                                      |
-                                                                                      |	[FDP\_IFC\_EXT.1](#FDP_IFC_EXT.1)
-                                                                                      |
-                                                                                      |	[FDP\_IFC\_EXT.1](#FDP_IFC_EXT.1) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to have either its own [IPsec](#abbr_IPsec)
-                                                                                      |	[VPN](#abbr_VPN) client or interface that allows a third-party
-                                                                                      |	[VPN](#abbr_VPN) client to be deployed on it.
-                                                                                      |
-                                                                                      |	[FDP\_STG\_EXT.1](#FDP_STG_EXT.1)
-                                                                                      |
-                                                                                      |	[FDP\_STG\_EXT.1](#FDP_STG_EXT.1) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to implement a protected key storage that can be
-                                                                                      |	used to protect persistent keys used for protected communications from
-                                                                                      |	disclosure.
-                                                                                      |
-                                                                                      |	[FDP\_UPC\_EXT.1/APPS](#FDP_UPC_EXT.1/APPS)
-                                                                                      |
-                                                                                      |	[FDP\_UPC\_EXT.1/APPS](#FDP_UPC_EXT.1/APPS) supports the objective by
-                                                                                      |	defining the protected communications channels that it allows
-                                                                                      |	third-party applications to invoke.
-                                                                                      |
-                                                                                      |	[FDP\_UPC\_EXT.1/BLUETOOTH](#FDP_UPC_EXT.1/BLUETOOTH)
-                                                                                      |
-                                                                                      |	[FDP\_UPC\_EXT.1/BLUETOOTH](#FDP_UPC_EXT.1/BLUETOOTH) supports the
-                                                                                      |	objective by defining the Bluetooth interfaces that it allows
-                                                                                      |	third-party applications to invoke.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.1 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.1 supports the objective by ensuring that Bluetooth
-                                                                                      |	communications are not initiated without user approval.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.2 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.2 supports the objective by requiring the [TSF](#abbr_TSF)
-                                                                                      |	to implement Bluetooth mutual authentication.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.3 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.3 supports the objective by preventing Bluetooth spoofing
-                                                                                      |	by rejecting connections with duplicate device addresses.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.4 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.4 supports the objective by defining the
-                                                                                      |	[TSF](#abbr_TSF)\'s implementation of Bluetooth Secure Simple Pairing.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.5 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.5 supports the objective by requiring the [TSF](#abbr_TSF)
-                                                                                      |	to support Secure Connections Only mode for the supported Bluetooth
-                                                                                      |	communication channels.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.6 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.6 supports the objective by requiring the [TSF](#abbr_TSF)
-                                                                                      |	to specify the Bluetooth profiles that it requires explicit user
-                                                                                      |	authorization to grant access to for trusted devices.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.7 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.7 supports the objective by requiring the [TSF](#abbr_TSF)
-                                                                                      |	to specify the Bluetooth profiles that it requires explicit user
-                                                                                      |	authorization to grant access to for untrusted devices.
-                                                                                      |
-                                                                                      |	[FIA\_X509\_EXT.1](#FIA_X509_EXT.1)
-                                                                                      |
-                                                                                      |	[FIA\_X509\_EXT.1](#FIA_X509_EXT.1) supports the objective by defining
-                                                                                      |	the rules the [TSF](#abbr_TSF) uses to determine if a presented X.509
-                                                                                      |	certificate is valid.
-                                                                                      |
-                                                                                      |	[FIA\_X509\_EXT.2](#FIA_X509_EXT.2)
-                                                                                      |
-										      |	[FIA\_X509\_EXT.2](#FIA_X509_EXT.2) supports the objective by requiring
-  [O.STORAGE](#O.STORAGE)\                    [FCS\_CKM.2/LOCKED](#FCS_CKM.2/LOCKED), |	the [TSF](#abbr_TSF) to enumerate its uses of X.509 certificates
-                                              [FCS\_CKM\_EXT.1](#FCS_CKM_EXT.1),      |	(including protected communications) and its behavior when a
-                                              [FCS\_CKM\_EXT.2](#FCS_CKM_EXT.2),      |	certificate\'s revocation status is undetermined.
-                                              [FCS\_CKM\_EXT.3](#FCS_CKM_EXT.3),      |
-                                              [FCS\_CKM\_EXT.4](#FCS_CKM_EXT.4),      |	[FIA\_X509\_EXT.3](#FIA_X509_EXT.3)
-                                              [FCS\_CKM\_EXT.5](#FCS_CKM_EXT.5),      |
-                                              [FCS\_CKM\_EXT.6](#FCS_CKM_EXT.6),      |	[FIA\_X509\_EXT.3](#FIA_X509_EXT.3) supports the objective by requiring
-                                              [FCS\_CKM\_EXT.7](#FCS_CKM_EXT.7) (Sel- |	the [TSF](#abbr_TSF) to provide a certificate validation service to
-                                              [FCS\_COP.1/ENCRYPT](#FCS_COP.1/ENCRYPT |	third-party applications.
-                                              [FCS\_COP.1/HASH](#FCS_COP.1/HASH),     |
-                                              [FCS\_COP.1/SIGN](#FCS_COP.1/SIGN),     |	[FIA\_X509\_EXT.4](#FIA_X509_EXT.4) (Objective)
-                                              [FCS\_COP.1/KEYHMAC](#FCS_COP.1/KEYHMAC |
-                                              [FCS\_COP.1/CONDITION](#FCS_COP.1/CONDI |	[FIA\_X509\_EXT.4](#FIA_X509_EXT.4) supports the objective by defining
-                                              [FCS\_IV\_EXT.1](#FCS_IV_EXT.1),        |	the implementation of [EST](#abbr_EST) as a method by which the
-                                              [FCS\_RBG\_EXT.1](#FCS_RBG_EXT.1),      |	[TSF](#abbr_TSF) can obtain an X.509 certificate for its own use.
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+										      <
+  [O.STORAGE](#O.STORAGE)\                    [FCS\_CKM.2/LOCKED](#FCS_CKM.2/LOCKED), <
+                                              [FCS\_CKM\_EXT.1](#FCS_CKM_EXT.1),      <
+                                              [FCS\_CKM\_EXT.2](#FCS_CKM_EXT.2),      <
+                                              [FCS\_CKM\_EXT.3](#FCS_CKM_EXT.3),      <
+                                              [FCS\_CKM\_EXT.4](#FCS_CKM_EXT.4),      <
+                                              [FCS\_CKM\_EXT.5](#FCS_CKM_EXT.5),      <
+                                              [FCS\_CKM\_EXT.6](#FCS_CKM_EXT.6),      <
+                                              [FCS\_CKM\_EXT.7](#FCS_CKM_EXT.7) (Sel- <
+                                              [FCS\_COP.1/ENCRYPT](#FCS_COP.1/ENCRYPT <
+                                              [FCS\_COP.1/HASH](#FCS_COP.1/HASH),     <
+                                              [FCS\_COP.1/SIGN](#FCS_COP.1/SIGN),     <
+                                              [FCS\_COP.1/KEYHMAC](#FCS_COP.1/KEYHMAC <
+                                              [FCS\_COP.1/CONDITION](#FCS_COP.1/CONDI <
+                                              [FCS\_IV\_EXT.1](#FCS_IV_EXT.1),        <
+                                              [FCS\_RBG\_EXT.1](#FCS_RBG_EXT.1),      <
                                               [FCS\_STG\_EXT.1](#FCS_STG_EXT.1),      <
                                               [FCS\_STG\_EXT.2](#FCS_STG_EXT.2),      <
                                               [FCS\_STG\_EXT.3](#FCS_STG_EXT.3),      <
@@ -14713,14 +15082,102 @@ to meet and achieve the security objectives:\						to meet and achieve the secur
                                                                                       <
   ----------------------------------------------------------------------------------- <
 
-  : [Table [8]{.counter}]{#t-obj_map .ctr data-myid="t-obj_map"			      |	[FIA\_X509\_EXT.5](#FIA_X509_EXT.5) (Objective)
-  data-counter-type="ct-Table"}: [SFR](#abbr_SFR) Rationale			      <
-
-### 5.2 Security Assurance Requirements {#sar .indexable data-level="2"}	      |	[FIA\_X509\_EXT.5](#FIA_X509_EXT.5) supports the objective by defining
+  : [Table [8]{.counter}]{#t-obj_map .ctr data-myid="t-obj_map"			      |	[FDP\_IFC\_EXT.1](#FDP_IFC_EXT.1)
+  data-counter-type="ct-Table"}: [SFR](#abbr_SFR) Rationale			      |
+										      >	[FDP\_IFC\_EXT.1](#FDP_IFC_EXT.1) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to have either its own [IPsec](#abbr_IPsec)
+										      >	[VPN](#abbr_VPN) client or interface that allows a third-party
+										      >	[VPN](#abbr_VPN) client to be deployed on it.
+										      >
+										      >	[FDP\_STG\_EXT.1](#FDP_STG_EXT.1)
+										      >
+										      >	[FDP\_STG\_EXT.1](#FDP_STG_EXT.1) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to implement a protected key storage that can be
+										      >	used to protect persistent keys used for protected communications from
+										      >	disclosure.
+										      >
+										      >	[FDP\_UPC\_EXT.1/APPS](#FDP_UPC_EXT.1/APPS)
+										      >
+										      >	[FDP\_UPC\_EXT.1/APPS](#FDP_UPC_EXT.1/APPS) supports the objective by
+										      >	defining the protected communications channels that it allows
+										      >	third-party applications to invoke.
+										      >
+										      >	[FDP\_UPC\_EXT.1/BLUETOOTH](#FDP_UPC_EXT.1/BLUETOOTH)
+										      >
+										      >	[FDP\_UPC\_EXT.1/BLUETOOTH](#FDP_UPC_EXT.1/BLUETOOTH) supports the
+										      >	objective by defining the Bluetooth interfaces that it allows
+										      >	third-party applications to invoke.
+										      >
+										      >	FIA\_BLT\_EXT.1 (Bluetooth Module)
+										      >
+										      >	FIA\_BLT\_EXT.1 supports the objective by ensuring that Bluetooth
+										      >	communications are not initiated without user approval.
+										      >
+										      >	FIA\_BLT\_EXT.2 (Bluetooth Module)
+										      >
+										      >	FIA\_BLT\_EXT.2 supports the objective by requiring the [TSF](#abbr_TSF)
+										      >	to implement Bluetooth mutual authentication.
+										      >
+										      >	FIA\_BLT\_EXT.3 (Bluetooth Module)
+										      >
+										      >	FIA\_BLT\_EXT.3 supports the objective by preventing Bluetooth spoofing
+										      >	by rejecting connections with duplicate device addresses.
+										      >
+										      >	FIA\_BLT\_EXT.4 (Bluetooth Module)
+										      >
+										      >	FIA\_BLT\_EXT.4 supports the objective by defining the
+										      >	[TSF](#abbr_TSF)\'s implementation of Bluetooth Secure Simple Pairing.
+										      >
+										      >	FIA\_BLT\_EXT.5 (Bluetooth Module)
+										      >
+										      >	FIA\_BLT\_EXT.5 supports the objective by requiring the [TSF](#abbr_TSF)
+										      >	to support Secure Connections Only mode for the supported Bluetooth
+										      >	communication channels.
+										      >
+										      >	FIA\_BLT\_EXT.6 (Bluetooth Module)
+										      >
+										      >	FIA\_BLT\_EXT.6 supports the objective by requiring the [TSF](#abbr_TSF)
+										      >	to specify the Bluetooth profiles that it requires explicit user
+										      >	authorization to grant access to for trusted devices.
+										      >
+										      >	FIA\_BLT\_EXT.7 (Bluetooth Module)
+										      >
+										      >	FIA\_BLT\_EXT.7 supports the objective by requiring the [TSF](#abbr_TSF)
+										      >	to specify the Bluetooth profiles that it requires explicit user
+										      >	authorization to grant access to for untrusted devices.
+										      >
+										      >	[FIA\_X509\_EXT.1](#FIA_X509_EXT.1)
+										      >
+										      >	[FIA\_X509\_EXT.1](#FIA_X509_EXT.1) supports the objective by defining
+										      >	the rules the [TSF](#abbr_TSF) uses to determine if a presented X.509
+										      >	certificate is valid.
+										      >
+										      >	[FIA\_X509\_EXT.2](#FIA_X509_EXT.2)
+										      >
+										      >	[FIA\_X509\_EXT.2](#FIA_X509_EXT.2) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to enumerate its uses of X.509 certificates
+										      >	(including protected communications) and its behavior when a
+										      >	certificate\'s revocation status is undetermined.
+										      >
+										      >	[FIA\_X509\_EXT.3](#FIA_X509_EXT.3)
+										      >
+										      >	[FIA\_X509\_EXT.3](#FIA_X509_EXT.3) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to provide a certificate validation service to
+										      >	third-party applications.
+										      >
+										      >	[FIA\_X509\_EXT.4](#FIA_X509_EXT.4) (Objective)
+										      >
+										      >	[FIA\_X509\_EXT.4](#FIA_X509_EXT.4) supports the objective by defining
+										      >	the implementation of [EST](#abbr_EST) as a method by which the
+										      >	[TSF](#abbr_TSF) can obtain an X.509 certificate for its own use.
+										      >
+										      >	[FIA\_X509\_EXT.5](#FIA_X509_EXT.5) (Objective)
+										      >
+										      >	[FIA\_X509\_EXT.5](#FIA_X509_EXT.5) supports the objective by defining
 										      >	the implementation of Certificate Request Messages as a method by which
 										      >	the [TSF](#abbr_TSF) can obtain an X.509 certificate for its own use.
-										      >
-										      >	[FPT\_BLT\_EXT.1](#FPT_BLT_EXT.1) (Objective)
+
+### 5.2 Security Assurance Requirements {#sar .indexable data-level="2"}	      |	[FPT\_BLT\_EXT.1](#FPT_BLT_EXT.1) (Objective)
 										      >
 										      >	[FPT\_BLT\_EXT.1](#FPT_BLT_EXT.1) supports the objective by requiring
 										      >	the [TSF](#abbr_TSF) to disable certain Bluetooth profiles when they are
@@ -19928,52 +20385,97 @@ data-myid="uc1" data-counter-type="ct-Table"}						data-myid="uc1" data-counter-
   [FPT\_TUD\_EXT.5.1](#FPT_TUD_EXT.5.1)                                               |	  [FPT\_TUD\_EXT.5.1](#FPT_TUD_EXT.5.1)                                      Include 
   [FTA\_TAB.1.1](#FTA_TAB.1.1)                                                        |	  [FTA\_TAB.1.1](#FTA_TAB.1.1)                                               Include 
   ----------------------------------------------------------------------------------- |	  -------------------------------------------------------------------------- --------
+										      <
+### E.2 \[USE CASE 2\] Enterprise-owned device for specialized, high-security use {#u <
+										      <
+[Table [11]{.counter}: High Security Template]{#uc2 .ctr data-myid="uc2"	      <
+data-counter-type="ct-Table"}							      <
+										      <
+  ----------------------------------------------------------------------------------- <
+  Requirement                                                                         <
+  [FCS\_CKM.1.1](#FCS_CKM.1.1)                                                        <
+  [FCS\_CKM.2.1/UNLOCKED](#FCS_CKM.2.1/UNLOCKED)                                      <
+  [FCS\_CKM.2.1/LOCKED](#FCS_CKM.2.1/LOCKED)                                          <
+  [FCS\_CKM\_EXT.1.1](#FCS_CKM_EXT.1.1)                                               <
+  [FCS\_CKM\_EXT.2.1](#FCS_CKM_EXT.2.1)                                               <
+  [FCS\_CKM\_EXT.3.1](#FCS_CKM_EXT.3.1)                                               <
+  [FCS\_COP.1.1/ENCRYPT](#FCS_COP.1.1/ENCRYPT)                                        <
+  [FCS\_COP.1.1/HASH](#FCS_COP.1.1/HASH)                                              <
+  [FCS\_COP.1.1/SIGN](#FCS_COP.1.1/SIGN)                                              <
+  [FCS\_COP.1.1/CONDITION](#FCS_COP.1.1/CONDITION)                                    <
+  [FCS\_RBG\_EXT.1.2](#FCS_RBG_EXT.1.2)                                               <
+  FCS\_TLSC\_EXT.1.1 ([TLS](#abbr_TLS) Package)                                       <
+  FCS\_TLSC\_EXT.2.1 ([TLS](#abbr_TLS) Package)                                       <
+  [FDP\_DAR\_EXT.1.2](#FDP_DAR_EXT.1.2)                                               <
+  [FIA\_X509\_EXT.2.2](#FIA_X509_EXT.2.2)                                             <
+  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[3]{.counter}](#vpn){.vpn-ref}      <
+  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[4]{.counter}](#radios){.radios-ref <
+  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[5]{.counter}](#audioVisual){.audio <
+  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[19]{.counter}](#dar){.dar-ref}     <
+  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[21]{.counter}](#location){.locatio <
+  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[44]{.counter}](#unenroll){.unenrol <
+  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[45]{.counter}](#alwaysOnVPN){.alwa <
+  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[12]{.counter}](#certWipe){.certWip <
+  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[18]{.counter}](#notifications){.no <
+  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[24]{.counter}](#externalPorts){.ex <
+  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[25]{.counter}](#serverProtocols){. <
+  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[36]{.counter}](#unlockBanner){.unl <
+  [FMT\_SMF\_EXT.2.1](#FMT_SMF_EXT.2.1)                                               <
+  [FAU\_SAR.1.1](#FAU_SAR.1.1)                                                        <
+  [FAU\_SAR.1.2](#FAU_SAR.1.2)                                                        <
+  [FAU\_SEL.1.1](#FAU_SEL.1.1)                                                        <
+  [FCS\_SRV\_EXT.2.1](#FCS_SRV_EXT.2.1)                                               <
+  [FPT\_AEX\_EXT.5.1](#FPT_AEX_EXT.5.1)                                               <
+  [FPT\_AEX\_EXT.5.2](#FPT_AEX_EXT.5.2)                                               <
+  [FPT\_BBD\_EXT.1.1](#FPT_BBD_EXT.1.1)                                               <
+  [FTA\_TAB.1.1](#FTA_TAB.1.1)                                                        <
+  ----------------------------------------------------------------------------------- <
 
-### E.2 \[USE CASE 2\] Enterprise-owned device for specialized, high-security use {#u |	E.2 \[USE CASE 2\] Enterprise-owned device for specialized, high-security use {#useca
+### E.3 \[USE CASE 3\] Personally-owned device for personal and enterprise use {#usec |	E.2 \[USE CASE 2\] Enterprise-owned device for specialized, high-security use {#useca
 										      >	-----------------------------------------------------------------------------
 
-[Table [11]{.counter}: High Security Template]{#uc2 .ctr data-myid="uc2"	      |	[Table [12]{.counter}: High Security Template]{#uc2 .ctr data-myid="uc2"
+[Table [12]{.counter}: BYOD Template]{#uc3 .ctr data-myid="uc3"			      |	[Table [12]{.counter}: High Security Template]{#uc2 .ctr data-myid="uc2"
 data-counter-type="ct-Table"}								data-counter-type="ct-Table"}
 
   ----------------------------------------------------------------------------------- |	  -------------------------------------------------------------------------- --------
   Requirement                                                                         |	  Requirement                                                                Action
-  [FCS\_CKM.1.1](#FCS_CKM.1.1)                                                        |	  [FCS\_CKM.1.1](#FCS_CKM.1.1)                                               Select [
-  [FCS\_CKM.2.1/UNLOCKED](#FCS_CKM.2.1/UNLOCKED)                                      |	  [FCS\_CKM.2.1/UNLOCKED](#FCS_CKM.2.1/UNLOCKED)                             Select E
-  [FCS\_CKM.2.1/LOCKED](#FCS_CKM.2.1/LOCKED)                                          |	  [FCS\_CKM.2.1/LOCKED](#FCS_CKM.2.1/LOCKED)                                 Select \
-  [FCS\_CKM\_EXT.1.1](#FCS_CKM_EXT.1.1)                                               |	  [FCS\_CKM\_EXT.1.1](#FCS_CKM_EXT.1.1)                                      If \"sym
-  [FCS\_CKM\_EXT.2.1](#FCS_CKM_EXT.2.1)                                               |	  [FCS\_CKM\_EXT.2.1](#FCS_CKM_EXT.2.1)                                      Select 2
-  [FCS\_CKM\_EXT.3.1](#FCS_CKM_EXT.3.1)                                               |	  [FCS\_CKM\_EXT.3.1](#FCS_CKM_EXT.3.1)                                      If asymm
-  [FCS\_COP.1.1/ENCRYPT](#FCS_COP.1.1/ENCRYPT)                                        |	  [FCS\_COP.1.1/ENCRYPT](#FCS_COP.1.1/ENCRYPT)                               Select 2
-  [FCS\_COP.1.1/HASH](#FCS_COP.1.1/HASH)                                              |	  [FCS\_COP.1.1/HASH](#FCS_COP.1.1/HASH)                                     Select [
-  [FCS\_COP.1.1/SIGN](#FCS_COP.1.1/SIGN)                                              |	  [FCS\_COP.1.1/SIGN](#FCS_COP.1.1/SIGN)                                     Assign a
-  [FCS\_COP.1.1/CONDITION](#FCS_COP.1.1/CONDITION)                                    |	  [FCS\_COP.1.1/CONDITION](#FCS_COP.1.1/CONDITION)                           Select 2
-  [FCS\_RBG\_EXT.1.2](#FCS_RBG_EXT.1.2)                                               |	  [FCS\_RBG\_EXT.1.2](#FCS_RBG_EXT.1.2)                                      Select 2
-  FCS\_TLSC\_EXT.1.1 ([TLS](#abbr_TLS) Package)                                       |	  FCS\_TLSC\_EXT.1.1 ([TLS](#abbr_TLS) Package)                              Select T
-  FCS\_TLSC\_EXT.2.1 ([TLS](#abbr_TLS) Package)                                       |	  FCS\_TLSC\_EXT.2.1 ([TLS](#abbr_TLS) Package)                              Select s
-  [FDP\_DAR\_EXT.1.2](#FDP_DAR_EXT.1.2)                                               |	  [FDP\_DAR\_EXT.1.2](#FDP_DAR_EXT.1.2)                                      Select 2
-  [FIA\_X509\_EXT.2.2](#FIA_X509_EXT.2.2)                                             |	  [FIA\_X509\_EXT.2.2](#FIA_X509_EXT.2.2)                                    Select e
-  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[3]{.counter}](#vpn){.vpn-ref}      |	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [3](#mf-vpn)                Include 
-  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[4]{.counter}](#radios){.radios-ref |	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [4](#mf-radios)             Assign a
-  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[5]{.counter}](#audioVisual){.audio |	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [5](#mf-audioVisual)        Assign a
-  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[19]{.counter}](#dar){.dar-ref}     |	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [19](#mf-dar)               Include 
-  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[21]{.counter}](#location){.locatio |	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [21](#mf-location)          Include 
-  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[44]{.counter}](#unenroll){.unenrol |	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [44](#mf-unenroll)          Include 
-  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [[45]{.counter}](#alwaysOnVPN){.alwa |	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [45](#mf-alwaysOnVPN)       Include 
-  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[12]{.counter}](#certWipe){.certWip |	  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [12](#mf-certWipe)          Assign a
-  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[18]{.counter}](#notifications){.no |	  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [18](#mf-notifications)     Select \
-  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[24]{.counter}](#externalPorts){.ex |	  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [24](#mf-externalPorts)     Include 
-  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[25]{.counter}](#serverProtocols){. |	  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [25](#mf-serverProtocols)   Include 
-  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[36]{.counter}](#unlockBanner){.unl |	  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [36](#mf-unlockBanner)      Include 
-  [FMT\_SMF\_EXT.2.1](#FMT_SMF_EXT.2.1)                                               |	  [FMT\_SMF\_EXT.2.1](#FMT_SMF_EXT.2.1)                                      Select \
-  [FAU\_SAR.1.1](#FAU_SAR.1.1)                                                        |	  [FAU\_SAR.1.1](#FAU_SAR.1.1)                                               Include 
-  [FAU\_SAR.1.2](#FAU_SAR.1.2)                                                        |	  [FAU\_SAR.1.2](#FAU_SAR.1.2)                                               Include 
-  [FAU\_SEL.1.1](#FAU_SEL.1.1)                                                        |	  [FAU\_SEL.1.1](#FAU_SEL.1.1)                                               Include 
-  [FCS\_SRV\_EXT.2.1](#FCS_SRV_EXT.2.1)                                               |	  [FCS\_SRV\_EXT.2.1](#FCS_SRV_EXT.2.1)                                      Include 
-  [FPT\_AEX\_EXT.5.1](#FPT_AEX_EXT.5.1)                                               |	  [FPT\_AEX\_EXT.5.1](#FPT_AEX_EXT.5.1)                                      Include 
-  [FPT\_AEX\_EXT.5.2](#FPT_AEX_EXT.5.2)                                               |	  [FPT\_AEX\_EXT.5.2](#FPT_AEX_EXT.5.2)                                      Include 
-  [FPT\_BBD\_EXT.1.1](#FPT_BBD_EXT.1.1)                                               |	  [FPT\_BBD\_EXT.1.1](#FPT_BBD_EXT.1.1)                                      Include 
-  [FTA\_TAB.1.1](#FTA_TAB.1.1)                                                        |	  [FTA\_TAB.1.1](#FTA_TAB.1.1)                                               Include 
-  ----------------------------------------------------------------------------------- |	  -------------------------------------------------------------------------- --------
+  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[3]{.counter}](#vpn){.vpn-ref}      |	  [FCS\_CKM.1.1](#FCS_CKM.1.1)                                               Select [
+  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[5]{.counter}](#audioVisual){.audio |	  [FCS\_CKM.2.1/UNLOCKED](#FCS_CKM.2.1/UNLOCKED)                             Select E
+  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[17]{.counter}](#entAppRemove){.ent |	  [FCS\_CKM.2.1/LOCKED](#FCS_CKM.2.1/LOCKED)                                 Select \
+  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[28]{.counter}](#wipeEntData){.wipe |	  [FCS\_CKM\_EXT.1.1](#FCS_CKM_EXT.1.1)                                      If \"sym
+  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[44]{.counter}](#unenroll){.unenrol |	  [FCS\_CKM\_EXT.2.1](#FCS_CKM_EXT.2.1)                                      Select 2
+  [FMT\_SMF\_EXT.2.1](#FMT_SMF_EXT.2.1)                                               |	  [FCS\_CKM\_EXT.3.1](#FCS_CKM_EXT.3.1)                                      If asymm
+  [FDP\_ACF\_EXT.1.2](#FDP_ACF_EXT.1.2)                                               |	  [FCS\_COP.1.1/ENCRYPT](#FCS_COP.1.1/ENCRYPT)                               Select 2
+  [FDP\_ACF\_EXT.2.1](#FDP_ACF_EXT.2.1)                                               |	  [FCS\_COP.1.1/HASH](#FCS_COP.1.1/HASH)                                     Select [
+  ----------------------------------------------------------------------------------- |	  [FCS\_COP.1.1/SIGN](#FCS_COP.1.1/SIGN)                                     Assign a
+										      >	  [FCS\_COP.1.1/CONDITION](#FCS_COP.1.1/CONDITION)                           Select 2
+										      >	  [FCS\_RBG\_EXT.1.2](#FCS_RBG_EXT.1.2)                                      Select 2
+										      >	  FCS\_TLSC\_EXT.1.1 ([TLS](#abbr_TLS) Package)                              Select T
+										      >	  FCS\_TLSC\_EXT.2.1 ([TLS](#abbr_TLS) Package)                              Select s
+										      >	  [FDP\_DAR\_EXT.1.2](#FDP_DAR_EXT.1.2)                                      Select 2
+										      >	  [FIA\_X509\_EXT.2.2](#FIA_X509_EXT.2.2)                                    Select e
+										      >	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [3](#mf-vpn)                Include 
+										      >	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [4](#mf-radios)             Assign a
+										      >	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [5](#mf-audioVisual)        Assign a
+										      >	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [19](#mf-dar)               Include 
+										      >	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [21](#mf-location)          Include 
+										      >	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [44](#mf-unenroll)          Include 
+										      >	  [FMT\_MOF\_EXT.1.2](#FMT_MOF_EXT.1.2) Function [45](#mf-alwaysOnVPN)       Include 
+										      >	  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [12](#mf-certWipe)          Assign a
+										      >	  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [18](#mf-notifications)     Select \
+										      >	  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [24](#mf-externalPorts)     Include 
+										      >	  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [25](#mf-serverProtocols)   Include 
+										      >	  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [36](#mf-unlockBanner)      Include 
+										      >	  [FMT\_SMF\_EXT.2.1](#FMT_SMF_EXT.2.1)                                      Select \
+										      >	  [FAU\_SAR.1.1](#FAU_SAR.1.1)                                               Include 
+										      >	  [FAU\_SAR.1.2](#FAU_SAR.1.2)                                               Include 
+										      >	  [FAU\_SEL.1.1](#FAU_SEL.1.1)                                               Include 
+										      >	  [FCS\_SRV\_EXT.2.1](#FCS_SRV_EXT.2.1)                                      Include 
+										      >	  [FPT\_AEX\_EXT.5.1](#FPT_AEX_EXT.5.1)                                      Include 
+										      >	  [FPT\_AEX\_EXT.5.2](#FPT_AEX_EXT.5.2)                                      Include 
+										      >	  [FPT\_BBD\_EXT.1.1](#FPT_BBD_EXT.1.1)                                      Include 
+										      >	  [FTA\_TAB.1.1](#FTA_TAB.1.1)                                               Include 
+										      >	  -------------------------------------------------------------------------- --------
 										      >
 										      >	E.3 \[USE CASE 3\] Personally-owned device for personal and enterprise use {#usecase3
 										      >	--------------------------------------------------------------------------
@@ -19993,24 +20495,8 @@ data-counter-type="ct-Table"}								data-counter-type="ct-Table"}
 										      >	  [FDP\_ACF\_EXT.2.1](#FDP_ACF_EXT.2.1)                                   Include in 
 										      >	  ----------------------------------------------------------------------- -----------
 
-### E.3 \[USE CASE 3\] Personally-owned device for personal and enterprise use {#usec |	E.4 \[USE CASE 4\] Personally-owned device for personal and limited enterprise use {#
-										      |	----------------------------------------------------------------------------------
-[Table [12]{.counter}: BYOD Template]{#uc3 .ctr data-myid="uc3"			      <
-data-counter-type="ct-Table"}							      <
-										      <
-  ----------------------------------------------------------------------------------- <
-  Requirement                                                                         <
-  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[3]{.counter}](#vpn){.vpn-ref}      <
-  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[5]{.counter}](#audioVisual){.audio <
-  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[17]{.counter}](#entAppRemove){.ent <
-  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[28]{.counter}](#wipeEntData){.wipe <
-  [FMT\_SMF\_EXT.1.1](#FMT_SMF_EXT.1.1) Function [[44]{.counter}](#unenroll){.unenrol <
-  [FMT\_SMF\_EXT.2.1](#FMT_SMF_EXT.2.1)                                               <
-  [FDP\_ACF\_EXT.1.2](#FDP_ACF_EXT.1.2)                                               <
-  [FDP\_ACF\_EXT.2.1](#FDP_ACF_EXT.2.1)                                               <
-  ----------------------------------------------------------------------------------- <
-										      <
-### E.4 \[USE CASE 4\] Personally-owned device for personal and limited enterprise us <
+### E.4 \[USE CASE 4\] Personally-owned device for personal and limited enterprise us |	E.4 \[USE CASE 4\] Personally-owned device for personal and limited enterprise use {#
+										      >	----------------------------------------------------------------------------------
 
 At this time no requirements or selections are recommended for this use			At this time no requirements or selections are recommended for this use
 case.											case.
