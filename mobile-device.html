@@ -664,7 +664,7 @@ function showTarget(id){
         and utilized Bluetooth Module. Bluetooth <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> moved to Implementation Dependent.<br/>
         <a href="#FPT_TUD_EXT.4">FPT_TUD_EXT.4</a>.2 renumbered to <a href="#FPT_TUD_EXT.5.1">FPT_TUD_EXT.5.1</a><br/>
       </td></tr>
-<tr><td>3.3</td><td>2022-04-01</td><td>Integrated Biometrics <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr> Module, Included changed based on Technical Rapid Response Team Decisions and open issues from GitHub.<br/>      
+<tr><td>3.3</td><td>2022-04-01</td><td>Integrated Biometrics <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr> Module, Included changes based on Technical Rapid Response Team Decisions and open issues from GitHub.<br/>      
       <li>Removed biometric definitions from Tech Terms</li>
       <li>Removed FDP_PBA</li>
       <li>Removed FIA_BMG</li>
@@ -743,7 +743,7 @@ The following sections list Common Criteria and technology terms used in this do
 <tr><td><div id="Hardware-Isolated_Keys">Hardware-Isolated Keys</div></td><td> The <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> can only access these keys by reference, if
         at all, during runtime. </td></tr>
 <tr><td><div id="Hybrid_Authentication">Hybrid Authentication</div></td><td> A hybrid authentication factor is one where a user has to
-        submit a combination of a biometric sample and a PIN or password and both to pass. If either factor fails, the entire attempt fails. The user shall not be made aware of which factor failed, if either fails.</td></tr>
+        submit a combination of a biometric sample and a PIN or password and both must pass. If either factor fails, the entire attempt fails. The user shall not be made aware of which factor failed, if either fails.</td></tr>
 <tr><td><div id="Immutable_Hardware_Key">Immutable Hardware Key</div></td><td> These keys are stored as hardware-protected raw key and
         cannot be changed or sanitized.</td></tr>
 <tr><td><div id="Key_Chaining">Key Chaining</div></td><td> The method of using multiple layers of encryption keys to protect
@@ -1493,7 +1493,11 @@ A personally-owned device, which is used, for both personal activities and enter
                 action(s) results in the deletion or overwrite of the oldest stored record.<br/><br/><div class="eacategory">Guidance</div>There are no guidance evaluation activities for this component.<br/><br/><div class="eacategory">Tests</div>There are no test evaluation activities for this component.</div></div></div>
       
       <h3 id="fcs" class="indexable" data-level="3">5.1.2 Class: Cryptographic Support (FCS)</h3> 
-        This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: <abbr class="dyn-abbr"><a href="#abbr_DEK">DEKs</a></abbr> and KEKs. (A <abbr class="dyn-abbr"><a href="#abbr_REK">REK</a></abbr> is considered a <abbr class="dyn-abbr"><a href="#abbr_KEK">KEK</a></abbr>.) <abbr class="dyn-abbr"><a href="#abbr_DEK">DEKs</a></abbr> are used to protect data (as in the <abbr class="dyn-abbr"><a href="#abbr_DAR">DAR</a></abbr> protection described in <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> and <a href="#FDP_DAR_EXT.2">FDP_DAR_EXT.2</a>). KEKs are used to protect other keys – <abbr class="dyn-abbr"><a href="#abbr_DEK">DEKs</a></abbr>, other KEKs, and other types of keys stored by the user or applications. The following diagram shows an example key hierarchy to illustrate the concepts of this profile. This example is not meant as an approved design, but <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. Please note if a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> shall be illustrated in the key hierarchy diagram, to include a description of when and how the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> is used to release keys. If "hybrid" is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, meaning that a PIN or password must be used in conjunction with the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> this interaction shall be included.<br/>
+        This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: <abbr class="dyn-abbr"><a href="#abbr_DEK">DEKs</a></abbr> and KEKs. (A <abbr class="dyn-abbr"><a href="#abbr_REK">REK</a></abbr> is considered a <abbr class="dyn-abbr"><a href="#abbr_KEK">KEK</a></abbr>.)
+         <abbr class="dyn-abbr"><a href="#abbr_DEK">DEKs</a></abbr> are used to protect data (as in the <abbr class="dyn-abbr"><a href="#abbr_DAR">DAR</a></abbr> protection described in <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> and <a href="#FDP_DAR_EXT.2">FDP_DAR_EXT.2</a>). KEKs are used to protect other keys – <abbr class="dyn-abbr"><a href="#abbr_DEK">DEKs</a></abbr>, other KEKs, and other types of keys stored by the user or applications.
+         The following diagram shows an example key hierarchy to illustrate the concepts of this profile. 
+         This example is not meant as an approved design, but <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. 
+         Please note if <a href="#uau_biometric"> biometric</a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, each <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> claimed in FIA_MBV_EXT.1.1 in the <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>-Module for Biometrics shall be illustrated in the key hierarchy diagram, to include a description of when and how the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> is used to release keys. If "hybrid" is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, meaning that a PIN or password must be used in conjunction with the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> this interaction shall be included.<br/>
         <div class="figure" id="figure-Keys"><img id="Keys" src="images/figure3.jpg" width="" height=""></img><br/><span class="ctr" data-myid="Keys" data-counter-type="ct-figure">Figure <span class="counter">3</span></span>:
       An Illustrative Key Hierarchy</div>
         <div class="comp" id="FCS_CKM.1"><h4>FCS_CKM.1 Cryptographic Key Generation</h4>
@@ -4332,7 +4336,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               letters or another assigned character set containing at least 52 characters. The
               assigned character set must be well defined: either according to an international
               encoding standard (such as Unicode) or defined in the assignment by the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author. The
-              <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author also selects the special characters that are supported by <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>; they may
+              <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author also selects the special characters that are supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>; they may
               optionally list additional special characters supported using the assignment. </span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FIA_PMG_EXT.1">FIA_PMG_EXT.1</a></div>
               
@@ -4376,15 +4380,15 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 at least 500 milliseconds over 10 attempts for all authentication mechanisms
                 selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>.<br/><br/><div class="eacategory">Guidance</div>There are no guidance evaluation activities for this component.<br/><br/><div class="eacategory">Tests</div>There are no test evaluation activities for this component.</div></div></div>
         <div class="comp" id="FIA_UAU.5"><h4>FIA_UAU.5 Multiple Authentication Mechanisms</h4>
-          <div class="element"><div class="reqid" id="FIA_UAU.5.1"><a href="#FIA_UAU.5.1" class="abbr">FIA_UAU.5.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide <span class="refinement">password and [<b>selection</b>: <i id="biometric"> biometric</i>, <i id="uau_hybr"> hybrid</i>, <i id="_s_288">no other mechanism</i>]
+          <div class="element"><div class="reqid" id="FIA_UAU.5.1"><a href="#FIA_UAU.5.1" class="abbr">FIA_UAU.5.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide <span class="refinement">password and [<b>selection</b>: <i id="uau_biometric"> biometric</i>, <i id="uau_hybr"> hybrid</i>, <i id="_s_288">no other mechanism</i>]
               </span>to support user authentication. <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must support a Password Authentication Factor and may
               optionally implement a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>. A hybrid authentication factor is where a user has to submit a
               combination of PIN/password and biometric sample where both have to pass and if either
               fails the user is not made aware of which factor failed.<br/><br/> 
-              If <a href="#biometric"> biometric</a> and/or <a href="#uau_hybr"> hybrid</a> is selected, then the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must be validated against requirements from the <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>-Module for Biometrics.<br/><br/>
-              If <a href="#uau_hybr"> hybrid</a> is selected, <a href="#biometric"> biometric</a> does not need to be selected, but should be
+              If <a href="#uau_biometric"> biometric</a> and/or <a href="#uau_hybr"> hybrid</a> is selected, then the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must be validated against requirements from the <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>-Module for Biometrics.<br/><br/>
+              If <a href="#uau_hybr"> hybrid</a> is selected, <a href="#uau_biometric"> biometric</a> does not need to be selected, but should be
               selected if the biometric authentication can be used independent of the hybrid
               authentication, i.e. without having to enter a PIN/password.<br/><br/>              
               
@@ -4412,8 +4416,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 successful authentication (i.e. is the user input used to derive or unlock a key) and
                 which authentication mechanism can be used at which authentication factor interfaces
                 (i.e. if there are times, for example, after a reboot, that only specific
-                authentication mechanisms can be used). If multiple <abbr class="dyn-abbr"><a href="#abbr_BAF">BAFs</a></abbr> are supported per
-                <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, the interaction between the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAFs</a></abbr> must be described. For example, whether the
+                authentication mechanisms can be used). If multiple <abbr class="dyn-abbr"><a href="#abbr_BAF">BAFs</a></abbr> are claimed in FIA_MBV_EXT.1.1 in the <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>-Module for Biometrics, the interaction between the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAFs</a></abbr> must be described. For example, whether the
                 multiple <abbr class="dyn-abbr"><a href="#abbr_BAF">BAFs</a></abbr> can be enabled at the same time.<br/><br/><div class="eacategory">Guidance</div> The evaluator shall verify that configuration guidance for each
                 authentication mechanism is addressed in the AGD guidance.<br/><br/><div class="eacategory">Tests</div>
                 <ul>
@@ -4456,7 +4459,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     Authentication Factor according to the AGD guidance and verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
                     requires the entry of the Password Authentication Factor before allowing the
                     factor to be changed.</li>
-                  <li><b>Test 2: </b>[conditional] For each <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, the evaluator shall
+                  <li><b>Test 2: </b>[conditional] If <a href="#uau_biometric"> biometric</a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, for each <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> claimed in FIA_MBV_EXT.1.1 in the <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>-Module for Biometrics the evaluator shall
                     configure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to use the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>, which includes configuring the Password
                     Authentication Factor, according to the AGD guidance. The evaluator shall change
                     the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> according to the AGD guidance and verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> requires the entry
@@ -4475,7 +4478,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     evaluator shall wait until the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> locks and then verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> requires
                     the entry of the Password Authentication Factor before transitioning to the
                     unlocked state.</li>
-                  <li><b>Test 2: </b>[conditional] For each <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, the evaluator shall
+                  <li><b>Test 2: </b>[conditional] If <a href="#uau_biometric"> biometric</a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, for each <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> claimed in FIA_MBV_EXT.1.1 in the <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>-Module for Biometrics the evaluator shall
                     repeat Test 1 verifying that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> requires the entry of the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> before
                     transitioning to the unlocked state. </li>
                   <li><b>Test 3: </b>[conditional] If "hybrid" is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, the evaluator shall
@@ -4485,7 +4488,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     guidance. The evaluator shall lock the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and then verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> requires
                     the entry of the Password Authentication Factor before transitioning to the
                     unlocked state.</li>
-                  <li><b>Test 5: </b>[conditional] For each <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, the evaluator shall
+                  <li><b>Test 5: </b>[conditional] If <a href="#uau_biometric"> biometric</a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, for each <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> claimed in FIA_MBV_EXT.1.1 in the <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>-Module for Biometrics the evaluator shall
                     repeat Test 4 verifying that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> requires the entry of the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> before
                     transitioning to the unlocked state.</li>
                   <li><b>Test 6: </b>[conditional] If "hybrid" is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, the evaluator shall
@@ -4500,8 +4503,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
     </span><span class="note">This applies to all authentication methods specified in
               <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>. The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may briefly (1 second or less) display each character or provide
               an option to allow the user to unmask the password; however, the password must be
-              obscured by default. <br/><br/> If a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
-              must not display sensitive information regarding the biometric that could aid an
+              obscured by default. <br/><br/> If <a href="#uau_biometric"> biometric</a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
+              must not display sensitive information regarding any <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> that could aid an
               adversary in identifying and/or spoofing the respective biometric characteristics of a
               given human user. While it is true that biometric samples, by themselves, are not
               secret, the analysis performed by the respective biometric algorithms, as well as
@@ -4519,7 +4522,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <li><b>Test 1: </b>The evaluator shall enter passwords on the device, including at least the
                     Password Authentication Factor at lock screen, and verify that the password is
                     not displayed on the device. </li>
-                  <li><b>Test 2: </b>[conditional] For each <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, the evaluator shall
+                  <li><b>Test 2: </b>[conditional] If <a href="#uau_biometric"> biometric</a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, for each <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> claimed in FIA_MBV_EXT.1.1 in the <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>-Module for Biometrics the evaluator shall
                     authenticate by producing a biometric sample at lock screen. As the biometric
                     algorithms are performed, the evaluator shall verify that sensitive images,
                     audio, or other information identifying the user are kept secret and are not
@@ -5121,7 +5124,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
 <tr id="mf-notifications"><td>18</td><td style="text-align:left">
                     
                      enable/disable
-                    display notification in the locked state of: [<b>selection</b>: <ul><li style=""><i id="_s_333">a. email notifications</i>, </li><li style=""><i id="_s_334">b. calendar appointments</i>, </li><li style=""><i id="_s_335">c. contact associated with phone call notification</i>, </li><li style=""><i id="_s_336">d. text message notification</i>, </li><li style=""><i id="_s_337">e. other application-based notifications</i>, </li><li style=""><i id="_s_338">f. all notifications</i></li></ul>]
+                    display notification in the locked state of: [<b>selection</b>: <ul><li style=""><i id="_s_333">a. email notifications</i>, </li><li style=""><i id="_s_334">b. calendar appointments</i>, </li><li style=""><i id="_s_335">c. contact associated with phone call notification</i>, </li><li style=""><i id="_s_336">d. text message notification</i>, </li><li style=""><i id="_s_337">e. [<b>assignment</b>: 
+     <span class="assignable-content">other application-based notifications</span>]</i>, </li><li style=""><i id="_s_338">f. all notifications</i></li></ul>]
                   </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional</span></div></td></tr>
 <tr id="mf-dar"><td>19</td><td style="text-align:left">
                     
@@ -5411,9 +5415,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
 		  </p><p>
 		    Function <a href="#mf-authFactors">22</a> is implicitly met if the
               <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not contain a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>. This selection must correspond with the selection made in
-              <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>. If a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, "Biometric Authentication Factor"
+              <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>. If <a href="#uau_biometric"> biometric</a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, "Biometric Authentication Factor"
               must be selected and the user or admin must have the option to disable the use of
-              it. If "hybrid" is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a> it must be selected and the user
+              it. If multiple <abbr class="dyn-abbr"><a href="#abbr_BAF">BAFs</a></abbr> are selected in the <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr> module for Biometrics, this applies to all different
+              modalities. If <a href="#uau_hybr"> hybrid</a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a> it must be selected and the user
               or admin must have the option to disable the use of it.
 		  </p><p>
 		                    
@@ -6336,11 +6341,8 @@ The evaluator shall perform the following test(s): <ol type="a">
 		    The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> states if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>
                     and/or hybrid authentication. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not include a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> and/or hybrid
                     authentication this test is implicitly met. <ol type="a">
-                      <li>[conditional] If a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> is selected the evaluator shall verify that the
-                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the procedure to enable/disable the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> includes
-                        multiple <abbr class="dyn-abbr"><a href="#abbr_BAF">BAFs</a></abbr>, the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how to
-                        enable/disable each <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>, specifically if the different modalities can be
-                        individually enabled/disabled. The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to
+                      <li>[conditional] If <a href="#uau_biometric"> biometric</a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, for each <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> claimed in FIA_MBV_EXT.1.1 in the <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr>-Module for Biometrics the evaluator shall verify that the
+                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the procedure to enable/disable the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>. The evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to
                         allow each supported <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> to authenticate and verify that successful
                         authentication can be achieved using the <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>. The evaluator shall configure
                         the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to disable the use of each supported <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr> for authentication and
