@@ -25,7 +25,8 @@
     |/section[1]| 
       |/sec:fdp[1]|
 	  |/f-component[1]|
-        |/f-element[1]|
+	  
+	  |/f-element[1]|
         |/aactivity[1]|
         |/Guidance[1]||
 *Error: Illegal empty Guidance element at:
@@ -146,4 +147,13 @@
                        
 
                           WARNING: Since FCS_CKM_EXT.3.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+
+                          WARNING: Since FCS_RBG_EXT.1.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+
+                          WARNING: Since FDP_ACF_EXT.1.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+
+                          WARNING: Since FDP_DAR_EXT.1.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
