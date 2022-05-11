@@ -2539,6 +2539,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fcs_ckm_ext.2" name="Cryptographic Key Random Generation">
+          
+          <comp-lev> requires the TSF to specify the mechanism it uses to generate Data Encryption Keys (DEKs).</comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_RBG_EXT.1 Random Bit Generation</dependencies>
+          
+          
           <f-element id="fel-dek-gen">
             <title>All DEKs shall be <selectables>
                 <selectable>randomly generated</selectable>
@@ -2777,6 +2784,16 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fcs_ckm_ext.3" name="Cryptographic Key Generation">
+          
+          <comp-lev> requires the TSF to generate and manage the strength of Key Encryption Keys (KEKs).</comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_CKM.1 Cryptographic Key Generation<htm:p/>
+            FCS_COP.1 Cryptographic Operation<htm:p/>
+            FCS_RBG_EXT.1 Random Bit Generation<htm:p/>
+          </dependencies>
+          
+          
           <f-element id="fel-kek-asym">
             <title>The TSF shall use <selectables>
                 <selectable id="s-kek-asym"><snip>asymmetric KEKs</snip> of <assignable id="a-kek-asym-size">security strength greater than or equal
@@ -2793,7 +2810,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <f-element id="fel-kek-gen">
             <title>The TSF shall generate all KEKs using one of the following methods:
                   <htm:ul><htm:li>Derive the KEK from a Password Authentication Factor according to
-                  FCS_COP.1.1/CONDITION and </htm:li></htm:ul>
+                  FCS_COP.1.1<htm:b>/CONDITION</htm:b> and </htm:li></htm:ul>
               <selectables linebreak="yes">
                 <selectable>Generate the KEK using an RBG that meets this profile (as specified in
                   FCS_RBG_EXT.1)</selectable>
@@ -2810,6 +2827,27 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   </selectables>
                 </selectable>
               </selectables>. </title>
+            <ext-comp-def-title>
+              <title>The TSF shall generate all KEKs using one of the following methods:
+                <htm:ul><htm:li>Derive the KEK from a Password Authentication Factor according to
+                  FCS_COP.1.1 and </htm:li></htm:ul>
+                <selectables linebreak="yes">
+                  <selectable>Generate the KEK using an RBG that meets this profile (as specified in
+                    FCS_RBG_EXT.1)</selectable>
+                  <selectable>Generate the KEK using a key generation scheme that meets this profile
+                    (as specified in FCS_CKM.1)</selectable>
+                  <selectable>Combine the KEK from other KEKs in a way that preserves the effective
+                    entropy of each factor by <selectables>
+                      <selectable>using an XOR operation</selectable>
+                      <selectable>concatenating the keys and using a KDF (as described in SP
+                        800-108)</selectable>
+                      <selectable>concatenating the keys and using a KDF (as described in SP
+                        800-56C)</selectable>
+                      <selectable>encrypting one key with another</selectable>
+                    </selectables>
+                  </selectable>
+                </selectables>. </title>
+            </ext-comp-def-title>
             <note role="application"> The conditioning of passwords is performed in accordance with
               FCS_COP.1/CONDITION. <htm:br/><htm:br/> It is expected that key generation derived
               from conditioning, using an RBG or generation scheme, and through combination, will
@@ -3039,6 +3077,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fcs_ckm_ext.4" name="Key Destruction">
+          
+          <comp-lev> requires the TSF to be able to follow specified rules to destroy plaintext keying material and cryptographic keys when no longer needed. </comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_RBG_EXT.1 Random Bit Generation</dependencies>
+          
+          
           <f-element id="fel-key-kill-how">
             <title>The TSF shall destroy cryptographic keys in accordance with the specified cryptographic key destruction methods: <htm:br/>
               <htm:ul>
@@ -3207,6 +3252,19 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fcs_ckm_ext.5" name="TSF Wipe">
+          
+          <comp-lev> requires the TSF to implement a cryptographic or other mechanism to make TSF data unreadable.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT:
+          <htm:ul>
+            <htm:li>TSF wipe of protected data.</htm:li>
+            <htm:li>TSF wipe of enterprise data.</htm:li>
+          </htm:ul></management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST:
+          <htm:ul>
+            <htm:li>Failure of the wipe.</htm:li>
+          </htm:ul></audit>
+          <dependencies>FCS_RBG_EXT.1 Random Bit Generation</dependencies>
+          
           <f-element id="fel-wipe-how">
             <title>The TSF shall wipe all protected data by <selectables linebreak="yes">
                <selectable>Cryptographically erasing the encrypted DEKs and/or the KEKs in non-volatile memory by following the requirements in FCS_CKM_EXT.4.1</selectable>
@@ -3262,6 +3320,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fcs_ckm_ext.6" name="Salt Generation">
+          
+          <comp-lev> requires the TSF to generate salts in a specified manner.</comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_RBG_EXT.1 Random Bit Generation</dependencies>
+          
+          
           <f-element id="fel-salt-gen">
             <title>The TSF shall generate all salts using a RBG that meets FCS_RBG_EXT.1. </title>
             <note role="application">This requirement refers only to salt generation. In the
@@ -3293,6 +3358,12 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         </f-component>
         <f-component cc-id="fcs_ckm_ext.7" name="Cryptographic Key Support (REK)" status="sel-based">
           <depends on="mutable_hardware"/>
+          
+          <comp-lev> requires the TSF to prevent the reading or exporting of REKs.</comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_CKM_EXT.1 Cryptographic Key Support</dependencies>
+          
           <f-element id="fel-rek-stay-hardware">
             <title>A REK shall not be able to be read from or exported from the hardware. </title>
             <note role="application">If "mutable-hardware" is selected in FCS_CKM_EXT.1.1,
@@ -3830,12 +3901,38 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
         </f-component>
+        
+        <ext-comp-def fam-id="FCS_HTTPS_EXT" title="HTTPS Protocol">
+          <fam-behavior>This family defines requirements for implementation of the HTTPS protocol. 
+          </fam-behavior>
+        </ext-comp-def>
+        
+        
         <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol">
+          
+          <comp-lev> requires the TSF to implement the HTTPS protocol in accordance with the specified standard, using TLS, and notifying the application if invalid.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT:
+          <htm:ul>
+            <htm:li>Configuring whether to allow/disallow establishment of a trusted channel if the peer/server certificate is deemed invalid.</htm:li>
+          </htm:ul></management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST:
+          <htm:ul>
+            <htm:li>Failure of the certificate validity check.</htm:li>
+          </htm:ul></audit>
+          <dependencies>FIA_X509_EXT.1 X.509 Validation of Certificates<htm:p/>
+            FMT_SMF.1 Specification of Management Functions
+          </dependencies>
+          
+          
           <f-element id="fel-https-how">
             <title>The TSF shall implement the HTTPS protocol that complies with RFC 2818. </title>
           </f-element>
           <f-element id="fel-https-tls">
-            <title>The TSF shall implement HTTPS using TLS as defined in the Package for Transport Layer Security. </title>
+            <title>The TSF shall implement HTTPS using TLS as defined in [<htm:i>the Package for Transport Layer Security</htm:i>]. </title>
+            <ext-comp-def-title>
+              <title>The TSF shall implement HTTPS using TLS as defined in 
+                <assignable>specification that defines TLS implementation requirements</assignable>. </title>
+            </ext-comp-def-title>
             <note role="application"> 
               The Package for Transport Layer Security must be included in the ST, with the following selections made: <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
