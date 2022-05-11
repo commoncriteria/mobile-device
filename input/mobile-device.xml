@@ -3986,10 +3986,28 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
         </f-component>
+        
+        <ext-comp-def fam-id="FCS_IV_EXT" title="Initialization Vector Generation">
+          <fam-behavior>This family defines requirements for initialization vector generation in support of key generation. 
+          </fam-behavior>
+        </ext-comp-def>
+        
+        
         <f-component cc-id="fcs_iv_ext.1" name="Initialization Vector Generation">
+          
+          <comp-lev> requires the TSF to generate IVs in accordance with a set of approved modes. </comp-lev>
+          <management>There are no management functions foreseen.
+          </management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>No dependencies.</dependencies>
+          
+          
           <f-element id="fel-ivs-how">
-            <title>The TSF shall generate IVs in accordance with <xref to="ivtable"/>:
-              References and IV Requirements for NIST-approved Cipher Modes. </title>
+            <title>The TSF shall generate IVs in accordance with [<htm:i><xref to="ivtable"/>:
+              References and IV Requirements for NIST-approved Cipher Modes</htm:i>]. </title>
+            <ext-comp-def-title>
+              <title>The TSF shall generate IVs in accordance with <assignable>standard or specification for IV generation</assignable>. </title>  
+            </ext-comp-def-title>
             <note role="application">
               <xref to="ivtable"/> lists the requirements for composition of IVs according to
               the NIST Special Publications for each cipher mode. The composition of IVs generated
@@ -4005,7 +4023,24 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
         </f-component>
+        
+        <ext-comp-def fam-id="FCS_RBG_EXT" title="Random Bit Generation">
+          <fam-behavior>This family defines requirements for the generation of random bits.
+          </fam-behavior>
+        </ext-comp-def>
+        
+        
         <f-component cc-id="fcs_rbg_ext.1" name="Random Bit Generation">
+          
+          <comp-lev> requires the TSF to generate random data with a certain amount of entropy and in accordance with applicable standards.</comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST:
+          <htm:ul>
+            <htm:li>Failure of the randomization process.</htm:li>
+          </htm:ul></audit>
+          <dependencies>No dependencies.</dependencies>
+          
+          
           <f-element id="fel-rbg-how">
             <title>The TSF shall perform all deterministic random bit generation services in
               accordance with NIST Special Publication 800-90A using <selectables>
@@ -4112,6 +4147,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fcs_rbg_ext.2" name="Random Bit Generator State Preservation" status="objective">
+          
+          
+          <comp-lev> requires the TSF to save and restore the state of the RBG when powering off and starting up.</comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_RBG_EXT.1 Random Bit Generation</dependencies>
+          
           <f-element id="fel-rbg-state-preserve">
             <title>The TSF shall save the state of the deterministic RBG at power-off, and shall use
               this state as input to the deterministic RBG at startup.</title>
@@ -4134,6 +4176,12 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fcs_rbg_ext.3" name="Support for Personalization String" status="objective">
+          
+          <comp-lev> requires the TSF to support a personalization string as a DRBG input parameter.</comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_RBG_EXT.1 Random Bit Generation</dependencies>
+          
           <f-element id="fel-rbg-person-string">
             <title>The TSF shall allow applications to add data to the deterministic RBG using the
               Personalization String as defined in SP 800-90A. </title>
@@ -4157,15 +4205,31 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
         </f-component>
+        
+        <ext-comp-def fam-id="FCS_SRV_EXT" title="Cryptographic Algorithm Services">
+          <fam-behavior>This family defines requirements for the ability of the TOE to make its cryptographic operations available to non-TSF components. 
+          </fam-behavior>
+        </ext-comp-def>
+        
+        
         <f-component cc-id="fcs_srv_ext.1" name="Cryptographic Algorithm Services">
+          
+          <comp-lev> requires the TSF to have externally-accessible cryptographic services for making algorithm functions available to applications. </comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_CKM.1 Cryptographic Key Generation<htm:p/>
+            FCS_COP.1 Cryptographic Operation
+          </dependencies>
+          
+          
           <f-element id="fel-crypt-service">
             <title>The TSF shall provide a mechanism for applications to request the TSF to perform
-              the following cryptographic operations: <htm:ul>
+              the following cryptographic operations: [<htm:i><htm:ul>
                 <htm:li>All mandatory and <selectables>
                     <selectable>selected algorithms</selectable>
                     <selectable> selected algorithms with the exception of ECC over curve
                       25519-based algorithms</selectable>
-                  </selectables> in FCS_CKM.2/LOCKED</htm:li>
+                </selectables> in FCS_CKM.2/LOCKED</htm:li>
                 <htm:li>The following algorithms in FCS_COP.1/ENCRYPT: AES-CBC, <selectables>
                     <selectable>AES Key Wrap</selectable>
                     <selectable>AES Key Wrap with Padding</selectable>
@@ -4184,12 +4248,18 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                         <selectable>selected algorithms with the exception of ECC over curve
                           25519-based algorithms</selectable>
                       </selectables> in FCS_CKM.1</selectable>
-                    <selectable>The selected algorithms in FCS_COP.1/CONDITION</selectable>
+                    <selectable>The selected algorithms in FCS_COP.1<htm:b>/CONDITION</htm:b></selectable>
                     <selectable exclusive="yes">No other cryptographic operations</selectable>
                   </selectables>
                 </htm:li>
-              </htm:ul>
-            </title><note role="application"> 
+              </htm:ul></htm:i>].
+            </title>
+            <ext-comp-def-title>
+              <title>The TSF shall provide a mechanism for applications to request the TSF to perform
+                the following cryptographic operations: <assignable>cryptographic operations defined by the TSF in FCS_CKM.1 or FCS_COP.1</assignable>
+              </title>
+            </ext-comp-def-title>
+            <note role="application"> 
               For each of the listed FCS components in the bulleted list, the intent is that the TOE will make available all algorithms specified for that component in the ST. For example, if for FCS_COP.1/HASH the ST author selects SHA-256, then the TOE would have to make available an interface to perform SHA-1 (the "mandatory" portion of FCS_COP.1/HASH) and SHA-256 (the "selected" portion of FCS_COP.1/HASH).<htm:br/><htm:br/> 
               The exception is for FCS_COP.1/ENCRYPT. The TOE is not required to make available AES_CCMP, AES_XTS, AES_GCMP-256, or AES_CCMP_256 even though they may be implemented to perform TSF-related functions. It is acceptable for the platform to not provide AES Key Wrap (KW) and AES Key Wrap with Padding (KWP) to applications even if selected in FCS_COP.1/ENCRYPT. <!-- NIAP: I do not want to remove Key Wrap from selection, but I am basically negating the SFR in the app note.  --> However, the ST author is expected to select AES-GCM and/or AES-CCM if it is selected in the ST for the FCS_COP.1/ENCRYPT component. 
             </note>
@@ -4207,13 +4277,27 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
         </f-component>
-        <f-component cc-id="fcs_srv_ext.2" name="Extended: Cryptographic Algorithm Services" status="objective">
+        <f-component cc-id="fcs_srv_ext.2" name="Extended: Cryptographic Key Storage Services" status="objective">
+          
+          <comp-lev> requires the TSF to support its stored keys being usable by external applications through cryptographic algorithm services. </comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>
+            FCS_COP.1 Cryptographic Operation
+          </dependencies>
+          
           <f-element id="fel-crypt-service-extra">
             <title>The TSF shall provide a mechanism for applications to request the TSF to perform
-              the following cryptographic operations: <htm:ul>
+              the following cryptographic operations: [<htm:i><htm:ul>
                 <htm:li>Algorithms in FCS_COP.1/ENCRYPT</htm:li>
                 <htm:li>Algorithms in FCS_COP.1/SIGN</htm:li>
-              </htm:ul> by keys stored in the secure key storage. </title>
+              </htm:ul></htm:i>] by keys stored in the secure key storage. </title>
+            <ext-comp-def-title>
+              <title>The TSF shall provide a mechanism for applications to request the TSF to perform
+                the following cryptographic operations: 
+                <assignable>cryptographic operations defined by the TSF in FCS_COP.1</assignable>
+                by keys stored in the secure key storage. </title>
+            </ext-comp-def-title>
             <note role="application">The TOE will, therefore, be required to perform cryptographic
               operations on behalf of applications using the keys stored in the TOE’s secure key
               storage. </note>
@@ -4248,7 +4332,37 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             Device for use by applications and users, applying the same level of protection for
             these keys as keys internal to the OS. </htm:p>
         </htm:div>-->
+        
+        <ext-comp-def fam-id="FCS_SRV_EXT" title="Cryptographic Key Storage">
+          <fam-behavior>This family defines requirements for the implementation of secure key storage with access control, confidentiality, and integrity protections. 
+          </fam-behavior>
+        </ext-comp-def>
+                
           <f-component cc-id="fcs_stg_ext.1" name="Cryptographic Key Storage">
+            
+            <comp-lev> requires the TSF to implement a secure key storage and defines the access restrictions to be enforced on this. </comp-lev>
+            <management>The following actions could be considered for the management functions in FMT:
+            <htm:ul>
+              <htm:li>Importing keys/secrets into the secure key storage.</htm:li>
+              <htm:li>Destroying imported keys/secrets in the secure key storage.</htm:li>
+              <htm:li>Approving exceptions for shared use of keys/secrets by multiple applications.</htm:li>
+              <htm:li>Approving exceptions for destruction of keys/secrets by applications that did not import the key/secret</htm:li>
+            </htm:ul>
+            </management>
+            <audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST:
+            <htm:ul>
+              <htm:li>Import or destruction of key.</htm:li>
+              <htm:li>Exceptions to use and destruction rules.</htm:li>
+            </htm:ul>
+            </audit>
+            <dependencies>
+              [FCS_CKM.1 Cryptographic Key Generation, or<htm:p/>
+              FDP_ITC.1 Import of User Data without Security Attributes, or<htm:p/>
+              FDP_ITC.2 Import of User Data with Security Attributes]<htm:p/>
+              FMT_SMR.1 Security Roles
+            </dependencies>
+            
+            
             <f-element id="fel-key-store">
               <title>The TSF shall provide <selectables>
                 <selectable>mutable hardware</selectable>
@@ -4380,6 +4494,17 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </f-element>
           </f-component>
           <f-component cc-id="fcs_stg_ext.2" name="Encrypted Cryptographic Key Storage">
+            
+            <comp-lev> requires the TSF to implement confidentiality measures to protect the key storage.</comp-lev>
+            <management>There are no management functions foreseen.
+            </management>
+            <audit>There are no auditable events foreseen.
+            </audit>
+            <dependencies>
+              FCS_COP.1 Cryptographic Operation<htm:p/>
+              FCS_STG_EXT.1 Cryptogrpahic Key Storage
+            </dependencies>
+            
             <f-element id="fel-encrypt-key-what">
               <title>The TSF shall encrypt all DEKs, KEKs, <assignable>any long-term trusted channel
                 key material</assignable> and <selectables>
@@ -4474,6 +4599,20 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </f-element>
           </f-component>
           <f-component cc-id="fcs_stg_ext.3" name="Integrity of Encrypted Key Storage">
+            
+            <comp-lev> requires the TSF to implement integrity measures to protect the key storage.</comp-lev>
+            <management>There are no management functions foreseen.
+            </management>
+            <audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST:
+              <htm:ul>
+                <htm:li>Failure to verify the integrity of stored key.</htm:li>
+              </htm:ul>
+            </audit>
+            <dependencies>
+              FCS_COP.1 Cryptographic Operation<htm:p/>
+              FCS_STG_EXT.2 Encrypted Cryptographic Key Storage
+            </dependencies>
+            
             <f-element id="fel-protect-key-what">
               <title>The TSF shall protect the integrity of any encrypted DEKs and KEKs and <selectables>
                 <selectable>long-term trusted channel key material</selectable>
@@ -4486,9 +4625,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <selectable>Key Wrap</selectable>
                   <selectable>Key Wrap with Padding</selectable>
                 </selectables> cipher mode for encryption according to FCS_STG_EXT.2</selectable>
-                <selectable>a hash (FCS_COP.1/HASH) of the stored key that is encrypted by a key
+                <selectable>a hash (FCS_COP.1<htm:b>/HASH</htm:b>) of the stored key that is encrypted by a key
                   protected by FCS_STG_EXT.2</selectable>
-                <selectable>a keyed hash (FCS_COP.1/KEYHMAC) using a key protected by a key
+                <selectable>a keyed hash (FCS_COP.1<htm:b>/KEYHMAC</htm:b>) using a key protected by a key
                   protected by FCS_STG_EXT.2</selectable>
                 <selectable>a digital signature of the stored key using an asymmetric key protected
                   according to FCS_STG_EXT.2</selectable>
@@ -4496,6 +4635,31 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   followed by a successful verification of the decrypted data with previously known
                   information</selectable>
               </selectables>. </title>
+              
+              <ext-comp-def-title>
+                <title>The TSF shall protect the integrity of any encrypted DEKs and KEKs and <selectables>
+                  <selectable>long-term trusted channel key material</selectable>
+                  <selectable>all software-based key storage</selectable>
+                  <selectable exclusive="yes">no other keys</selectable>
+                </selectables> by <selectables linebreak="yes">
+                  <selectable><selectables>
+                    <selectable>GCM</selectable>
+                    <selectable>CCM</selectable>
+                    <selectable>Key Wrap</selectable>
+                    <selectable>Key Wrap with Padding</selectable>
+                  </selectables> cipher mode for encryption according to FCS_STG_EXT.2</selectable>
+                  <selectable>a hash (FCS_COP.1) of the stored key that is encrypted by a key
+                    protected by FCS_STG_EXT.2</selectable>
+                  <selectable>a keyed hash (FCS_COP.1) using a key protected by a key
+                    protected by FCS_STG_EXT.2</selectable>
+                  <selectable>a digital signature of the stored key using an asymmetric key protected
+                    according to FCS_STG_EXT.2</selectable>
+                  <selectable>an immediate application of the key for decrypting the protected data
+                    followed by a successful verification of the decrypted data with previously known
+                    information</selectable>
+                </selectables>. </title>
+              </ext-comp-def-title>
+              
               <note role="application">The ST author must assign the same Long-term trusted channel
                 key material assigned in FCS_STG_EXT.2.1.</note>
             </f-element>
@@ -4551,8 +4715,26 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <htm:br/><htm:br/>
 
 
+	  <ext-comp-def fam-id="FDP_ACF_EXT" title="Access Control Functions">
+	    <fam-behavior>This family defines the rules for access control functions that are not addressed by the FDP_ACF family in CC Part 2.
+	    </fam-behavior>
+	  </ext-comp-def>
+	  
 
 	<f-component cc-id="fdp_acf_ext.1" name="Access Control for System Services">
+	  
+	  <comp-lev> requires the TSF to be able to control access to its own services.</comp-lev>
+	  <management>The following actions could be considered for the management functions in FMT:
+	  <htm:ul>
+	    <htm:li>Placing applications into application groups based on enterprise configuration settings.</htm:li>
+	    <htm:li>Enabling/disabling location services.</htm:li>
+	    <htm:li>Enabling/disabling data signaling over externally-accessible hardware ports.</htm:li>
+	  </htm:ul>
+	  </management>
+	  <audit>There are no auditable events foreseen.</audit>
+	  <dependencies>FMT_SMR.1 Security Roles</dependencies>
+	  
+	  
           <f-element id="fel-restrict-sys-service">
             <title>The TSF shall provide a mechanism to restrict the system services that are
               accessible to an application. </title>
@@ -4683,6 +4865,17 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         </f-component>
         <f-component id="fc_access_control_system" cc-id="fdp_acf_ext.2" name="Access Control for System Resources" status="sel-based">
           <depends on="fdp_group"/>
+          
+          <comp-lev> requires the TSF to be able to provide separate copies of system resources for different application groups.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT:
+            <htm:ul>
+              <htm:li>Approving exceptions for sharing data between applications or groups of applications.</htm:li>
+            </htm:ul>
+          </management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FDP_ACF_EXT.1 Access Control for System Services<htm:p/>
+            FMT_SMR.1 Security Roles</dependencies>
+          
           <f-element id="fel-per-app-resources">
             <title>The TSF shall provide a separate <selectables>
                 <selectable>address book</selectable>
@@ -4710,6 +4903,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fdp_acf_ext.3" name="Security Attribute Based Access Control" status="objective">
+          
+          <comp-lev> requires the TSF to enforce policies on applications that prohibit write and execute permissions from being granted simultaneously.</comp-lev>
+          <management>There are no management functions foreseen.
+          </management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>No dependencies.</dependencies>
+          
           <f-element id="fel-no-write-exe">
             <title>The TSF shall enforce an access control policy that prohibits an application from
               granting both write and execute permission to a file on the device except for <selectables>
@@ -4739,7 +4939,25 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
         </f-component>
+	  
+	  <ext-comp-def fam-id="FDP_BCK_EXT" title="Application Backup">
+	    <fam-behavior>This family defines requirements for managing device backups.
+	    </fam-behavior>
+	  </ext-comp-def>
+	  
+	  
         <f-component cc-id="fdp_bck_ext.1" name="Application Backup" status="objective">
+          
+          <comp-lev> requires the TSF to be able to determine which data to include in backup operations.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT:
+            <htm:ul>
+              <htm:li>Enable/disable backup of certain applications to a local or remote system.</htm:li>
+            </htm:ul>
+          </management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>No dependencies.</dependencies>
+          
+          
           <f-element id="fel-backup-mark">
             <title>The TSF shall provide a mechanism for applications to mark <selectables>
                 <selectable>all application data</selectable>
@@ -4767,7 +4985,21 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
         </f-component>
+	  
+	  <ext-comp-def fam-id="FDP_BLT_EXT" title="Limitation of Bluetooth Device Access">
+	    <fam-behavior>This family defines requirements for managing Bluetooth devices. 
+	    </fam-behavior>
+	  </ext-comp-def>
+	  
+	  
         <f-component name="Limitation of Bluetooth Device Access" cc-id="fdp_blt_ext.1" status="objective">
+          
+          <comp-lev> requires the TSF to manage which applications communicate with Bluetooth devices.</comp-lev>
+          <management>There are no management functions foreseen.
+          </management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>No dependencies.</dependencies>
+          
 	        <f-element id="fdp-blt-ext-1e1">
 	          <title>
 	            The TSF shall limit the applications that may communicate with a particular paired Bluetooth device. 
@@ -4809,8 +5041,28 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
         </f-component> ToDo: Remove per bio cPP module -->
+	  
+	  <ext-comp-def fam-id="FDP_DAR_EXT" title="Data-at-Rest Encryption">
+	    <fam-behavior>This family defines requirements for implementation of data-at-rest protection. 
+	    </fam-behavior>
+	  </ext-comp-def>
 	
         <f-component cc-id="fdp_dar_ext.1" name="Protected Data Encryption">
+          
+          <comp-lev> requires the TSF to be able to protect all data with a chosen method of encryption.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT:
+          <htm:ul>
+            <htm:li>Enabling data-at-rest protection.</htm:li>
+            <htm:li>Enabling removable media’s data-at-rest protection.</htm:li>
+          </htm:ul>
+          </management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST:
+            <htm:ul>
+              <htm:li>Failure to encrypt/decrypt data.</htm:li>
+            </htm:ul></audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation</dependencies>
+          
+          
           <f-element id="fel-dar-what">
             <title>Encryption shall cover all protected data. </title>
             <note role="application"> Protected data is all non-TSF data, including all user or
@@ -4856,6 +5108,23 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>
         <f-component cc-id="fdp_dar_ext.2" name="Sensitive Data Encryption">
+          
+          <comp-lev> requires the TSF to protect the Trust Anchor Database. </comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <htm:ul>
+            <htm:li>Importing X.509v3 certificates into the Trust Anchor Database.</htm:li>
+            <htm:li>Removing imported X.509v3 certificates from the Trust Anchor Database.</htm:li>
+            <htm:li>Approving import and removal by applications of X.509v3 certificates in the Trust Anchor Database.</htm:li>
+          </htm:ul>
+          </management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST:
+            <htm:ul>
+              <htm:li>Addition or removal of certificate from Trust Anchor Database</htm:li>
+            </htm:ul></audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation<htm:p/>
+            FCS_CKM.2 Cryptographic Key Establishment<htm:p/>
+            FCS_STG_EXT.2 Encrypted Cryptographic Key Storage
+          </dependencies>
+          
           <f-element id="fel-dar-app-what">
             <title>The TSF shall provide a mechanism for applications to mark data and keys as
               sensitive. </title>
@@ -4931,7 +5200,11 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <f-element id="fel-dar-symkey">
             <title>The TSF shall encrypt any stored symmetric key and any stored private key of the
               asymmetric key(s) used for the protection of sensitive data according to
-              FCS_STG_EXT.2.1 selection 2. </title>
+              [<htm:i>FCS_STG_EXT.2.1 selection 2</htm:i>]. </title>
+            <ext-comp-def-title>
+              <title>The TSF shall encrypt any stored symmetric key and any stored private key of the
+                asymmetric key(s) used for the protection of sensitive data according to <assignable>mechanism for encrypted key storage</assignable>. </title>  
+            </ext-comp-def-title>
             <note role="application">Symmetric keys used to encrypt sensitive data while the TSF is
               in the unlocked state must be encrypted with (or chain to a KEK encrypted with) the
               REK and password-derived or biometric-unlocked KEK. A stored private key of the
@@ -4976,7 +5249,27 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
         </f-component>
+	  
+	  <ext-comp-def fam-id="FDP_IFC_EXT" title="Subset Information Flow Control">
+	    <fam-behavior>This family defines requirements for handling of information flows that are not addressed by FDP_IFC in CC Part 2. 
+	    </fam-behavior>
+	  </ext-comp-def>
+	  
         <f-component cc-id="fdp_ifc_ext.1" name="Subset Information Flow Control">
+          
+          <comp-lev> requires the TSF to be able to support the use of an IPsec VPN to protect data in transit.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT:
+            <htm:ul>
+              <htm:li>Enabling/disabling VPN protection.</htm:li>
+              <htm:li>Enabling/disabling Always On VPN protection.</htm:li>
+            </htm:ul>
+          </management>
+          <audit>There are no auditable events foreseen.
+          </audit>
+          <dependencies>
+            FTP_ITC_EXT.1 Trusted Channel Communication
+          </dependencies>
+          
           <f-element id="fel-vpn-service">
             <title>The TSF shall <selectables linebreak="yes">
                 <selectable>provide an interface which allows a VPN client to protect all IP traffic
@@ -5067,7 +5360,27 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
         </f-component>
+	  
+	  <ext-comp-def fam-id="FDP_STG_EXT" title="User Data Storage">
+	    <fam-behavior>This family defines requirements for managing data storage. 
+	    </fam-behavior>
+	  </ext-comp-def>
+	  
         <f-component cc-id="fdp_stg_ext.1" name="User Data Storage">
+          
+          <comp-lev> requires the TSF to be able to label, encrypt, store, and decrypt sensitive data and keys.</comp-lev>
+          <management>There are no management functions foreseen.
+          </management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST:
+            <htm:ul>
+              <htm:li>Failure to encrypt/decrypt data.</htm:li>
+            </htm:ul></audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation<htm:p/>
+            FCS_CKM.2 Cryptographic Key Establishment<htm:p/>
+            FCS_STG_EXT.2 Encrypted Cryptographic Key Storage
+          </dependencies>
+          
+          
           <f-element id="fel-trust-anchor">
             <title>The TSF shall provide protected storage for the Trust Anchor Database. </title>
             <aactivity>
@@ -5082,16 +5395,55 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
         </f-component>
+	  
+	  
+	  <ext-comp-def fam-id="FDP_UPC_EXT" title="Inter-TSF User Data Transfer Protection">
+	    <fam-behavior>This family defines requirements for the use of trusted channel protocols to protect user data. 
+	    </fam-behavior>
+	  </ext-comp-def>
+	  
+	  
+	  <f-component cc-id="fdp_upc_ext.1" name="Inter-TSF User Data Transfer Protection" status="invisible">
+	    
+	    <comp-lev> requires the TSF to be able to protect communication channels between products using a chosen secure method.</comp-lev>
+	    <management>There are no management activities foreseen.</management>
+	    <audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST:
+	      <htm:ul>
+	        <htm:li>Application initiation of trusted channel.</htm:li>
+	      </htm:ul></audit>
+	    <dependencies>FTP_ITC_EXT.1 Trusted Channel Communication</dependencies>
+	    
+	        
+	    <f-element id="fel-tls-app-stub">
+	      <title>The TSF shall provide a means for non-TSF applications executing on the TOE to use 
+	        <assignable>data transfer protocol</assignable> 
+	        to provide a protected communication channel between the non-TSF application and another IT product 
+	        that is logically distinct from other communication channels, 
+	        provides assured identification of its end points, protects channel data from disclosure, 
+	        and detects modification of the channel data.</title>
+	 
+	    </f-element>
+	    <f-element id="fel-tls-app-init-stub">
+	      <title>The TSF shall permit the non-TSF applications to initiate communication via the
+	        trusted channel.</title>
+	      <aactivity>
+	        <no-tests/>
+	      </aactivity>
+	    </f-element>
+	  </f-component>
+	  
+	  
+	  
         <f-component cc-id="fdp_upc_ext.1" iteration="APPS" name="Inter-TSF User Data Transfer Protection (Applications)">
           <f-element id="fel-tls-app">
-            <title>The TSF shall provide a means for non-TSF applications executing on the TOE to use <htm:ul>
+            <title>The TSF shall provide a means for non-TSF applications executing on the TOE to use [<htm:i><htm:ul>
                 <htm:li>mutually authenticated TLS as defined in the Package for Transport Layer Security,</htm:li>
                 <htm:li>HTTPS,</htm:li>
               </htm:ul>and <selectables linebreak="yes">
                 <selectable id="upc_dtls">mutually authenticated DTLS as defined in the Package for Transport Layer Security</selectable>
                 <selectable id="s-upc-ipsec">IPsec as defined in the PP-Module for VPN Client</selectable>
                 <selectable>no other protocol</selectable>
-              </selectables> to provide a protected communication channel between the non-TSF
+              </selectables> </htm:i>] to provide a protected communication channel between the non-TSF
               application and another IT product that is logically distinct from other communication
               channels, provides assured identification of its end points, protects channel data
               from disclosure, and detects modification of the channel data. </title>
@@ -5178,12 +5530,12 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <depends on="bluetooth"/>
           <f-element id="fel-bluetooth">
             <title>The TSF shall provide a means for non-TSF applications executing on the TOE to
-              use <htm:ul>
+              use [<htm:i><htm:ul>
                 <htm:li>Bluetooth BR/EDR in accordance with the PP-Module for Bluetooth,</htm:li>
               </htm:ul>and <selectables linebreak="yes">
                 <selectable>Bluetooth LE in accordance with the PP-Module for Bluetooth</selectable>
                 <selectable>no other protocol</selectable>
-              </selectables> to provide a protected communication channel between the non-TSF
+              </selectables> </htm:i>] to provide a protected communication channel between the non-TSF
               application and another IT product that is logically distinct from other communication
               channels, provides assured identification of its end points, protects channel data
               from disclosure, and detects modification of the channel data. </title>
@@ -10085,6 +10437,26 @@ If "all applications" is selected, the evaluator shall disable each selected
         <htm:td>FCS_COP.1 - Cryptographic Operation</htm:td>
         <htm:td>All iterations of FCS_COP.1 have a dependency on FCS_CKM.4 for the subsequent destruction of any residual key material the TSF creates as part of the operation. 
           This dependency is met by the extended SFR FCS_CKM_EXT.4, which serves the same purpose as its CC Part 2 equivalent.</htm:td>
+      </htm:tr>
+      <htm:tr>
+        <htm:td>FCS_HTTPS_EXT.1 - HTTPS Protocol</htm:td>
+        <htm:td>FCS_HTTPS_EXT.1 has a dependency on FMT_SMF.1 for management of the TOE's behavior in the event of an invalid certificate. This dependency is met
+          by the extended SFR FMT_SMF_EXT.1 (specifically function 23), which serves the same purpose as its CC Part 2 equivalent.</htm:td>
+      </htm:tr>
+      <htm:tr>
+        <htm:td>FCS_STG_EXT.1 - Cryptographic Key Storage</htm:td>
+        <htm:td>FCS_STG_EXT.1 has a dependency on FMT_SMR.1 for the management roles that are authorized to manage the functionality defined by the requirement. 
+          This dependency is met by the extended SFR FMT_SMF_EXT.1, which implicitly defines separate management roles for the TSF.</htm:td>
+      </htm:tr>
+      <htm:tr>
+        <htm:td>FDP_ACF_EXT.1 - Access Control for System Services</htm:td>
+        <htm:td>FDP_ACF_EXT.1 has a dependency on FMT_SMR.1 for the management roles that are authorized to manage the functionality defined by the requirement. 
+          This dependency is met by the extended SFR FMT_SMF_EXT.1, which implicitly defines separate management roles for the TSF.</htm:td>
+      </htm:tr>
+      <htm:tr>
+        <htm:td>FDP_ACF_EXT.2 - Access Control for System Resources</htm:td>
+        <htm:td>FDP_ACF_EXT.2 has a dependency on FMT_SMR.1 for the management roles that are authorized to manage the functionality defined by the requirement. 
+          This dependency is met by the extended SFR FMT_SMF_EXT.1, which implicitly defines separate management roles for the TSF.</htm:td>
       </htm:tr>
       <htm:tr>
         <htm:td>FIA_UAU.7 - Protected Authentication Feedback</htm:td>
