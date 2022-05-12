@@ -139,6 +139,12 @@
         |/f-element[2]|
         |/aactivity[1]|
         |/Guidance[1]||
+* Error: Detected multiple elements with an id of 'x509_sys'.
+* Error: Detected multiple elements with an id of 'x509_apps'.
+* Error: Detected multiple elements with an id of 'x509_sign'.
+* Error: Detected multiple elements with an id of 'x509_sys'.
+* Error: Detected multiple elements with an id of 'x509_apps'.
+* Error: Detected multiple elements with an id of 'x509_sign'.
 
                           WARNING: Since FCS_CKM_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
@@ -162,4 +168,16 @@
                        
 
                           WARNING: Since FDP_DAR_EXT.1.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+
+                          WARNING: Since FIA_AFL_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+
+                          WARNING: Since FIA_AFL_EXT.1.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+
+                          WARNING: Since FIA_X509_EXT.2.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+
+                          WARNING: Since FMT_SMF_EXT.2.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
