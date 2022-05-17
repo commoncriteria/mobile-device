@@ -184,6 +184,7 @@ How is it differenet then me using subsection?
       <htm:li>Moved FTA_TAB.1 to mandatory</htm:li>
       <htm:li>Moved FAU_SAR.1 to mandatory</htm:li>
       <htm:li>Added ECD</htm:li>
+      <htm:li>Updated WLAN Client reference from Extended Package to Module</htm:li>
       </subject>
     </entry>
   </RevisionHistory>
@@ -501,7 +502,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
       authentication, and software integrity protection are implemented in order to address threats.
       <htm:br/><htm:br/> This assurance standard describes these essential security services
       provided by the Mobile Device and serves as a foundation for a secure mobile architecture. The
-      wireless connectivity shall be validated against the Extended Package for WLAN Client. If the
+      wireless connectivity shall be validated against the PP-Module for WLAN Clients. If the
       mobile device contains Bluetooth functionality (i.e., has Bluetooth hardware), the Bluetooth
       connectivity shall be evaluated against the PP-Module for Bluetooth.
 	  As illustrated in <xref to="TOE"/>, it is expected that a typical deployment would also include either
@@ -808,6 +809,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <htm:li>PP-Module for VPN Client, Version 2.3</htm:li>
                 <htm:li>PP-Module for Bluetooth, Version 1.0</htm:li>
                 <htm:li>PP-Module for MDM Agent, Version 1.0</htm:li>
+                <htm:li>PP-Module for WLAN CLients, Version 1.0</htm:li>
                 <htm:li>cPP-Module for Biometric Enrollment and Verification, Version 1.1</htm:li>
               </htm:ul>
         </description>
@@ -2032,7 +2034,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
          DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications.
          The following diagram shows an example key hierarchy to illustrate the concepts of this profile. 
          This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. 
-         Please note if <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometrics shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If "hybrid" is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF this interaction shall be included.<htm:br/>
+         Please note if <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometrics shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If "hybrid" is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:br/>
         <figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"/>
         <f-component cc-id="fcs_ckm.1" name="Cryptographic Key Generation">
           <f-element id="fel-asym-key-gen">
@@ -3401,8 +3403,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable exclusive="yes"><refinement>no other key sizes</refinement></selectable>
               </selectables>. </title>
             <note role="application">
-              For the first selection, the ST author should choose the mode or modes in which AES operates. For the second selection, the ST author should choose the key sizes that are supported by this functionality. 128-bit CBC and CCMP are required in order to comply with WLAN Client Extended Package. <htm:br/><htm:br/> 
-              Note that to comply with the WLAN Client EP, AES CCMP (which uses AES in CCM as specified in SP 800-38C) with cryptographic key size of 128 bits must be implemented. If CCM is only implemented to support CCMP for WLAN, AES-CCM does not need be selected. Optionally, AES-CCMP-256 or AES-GCMP-256 with cryptographic key size of 256 bits may be implemented. 
+              For the first selection, the ST author should choose the mode or modes in which AES operates. For the second selection, the ST author should choose the key sizes that are supported by this functionality. 128-bit CBC and CCMP are required in order to comply with the PP-Module for WLAN Clients. <htm:br/><htm:br/> 
+              Note that to comply with the PP-Module for WLAN Clients, AES CCMP (which uses AES in CCM as specified in SP 800-38C) with cryptographic key size of 128 bits must be implemented. If CCM is only implemented to support CCMP for WLAN, AES-CCM does not need be selected. Optionally, AES-CCMP-256 or AES-GCMP-256 with cryptographic key size of 256 bits may be implemented. 
             </note>
             <aactivity>
             <TSS>There are no TSS evaluation activities for this component.<htm:br/><htm:br/></TSS>  
@@ -3669,8 +3671,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               is no longer allowed, and SHA-1 for verification of digital signatures is strongly
               discouraged as there may be risk in accepting these signatures. It is expected that
               vendors will implement SHA-2 algorithms in accordance with SP
-              800-131A.<htm:br/><htm:br/> SHA-1 is currently required in order to comply with the
-              WLAN Client Extended Package. Vendors are strongly encouraged to implement updated
+              800-131A.<htm:br/><htm:br/> SHA-1 is currently required in order to comply with the 
+              PP-Module for WLAN Clients. Vendors are strongly encouraged to implement updated
               protocols that support the SHA-2 family; until updated protocols are supported, this
               PP allows support for SHA-1 implementations in compliance with SP
               800-131A.<htm:br/><htm:br/> The intent of this requirement is to specify the hashing
@@ -3834,7 +3836,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <note role="application"> The selection in this requirement must be consistent with the
               key size specified for the size of the keys used in conjunction with the keyed-hash
               message authentication. HMAC-SHA-1 is currently required in order to comply with the
-              WLAN Client EP.</note>
+              PP-Module for WLAN Clients.</note>
             <aactivity>
               <TSS> The evaluator shall examine the TSS to ensure that it specifies the following
                 values used by the HMAC function: key length, hash function used, block size, and
@@ -6587,8 +6589,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <htm:li>OCSP certificates presented for OCSP responses shall have the OCSP Signing purpose (id-kp 9 with OID 1.3.6.1.5.5.7.3.9) in the EKU field. [conditional]</htm:li></htm:ul></htm:li>
               </htm:ul>
             </title>
-            <note role="application">FIA_X509_EXT.1.1 lists the rules for validating certificates. The ST author must select whether revocation status is verified using OCSP or CRLs. OCSP stapling and OCSP multi-stapling only support TLS server certificate validation. If other certificate types are validated, either OCSP or CRL should be claimed. The WLAN Client EP to which a MDF TOE must also conform requires that certificates are used for EAP-TLS; this use requires that the extendedKeyUsage rules are verified. Certificates may optionally be used for trusted updates of system software and applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2(1)) and, if implemented, must be validated to contain the Code Signing purpose extendedKeyUsage.<htm:br/><htm:br/>
-              While FIA_X509_EXT.1.1 requires that the TOE perform certain checks on the certificate presented by a TLS server, there are corresponding checks that the authentication server will have to perform on the certificate presented by the client; namely that the extendedKeyUsage field of the client certificate includes “Client Authentication” and that the key agreement bit (for the Diffie-Hellman ciphersuites) or the key encipherment bit (for RSA ciphersuites) be set. Certificates obtained for use by the TOE will have to conform to these requirements in order to be used in the enterprise. This check is required to support EAP-TLS for the WLAN Client EP.</note>
+            <note role="application">FIA_X509_EXT.1.1 lists the rules for validating certificates. The ST author must select whether revocation status is verified using OCSP or CRLs. OCSP stapling and OCSP multi-stapling only support TLS server certificate validation. If other certificate types are validated, either OCSP or CRL should be claimed. The PP-Module for WLAN Clients, to which a MDF TOE must also conform, requires that certificates are used for EAP-TLS; this use requires that the extendedKeyUsage rules are verified. Certificates may optionally be used for trusted updates of system software and applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2(1)) and, if implemented, must be validated to contain the Code Signing purpose extendedKeyUsage.<htm:br/><htm:br/>
+              While FIA_X509_EXT.1.1 requires that the TOE perform certain checks on the certificate presented by a TLS server, there are corresponding checks that the authentication server will have to perform on the certificate presented by the client; namely that the extendedKeyUsage field of the client certificate includes “Client Authentication” and that the key agreement bit (for the Diffie-Hellman ciphersuites) or the key encipherment bit (for RSA ciphersuites) be set. Certificates obtained for use by the TOE will have to conform to these requirements in order to be used in the enterprise. This check is required to support EAP-TLS for the PP-Module for WLAN Clients.</note>
           </f-element>
           <f-element id="fel-cacert-what">
             <title>The TSF shall only treat a certificate as a CA certificate if the
@@ -10342,9 +10344,9 @@ If "all applications" is selected, the evaluator shall disable each selected
           
           <f-element id="fel-wlan">
             <title>The TSF shall use <htm:ul>
-              <htm:li>802.11-2012 in accordance with [<htm:i>the Extended Package for WLAN Clients</htm:i>],</htm:li>
-              <htm:li>802.1X in accordance with the [<htm:i>Extended Package for WLAN Clients</htm:i>],</htm:li>
-              <htm:li>EAP-TLS in accordance with [<htm:i>the Extended Package for WLAN Clients</htm:i>],</htm:li>
+              <htm:li>802.11-2012 in accordance with [<htm:i>the PP-Module for WLAN Clients</htm:i>],</htm:li>
+              <htm:li>802.1X in accordance with [<htm:i>the PP-Module for WLAN Clients</htm:i>],</htm:li>
+              <htm:li>EAP-TLS in accordance with [<htm:i>the PP-Module for WLAN Clients</htm:i>],</htm:li>
               <htm:li>Mutually authenticated TLS in accordance with [<htm:i>the Package for Transport Layer Security</htm:i>]</htm:li>
               </htm:ul> and <selectables linebreak="yes">
                 <selectable>IPsec in accordance with the PP-Module for VPN Client</selectable>
@@ -10365,7 +10367,7 @@ If "all applications" is selected, the evaluator shall disable each selected
               The intent of the mandatory portion of the above requirement is to use the cryptographic protocols identified in the requirement to establish and maintain a trusted channel between the TOE and an access point, VPN Gateway, or other trusted IT product.<htm:br/><htm:br/> 
               The ST author must list which trusted channel protocols are implemented by the Mobile Device. <htm:br/><htm:br/> 
 				
-              The TSF must be validated against the Extended Package for WLAN Clients to satisfy the mandatory trusted channels of 802.11-2012, 802.1X, and EAP-TLS. <htm:br/><htm:br/>
+              The TSF must be validated against the PP-Module for WLAN Clients to satisfy the mandatory trusted channels of 802.11-2012, 802.1X, and EAP-TLS. <htm:br/><htm:br/>
 				
               To satisfy the mandatory trusted channel of TLS and 
 			  if <xref to="itc_dtls"/> is selected, the TSF must be validated against the TLS Functional Package, with the following selections made: <htm:ul>
