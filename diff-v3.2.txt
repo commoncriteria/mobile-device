@@ -1422,19 +1422,20 @@ This document does not define any additional OSPs.					This document does not de
 										      >	-----------------------------------
 
 O.PROTECTED\_COMMS									O.PROTECTED\_COMMS
-:   To address the network eavesdropping (T.EAVESDROP) and network			:   To address the network eavesdropping (T.EAVESDROP) and network
-    attack (T.NETWORK) threats described in [Section 3.1				    attack (T.NETWORK) threats described in [Section 3.1
-    Threats](#thr){.dynref}, concerning wireless transmission of			    Threats](#thr){.dynref}, concerning wireless transmission of
-    Enterprise and user data and configuration data between the				    Enterprise and user data and configuration data between the
-    [TOE](#abbr_TOE) and remote network entities, conformant TOEs will			    [TOE](#abbr_TOE) and remote network entities, conformant TOEs will
-    use a trusted communication path. The [TOE](#abbr_TOE) will be		      |	    use a trusted communication path. The [TOE](#abbr_TOE) must be
-    capable of communicating using one (or more) of these standard		      |	    capable of communicating using mutually authenticated
-    protocols: [IPsec](#abbr_IPsec), [DTLS](#abbr_DTLS),			      |	    [TLS](#abbr_TLS), [EAP](#abbr_EAP)-TLS, [HTTPS](#abbr_HTTPS),
-    [TLS](#abbr_TLS), [HTTPS](#abbr_HTTPS), or Bluetooth. The protocols		      |	    802.11x, and 802.11-2012. The [TOE](#abbr_TOE) may optionaly
-    are specified by RFCs that offer a variety of implementation		      |	    communicate using these standard protocols: [IPsec](#abbr_IPsec),
-    choices. Requirements have been imposed on some of these choices		      |	    mutually-authenticated [DTLS](#abbr_DTLS), or Bluetooth. These
-    (particularly those for cryptographic primitives) to provide		      |	    protocols are specified by RFCs that offer a variety of
-    interoperability and resistance to cryptographic attack.\			      |	    implementation choices. Requirements have been imposed on some of
+:   To address the network eavesdropping (T.EAVESDROP) and network		      |	:   To address the network eavesdropping
+    attack (T.NETWORK) threats described in [Section 3.1			      |	    ([T.NETWORK\_EAVESDROP](#T.NETWORK_EAVESDROP)) and network attack
+    Threats](#thr){.dynref}, concerning wireless transmission of		      |	    ([T.NETWORK\_ATTACK](#T.NETWORK_ATTACK)) threats described in
+    Enterprise and user data and configuration data between the			      |	    [Section 3.1 Threats](#thr){.dynref}, concerning wireless
+    [TOE](#abbr_TOE) and remote network entities, conformant TOEs will		      |	    transmission of Enterprise and user data and configuration data
+    use a trusted communication path. The [TOE](#abbr_TOE) will be		      |	    between the [TOE](#abbr_TOE) and remote network entities, conformant
+    capable of communicating using one (or more) of these standard		      |	    TOEs will use a trusted communication path. The [TOE](#abbr_TOE)
+    protocols: [IPsec](#abbr_IPsec), [DTLS](#abbr_DTLS),			      |	    must be capable of communicating using mutually authenticated
+    [TLS](#abbr_TLS), [HTTPS](#abbr_HTTPS), or Bluetooth. The protocols		      |	    [TLS](#abbr_TLS), [EAP](#abbr_EAP)-TLS, [HTTPS](#abbr_HTTPS),
+    are specified by RFCs that offer a variety of implementation		      |	    802.11x, and 802.11-2012. The [TOE](#abbr_TOE) may optionaly
+    choices. Requirements have been imposed on some of these choices		      |	    communicate using these standard protocols: [IPsec](#abbr_IPsec),
+    (particularly those for cryptographic primitives) to provide		      |	    mutually-authenticated [DTLS](#abbr_DTLS), or Bluetooth. These
+    interoperability and resistance to cryptographic attack.\			      |	    protocols are specified by RFCs that offer a variety of
+										      >	    implementation choices. Requirements have been imposed on some of
 										      >	    these choices (particularly those for cryptographic primitives) to
 										      >	    provide interoperability and resistance to cryptographic attack.\
     \											    \
@@ -1447,8 +1448,9 @@ O.PROTECTED\_COMMS									O.PROTECTED\_COMMS
 
 O.STORAGE										O.STORAGE
 :   To address the issue of loss of confidentiality of user data in the			:   To address the issue of loss of confidentiality of user data in the
-    event of loss of a Mobile Device (T.PHYSICAL), conformant TOEs will			    event of loss of a Mobile Device (T.PHYSICAL), conformant TOEs will
-    use data-at-rest protection. The [TOE](#abbr_TOE) will be capable of		    use data-at-rest protection. The [TOE](#abbr_TOE) will be capable of
+    event of loss of a Mobile Device (T.PHYSICAL), conformant TOEs will		      |	    event of loss of a Mobile Device
+    use data-at-rest protection. The [TOE](#abbr_TOE) will be capable of	      |	    ([T.PHYSICAL\_ACCESS](#T.PHYSICAL_ACCESS)), conformant TOEs will use
+										      >	    data-at-rest protection. The [TOE](#abbr_TOE) will be capable of
     encrypting data and keys stored on the device and will prevent			    encrypting data and keys stored on the device and will prevent
     unauthorized access to encrypted data.						    unauthorized access to encrypted data.
 
@@ -1462,7 +1464,8 @@ O.CONFIG										O.CONFIG
 
 O.AUTH											O.AUTH
 :   To address the issue of loss of confidentiality of user data in the			:   To address the issue of loss of confidentiality of user data in the
-    event of loss of a Mobile Device (T.PHYSICAL), users are required to		    event of loss of a Mobile Device (T.PHYSICAL), users are required to
+    event of loss of a Mobile Device (T.PHYSICAL), users are required to	      |	    event of loss of a Mobile Device
+										      >	    ([T.PHYSICAL\_ACCESS](#T.PHYSICAL_ACCESS)), users are required to
     enter an authentication factor to the device prior to accessing			    enter an authentication factor to the device prior to accessing
     protected functionality and data. Some non-sensitive functionality			    protected functionality and data. Some non-sensitive functionality
     (e.g., emergency calling, text notification) can be accessed prior			    (e.g., emergency calling, text notification) can be accessed prior
@@ -1488,14 +1491,14 @@ O.INTEGRITY										O.INTEGRITY
     self-tests. This will protect against the threat T.PERSISTENT.\			    self-tests. This will protect against the threat T.PERSISTENT.\
     \											    \
     To address the issue of an application containing malicious or			    To address the issue of an application containing malicious or
-    flawed code (T.FLAWAPP), the integrity of downloaded updates to			    flawed code (T.FLAWAPP), the integrity of downloaded updates to
-    software/firmware will be verified prior to installation/execution			    software/firmware will be verified prior to installation/execution
-    of the object on the Mobile Device. In addition, the				    of the object on the Mobile Device. In addition, the
-    [TOE](#abbr_TOE) will restrict applications to only have access to			    [TOE](#abbr_TOE) will restrict applications to only have access to
-    the system services and data they are permitted to interact with.			    the system services and data they are permitted to interact with.
-    The [TOE](#abbr_TOE) will further protect against malicious				    The [TOE](#abbr_TOE) will further protect against malicious
-    applications from gaining access to data they are not authorized to			    applications from gaining access to data they are not authorized to
-    access by randomizing the memory layout.						    access by randomizing the memory layout.
+    flawed code (T.FLAWAPP), the integrity of downloaded updates to		      |	    flawed code ([T.MALICIOUS\_APP](#T.MALICIOUS_APP)), the integrity of
+    software/firmware will be verified prior to installation/execution		      |	    downloaded updates to software/firmware will be verified prior to
+    of the object on the Mobile Device. In addition, the			      |	    installation/execution of the object on the Mobile Device. In
+    [TOE](#abbr_TOE) will restrict applications to only have access to		      |	    addition, the [TOE](#abbr_TOE) will restrict applications to only
+    the system services and data they are permitted to interact with.		      |	    have access to the system services and data they are permitted to
+    The [TOE](#abbr_TOE) will further protect against malicious			      |	    interact with. The [TOE](#abbr_TOE) will further protect against
+    applications from gaining access to data they are not authorized to		      |	    malicious applications from gaining access to data they are not
+    access by randomizing the memory layout.					      |	    authorized to access by randomizing the memory layout.
 
 O.PRIVACY										O.PRIVACY
 :   In a BYOD environment (use cases 3 and 4), a personally-owned mobile	      |	:   In a [BYOD](#abbr_BYOD) environment (use cases 3 and 4), a
@@ -1506,7 +1509,8 @@ O.PRIVACY										O.PRIVACY
     addition, since there are limited controls that the enterprise can		      |	    must be ensured. In addition, since there are limited controls that
     enforce on the personal side, separation of personal and enterprise		      |	    the enterprise can enforce on the personal side, separation of
     data is needed. This will protect against the T.FLAWAPP and			      |	    personal and enterprise data is needed. This will protect against
-    T.PERSISTENT threats.							      |	    the T.FLAWAPP and T.PERSISTENT threats.
+    T.PERSISTENT threats.							      |	    the [T.MALICIOUS\_APP](#T.MALICIOUS_APP) and
+										      >	    [T.PERSISTENT\_PRESENCE](#T.PERSISTENT_PRESENCE) threats.
 
 ### 4.2 Security Objectives for the Operational Environment {#sooe .indexable data-le |	4.2 Security Objectives for the Operational Environment {#sooe .indexable data-level=
 										      >	-------------------------------------------------------
