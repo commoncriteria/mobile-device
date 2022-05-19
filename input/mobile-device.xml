@@ -1004,7 +1004,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
             (T.NETWORK_ATTACK) threats described in <xref to="thr"/>, concerning wireless
             transmission of Enterprise and user data and configuration data between the TOE and
             remote network entities, conformant TOEs will use a trusted communication path. The TOE
-            must be capable of communicating using mutually authenticated TLS, EAP-TLS, HTTPS, 802.1x, and 802.11-2012. The TOE may optionally communicate using these standard protocols: IPsec,
+            must be capable of communicating using mutually authenticated TLS, EAP-TLS, HTTPS, 802.1X, and 802.11-2012. The TOE may optionally communicate using these standard protocols: IPsec,
             mutually-authenticated DTLS, or Bluetooth. These protocols are specified by RFCs that offer a variety
             of implementation choices. Requirements have been imposed on some of these choices
             (particularly those for cryptographic primitives) to provide interoperability and
@@ -2034,7 +2034,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
          DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications.
          The following diagram shows an example key hierarchy to illustrate the concepts of this profile. 
          This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. 
-         Please note if <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometrics shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If "hybrid" is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:br/>
+         Please note if <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If "hybrid" is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:br/>
         <figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"/>
         <f-component cc-id="fcs_ckm.1" name="Cryptographic Key Generation">
           <f-element id="fel-asym-key-gen">
@@ -5631,9 +5631,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable> face</selectable>
                 <selectable> voice</selectable>
                 <selectable> vein</selectable> -->
-                <selectable> biometric</selectable>
+                <selectable> biometric in accordance with the cPP-Module for Biometric Enrollment and Verification</selectable>
                 <selectable> hybrid</selectable>
-                <selectable id="s-authfail-noother"> no other</selectable>
+                <selectable id="s-authfail-noother"> no other mechanism</selectable>
               </selectables> as critical authentication mechanisms. </title>
             <note role="application">A critical authentication mechanism is one in which
               countermeasures are triggered (i.e. wipe of the device) when the maximum number of
@@ -6205,7 +6205,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <selectable id="uau_face"> face</selectable>
                   <selectable id="uau_vox"> voice</selectable>
                   <selectable id="uau_vein"> vein</selectable> -->
-                  <selectable id="uau_biometric"> biometric</selectable>
+                  <selectable id="uau_biometric"> biometric in accordance with the cPP-Module for Biometric Enrollment and Verification</selectable>
                   <selectable id="uau_hybr"> hybrid</selectable>
                   <selectable>no other mechanism</selectable>
                 </selectables>
@@ -6215,7 +6215,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               (finger/palm) vein -->. A hybrid authentication factor is where a user has to submit a
               combination of PIN/password and biometric sample where both have to pass and if either
               fails the user is not made aware of which factor failed.<htm:br/><htm:br/> 
-              If <xref to="uau_biometric"/> or <xref to="uau_hybr"/> is selected, then the TSF must be validated against requirements from the cPP-Module for Biometrics.<htm:br/><htm:br/>
+              If <xref to="uau_biometric"/> or <xref to="uau_hybr"/> is selected, then the TSF must be validated against requirements from the cPP-Module for Biometric Enrollment and Verification.<htm:br/><htm:br/>
               If <xref to="uau_hybr"/> is selected, <xref to="uau_biometric"/> does not need to be selected, but should be
               selected if the biometric authentication can be used independent of the hybrid
               authentication, i.e. without having to enter a PIN/password.<htm:br/><htm:br/>              
@@ -6244,7 +6244,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 successful authentication (i.e. is the user input used to derive or unlock a key) and
                 which authentication mechanism can be used at which authentication factor interfaces
                 (i.e. if there are times, for example, after a reboot, that only specific
-                authentication mechanisms can be used). If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometrics, the interaction between the BAFs must be described. For example, whether the
+                authentication mechanisms can be used). If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification, the interaction between the BAFs must be described. For example, whether the
                 multiple BAFs can be enabled at the same time.<htm:br/><htm:br/></TSS>
               <Guidance> The evaluator shall verify that configuration guidance for each
                 authentication mechanism is addressed in the AGD guidance.<htm:br/><htm:br/></Guidance>
@@ -6278,7 +6278,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     Authentication Factor according to the AGD guidance and verify that the TSF
                     requires the entry of the Password Authentication Factor before allowing the
                     factor to be changed.</test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometrics the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification the evaluator shall
                     configure the TSF to use the BAF, which includes configuring the Password
                     Authentication Factor, according to the AGD guidance. The evaluator shall change
                     the BAF according to the AGD guidance and verify that the TSF requires the entry
@@ -6311,7 +6311,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     evaluator shall wait until the TSF locks and then verify that the TSF requires
                     the entry of the Password Authentication Factor before transitioning to the
                     unlocked state.</test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometrics the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification the evaluator shall
                     repeat Test 1 verifying that the TSF requires the entry of the BAF before
                     transitioning to the unlocked state. </test>
                   <test>[conditional] If "hybrid" is selected in FIA_UAU.5.1, the evaluator shall
@@ -6321,7 +6321,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     guidance. The evaluator shall lock the TSF and then verify that the TSF requires
                     the entry of the Password Authentication Factor before transitioning to the
                     unlocked state.</test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometrics the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification the evaluator shall
                     repeat Test 4 verifying that the TSF requires the entry of the BAF before
                     transitioning to the unlocked state.</test>
                   <test>[conditional] If "hybrid" is selected in FIA_UAU.5.1, the evaluator shall
@@ -6357,7 +6357,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <test>The evaluator shall enter passwords on the device, including at least the
                     Password Authentication Factor at lock screen, and verify that the password is
                     not displayed on the device. </test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometrics the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification the evaluator shall
                     authenticate by producing a biometric sample at lock screen. As the biometric
                     algorithms are performed, the evaluator shall verify that sensitive images,
                     audio, or other information identifying the user are kept secret and are not
@@ -7764,7 +7764,7 @@ The evaluator shall perform the following tests: <htm:ol type="a">
               TOE does not contain a BAF. This selection must correspond with the selection made in
               FIA_UAU.5.1. If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, "Biometric Authentication Factor"
               must be selected and the user or admin must have the option to disable the use of
-              it. If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometrics, this applies to all different
+              it. If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification, this applies to all different
               modalities. If <xref to="uau_hybr"/> is selected in FIA_UAU.5.1 it must be selected and the user
               or admin must have the option to disable the use of it.
 		  </app-note>
@@ -7772,7 +7772,7 @@ The evaluator shall perform the following tests: <htm:ol type="a">
 		    The evaluator shall verify that the TSS states if the TOE supports a BAF
                     or hybrid authentication. If the TOE does not include a BAF or hybrid
                     authentication this test is implicitly met. <htm:ol type="a">
-                      <htm:li>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometrics the evaluator shall verify that the
+                      <htm:li>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification the evaluator shall verify that the
                         TSS describes the procedure to enable/disable the BAF.<!--If the TOE includes
                         multiple BAFs, the evaluator shall verify that the TSS describes how to
                         enable/disable each BAF, specifically if the different modalities can be
