@@ -1431,7 +1431,7 @@ O.PROTECTED\_COMMS									O.PROTECTED\_COMMS
     capable of communicating using one (or more) of these standard		      |	    TOEs will use a trusted communication path. The [TOE](#abbr_TOE)
     protocols: [IPsec](#abbr_IPsec), [DTLS](#abbr_DTLS),			      |	    must be capable of communicating using mutually authenticated
     [TLS](#abbr_TLS), [HTTPS](#abbr_HTTPS), or Bluetooth. The protocols		      |	    [TLS](#abbr_TLS), [EAP](#abbr_EAP)-TLS, [HTTPS](#abbr_HTTPS),
-    are specified by RFCs that offer a variety of implementation		      |	    802.1x, and 802.11-2012. The [TOE](#abbr_TOE) may optionally
+    are specified by RFCs that offer a variety of implementation		      |	    802.1X, and 802.11-2012. The [TOE](#abbr_TOE) may optionally
     choices. Requirements have been imposed on some of these choices		      |	    communicate using these standard protocols: [IPsec](#abbr_IPsec),
     (particularly those for cryptographic primitives) to provide		      |	    mutually-authenticated [DTLS](#abbr_DTLS), or Bluetooth. These
     interoperability and resistance to cryptographic attack.\			      |	    protocols are specified by RFCs that offer a variety of
@@ -2652,14 +2652,16 @@ illustrate the concepts of this profile. This example is not meant as an	      |
 approved design, but [ST](#abbr_ST) authors will be expected to provide		      |	not meant as an approved design, but [ST](#abbr_ST) authors will be
 a diagram illustrating their key hierarchy in order to demonstrate that		      |	expected to provide a diagram illustrating their key hierarchy in order
 they meet the requirements of this profile. Please note if a			      |	to demonstrate that they meet the requirements of this profile. Please
-[BAF](#abbr_BAF) is selected in [FIA\_UAU.5.1](#FIA_UAU.5.1), the		      |	note if [biometric](#uau_biometric) is selected in
-[BAF](#abbr_BAF) shall be illustrated in the key hierarchy diagram, to		      |	[FIA\_UAU.5.1](#FIA_UAU.5.1), each [BAF](#abbr_BAF) claimed in
-include a description of when and how the [BAF](#abbr_BAF) is used to		      |	FIA\_MBV\_EXT.1.1 in the [cPP](#abbr_cPP)-Module for Biometrics shall be
-release keys. If \"hybrid\" is selected in [FIA\_UAU.5.1](#FIA_UAU.5.1),	      |	illustrated in the key hierarchy diagram, to include a description of
-meaning that a PIN or password must be used in conjunction with the		      |	when and how the [BAF](#abbr_BAF) is used to release keys. If \"hybrid\"
-[BAF](#abbr_BAF) this interaction shall be included.\				      |	is selected in [FIA\_UAU.5.1](#FIA_UAU.5.1), meaning that a PIN or
-										      >	password must be used in conjunction with the [BAF](#abbr_BAF), this
-										      >	interaction shall be included.\
+[BAF](#abbr_BAF) is selected in [FIA\_UAU.5.1](#FIA_UAU.5.1), the		      |	note if [biometric in accordance with the cPP-Module for Biometric
+[BAF](#abbr_BAF) shall be illustrated in the key hierarchy diagram, to		      |	Enrollment and Verification](#uau_biometric) is selected in
+include a description of when and how the [BAF](#abbr_BAF) is used to		      |	[FIA\_UAU.5.1](#FIA_UAU.5.1), each [BAF](#abbr_BAF) claimed in
+release keys. If \"hybrid\" is selected in [FIA\_UAU.5.1](#FIA_UAU.5.1),	      |	FIA\_MBV\_EXT.1.1 in the [cPP](#abbr_cPP)-Module for Biometric
+meaning that a PIN or password must be used in conjunction with the		      |	Enrollment and Verification shall be illustrated in the key hierarchy
+[BAF](#abbr_BAF) this interaction shall be included.\				      |	diagram, to include a description of when and how the [BAF](#abbr_BAF)
+										      >	is used to release keys. If \"hybrid\" is selected in
+										      >	[FIA\_UAU.5.1](#FIA_UAU.5.1), meaning that a PIN or password must be
+										      >	used in conjunction with the [BAF](#abbr_BAF), this interaction shall be
+										      >	included.\
 
 ::: {#figure-Keys .figure}								::: {#figure-Keys .figure}
 ![](images/figure3.jpg){#Keys}\								![](images/figure3.jpg){#Keys}\
@@ -7715,8 +7717,9 @@ tests:											tests:
 
 ::: {.reqdesc}										::: {.reqdesc}
 The [TSF](#abbr_TSF) shall consider password and \[**selection**:			The [TSF](#abbr_TSF) shall consider password and \[**selection**:
-*fingerprint*, *iris*, *face*, *voice*, *vein*, *hybrid*, *no other*\]		      |	*biometric*, *hybrid*, *no other*\] as critical authentication
-as critical authentication mechanisms.						      |	mechanisms.
+*fingerprint*, *iris*, *face*, *voice*, *vein*, *hybrid*, *no other*\]		      |	*biometric in accordance with the [cPP](#abbr_cPP)-Module for Biometric
+as critical authentication mechanisms.						      |	Enrollment and Verification*, *hybrid*, *no other mechanism*\] as
+										      >	critical authentication mechanisms.
 
 ::: {.appnote}										::: {.appnote}
 [Application Note: ]{.note-header}[A critical authentication mechanism			[Application Note: ]{.note-header}[A critical authentication mechanism
@@ -7725,13 +7728,13 @@ when the maximum number of unsuccessful authentication attempts is			when the ma
 exceeded, rendering the other factors unavailable.\					exceeded, rendering the other factors unavailable.\
 \											\
 If no additional authentication mechanisms are selected in				If no additional authentication mechanisms are selected in
-[FIA\_UAU.5.1](#FIA_UAU.5.1), then 'no other' must be selected. If an		      |	[FIA\_UAU.5.1](#FIA_UAU.5.1), then [no other](#s-authfail-noother) must
-additional authentication mechanism is selected in				      |	be selected. If an additional authentication mechanism is selected in
-[FIA\_UAU.5.1](#FIA_UAU.5.1), then it must only be selected in				[FIA\_UAU.5.1](#FIA_UAU.5.1), then it must only be selected in
-[FIA\_AFL\_EXT.1.1](#FIA_AFL_EXT.1.1) if surpassing the authentication			[FIA\_AFL\_EXT.1.1](#FIA_AFL_EXT.1.1) if surpassing the authentication
-failure threshold for biometric data causes a countermeasure to be			failure threshold for biometric data causes a countermeasure to be
-triggered regardless of the failure status of the other authentication			triggered regardless of the failure status of the other authentication
-mechanisms.\										mechanisms.\
+[FIA\_UAU.5.1](#FIA_UAU.5.1), then 'no other' must be selected. If an		      |	[FIA\_UAU.5.1](#FIA_UAU.5.1), then [no other
+additional authentication mechanism is selected in				      |	mechanism](#s-authfail-noother) must be selected. If an additional
+[FIA\_UAU.5.1](#FIA_UAU.5.1), then it must only be selected in			      |	authentication mechanism is selected in [FIA\_UAU.5.1](#FIA_UAU.5.1),
+[FIA\_AFL\_EXT.1.1](#FIA_AFL_EXT.1.1) if surpassing the authentication		      |	then it must only be selected in [FIA\_AFL\_EXT.1.1](#FIA_AFL_EXT.1.1)
+failure threshold for biometric data causes a countermeasure to be		      |	if surpassing the authentication failure threshold for biometric data
+triggered regardless of the failure status of the other authentication		      |	causes a countermeasure to be triggered regardless of the failure status
+mechanisms.\									      |	of the other authentication mechanisms.\
 \											\
 If the [TOE](#abbr_TOE) implements multiple Authentication Factor			If the [TOE](#abbr_TOE) implements multiple Authentication Factor
 interfaces (for example, a [DAR](#abbr_DAR) decryption interface, a		      |	interfaces (for example, a [DAR](#abbr_DAR) decryption interface, a lock
@@ -8157,8 +8160,9 @@ There are no test evaluation activities for this component.\			      |	There are
 
 ::: {.reqdesc}										::: {.reqdesc}
 The [TSF](#abbr_TSF) shall provide [password and \[**selection**:			The [TSF](#abbr_TSF) shall provide [password and \[**selection**:
-*fingerprint*, *iris*, *face*, *voice*, *vein*, *hybrid*, *no other		      |	*biometric*, *hybrid*, *no other mechanism*\] ]{.refinement}to support
-mechanism*\] ]{.refinement}to support user authentication.			      |	user authentication.
+*fingerprint*, *iris*, *face*, *voice*, *vein*, *hybrid*, *no other		      |	*biometric in accordance with the [cPP](#abbr_cPP)-Module for Biometric
+mechanism*\] ]{.refinement}to support user authentication.			      |	Enrollment and Verification*, *hybrid*, *no other mechanism*\]
+										      >	]{.refinement}to support user authentication.
 
 ::: {.appnote}										::: {.appnote}
 [Application Note: ]{.note-header}[The [TSF](#abbr_TSF) must support a			[Application Note: ]{.note-header}[The [TSF](#abbr_TSF) must support a
@@ -8169,16 +8173,16 @@ to submit a combination of PIN/password and biometric sample where both		      <
 have to pass and if either fails the user is not made aware of which			have to pass and if either fails the user is not made aware of which
 factor failed.\										factor failed.\
 \											\
-If \"hybrid\" is selected, a biometric modality does not need to be		      |	If [biometric](#uau_biometric) or [hybrid](#uau_hybr) is selected, then
-selected, but should be selected if the biometric authentication can be		      |	the [TSF](#abbr_TSF) must be validated against requirements from the
-used independent of the hybrid authentication, i.e. without having to		      |	[cPP](#abbr_cPP)-Module for Biometrics.\
-enter a PIN/password.\								      |	\
-\										      |	If [hybrid](#uau_hybr) is selected, [biometric](#uau_biometric) does not
-If a biometric modality or \"hybrid\" is selected, then				      |	need to be selected, but should be selected if the biometric
-[FIA\_BMG\_EXT.1](#FIA_BMG_EXT.1) and [FDP\_PBA\_EXT.1](#FDP_PBA_EXT.1)		      |	authentication can be used independent of the hybrid authentication,
-must be included in the [ST](#abbr_ST).\					      |	i.e. without having to enter a PIN/password.\
-\										      <
-If \"using a PIN as an additional factor\" or \"using a password as an		      <
+If \"hybrid\" is selected, a biometric modality does not need to be		      |	If [biometric in accordance with the cPP-Module for Biometric Enrollment
+selected, but should be selected if the biometric authentication can be		      |	and Verification](#uau_biometric) or [hybrid](#uau_hybr) is selected,
+used independent of the hybrid authentication, i.e. without having to		      |	then the [TSF](#abbr_TSF) must be validated against requirements from
+enter a PIN/password.\								      |	the [cPP](#abbr_cPP)-Module for Biometric Enrollment and Verification.\
+\										      |	\
+If a biometric modality or \"hybrid\" is selected, then				      |	If [hybrid](#uau_hybr) is selected, [biometric in accordance with the
+[FIA\_BMG\_EXT.1](#FIA_BMG_EXT.1) and [FDP\_PBA\_EXT.1](#FDP_PBA_EXT.1)		      |	cPP-Module for Biometric Enrollment and Verification](#uau_biometric)
+must be included in the [ST](#abbr_ST).\					      |	does not need to be selected, but should be selected if the biometric
+\										      |	authentication can be used independent of the hybrid authentication,
+If \"using a PIN as an additional factor\" or \"using a password as an		      |	i.e. without having to enter a PIN/password.\
 additional factor\" is selected in						      <
 [FDP\_PBA\_EXT.1.1](#FDP_PBA_EXT.1.1), then \"hybrid\" must be			      <
 selected.\									      <
@@ -8238,9 +8242,10 @@ unlock a key) and which authentication mechanism can be used at which			unlock a
 authentication factor interfaces (i.e. if there are times, for example,			authentication factor interfaces (i.e. if there are times, for example,
 after a reboot, that only specific authentication mechanisms can be			after a reboot, that only specific authentication mechanisms can be
 used). If multiple BAFs are supported per [FIA\_UAU.5.1](#FIA_UAU.5.1),		      |	used). If multiple [BAFs](#abbr_BAF) are claimed in FIA\_MBV\_EXT.1.1 in
-the interaction between the BAFs must be described. For example, whether	      |	the [cPP](#abbr_cPP)-Module for Biometrics, the interaction between the
-the multiple BAFs can be enabled at the same time.\				      |	[BAFs](#abbr_BAF) must be described. For example, whether the multiple
-\										      |	[BAFs](#abbr_BAF) can be enabled at the same time.\
+the interaction between the BAFs must be described. For example, whether	      |	the [cPP](#abbr_cPP)-Module for Biometric Enrollment and Verification,
+the multiple BAFs can be enabled at the same time.\				      |	the interaction between the [BAFs](#abbr_BAF) must be described. For
+\										      |	example, whether the multiple [BAFs](#abbr_BAF) can be enabled at the
+										      >	same time.\
 \											\
 
 ::: {.eacategory}									::: {.eacategory}
@@ -8353,16 +8358,18 @@ Tests											Tests
     according to the AGD guidance and verify that the [TSF](#abbr_TSF)			    according to the AGD guidance and verify that the [TSF](#abbr_TSF)
     requires the entry of the Password Authentication Factor before			    requires the entry of the Password Authentication Factor before
     allowing the factor to be changed.							    allowing the factor to be changed.
--   **Test 2:** \[conditional\] For each [BAF](#abbr_BAF) selected in		      |	-   **Test 2:** \[conditional\] If [biometric](#uau_biometric) is
-    [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall configure the		      |	    selected in [FIA\_UAU.5.1](#FIA_UAU.5.1), for each [BAF](#abbr_BAF)
-    [TSF](#abbr_TSF) to use the [BAF](#abbr_BAF), which includes		      |	    claimed in FIA\_MBV\_EXT.1.1 in the [cPP](#abbr_cPP)-Module for
-    configuring the Password Authentication Factor, according to the AGD	      |	    Biometrics the evaluator shall configure the [TSF](#abbr_TSF) to use
-    guidance. The evaluator shall change the [BAF](#abbr_BAF) according		      |	    the [BAF](#abbr_BAF), which includes configuring the Password
-    to the AGD guidance and verify that the [TSF](#abbr_TSF) requires		      |	    Authentication Factor, according to the AGD guidance. The evaluator
-    the entry of the Password Authentication Factor before allowing the		      |	    shall change the [BAF](#abbr_BAF) according to the AGD guidance and
-    [BAF](#abbr_BAF) to be changed.						      |	    verify that the [TSF](#abbr_TSF) requires the entry of the Password
-										      >	    Authentication Factor before allowing the [BAF](#abbr_BAF) to be
-										      >	    changed.
+-   **Test 2:** \[conditional\] For each [BAF](#abbr_BAF) selected in		      |	-   **Test 2:** \[conditional\] If [biometric in accordance with the
+    [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall configure the		      |	    cPP-Module for Biometric Enrollment and
+										      >	    Verification](#uau_biometric) is selected in
+										      >	    [FIA\_UAU.5.1](#FIA_UAU.5.1), for each [BAF](#abbr_BAF) claimed in
+										      >	    FIA\_MBV\_EXT.1.1 in the [cPP](#abbr_cPP)-Module for Biometric
+										      >	    Enrollment and Verification the evaluator shall configure the
+    [TSF](#abbr_TSF) to use the [BAF](#abbr_BAF), which includes			    [TSF](#abbr_TSF) to use the [BAF](#abbr_BAF), which includes
+    configuring the Password Authentication Factor, according to the AGD		    configuring the Password Authentication Factor, according to the AGD
+    guidance. The evaluator shall change the [BAF](#abbr_BAF) according			    guidance. The evaluator shall change the [BAF](#abbr_BAF) according
+    to the AGD guidance and verify that the [TSF](#abbr_TSF) requires			    to the AGD guidance and verify that the [TSF](#abbr_TSF) requires
+    the entry of the Password Authentication Factor before allowing the			    the entry of the Password Authentication Factor before allowing the
+    [BAF](#abbr_BAF) to be changed.							    [BAF](#abbr_BAF) to be changed.
 -   **Test 3:** \[conditional\] If \"hybrid\" is selected in				-   **Test 3:** \[conditional\] If \"hybrid\" is selected in
     [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall configure the			    [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall configure the
     [TSF](#abbr_TSF) to use the [BAF](#abbr_BAF) and PIN or password,			    [TSF](#abbr_TSF) to use the [BAF](#abbr_BAF) and PIN or password,
@@ -8402,12 +8409,14 @@ Tests										      <
     The evaluator shall wait until the [TSF](#abbr_TSF) locks and then			    The evaluator shall wait until the [TSF](#abbr_TSF) locks and then
     verify that the [TSF](#abbr_TSF) requires the entry of the Password			    verify that the [TSF](#abbr_TSF) requires the entry of the Password
     Authentication Factor before transitioning to the unlocked state.			    Authentication Factor before transitioning to the unlocked state.
--   **Test 2:** \[conditional\] For each [BAF](#abbr_BAF) selected in		      |	-   **Test 2:** \[conditional\] If [biometric](#uau_biometric) is
-    [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall repeat Test 1		      |	    selected in [FIA\_UAU.5.1](#FIA_UAU.5.1), for each [BAF](#abbr_BAF)
-    verifying that the [TSF](#abbr_TSF) requires the entry of the		      |	    claimed in FIA\_MBV\_EXT.1.1 in the [cPP](#abbr_cPP)-Module for
-    [BAF](#abbr_BAF) before transitioning to the unlocked state.		      |	    Biometrics the evaluator shall repeat Test 1 verifying that the
-										      >	    [TSF](#abbr_TSF) requires the entry of the [BAF](#abbr_BAF) before
-										      >	    transitioning to the unlocked state.
+-   **Test 2:** \[conditional\] For each [BAF](#abbr_BAF) selected in		      |	-   **Test 2:** \[conditional\] If [biometric in accordance with the
+    [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall repeat Test 1		      |	    cPP-Module for Biometric Enrollment and
+										      >	    Verification](#uau_biometric) is selected in
+										      >	    [FIA\_UAU.5.1](#FIA_UAU.5.1), for each [BAF](#abbr_BAF) claimed in
+										      >	    FIA\_MBV\_EXT.1.1 in the [cPP](#abbr_cPP)-Module for Biometric
+										      >	    Enrollment and Verification the evaluator shall repeat Test 1
+    verifying that the [TSF](#abbr_TSF) requires the entry of the			    verifying that the [TSF](#abbr_TSF) requires the entry of the
+    [BAF](#abbr_BAF) before transitioning to the unlocked state.			    [BAF](#abbr_BAF) before transitioning to the unlocked state.
 -   **Test 3:** \[conditional\] If \"hybrid\" is selected in				-   **Test 3:** \[conditional\] If \"hybrid\" is selected in
     [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall repeat Test 1			    [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall repeat Test 1
     verifying that the [TSF](#abbr_TSF) requires the entry of the			    verifying that the [TSF](#abbr_TSF) requires the entry of the
@@ -8418,12 +8427,14 @@ Tests										      <
     [TSF](#abbr_TSF) and then verify that the [TSF](#abbr_TSF) requires			    [TSF](#abbr_TSF) and then verify that the [TSF](#abbr_TSF) requires
     the entry of the Password Authentication Factor before transitioning		    the entry of the Password Authentication Factor before transitioning
     to the unlocked state.								    to the unlocked state.
--   **Test 5:** \[conditional\] For each [BAF](#abbr_BAF) selected in		      |	-   **Test 5:** \[conditional\] If [biometric](#uau_biometric) is
-    [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall repeat Test 4		      |	    selected in [FIA\_UAU.5.1](#FIA_UAU.5.1), for each [BAF](#abbr_BAF)
-    verifying that the [TSF](#abbr_TSF) requires the entry of the		      |	    claimed in FIA\_MBV\_EXT.1.1 in the [cPP](#abbr_cPP)-Module for
-    [BAF](#abbr_BAF) before transitioning to the unlocked state.		      |	    Biometrics the evaluator shall repeat Test 4 verifying that the
-										      >	    [TSF](#abbr_TSF) requires the entry of the [BAF](#abbr_BAF) before
-										      >	    transitioning to the unlocked state.
+-   **Test 5:** \[conditional\] For each [BAF](#abbr_BAF) selected in		      |	-   **Test 5:** \[conditional\] If [biometric in accordance with the
+    [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall repeat Test 4		      |	    cPP-Module for Biometric Enrollment and
+										      >	    Verification](#uau_biometric) is selected in
+										      >	    [FIA\_UAU.5.1](#FIA_UAU.5.1), for each [BAF](#abbr_BAF) claimed in
+										      >	    FIA\_MBV\_EXT.1.1 in the [cPP](#abbr_cPP)-Module for Biometric
+										      >	    Enrollment and Verification the evaluator shall repeat Test 4
+    verifying that the [TSF](#abbr_TSF) requires the entry of the			    verifying that the [TSF](#abbr_TSF) requires the entry of the
+    [BAF](#abbr_BAF) before transitioning to the unlocked state.			    [BAF](#abbr_BAF) before transitioning to the unlocked state.
 -   **Test 6:** \[conditional\] If \"hybrid\" is selected in				-   **Test 6:** \[conditional\] If \"hybrid\" is selected in
     [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall repeat Test 4			    [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall repeat Test 4
     verifying that the [TSF](#abbr_TSF) requires the entry of the			    verifying that the [TSF](#abbr_TSF) requires the entry of the
@@ -8456,15 +8467,16 @@ may briefly (1 second or less) display each character or provide an			may briefl
 option to allow the user to unmask the password; however, the password			option to allow the user to unmask the password; however, the password
 must be obscured by default.\								must be obscured by default.\
 \											\
-If a [BAF](#abbr_BAF) is selected in [FIA\_UAU.5.1](#FIA_UAU.5.1), the		      |	If [biometric](#uau_biometric) is selected in
-[TSF](#abbr_TSF) must not display sensitive information regarding the		      |	[FIA\_UAU.5.1](#FIA_UAU.5.1), the [TSF](#abbr_TSF) must not display
-biometric that could aid an adversary in identifying and/or spoofing the	      |	sensitive information regarding any [BAF](#abbr_BAF) that could aid an
-respective biometric characteristics of a given human user. While it is		      |	adversary in identifying or spoofing the respective biometric
-true that biometric samples, by themselves, are not secret, the analysis	      |	characteristics of a given human user. While it is true that biometric
-performed by the respective biometric algorithms, as well as output data	      |	samples, by themselves, are not secret, the analysis performed by the
-from these biometric algorithms, is considered sensitive and must be		      |	respective biometric algorithms, as well as output data from these
-kept secret. Where applicable, the [TSF](#abbr_TSF) must not reveal or		      |	biometric algorithms, is considered sensitive and must be kept secret.
-make public the reason(s) for authentication failure. ]{.note}			      |	Where applicable, the [TSF](#abbr_TSF) must not reveal or make public
+If a [BAF](#abbr_BAF) is selected in [FIA\_UAU.5.1](#FIA_UAU.5.1), the		      |	If [biometric in accordance with the cPP-Module for Biometric Enrollment
+[TSF](#abbr_TSF) must not display sensitive information regarding the		      |	and Verification](#uau_biometric) is selected in
+biometric that could aid an adversary in identifying and/or spoofing the	      |	[FIA\_UAU.5.1](#FIA_UAU.5.1), the [TSF](#abbr_TSF) must not display
+respective biometric characteristics of a given human user. While it is		      |	sensitive information regarding any [BAF](#abbr_BAF) that could aid an
+true that biometric samples, by themselves, are not secret, the analysis	      |	adversary in identifying or spoofing the respective biometric
+performed by the respective biometric algorithms, as well as output data	      |	characteristics of a given human user. While it is true that biometric
+from these biometric algorithms, is considered sensitive and must be		      |	samples, by themselves, are not secret, the analysis performed by the
+kept secret. Where applicable, the [TSF](#abbr_TSF) must not reveal or		      |	respective biometric algorithms, as well as output data from these
+make public the reason(s) for authentication failure. ]{.note}			      |	biometric algorithms, is considered sensitive and must be kept secret.
+										      >	Where applicable, the [TSF](#abbr_TSF) must not reveal or make public
 										      >	the reasons for authentication failure. ]{.note}
 :::											:::
 :::											:::
@@ -8508,22 +8520,26 @@ Tests											Tests
 -   **Test 1:** The evaluator shall enter passwords on the device,			-   **Test 1:** The evaluator shall enter passwords on the device,
     including at least the Password Authentication Factor at lockscreen,	      |	    including at least the Password Authentication Factor at lock
     and verify that the password is not displayed on the device.		      |	    screen, and verify that the password is not displayed on the device.
--   **Test 2:** \[conditional\] For each [BAF](#abbr_BAF) selected in		      |	-   **Test 2:** \[conditional\] If [biometric](#uau_biometric) is
-    [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall authenticate by		      |	    selected in [FIA\_UAU.5.1](#FIA_UAU.5.1), for each [BAF](#abbr_BAF)
-    producing a biometric sample at lockscreen. As the biometric		      |	    claimed in FIA\_MBV\_EXT.1.1 in the [cPP](#abbr_cPP)-Module for
-    algorithms are performed, the evaluator shall verify that sensitive		      |	    Biometrics the evaluator shall authenticate by producing a biometric
-    images, audio, or other information identifying the user are kept		      |	    sample at lock screen. As the biometric algorithms are performed,
-    secret and are not revealed to the user. Additionally, the evaluator	      |	    the evaluator shall verify that sensitive images, audio, or other
-    shall produce a biometric sample that fails to authenticate and		      |	    information identifying the user are kept secret and are not
-    verify that the reason(s) for authentication failure (user mismatch,	      |	    revealed to the user. Additionally, the evaluator shall produce a
-    low sample quality, etc.) are not revealed to the user. It is		      |	    biometric sample that fails to authenticate and verify that the
-    acceptable for the [BAF](#abbr_BAF) to state that it was unable to		      |	    reasons for authentication failure (user mismatch, low sample
-    physically read the biometric sample, for example, if the sensor is		      |	    quality, etc.) are not revealed to the user. It is acceptable for
-    unclean or the biometric sample was removed too quickly. However,		      |	    the [BAF](#abbr_BAF) to state that it was unable to physically read
-    specifics regarding why the presented biometric sample failed		      |	    the biometric sample, for example, if the sensor is unclean or the
-    authentication shall not be revealed to the user.				      |	    biometric sample was removed too quickly. However, specifics
-										      |	    regarding why the presented biometric sample failed authentication
-\										      |	    shall not be revealed to the user.
+-   **Test 2:** \[conditional\] For each [BAF](#abbr_BAF) selected in		      |	-   **Test 2:** \[conditional\] If [biometric in accordance with the
+    [FIA\_UAU.5.1](#FIA_UAU.5.1), the evaluator shall authenticate by		      |	    cPP-Module for Biometric Enrollment and
+    producing a biometric sample at lockscreen. As the biometric		      |	    Verification](#uau_biometric) is selected in
+										      >	    [FIA\_UAU.5.1](#FIA_UAU.5.1), for each [BAF](#abbr_BAF) claimed in
+										      >	    FIA\_MBV\_EXT.1.1 in the [cPP](#abbr_cPP)-Module for Biometric
+										      >	    Enrollment and Verification the evaluator shall authenticate by
+										      >	    producing a biometric sample at lock screen. As the biometric
+    algorithms are performed, the evaluator shall verify that sensitive			    algorithms are performed, the evaluator shall verify that sensitive
+    images, audio, or other information identifying the user are kept			    images, audio, or other information identifying the user are kept
+    secret and are not revealed to the user. Additionally, the evaluator		    secret and are not revealed to the user. Additionally, the evaluator
+    shall produce a biometric sample that fails to authenticate and			    shall produce a biometric sample that fails to authenticate and
+    verify that the reason(s) for authentication failure (user mismatch,	      |	    verify that the reasons for authentication failure (user mismatch,
+    low sample quality, etc.) are not revealed to the user. It is			    low sample quality, etc.) are not revealed to the user. It is
+    acceptable for the [BAF](#abbr_BAF) to state that it was unable to			    acceptable for the [BAF](#abbr_BAF) to state that it was unable to
+    physically read the biometric sample, for example, if the sensor is			    physically read the biometric sample, for example, if the sensor is
+    unclean or the biometric sample was removed too quickly. However,			    unclean or the biometric sample was removed too quickly. However,
+    specifics regarding why the presented biometric sample failed			    specifics regarding why the presented biometric sample failed
+    authentication shall not be revealed to the user.					    authentication shall not be revealed to the user.
+										      <
+\										      <
 :::										      <
 :::											:::
 :::											:::
@@ -11080,23 +11096,23 @@ For function [[21]{.counter}](#location){.location-ref}, location		      |	infor
 services include location information gathered from [GPS](#abbr_GPS),		      |
 cellular, and Wi-Fi.\								      |	Function [22](#mf-authFactors) is implicitly met if the [TOE](#abbr_TOE)
 \										      |	does not contain a [BAF](#abbr_BAF). This selection must correspond with
-Function [[22]{.counter}](#authFactors){.authFactors-ref} is implicitly		      |	the selection made in [FIA\_UAU.5.1](#FIA_UAU.5.1). If
-met if the [TOE](#abbr_TOE) does not contain a [BAF](#abbr_BAF). This		      |	[biometric](#uau_biometric) is selected in [FIA\_UAU.5.1](#FIA_UAU.5.1),
-selection must correspond with the selection made in				      |	\"Biometric Authentication Factor\" must be selected and the user or
-[FIA\_UAU.5.1](#FIA_UAU.5.1). If a [BAF](#abbr_BAF) is selected in		      |	admin must have the option to disable the use of it. If multiple
-[FIA\_UAU.5.1](#FIA_UAU.5.1), \"Biometric Authentication Factor\" must		      |	[BAFs](#abbr_BAF) are claimed in FIA\_MBV\_EXT.1.1 in the
-be selected and the user or admin must have the option to disable the		      |	[cPP](#abbr_cPP)-Module for Biometrics, this applies to all different
-use of it. If multiple BAFs are selected in					      |	modalities. If [hybrid](#uau_hybr) is selected in
-[FIA\_UAU.5.1](#FIA_UAU.5.1), this applies to all different modalities.		      |	[FIA\_UAU.5.1](#FIA_UAU.5.1) it must be selected and the user or admin
-If \"hybrid\" is selected in [FIA\_UAU.5.1](#FIA_UAU.5.1) it must be		      |	must have the option to disable the use of it.
-selected and the user or admin must have the option to disable the use		      |
-of it.\										      |	For function [23](#mf-certInvalid), the configuration can be different
-\										      |	depending on the specific trusted channel.
+Function [[22]{.counter}](#authFactors){.authFactors-ref} is implicitly		      |	the selection made in [FIA\_UAU.5.1](#FIA_UAU.5.1). If [biometric in
+met if the [TOE](#abbr_TOE) does not contain a [BAF](#abbr_BAF). This		      |	accordance with the cPP-Module for Biometric Enrollment and
+selection must correspond with the selection made in				      |	Verification](#uau_biometric) is selected in
+[FIA\_UAU.5.1](#FIA_UAU.5.1). If a [BAF](#abbr_BAF) is selected in		      <
+[FIA\_UAU.5.1](#FIA_UAU.5.1), \"Biometric Authentication Factor\" must			[FIA\_UAU.5.1](#FIA_UAU.5.1), \"Biometric Authentication Factor\" must
+be selected and the user or admin must have the option to disable the			be selected and the user or admin must have the option to disable the
+use of it. If multiple BAFs are selected in					      |	use of it. If multiple [BAFs](#abbr_BAF) are claimed in
+[FIA\_UAU.5.1](#FIA_UAU.5.1), this applies to all different modalities.		      |	FIA\_MBV\_EXT.1.1 in the [cPP](#abbr_cPP)-Module for Biometric
+If \"hybrid\" is selected in [FIA\_UAU.5.1](#FIA_UAU.5.1) it must be		      |	Enrollment and Verification, this applies to all different modalities.
+selected and the user or admin must have the option to disable the use		      |	If [hybrid](#uau_hybr) is selected in [FIA\_UAU.5.1](#FIA_UAU.5.1) it
+of it.\										      |	must be selected and the user or admin must have the option to disable
+\										      |	the use of it.
 For function [[23]{.counter}](#certInvalid){.certInvalid-ref}, the		      |
-configuration can be different depending on the specific trusted		      |	The assignment in function [24](#mf-externalPorts) consists of all
-channel.\									      <
-\										      <
-The assignment in function							      <
+configuration can be different depending on the specific trusted		      |	For function [23](#mf-certInvalid), the configuration can be different
+channel.\									      |	depending on the specific trusted channel.
+\										      |
+The assignment in function							      |	The assignment in function [24](#mf-externalPorts) consists of all
 [[24]{.counter}](#externalPorts){.externalPorts-ref} consists of all		      <
 externally accessible hardware ports, such as [USB](#abbr_USB), the SD			externally accessible hardware ports, such as [USB](#abbr_USB), the SD
 card, and [HDMI](#abbr_HDMI), whose data transfer capabilities can be			card, and [HDMI](#abbr_HDMI), whose data transfer capabilities can be
@@ -11283,11 +11299,11 @@ Tests											Tests
     configuration as the administrator and perform positive and negative	      |	administrator. The evaluator shall perform positive and negative tests,
     tests, with at least two values set for each variable setting, for		      |	with at least two values set for each variable setting, for each of the
     each of the following:\							      |	following:\
-    -   minimum password length							      |
-    -   minimum password complexity						      |	-   Screen-lock enabled/disabled
-    -   maximum password lifetime						      |	-   Screen lock timeout
--   **Test 2:** The evaluator shall exercise the [TSF](#abbr_TSF)		      |	-   Number of authentication failures (may be combined with test for
-    configuration as the administrator. The evaluator shall perform		      |	    [FIA\_AFL\_EXT.1](#FIA_AFL_EXT.1))
+    -   minimum password length							      <
+    -   minimum password complexity						      <
+    -   maximum password lifetime						      <
+-   **Test 2:** The evaluator shall exercise the [TSF](#abbr_TSF)		      <
+    configuration as the administrator. The evaluator shall perform		      <
     positive and negative tests, with at least two values set for each		      <
     variable setting, for each of the following:\				      <
     -   screen-lock enabled/disabled						      <
@@ -11709,9 +11725,14 @@ Tests											Tests
     intended behavior of the function is enacted by the				      <
     [TOE](#abbr_TOE).								      <
 
-\											\
+										      >	-   Screen-lock enabled/disabled
+										      >	-   Screen lock timeout
+										      >	-   Number of authentication failures (may be combined with test for
+										      >	    [FIA\_AFL\_EXT.1](#FIA_AFL_EXT.1))
+										      >
 										      >	\
-										      >	:::
+\											\
+:::											:::
 										      >
 										      >	::: {.management_function_ea}
 										      >	**Function [3](#mf-vpn)**\
@@ -12216,17 +12237,19 @@ Tests											Tests
 										      >	If the [TOE](#abbr_TOE) does not include a [BAF](#abbr_BAF) or hybrid
 										      >	authentication this test is implicitly met.
 										      >
-										      >	a.  \[conditional\] If [biometric](#uau_biometric) is selected in
-										      >	    [FIA\_UAU.5.1](#FIA_UAU.5.1), for each [BAF](#abbr_BAF) claimed in
-										      >	    FIA\_MBV\_EXT.1.1 in the [cPP](#abbr_cPP)-Module for Biometrics the
-										      >	    evaluator shall verify that the [TSS](#abbr_TSS) describes the
-										      >	    procedure to enable/disable the [BAF](#abbr_BAF). The evaluator
-										      >	    shall configure the [TOE](#abbr_TOE) to allow each supported
-										      >	    [BAF](#abbr_BAF) to authenticate and verify that successful
-										      >	    authentication can be achieved using the [BAF](#abbr_BAF). The
-										      >	    evaluator shall configure the [TOE](#abbr_TOE) to disable the use of
-										      >	    each supported [BAF](#abbr_BAF) for authentication and confirm that
-										      >	    the [BAF](#abbr_BAF) cannot be used to authenticate.
+										      >	a.  \[conditional\] If [biometric in accordance with the cPP-Module for
+										      >	    Biometric Enrollment and Verification](#uau_biometric) is selected
+										      >	    in [FIA\_UAU.5.1](#FIA_UAU.5.1), for each [BAF](#abbr_BAF) claimed
+										      >	    in FIA\_MBV\_EXT.1.1 in the [cPP](#abbr_cPP)-Module for Biometric
+										      >	    Enrollment and Verification the evaluator shall verify that the
+										      >	    [TSS](#abbr_TSS) describes the procedure to enable/disable the
+										      >	    [BAF](#abbr_BAF). The evaluator shall configure the [TOE](#abbr_TOE)
+										      >	    to allow each supported [BAF](#abbr_BAF) to authenticate and verify
+										      >	    that successful authentication can be achieved using the
+										      >	    [BAF](#abbr_BAF). The evaluator shall configure the [TOE](#abbr_TOE)
+										      >	    to disable the use of each supported [BAF](#abbr_BAF) for
+										      >	    authentication and confirm that the [BAF](#abbr_BAF) cannot be used
+										      >	    to authenticate.
 										      >	b.  \[conditional\] If \"Hybrid\" is selected the evaluator shall verify
 										      >	    that the [TSS](#abbr_TSS) describes the procedure to enable/disable
 										      >	    the hybrid (biometric credential and PIN/password) authentication.
@@ -12813,7 +12836,7 @@ Tests											Tests
 										      >	function is enacted by the [TOE](#abbr_TOE).\
 										      >	\
 										      >	:::
-:::											:::
+										      >	:::
 :::											:::
 :::											:::
 :::											:::
@@ -14457,7 +14480,7 @@ Tests											Tests
 										      >	:::
 										      >	:::
 										      >	:::
-
+										      >
 										      >	::: {#FTA_TAB.1 .comp}
 										      >	#### FTA\_TAB.1 Default TOE Access Banners
 										      >
@@ -14482,7 +14505,7 @@ Tests											Tests
 										      >	:::
 										      >	:::
 										      >	:::
-										      >
+
 										      >	::: {.activity_pane .hide}
 										      >	::: {.activity_pane_header}
 										      >	[[ Evaluation Activities ]{.activity_pane_label}[]{.toggler}](#)
@@ -14796,12 +14819,12 @@ to meet and achieve the security objectives:\						to meet and achieve the secur
                                                                                       |	[FCS\_RBG\_EXT.2](#FCS_RBG_EXT.2) supports the objective by requiring
                                                                                       |	the [TSF](#abbr_TSF) to save the DRBG state between reboots to ensure
                                                                                       |	availability of this service.
-                                                                                      <
-                                                                                      <
-                                                                                      <
-                                                                                      <
-                                                                                      <
-                                                                                      <
+                                                                                      |
+                                                                                      |	[FCS\_RBG\_EXT.3](#FCS_RBG_EXT.3) (Objective)
+                                                                                      |
+                                                                                      |	[FCS\_RBG\_EXT.3](#FCS_RBG_EXT.3) supports the objective by defining the
+                                                                                      |	[TSF](#abbr_TSF)\'s implementation of the SP 800-90A Personalization
+                                                                                      |	String for applications that require this.
                                                                                       <
                                                                                       <
                                                                                       <
@@ -15302,15 +15325,8 @@ to meet and achieve the security objectives:\						to meet and achieve the secur
                                                                                       <
   ----------------------------------------------------------------------------------- <
 
-  : [Table [8]{.counter}]{#t-obj_map .ctr data-myid="t-obj_map"			      |	[FCS\_RBG\_EXT.3](#FCS_RBG_EXT.3) (Objective)
-  data-counter-type="ct-Table"}: [SFR](#abbr_SFR) Rationale			      <
-
-### 5.2 Security Assurance Requirements {#sar .indexable data-level="2"}	      |	[FCS\_RBG\_EXT.3](#FCS_RBG_EXT.3) supports the objective by defining the
-										      >	[TSF](#abbr_TSF)\'s implementation of the SP 800-90A Personalization
-										      >	String for applications that require this.
-										      >
-										      >	[FCS\_SRV\_EXT.1](#FCS_SRV_EXT.1)
-										      >
+  : [Table [8]{.counter}]{#t-obj_map .ctr data-myid="t-obj_map"			      |	[FCS\_SRV\_EXT.1](#FCS_SRV_EXT.1)
+  data-counter-type="ct-Table"}: [SFR](#abbr_SFR) Rationale			      |
 										      >	[FCS\_SRV\_EXT.1](#FCS_SRV_EXT.1) supports the objective by defining the
 										      >	cryptographic services that the [TSF](#abbr_TSF) must make available to
 										      >	third-party applications, which includes those that can support
@@ -15639,8 +15655,8 @@ to meet and achieve the security objectives:\						to meet and achieve the secur
 										      >	authorized to invoke them.
 										      >
 										      >	[FMT\_SMF\_EXT.2](#FMT_SMF_EXT.2)
-										      >
-										      >	[FMT\_SMF\_EXT.2](#FMT_SMF_EXT.2) supports the objective by defining the
+
+### 5.2 Security Assurance Requirements {#sar .indexable data-level="2"}	      |	[FMT\_SMF\_EXT.2](#FMT_SMF_EXT.2) supports the objective by defining the
 										      >	configuration actions that the [TSF](#abbr_TSF) performs automatically
 										      >	upon unenrollment from mobile device management.
 										      >
@@ -18160,20 +18176,20 @@ Tests										      <
 :::										      <
 										      <
 There are no test evaluation activities for this component.\			      <
+:::											:::
+:::											:::
+:::											:::
 :::										      <
-:::											:::
-:::											:::
-:::											:::
-
-::: {#FIA_BMG_EXT.5 .comp}							      |	### A.2.4 Class: Identification and Authentication (FIA) {#-objective .indexable data
+										      <
+::: {#FIA_BMG_EXT.5 .comp}							      <
 #### FIA\_BMG\_EXT.5 Handling Unusual Biometric Templates			      <
 										      <
 ::: {.element}									      <
 ::: {#FIA_BMG_EXT.5.1 .reqid}							      <
 [FIA\_BMG\_EXT.5.1](#FIA_BMG_EXT.5.1){.abbr}					      <
 :::										      <
-										      <
-::: {.reqdesc}									      <
+
+::: {.reqdesc}									      |	### A.2.4 Class: Identification and Authentication (FIA) {#-objective .indexable data
 The matching algorithm shall handle properly formatted enrollment		      <
 templates and/or authentication templates, especially those with unusual	      <
 data properties, appropriately. If such templates contain incorrect		      <
@@ -19602,16 +19618,16 @@ information at startup, but may also display the information at every		      <
 unlock. The banner is configured according to					      <
 [FMT\_SMF\_EXT.1](#FMT_SMF_EXT.1) function					      <
 [[36]{.counter}](#unlockBanner){.unlockBanner-ref}.]{.note}			      <
-:::										      <
 :::											:::
 :::											:::
-										      <
-::: {.activity_pane .hide}							      <
-::: {.activity_pane_header}							      <
-[[ Evaluation Activities ]{.activity_pane_label}[]{.toggler}](#)		      <
 :::											:::
 
-::: {.activity_pane_body}							      |	A.3 Implementation-Based Requirements {#feat-based-reqs .indexable data-level="2"}
+::: {.activity_pane .hide}							      |	A.3 Implementation-Based Requirements {#feat-based-reqs .indexable data-level="2"}
+::: {.activity_pane_header}							      <
+[[ Evaluation Activities ]{.activity_pane_label}[]{.toggler}](#)		      <
+:::										      <
+										      <
+::: {.activity_pane_body}							      <
 [FTA\_TAB.1](#FTA_TAB.1):\							      <
 										      <
 ::: {.activity}									      <
@@ -20034,18 +20050,17 @@ Tests											Tests
 :::											:::
 
 There are no test evaluation activities for this component.\			      |	Testing for this component is performed in conjunction with the
-										      >	Evaluation Activities for
+:::										      |	Evaluation Activities for
 										      >	[FPT\_TST\_EXT.2.1/PREKERNEL](#FPT_TST_EXT.2.1/PREKERNEL).
 :::											:::
 :::											:::
 :::											:::
-:::										      <
-										      <
-B.3 Class: Identification and Authentication (FIA) {#fia-obj .indexable data-level="2 <
---------------------------------------------------				      <
 
-::: {#FIA_BMG_EXT.1 .comp}							      |	::: {#FPT_TUD_EXT.4 .comp}
-#### FIA\_BMG\_EXT.1 Accuracy of Biometric Authentication			      |	#### FPT\_TUD\_EXT.4 Trusted Update Verification
+B.3 Class: Identification and Authentication (FIA) {#fia-obj .indexable data-level="2 |	::: {#FPT_TUD_EXT.4 .comp}
+--------------------------------------------------				      |	#### FPT\_TUD\_EXT.4 Trusted Update Verification
+										      <
+::: {#FIA_BMG_EXT.1 .comp}							      <
+#### FIA\_BMG\_EXT.1 Accuracy of Biometric Authentication			      <
 
 ::: {.statustag}									::: {.statustag}
 ***The inclusion of this selection-based component depends upon a		      |	***The inclusion of this selection-based component depends upon
@@ -21723,8 +21738,9 @@ Tests										      |	#### Family Behavior
 										      >	#### FIA\_AFL\_EXT.1.1 {#ext-comp-FIA_AFL_EXT.1.1}
 										      >
 										      >	The [TSF](#abbr_TSF) shall consider password and \[**selection**:
-										      >	*biometric*, *hybrid*, *no other*\] as critical authentication
-										      >	mechanisms.
+										      >	*biometric in accordance with the [cPP](#abbr_cPP)-Module for Biometric
+										      >	Enrollment and Verification*, *hybrid*, *no other mechanism*\] as
+										      >	critical authentication mechanisms.
 										      >
 										      >	#### FIA\_AFL\_EXT.1.2 {#ext-comp-FIA_AFL_EXT.1.2}
 										      >
