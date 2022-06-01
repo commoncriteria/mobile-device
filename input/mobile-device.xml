@@ -7205,8 +7205,10 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		  split tunnel.
 		  </htm:p>
 		  </app-note>
-		  <aactivity><Tests>
-		    The evaluator shall perform the following tests:
+		  <aactivity>
+        <Tests>
+		    The evaluator shall perform the following tests: 
+          <testlist>
                       <test>The evaluator shall exercise the TSF configuration to enable the VPN
                         protection. These configuration actions must be used for the testing of the
                         FDP_IFC_EXT.1.1 requirement. </test>
@@ -7228,7 +7230,9 @@ The evaluator shall exercise the TSF configuration as the administrator and
                         in the VPN-enabled group is encapsulated in IPsec and that the traffic from
                         the application in the VPN-disabled group is not encapsulated in IPsec.
                       </test>
-		  </Tests></aactivity>
+            </testlist>
+          </Tests>
+        </aactivity>
                 </management-function>
                 <management-function id="mf-radios">
                   <text>
@@ -7344,8 +7348,9 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   indication of if it can be enabled/disabled along with what role can do so. The
                   evaluator shall confirm that the AGD guidance describes how to perform the
                   enable/disable function.
-		  </TSS><Tests>
-The evaluator shall perform the following tests:
+		  </TSS>
+        <Tests>The evaluator shall perform the following tests:
+          <testlist>
                       <test>The evaluator shall exercise the TSF configuration as the
                         administrator and, if not restricted to the administrator, the user, to
                         enable and disable the state of each audio or visual collection devices
@@ -7369,7 +7374,8 @@ The evaluator shall perform the following tests:
                         shall verify that the application in the enabled group is able to access the
                         A/V device and the application in the disabled group is not able to access
                         the A/V device. </test>
-		  </Tests>
+            </testlist>
+		      </Tests>
 		</aactivity>
                 </management-function>
                 <management-function id="mf-lockState">
@@ -7444,6 +7450,7 @@ The evaluator shall perform the following tests:
                     installation according to the AGD guidance. The evaluator shall attempt to
                     install unauthorized applications and ensure that this is not possible. The
                     evaluator shall, in conjunction, perform the following specific tests: 
+                    <testlist>
                       <test>[conditional] The evaluator shall attempt to connect to an
                         unauthorized repository in order to install applications. </test>
                       <test>[conditional] The evaluator shall attempt to install two applications
@@ -7452,6 +7459,7 @@ The evaluator shall perform the following tests:
                         also attempt to side-load executables or installation packages via USB
                         connections to determine that the white list is still adhered to
                       </test>
+                      </testlist>
 		</Tests>
 		  </aactivity>
                 </management-function>
@@ -7715,7 +7723,7 @@ The evaluator shall perform the following tests:
                     services: <htm:ul>
                       <htm:li>Across device</htm:li></htm:ul>
                     <htm:div class="indent"><selectables linebreak="yes">
-                        <selectable>on a per-app basis</selectable>
+                        <selectable id="mf-location-per_app">on a per-app basis</selectable>
                         <selectable>on a per-group of applications processes basis</selectable>
                         <selectable>no other method</selectable>
                       </selectables></htm:div>
@@ -7727,20 +7735,20 @@ The evaluator shall perform the following tests:
 
 		  </app-note>
 		  <aactivity><Tests>
-		    The evaluator shall perform the following tests. <htm:ol type="a">
-                      <htm:li>The evaluator shall enable location services device-wide and shall
+		    The evaluator shall perform the following tests. <testlist>
+                      <test>The evaluator shall enable location services device-wide and shall
                         verify that an application (such as a mapping application) is able to access
                         the TOE’s location information. The evaluator shall disable location
                         services device-wide and shall verify that an application (such as a mapping
-                        application) is unable to access the TOE’s location information. </htm:li>
-                      <htm:li>[conditional] If "per-app basis" is selected, the evaluator shall
+                        application) is unable to access the TOE’s location information. </test>
+                      <test>[conditional] If <xref to="mf-location-per_app"/> is selected, the evaluator shall
                         create two applications and enable one to use access the location services
                         and the other to not access the location services. The evaluator shall
                         exercise each application attempting to access location services
                         individually. The evaluator shall verify that the enabled application is
                         able to access the location services and the disabled application is not
-                        able to access the location services. </htm:li>
-                    </htm:ol></Tests></aactivity>
+                        able to access the location services. </test>
+                    </testlist></Tests></aactivity>
                 </management-function>
                 <management-function id="mf-authFactors">
                   <text>
@@ -7761,7 +7769,7 @@ The evaluator shall perform the following tests:
 		  <aactivity><Tests>
 		    The evaluator shall verify that the TSS states if the TOE supports a BAF
                     or hybrid authentication. If the TOE does not include a BAF or hybrid
-                    authentication this test is implicitly met.
+                    authentication this test is implicitly met.<testlist>
                       <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification the evaluator shall verify that the
                         TSS describes the procedure to enable/disable the BAF.<!--If the TOE includes
                         multiple BAFs, the evaluator shall verify that the TSS describes how to
@@ -7779,6 +7787,7 @@ The evaluator shall perform the following tests:
                         The evaluator shall configure the TOE to disable the use of hybrid
                         authentication and confirm that the hybrid authentication cannot be used to
                         authenticate. </test>
+                        </testlist>
                     </Tests></aactivity>
                 </management-function>
                 <management-function id="mf-certInvalid">
@@ -7921,8 +7930,8 @@ The evaluator shall perform the following tests:
                   provided according to <xref to="adv"/> includes any security functions
                   (import, modification, or destruction of the Trust Anchor Database) allowed by applications.
 		</TSS>
-		<Tests>The evaluator shall perform one of the following tests: <htm:ol type="a">
-                      <htm:li>[conditional] If applications may import certificates to the Trust
+		<Tests>The evaluator shall perform one of the following tests: <testlist>
+                      <test>[conditional] If applications may import certificates to the Trust
                         Anchor Database, the evaluator shall write, or the developer shall provide
                         access to, an application that imports a certificate into the Trust Anchor
                         Database. The evaluator shall verify that the TOE requires approval before
@@ -7936,8 +7945,8 @@ The evaluator shall perform the following tests:
                             verify that the application is able to import the certificate and that
                             validation occurs. </htm:li>
                         </htm:ul>
-                      </htm:li>
-                      <htm:li>[conditional] If applications may remove certificates in the Trust
+                      </test>
+                      <test>[conditional] If applications may remove certificates in the Trust
                         Anchor Database, the evaluator shall write, or the developer shall provide
                         access to, an application that removes certificates from the Trust Anchor
                         Database. The evaluator shall verify that the TOE requires approval before
@@ -7948,8 +7957,8 @@ The evaluator shall perform the following tests:
                             the certificate whose removal was attempted (as described in the
                             evaluation activity for FIA_X509_EXT.1). </htm:li>
                         </htm:ul>
-                      </htm:li>
-                    </htm:ol> The evaluator shall repeat the test, allowing the approval to verify
+                      </test>
+                    </testlist> The evaluator shall repeat the test, allowing the approval to verify
                     that the application is able to remove/modify the certificate and that
                     validation no longer occurs.
 		    </Tests>
@@ -8086,25 +8095,26 @@ The evaluator shall perform the following tests:
                   </text>
 		  <aactivity><TSS>The
                   evaluator shall verify that the TSS includes a description of how data transfers
-                  can be managed over USB.</TSS><Tests>The evaluator shall perform the following tests based on the selections made
-                    in the table: <htm:ol type="a">
-                      <htm:li>[conditional] The evaluator shall disable USB mass storage mode,
+                  can be managed over USB.</TSS>
+                  <Tests>The evaluator shall perform the following tests based on the selections made
+                    in the table: <testlist>
+                      <test>[conditional] The evaluator shall disable USB mass storage mode,
                         attach the device to a computer, and verify that the computer cannot mount
                         the TOE as a drive. The evaluator shall reboot the TOE and repeat this test
-                        with other supported auxiliary boot modes. </htm:li>
-                      <htm:li>[conditional] The evaluator shall disable USB data transfer without
+                        with other supported auxiliary boot modes. </test>
+                      <test>[conditional] The evaluator shall disable USB data transfer without
                         user authentication, attach the device to a computer, and verify that the
                         TOE requires user authentication before the computer can access TOE data.
                         The evaluator shall reboot the TOE and repeat this test with other supported
-                        auxiliary boot modes. </htm:li>
-                      <htm:li>[conditional] The evaluator shall disable USB data transfer without
+                        auxiliary boot modes. </test>
+                      <test>[conditional] The evaluator shall disable USB data transfer without
                         connecting system authentication, attach the device to a computer, and
                         verify that the TOE requires connecting system authentication before the
                         computer can access TOE data. The evaluator shall then connect the TOE to
                         another computer and verify that the computer cannot access TOE data. The
                         evaluator shall then connect the TOE to the original computer and verify
-                        that the computer can access TOE data. </htm:li>
-                      </htm:ol></Tests>
+                        that the computer can access TOE data. </test>
+                      </testlist></Tests>
 		      </aactivity>
                 </management-function>
                 <management-function id="mf-backup">
@@ -8123,8 +8133,9 @@ The evaluator shall perform the following tests:
                   evaluator shall verify that the TSS includes a description of available backup
                   methods that can be enabled/disabled. If "selected applications" or "selected groups
                   of applications" are selected the TSS shall include which applications of groups of
-                  applications backup can be enabled/disabled.</TSS><Tests>
-If "all applications" is selected, the evaluator shall disable each selected
+                  applications backup can be enabled/disabled.</TSS>
+                  
+                <Tests> If "all applications" is selected, the evaluator shall disable each selected
                     backup location in turn and verify that the TOE cannot complete a backup. The
                     evaluator shall then enable each selected backup location in turn and verify
                     that the TOE can perform a backup. <htm:br/><htm:br/> If "selected applications"
@@ -8171,17 +8182,17 @@ If "all applications" is selected, the evaluator shall disable each selected
                   evaluator shall verify that the TSS includes a description of Hotspot
                   functionality and USB tethering to include any authentication for these.</TSS>
 		  <Tests>The evaluator shall perform the following tests based on the selections in
-                    Function <xref to="mf-hotspot"/>. <htm:ol type="a">
-                      <htm:li>[conditional] The evaluator shall enable hotspot functionality with
+                    Function <xref to="mf-hotspot"/>. <testlist>
+                      <test>[conditional] The evaluator shall enable hotspot functionality with
                         each of the of the support authentication methods. The evaluator shall
                         connect to the hotspot with another device and verify that the hotspot
-                        functionality requires the configured authentication method. </htm:li>
-                      <htm:li>[conditional] The evaluator shall enable USB tethering functionality
+                        functionality requires the configured authentication method. </test>
+                      <test>[conditional] The evaluator shall enable USB tethering functionality
                         with each of the of the support authentication methods. The evaluator shall
                         connect to the TOE over USB with another device and verify that the
                         tethering functionality requires the configured authentication method.
-                      </htm:li>
-                    </htm:ol></Tests></aactivity>
+                      </test>
+                    </testlist></Tests></aactivity>
                 </management-function>
                 <management-function id="mf-dataSharing">
                   <text>
@@ -8245,8 +8256,8 @@ If "all applications" is selected, the evaluator shall disable each selected
 		  </app-note>
 		  <aactivity><TSS>The evaluator shall verify that the TSS contains guidance to configure the
                   VPN as Always-On.
-		  </TSS><Tests>The evaluator shall configure the VPN as Always-On and perform
-                    the following test.
+		  </TSS><Tests>The evaluator shall configure the VPN as Always-On and perform the following tests:
+                    <testlist>
                       <test>The evaluator shall verify that when the VPN is connected all traffic
                         is routed through the VPN. This test is performed in conjunction with
                         FDP_IFC_EXT.1.1. </test>
@@ -8263,6 +8274,7 @@ If "all applications" is selected, the evaluator shall disable each selected
                         connectivity (i.e. Airplane Mode) and verify that the VPN disconnects. The
                         evaluator shall re-establish network connectivity and verify that the VPN
                         automatically reconnects. </test>
+                    </testlist>
 		  </Tests></aactivity>
                 </management-function>
                 <management-function id="mf-bioRevoke">
