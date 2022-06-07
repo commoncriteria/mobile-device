@@ -1594,7 +1594,12 @@ The scope of this Protection Profile (PP) is to describe the security functional
     <section title="Security Objectives Rationale" id="SOR"/><!-- Note: This section is supposed to be empty and is populated from the rationale tags in the other sections --> 
   </sec:Security_Objectives>
   <sec:Security_Requirements>
-    <section title="Security Functional Requirements" id="sfr"> 
+    <section title="Security Functional Requirements" id="sfr">
+
+      <sec:Auditable_Events_for_Mandatory_SFRs>
+	<audit-table table="mandatory"/>
+      </sec:Auditable_Events_for_Mandatory_SFRs>
+      
       <sec:fau title="Class: Security Audit (FAU)">
         <f-component cc-id="fau_gen.1" name="Audit Data Generation">
           <f-element id="fel-audit-gen">
@@ -1605,7 +1610,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <htm:li><refinement>All administrative actions</refinement></htm:li>
                 <htm:li><refinement>Start-up and shutdown of the OS</refinement></htm:li>
                 <htm:li><refinement>Insertion or removal of removable media</refinement></htm:li>
-                <htm:li><refinement>Specifically defined auditable events in <xref to="manaudit"/></refinement></htm:li>
+                <htm:li><refinement>Specifically defined auditable events in <xref g="t-audit-mandatory"/></refinement></htm:li>
                 <htm:li><refinement><selectables>
                   <selectable>Audit records reaching <assignable>integer value less than 100</assignable> percentage of audit capacity</selectable>
                   <selectable>Specifically defined auditable events in <xref to="objaudit"/></selectable>
@@ -1613,6 +1618,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <selectable><assignable>no additional auditable events</assignable></selectable>
                     </selectables></refinement></htm:li>
               </htm:ol>
+
               <htm:table>
                 <htm:caption><ctr ctr-type="Table" id="manaudit">: Mandatory Auditable Events</ctr></htm:caption>
                 <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Auditable Events</htm:td><htm:td>Additional Audit Record Contents</htm:td></htm:tr>
@@ -1925,6 +1931,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fau_sar.1" name="Audit Review">
           <f-element id="fau-sar-1e1">
@@ -2013,6 +2020,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fau_stg.4" name="Prevention of Audit Data Loss">
           <f-element id="fel-audit-loss">
@@ -2027,6 +2035,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
       </sec:fau>
       <sec:fcs title="Class: Cryptographic Support (FCS)"> 
@@ -2204,6 +2213,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 Testing for FFC Schemes using Diffie-Hellman group 14 or "safe-prime" groups is done as part of testing in FCS_CKM.2/UNLOCKED. </Tests>
             </aactivity>
           </f-element>
+	  <audit-event type="optional">
+	    <audit-event-descr>Failure of key generation activity for authentication keys</audit-event-descr>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fcs_ckm.2" iteration="UNLOCKED" name="Cryptographic Key Establishment">
           <f-element id="fel-unlocked-key">
@@ -2379,6 +2391,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 "safe-prime" group that each protocol uses. </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fcs_ckm.2" iteration="LOCKED" name="Cryptographic Key Establishment">
           <f-element id="fel-key-locked">
@@ -2451,6 +2464,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>	  
         </f-component>
         
         <ext-comp-def fam-id="FCS_CKM_EXT" title="Cryptographic Key Management">
@@ -2540,6 +2554,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event type="optional">
+	    <audit-event-descr>generation of a REK</audit-event-descr>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fcs_ckm_ext.2" name="Cryptographic Key Random Generation">
           
@@ -2785,6 +2802,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fcs_ckm_ext.3" name="Cryptographic Key Generation">
           
@@ -3078,6 +3096,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 same inputs to a known good implementation. </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fcs_ckm_ext.4" name="Key Destruction">
           
@@ -3253,6 +3272,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fcs_ckm_ext.5" name="TSF Wipe">
           
@@ -3321,6 +3341,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event type="optional">
+	    <audit-event-descr>Failure of the wipe</audit-event-descr>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fcs_ckm_ext.6" name="Salt Generation">
           
@@ -3358,6 +3381,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fcs_ckm_ext.7" name="Cryptographic Key Support (REK)" status="sel-based">
           <depends on="mutable_hardware"/>
@@ -3650,6 +3674,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="HASH">
           <f-element id="fel-hash-how">
@@ -3743,6 +3768,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="SIGN">
           <f-element id="fel-sign-how">
@@ -3815,6 +3841,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 </testlist></Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="KEYHMAC">
           <f-element id="fel-keyed-hash-how">
@@ -3853,6 +3880,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 implementation.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="CONDITION">
           <f-element id="fel-cond-how">
@@ -3903,6 +3931,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 formation of the submask from the input password is required.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         
         <ext-comp-def fam-id="FCS_HTTPS_EXT" title="HTTPS Protocol">
@@ -4025,6 +4054,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         
         <ext-comp-def fam-id="FCS_RBG_EXT" title="Random Bit Generation">
@@ -4279,6 +4309,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 requirements. </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fcs_srv_ext.2" name="Cryptographic Key Storage Services" status="objective">
           
@@ -4497,6 +4528,16 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 </Tests>
               </aactivity>
             </f-element>
+	    <audit-event>
+	      <audit-event-descr>Import or destruction of key</audit-event-descr>
+	      <audit-event-info>Identity of key. Role and identity of requester</audit-event-info>
+	    </audit-event>
+	    <audit-event type="optional">
+	      <audit-event-descr>Exceptions to use and destruction rules</audit-event-descr>
+	    </audit-event>
+	    
+
+	    
           </f-component>
           <f-component cc-id="fcs_stg_ext.2" name="Encrypted Cryptographic Key Storage">
             
@@ -4602,6 +4643,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <Tests>There are no test evaluation activities for this component.</Tests>
               </aactivity>
             </f-element>
+	    <audit-event/>
           </f-component>
           <f-component cc-id="fcs_stg_ext.3" name="Integrity of Encrypted Key Storage">
             
@@ -4695,7 +4737,12 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <Tests>There are no test evaluation activities for this component.</Tests>
               </aactivity>
             </f-element>
+	    <audit-event>
+	      <audit-event-descr>Failure to verify integrity of stored key</audit-event-descr>
+	      <audit-event-info>Identity of key being verified</audit-event-info>
+	    </audit-event>
           </f-component>
+	  
 	</sec:FCS_STG>
 	<sec:fdp title="Class: User Data Protection (FDP)">
 	  <htm:p>
@@ -4867,6 +4914,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component id="fc_access_control_system" cc-id="fdp_acf_ext.2" name="Access Control for System Resources" status="sel-based">
           <depends on="fdp_group"/>
@@ -4906,6 +4954,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 information and verify that it cannot access the information. </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fdp_acf_ext.3" name="Security Attribute Based Access Control" status="objective">
           
@@ -4943,6 +4992,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
 	  
 	  <ext-comp-def fam-id="FDP_BCK_EXT" title="Application Backup">
@@ -4989,6 +5039,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 selected data is excluded from the backup. </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
 	  
 	  <ext-comp-def fam-id="FDP_BLT_EXT" title="Limitation of Bluetooth Device Access">
@@ -5111,6 +5162,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event type="optional">
+	    <audit-event-descr>Failure to encrypt/decrypt data.</audit-event-descr>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fdp_dar_ext.2" name="Sensitive Data Encryption">
           
@@ -5250,6 +5304,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests>There are no test evaluation activities for this element.<htm:br/><htm:br/></Tests>
             </aactivity>
           </f-element>
+	  <audit-event type="optional">
+	    <audit-event-descr>Failure to encrypt/decrypt data.</audit-event-descr>
+	  </audit-event>
         </f-component>
 	  
 	  <ext-comp-def fam-id="FDP_IFC_EXT" title="Subset Information Flow Control">
@@ -5361,6 +5418,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
 	  
 	  <ext-comp-def fam-id="FDP_STG_EXT" title="User Data Storage">
@@ -5396,6 +5454,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event>
+	    <audit-event-descr>Addition or removal of certificate from Trust Anchor Database.</audit-event-descr>
+	    <audit-event-info>Subject name of certificate.	    </audit-event-info>
+	  </audit-event>
         </f-component>
 	  
 	  
@@ -6153,6 +6215,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         
         <ext-comp-def fam-id="FIA_TRT_EXT" title="Authentication Throttling">
@@ -6193,6 +6256,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fia_uau.5" name="Multiple Authentication Mechanisms">
           <f-element id="fel-uau">
@@ -6256,6 +6320,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fia_uau.6" name="Re-Authentication">
           <f-element id="fel-reauth-when">
@@ -6370,6 +6435,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         
         <ext-comp-def fam-id="FIA_UAU_EXT" title="User Authentication">
@@ -6445,6 +6511,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fia_uau_ext.2" name="Timing of Authentication">
           
@@ -6637,6 +6704,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event>
+	    <audit-event-descr>Failure to validate X.509v3 certificate.</audit-event-descr>
+	    <audit-event-info>Reason for failure of validation.</audit-event-info>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fia_x509_ext.2" name="X.509 Certificate Authentication">
           
@@ -6738,6 +6809,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event/>
         </f-component>
         <f-component cc-id="fia_x509_ext.3" name="Request Validation of Certificates">
           
