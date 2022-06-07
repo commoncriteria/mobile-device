@@ -1134,9 +1134,9 @@ threats.\										threats.\
 This assurance standard describes these essential security services			This assurance standard describes these essential security services
 provided by the Mobile Device and serves as a foundation for a secure			provided by the Mobile Device and serves as a foundation for a secure
 mobile architecture. The wireless connectivity shall be validated			mobile architecture. The wireless connectivity shall be validated
-against the Extended Package for WLAN Client. If the mobile device			against the Extended Package for WLAN Client. If the mobile device
-contains Bluetooth functionality (i.e., has Bluetooth hardware), the			contains Bluetooth functionality (i.e., has Bluetooth hardware), the
-Bluetooth connectivity shall be evaluated against the					Bluetooth connectivity shall be evaluated against the
+against the Extended Package for WLAN Client. If the mobile device		      |	against the [PP-Module](#abbr_PP-Module) for WLAN Client. If the mobile
+contains Bluetooth functionality (i.e., has Bluetooth hardware), the		      |	device contains Bluetooth functionality (i.e., has Bluetooth hardware),
+Bluetooth connectivity shall be evaluated against the				      |	the Bluetooth connectivity shall be evaluated against the
 [PP-Module](#abbr_PP-Module) for Bluetooth. As illustrated in [Figure			[PP-Module](#abbr_PP-Module) for Bluetooth. As illustrated in [Figure
 [2]{.counter}](#TOE){.TOE-ref}, it is expected that a typical deployment		[2]{.counter}](#TOE){.TOE-ref}, it is expected that a typical deployment
 would also include either third-party or bundled components. Whether			would also include either third-party or bundled components. Whether
@@ -1296,10 +1296,12 @@ Conformance Statement									Conformance Statement
     a [PP-Configuration](#abbr_PP-Configuration) with this				    a [PP-Configuration](#abbr_PP-Configuration) with this
     [PP](#abbr_PP).									    [PP](#abbr_PP).
     -   [PP-Module](#abbr_PP-Module) for [VPN](#abbr_VPN) Client,			    -   [PP-Module](#abbr_PP-Module) for [VPN](#abbr_VPN) Client,
-        Version 2.2								      |	        Version 2.3
+        Version 2.2								      |	        Version 2.4
     -   [PP-Module](#abbr_PP-Module) for Bluetooth, Version 1.0				    -   [PP-Module](#abbr_PP-Module) for Bluetooth, Version 1.0
     -   [PP-Module](#abbr_PP-Module) for [MDM](#abbr_MDM) Agent, Version		    -   [PP-Module](#abbr_PP-Module) for [MDM](#abbr_MDM) Agent, Version
         1.0										        1.0
+										      >	    -   [PP-Module](#abbr_PP-Module) for Wireless Local Acces Network
+										      >	        (WLAN) Client, Version 1.0
 										      >	    -   [cPP](#abbr_cPP)-Module for Biometric Enrollment and
 										      >	        Verification, Version 1.1
 
@@ -1312,7 +1314,8 @@ PP Claim										PP Claim
     Profile.										    Profile.
 
 Package Claim										Package Claim
-:   This [PP](#abbr_PP) is [TLS](#abbr_TLS) Package Conformant.				:   This [PP](#abbr_PP) is [TLS](#abbr_TLS) Package Conformant.
+:   This [PP](#abbr_PP) is [TLS](#abbr_TLS) Package Conformant.			      |	:   This [PP](#abbr_PP) is [TLS](#abbr_TLS) Package (version 1.1)
+										      >	    Conformant.
 
 3 Security Problem Description {#spd .indexable data-level="1"}			      |	3 Security Problem Description {#Security_Problem_Description .indexable data-level="
 ------------------------------							      |	==============================
@@ -2435,9 +2438,9 @@ the audit records are generated as expected.\						the audit records are generat
 										      >	:::
 										      >
 										      >	::: {.reqdesc}
-										      >	The [TSF](#abbr_TSF) shall provide [the administrator]{.refinement} with
-										      >	the capability to read [all audited events and record
-										      >	contents]{.refinement} from the audit records.
+										      >	The [TSF](#abbr_TSF) shall provide \[*the administrator*\] with the
+										      >	capability to read \[*all audited events and record contents*\] from the
+										      >	audit records.
 										      >
 										      >	::: {.appnote}
 										      >	[Application Note: ]{.note-header}[ The administrator must have access
@@ -2505,8 +2508,8 @@ the audit records are generated as expected.\						the audit records are generat
 :::											:::
 
 ::: {.reqdesc}										::: {.reqdesc}
-The [TSF](#abbr_TSF) shall protect the stored audit records in the audit		The [TSF](#abbr_TSF) shall protect the stored audit records in the audit
-trail from unauthorized deletion.							trail from unauthorized deletion.
+The [TSF](#abbr_TSF) shall protect the stored audit records in the audit	      |	The [TSF](#abbr_TSF) shall be able to \[*prevent*\] unauthorized
+trail from unauthorized deletion.						      |	modifications to the stored audit records in the audit trail.
 :::											:::
 :::											:::
 
@@ -2577,8 +2580,10 @@ Tests											Tests
 :::											:::
 
 ::: {.reqdesc}										::: {.reqdesc}
-The [TSF](#abbr_TSF) shall overwrite the oldest stored audit records if			The [TSF](#abbr_TSF) shall overwrite the oldest stored audit records if
-the audit trail is full.								the audit trail is full.
+The [TSF](#abbr_TSF) shall overwrite the oldest stored audit records if		      |	The [TSF](#abbr_TSF) shall \[*overwrite the oldest stored audit
+the audit trail is full.							      |	records*\] ~~and \[**assignment**: [other actions to be taken in case of
+										      >	audit storage failure]{.assignable-content}\]~~ if the audit trail is
+										      >	full.
 :::											:::
 :::											:::
 
@@ -2667,33 +2672,32 @@ cryptographic keys in accordance with a specified cryptographic key			cryptograp
 generation algorithm \[**selection**:							generation algorithm \[**selection**:
 
 -   *[[RSA](#abbr_RSA) schemes using]{.refinement} cryptographic key			-   *[[RSA](#abbr_RSA) schemes using]{.refinement} cryptographic key
-    sizes of [2048-bit or greater]{.refinement} that meet			      |	    sizes of [\[**assignment**: [2048-bit or greater]{#a-keygen-rsa-size
-    [[FIPS](#abbr_FIPS) PUB 186-4, \"Digital Signature Standard (DSS)\",	      |	    .assignable-content}\]]{.refinement} that meet [[FIPS](#abbr_FIPS)
-    Appendix B.3]{.refinement}*,						      |	    PUB 186-4, \"Digital Signature Standard (DSS)\", Appendix
-										      >	    B.3]{.refinement}*,
+    sizes of [2048-bit or greater]{.refinement} that meet			      |	    sizes of \[**assignment**: [2048-bit or greater]{#a-keygen-rsa-size
+    [[FIPS](#abbr_FIPS) PUB 186-4, \"Digital Signature Standard (DSS)\",	      |	    .assignable-content}\] that meet \[*[FIPS](#abbr_FIPS) PUB 186-4,
+    Appendix B.3]{.refinement}*,						      |	    \"Digital Signature Standard (DSS)\", Appendix B.3*\]*,
 -   *[ECC schemes using ]{.refinement}\[**selection**:*					-   *[ECC schemes using ]{.refinement}\[**selection**:*
     -   *[\"[NIST](#abbr_NIST) curves\" P-384 and					    -   *[\"[NIST](#abbr_NIST) curves\" P-384 and
         ]{.refinement}\[**selection**: *[P-256]{.refinement}*,				        ]{.refinement}\[**selection**: *[P-256]{.refinement}*,
         *[P-521]{.refinement}*, *[no other curves]{.refinement}*\] that			        *[P-521]{.refinement}*, *[no other curves]{.refinement}*\] that
-        meet the following: [[FIPS](#abbr_FIPS) PUB 186-4, \"Digital			        meet the following: [[FIPS](#abbr_FIPS) PUB 186-4, \"Digital
-        Signature Standard (DSS)\", Appendix B.4]{.refinement}*,			        Signature Standard (DSS)\", Appendix B.4]{.refinement}*,
-    -   *[Curve25519 schemes that meet the following: RFC				    -   *[Curve25519 schemes that meet the following: RFC
-        7748]{.refinement}*								        7748]{.refinement}*
+        meet the following: [[FIPS](#abbr_FIPS) PUB 186-4, \"Digital		      |	        meet the following: \[*[FIPS](#abbr_FIPS) PUB 186-4, \"Digital
+        Signature Standard (DSS)\", Appendix B.4]{.refinement}*,		      |	        Signature Standard (DSS)\", Appendix B.4*\]*,
+    -   *[Curve25519 schemes that meet the following: RFC			      |	    -   *[Curve25519 schemes]{.refinement} that meet the following:
+        7748]{.refinement}*							      |	        \[*RFC 7748*\]*
 
-    \] ,										    \] ,
--   *[FFC schemes using ]{.refinement}\[**selection**:*				      |	-   *[[FFC](#abbr_FFC) schemes using ]{.refinement}\[**selection**:
-    -   *cryptographic key sizes of [2048-bit or greater]{.refinement}		      |	    *cryptographic key sizes of [2048-bit or greater]{.refinement} that
-        that meet the following: [[FIPS](#abbr_FIPS) PUB 186-4,			      |	    meet the following: [[FIPS](#abbr_FIPS) PUB 186-4, \"Digital
-        \"Digital Signature Standard (DSS)\", Appendix				      |	    Signature Standard (DSS)\", Appendix B.1]{.refinement}*,
-        B.1]{.refinement}*,							      |	    *[Diffie-Hellman group 14 ]{.refinement}that meet the following:[
-    -   *[Diffie-Hellman group 14 ]{.refinement}that meet the			      |	    RFC3526]{.refinement}*, *[\"safe-prime\" groups]{.refinement} that
-        following:[ RFC3526]{.refinement}*,					      |	    meet the following:[ \'[NIST](#abbr_NIST) Special Publication
-    -   *[\"safe-prime\" groups]{.refinement} that meet the following:[		      |	    800-56A Revision 3, \"Recommendation for Pair-Wise Key Establishment
-        \'[NIST](#abbr_NIST) Special Publication 800-56A Revision 3,		      |	    Schemes Using Discrete Logarithm Cryptography\"\']{.refinement}*\]*
-        \"Recommendation for Pair-Wise Key Establishment Schemes Using		      <
-        Discrete Logarithm Cryptography\"\']{.refinement}*			      <
-										      <
-    \]										      <
+    \] ,									      |	    \],
+-   *[FFC schemes using ]{.refinement}\[**selection**:*				      |	-   *[[FFC](#abbr_FFC) schemes using ]{.refinement}: \[**selection**:*
+    -   *cryptographic key sizes of [2048-bit or greater]{.refinement}			    -   *cryptographic key sizes of [2048-bit or greater]{.refinement}
+        that meet the following: [[FIPS](#abbr_FIPS) PUB 186-4,			      |	        that meet the following \[*[FIPS](#abbr_FIPS) PUB 186-4,
+        \"Digital Signature Standard (DSS)\", Appendix				      |	        \"Digital Signature Standard (DSS)\", Appendix B.1*\]*,
+        B.1]{.refinement}*,							      |	    -   *[Diffie-Hellman group 14 ]{.refinement}that meet the following:
+    -   *[Diffie-Hellman group 14 ]{.refinement}that meet the			      |	        \[*RFC3526*\]*,
+        following:[ RFC3526]{.refinement}*,					      |	    -   *[\"safe-prime\" groups]{.refinement} that meet the following:
+    -   *[\"safe-prime\" groups]{.refinement} that meet the following:[		      |	        \[*[NIST](#abbr_NIST) Special Publication 800-56A Revision 3,
+        \'[NIST](#abbr_NIST) Special Publication 800-56A Revision 3,		      <
+        \"Recommendation for Pair-Wise Key Establishment Schemes Using			        \"Recommendation for Pair-Wise Key Establishment Schemes Using
+        Discrete Logarithm Cryptography\"\']{.refinement}*			      |	        Discrete Logarithm Cryptography\"*\]*
+
+    \]											    \]
 
 \].											\].
 
@@ -2935,8 +2939,8 @@ The [TSF](#abbr_TSF) shall [perform]{.refinement} cryptographic [key			The [TSF]
 establishment]{.refinement} in accordance with a specified cryptographic		establishment]{.refinement} in accordance with a specified cryptographic
 key [establishment]{.refinement} method \[**selection**:				key [establishment]{.refinement} method \[**selection**:
 
--   *[[RSA](#abbr_RSA)-based key establishment schemes that meet the			-   *[[RSA](#abbr_RSA)-based key establishment schemes that meet the
-    following \[**selection**: ]{.refinement}*						    following \[**selection**: ]{.refinement}*
+-   *[[RSA](#abbr_RSA)-based key establishment schemes that meet the		      |	-   *\[*[RSA](#abbr_RSA)-based key establishment schemes*\] that meet
+    following \[**selection**: ]{.refinement}*					      |	    the following \[**selection**:*
     -   *[NIST](#abbr_NIST) Special Publication 800-56B, "Recommendation		    -   *[NIST](#abbr_NIST) Special Publication 800-56B, "Recommendation
         for Pair-Wise Key Establishment Schemes Using Integer				        for Pair-Wise Key Establishment Schemes Using Integer
         Factorization Cryptography"*,							        Factorization Cryptography"*,
@@ -2945,16 +2949,16 @@ key [establishment]{.refinement} method \[**selection**:				key [establishment]{
         Cryptography Specifications Version 2.2\"*					        Cryptography Specifications Version 2.2\"*
 
     \],											    \],
--   *[Elliptic curve-based key establishment schemes]{.refinement} that			-   *[Elliptic curve-based key establishment schemes]{.refinement} that
-    meets the following: [[NIST](#abbr_NIST) Special Publication 800-56A		    meets the following: [[NIST](#abbr_NIST) Special Publication 800-56A
+-   *[Elliptic curve-based key establishment schemes]{.refinement} that		      |	-   *\[*Elliptic curve-based key establishment schemes*\] that meets the
+    meets the following: [[NIST](#abbr_NIST) Special Publication 800-56A	      |	    following: \[*[NIST](#abbr_NIST) Special Publication 800-56A
     Revision 3, \"Recommendation for Pair-Wise Key Establishment Schemes		    Revision 3, \"Recommendation for Pair-Wise Key Establishment Schemes
-    Using Discrete Logarithm Cryptography\"]{.refinement}*,				    Using Discrete Logarithm Cryptography\"]{.refinement}*,
--   *[Finite field-based key establishment schemes]{.refinement} that			-   *[Finite field-based key establishment schemes]{.refinement} that
-    meets the following: [[NIST](#abbr_NIST) Special Publication 800-56A		    meets the following: [[NIST](#abbr_NIST) Special Publication 800-56A
+    Using Discrete Logarithm Cryptography\"]{.refinement}*,			      |	    Using Discrete Logarithm Cryptography\"*\]*,
+-   *[Finite field-based key establishment schemes]{.refinement} that		      |	-   *\[*Finite field-based key establishment schemes*\] that meets the
+    meets the following: [[NIST](#abbr_NIST) Special Publication 800-56A	      |	    following: \[*[NIST](#abbr_NIST) Special Publication 800-56A
     Revision 3, \"Recommendation for Pair-Wise Key Establishment Schemes		    Revision 3, \"Recommendation for Pair-Wise Key Establishment Schemes
-    Using Discrete Logarithm Cryptography\"]{.refinement}*,				    Using Discrete Logarithm Cryptography\"]{.refinement}*,
--   *[Key establishment schemes using Diffie-Hellman group 14 that meets		-   *[Key establishment schemes using Diffie-Hellman group 14 that meets
-    the following: RFC 3526]{.refinement}*						    the following: RFC 3526]{.refinement}*
+    Using Discrete Logarithm Cryptography\"]{.refinement}*,			      |	    Using Discrete Logarithm Cryptography\"*\]*,
+-   *[Key establishment schemes using Diffie-Hellman group 14 that meets	      |	-   *\[*Key establishment schemes using Diffie-Hellman group 14*\] that
+    the following: RFC 3526]{.refinement}*					      |	    meets the following: \[*RFC 3526*\]*
 
 \].											\].
 
@@ -3226,22 +3230,22 @@ The [TSF](#abbr_TSF) shall [perform]{.refinement} cryptographic [key			The [TSF]
 establishment]{.refinement} in accordance with a specified cryptographic		establishment]{.refinement} in accordance with a specified cryptographic
 key [establishment]{.refinement} method: \[**selection**:				key [establishment]{.refinement} method: \[**selection**:
 
--   *[[RSA](#abbr_RSA)-based key establishment schemes that meet the			-   *[[RSA](#abbr_RSA)-based key establishment schemes that meet the
-    following: [NIST](#abbr_NIST) Special Publication 800-56B,				    following: [NIST](#abbr_NIST) Special Publication 800-56B,
+-   *[[RSA](#abbr_RSA)-based key establishment schemes that meet the		      |	-   *\[*[RSA](#abbr_RSA)-based key establishment schemes*\] that meets
+    following: [NIST](#abbr_NIST) Special Publication 800-56B,			      |	    the following: \[*[NIST](#abbr_NIST) Special Publication 800-56B,
     "Recommendation for Pair-Wise Key Establishment Schemes Using			    "Recommendation for Pair-Wise Key Establishment Schemes Using
-    Integer Factorization Cryptography"]{.refinement}*,					    Integer Factorization Cryptography"]{.refinement}*,
--   *[Elliptic curve-based key establishment schemes]{.refinement} that			-   *[Elliptic curve-based key establishment schemes]{.refinement} that
-    meets the following: \[**selection**:*						    meets the following: \[**selection**:*
+    Integer Factorization Cryptography"]{.refinement}*,				      |	    Integer Factorization Cryptography"*\]*,
+-   *[Elliptic curve-based key establishment schemes]{.refinement} that		      |	-   *\[*Elliptic curve-based key establishment schemes*\] that meets the
+    meets the following: \[**selection**:*					      |	    following: \[**selection**:*
     -   *[[NIST](#abbr_NIST) Special Publication 800-56A Revision 3,			    -   *[[NIST](#abbr_NIST) Special Publication 800-56A Revision 3,
         \"Recommendation for Pair-Wise Key Establishment Schemes Using			        \"Recommendation for Pair-Wise Key Establishment Schemes Using
         Discrete Logarithm Cryptography\"]{.refinement}*,				        Discrete Logarithm Cryptography\"]{.refinement}*,
     -   *[RFC 7748, \"Elliptic Curves for Security\"]{.refinement}*			    -   *[RFC 7748, \"Elliptic Curves for Security\"]{.refinement}*
 
     \],										      |	    \] ,
--   *[Finite field-based key establishment schemes]{.refinement} that			-   *[Finite field-based key establishment schemes]{.refinement} that
-    meets the following: [[NIST](#abbr_NIST) Special Publication 800-56A		    meets the following: [[NIST](#abbr_NIST) Special Publication 800-56A
+-   *[Finite field-based key establishment schemes]{.refinement} that		      |	-   *\[*Finite field-based key establishment schemes*\] that meets the
+    meets the following: [[NIST](#abbr_NIST) Special Publication 800-56A	      |	    following: \[*[NIST](#abbr_NIST) Special Publication 800-56A
     Revision 3, \"Recommendation for Pair-Wise Key Establishment Schemes		    Revision 3, \"Recommendation for Pair-Wise Key Establishment Schemes
-    Using Discrete Logarithm Cryptography\"]{.refinement}*				    Using Discrete Logarithm Cryptography\"]{.refinement}*
+    Using Discrete Logarithm Cryptography\"]{.refinement}*			      |	    Using Discrete Logarithm Cryptography\"*\]*
 
 \] [for the purposes of encrypting sensitive data received while the			\] [for the purposes of encrypting sensitive data received while the
 device is locked.]{.refinement}								device is locked.]{.refinement}
@@ -4735,36 +4739,37 @@ There are no test evaluation activities for this component.\			      |	There are
 :::											:::
 
 ::: {.reqdesc}										::: {.reqdesc}
-The [TSF](#abbr_TSF) shall perform encryption/decryption in accordance			The [TSF](#abbr_TSF) shall perform encryption/decryption in accordance
-with a specified cryptographic algorithm:\						with a specified cryptographic algorithm:\
-
--   [[AES](#abbr_AES)-CBC (as defined in [FIPS](#abbr_FIPS) PUB 197, and		-   [[AES](#abbr_AES)-CBC (as defined in [FIPS](#abbr_FIPS) PUB 197, and
-    [NIST](#abbr_NIST) SP 800-38A) mode]{.refinement}					    [NIST](#abbr_NIST) SP 800-38A) mode]{.refinement}
--   [[AES](#abbr_AES)-CCMP (as defined in [FIPS](#abbr_FIPS) PUB 197,			-   [[AES](#abbr_AES)-CCMP (as defined in [FIPS](#abbr_FIPS) PUB 197,
+The [TSF](#abbr_TSF) shall perform encryption/decryption in accordance		      |	The [TSF](#abbr_TSF) shall perform \[*encryption/decryption*\] in
+with a specified cryptographic algorithm:\					      |	accordance with a specified cryptographic algorithm: \[*\
+										      |	*
+-   [[AES](#abbr_AES)-CBC (as defined in [FIPS](#abbr_FIPS) PUB 197, and	      |
+    [NIST](#abbr_NIST) SP 800-38A) mode]{.refinement}				      |	-   [AES](#abbr_AES)-CBC (as defined in [FIPS](#abbr_FIPS) PUB 197, and
+-   [[AES](#abbr_AES)-CCMP (as defined in [FIPS](#abbr_FIPS) PUB 197,		      |	    [NIST](#abbr_NIST) SP 800-38A) mode
+										      >	-   [AES](#abbr_AES)-CCMP (as defined in [FIPS](#abbr_FIPS) PUB 197,
     [NIST](#abbr_NIST) SP 800-38C and [IEEE](#abbr_IEEE) 802.11-2012),			    [NIST](#abbr_NIST) SP 800-38C and [IEEE](#abbr_IEEE) 802.11-2012),
-    and]{.refinement}									    and]{.refinement}
+    and]{.refinement}								      |	    and
 -   \[**selection**:									-   \[**selection**:
-    -   *[[AES](#abbr_AES) Key Wrap (KW) (as defined in					    -   *[[AES](#abbr_AES) Key Wrap (KW) (as defined in
-        [NIST](#abbr_NIST) SP 800-38F)]{.refinement}*,					        [NIST](#abbr_NIST) SP 800-38F)]{.refinement}*,
-    -   *[[AES](#abbr_AES) Key Wrap with Padding (KWP) (as defined in			    -   *[[AES](#abbr_AES) Key Wrap with Padding (KWP) (as defined in
-        [NIST](#abbr_NIST) SP 800-38F)]{.refinement}*,					        [NIST](#abbr_NIST) SP 800-38F)]{.refinement}*,
-    -   *[[AES](#abbr_AES)-GCM (as defined in [NIST](#abbr_NIST) SP			    -   *[[AES](#abbr_AES)-GCM (as defined in [NIST](#abbr_NIST) SP
-        800-38D)]{.refinement}*,							        800-38D)]{.refinement}*,
-    -   *[[AES](#abbr_AES)-CCM (as defined in [NIST](#abbr_NIST) SP			    -   *[[AES](#abbr_AES)-CCM (as defined in [NIST](#abbr_NIST) SP
-        800-38C)]{.refinement}*,							        800-38C)]{.refinement}*,
-    -   *[[AES](#abbr_AES)-XTS (as defined in [NIST](#abbr_NIST) SP			    -   *[[AES](#abbr_AES)-XTS (as defined in [NIST](#abbr_NIST) SP
-        800-38E) mode]{.refinement}*,							        800-38E) mode]{.refinement}*,
-    -   *[[AES](#abbr_AES)-CCMP-256 (as defined in [NIST](#abbr_NIST)			    -   *[[AES](#abbr_AES)-CCMP-256 (as defined in [NIST](#abbr_NIST)
-        SP800-38C and [IEEE](#abbr_IEEE) 802.11ac-2013)]{.refinement}*,			        SP800-38C and [IEEE](#abbr_IEEE) 802.11ac-2013)]{.refinement}*,
-    -   *[[AES](#abbr_AES)-GCMP-256 (as defined in [NIST](#abbr_NIST)			    -   *[[AES](#abbr_AES)-GCMP-256 (as defined in [NIST](#abbr_NIST)
-        SP800-38D and [IEEE](#abbr_IEEE) 802.11ac-2013)]{.refinement}*,			        SP800-38D and [IEEE](#abbr_IEEE) 802.11ac-2013)]{.refinement}*,
-    -   *[no other modes]{.refinement}*							    -   *[no other modes]{.refinement}*
+    -   *[[AES](#abbr_AES) Key Wrap (KW) (as defined in				      |	    -   *[AES](#abbr_AES) Key Wrap (KW) (as defined in
+        [NIST](#abbr_NIST) SP 800-38F)]{.refinement}*,				      |	        [NIST](#abbr_NIST) SP 800-38F)*,
+    -   *[[AES](#abbr_AES) Key Wrap with Padding (KWP) (as defined in		      |	    -   *[AES](#abbr_AES) Key Wrap with Padding (KWP) (as defined in
+        [NIST](#abbr_NIST) SP 800-38F)]{.refinement}*,				      |	        [NIST](#abbr_NIST) SP 800-38F)*,
+    -   *[[AES](#abbr_AES)-GCM (as defined in [NIST](#abbr_NIST) SP		      |	    -   *[AES](#abbr_AES)-GCM (as defined in [NIST](#abbr_NIST) SP
+        800-38D)]{.refinement}*,						      |	        800-38D)*,
+    -   *[[AES](#abbr_AES)-CCM (as defined in [NIST](#abbr_NIST) SP		      |	    -   *[AES](#abbr_AES)-CCM (as defined in [NIST](#abbr_NIST) SP
+        800-38C)]{.refinement}*,						      |	        800-38C)*,
+    -   *[[AES](#abbr_AES)-XTS (as defined in [NIST](#abbr_NIST) SP		      |	    -   *[AES](#abbr_AES)-XTS (as defined in [NIST](#abbr_NIST) SP
+        800-38E) mode]{.refinement}*,						      |	        800-38E) mode*,
+    -   *[[AES](#abbr_AES)-CCMP-256 (as defined in [NIST](#abbr_NIST)		      |	    -   *[AES](#abbr_AES)-CCMP-256 (as defined in [NIST](#abbr_NIST)
+        SP800-38C and [IEEE](#abbr_IEEE) 802.11ac-2013)]{.refinement}*,		      |	        SP800-38C and [IEEE](#abbr_IEEE) 802.11ac-2013)*,
+    -   *[[AES](#abbr_AES)-GCMP-256 (as defined in [NIST](#abbr_NIST)		      |	    -   *[AES](#abbr_AES)-GCMP-256 (as defined in [NIST](#abbr_NIST)
+        SP800-38D and [IEEE](#abbr_IEEE) 802.11ac-2013)]{.refinement}*,		      |	        SP800-38D and [IEEE](#abbr_IEEE) 802.11ac-2013)*,
+    -   *[no other modes]{.refinement}*						      |	    -   *no other modes*
 
     \]											    \]
 
-and cryptographic key sizes 128-bit key sizes and \[**selection**:			and cryptographic key sizes 128-bit key sizes and \[**selection**:
-*[256-bit key sizes]{.refinement}*, *[no other key					*[256-bit key sizes]{.refinement}*, *[no other key
-sizes]{.refinement}*\].									sizes]{.refinement}*\].
+and cryptographic key sizes 128-bit key sizes and \[**selection**:		      |	\] and cryptographic key sizes \[*128-bit key sizes and \[**selection**:
+*[256-bit key sizes]{.refinement}*, *[no other key				      |	*256-bit key sizes*, *no other key sizes*\]*\].
+sizes]{.refinement}*\].								      <
 
 ::: {.appnote}										::: {.appnote}
 [Application Note: ]{.note-header}[ For the first selection, the			[Application Note: ]{.note-header}[ For the first selection, the
@@ -4772,14 +4777,15 @@ sizes]{.refinement}*\].									sizes]{.refinement}*\].
 [AES](#abbr_AES) operates. For the second selection, the [ST](#abbr_ST)			[AES](#abbr_AES) operates. For the second selection, the [ST](#abbr_ST)
 author should choose the key sizes that are supported by this				author should choose the key sizes that are supported by this
 functionality. 128-bit [CBC](#abbr_CBC) and [CCMP](#abbr_CCMP) are			functionality. 128-bit [CBC](#abbr_CBC) and [CCMP](#abbr_CCMP) are
-required in order to comply with WLAN Client Extended Package.\				required in order to comply with WLAN Client Extended Package.\
+required in order to comply with WLAN Client Extended Package.\			      |	required in order to comply with WLAN Client
+										      >	[PP-Module](#abbr_PP-Module).\
 \											\
-Note that to comply with the WLAN Client EP, [AES](#abbr_AES)			      |	Note that to comply with the WLAN Client [EP](#abbr_EP),
-[CCMP](#abbr_CCMP) (which uses [AES](#abbr_AES) in [CCM](#abbr_CCM) as		      |	[AES](#abbr_AES) [CCMP](#abbr_CCMP) (which uses [AES](#abbr_AES) in
-specified in SP 800-38C) with cryptographic key size of 128 bits must be	      |	[CCM](#abbr_CCM) as specified in SP 800-38C) with cryptographic key size
-implemented. If [CCM](#abbr_CCM) is only implemented to support			      |	of 128 bits must be implemented. If [CCM](#abbr_CCM) is only implemented
-[CCMP](#abbr_CCMP) for WLAN, [AES](#abbr_AES)-CCM does not need be		      |	to support [CCMP](#abbr_CCMP) for WLAN, [AES](#abbr_AES)-CCM does not
-selected. Optionally, [AES](#abbr_AES)-CCMP-256 or				      |	need be selected. Optionally, [AES](#abbr_AES)-CCMP-256 or
+Note that to comply with the WLAN Client EP, [AES](#abbr_AES)			      |	Note that to comply with the WLAN Client [PP-Module](#abbr_PP-Module),
+[CCMP](#abbr_CCMP) (which uses [AES](#abbr_AES) in [CCM](#abbr_CCM) as		      |	[AES](#abbr_AES)-CCMP (which uses [AES](#abbr_AES) in [CCM](#abbr_CCM)
+specified in SP 800-38C) with cryptographic key size of 128 bits must be	      |	as specified in SP 800-38C) with cryptographic key size of 128 bits must
+implemented. If [CCM](#abbr_CCM) is only implemented to support			      |	be implemented. If [CCM](#abbr_CCM) is only implemented to support
+[CCMP](#abbr_CCMP) for WLAN, [AES](#abbr_AES)-CCM does not need be			[CCMP](#abbr_CCMP) for WLAN, [AES](#abbr_AES)-CCM does not need be
+selected. Optionally, [AES](#abbr_AES)-CCMP-256 or					selected. Optionally, [AES](#abbr_AES)-CCMP-256 or
 [AES](#abbr_AES)-GCMP-256 with cryptographic key size of 256 bits may be		[AES](#abbr_AES)-GCMP-256 with cryptographic key size of 256 bits may be
 implemented. ]{.note}									implemented. ]{.note}
 :::											:::
@@ -5117,14 +5123,14 @@ inputs to a known good implementation.							inputs to a known good implementati
 :::											:::
 
 ::: {.reqdesc}										::: {.reqdesc}
-The [TSF](#abbr_TSF) shall perform [cryptographic hashing]{.refinement}			The [TSF](#abbr_TSF) shall perform [cryptographic hashing]{.refinement}
-in accordance with a specified cryptographic algorithm					in accordance with a specified cryptographic algorithm
-[[SHA](#abbr_SHA)-1 and \[**selection**: *[SHA](#abbr_SHA)-256*,			[[SHA](#abbr_SHA)-1 and \[**selection**: *[SHA](#abbr_SHA)-256*,
+The [TSF](#abbr_TSF) shall perform [cryptographic hashing]{.refinement}		      |	The [TSF](#abbr_TSF) shall perform \[*cryptographic hashing*\] in
+in accordance with a specified cryptographic algorithm				      |	accordance with a specified cryptographic algorithm
+[[SHA](#abbr_SHA)-1 and \[**selection**: *[SHA](#abbr_SHA)-256*,		      |	\[*[SHA](#abbr_SHA)-1 and \[**selection**: *[SHA](#abbr_SHA)-256*,
 *[SHA](#abbr_SHA)-384*, *[SHA](#abbr_SHA)-512*, *no other				*[SHA](#abbr_SHA)-384*, *[SHA](#abbr_SHA)-512*, *no other
-algorithms*\]]{.refinement} and [message digest]{.refinement} sizes [160		algorithms*\]]{.refinement} and [message digest]{.refinement} sizes [160
-and \[**selection**: *256*, *384*, *512 bits*, *no other message digest			and \[**selection**: *256*, *384*, *512 bits*, *no other message digest
-sizes*\]]{.refinement} that meet the following: [[FIPS](#abbr_FIPS) Pub			sizes*\]]{.refinement} that meet the following: [[FIPS](#abbr_FIPS) Pub
-180-4]{.refinement}.									180-4]{.refinement}.
+algorithms*\]]{.refinement} and [message digest]{.refinement} sizes [160	      |	algorithms*\]*\] and [message digest]{.refinement} sizes \[*160 and
+and \[**selection**: *256*, *384*, *512 bits*, *no other message digest		      |	\[**selection**: *256*, *384*, *512 bits*, *no other message digest
+sizes*\]]{.refinement} that meet the following: [[FIPS](#abbr_FIPS) Pub		      |	sizes*\]*\] that meet the following: \[*[FIPS](#abbr_FIPS) Pub 180-4*\].
+180-4]{.refinement}.								      <
 
 ::: {.appnote}										::: {.appnote}
 [Application Note: ]{.note-header}[Per [NIST](#abbr_NIST) SP 800-131A,			[Application Note: ]{.note-header}[Per [NIST](#abbr_NIST) SP 800-131A,
@@ -5135,11 +5141,11 @@ signatures. It is expected that vendors will implement					signatures. It is exp
 [SHA](#abbr_SHA)-2 algorithms in accordance with SP 800-131A.\				[SHA](#abbr_SHA)-2 algorithms in accordance with SP 800-131A.\
 \											\
 [SHA](#abbr_SHA)-1 is currently required in order to comply with the			[SHA](#abbr_SHA)-1 is currently required in order to comply with the
-WLAN Client Extended Package. Vendors are strongly encouraged to			WLAN Client Extended Package. Vendors are strongly encouraged to
-implement updated protocols that support the [SHA](#abbr_SHA)-2 family;			implement updated protocols that support the [SHA](#abbr_SHA)-2 family;
-until updated protocols are supported, this [PP](#abbr_PP) allows			until updated protocols are supported, this [PP](#abbr_PP) allows
-support for [SHA](#abbr_SHA)-1 implementations in compliance with SP			support for [SHA](#abbr_SHA)-1 implementations in compliance with SP
-800-131A.\										800-131A.\
+WLAN Client Extended Package. Vendors are strongly encouraged to		      |	WLAN Client [PP-Module](#abbr_PP-Module). Vendors are strongly
+implement updated protocols that support the [SHA](#abbr_SHA)-2 family;		      |	encouraged to implement updated protocols that support the
+until updated protocols are supported, this [PP](#abbr_PP) allows		      |	[SHA](#abbr_SHA)-2 family; until updated protocols are supported, this
+support for [SHA](#abbr_SHA)-1 implementations in compliance with SP		      |	[PP](#abbr_PP) allows support for [SHA](#abbr_SHA)-1 implementations in
+800-131A.\									      |	compliance with SP 800-131A.\
 \											\
 The intent of this requirement is to specify the hashing function. The			The intent of this requirement is to specify the hashing function. The
 hash selection must support the message digest size selection. The hash			hash selection must support the message digest size selection. The hash
@@ -5262,18 +5268,19 @@ bit­oriented vs. the byte­oriented testmacs.\					      |	bit­oriented vs. th
 :::											:::
 
 ::: {.reqdesc}										::: {.reqdesc}
-The [TSF](#abbr_TSF) shall perform [cryptographic signature services			The [TSF](#abbr_TSF) shall perform [cryptographic signature services
-(generation and verification)]{.refinement} in accordance with a			(generation and verification)]{.refinement} in accordance with a
-specified cryptographic algorithm \[**selection**:					specified cryptographic algorithm \[**selection**:
-
--   *[[RSA](#abbr_RSA) schemes using cryptographic key sizes of 2048-bit		-   *[[RSA](#abbr_RSA) schemes using cryptographic key sizes of 2048-bit
-    or greater that meet the following: [FIPS](#abbr_FIPS) PUB 186-4,			    or greater that meet the following: [FIPS](#abbr_FIPS) PUB 186-4,
-    \"Digital Signature Standard (DSS)\", Section 4]{.refinement}*,			    \"Digital Signature Standard (DSS)\", Section 4]{.refinement}*,
--   *[[ECDSA](#abbr_ECDSA) schemes using \"[NIST](#abbr_NIST) curves\"			-   *[[ECDSA](#abbr_ECDSA) schemes using \"[NIST](#abbr_NIST) curves\"
-    P-384 and \[**selection**: *P-256*, *P-521*, *no other curves*\]			    P-384 and \[**selection**: *P-256*, *P-521*, *no other curves*\]
-    that meet the following: [FIPS](#abbr_FIPS) PUB 186-4, \"Digital			    that meet the following: [FIPS](#abbr_FIPS) PUB 186-4, \"Digital
-    Signature Standard (DSS)\", Section 5]{.refinement}*			      |	    Signature Standard (DSS)\", Section 5]{.refinement}*,
-										      >	-   *No other algorithms*
+The [TSF](#abbr_TSF) shall perform [cryptographic signature services		      |	The [TSF](#abbr_TSF) shall perform \[*cryptographic signature services
+(generation and verification)]{.refinement} in accordance with a		      |	(generation and verification)*\] in accordance with a specified
+specified cryptographic algorithm \[**selection**:				      |	cryptographic algorithm \[**selection**:
+										      |
+-   *[[RSA](#abbr_RSA) schemes using cryptographic key sizes of 2048-bit	      |	-   *\[*[RSA](#abbr_RSA) schemes*\] [using]{.refinement} cryptographic
+    or greater that meet the following: [FIPS](#abbr_FIPS) PUB 186-4,		      |	    key sizes of \[*2048-bit or greater*\] that meet the following:
+    \"Digital Signature Standard (DSS)\", Section 4]{.refinement}*,		      |	    \[*[FIPS](#abbr_FIPS) PUB 186-4, \"Digital Signature Standard
+-   *[[ECDSA](#abbr_ECDSA) schemes using \"[NIST](#abbr_NIST) curves\"		      |	    (DSS)\", Section 4*\]*,
+    P-384 and \[**selection**: *P-256*, *P-521*, *no other curves*\]		      |	-   *\[*[ECDSA](#abbr_ECDSA) schemes*\] [using]{.refinement}
+    that meet the following: [FIPS](#abbr_FIPS) PUB 186-4, \"Digital		      |	    \[*\"[NIST](#abbr_NIST) curves\" P-384 and \[**selection**: *P-256*,
+    Signature Standard (DSS)\", Section 5]{.refinement}*			      |	    *P-521*, *no other curves*\]*\] that meet the following:
+										      >	    \[*[FIPS](#abbr_FIPS) PUB 186-4, \"Digital Signature Standard
+										      >	    (DSS)\", Section 5*\]*
 
 \].											\].
 
@@ -5387,24 +5394,24 @@ tools that are typically not found on factory products.\				tools that are typic
 :::											:::
 
 ::: {.reqdesc}										::: {.reqdesc}
-The [TSF](#abbr_TSF) shall perform [keyed-hash message					The [TSF](#abbr_TSF) shall perform [keyed-hash message
-authentication]{.refinement} in accordance with a specified				authentication]{.refinement} in accordance with a specified
-cryptographic algorithm [[HMAC](#abbr_HMAC)-SHA-1 and \[**selection**:			cryptographic algorithm [[HMAC](#abbr_HMAC)-SHA-1 and \[**selection**:
+The [TSF](#abbr_TSF) shall perform [keyed-hash message				      |	The [TSF](#abbr_TSF) shall perform \[*keyed-hash message
+authentication]{.refinement} in accordance with a specified			      |	authentication*\] in accordance with a specified cryptographic algorithm
+cryptographic algorithm [[HMAC](#abbr_HMAC)-SHA-1 and \[**selection**:		      |	\[*[HMAC](#abbr_HMAC)-SHA-1 and \[**selection**:
 *[HMAC](#abbr_HMAC)-SHA-256*, *[HMAC](#abbr_HMAC)-SHA-384*,				*[HMAC](#abbr_HMAC)-SHA-256*, *[HMAC](#abbr_HMAC)-SHA-384*,
-*[HMAC](#abbr_HMAC)-SHA-512*, *no other algorithms*\]]{.refinement} and			*[HMAC](#abbr_HMAC)-SHA-512*, *no other algorithms*\]]{.refinement} and
+*[HMAC](#abbr_HMAC)-SHA-512*, *no other algorithms*\]]{.refinement} and		      |	*[HMAC](#abbr_HMAC)-SHA-512*, *no other algorithms*\]*\] and
 cryptographic key sizes \[**assignment**: [key size (in bits) used in			cryptographic key sizes \[**assignment**: [key size (in bits) used in
 [HMAC](#abbr_HMAC)]{.assignable-content}\][ and message digest sizes 160		[HMAC](#abbr_HMAC)]{.assignable-content}\][ and message digest sizes 160
 and \[**selection**: *256*, *384*, *512*, *no other*\]					and \[**selection**: *256*, *384*, *512*, *no other*\]
-bits]{.refinement} that meet the following: [[FIPS](#abbr_FIPS) Pub			bits]{.refinement} that meet the following: [[FIPS](#abbr_FIPS) Pub
+bits]{.refinement} that meet the following: [[FIPS](#abbr_FIPS) Pub		      |	bits]{.refinement} that meet the following: \[*[FIPS](#abbr_FIPS) Pub
 198-1, \"The Keyed-Hash Message Authentication Code\", and				198-1, \"The Keyed-Hash Message Authentication Code\", and
-[FIPS](#abbr_FIPS) Pub 180-4, \"Secure Hash Standard\"]{.refinement}.			[FIPS](#abbr_FIPS) Pub 180-4, \"Secure Hash Standard\"]{.refinement}.
+[FIPS](#abbr_FIPS) Pub 180-4, \"Secure Hash Standard\"]{.refinement}.		      |	[FIPS](#abbr_FIPS) Pub 180-4, \"Secure Hash Standard\"*\].
 
 ::: {.appnote}										::: {.appnote}
 [Application Note: ]{.note-header}[ The selection in this requirement			[Application Note: ]{.note-header}[ The selection in this requirement
 must be consistent with the key size specified for the size of the keys			must be consistent with the key size specified for the size of the keys
 used in conjunction with the keyed-hash message authentication.				used in conjunction with the keyed-hash message authentication.
 [HMAC](#abbr_HMAC)-SHA-1 is currently required in order to comply with			[HMAC](#abbr_HMAC)-SHA-1 is currently required in order to comply with
-the WLAN Client EP.]{.note}							      |	the WLAN Client [EP](#abbr_EP).]{.note}
+the WLAN Client EP.]{.note}							      |	the WLAN Client [PP-Module](#abbr_PP-Module).]{.note}
 :::											:::
 :::											:::
 :::											:::
@@ -5466,16 +5473,16 @@ same key and IV using a known good implementation.\				      |	same key and IV u
 :::											:::
 
 ::: {.reqdesc}										::: {.reqdesc}
-The [TSF](#abbr_TSF) shall perform [conditioning]{.refinement} in			The [TSF](#abbr_TSF) shall perform [conditioning]{.refinement} in
-accordance with a specified cryptographic algorithm					accordance with a specified cryptographic algorithm
-[[HMAC](#abbr_HMAC)-\[**selection**: *[SHA](#abbr_SHA)-256*,				[[HMAC](#abbr_HMAC)-\[**selection**: *[SHA](#abbr_SHA)-256*,
+The [TSF](#abbr_TSF) shall perform [conditioning]{.refinement} in		      |	The [TSF](#abbr_TSF) shall perform \[*conditioning*\] in accordance with
+accordance with a specified cryptographic algorithm				      |	a specified cryptographic algorithm
+[[HMAC](#abbr_HMAC)-\[**selection**: *[SHA](#abbr_SHA)-256*,			      |	\[*[HMAC](#abbr_HMAC)-\[**selection**: *[SHA](#abbr_SHA)-256*,
 *[SHA](#abbr_SHA)-384*, *[SHA](#abbr_SHA)-512*\] using a salt, and			*[SHA](#abbr_SHA)-384*, *[SHA](#abbr_SHA)-512*\] using a salt, and
 \[**selection**: *PBKDF2 with \[**assignment**: [number of				\[**selection**: *PBKDF2 with \[**assignment**: [number of
 iterations]{.assignable-content}\] iterations*, *\[**assignment**: [key			iterations]{.assignable-content}\] iterations*, *\[**assignment**: [key
-stretching funtion]{.assignable-content}\]*, *no other function*\] and		      |	stretching function]{.assignable-content}\]*, *no other function*\] and
-output]{.refinement} cryptographic key sizes[ \[**selection**: *128*,			output]{.refinement} cryptographic key sizes[ \[**selection**: *128*,
-*256*\]]{.refinement} that meet the following: [\[**selection**:			*256*\]]{.refinement} that meet the following: [\[**selection**:
-*[NIST](#abbr_NIST) SP 800-132*, *no standard*\].]{.refinement}				*[NIST](#abbr_NIST) SP 800-132*, *no standard*\].]{.refinement}
+stretching funtion]{.assignable-content}\]*, *no other function*\] and		      |	stretching function]{.assignable-content}\]*, *no other function*\]*\]
+output]{.refinement} cryptographic key sizes[ \[**selection**: *128*,		      |	and [output]{.refinement} cryptographic key sizes \[ *\[**selection**:
+*256*\]]{.refinement} that meet the following: [\[**selection**:		      |	*128*, *256*\] bits*\] that meet the following: \[*\[**selection**:
+*[NIST](#abbr_NIST) SP 800-132*, *no standard*\].]{.refinement}			      |	*[NIST](#abbr_NIST) SP 800-132*, *no standard*\]*\].
 
 ::: {.appnote}										::: {.appnote}
 [Application Note: ]{.note-header}[The key cryptographic key sizes in			[Application Note: ]{.note-header}[The key cryptographic key sizes in
@@ -8257,7 +8264,7 @@ Tests											Tests
 :::											:::
 
 ::: {#FIA_UAU.6 .comp}									::: {#FIA_UAU.6 .comp}
-#### FIA\_UAU.6 Re-Authentication							#### FIA\_UAU.6 Re-Authentication
+#### FIA\_UAU.6 Re-Authentication						      |	#### FIA\_UAU.6 Re-Authenticating
 
 ::: {.element}										::: {.element}
 ::: {#FIA_UAU.6.1 .reqid}								::: {#FIA_UAU.6.1 .reqid}
@@ -8266,8 +8273,8 @@ Tests											Tests
 
 ::: {.reqdesc}										::: {.reqdesc}
 The [TSF](#abbr_TSF) shall re-authenticate the user [via the Password			The [TSF](#abbr_TSF) shall re-authenticate the user [via the Password
-Authentication Factor]{.refinement} under the conditions [attempted			Authentication Factor]{.refinement} under the conditions [attempted
-change to any supported authentication mechanisms]{.refinement}.			change to any supported authentication mechanisms]{.refinement}.
+Authentication Factor]{.refinement} under the conditions [attempted		      |	Authentication Factor]{.refinement} under the conditions \[*attempted
+change to any supported authentication mechanisms]{.refinement}.		      |	change to any supported authentication mechanisms*\].
 
 ::: {.appnote}										::: {.appnote}
 [Application Note: ]{.note-header}[The password authentication factor			[Application Note: ]{.note-header}[The password authentication factor
@@ -8769,14 +8776,14 @@ whether revocation status is verified using [OCSP](#abbr_OCSP) or CRLs.			whethe
 [OCSP](#abbr_OCSP) stapling and [OCSP](#abbr_OCSP) multi-stapling only			[OCSP](#abbr_OCSP) stapling and [OCSP](#abbr_OCSP) multi-stapling only
 support [TLS](#abbr_TLS) server certificate validation. If other			support [TLS](#abbr_TLS) server certificate validation. If other
 certificate types are validated, either [OCSP](#abbr_OCSP) or				certificate types are validated, either [OCSP](#abbr_OCSP) or
-[CRL](#abbr_CRL) should be claimed. The WLAN Client EP to which a MDF		      |	[CRL](#abbr_CRL) should be claimed. The WLAN Client [EP](#abbr_EP) to
-[TOE](#abbr_TOE) must also conform requires that certificates are used		      |	which a MDF [TOE](#abbr_TOE) must also conform requires that
-for [EAP](#abbr_EAP)-TLS; this use requires that the extendedKeyUsage		      |	certificates are used for [EAP](#abbr_EAP)-TLS; this use requires that
-rules are verified. Certificates may optionally be used for trusted		      |	the extendedKeyUsage rules are verified. Certificates may optionally be
-updates of system software and applications					      |	used for trusted updates of system software and applications
-([FPT\_TUD\_EXT.2](#FPT_TUD_EXT.2)) and for integrity verification			([FPT\_TUD\_EXT.2](#FPT_TUD_EXT.2)) and for integrity verification
-(FPT\_TST\_EXT.2(1)) and, if implemented, must be validated to contain			(FPT\_TST\_EXT.2(1)) and, if implemented, must be validated to contain
-the Code Signing purpose extendedKeyUsage.\						the Code Signing purpose extendedKeyUsage.\
+[CRL](#abbr_CRL) should be claimed. The WLAN Client EP to which a MDF		      |	[CRL](#abbr_CRL) should be claimed. The WLAN Client
+[TOE](#abbr_TOE) must also conform requires that certificates are used		      |	[PP-Module](#abbr_PP-Module) to which a MDF [TOE](#abbr_TOE) must also
+for [EAP](#abbr_EAP)-TLS; this use requires that the extendedKeyUsage		      |	conform requires that certificates are used for [EAP](#abbr_EAP)-TLS;
+rules are verified. Certificates may optionally be used for trusted		      |	this use requires that the extendedKeyUsage rules are verified.
+updates of system software and applications					      |	Certificates may optionally be used for trusted updates of system
+([FPT\_TUD\_EXT.2](#FPT_TUD_EXT.2)) and for integrity verification		      |	software and applications ([FPT\_TUD\_EXT.2](#FPT_TUD_EXT.2)) and for
+(FPT\_TST\_EXT.2(1)) and, if implemented, must be validated to contain		      |	integrity verification (FPT\_TST\_EXT.2(1)) and, if implemented, must be
+the Code Signing purpose extendedKeyUsage.\					      |	validated to contain the Code Signing purpose extendedKeyUsage.\
 \											\
 While [FIA\_X509\_EXT.1.1](#FIA_X509_EXT.1.1) requires that the				While [FIA\_X509\_EXT.1.1](#FIA_X509_EXT.1.1) requires that the
 [TOE](#abbr_TOE) perform certain checks on the certificate presented by			[TOE](#abbr_TOE) perform certain checks on the certificate presented by
@@ -8788,7 +8795,8 @@ bit (for the Diffie-Hellman ciphersuites) or the key encipherment bit			bit (for
 (for [RSA](#abbr_RSA) ciphersuites) be set. Certificates obtained for			(for [RSA](#abbr_RSA) ciphersuites) be set. Certificates obtained for
 use by the [TOE](#abbr_TOE) will have to conform to these requirements			use by the [TOE](#abbr_TOE) will have to conform to these requirements
 in order to be used in the enterprise. This check is required to support		in order to be used in the enterprise. This check is required to support
-[EAP](#abbr_EAP)-TLS for the WLAN Client EP.]{.note}				      |	[EAP](#abbr_EAP)-TLS for the WLAN Client [EP](#abbr_EP).]{.note}
+[EAP](#abbr_EAP)-TLS for the WLAN Client EP.]{.note}				      |	[EAP](#abbr_EAP)-TLS for the WLAN Client
+										      >	[PP-Module](#abbr_PP-Module).]{.note}
 :::											:::
 :::											:::
 :::											:::
@@ -9312,7 +9320,7 @@ that the [TSS](#abbr_TSS) does not include an Administrator				that the [TSS](#a
 [API](#abbr_API) for any of these management functions. This activity			[API](#abbr_API) for any of these management functions. This activity
 will be performed in conjunction with						      |	will be performed in conjunction with [FMT\_SMF.1](#FMT_SMF.1).\
 [FMT\_SMF\_EXT.1](#FMT_SMF_EXT.1).\						      <
-\											\
+\										      <
 \										      <
 										      <
 ::: {.eacategory}								      <
@@ -9320,7 +9328,7 @@ Guidance									      <
 :::										      <
 										      <
 There are no guidance evaluation activities for this component.\		      <
-\										      <
+\											\
 \										      <
 										      <
 ::: {.eacategory}								      <
@@ -11795,12 +11803,12 @@ Tests											Tests
 										      >	::: {.eacategory}
 										      >	Tests
 										      >	:::
-
+										      >
 										      >	The test of this function is performed in conjunction with
 										      >	[FIA\_X509\_EXT.2.2](#FIA_X509_EXT.2.2), FCS\_TLSC\_EXT.1.3 in the
 										      >	Package for Transport Layer Security.\
-\											\
-:::											:::
+										      >	\
+										      >	:::
 										      >
 										      >	::: {.management_function_ea}
 										      >	**Function [24](#mf-externalPorts) \[CONDITIONAL\]**\
@@ -12057,7 +12065,7 @@ Tests											Tests
 										      >	::: {.eacategory}
 										      >	[TSS](#abbr_TSS)
 										      >	:::
-										      >
+
 										      >	The evaluator shall verify that the [TSS](#abbr_TSS) describes how the
 										      >	approval for exceptions for destruction of keys or secrets by
 										      >	applications that did not import the key/secret is accomplished (e.g., a
@@ -12069,8 +12077,8 @@ Tests											Tests
 										      >
 										      >	The test of this function is performed in conjunction with
 										      >	[FCS\_STG\_EXT.1](#FCS_STG_EXT.1).\
-										      >	\
-										      >	:::
+\											\
+:::											:::
 										      >
 										      >	::: {.management_function_ea}
 										      >	**Function [36](#mf-unlockBanner)**\
@@ -13292,8 +13300,8 @@ tools that are typically not found on consumer Mobile Device products.			tools t
 :::											:::
 
 ::: {.reqdesc}										::: {.reqdesc}
-The [TSF](#abbr_TSF) shall be able to provide reliable time stamps for			The [TSF](#abbr_TSF) shall be able to provide reliable time stamps for
-its own use.										its own use.
+The [TSF](#abbr_TSF) shall be able to provide reliable time stamps for		      |	The [TSF](#abbr_TSF) shall be able to provide reliable time stamps [for
+its own use.									      |	its own use]{.refinement}.
 :::											:::
 :::											:::
 
@@ -14013,7 +14021,7 @@ Tests											Tests
 										      >	::: {#FTA_TAB.1.1 .reqid}
 										      >	[FTA\_TAB.1.1](#FTA_TAB.1.1){.abbr}
 										      >	:::
-										      >
+
 										      >	::: {.reqdesc}
 										      >	Before establishing a user session, the [TSF](#abbr_TSF) shall display
 										      >	an advisory warning message regarding unauthorized use of the
@@ -14043,20 +14051,20 @@ Tests											Tests
 										      >	::: {.eacategory}
 										      >	[TSS](#abbr_TSS)
 										      >	:::
-
+										      >
 										      >	The [TSS](#abbr_TSS) shall describe when the banner is displayed.\
-\											\
-										      >
-										      >	::: {.eacategory}
-										      >	Guidance
-:::											:::
-										      >
-										      >	There are no guidance evaluation activities for this component.\
 										      >	\
 										      >
 										      >	::: {.eacategory}
-										      >	Tests
+										      >	Guidance
 										      >	:::
+										      >
+										      >	There are no guidance evaluation activities for this component.\
+\											\
+										      >
+										      >	::: {.eacategory}
+										      >	Tests
+:::											:::
 										      >
 										      >	The evaluator shall also perform the following test:
 										      >
@@ -14082,12 +14090,12 @@ Tests											Tests
 ::: {.reqdesc}										::: {.reqdesc}
 The [TSF](#abbr_TSF) shall use								The [TSF](#abbr_TSF) shall use
 
--   802.11-2012 in accordance with the Extended Package for WLAN		      |	-   802.11-2012 in accordance with \[*the Extended Package for WLAN
-    Clients,									      |	    Clients*\],
--   802.1X in accordance with the Extended Package for WLAN Clients,		      |	-   802.1X in accordance with the \[*Extended Package for WLAN
--   [EAP](#abbr_EAP)-TLS in accordance with the Extended Package for		      |	    Clients*\],
-    WLAN Clients,								      |	-   [EAP](#abbr_EAP)-TLS in accordance with \[*the Extended Package for
--   mutually authenticated [TLS](#abbr_TLS) as defined in the Package		      |	    WLAN Clients*\],
+-   802.11-2012 in accordance with the Extended Package for WLAN		      |	-   802.11-2012 in accordance with \[*the [PP-Module](#abbr_PP-Module)
+    Clients,									      |	    for WLAN Clients*\],
+-   802.1X in accordance with the Extended Package for WLAN Clients,		      |	-   802.1X in accordance with the \[*[PP-Module](#abbr_PP-Module) for
+-   [EAP](#abbr_EAP)-TLS in accordance with the Extended Package for		      |	    WLAN Clients*\],
+    WLAN Clients,								      |	-   [EAP](#abbr_EAP)-TLS in accordance with \[*the
+-   mutually authenticated [TLS](#abbr_TLS) as defined in the Package		      |	    [PP-Module](#abbr_PP-Module) for WLAN Clients*\],
     for Transport Layer Security						      |	-   Mutually authenticated [TLS](#abbr_TLS) in accordance with \[*the
 										      >	    Package for Transport Layer Security*\]
 
@@ -14115,9 +14123,9 @@ channel between the [TOE](#abbr_TOE) and an access point,				channel between the
 The [ST](#abbr_ST) author must list which trusted channel protocols are			The [ST](#abbr_ST) author must list which trusted channel protocols are
 implemented by the Mobile Device.\							implemented by the Mobile Device.\
 \											\
-The [TSF](#abbr_TSF) must be validated against the Extended Package for			The [TSF](#abbr_TSF) must be validated against the Extended Package for
-WLAN Clients to satisfy the mandatory trusted channels of 802.11-2012,			WLAN Clients to satisfy the mandatory trusted channels of 802.11-2012,
-802.1X, and [EAP](#abbr_EAP)-TLS.\							802.1X, and [EAP](#abbr_EAP)-TLS.\
+The [TSF](#abbr_TSF) must be validated against the Extended Package for		      |	The [TSF](#abbr_TSF) must be validated against the
+WLAN Clients to satisfy the mandatory trusted channels of 802.11-2012,		      |	[PP-Module](#abbr_PP-Module) for WLAN Clients to satisfy the mandatory
+802.1X, and [EAP](#abbr_EAP)-TLS.\						      |	trusted channels of 802.11-2012, 802.1X, and [EAP](#abbr_EAP)-TLS.\
 \											\
 To satisfy the mandatory trusted channel of [TLS](#abbr_TLS) and if			To satisfy the mandatory trusted channel of [TLS](#abbr_TLS) and if
 \"mutually authenticated [DTLS](#abbr_DTLS) as defined in the Package		      |	[mutually authenticated DTLS as defined in the Package for Transport
@@ -14283,31 +14291,25 @@ to meet and achieve the security objectives:\						to meet and achieve the secur
                                               FCS\_TLSC\_EXT.2 ([TLS](#abbr_TLS) Pack |	defining the key establishment algorithms that are used for protected
                                               FCS\_TLSC\_EXT.3 ([TLS](#abbr_TLS) Pack |	communications.
                                               [FDP\_BLT\_EXT.1](#FDP_BLT_EXT.1),      |
-                                              [FDP\_IFC\_EXT.1](#FDP_IFC_EXT.1),      |	FCS\_CKM\_EXT.8 (Bluetooth Module)
+                                              [FDP\_IFC\_EXT.1](#FDP_IFC_EXT.1),      |	[FCS\_COP.1/ENCRYPT](#FCS_COP.1/ENCRYPT)
                                               [FDP\_STG\_EXT.1](#FDP_STG_EXT.1),      |
-                                              [FDP\_UPC\_EXT.1/APPS](#FDP_UPC_EXT.1/A |	FCS\_CKM\_EXT.8 supports the objective by requiring the [TSF](#abbr_TSF)
-                                              [FDP\_UPC\_EXT.1/BLUETOOTH](#FDP_UPC_EX |	to perform key rotation for Bluetooth to limit the window of opportunity
-                                              FIA\_BLT\_EXT.1 (Bluetooth Module), FIA |	for an attacker to determine the key value.
+                                              [FDP\_UPC\_EXT.1/APPS](#FDP_UPC_EXT.1/A |	[FCS\_COP.1/ENCRYPT](#FCS_COP.1/ENCRYPT) supports the objective by
+                                              [FDP\_UPC\_EXT.1/BLUETOOTH](#FDP_UPC_EX |	requiring the [TSF](#abbr_TSF) to implement symmetric encryption
+                                              FIA\_BLT\_EXT.1 (Bluetooth Module), FIA |	algorithms that are used in support of protected communications.
                                               (Bluetooth Module), FIA\_BLT\_EXT.3 (Bl |
-                                              FIA\_BLT\_EXT.4 (Bluetooth Module), FIA |	[FCS\_COP.1/ENCRYPT](#FCS_COP.1/ENCRYPT)
+                                              FIA\_BLT\_EXT.4 (Bluetooth Module), FIA |	[FCS\_COP.1/HASH](#FCS_COP.1/HASH)
                                               (Bluetooth Module), FIA\_BLT\_EXT.6 (Bl |
-                                              FIA\_BLT\_EXT.7 (Bluetooth Module),     |	[FCS\_COP.1/ENCRYPT](#FCS_COP.1/ENCRYPT) supports the objective by
-                                              [FIA\_X509\_EXT.1](#FIA_X509_EXT.1),    |	requiring the [TSF](#abbr_TSF) to implement symmetric encryption
-                                              [FIA\_X509\_EXT.2](#FIA_X509_EXT.2),    |	algorithms that are used in support of protected communications.
+                                              FIA\_BLT\_EXT.7 (Bluetooth Module),     |	[FCS\_COP.1/HASH](#FCS_COP.1/HASH) supports the objective by requiring
+                                              [FIA\_X509\_EXT.1](#FIA_X509_EXT.1),    |	the [TSF](#abbr_TSF) to implement hash algorithms that are used in
+                                              [FIA\_X509\_EXT.2](#FIA_X509_EXT.2),    |	support of protected communications.
                                               [FIA\_X509\_EXT.3](#FIA_X509_EXT.3),    |
-                                              [FIA\_X509\_EXT.4](#FIA_X509_EXT.4) (Ob |	[FCS\_COP.1/HASH](#FCS_COP.1/HASH)
+                                              [FIA\_X509\_EXT.4](#FIA_X509_EXT.4) (Ob |	[FCS\_COP.1/SIGN](#FCS_COP.1/SIGN)
                                               [FIA\_X509\_EXT.5](#FIA_X509_EXT.5) (Ob |
-                                              [FPT\_BLT\_EXT.1](#FPT_BLT_EXT.1) (Obje |	[FCS\_COP.1/HASH](#FCS_COP.1/HASH) supports the objective by requiring
-                                              FTP\_BLT\_EXT.1 (Bluetooth Module), FTP |	the [TSF](#abbr_TSF) to implement hash algorithms that are used in
-                                              (Bluetooth Module), FTP\_BLT\_EXT.3/BR  |	support of protected communications.
+                                              [FPT\_BLT\_EXT.1](#FPT_BLT_EXT.1) (Obje |	[FCS\_COP.1/SIGN](#FCS_COP.1/SIGN) supports the objective by requiring
+                                              FTP\_BLT\_EXT.1 (Bluetooth Module), FTP |	the [TSF](#abbr_TSF) to implement digital signature algorithms that are
+                                              (Bluetooth Module), FTP\_BLT\_EXT.3/BR  |	used in support of protected communications.
                                               FTP\_BLT\_EXT.3/[LE](#abbr_LE) (Bluetoo |
-                                              [FTP\_ITC\_EXT.1](#FTP_ITC_EXT.1)       |	[FCS\_COP.1/SIGN](#FCS_COP.1/SIGN)
-                                                                                      |
-                                                                                      |	[FCS\_COP.1/SIGN](#FCS_COP.1/SIGN) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to implement digital signature algorithms that are
-                                                                                      |	used in support of protected communications.
-                                                                                      |
-                                                                                      |	[FCS\_COP.1/KEYHMAC](#FCS_COP.1/KEYHMAC)
+                                              [FTP\_ITC\_EXT.1](#FTP_ITC_EXT.1)       |	[FCS\_COP.1/KEYHMAC](#FCS_COP.1/KEYHMAC)
                                                                                       |
                                                                                       |	[FCS\_COP.1/KEYHMAC](#FCS_COP.1/KEYHMAC) supports the objective by
                                                                                       |	requiring the [TSF](#abbr_TSF) to implement [HMAC](#abbr_HMAC)
@@ -14331,365 +14333,371 @@ to meet and achieve the security objectives:\						to meet and achieve the secur
                                                                                       |	[FCS\_HTTPS\_EXT.1](#FCS_HTTPS_EXT.1) supports the objective by defining
                                                                                       |	the [TOE](#abbr_TOE)\'s implementation of [HTTPS](#abbr_HTTPS) if this
                                                                                       |	protocol is used for protected communications.
-                                                                                      |
-                                                                                      |	[FCS\_RBG\_EXT.1](#FCS_RBG_EXT.1)
-                                                                                      |
-                                                                                      |	[FCS\_RBG\_EXT.1](#FCS_RBG_EXT.1) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to implement deterministic random bit generation
-                                                                                      |	algorithms that are used in support of protected communications.
-                                                                                      |
-                                                                                      |	[FCS\_RBG\_EXT.2](#FCS_RBG_EXT.2) (Objective)
-                                                                                      |
-                                                                                      |	[FCS\_RBG\_EXT.2](#FCS_RBG_EXT.2) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to save the DRBG state between reboots to ensure
-                                                                                      |	availability of this service.
-                                                                                      |
-                                                                                      |	[FCS\_RBG\_EXT.3](#FCS_RBG_EXT.3) (Objective)
-                                                                                      |
-                                                                                      |	[FCS\_RBG\_EXT.3](#FCS_RBG_EXT.3) supports the objective by defining the
-                                                                                      |	[TSF](#abbr_TSF)\'s implementation of the SP 800-90A Personalization
-                                                                                      |	String for applications that require this.
-                                                                                      |
-                                                                                      |	[FCS\_SRV\_EXT.1](#FCS_SRV_EXT.1)
-                                                                                      |
-                                                                                      |	[FCS\_SRV\_EXT.1](#FCS_SRV_EXT.1) supports the objective by defining the
-                                                                                      |	cryptographic services that the [TSF](#abbr_TSF) must make available to
-                                                                                      |	third-party applications, which includes those that can support
-                                                                                      |	protected communications.
-                                                                                      |
-                                                                                      |	[FCS\_SRV\_EXT.2](#FCS_SRV_EXT.2) (Objective)
-                                                                                      |
-                                                                                      |	[FCS\_SRV\_EXT.2](#FCS_SRV_EXT.2) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to make keys in its secure key storage available
-                                                                                      |	for use in encryption and signing operations.
-                                                                                      |
-                                                                                      |	FCS\_TLSC\_EXT.1 ([TLS](#abbr_TLS) Package)
-                                                                                      |
-                                                                                      |	FCS\_TLSC\_EXT.1 supports the objective by defining the
-                                                                                      |	[TOE](#abbr_TOE)\'s implementation of [TLS](#abbr_TLS) as a client for
-                                                                                      |	protected communications.
-                                                                                      |
-                                                                                      |	FCS\_TLSC\_EXT.2 ([TLS](#abbr_TLS) Package)
-                                                                                      |
-                                                                                      |	FCS\_TLSC\_EXT.2 supports the objective by defining the
-                                                                                      |	[TOE](#abbr_TOE)\'s implementation of mutually-authenticated
-                                                                                      |	[TLS](#abbr_TLS) as a client for protected communications.
-                                                                                      |
-                                                                                      |	FCS\_TLSC\_EXT.3 ([TLS](#abbr_TLS) Package)
-                                                                                      |
-                                                                                      |	FCS\_TLSC\_EXT.3 supports the objective by requiring the
-                                                                                      |	[TSF](#abbr_TSF) to support the [TLS](#abbr_TLS) signature algorithms
-                                                                                      |	extension as part of establishing [TLS](#abbr_TLS) protected
-                                                                                      |	communications.
-                                                                                      |
-                                                                                      |	[FDP\_BLT\_EXT.1](#FDP_BLT_EXT.1)
-                                                                                      |
-                                                                                      |	[FDP\_BLT\_EXT.1](#FDP_BLT_EXT.1) supports the objective by limiting the
-                                                                                      |	applications that are authorized to use the Bluetooth interface, which
-                                                                                      |	may include a trusted channel.
-                                                                                      |
-                                                                                      |	[FDP\_IFC\_EXT.1](#FDP_IFC_EXT.1)
-                                                                                      |
-                                                                                      |	[FDP\_IFC\_EXT.1](#FDP_IFC_EXT.1) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to have either its own [IPsec](#abbr_IPsec)
-                                                                                      |	[VPN](#abbr_VPN) client or interface that allows a third-party
-                                                                                      |	[VPN](#abbr_VPN) client to be deployed on it.
-                                                                                      |
-                                                                                      |	[FDP\_STG\_EXT.1](#FDP_STG_EXT.1)
-                                                                                      |
-                                                                                      |	[FDP\_STG\_EXT.1](#FDP_STG_EXT.1) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to implement a protected key storage that can be
-                                                                                      |	used to protect persistent keys used for protected communications from
-                                                                                      |	disclosure.
-                                                                                      |
-                                                                                      |	[FDP\_UPC\_EXT.1/APPS](#FDP_UPC_EXT.1/APPS)
-                                                                                      |
-                                                                                      |	[FDP\_UPC\_EXT.1/APPS](#FDP_UPC_EXT.1/APPS) supports the objective by
-                                                                                      |	defining the protected communications channels that it allows
-                                                                                      |	third-party applications to invoke.
-                                                                                      |
-                                                                                      |	[FDP\_UPC\_EXT.1/BLUETOOTH](#FDP_UPC_EXT.1/BLUETOOTH)
-                                                                                      |
-                                                                                      |	[FDP\_UPC\_EXT.1/BLUETOOTH](#FDP_UPC_EXT.1/BLUETOOTH) supports the
-                                                                                      |	objective by defining the Bluetooth interfaces that it allows
-                                                                                      |	third-party applications to invoke.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.1 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.1 supports the objective by ensuring that Bluetooth
-                                                                                      |	communications are not initiated without user approval.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.2 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.2 supports the objective by requiring the [TSF](#abbr_TSF)
-                                                                                      |	to implement Bluetooth mutual authentication.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.3 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.3 supports the objective by preventing Bluetooth spoofing
-                                                                                      |	by rejecting connections with duplicate device addresses.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.4 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.4 supports the objective by defining the
-                                                                                      |	[TSF](#abbr_TSF)\'s implementation of Bluetooth Secure Simple Pairing.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.5 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.5 supports the objective by requiring the [TSF](#abbr_TSF)
-                                                                                      |	to support Secure Connections Only mode for the supported Bluetooth
-                                                                                      |	communication channels.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.6 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.6 supports the objective by requiring the [TSF](#abbr_TSF)
-                                                                                      |	to specify the Bluetooth profiles that it requires explicit user
-                                                                                      |	authorization to grant access to for trusted devices.
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.7 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FIA\_BLT\_EXT.7 supports the objective by requiring the [TSF](#abbr_TSF)
-                                                                                      |	to specify the Bluetooth profiles that it requires explicit user
-                                                                                      |	authorization to grant access to for untrusted devices.
-                                                                                      |
-                                                                                      |	[FIA\_X509\_EXT.1](#FIA_X509_EXT.1)
-                                                                                      |
-                                                                                      |	[FIA\_X509\_EXT.1](#FIA_X509_EXT.1) supports the objective by defining
-                                                                                      |	the rules the [TSF](#abbr_TSF) uses to determine if a presented X.509
-                                                                                      |	certificate is valid.
-                                                                                      |
-                                                                                      |	[FIA\_X509\_EXT.2](#FIA_X509_EXT.2)
-                                                                                      |
-										      |	[FIA\_X509\_EXT.2](#FIA_X509_EXT.2) supports the objective by requiring
-  [O.STORAGE](#O.STORAGE)\                    [FCS\_CKM.2/LOCKED](#FCS_CKM.2/LOCKED), |	the [TSF](#abbr_TSF) to enumerate its uses of X.509 certificates
-                                              [FCS\_CKM\_EXT.1](#FCS_CKM_EXT.1),      |	(including protected communications) and its behavior when a
-                                              [FCS\_CKM\_EXT.2](#FCS_CKM_EXT.2),      |	certificate\'s revocation status is undetermined.
-                                              [FCS\_CKM\_EXT.3](#FCS_CKM_EXT.3),      |
-                                              [FCS\_CKM\_EXT.4](#FCS_CKM_EXT.4),      |	[FIA\_X509\_EXT.3](#FIA_X509_EXT.3)
-                                              [FCS\_CKM\_EXT.5](#FCS_CKM_EXT.5),      |
-                                              [FCS\_CKM\_EXT.6](#FCS_CKM_EXT.6),      |	[FIA\_X509\_EXT.3](#FIA_X509_EXT.3) supports the objective by requiring
-                                              [FCS\_CKM\_EXT.7](#FCS_CKM_EXT.7) (Sel- |	the [TSF](#abbr_TSF) to provide a certificate validation service to
-                                              [FCS\_COP.1/ENCRYPT](#FCS_COP.1/ENCRYPT |	third-party applications.
-                                              [FCS\_COP.1/HASH](#FCS_COP.1/HASH),     |
-                                              [FCS\_COP.1/SIGN](#FCS_COP.1/SIGN),     |	[FIA\_X509\_EXT.4](#FIA_X509_EXT.4) (Objective)
-                                              [FCS\_COP.1/KEYHMAC](#FCS_COP.1/KEYHMAC |
-                                              [FCS\_COP.1/CONDITION](#FCS_COP.1/CONDI |	[FIA\_X509\_EXT.4](#FIA_X509_EXT.4) supports the objective by defining
-                                              [FCS\_IV\_EXT.1](#FCS_IV_EXT.1),        |	the implementation of [EST](#abbr_EST) as a method by which the
-                                              [FCS\_RBG\_EXT.1](#FCS_RBG_EXT.1),      |	[TSF](#abbr_TSF) can obtain an X.509 certificate for its own use.
-                                              [FCS\_STG\_EXT.1](#FCS_STG_EXT.1),      |
-                                              [FCS\_STG\_EXT.2](#FCS_STG_EXT.2),      |	[FIA\_X509\_EXT.5](#FIA_X509_EXT.5) (Objective)
-                                              [FCS\_STG\_EXT.3](#FCS_STG_EXT.3),      |
-                                              [FDP\_ACF\_EXT.3](#FDP_ACF_EXT.3) (Obje |	[FIA\_X509\_EXT.5](#FIA_X509_EXT.5) supports the objective by defining
-                                              [FDP\_DAR\_EXT.1](#FDP_DAR_EXT.1),      |	the implementation of Certificate Request Messages as a method by which
-                                              [FDP\_DAR\_EXT.2](#FDP_DAR_EXT.2),      |	the [TSF](#abbr_TSF) can obtain an X.509 certificate for its own use.
-                                              [FIA\_UAU\_EXT.1](#FIA_UAU_EXT.1),      |
-                                              [FPT\_KST\_EXT.1](#FPT_KST_EXT.1),      |	[FPT\_BLT\_EXT.1](#FPT_BLT_EXT.1) (Objective)
-                                              [FPT\_KST\_EXT.2](#FPT_KST_EXT.2),      |
-                                              [FPT\_KST\_EXT.3](#FPT_KST_EXT.3),      |	[FPT\_BLT\_EXT.1](#FPT_BLT_EXT.1) supports the objective by requiring
-                                              [FPT\_JTA\_EXT.1](#FPT_JTA_EXT.1)       |	the [TSF](#abbr_TSF) to disable certain Bluetooth profiles when they are
-                                                                                      |	inactive such that explicit user authorization is required to re-enable
-                                                                                      |	them.
-                                                                                      |
-                                                                                      |	FTP\_BLT\_EXT.1 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FTP\_BLT\_EXT.1 supports the objective by requiring the [TSF](#abbr_TSF)
-                                                                                      |	to implement encryption to protect Bluetooth communications
-                                                                                      |
-                                                                                      |	FTP\_BLT\_EXT.2 (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FTP\_BLT\_EXT.2 supports the objective by requiring the [TSF](#abbr_TSF)
-                                                                                      |	to prevent data transmission over Bluetooth if the paired device is not
-                                                                                      |	using encryption.
-                                                                                      |
-                                                                                      |	FTP\_BLT\_EXT.3/BR (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FTP\_BLT\_EXT.3/BR supports the objective by defining the minimum key
-                                                                                      |	size for Bluetooth [BR/EDR](#abbr_BR/EDR) communications.
-                                                                                      |
-                                                                                      |	FTP\_BLT\_EXT.3/[LE](#abbr_LE) (Bluetooth Module)
-                                                                                      |
-                                                                                      |	FTP\_BLT\_EXT.3/[LE](#abbr_LE) supports the objective by defining the
-                                                                                      |	minimum key size for Bluetooth [LE](#abbr_LE) communications.
-                                                                                      |
-                                                                                      |	[FTP\_ITC\_EXT.1](#FTP_ITC_EXT.1)
-                                                                                      |
-                                                                                      |	[FTP\_ITC\_EXT.1](#FTP_ITC_EXT.1) supports the objective by defining the
-                                                                                      |	protected communications protocols that the [TSF](#abbr_TSF) implements.
-                                                                                      |
-                                                                                      |	[O.STORAGE](#O.STORAGE)\
-                                                                                      |
-                                                                                      |	[FCS\_CKM.2/LOCKED](#FCS_CKM.2/LOCKED)
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.1](#FCS_CKM_EXT.1)
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.1](#FCS_CKM_EXT.1) supports the objective by defining the
-                                                                                      |	[TOE](#abbr_TOE)\'s root encryption key that is used to protect data at
-                                                                                      |	rest.
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.2](#FCS_CKM_EXT.2)
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.2](#FCS_CKM_EXT.2) supports the objective by defining how
-                                                                                      |	the [TSF](#abbr_TSF) creates data encryption keys that are used to
-                                                                                      |	protect data at rest.
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.3](#FCS_CKM_EXT.3)
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.3](#FCS_CKM_EXT.3) supports the objective by defining the
-                                                                                      |	key encryption keys the [TOE](#abbr_TOE) uses to protect data at rest
-                                                                                      |	and how they are created.
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.4](#FCS_CKM_EXT.4)
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.4](#FCS_CKM_EXT.4) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to destroy keys and key material that could
-                                                                                      |	otherwise be used to compromise data at rest.
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.5](#FCS_CKM_EXT.5)
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.5](#FCS_CKM_EXT.5) supports the objective by defining the
-                                                                                      |	mechanism the [TSF](#abbr_TSF) uses to perform a wipe operation that
-                                                                                      |	securely destroys data at rest.
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.6](#FCS_CKM_EXT.6)
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.6](#FCS_CKM_EXT.6) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to use secure salts when performing cryptographic
-                                                                                      |	operations that require them.
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.7](#FCS_CKM_EXT.7) (Sel-Based)
-                                                                                      |
-                                                                                      |	[FCS\_CKM\_EXT.7](#FCS_CKM_EXT.7) supports the objective by ensuring
-                                                                                      |	that the [TOE](#abbr_TOE)\'s root encryption key cannot be disclosed.
-                                                                                      |
-                                                                                      |	[FCS\_COP.1/ENCRYPT](#FCS_COP.1/ENCRYPT)
-                                                                                      |
-                                                                                      |	[FCS\_COP.1/ENCRYPT](#FCS_COP.1/ENCRYPT) supports the objective by
-                                                                                      |	defining a symmetric encryption/decryption function that can be used to
-                                                                                      |	protect data at rest.
-                                                                                      |
-                                                                                      |	[FCS\_COP.1/HASH](#FCS_COP.1/HASH)
-										      |
-  [O.CONFIG](#O.CONFIG)\                      [FMT\_MOF\_EXT.1](#FMT_MOF_EXT.1),      |	[FCS\_COP.1/HASH](#FCS_COP.1/HASH) supports the objective by defining a
-                                              [FMT\_SMF\_EXT.1](#FMT_SMF_EXT.1),      |	hash function that can be used to protect data at rest.
-                                              [FMT\_SMF\_EXT.2](#FMT_SMF_EXT.2),      |
-                                              [FTA\_TAB.1](#FTA_TAB.1) (Objective)    |	[FCS\_COP.1/SIGN](#FCS_COP.1/SIGN)
-                                                                                      |
-                                                                                      |	[FCS\_COP.1/SIGN](#FCS_COP.1/SIGN) supports the objective by defining a
-                                                                                      |	digital signature function that can be used to protect data at rest.
-                                                                                      |
-                                                                                      |	[FCS\_COP.1/KEYHMAC](#FCS_COP.1/KEYHMAC)
-                                                                                      |
-                                                                                      |	[FCS\_COP.1/KEYHMAC](#FCS_COP.1/KEYHMAC) supports the objective by
-                                                                                      |	defining an [HMAC](#abbr_HMAC) function that can be used to protect data
-                                                                                      |	at rest.
-                                                                                      |
-                                                                                      |	[FCS\_COP.1/CONDITION](#FCS_COP.1/CONDITION)
-                                                                                      |
-                                                                                      |	[FCS\_COP.1/CONDITION](#FCS_COP.1/CONDITION) supports the objective by
-										      |	defining a key derivation function that can be used to protect data at
-  [O.AUTH](#O.AUTH)\                          [FDP\_PBA\_EXT.1](#FDP_PBA_EXT.1) (Sel- |	rest.
-                                              [FIA\_AFL\_EXT.1](#FIA_AFL_EXT.1), FIA\ |
-                                              (Bluetooth Module), FIA\_BLT\_EXT.2 (Bl |	[FCS\_IV\_EXT.1](#FCS_IV_EXT.1)
-                                              [FIA\_BMG\_EXT.1](#FIA_BMG_EXT.1) (Sel- |
-                                              [FIA\_BMG\_EXT.2](#FIA_BMG_EXT.2) (Obje |	[FCS\_IV\_EXT.1](#FCS_IV_EXT.1) supports the objective by ensuring that
-                                              [FIA\_BMG\_EXT.3](#FIA_BMG_EXT.3) (Obje |	any IVs the [TSF](#abbr_TSF) generates for [AES](#abbr_AES) keys are
-                                              [FIA\_BMG\_EXT.4](#FIA_BMG_EXT.4) (Obje |	generated in an appropriate manner based on the relevant standards.
-                                              [FIA\_BMG\_EXT.5](#FIA_BMG_EXT.5) (Obje |
-                                              [FIA\_BMG\_EXT.6](#FIA_BMG_EXT.6) (Obje |	[FCS\_RBG\_EXT.1](#FCS_RBG_EXT.1)
-                                              [FIA\_PMG\_EXT.1](#FIA_PMG_EXT.1),      |
-                                              [FIA\_TRT\_EXT.1](#FIA_TRT_EXT.1),      |	[FCS\_RBG\_EXT.1](#FCS_RBG_EXT.1) supports the objective by defining
-                                              [FIA\_UAU\_EXT.1](#FIA_UAU_EXT.1),      |	random bit generation function that can be used to protect data at rest.
-                                              [FIA\_UAU\_EXT.2](#FIA_UAU_EXT.2),      |
-                                              [FIA\_UAU\_EXT.4](#FIA_UAU_EXT.4) (Opti |	[FCS\_STG\_EXT.1](#FCS_STG_EXT.1)
-                                              [FIA\_UAU.5](#FIA_UAU.5), [FIA\_UAU.6]( |
-                                              [FIA\_UAU.7](#FIA_UAU.7),               |	[FCS\_STG\_EXT.1](#FCS_STG_EXT.1) supports the objective by requiring
-                                              [FIA\_X509\_EXT.2](#FIA_X509_EXT.2),    |	the [TSF](#abbr_TSF) to implement a hardware or software key store to
-                                              [FTA\_SSL\_EXT.1](#FTA_SSL_EXT.1)       |	protect key data at rest.
-                                                                                      |
-                                                                                      |	[FCS\_STG\_EXT.2](#FCS_STG_EXT.2)
-                                                                                      |
-                                                                                      |	[FCS\_STG\_EXT.2](#FCS_STG_EXT.2) supports the objective by defining the
-                                                                                      |	confidentiality mechanism used to protect stored key data from
-                                                                                      |	unauthorized disclosure.
-                                                                                      |
-                                                                                      |	[FCS\_STG\_EXT.3](#FCS_STG_EXT.3)
-                                                                                      |
-                                                                                      |	[FCS\_STG\_EXT.3](#FCS_STG_EXT.3) supports the objective by defining the
-                                                                                      |	integrity mechanism used to protect stored key data from unauthorized
-                                                                                      |	modification.
-                                                                                      |
-                                                                                      |	[FDP\_ACF\_EXT.3](#FDP_ACF_EXT.3) (Objective)
-                                                                                      |
-                                                                                      |	[FDP\_ACF\_EXT.3](#FDP_ACF_EXT.3) supports the objective by ensuring
-                                                                                      |	that the [TSF](#abbr_TSF) does not permit write and execute permissions
-                                                                                      |	on stored data to be granted simultaneously.
-                                                                                      |
-                                                                                      |	[FDP\_DAR\_EXT.1](#FDP_DAR_EXT.1)
-                                                                                      |
-                                                                                      |	[FDP\_DAR\_EXT.1](#FDP_DAR_EXT.1) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to encrypt all sensitive data using data encryption
-                                                                                      |	keys.
-                                                                                      |
-                                                                                      |	[FDP\_DAR\_EXT.2](#FDP_DAR_EXT.2)
-                                                                                      |
-                                                                                      |	[FDP\_DAR\_EXT.2](#FDP_DAR_EXT.2) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to provide a mechanism to mark data as sensitive so
-                                                                                      |	that it can be subject to encryption.
-                                                                                      |
-                                                                                      |	[FIA\_UAU\_EXT.1](#FIA_UAU_EXT.1)
-                                                                                      |
-                                                                                      |	[FIA\_UAU\_EXT.1](#FIA_UAU_EXT.1) supports the objective by requiring
-                                                                                      |	the presentation of a valid authorization factor in order to decrypt
-                                                                                      |	sensitive data at rest.
-                                                                                      |
-                                                                                      |	[FPT\_KST\_EXT.1](#FPT_KST_EXT.1)
-                                                                                      |
-                                                                                      |	[FPT\_KST\_EXT.1](#FPT_KST_EXT.1) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to prevent the storage of plaintext key data in
-                                                                                      |	readable non-volatile memory.
-                                                                                      |
-                                                                                      |	[FPT\_KST\_EXT.2](#FPT_KST_EXT.2)
-                                                                                      |
-                                                                                      |	[FPT\_KST\_EXT.2](#FPT_KST_EXT.2) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to prevent any transmission of plaintext key
-                                                                                      |	material outside of the [TOE](#abbr_TOE) boundary.
-                                                                                      |
-                                                                                      |	[FPT\_KST\_EXT.3](#FPT_KST_EXT.3)
-                                                                                      |
-                                                                                      |	[FPT\_KST\_EXT.3](#FPT_KST_EXT.3) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to prevent export of any stored plaintext keys.
-                                                                                      |
-                                                                                      |	[FPT\_JTA\_EXT.1](#FPT_JTA_EXT.1)
-                                                                                      |
-                                                                                      |	[FPT\_JTA\_EXT.1](#FPT_JTA_EXT.1) supports the objective by requiring
-                                                                                      |	the [TSF](#abbr_TSF) to enforce access controls against JTAG so that
-                                                                                      |	this interface cannot be used to disclose data at rest.
-                                                                                      |
-                                                                                      |	[O.CONFIG](#O.CONFIG)\
-                                                                                      |
-                                                                                      |	[FMT\_MOF\_EXT.1](#FMT_MOF_EXT.1)
-                                                                                      |
-                                                                                      |	[FMT\_MOF\_EXT.1](#FMT_MOF_EXT.1) supports the objective by specifying
-                                                                                      |	the [TSF](#abbr_TSF) management functions that an end user is authorized
-                                                                                      |	to perform.
-                                                                                      |
-                                                                                      |	[FMT\_SMF.1](#FMT_SMF.1)
-                                                                                      |
-                                                                                      |	[FMT\_SMF.1](#FMT_SMF.1) supports the objective by defining the
-                                                                                      |	[TSF](#abbr_TSF) management functions and the users or roles that are
-										      |	authorized to invoke them.
-  [O.INTEGRITY](#O.INTEGRITY)\                [FAU\_GEN.1](#FAU_GEN.1), [FAU\_SAR.1]( |
-                                              (Objective), [FAU\_SEL.1](#FAU_SEL.1) ( |	[FMT\_SMF\_EXT.2](#FMT_SMF_EXT.2)
-                                              [FAU\_STG.1](#FAU_STG.1), [FAU\_STG.4]( |
-                                              [FCS\_COP.1/HASH](#FCS_COP.1/HASH),     |	[FMT\_SMF\_EXT.2](#FMT_SMF_EXT.2) supports the objective by defining the
-                                              [FCS\_COP.1/SIGN](#FCS_COP.1/SIGN),     |	configuration actions that the [TSF](#abbr_TSF) performs automatically
-                                              [FDP\_ACF\_EXT.1](#FDP_ACF_EXT.1),      |	upon unenrollment from mobile device management.
-                                              [FDP\_ACF\_EXT.3](#FDP_ACF_EXT.3) (Obje |
-                                              [FPT\_AEX\_EXT.1](#FPT_AEX_EXT.1),      |	[FTA\_TAB.1](#FTA_TAB.1)
-                                              [FPT\_AEX\_EXT.2](#FPT_AEX_EXT.2),      |
-                                              [FPT\_AEX\_EXT.3](#FPT_AEX_EXT.3),      |	[FTA\_TAB.1](#FTA_TAB.1) supports the objective by requiring the
-                                              [FPT\_AEX\_EXT.4](#FPT_AEX_EXT.4),      |	[TSF](#abbr_TSF) to display a warning banner to users that governs
-                                              [FPT\_AEX\_EXT.5](#FPT_AEX_EXT.5) (Obje |	authorized usage of the [TOE](#abbr_TOE).
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+										      <
+  [O.STORAGE](#O.STORAGE)\                    [FCS\_CKM.2/LOCKED](#FCS_CKM.2/LOCKED), <
+                                              [FCS\_CKM\_EXT.1](#FCS_CKM_EXT.1),      <
+                                              [FCS\_CKM\_EXT.2](#FCS_CKM_EXT.2),      <
+                                              [FCS\_CKM\_EXT.3](#FCS_CKM_EXT.3),      <
+                                              [FCS\_CKM\_EXT.4](#FCS_CKM_EXT.4),      <
+                                              [FCS\_CKM\_EXT.5](#FCS_CKM_EXT.5),      <
+                                              [FCS\_CKM\_EXT.6](#FCS_CKM_EXT.6),      <
+                                              [FCS\_CKM\_EXT.7](#FCS_CKM_EXT.7) (Sel- <
+                                              [FCS\_COP.1/ENCRYPT](#FCS_COP.1/ENCRYPT <
+                                              [FCS\_COP.1/HASH](#FCS_COP.1/HASH),     <
+                                              [FCS\_COP.1/SIGN](#FCS_COP.1/SIGN),     <
+                                              [FCS\_COP.1/KEYHMAC](#FCS_COP.1/KEYHMAC <
+                                              [FCS\_COP.1/CONDITION](#FCS_COP.1/CONDI <
+                                              [FCS\_IV\_EXT.1](#FCS_IV_EXT.1),        <
+                                              [FCS\_RBG\_EXT.1](#FCS_RBG_EXT.1),      <
+                                              [FCS\_STG\_EXT.1](#FCS_STG_EXT.1),      <
+                                              [FCS\_STG\_EXT.2](#FCS_STG_EXT.2),      <
+                                              [FCS\_STG\_EXT.3](#FCS_STG_EXT.3),      <
+                                              [FDP\_ACF\_EXT.3](#FDP_ACF_EXT.3) (Obje <
+                                              [FDP\_DAR\_EXT.1](#FDP_DAR_EXT.1),      <
+                                              [FDP\_DAR\_EXT.2](#FDP_DAR_EXT.2),      <
+                                              [FIA\_UAU\_EXT.1](#FIA_UAU_EXT.1),      <
+                                              [FPT\_KST\_EXT.1](#FPT_KST_EXT.1),      <
+                                              [FPT\_KST\_EXT.2](#FPT_KST_EXT.2),      <
+                                              [FPT\_KST\_EXT.3](#FPT_KST_EXT.3),      <
+                                              [FPT\_JTA\_EXT.1](#FPT_JTA_EXT.1)       <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+										      <
+  [O.CONFIG](#O.CONFIG)\                      [FMT\_MOF\_EXT.1](#FMT_MOF_EXT.1),      <
+                                              [FMT\_SMF\_EXT.1](#FMT_SMF_EXT.1),      <
+                                              [FMT\_SMF\_EXT.2](#FMT_SMF_EXT.2),      <
+                                              [FTA\_TAB.1](#FTA_TAB.1) (Objective)    <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+										      <
+  [O.AUTH](#O.AUTH)\                          [FDP\_PBA\_EXT.1](#FDP_PBA_EXT.1) (Sel- <
+                                              [FIA\_AFL\_EXT.1](#FIA_AFL_EXT.1), FIA\ <
+                                              (Bluetooth Module), FIA\_BLT\_EXT.2 (Bl <
+                                              [FIA\_BMG\_EXT.1](#FIA_BMG_EXT.1) (Sel- <
+                                              [FIA\_BMG\_EXT.2](#FIA_BMG_EXT.2) (Obje <
+                                              [FIA\_BMG\_EXT.3](#FIA_BMG_EXT.3) (Obje <
+                                              [FIA\_BMG\_EXT.4](#FIA_BMG_EXT.4) (Obje <
+                                              [FIA\_BMG\_EXT.5](#FIA_BMG_EXT.5) (Obje <
+                                              [FIA\_BMG\_EXT.6](#FIA_BMG_EXT.6) (Obje <
+                                              [FIA\_PMG\_EXT.1](#FIA_PMG_EXT.1),      <
+                                              [FIA\_TRT\_EXT.1](#FIA_TRT_EXT.1),      <
+                                              [FIA\_UAU\_EXT.1](#FIA_UAU_EXT.1),      <
+                                              [FIA\_UAU\_EXT.2](#FIA_UAU_EXT.2),      <
+                                              [FIA\_UAU\_EXT.4](#FIA_UAU_EXT.4) (Opti <
+                                              [FIA\_UAU.5](#FIA_UAU.5), [FIA\_UAU.6]( <
+                                              [FIA\_UAU.7](#FIA_UAU.7),               <
+                                              [FIA\_X509\_EXT.2](#FIA_X509_EXT.2),    <
+                                              [FTA\_SSL\_EXT.1](#FTA_SSL_EXT.1)       <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+                                                                                      <
+										      <
+  [O.INTEGRITY](#O.INTEGRITY)\                [FAU\_GEN.1](#FAU_GEN.1), [FAU\_SAR.1]( <
+                                              (Objective), [FAU\_SEL.1](#FAU_SEL.1) ( <
+                                              [FAU\_STG.1](#FAU_STG.1), [FAU\_STG.4]( <
+                                              [FCS\_COP.1/HASH](#FCS_COP.1/HASH),     <
+                                              [FCS\_COP.1/SIGN](#FCS_COP.1/SIGN),     <
+                                              [FDP\_ACF\_EXT.1](#FDP_ACF_EXT.1),      <
+                                              [FDP\_ACF\_EXT.3](#FDP_ACF_EXT.3) (Obje <
+                                              [FPT\_AEX\_EXT.1](#FPT_AEX_EXT.1),      <
+                                              [FPT\_AEX\_EXT.2](#FPT_AEX_EXT.2),      <
+                                              [FPT\_AEX\_EXT.3](#FPT_AEX_EXT.3),      <
+                                              [FPT\_AEX\_EXT.4](#FPT_AEX_EXT.4),      <
+                                              [FPT\_AEX\_EXT.5](#FPT_AEX_EXT.5) (Obje <
                                               [FPT\_AEX\_EXT.6](#FPT_AEX_EXT.6) (Obje <
                                               [FPT\_AEX\_EXT.7](#FPT_AEX_EXT.7) (Obje <
                                               [FPT\_BBD\_EXT.1](#FPT_BBD_EXT.1) (Obje <
@@ -14849,24 +14857,313 @@ to meet and achieve the security objectives:\						to meet and achieve the secur
                                                                                       <
   ----------------------------------------------------------------------------------- <
 
-  : [Table [8]{.counter}]{#t-obj_map .ctr data-myid="t-obj_map"			      |	[O.AUTH](#O.AUTH)\
-  data-counter-type="ct-Table"}: [SFR](#abbr_SFR) Rationale			      <
-
-### 5.2 Security Assurance Requirements {#sar .indexable data-level="2"}	      |	[FIA\_AFL\_EXT.1](#FIA_AFL_EXT.1)
+  : [Table [8]{.counter}]{#t-obj_map .ctr data-myid="t-obj_map"			      |	[FCS\_RBG\_EXT.1](#FCS_RBG_EXT.1)
+  data-counter-type="ct-Table"}: [SFR](#abbr_SFR) Rationale			      |
+										      >	[FCS\_RBG\_EXT.1](#FCS_RBG_EXT.1) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to implement deterministic random bit generation
+										      >	algorithms that are used in support of protected communications.
+										      >
+										      >	[FCS\_RBG\_EXT.2](#FCS_RBG_EXT.2) (Objective)
+										      >
+										      >	[FCS\_RBG\_EXT.2](#FCS_RBG_EXT.2) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to save the DRBG state between reboots to ensure
+										      >	availability of this service.
+										      >
+										      >	[FCS\_RBG\_EXT.3](#FCS_RBG_EXT.3) (Objective)
+										      >
+										      >	[FCS\_RBG\_EXT.3](#FCS_RBG_EXT.3) supports the objective by defining the
+										      >	[TSF](#abbr_TSF)\'s implementation of the SP 800-90A Personalization
+										      >	String for applications that require this.
+										      >
+										      >	[FCS\_SRV\_EXT.1](#FCS_SRV_EXT.1)
+										      >
+										      >	[FCS\_SRV\_EXT.1](#FCS_SRV_EXT.1) supports the objective by defining the
+										      >	cryptographic services that the [TSF](#abbr_TSF) must make available to
+										      >	third-party applications, which includes those that can support
+										      >	protected communications.
+										      >
+										      >	[FCS\_SRV\_EXT.2](#FCS_SRV_EXT.2) (Objective)
+										      >
+										      >	[FCS\_SRV\_EXT.2](#FCS_SRV_EXT.2) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to make keys in its secure key storage available
+										      >	for use in encryption and signing operations.
+										      >
+										      >	FCS\_TLSC\_EXT.1 ([TLS](#abbr_TLS) Package)
+										      >
+										      >	FCS\_TLSC\_EXT.1 supports the objective by defining the
+										      >	[TOE](#abbr_TOE)\'s implementation of [TLS](#abbr_TLS) as a client for
+										      >	protected communications.
+										      >
+										      >	FCS\_TLSC\_EXT.2 ([TLS](#abbr_TLS) Package)
+										      >
+										      >	FCS\_TLSC\_EXT.2 supports the objective by defining the
+										      >	[TOE](#abbr_TOE)\'s implementation of mutually-authenticated
+										      >	[TLS](#abbr_TLS) as a client for protected communications.
+										      >
+										      >	FCS\_TLSC\_EXT.3 ([TLS](#abbr_TLS) Package)
+										      >
+										      >	FCS\_TLSC\_EXT.3 supports the objective by requiring the
+										      >	[TSF](#abbr_TSF) to support the [TLS](#abbr_TLS) signature algorithms
+										      >	extension as part of establishing [TLS](#abbr_TLS) protected
+										      >	communications.
+										      >
+										      >	[FDP\_BLT\_EXT.1](#FDP_BLT_EXT.1)
+										      >
+										      >	[FDP\_BLT\_EXT.1](#FDP_BLT_EXT.1) supports the objective by limiting the
+										      >	applications that are authorized to use the Bluetooth interface, which
+										      >	may include a trusted channel.
+										      >
+										      >	[FDP\_IFC\_EXT.1](#FDP_IFC_EXT.1)
+										      >
+										      >	[FDP\_IFC\_EXT.1](#FDP_IFC_EXT.1) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to have either its own [IPsec](#abbr_IPsec)
+										      >	[VPN](#abbr_VPN) client or interface that allows a third-party
+										      >	[VPN](#abbr_VPN) client to be deployed on it.
+										      >
+										      >	[FDP\_STG\_EXT.1](#FDP_STG_EXT.1)
+										      >
+										      >	[FDP\_STG\_EXT.1](#FDP_STG_EXT.1) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to implement a protected key storage that can be
+										      >	used to protect persistent keys used for protected communications from
+										      >	disclosure.
+										      >
+										      >	[FDP\_UPC\_EXT.1/APPS](#FDP_UPC_EXT.1/APPS)
+										      >
+										      >	[FDP\_UPC\_EXT.1/APPS](#FDP_UPC_EXT.1/APPS) supports the objective by
+										      >	defining the protected communications channels that it allows
+										      >	third-party applications to invoke.
+										      >
+										      >	[FDP\_UPC\_EXT.1/BLUETOOTH](#FDP_UPC_EXT.1/BLUETOOTH)
+										      >
+										      >	[FDP\_UPC\_EXT.1/BLUETOOTH](#FDP_UPC_EXT.1/BLUETOOTH) supports the
+										      >	objective by defining the Bluetooth interfaces that it allows
+										      >	third-party applications to invoke.
+										      >
+										      >	[FIA\_X509\_EXT.1](#FIA_X509_EXT.1)
+										      >
+										      >	[FIA\_X509\_EXT.1](#FIA_X509_EXT.1) supports the objective by defining
+										      >	the rules the [TSF](#abbr_TSF) uses to determine if a presented X.509
+										      >	certificate is valid.
+										      >
+										      >	[FIA\_X509\_EXT.2](#FIA_X509_EXT.2)
+										      >
+										      >	[FIA\_X509\_EXT.2](#FIA_X509_EXT.2) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to enumerate its uses of X.509 certificates
+										      >	(including protected communications) and its behavior when a
+										      >	certificate\'s revocation status is undetermined.
+										      >
+										      >	[FIA\_X509\_EXT.3](#FIA_X509_EXT.3)
+										      >
+										      >	[FIA\_X509\_EXT.3](#FIA_X509_EXT.3) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to provide a certificate validation service to
+										      >	third-party applications.
+										      >
+										      >	[FIA\_X509\_EXT.4](#FIA_X509_EXT.4) (Objective)
+										      >
+										      >	[FIA\_X509\_EXT.4](#FIA_X509_EXT.4) supports the objective by defining
+										      >	the implementation of [EST](#abbr_EST) as a method by which the
+										      >	[TSF](#abbr_TSF) can obtain an X.509 certificate for its own use.
+										      >
+										      >	[FIA\_X509\_EXT.5](#FIA_X509_EXT.5) (Objective)
+										      >
+										      >	[FIA\_X509\_EXT.5](#FIA_X509_EXT.5) supports the objective by defining
+										      >	the implementation of Certificate Request Messages as a method by which
+										      >	the [TSF](#abbr_TSF) can obtain an X.509 certificate for its own use.
+										      >
+										      >	[FPT\_BLT\_EXT.1](#FPT_BLT_EXT.1) (Objective)
+										      >
+										      >	[FPT\_BLT\_EXT.1](#FPT_BLT_EXT.1) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to disable certain Bluetooth profiles when they are
+										      >	inactive such that explicit user authorization is required to re-enable
+										      >	them.
+										      >
+										      >	[FTP\_ITC\_EXT.1](#FTP_ITC_EXT.1)
+										      >
+										      >	[FTP\_ITC\_EXT.1](#FTP_ITC_EXT.1) supports the objective by defining the
+										      >	protected communications protocols that the [TSF](#abbr_TSF) implements.
+										      >
+										      >	[O.STORAGE](#O.STORAGE)\
+										      >
+										      >	[FCS\_CKM.2/LOCKED](#FCS_CKM.2/LOCKED)
+										      >
+										      >	[FCS\_CKM\_EXT.1](#FCS_CKM_EXT.1)
+										      >
+										      >	[FCS\_CKM\_EXT.1](#FCS_CKM_EXT.1) supports the objective by defining the
+										      >	[TOE](#abbr_TOE)\'s root encryption key that is used to protect data at
+										      >	rest.
+										      >
+										      >	[FCS\_CKM\_EXT.2](#FCS_CKM_EXT.2)
+										      >
+										      >	[FCS\_CKM\_EXT.2](#FCS_CKM_EXT.2) supports the objective by defining how
+										      >	the [TSF](#abbr_TSF) creates data encryption keys that are used to
+										      >	protect data at rest.
+										      >
+										      >	[FCS\_CKM\_EXT.3](#FCS_CKM_EXT.3)
+										      >
+										      >	[FCS\_CKM\_EXT.3](#FCS_CKM_EXT.3) supports the objective by defining the
+										      >	key encryption keys the [TOE](#abbr_TOE) uses to protect data at rest
+										      >	and how they are created.
+										      >
+										      >	[FCS\_CKM\_EXT.4](#FCS_CKM_EXT.4)
+										      >
+										      >	[FCS\_CKM\_EXT.4](#FCS_CKM_EXT.4) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to destroy keys and key material that could
+										      >	otherwise be used to compromise data at rest.
+										      >
+										      >	[FCS\_CKM\_EXT.5](#FCS_CKM_EXT.5)
+										      >
+										      >	[FCS\_CKM\_EXT.5](#FCS_CKM_EXT.5) supports the objective by defining the
+										      >	mechanism the [TSF](#abbr_TSF) uses to perform a wipe operation that
+										      >	securely destroys data at rest.
+										      >
+										      >	[FCS\_CKM\_EXT.6](#FCS_CKM_EXT.6)
+										      >
+										      >	[FCS\_CKM\_EXT.6](#FCS_CKM_EXT.6) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to use secure salts when performing cryptographic
+										      >	operations that require them.
+										      >
+										      >	[FCS\_CKM\_EXT.7](#FCS_CKM_EXT.7) (Sel-Based)
+										      >
+										      >	[FCS\_CKM\_EXT.7](#FCS_CKM_EXT.7) supports the objective by ensuring
+										      >	that the [TOE](#abbr_TOE)\'s root encryption key cannot be disclosed.
+										      >
+										      >	[FCS\_COP.1/ENCRYPT](#FCS_COP.1/ENCRYPT)
+										      >
+										      >	[FCS\_COP.1/ENCRYPT](#FCS_COP.1/ENCRYPT) supports the objective by
+										      >	defining a symmetric encryption/decryption function that can be used to
+										      >	protect data at rest.
+										      >
+										      >	[FCS\_COP.1/HASH](#FCS_COP.1/HASH)
+										      >
+										      >	[FCS\_COP.1/HASH](#FCS_COP.1/HASH) supports the objective by defining a
+										      >	hash function that can be used to protect data at rest.
+										      >
+										      >	[FCS\_COP.1/SIGN](#FCS_COP.1/SIGN)
+										      >
+										      >	[FCS\_COP.1/SIGN](#FCS_COP.1/SIGN) supports the objective by defining a
+										      >	digital signature function that can be used to protect data at rest.
+										      >
+										      >	[FCS\_COP.1/KEYHMAC](#FCS_COP.1/KEYHMAC)
+										      >
+										      >	[FCS\_COP.1/KEYHMAC](#FCS_COP.1/KEYHMAC) supports the objective by
+										      >	defining an [HMAC](#abbr_HMAC) function that can be used to protect data
+										      >	at rest.
+										      >
+										      >	[FCS\_COP.1/CONDITION](#FCS_COP.1/CONDITION)
+										      >
+										      >	[FCS\_COP.1/CONDITION](#FCS_COP.1/CONDITION) supports the objective by
+										      >	defining a key derivation function that can be used to protect data at
+										      >	rest.
+										      >
+										      >	[FCS\_IV\_EXT.1](#FCS_IV_EXT.1)
+										      >
+										      >	[FCS\_IV\_EXT.1](#FCS_IV_EXT.1) supports the objective by ensuring that
+										      >	any IVs the [TSF](#abbr_TSF) generates for [AES](#abbr_AES) keys are
+										      >	generated in an appropriate manner based on the relevant standards.
+										      >
+										      >	[FCS\_RBG\_EXT.1](#FCS_RBG_EXT.1)
+										      >
+										      >	[FCS\_RBG\_EXT.1](#FCS_RBG_EXT.1) supports the objective by defining
+										      >	random bit generation function that can be used to protect data at rest.
+										      >
+										      >	[FCS\_STG\_EXT.1](#FCS_STG_EXT.1)
+										      >
+										      >	[FCS\_STG\_EXT.1](#FCS_STG_EXT.1) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to implement a hardware or software key store to
+										      >	protect key data at rest.
+										      >
+										      >	[FCS\_STG\_EXT.2](#FCS_STG_EXT.2)
+										      >
+										      >	[FCS\_STG\_EXT.2](#FCS_STG_EXT.2) supports the objective by defining the
+										      >	confidentiality mechanism used to protect stored key data from
+										      >	unauthorized disclosure.
+										      >
+										      >	[FCS\_STG\_EXT.3](#FCS_STG_EXT.3)
+										      >
+										      >	[FCS\_STG\_EXT.3](#FCS_STG_EXT.3) supports the objective by defining the
+										      >	integrity mechanism used to protect stored key data from unauthorized
+										      >	modification.
+										      >
+										      >	[FDP\_ACF\_EXT.3](#FDP_ACF_EXT.3) (Objective)
+										      >
+										      >	[FDP\_ACF\_EXT.3](#FDP_ACF_EXT.3) supports the objective by ensuring
+										      >	that the [TSF](#abbr_TSF) does not permit write and execute permissions
+										      >	on stored data to be granted simultaneously.
+										      >
+										      >	[FDP\_DAR\_EXT.1](#FDP_DAR_EXT.1)
+										      >
+										      >	[FDP\_DAR\_EXT.1](#FDP_DAR_EXT.1) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to encrypt all sensitive data using data encryption
+										      >	keys.
+										      >
+										      >	[FDP\_DAR\_EXT.2](#FDP_DAR_EXT.2)
+										      >
+										      >	[FDP\_DAR\_EXT.2](#FDP_DAR_EXT.2) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to provide a mechanism to mark data as sensitive so
+										      >	that it can be subject to encryption.
+										      >
+										      >	[FIA\_UAU\_EXT.1](#FIA_UAU_EXT.1)
+										      >
+										      >	[FIA\_UAU\_EXT.1](#FIA_UAU_EXT.1) supports the objective by requiring
+										      >	the presentation of a valid authorization factor in order to decrypt
+										      >	sensitive data at rest.
+										      >
+										      >	[FPT\_KST\_EXT.1](#FPT_KST_EXT.1)
+										      >
+										      >	[FPT\_KST\_EXT.1](#FPT_KST_EXT.1) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to prevent the storage of plaintext key data in
+										      >	readable non-volatile memory.
+										      >
+										      >	[FPT\_KST\_EXT.2](#FPT_KST_EXT.2)
+										      >
+										      >	[FPT\_KST\_EXT.2](#FPT_KST_EXT.2) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to prevent any transmission of plaintext key
+										      >	material outside of the [TOE](#abbr_TOE) boundary.
+										      >
+										      >	[FPT\_KST\_EXT.3](#FPT_KST_EXT.3)
+										      >
+										      >	[FPT\_KST\_EXT.3](#FPT_KST_EXT.3) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to prevent export of any stored plaintext keys.
+										      >
+										      >	[FPT\_JTA\_EXT.1](#FPT_JTA_EXT.1)
+										      >
+										      >	[FPT\_JTA\_EXT.1](#FPT_JTA_EXT.1) supports the objective by requiring
+										      >	the [TSF](#abbr_TSF) to enforce access controls against JTAG so that
+										      >	this interface cannot be used to disclose data at rest.
+										      >
+										      >	[O.CONFIG](#O.CONFIG)\
+										      >
+										      >	[FMT\_MOF\_EXT.1](#FMT_MOF_EXT.1)
+										      >
+										      >	[FMT\_MOF\_EXT.1](#FMT_MOF_EXT.1) supports the objective by specifying
+										      >	the [TSF](#abbr_TSF) management functions that an end user is authorized
+										      >	to perform.
+										      >
+										      >	[FMT\_SMF.1](#FMT_SMF.1)
+										      >
+										      >	[FMT\_SMF.1](#FMT_SMF.1) supports the objective by defining the
+										      >	[TSF](#abbr_TSF) management functions and the users or roles that are
+										      >	authorized to invoke them.
+										      >
+										      >	[FMT\_SMF\_EXT.2](#FMT_SMF_EXT.2)
+										      >
+										      >	[FMT\_SMF\_EXT.2](#FMT_SMF_EXT.2) supports the objective by defining the
+										      >	configuration actions that the [TSF](#abbr_TSF) performs automatically
+										      >	upon unenrollment from mobile device management.
+										      >
+										      >	[FTA\_TAB.1](#FTA_TAB.1)
+										      >
+										      >	[FTA\_TAB.1](#FTA_TAB.1) supports the objective by requiring the
+										      >	[TSF](#abbr_TSF) to display a warning banner to users that governs
+										      >	authorized usage of the [TOE](#abbr_TOE).
+										      >
+										      >	[O.AUTH](#O.AUTH)\
+										      >
+										      >	[FIA\_AFL\_EXT.1](#FIA_AFL_EXT.1)
 										      >
 										      >	[FIA\_AFL\_EXT.1](#FIA_AFL_EXT.1) supports the objective by defining the
 										      >	authentication mechanisms that are subject to lockout behavior and how
 										      >	the [TSF](#abbr_TSF) handles repeated failed authentication attempts.
-										      >
-										      >	FIA\_BLT\_EXT.1(Bluetooth Module)
-										      >
-										      >	FIA\_BLT\_EXT.1 supports the objective by requiring a user to authorize
-										      >	all Bluetooth pairings.
-										      >
-										      >	FIA\_BLT\_EXT.2 (Bluetooth Module)
-										      >
-										      >	FIA\_BLT\_EXT.2 supports the objective by requiring the [TSF](#abbr_TSF)
-										      >	to enforce mutual authentication for Bluetooth.
 										      >
 										      >	[FIA\_PMG\_EXT.1](#FIA_PMG_EXT.1)
 										      >
@@ -14881,8 +15178,8 @@ to meet and achieve the security objectives:\						to meet and achieve the secur
 										      >	authentication attempts can be made to the [TOE](#abbr_TOE).
 										      >
 										      >	[FIA\_UAU\_EXT.1](#FIA_UAU_EXT.1)
-										      >
-										      >	[FIA\_UAU\_EXT.1](#FIA_UAU_EXT.1) supports the objective by requiring
+
+### 5.2 Security Assurance Requirements {#sar .indexable data-level="2"}	      |	[FIA\_UAU\_EXT.1](#FIA_UAU_EXT.1) supports the objective by requiring
 										      >	the [TSF](#abbr_TSF) to be provided with a valid password before access
 										      >	to protected data is granted.
 										      >
@@ -16604,12 +16901,12 @@ with test for function [[32]{.counter}](#auditLogs){.auditLogs-ref} of		      <
 ::: {.reqdesc}										::: {.reqdesc}
 The [TSF](#abbr_TSF) shall be able to select the set of events to be			The [TSF](#abbr_TSF) shall be able to select the set of events to be
 audited from the set of all auditable events based on the following			audited from the set of all auditable events based on the following
-attributes \[**selection**:								attributes \[**selection**:
+attributes \[**selection**:							      |	attributes: \[**selection**:
 
--   *event type*,									-   *event type*,
--   *success of auditable security events*,						-   *success of auditable security events*,
+-   *event type*,								      |	-   *\[event type\]*,
+-   *success of auditable security events*,					      |	-   *\[success of auditable security events*,
 -   *failure of auditable security events*,						-   *failure of auditable security events*,
--   *\[**assignment**: [other attributes]{.assignable-content}\]*			-   *\[**assignment**: [other attributes]{.assignable-content}\]*
+-   *\[**assignment**: [other attributes]{.assignable-content}\]*		      |	-   *\[**assignment**: [other attributes]{.assignable-content}\]\]*
 
 \].											\].
 
@@ -17328,7 +17625,7 @@ level. Examples include minimum number of fingerprint minutiae. ]{.note}	      <
 ::: {.activity}									      <
 ::: {.eacategory}								      <
 [TSS](#abbr_TSS)								      <
-:::										      <
+:::											:::
 										      <
 The evaluator shall verify that the [TSS](#abbr_TSS) describes how the		      <
 samples used to create the authentication template at enrollment are		      <
@@ -17349,7 +17646,7 @@ correspond to the biometric characteristics of a single user and source		      <
 										      <
 ::: {.eacategory}								      <
 Guidance									      <
-:::										      <
+:::											:::
 										      <
 There are no guidance evaluation activities for this component.\		      <
 \										      <
@@ -17357,9 +17654,9 @@ There are no guidance evaluation activities for this component.\		      <
 										      <
 ::: {.eacategory}								      <
 Tests										      <
-:::										      <
-										      <
-There are no test evaluation activities for this component.\			      <
+:::											:::
+
+There are no test evaluation activities for this component.\			      |	### A.2.4 Class: Identification and Authentication (FIA) {#-objective .indexable data
 :::										      <
 :::										      <
 :::										      <
@@ -17444,11 +17741,11 @@ Tests										      <
 										      <
 There are no test evaluation activities for this component.\			      <
 :::										      <
-:::											:::
-:::											:::
-:::											:::
-
-::: {#FIA_BMG_EXT.6 .comp}							      |	### A.2.4 Class: Identification and Authentication (FIA) {#-objective .indexable data
+:::										      <
+:::										      <
+:::										      <
+										      <
+::: {#FIA_BMG_EXT.6 .comp}							      <
 #### FIA\_BMG\_EXT.6 Spoof Detections for Biometrics				      <
 										      <
 ::: {.element}									      <
@@ -18777,7 +19074,7 @@ for each individual file.								for each individual file.
 :::										      <
 :::										      <
 :::										      <
-:::										      <
+:::											:::
 										      <
 ### A.2.7 Class: TOE Access (FTA) {#fta-obj .indexable data-level="3"}		      <
 										      <
@@ -18787,7 +19084,7 @@ for each individual file.								for each individual file.
 ::: {.element}									      <
 ::: {#FTA_TAB.1.1 .reqid}							      <
 [FTA\_TAB.1.1](#FTA_TAB.1.1){.abbr}						      <
-:::										      <
+:::											:::
 										      <
 ::: {.reqdesc}									      <
 Before establishing a user session, the [TSF](#abbr_TSF) shall display		      <
@@ -18802,7 +19099,7 @@ information at startup, but may also display the information at every		      <
 unlock. The banner is configured according to					      <
 [FMT\_SMF\_EXT.1](#FMT_SMF_EXT.1) function					      <
 [[36]{.counter}](#unlockBanner){.unlockBanner-ref}.]{.note}			      <
-:::										      <
+:::											:::
 :::										      <
 :::										      <
 										      <
@@ -18813,8 +19110,8 @@ unlock. The banner is configured according to					      <
 										      <
 ::: {.activity_pane_body}							      <
 [FTA\_TAB.1](#FTA_TAB.1):\							      <
-										      <
-::: {.activity}									      <
+
+::: {.activity}									      |	A.3 Implementation-Based Requirements {#feat-based-reqs .indexable data-level="2"}
 ::: {.eacategory}								      <
 [TSS](#abbr_TSS)								      <
 :::										      <
@@ -18845,11 +19142,11 @@ The evaluator shall also perform the following test:				      <
 										      <
 \										      <
 :::										      <
-:::											:::
-:::											:::
-:::											:::
-
-A.3 Implementation-based Requirements {#feat-based-reqs .indexable data-level="2"}    |	A.3 Implementation-Based Requirements {#feat-based-reqs .indexable data-level="2"}
+:::										      <
+:::										      <
+:::										      <
+										      <
+A.3 Implementation-based Requirements {#feat-based-reqs .indexable data-level="2"}    <
 -------------------------------------							-------------------------------------
 
 ### A.3.1 Bluetooth {#bluetooth .indexable data-level="3"}				### A.3.1 Bluetooth {#bluetooth .indexable data-level="3"}
@@ -19234,17 +19531,18 @@ Tests											Tests
 :::											:::
 
 There are no test evaluation activities for this component.\			      |	Testing for this component is performed in conjunction with the
-:::										      |	Evaluation Activities for
+										      >	Evaluation Activities for
 										      >	[FPT\_TST\_EXT.2.1/PREKERNEL](#FPT_TST_EXT.2.1/PREKERNEL).
 :::											:::
 :::											:::
 :::											:::
-
-B.3 Class: Identification and Authentication (FIA) {#fia-obj .indexable data-level="2 |	::: {#FPT_TUD_EXT.4 .comp}
---------------------------------------------------				      |	#### FPT\_TUD\_EXT.4 Trusted Update Verification
+:::										      <
 										      <
-::: {#FIA_BMG_EXT.1 .comp}							      <
-#### FIA\_BMG\_EXT.1 Accuracy of Biometric Authentication			      <
+B.3 Class: Identification and Authentication (FIA) {#fia-obj .indexable data-level="2 <
+--------------------------------------------------				      <
+
+::: {#FIA_BMG_EXT.1 .comp}							      |	::: {#FPT_TUD_EXT.4 .comp}
+#### FIA\_BMG\_EXT.1 Accuracy of Biometric Authentication			      |	#### FPT\_TUD\_EXT.4 Trusted Update Verification
 
 ::: {.statustag}									::: {.statustag}
 ***The inclusion of this selection-based component depends upon a		      |	***The inclusion of this selection-based component depends upon
@@ -20034,7 +20332,7 @@ the revocation status in accordance with RFC 5280. ]{.note}			      |
 										      >	The [TSF](#abbr_TSF) shall be capable of providing output of the
 										      >	[RBG](#abbr_RBG) to applications running on the [TSF](#abbr_TSF) that
 										      >	request random bits.
-:::											:::
+										      >	:::
 										      >
 										      >	#### Management: FCS\_RBG\_EXT.2
 										      >
@@ -20056,7 +20354,7 @@ the revocation status in accordance with RFC 5280. ]{.note}			      |
 										      >	The [TSF](#abbr_TSF) shall save the state of the deterministic
 										      >	[RBG](#abbr_RBG) at power-off, and shall use this state as input to the
 										      >	deterministic [RBG](#abbr_RBG) at startup.
-										      >	:::
+:::											:::
 										      >
 										      >	#### Management: FCS\_RBG\_EXT.3
 										      >
@@ -20320,11 +20618,11 @@ Tests										      |
 										      >	    *[CCM](#abbr_CCM)*, *[CBC](#abbr_CBC) mode*\]*
 										      >
 										      >	\].
-										      >	:::
-										      >
-										      >	#### Management: FCS\_STG\_EXT.3
-										      >
-										      >	There are no management activities foreseen.
+:::											:::
+
+Testing for this element is performed in conjunction with the Evaluation	      |	#### Management: FCS\_STG\_EXT.3
+Activities for									      |
+[FPT\_TST\_EXT.2.1/PREKERNEL](#FPT_TST_EXT.2.1/PREKERNEL).\			      |	There are no management activities foreseen.
 										      >
 										      >	#### Audit: FCS\_STG\_EXT.3
 										      >
@@ -20370,7 +20668,7 @@ Tests										      |
 										      >	*hash*, *digital signature*, *MAC*\] of the stored key prior to use of
 										      >	the key.
 :::											:::
-										      >	:::
+:::											:::
 										      >
 										      >	### C.2.2 Class: User Data Protection (FDP) {#ext-comp-FDP .indexable data-level="3"}
 										      >
@@ -20378,10 +20676,10 @@ Tests										      |
 										      >	the FDP class originally defined by [CC](#abbr_CC) Part 2:
 										      >
 										      >	### C.2.2.1 FDP\_ACF\_EXT Access Control Functions {#ext-comp-FDP_ACF_EXT .indexable 
-
-Testing for this element is performed in conjunction with the Evaluation	      |	::: {style="margin-left: 1em;"}
-Activities for									      |	#### Family Behavior
-[FPT\_TST\_EXT.2.1/PREKERNEL](#FPT_TST_EXT.2.1/PREKERNEL).\			      |
+										      >
+										      >	::: {style="margin-left: 1em;"}
+										      >	#### Family Behavior
+										      >
 										      >	<div>
 										      >
 										      >	This family defines the rules for access control functions that are not
@@ -20476,13 +20774,14 @@ Activities for									      |	#### Family Behavior
 										      >	Exceptions may only be explicitly authorized for such sharing by
 										      >	\[**selection**: *the user*, *the administrator*, *no one*\].
 :::											:::
-										      >
-										      >	#### Management: FDP\_ACF\_EXT.3
-										      >
-										      >	There are no management activities foreseen.
-										      >
-										      >	#### Audit: FDP\_ACF\_EXT.3
-										      >
+
+::: {#FPT_TUD_EXT.4 .comp}							      |	#### Management: FDP\_ACF\_EXT.3
+#### FPT\_TUD\_EXT.4 Trusted Update Verification				      <
+
+::: {.statustag}								      |	There are no management activities foreseen.
+***The inclusion of this selection-based component depends upon a		      |
+selection in [FIA\_X509\_EXT.2.1](#FIA_X509_EXT.2.1),				      |	#### Audit: FDP\_ACF\_EXT.3
+[FIA\_X509\_EXT.2.1](#FIA_X509_EXT.2.1).***					      |
 										      >	There are no auditable events foreseen.
 										      >
 										      >	#### FDP\_ACF\_EXT.3 Security Attribute Based Access Control
@@ -20498,16 +20797,15 @@ Activities for									      |	#### Family Behavior
 										      >	prohibits an application from granting both write and execute permission
 										      >	to a file on the device except for \[**selection**: *files stored in the
 										      >	application\'s private data folder*, *no exceptions*\].
-:::											:::
+										      >	:::
 :::											:::
 
-::: {#FPT_TUD_EXT.4 .comp}							      |	### C.2.2.2 FDP\_BCK\_EXT Application Backup {#ext-comp-FDP_BCK_EXT .indexable data-l
-#### FPT\_TUD\_EXT.4 Trusted Update Verification				      <
-
-::: {.statustag}								      |	::: {style="margin-left: 1em;"}
-***The inclusion of this selection-based component depends upon a		      |	#### Family Behavior
-selection in [FIA\_X509\_EXT.2.1](#FIA_X509_EXT.2.1),				      |
-[FIA\_X509\_EXT.2.1](#FIA_X509_EXT.2.1).***					      |	<div>
+::: {.element}									      |	### C.2.2.2 FDP\_BCK\_EXT Application Backup {#ext-comp-FDP_BCK_EXT .indexable data-l
+::: {#FPT_TUD_EXT.4.1 .reqid}							      |
+[FPT\_TUD\_EXT.4.1](#FPT_TUD_EXT.4.1){.abbr}					      |	::: {style="margin-left: 1em;"}
+										      >	#### Family Behavior
+										      >
+										      >	<div>
 										      >
 										      >	This family defines requirements for managing device backups.
 										      >
@@ -20548,22 +20846,24 @@ selection in [FIA\_X509\_EXT.2.1](#FIA_X509_EXT.2.1),				      |
 										      >	:::
 :::											:::
 
-::: {.element}									      |	### C.2.2.3 FDP\_BLT\_EXT Limitation of Bluetooth Device Access {#ext-comp-FDP_BLT_EX
-::: {#FPT_TUD_EXT.4.1 .reqid}							      |
-[FPT\_TUD\_EXT.4.1](#FPT_TUD_EXT.4.1){.abbr}					      |	::: {style="margin-left: 1em;"}
-										      >	#### Family Behavior
-										      >
-										      >	<div>
-										      >
-										      >	This family defines requirements for managing Bluetooth devices.
-										      >
-										      >	</div>
-										      >
-										      >	#### Component Leveling
-										      >
-										      >	FDP\_BLT\_EXT1
-										      >
-										      >	[FDP\_BLT\_EXT.1](#FDP_BLT_EXT.1), Limitation of Bluetooth Device
+::: {.reqdesc}									      |	### C.2.2.3 FDP\_BLT\_EXT Limitation of Bluetooth Device Access {#ext-comp-FDP_BLT_EX
+The [TSF](#abbr_TSF) shall not install code if the code signing			      <
+certificate is deemed invalid.							      <
+
+::: {.appnote}									      |	::: {style="margin-left: 1em;"}
+[Application Note: ]{.note-header}[Certificates may optionally be used		      |	#### Family Behavior
+for code signing of system software updates					      |
+([FPT\_TUD\_EXT.2.3](#FPT_TUD_EXT.2.3)) and of mobile applications		      |	<div>
+([FPT\_TUD\_EXT.5.1](#FPT_TUD_EXT.5.1)). This element must be included		      |
+in the [ST](#abbr_ST) if certificates are used for either update		      |	This family defines requirements for managing Bluetooth devices.
+element. If either \"code signing for system software updates\" or		      |
+\"code signing for mobile applications\" is selected in				      |	</div>
+[FIA\_X509\_EXT.2.1](#FIA_X509_EXT.2.1),					      |
+[FPT\_TUD\_EXT.4.1](#FPT_TUD_EXT.4.1) must be included in the			      |	#### Component Leveling
+[ST](#abbr_ST).\								      |
+\										      |	FDP\_BLT\_EXT1
+Validity is determined by the certificate path, the expiration date, and	      |
+the revocation status in accordance with RFC 5280. ]{.note}			      |	[FDP\_BLT\_EXT.1](#FDP_BLT_EXT.1), Limitation of Bluetooth Device
 										      >	Access, requires the [TSF](#abbr_TSF) to manage which applications
 										      >	communicate with Bluetooth devices.
 										      >
@@ -20586,27 +20886,25 @@ selection in [FIA\_X509\_EXT.2.1](#FIA_X509_EXT.2.1),				      |
 										      >
 										      >	The [TSF](#abbr_TSF) shall limit the applications that may communicate
 										      >	with a particular paired Bluetooth device.
-										      >	:::
 :::											:::
-
-::: {.reqdesc}									      |	### C.2.2.4 FDP\_DAR\_EXT Data-at-Rest Encryption {#ext-comp-FDP_DAR_EXT .indexable d
-The [TSF](#abbr_TSF) shall not install code if the code signing			      <
-certificate is deemed invalid.							      <
-
-::: {.appnote}									      |	::: {style="margin-left: 1em;"}
-[Application Note: ]{.note-header}[Certificates may optionally be used		      |	#### Family Behavior
-for code signing of system software updates					      |
-([FPT\_TUD\_EXT.2.3](#FPT_TUD_EXT.2.3)) and of mobile applications		      |	<div>
-([FPT\_TUD\_EXT.5.1](#FPT_TUD_EXT.5.1)). This element must be included		      |
-in the [ST](#abbr_ST) if certificates are used for either update		      |	This family defines requirements for implementation of data-at-rest
-element. If either \"code signing for system software updates\" or		      |	protection.
-\"code signing for mobile applications\" is selected in				      |
-[FIA\_X509\_EXT.2.1](#FIA_X509_EXT.2.1),					      |	</div>
-[FPT\_TUD\_EXT.4.1](#FPT_TUD_EXT.4.1) must be included in the			      |
-[ST](#abbr_ST).\								      |	#### Component Leveling
-\										      |
-Validity is determined by the certificate path, the expiration date, and	      |	FDP\_DAR\_EXT12
-the revocation status in accordance with RFC 5280. ]{.note}			      |
+:::											:::
+										      >
+										      >	### C.2.2.4 FDP\_DAR\_EXT Data-at-Rest Encryption {#ext-comp-FDP_DAR_EXT .indexable d
+										      >
+										      >	::: {style="margin-left: 1em;"}
+										      >	#### Family Behavior
+										      >
+										      >	<div>
+										      >
+										      >	This family defines requirements for implementation of data-at-rest
+										      >	protection.
+										      >
+										      >	</div>
+										      >
+										      >	#### Component Leveling
+										      >
+										      >	FDP\_DAR\_EXT12
+										      >
 										      >	[FDP\_DAR\_EXT.1](#FDP_DAR_EXT.1), Protected Data Encryption, requires
 										      >	the [TSF](#abbr_TSF) to be able to protect all data with a chosen method
 										      >	of encryption.
@@ -20647,10 +20945,10 @@ the revocation status in accordance with RFC 5280. ]{.note}			      |
 										      >	*[CBC](#abbr_CBC)*, *[GCM](#abbr_GCM)*\] mode with key size
 										      >	\[**selection**: *128*, *256*\] bits.
 :::											:::
-										      >
-										      >	#### Management: FDP\_DAR\_EXT.2
-										      >
-										      >	The following actions could be considered for the management functions
+
+::: {.activity_pane .hide}							      |	#### Management: FDP\_DAR\_EXT.2
+::: {.activity_pane_header}							      |
+[[ Evaluation Activities ]{.activity_pane_label}[]{.toggler}](#)		      |	The following actions could be considered for the management functions
 										      >	in FMT:
 										      >
 										      >	-   Importing X.509v3 certificates into the Trust Anchor Database.
@@ -20700,14 +20998,15 @@ the revocation status in accordance with RFC 5280. ]{.note}			      |
 										      >	while in the locked state upon transitioning to the unlocked state using
 										      >	the asymmetric key scheme and shall re-encrypt that sensitive data using
 										      >	the symmetric key scheme.
-:::											:::
+										      >	:::
 :::											:::
 
-::: {.activity_pane .hide}							      |	### C.2.2.5 FDP\_IFC\_EXT Subset Information Flow Control {#ext-comp-FDP_IFC_EXT .ind
-::: {.activity_pane_header}							      |
-[[ Evaluation Activities ]{.activity_pane_label}[]{.toggler}](#)		      |	::: {style="margin-left: 1em;"}
-										      >	#### Family Behavior
-										      >
+::: {.activity_pane_body}							      |	### C.2.2.5 FDP\_IFC\_EXT Subset Information Flow Control {#ext-comp-FDP_IFC_EXT .ind
+[FPT\_TUD\_EXT.4](#FPT_TUD_EXT.4):\						      <
+
+::: {.activity}									      |	::: {style="margin-left: 1em;"}
+::: {.eacategory}								      |	#### Family Behavior
+[TSS](#abbr_TSS)								      |
 										      >	<div>
 										      >
 										      >	This family defines requirements for handling of information flows that
@@ -20761,12 +21060,13 @@ the revocation status in accordance with RFC 5280. ]{.note}			      |
 										      >	:::
 :::											:::
 
-::: {.activity_pane_body}							      |	### C.2.2.6 FDP\_STG\_EXT User Data Storage {#ext-comp-FDP_STG_EXT .indexable data-le
-[FPT\_TUD\_EXT.4](#FPT_TUD_EXT.4):\						      <
+There are no [TSS](#abbr_TSS) evaluation activities for this component.\	      |	### C.2.2.6 FDP\_STG\_EXT User Data Storage {#ext-comp-FDP_STG_EXT .indexable data-le
+\										      <
+\										      <
 
-::: {.activity}									      |	::: {style="margin-left: 1em;"}
-::: {.eacategory}								      |	#### Family Behavior
-[TSS](#abbr_TSS)								      |
+::: {.eacategory}								      |	::: {style="margin-left: 1em;"}
+Guidance									      |	#### Family Behavior
+										      >
 										      >	<div>
 										      >
 										      >	This family defines requirements for managing data storage.
@@ -20810,12 +21110,12 @@ the revocation status in accordance with RFC 5280. ]{.note}			      |
 										      >	:::
 :::											:::
 
-There are no [TSS](#abbr_TSS) evaluation activities for this component.\	      |	### C.2.2.7 FDP\_UPC\_EXT Inter-TSF User Data Transfer Protection {#ext-comp-FDP_UPC_
+There are no guidance evaluation activities for this component.\		      |	### C.2.2.7 FDP\_UPC\_EXT Inter-TSF User Data Transfer Protection {#ext-comp-FDP_UPC_
 \										      <
 \										      <
 
 ::: {.eacategory}								      |	::: {style="margin-left: 1em;"}
-Guidance									      |	#### Family Behavior
+Tests										      |	#### Family Behavior
 										      >
 										      >	<div>
 										      >
@@ -20866,14 +21166,12 @@ Guidance									      |	#### Family Behavior
 										      >	The [TSF](#abbr_TSF) shall permit the non-TSF applications to initiate
 										      >	communication via the trusted channel.
 										      >	:::
-:::											:::
-
-There are no guidance evaluation activities for this component.\		      |	### C.2.3 Class: Identification and Authentication (FIA) {#ext-comp-FIA .indexable da
-\										      <
-\										      <
-
-::: {.eacategory}								      |	This [PP](#abbr_PP) defines the following extended components as part of
-Tests										      |	the FIA class originally defined by [CC](#abbr_CC) Part 2:
+										      >	:::
+										      >
+										      >	### C.2.3 Class: Identification and Authentication (FIA) {#ext-comp-FIA .indexable da
+										      >
+										      >	This [PP](#abbr_PP) defines the following extended components as part of
+										      >	the FIA class originally defined by [CC](#abbr_CC) Part 2:
 										      >
 										      >	### C.2.3.1 FIA\_AFL\_EXT Authentication Failures {#ext-comp-FIA_AFL_EXT .indexable d
 										      >
@@ -21187,7 +21485,7 @@ Tests										      |	the FIA class originally defined by [CC](#abbr_CC) Part 2
 										      >	The [TSF](#abbr_TSF) shall require the user to present the secondary
 										      >	authentication factor prior to decryption of Enterprise application data
 										      >	and Enterprise shared resource data.
-										      >	:::
+:::											:::
 										      >	:::
 										      >
 										      >	### C.2.3.5 FIA\_X509\_EXT X.509 Certificates {#ext-comp-FIA_X509_EXT .indexable data
@@ -21213,10 +21511,10 @@ Tests										      |	the FIA class originally defined by [CC](#abbr_CC) Part 2
 										      >	[FIA\_X509\_EXT.2](#FIA_X509_EXT.2), X.509 Certificate Authentication,
 										      >	defines the [TSF](#abbr_TSF)'s usage of X.509 certificates and how it
 										      >	reacts to certificates with undetermined revocation status.
-										      >
-										      >	[FIA\_X509\_EXT.3](#FIA_X509_EXT.3), Request Validation of Certificates,
-										      >	requires the [TSF](#abbr_TSF) to make a certificate validation service
-										      >	available to environmental components.
+
+Testing for this element is performed in conjunction with the Evaluation	      |	[FIA\_X509\_EXT.3](#FIA_X509_EXT.3), Request Validation of Certificates,
+Activities for [FPT\_TUD\_EXT.2](#FPT_TUD_EXT.2) and				      |	requires the [TSF](#abbr_TSF) to make a certificate validation service
+[FPT\_TUD\_EXT.5](#FPT_TUD_EXT.5).\						      |	available to environmental components.
 										      >
 										      >	[FIA\_X509\_EXT.4](#FIA_X509_EXT.4), X509 Certificate Enrollment,
 										      >	requires the [TSF](#abbr_TSF) to implement Enrollment over Secure
@@ -21293,7 +21591,7 @@ Tests										      |	the FIA class originally defined by [CC](#abbr_CC) Part 2
 										      >	The [TSF](#abbr_TSF) shall only treat a certificate as a [CA](#abbr_CA)
 										      >	certificate if the basicConstraints extension is present and the
 										      >	[CA](#abbr_CA) flag is set to TRUE.
-										      >	:::
+:::											:::
 										      >
 										      >	#### Management: FIA\_X509\_EXT.2
 										      >
@@ -21338,7 +21636,7 @@ Tests										      |	the FIA class originally defined by [CC](#abbr_CC) Part 2
 										      >	the certificate in these cases*, *allow the user to choose whether to
 										      >	accept the certificate in these cases*, *accept the certificate*, *not
 										      >	accept the certificate*\].
-										      >	:::
+:::											:::
 										      >
 										      >	#### Management: FIA\_X509\_EXT.3
 										      >
@@ -21365,7 +21663,7 @@ Tests										      |	the FIA class originally defined by [CC](#abbr_CC) Part 2
 										      >
 										      >	The [TSF](#abbr_TSF) shall respond to the requesting application with
 										      >	the success or failure of the validation.
-										      >	:::
+:::											:::
 										      >
 										      >	#### Management: FIA\_X509\_EXT.4
 										      >
@@ -21439,9 +21737,9 @@ Tests										      |	the FIA class originally defined by [CC](#abbr_CC) Part 2
 										      >	Root [CA](#abbr_CA) certificate in the Trust Anchor Database to the
 										      >	[EST](#abbr_EST) Server [CA](#abbr_CA) certificate upon receiving a
 										      >	[CA](#abbr_CA) Certificates Response.
-										      >	:::
-										      >
-										      >	#### Management: FIA\_X509\_EXT.5
+:::											:::
+
+Appendix C - Implicitly Satisfied Requirements {#satisfiedreqs .indexable data-level= |	#### Management: FIA\_X509\_EXT.5
 										      >
 										      >	There are no management activities foreseen.
 										      >
@@ -22326,11 +22624,11 @@ Tests										      |	the FIA class originally defined by [CC](#abbr_CC) Part 2
 										      >	verification key used for [TSF](#abbr_TSF) updates \[**selection**: *is
 										      >	validated to a public key in the Trust Anchor Database*, *matches an
 										      >	immutable hardware public key*\].
-:::											:::
-
-Testing for this element is performed in conjunction with the Evaluation	      |	#### Management: FPT\_TUD\_EXT.3
-Activities for [FPT\_TUD\_EXT.2](#FPT_TUD_EXT.2) and				      |
-[FPT\_TUD\_EXT.5](#FPT_TUD_EXT.5).\						      |	There are no management activities foreseen.
+										      >	:::
+										      >
+										      >	#### Management: FPT\_TUD\_EXT.3
+										      >
+										      >	There are no management activities foreseen.
 										      >
 										      >	#### Audit: FPT\_TUD\_EXT.3
 										      >
@@ -22494,8 +22792,8 @@ Activities for [FPT\_TUD\_EXT.2](#FPT_TUD_EXT.2) and				      |
 										      >	    contents;
 										      >	b.  \[**assignment**: [Other actions performed upon transitioning to the
 										      >	    locked state]{.assignable-content}\].
-:::											:::
-:::											:::
+										      >	:::
+										      >	:::
 										      >
 										      >	### C.2.7 Class: Trusted Path/Channels (FTP) {#ext-comp-FTP .indexable data-level="3"
 										      >
@@ -22580,10 +22878,10 @@ Activities for [FPT\_TUD\_EXT.2](#FPT_TUD_EXT.2) and				      |
 										      >	channel for wireless access point connections, administrative
 										      >	communication, configured enterprise connections, and \[**selection**:
 										      >	*[OTA](#abbr_OTA) updates*, *no other connections*\].
-:::											:::
-:::											:::
-
-Appendix C - Implicitly Satisfied Requirements {#satisfiedreqs .indexable data-level= |	Appendix D - Implicitly Satisfied Requirements {#satisfiedreqs .indexable data-level=
+										      >	:::
+										      >	:::
+										      >
+										      >	Appendix D - Implicitly Satisfied Requirements {#satisfiedreqs .indexable data-level=
 ==============================================						==============================================
 
 This appendix lists requirements that should be considered satisfied by			This appendix lists requirements that should be considered satisfied by
@@ -22600,13 +22898,20 @@ Protection Profile provides evidence that these controls are present and	      |
 have been evaluated.									have been evaluated.
 
   Requirement                                                    Rationale for Satisf |	.
-  -------------------------------------------------------------- -------------------- |
-  [FAU\_SEL.1](#FAU_SEL.1) - Selective Audit                     [FAU\_SEL.1](#FAU_SE |	  Requirement                                                               Rationale
-  [FCS\_CKM.1](#FCS_CKM.1) - Cryptographic Key Generation        [FCS\_CKM.1](#FCS_CK |	  ------------------------------------------------------------------------- ---------
-  [FCS\_CKM.1](#FCS_CKM.1) - Cryptographic Key Generation        [FCS\_CKM.1](#FCS_CK |	  [FAU\_SEL.1](#FAU_SEL.1) - Selective Audit                                [FAU\_SEL
-  FCS\_CKM.2 - Cryptographic Key Establishment                   Both iterations of F |	  [FCS\_CKM.1](#FCS_CKM.1) - Cryptographic Key Generation                   [FCS\_CKM
-  FCS\_COP.1 - Cryptographic Operation                           All iterations of FC |	  [FCS\_CKM.1](#FCS_CKM.1) - Cryptographic Key Generation                   [FCS\_CKM
-  [FIA\_UAU.7](#FIA_UAU.7) - Protected Authentication Feedback   [FIA\_UAU.7](#FIA_UA |	  FCS\_CKM.2 - Cryptographic Key Establishment                              Both iter
+  -------------------------------------------------------------- -------------------- <
+  [FAU\_SEL.1](#FAU_SEL.1) - Selective Audit                     [FAU\_SEL.1](#FAU_SE <
+  [FCS\_CKM.1](#FCS_CKM.1) - Cryptographic Key Generation        [FCS\_CKM.1](#FCS_CK <
+  [FCS\_CKM.1](#FCS_CKM.1) - Cryptographic Key Generation        [FCS\_CKM.1](#FCS_CK <
+  FCS\_CKM.2 - Cryptographic Key Establishment                   Both iterations of F <
+  FCS\_COP.1 - Cryptographic Operation                           All iterations of FC <
+  [FIA\_UAU.7](#FIA_UAU.7) - Protected Authentication Feedback   [FIA\_UAU.7](#FIA_UA <
+
+Appendix D - Entropy Documentation And Assessment {#entropy .indexable data-level="A" |	  Requirement                                                               Rationale
+										      >	  ------------------------------------------------------------------------- ---------
+										      >	  [FAU\_SEL.1](#FAU_SEL.1) - Selective Audit                                [FAU\_SEL
+										      >	  [FCS\_CKM.1](#FCS_CKM.1) - Cryptographic Key Generation                   [FCS\_CKM
+										      >	  [FCS\_CKM.1](#FCS_CKM.1) - Cryptographic Key Generation                   [FCS\_CKM
+										      >	  FCS\_CKM.2 - Cryptographic Key Establishment                              Both iter
 										      >	  FCS\_COP.1 - Cryptographic Operation                                      All itera
 										      >	  [FCS\_STG\_EXT.1](#FCS_STG_EXT.1) - Cryptographic Key Storage             [FCS\_STG
 										      >	  [FDP\_ACF\_EXT.1](#FDP_ACF_EXT.1) - Access Control for System Services    [FDP\_ACF
@@ -22615,8 +22920,8 @@ have been evaluated.									have been evaluated.
 										      >	  [FIA\_PMG\_EXT.1](#FIA_PMG_EXT.1) - Password Management                   [FIA\_PMG
 										      >	  [FIA\_UAU.7](#FIA_UAU.7) - Protected Authentication Feedback              [FIA\_UAU
 										      >	  [FMT\_SMF\_EXT.3](#FMT_SMF_EXT.3) - Current Administrator                 [FMT\_SMF
-
-Appendix D - Entropy Documentation And Assessment {#entropy .indexable data-level="A" |	Appendix E - Entropy Documentation And Assessment {#entropy .indexable data-level="A"
+										      >
+										      >	Appendix E - Entropy Documentation And Assessment {#entropy .indexable data-level="A"
 =================================================					=================================================
 
 The documentation of the entropy source should be detailed enough that,			The documentation of the entropy source should be detailed enough that,
@@ -23457,7 +23762,7 @@ Gossamer Security Solutions\							      |
 										      >	:::
 										      >
 										      >	::: {.uc_sel}
-										      >	\* select [[256-bit key sizes]{.refinement}](#s-encrypt-256)
+										      >	\* select [256-bit key sizes](#s-encrypt-256)
 										      >	:::
 										      >
 										      >	::: {.uc_from_fel}
@@ -23475,10 +23780,10 @@ Gossamer Security Solutions\							      |
 										      >	::: {.uc_sel}
 										      >	\* select [256](#s-dar-256)
 										      >	:::
-
-Appendix I - Acronyms {#acronyms .indexable data-level="A"}			      |	DECISION G
 										      >
-										      >	::: {.choicelabel}
+										      >	DECISION G
+
+Appendix I - Acronyms {#acronyms .indexable data-level="A"}			      |	::: {.choicelabel}
 										      >	CHOICE G1
 										      >	:::
 										      >
