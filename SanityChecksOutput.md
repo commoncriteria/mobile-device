@@ -1,3 +1,13 @@
+* Error: Found a "assignable" element that is buried until stricken text:
+        /PP[1]|
+	
+  |/sec:Security_Requirements[1]|
+    |/section[1]|
+
+      |/sec:fau[1]|
+        |/f-component[5]|
+        |/f-element[1]|
+        |/title[1]|The TSF s|/htm:s[1]|and |/assignable[1]|other act|
 * Error: Illegal empty Guidance element at:
         /PP[1]|
 	
@@ -397,7 +407,7 @@
     |/section[1]|
 
       |/sec:fia[1]|
-        |/f-component[7]|
+        |/f-component[8]|
         |/dependencies[1]|FDP_DAR_E|/htm:p[1]||
 * Warning: Detected an empty _p_ element./PP[1]|
 	
@@ -405,7 +415,7 @@
     |/section[1]|
 
       |/sec:fia[1]|
-        |/f-component[9]|
+        |/f-component[10]|
         |/dependencies[1]|FDP_ACF_E|/htm:p[1]||
 * Warning: Detected an empty _p_ element./PP[1]|
 	
@@ -413,7 +423,7 @@
     |/section[1]|
 
       |/sec:fia[1]|
-        |/f-component[11]|
+        |/f-component[12]|
         |/dependencies[1]|FIA_X509_|/htm:p[1]||
 * Warning: Detected an empty _p_ element./PP[1]|
 	
@@ -421,7 +431,7 @@
     |/section[1]|
 
       |/sec:fia[1]|
-        |/f-component[13]|
+        |/f-component[14]|
         |/dependencies[1]|FCS_CKM.1|/htm:p[1]||
 * Warning: Detected an empty _p_ element./PP[1]|
 	
@@ -429,7 +439,7 @@
     |/section[1]|
 
       |/sec:fia[1]|
-        |/f-component[14]|
+        |/f-component[15]|
         |/dependencies[1]|FCS_CKM.1|/htm:p[1]||
 * Warning: Detected an empty _p_ element./PP[1]|
 	
