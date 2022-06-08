@@ -1598,6 +1598,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
 
       <sec:Auditable_Events_for_Mandatory_SFRs>
 	<audit-table table="mandatory"/>
+
+	<audit-table title="Additional Audit Events for Mandatory Requirements" table="additional"/>
       </sec:Auditable_Events_for_Mandatory_SFRs>
       
       <sec:fau title="Class: Security Audit (FAU)">
@@ -1995,6 +1997,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>All modifications to the audit configuration that
+	    occur while the audit collection functions are operating</audit-event-descr>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fau_stg.1" name="Audit Storage Protection">
           <f-element id="fel-audit-store">
@@ -3406,6 +3412,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="ENCRYPT">
           <f-element id="fel-crypt-how">
@@ -4018,6 +4025,11 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>Failure of the certificate validity check.</audit-event-descr>
+	    <audit-event-info>Issuer Name and Subject Name of certificate</audit-event-info>
+	    <audit-event-info type="optional">User’s authorization decision</audit-event-info>
+	  </audit-event>
         </f-component>
         
         <ext-comp-def fam-id="FCS_IV_EXT" title="Initialization Vector Generation">
@@ -4179,6 +4191,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>Failure of the randomization process</audit-event-descr>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fcs_rbg_ext.2" name="Random Bit Generator State Preservation" status="objective">
           
@@ -4208,6 +4223,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         <f-component cc-id="fcs_rbg_ext.3" name="Support for Personalization String" status="objective">
           
@@ -4238,6 +4254,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         
         <ext-comp-def fam-id="FCS_SRV_EXT" title="Cryptographic Algorithm Services">
@@ -4348,6 +4365,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 Activities in FCS_STG_EXT.1. </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         
         <ext-comp-def fam-id="FCS_STG_EXT" title="Cryptographic Key Storage">
@@ -4917,6 +4935,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
 	  <audit-event/>
+	  <audit-event table="additional"/>
         </f-component>
         <f-component id="fc_access_control_system" cc-id="fdp_acf_ext.2" name="Access Control for System Resources" status="sel-based">
           <depends on="fdp_group"/>
@@ -4957,6 +4976,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
 	  <audit-event/>
+	  <audit-event table="additional"/>
         </f-component>
         <f-component cc-id="fdp_acf_ext.3" name="Security Attribute Based Access Control" status="objective">
           
@@ -4995,6 +5015,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
 	  <audit-event/>
+	  <audit-event table="additional"/>
         </f-component>
 	  
 	  <ext-comp-def fam-id="FDP_BCK_EXT" title="Application Backup">
@@ -5042,6 +5063,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
 	  <audit-event/>
+	  <audit-event table="additional"/>
         </f-component>
 	  
 	  <ext-comp-def fam-id="FDP_BLT_EXT" title="Limitation of Bluetooth Device Access">
@@ -5591,6 +5613,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>Application initiation of trusted channel</audit-event-descr>
+	    <audit-event-info>Name of application. Trusted channel protocol. Non-TOE endpoint of connection</audit-event-info>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fdp_upc_ext.1" iteration="BLUETOOTH" name="Inter-TSF User Data Transfer Protection (Bluetooth)" status="feat-based"> <!-- Implementation Dependent -->
           <depends on="bluetooth"/>
@@ -5655,6 +5681,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>Application initiation of trusted channel</audit-event-descr>
+	    <audit-event-info>Name of application. Trusted channel protocol. Non-TOE endpoint of connection</audit-event-info>
+	  </audit-event>
         </f-component>
       </sec:fdp>
       <sec:fia title="Class: Identification and Authentication (FIA)">
@@ -5845,6 +5875,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>Excess of authentication failure limit</audit-event-descr>
+	    <audit-event-info>Authentication factor used</audit-event-info>
+	  </audit-event>
         </f-component>
       <!-- ToDo: Remove per bio cPP module  <f-component cc-id="fia_bmg_ext.1" name="Accuracy of Biometric Authentication" status="sel-based">
 		  <depends on1="uau_fing" on2="uau_iris" on3="uau_face" on4="uau_vox" on5="uau_vein" on6="uau_hybr"/>
@@ -6395,6 +6429,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>User changes Password Authentication Factor</audit-event-descr>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fia_uau.7" name="Protected Authentication Feedback ">
           <f-element id="fel-auth-feedback">
@@ -6558,6 +6595,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 succeed. </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>Action performed before authentication.</audit-event-descr>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fia_uau_ext.4" name="Secondary User Authentication" status="optional">
           
@@ -6616,6 +6656,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests>There are no test evaluation activities for this element.<htm:br/><htm:br/></Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         
         <ext-comp-def fam-id="FIA_X509_EXT" title="X.509 Certificates">
@@ -6812,6 +6853,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
 	  <audit-event/>
+	  <audit-event table="additional">
+	    <audit-event-descr>Failure to establish connection to determine revocation status</audit-event-descr>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fia_x509_ext.3" name="Request Validation of Certificates">
           
@@ -6846,6 +6890,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 by FDP_STG_EXT.1, FTP_ITC_EXT.1, FMT_SMF_EXT.1, and FIA_X509_EXT.1.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         <f-component cc-id="fia_x509_ext.4" name="X509 Certificate Enrollment" status="objective">
           
@@ -6987,6 +7032,19 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>Generation of Certificate Enrollment Request</audit-event-descr>
+	    <audit-event-info>Issuer and Subject name of EST Server. Method of authentication. Issuer and Subject name of certificate used to authenticate. Content of Certificate Request Message</audit-event-info>
+
+	  </audit-event>
+	  <audit-event table="additional">
+	    <audit-event-descr>Success or failure of enrollment</audit-event-descr>
+	    <audit-event-info>Issuer and Subject name of added certificate or reason for failure</audit-event-info>
+	  </audit-event>
+	  <audit-event table="additional">
+	    <audit-event-descr>Update of EST Trust Anchor Database</audit-event-descr>
+	    <audit-event-info>Subject name of added Root CA</audit-event-info>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fia_x509_ext.5" name="X.509 Certificate Requests" status="objective">
           
@@ -7045,6 +7103,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
       </sec:fia>
       <sec:fmt title="Class: Security Management (FMT)"> 
@@ -8968,6 +9027,26 @@ The evaluator shall exercise the TSF configuration as the administrator and
               <!-- </Tests> -->
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>Initiation of policy update</audit-event-descr>
+	    <audit-event-info>Policy name</audit-event-info>
+	  </audit-event>
+	  <audit-event table="additional">
+	    <audit-event-descr>Change of settings</audit-event-descr>
+	    <audit-event-info>Role of user that changed setting, Value of new setting</audit-event-info>
+	  </audit-event>
+	  <audit-event table="additional">
+	    <audit-event-descr>Success or failure of function</audit-event-descr>
+	    <audit-event-info>Role of user that performed function, Function performed, Reason for failure</audit-event-info>
+	  </audit-event>
+	  <audit-event table="additional">
+	    <audit-event-descr>Initiation of software update</audit-event-descr>
+	    <audit-event-info>Version of update</audit-event-info>
+	  </audit-event>
+	  <audit-event table="additional">
+	    <audit-event-descr>Initiation of application installation or update</audit-event-descr>
+	    <audit-event-info>Name and version of application</audit-event-info>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fmt_smf_ext.2" name="Specification of Remediation Actions">
           
@@ -9038,6 +9117,10 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 be an application with administrator access.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>Unenrollment, Initiation of unenrollment</audit-event-descr>
+	    <audit-event-info>dentity of administrator Remediation action performed, failure of accepting command to unenroll</audit-event-info>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fmt_smf_ext.3" name="Current Administrator" status="objective">
           
@@ -9060,6 +9143,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 is authorized to perform.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
       </sec:fmt>
       <sec:fpt title="Class: Protection of the TSF (FPT)">
@@ -9254,6 +9338,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         <f-component cc-id="fpt_aex_ext.5" name="Kernel Address Space Layout Randomization" status="objective">
           
@@ -9293,6 +9378,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         <f-component cc-id="fpt_aex_ext.6" name="Write or Execute Memory Page Permissions" status="objective">
           
@@ -9326,6 +9412,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         <f-component cc-id="fpt_aex_ext.7" name="Heap Overflow Protection" status="objective">
           
@@ -9361,6 +9448,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 allowed. </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         
         <ext-comp-def fam-id="FPT_BBD_EXT" title="Baseband Processing">
@@ -9418,6 +9506,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         
         <ext-comp-def fam-id="FPT_BLT_EXT" title="Limitation of Bluetooth Profile Support">
@@ -9472,6 +9561,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         
         <ext-comp-def fam-id="FPT_JTA_EXT" title="JTAG Disablement">
@@ -9787,6 +9877,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         <f-component cc-id="fpt_stm.1" name="Reliable Time Stamps">
           <f-element id="fel-timestamp">
@@ -9980,6 +10071,10 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 for all executable code specified. </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional" type="optional">
+	    <audit-event-descr>Detected integrity violation</audit-event-descr>
+	    <audit-event-info type="optional">The TSF code file that cause the integrity violation</audit-event-info>
+	    </audit-event>
         </f-component>
         <f-component cc-id="fpt_tst_ext.3" name="TSF Integrity Testing" status="sel-based">
           <depends on="x509_sign"/>
@@ -10007,7 +10102,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 Activities for FPT_TST_EXT.2.1/PREKERNEL. </Tests>
             </aactivity>
           </f-element>
-        </f-component>
+          <audit-event table="additional"/>
+	</f-component>
         
         <ext-comp-def fam-id="FPT_TUD_EXT" title="TSF Updates">
           <fam-behavior>This family defines requirements for trusted updates. 
@@ -10168,6 +10264,9 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>Success or failure of signature verification for software updates</audit-event-descr>
+	  </audit-event>
         </f-component>			
         <f-component cc-id="fpt_tud_ext.3" name="Application Signing">
           
@@ -10207,6 +10306,9 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>Success or failure of signature verification for applications</audit-event-descr>
+	  </audit-event>
         </f-component>
         <f-component cc-id="fpt_tud_ext.4" name="Trusted Update Verification" status="sel-based">
           <depends on="x509_sys" also="x509_apps"/>
@@ -10235,6 +10337,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 Activities for FPT_TUD_EXT.2 and FPT_TUD_EXT.5. </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         <f-component id="fc-crypt-veri" cc-id="fpt_tud_ext.5" name="Application Verification" status="objective">
           
@@ -10288,6 +10391,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
         <f-component cc-id="fpt_tud_ext.6" name="Trusted Update Verification" status="objective">
           
@@ -10324,6 +10428,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional"/>
         </f-component>
       </sec:fpt>
       <sec:fta title="Class: TOE Access (FTA)">
@@ -10536,6 +10641,10 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
+	  <audit-event table="additional">
+	    <audit-event-descr>Initiation and termination of trusted channel</audit-event-descr>
+	    <audit-event-info>Trusted channel protocol, non-TOE endpoint of connection</audit-event-info>
+	  </audit-event>
         </f-component>
       </sec:ftp>
     </section>
