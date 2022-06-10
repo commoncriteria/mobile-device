@@ -1597,9 +1597,30 @@ The scope of this Protection Profile (PP) is to describe the security functional
     <section title="Security Functional Requirements" id="sfr">
 
       <sec:Auditable_Events_for_Mandatory_SFRs>
-	<audit-table table="mandatory"/>
+	<audit-table table="mandatory" id="t-audit-mandatory"/>
 
-	<audit-table title="Additional Audit Events for Mandatory Requirements" table="additional"/>
+	<audit-table table="additional" id="t-audit-additional"
+		     title="Additional Audit Events for Mandatory Requirements"/>
+
+
+	<external-doc ref="pkg-tls">
+	  <audit-event table="additional" ref-cc-id="FCS_DTLS_EXT.1">
+	    <audit-event-descr>Failure of the certificate validity check</audit-event-descr>
+	    <audit-event-info>Issuer Name and Subject Name of certificate</audit-event-info>
+	  </audit-event>
+	  <audit-event table="additional" ref-cc-id="FCS_TLS_EXT.1">
+	    <audit-event-descr>Establishment/termination of a TLS session</audit-event-descr>
+	    <audit-event-info>Non-TOE endpoint of connection</audit-event-info>
+	  </audit-event>
+	  <audit-event table="additional" ref-cc-id="FCS_TLS_EXT.1">
+	    <audit-event-descr>Failure to establish a TLS session</audit-event-descr>
+	    <audit-event-info>Reason for failure</audit-event-info>
+	  </audit-event>
+	  <audit-event table="additional" ref-cc-id="FCS_TLS_EXT.1">
+	    <audit-event-descr>Failure to verify presented identifier</audit-event-descr>
+	    <audit-event-info>Presented identifier and reference identifier</audit-event-info>
+	  </audit-event>
+	</external-doc>
       </sec:Auditable_Events_for_Mandatory_SFRs>
       
       <sec:fau title="Class: Security Audit (FAU)">
@@ -1615,239 +1636,239 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <htm:li><refinement>Specifically defined auditable events in <xref g="t-audit-mandatory"/></refinement></htm:li>
                 <htm:li><refinement><selectables>
                   <selectable>Audit records reaching <assignable>integer value less than 100</assignable> percentage of audit capacity</selectable>
-                  <selectable>Specifically defined auditable events in <xref to="objaudit"/></selectable>
+                  <selectable>Specifically defined auditable events in <xref to="t-audit-additional"/></selectable>
                   <selectable><assignable>other auditable events derived from this Protection Profile</assignable></selectable>
                   <selectable><assignable>no additional auditable events</assignable></selectable>
                     </selectables></refinement></htm:li>
               </htm:ol>
 
-              <htm:table>
-                <htm:caption><ctr ctr-type="Table" id="manaudit">: Mandatory Auditable Events</ctr></htm:caption>
-                <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Auditable Events</htm:td><htm:td>Additional Audit Record Contents</htm:td></htm:tr>
-                <htm:tr><htm:td>FAU_GEN.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FAU_STG.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FAU_STG.4</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_CKM_EXT.1</htm:td><htm:td><selectables>
-                      <selectable>generation of a REK</selectable>
-                      <selectable>None</selectable>
-                    </selectables>.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
-                <htm:tr><htm:td>FCS_CKM_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_CKM_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_CKM_EXT.4</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_CKM_EXT.5</htm:td><htm:td><selectables>
-                      <selectable>Failure of the wipe</selectable>
-                      <selectable>None</selectable>
-                    </selectables>.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
-                <htm:tr><htm:td>FCS_CKM_EXT.6</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_CKM.1</htm:td><htm:td><selectables>
-                      <selectable>Failure of key generation activity for authentication keys</selectable>
-                      <selectable>None</selectable>
-                    </selectables>.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
-                <htm:tr><htm:td>FCS_CKM.2/UNLOCKED</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_CKM.2/LOCKED</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_COP.1/ENCRYPT</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_COP.1/HASH</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_COP.1/SIGN</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_COP.1/KEYHMAC</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_COP.1/CONDITION</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_IV_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_SRV_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td rowspan="2">FCS_STG_EXT.1</htm:td><htm:td>Import or destruction of key.</htm:td><htm:td rowspan="2">Identity of key. Role and identity of requester.</htm:td></htm:tr> <htm:tr><htm:td><selectables>
-                      <selectable>Exceptions to use and destruction rules</selectable>
-                      <selectable exclusive="yes">No other events</selectable>
-                    </selectables></htm:td>
-                </htm:tr>
-                <htm:tr><htm:td>FCS_STG_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_STG_EXT.3</htm:td><htm:td>Failure to verify integrity of stored key.</htm:td><htm:td>Identity of key being verified.</htm:td></htm:tr>
-                <htm:tr><htm:td>FDP_DAR_EXT.1</htm:td><htm:td><selectables>
-                      <selectable>Failure to encrypt/decrypt data</selectable>
-                      <selectable>None</selectable>
-                    </selectables>.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
-                <htm:tr><htm:td>FDP_DAR_EXT.2</htm:td><htm:td>Failure to encrypt/decrypt data.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
-                <htm:tr><htm:td>FDP_IFC_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FDP_STG_EXT.1</htm:td><htm:td>Addition or removal of certificate from Trust Anchor Database.</htm:td><htm:td>Subject name of certificate.</htm:td></htm:tr>
-                <htm:tr><htm:td>FIA_PMG_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FIA_TRT_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FIA_UAU_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FIA_UAU.5</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FIA_UAU.7</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FIA_X509_EXT.1</htm:td><htm:td>Failure to validate X.509v3 certificate. </htm:td><htm:td>Reason for failure of validation.</htm:td></htm:tr>
-                <htm:tr><htm:td>FMT_MOF_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_AEX_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_AEX_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_AEX_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_JTA_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_KST_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_KST_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_KST_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_NOT_EXT.1</htm:td><htm:td><selectables>
-                      <selectable>Measurement of TSF software</selectable>
-                      <selectable>None</selectable>
-                    </selectables>.</htm:td><htm:td><selectables>
-                      <selectable>Integrity verification value</selectable>
-                      <selectable>No additional information</selectable>
-                    </selectables>.</htm:td></htm:tr>
-                <htm:tr><htm:td>FPT_STM.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td rowspan="2">FPT_TST_EXT.1</htm:td><htm:td>Initiation of self-test.</htm:td><htm:td rowspan="2"><selectables>
-                      <selectable>Algorithm that caused the failure</selectable>
-                      <selectable>none</selectable>
-                    </selectables></htm:td></htm:tr><htm:tr><htm:td>Failure of self-test.</htm:td></htm:tr>
-                <htm:tr><htm:td rowspan="2">FPT_TST_EXT.2/PREKERNEL</htm:td><htm:td>Start-up of TOE.</htm:td><htm:td>No additional information.</htm:td></htm:tr><htm:tr><htm:td><selectables>
-                      <selectable>Detected integrity violation</selectable>
-                      <selectable>none</selectable>
-                    </selectables></htm:td><htm:td><selectables>
-                      <selectable>The TSF code file that caused the integrity violation</selectable>
-                      <selectable>No additional information</selectable>
-                    </selectables></htm:td></htm:tr>
-                <htm:tr><htm:td>FPT_TUD_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FTA_SSL_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FTA_TAB.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FAU_SAR.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-              </htm:table><htm:br/>
-              <htm:table>
-                <htm:caption><ctr ctr-type="Table" id="objaudit">: Additional Auditable Events</ctr></htm:caption>
-                <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Auditable
-                    Events</htm:td><htm:td>Additional Audit Record Contents</htm:td></htm:tr>                
-                <htm:tr><htm:td>FAU_SEL.1</htm:td><htm:td>All modifications to the audit
-                    configuration that occur while the audit collection functions are operating.
-                    </htm:td><htm:td>No additional information.</htm:td></htm:tr>
-                <htm:tr><htm:td>FCS_CKM_EXT.7</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_DTLS_EXT.1 (TLS Package)</htm:td><htm:td>Failure of the
-                    certificate validity check.</htm:td><htm:td>Issuer Name and Subject Name of
-                    certificate. </htm:td></htm:tr>
-                <htm:tr><htm:td>FCS_HTTPS_EXT.1</htm:td><htm:td>Failure of the certificate validity
-                    check.</htm:td>
-                  <htm:td>Issuer Name and Subject Name of certificate.<htm:br/>
-                    <selectables>
-                      <selectable>User’s authorization decision</selectable>
-                      <selectable>No additional information</selectable>
-                    </selectables>.</htm:td></htm:tr>
-                <htm:tr><htm:td>FCS_RBG_EXT.1</htm:td><htm:td>Failure of the randomization
-                    process.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
-                <htm:tr><htm:td>FCS_RBG_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_RBG_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_SRV_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td rowspan="3">FCS_TLSC_EXT.1 (TLS
-                    Package)</htm:td><htm:td>Establishment/termination of a TLS
-                    session.</htm:td><htm:td>Non-TOE endpoint of
-                    connection.</htm:td></htm:tr><htm:tr><htm:td>Failure to establish a TLS
-                    session.</htm:td><htm:td>Reason for
-                    failure.</htm:td></htm:tr><htm:tr><htm:td>Failure to verify presented
-                    identifier.</htm:td><htm:td>Presented identifier and reference
-                    identifier.</htm:td></htm:tr>
-                <htm:tr><htm:td>FCS_TLSC_EXT.2 (TLS
-                  Package)</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FCS_TLSC_EXT.3 (TLS
-                  Package)</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FDP_ACF_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FDP_ACF_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FDP_ACF_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FDP_BCK_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <!-- <htm:tr><htm:td>FDP_PBA_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> ToDo: Remove per bio cPP module -->
-                <htm:tr><htm:td>FDP_UPC_EXT.1/APPS</htm:td><htm:td>Application initiation of trusted
-                    channel.</htm:td><htm:td>Name of application. Trusted channel protocol. Non-TOE
-                    endpoint of connection.</htm:td></htm:tr>
-                <htm:tr><htm:td>FDP_UPC_EXT.1/BLUETOOTH</htm:td><htm:td>Application initiation of trusted
-                    channel.</htm:td><htm:td>Name of application. Trusted channel protocol. Non-TOE
-                    endpoint of connection.</htm:td></htm:tr>
-                <htm:tr><htm:td>FIA_AFL_EXT.1</htm:td><htm:td>Excess of authentication failure
-                    limit.</htm:td><htm:td>Authentication factor used.</htm:td></htm:tr>
-                <!-- ToDo: Remove per bio cPP module <htm:tr><htm:td>FIA_BMG_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FIA_BMG_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FIA_BMG_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FIA_BMG_EXT.4</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FIA_BMG_EXT.5</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FIA_BMG_EXT.6</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
-                <htm:tr><htm:td>FIA_UAU_EXT.2</htm:td><htm:td>Action performed before
-                    authentication.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
-                <htm:tr><htm:td>FIA_UAU.6</htm:td><htm:td>User changes Password Authentication
-                    Factor.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
-                <htm:tr><htm:td>FIA_UAU_EXT.4</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FIA_X509_EXT.2</htm:td><htm:td>Failure to establish connection to
-                    determine revocation status.</htm:td><htm:td>No additional
-                  information.</htm:td></htm:tr>
-                <htm:tr><htm:td>FIA_X509_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td rowspan="3">FIA_X509_EXT.4</htm:td><htm:td>Generation of Certificate
-                    Enrollment Request.</htm:td><htm:td>Issuer and Subject name of EST Server.
-                    Method of authentication. Issuer and Subject name of certificate used to
-                    authenticate. Content of Certificate Request Message.</htm:td></htm:tr>
-                <htm:tr><htm:td>Success or failure of enrollment.</htm:td><htm:td>Issuer and Subject
-                    name of added certificate or reason for failure.</htm:td></htm:tr>
-                <htm:tr><htm:td>Update of EST Trust Anchor Database</htm:td><htm:td>Subject name of
-                    added Root CA.</htm:td></htm:tr>
-                <htm:tr><htm:td>FIA_X509_EXT.5</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td rowspan="5">FMT_SMF_EXT.1</htm:td>
-                  <htm:td><selectables>
-                      <selectable>Initiation of policy update</selectable>
-                      <selectable>none</selectable>
-                    </selectables>.</htm:td>
-                  <htm:td><selectables>
-                      <selectable>Policy name</selectable>
-                      <selectable>none</selectable>
-                    </selectables>.</htm:td></htm:tr>
-                <htm:tr><htm:td><selectables>
-                      <selectable>Change of settings</selectable>
-                      <selectable>none</selectable>
-                    </selectables></htm:td>
-                  <htm:td><selectables>
-                      <selectable>Role of user that changed setting</selectable>
-                      <selectable>Value of new setting</selectable>
-                      <selectable>none</selectable>
-                    </selectables>.</htm:td></htm:tr>
-                <htm:tr><htm:td><selectables>
-                      <selectable>Success or failure of function</selectable>
-                      <selectable>none</selectable>
-                    </selectables></htm:td>
-                  <htm:td><selectables>
-                      <selectable>Role of user that performed function</selectable>
-                      <selectable>Function performed</selectable>
-                      <selectable>Reason for failure, none</selectable>
-                    </selectables>.</htm:td></htm:tr>
-                <htm:tr><htm:td>Initiation of software update.</htm:td><htm:td>Version of update.
-                  </htm:td></htm:tr>
-                <htm:tr><htm:td>Initiation of application installation or
-                    update.</htm:td><htm:td>Name and version of application.</htm:td></htm:tr>
-                <htm:tr><htm:td>FMT_SMF_EXT.2</htm:td>
-                  <htm:td><selectables>
-                      <selectable>Unenrollment</selectable>
-                      <selectable>Initiation of unenrollment</selectable>
-                      <selectable>none</selectable>
-                    </selectables></htm:td>
-                  <htm:td><selectables>
-                      <selectable>Identity of administrator Remediation action
-                        performed</selectable>
-                      <selectable>failure of accepting command to unenroll</selectable>
-                      <selectable>none</selectable>
-                    </selectables></htm:td></htm:tr>
-                <htm:tr><htm:td>FMT_SMF_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_AEX_EXT.4</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_AEX_EXT.5</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_AEX_EXT.6</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_AEX_EXT.7</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_BBD_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_BLT_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_NOT_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_TST_EXT.2/POSTKERNEL</htm:td><htm:td><selectables>
-                      <selectable>Detected integrity violation</selectable>
-                      <selectable>none</selectable>
-                    </selectables></htm:td>
-                  <htm:td><selectables>
-                      <selectable>The TSF code file that caused the integrity violation</selectable>
-                      <selectable>No additional information</selectable>
-                    </selectables></htm:td></htm:tr>
-                <htm:tr><htm:td>FPT_TST_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_TUD_EXT.2</htm:td><htm:td>Success or failure of
-                    signature verification for software updates.</htm:td><htm:td>No additional
-                    information.</htm:td></htm:tr>
-                <htm:tr><htm:td>FPT_TUD_EXT.3</htm:td><htm:td>Success or failure of signature verification for
-                    applications.</htm:td><htm:td>No additional information.</htm:td></htm:tr>
-                <htm:tr><htm:td>FPT_TUD_EXT.4</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_TUD_EXT.5</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>
-                <htm:tr><htm:td>FPT_TUD_EXT.6</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>           
-                <htm:tr><htm:td>FTP_ITC_EXT.1</htm:td><htm:td>Initiation and termination of trusted
-                    channel.</htm:td><htm:td>Trusted channel protocol. Non-TOE endpoint of
-                    connection.</htm:td></htm:tr>
-              </htm:table>
+              <!-- <htm:table> -->
+              <!--   <htm:caption><ctr ctr-type="Table" id="manaudit">: Mandatory Auditable Events</ctr></htm:caption> -->
+              <!--   <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Auditable Events</htm:td><htm:td>Additional Audit Record Contents</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FAU_GEN.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FAU_STG.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FAU_STG.4</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_CKM_EXT.1</htm:td><htm:td><selectables> -->
+              <!--         <selectable>generation of a REK</selectable> -->
+              <!--         <selectable>None</selectable> -->
+              <!--       </selectables>.</htm:td><htm:td>No additional information.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_CKM_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_CKM_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_CKM_EXT.4</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_CKM_EXT.5</htm:td><htm:td><selectables> -->
+              <!--         <selectable>Failure of the wipe</selectable> -->
+              <!--         <selectable>None</selectable> -->
+              <!--       </selectables>.</htm:td><htm:td>No additional information.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_CKM_EXT.6</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_CKM.1</htm:td><htm:td><selectables> -->
+              <!--         <selectable>Failure of key generation activity for authentication keys</selectable> -->
+              <!--         <selectable>None</selectable> -->
+              <!--       </selectables>.</htm:td><htm:td>No additional information.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_CKM.2/UNLOCKED</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_CKM.2/LOCKED</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_COP.1/ENCRYPT</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_COP.1/HASH</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_COP.1/SIGN</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_COP.1/KEYHMAC</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_COP.1/CONDITION</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_IV_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_SRV_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td rowspan="2">FCS_STG_EXT.1</htm:td><htm:td>Import or destruction of key.</htm:td><htm:td rowspan="2">Identity of key. Role and identity of requester.</htm:td></htm:tr> <htm:tr><htm:td><selectables> -->
+              <!--         <selectable>Exceptions to use and destruction rules</selectable> -->
+              <!--         <selectable exclusive="yes">No other events</selectable> -->
+              <!--       </selectables></htm:td> -->
+              <!--   </htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_STG_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_STG_EXT.3</htm:td><htm:td>Failure to verify integrity of stored key.</htm:td><htm:td>Identity of key being verified.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FDP_DAR_EXT.1</htm:td><htm:td><selectables> -->
+              <!--         <selectable>Failure to encrypt/decrypt data</selectable> -->
+              <!--         <selectable>None</selectable> -->
+              <!--       </selectables>.</htm:td><htm:td>No additional information.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FDP_DAR_EXT.2</htm:td><htm:td>Failure to encrypt/decrypt data.</htm:td><htm:td>No additional information.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FDP_IFC_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FDP_STG_EXT.1</htm:td><htm:td>Addition or removal of certificate from Trust Anchor Database.</htm:td><htm:td>Subject name of certificate.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_PMG_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_TRT_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_UAU_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_UAU.5</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_UAU.7</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_X509_EXT.1</htm:td><htm:td>Failure to validate X.509v3 certificate. </htm:td><htm:td>Reason for failure of validation.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FMT_MOF_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_AEX_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_AEX_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_AEX_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_JTA_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_KST_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_KST_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_KST_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_NOT_EXT.1</htm:td><htm:td><selectables> -->
+              <!--         <selectable>Measurement of TSF software</selectable> -->
+              <!--         <selectable>None</selectable> -->
+              <!--       </selectables>.</htm:td><htm:td><selectables> -->
+              <!--         <selectable>Integrity verification value</selectable> -->
+              <!--         <selectable>No additional information</selectable> -->
+              <!--       </selectables>.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_STM.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td rowspan="2">FPT_TST_EXT.1</htm:td><htm:td>Initiation of self-test.</htm:td><htm:td rowspan="2"><selectables> -->
+              <!--         <selectable>Algorithm that caused the failure</selectable> -->
+              <!--         <selectable>none</selectable> -->
+              <!--       </selectables></htm:td></htm:tr><htm:tr><htm:td>Failure of self-test.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td rowspan="2">FPT_TST_EXT.2/PREKERNEL</htm:td><htm:td>Start-up of TOE.</htm:td><htm:td>No additional information.</htm:td></htm:tr><htm:tr><htm:td><selectables> -->
+              <!--         <selectable>Detected integrity violation</selectable> -->
+              <!--         <selectable>none</selectable> -->
+              <!--       </selectables></htm:td><htm:td><selectables> -->
+              <!--         <selectable>The TSF code file that caused the integrity violation</selectable> -->
+              <!--         <selectable>No additional information</selectable> -->
+              <!--       </selectables></htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_TUD_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FTA_SSL_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FTA_TAB.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FAU_SAR.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!-- </htm:table><htm:br/> -->
+              <!-- <htm:table> -->
+              <!--   <htm:caption><ctr ctr-type="Table" id="objaudit">: Additional Auditable Events</ctr></htm:caption> -->
+              <!--   <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Auditable -->
+              <!--       Events</htm:td><htm:td>Additional Audit Record Contents</htm:td></htm:tr>                 -->
+              <!--   <htm:tr><htm:td>FAU_SEL.1</htm:td><htm:td>All modifications to the audit -->
+              <!--       configuration that occur while the audit collection functions are operating. -->
+              <!--       </htm:td><htm:td>No additional information.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_CKM_EXT.7</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_DTLS_EXT.1 (TLS Package)</htm:td><htm:td>Failure of the -->
+              <!--       certificate validity check.</htm:td><htm:td>Issuer Name and Subject Name of -->
+              <!--       certificate. </htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_HTTPS_EXT.1</htm:td><htm:td>Failure of the certificate validity -->
+              <!--       check.</htm:td> -->
+              <!--     <htm:td>Issuer Name and Subject Name of certificate.<htm:br/> -->
+              <!--       <selectables> -->
+              <!--         <selectable>User’s authorization decision</selectable> -->
+              <!--         <selectable>No additional information</selectable> -->
+              <!--       </selectables>.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_RBG_EXT.1</htm:td><htm:td>Failure of the randomization -->
+              <!--       process.</htm:td><htm:td>No additional information.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_RBG_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_RBG_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_SRV_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td rowspan="3">FCS_TLSC_EXT.1 (TLS -->
+              <!--       Package)</htm:td><htm:td>Establishment/termination of a TLS -->
+              <!--       session.</htm:td><htm:td>Non-TOE endpoint of -->
+              <!--       connection.</htm:td></htm:tr><htm:tr><htm:td>Failure to establish a TLS -->
+              <!--       session.</htm:td><htm:td>Reason for -->
+              <!--       failure.</htm:td></htm:tr><htm:tr><htm:td>Failure to verify presented -->
+              <!--       identifier.</htm:td><htm:td>Presented identifier and reference -->
+              <!--       identifier.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_TLSC_EXT.2 (TLS -->
+              <!--     Package)</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FCS_TLSC_EXT.3 (TLS -->
+              <!--     Package)</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FDP_ACF_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FDP_ACF_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FDP_ACF_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FDP_BCK_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <!-\- <htm:tr><htm:td>FDP_PBA_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> ToDo: Remove per bio cPP module -\-> -->
+              <!--   <htm:tr><htm:td>FDP_UPC_EXT.1/APPS</htm:td><htm:td>Application initiation of trusted -->
+              <!--       channel.</htm:td><htm:td>Name of application. Trusted channel protocol. Non-TOE -->
+              <!--       endpoint of connection.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FDP_UPC_EXT.1/BLUETOOTH</htm:td><htm:td>Application initiation of trusted -->
+              <!--       channel.</htm:td><htm:td>Name of application. Trusted channel protocol. Non-TOE -->
+              <!--       endpoint of connection.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_AFL_EXT.1</htm:td><htm:td>Excess of authentication failure -->
+              <!--       limit.</htm:td><htm:td>Authentication factor used.</htm:td></htm:tr> -->
+              <!--   <!-\- ToDo: Remove per bio cPP module <htm:tr><htm:td>FIA_BMG_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_BMG_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_BMG_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_BMG_EXT.4</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_BMG_EXT.5</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_BMG_EXT.6</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -\-> -->
+              <!--   <htm:tr><htm:td>FIA_UAU_EXT.2</htm:td><htm:td>Action performed before -->
+              <!--       authentication.</htm:td><htm:td>No additional information.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_UAU.6</htm:td><htm:td>User changes Password Authentication -->
+              <!--       Factor.</htm:td><htm:td>No additional information.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_UAU_EXT.4</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_X509_EXT.2</htm:td><htm:td>Failure to establish connection to -->
+              <!--       determine revocation status.</htm:td><htm:td>No additional -->
+              <!--     information.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_X509_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td rowspan="3">FIA_X509_EXT.4</htm:td><htm:td>Generation of Certificate -->
+              <!--       Enrollment Request.</htm:td><htm:td>Issuer and Subject name of EST Server. -->
+              <!--       Method of authentication. Issuer and Subject name of certificate used to -->
+              <!--       authenticate. Content of Certificate Request Message.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>Success or failure of enrollment.</htm:td><htm:td>Issuer and Subject -->
+              <!--       name of added certificate or reason for failure.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>Update of EST Trust Anchor Database</htm:td><htm:td>Subject name of -->
+              <!--       added Root CA.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FIA_X509_EXT.5</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td rowspan="5">FMT_SMF_EXT.1</htm:td> -->
+              <!--     <htm:td><selectables> -->
+              <!--         <selectable>Initiation of policy update</selectable> -->
+              <!--         <selectable>none</selectable> -->
+              <!--       </selectables>.</htm:td> -->
+              <!--     <htm:td><selectables> -->
+              <!--         <selectable>Policy name</selectable> -->
+              <!--         <selectable>none</selectable> -->
+              <!--       </selectables>.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td><selectables> -->
+              <!--         <selectable>Change of settings</selectable> -->
+              <!--         <selectable>none</selectable> -->
+              <!--       </selectables></htm:td> -->
+              <!--     <htm:td><selectables> -->
+              <!--         <selectable>Role of user that changed setting</selectable> -->
+              <!--         <selectable>Value of new setting</selectable> -->
+              <!--         <selectable>none</selectable> -->
+              <!--       </selectables>.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td><selectables> -->
+              <!--         <selectable>Success or failure of function</selectable> -->
+              <!--         <selectable>none</selectable> -->
+              <!--       </selectables></htm:td> -->
+              <!--     <htm:td><selectables> -->
+              <!--         <selectable>Role of user that performed function</selectable> -->
+              <!--         <selectable>Function performed</selectable> -->
+              <!--         <selectable>Reason for failure, none</selectable> -->
+              <!--       </selectables>.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>Initiation of software update.</htm:td><htm:td>Version of update. -->
+              <!--     </htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>Initiation of application installation or -->
+              <!--       update.</htm:td><htm:td>Name and version of application.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FMT_SMF_EXT.2</htm:td> -->
+              <!--     <htm:td><selectables> -->
+              <!--         <selectable>Unenrollment</selectable> -->
+              <!--         <selectable>Initiation of unenrollment</selectable> -->
+              <!--         <selectable>none</selectable> -->
+              <!--       </selectables></htm:td> -->
+              <!--     <htm:td><selectables> -->
+              <!--         <selectable>Identity of administrator Remediation action -->
+              <!--           performed</selectable> -->
+              <!--         <selectable>failure of accepting command to unenroll</selectable> -->
+              <!--         <selectable>none</selectable> -->
+              <!--       </selectables></htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FMT_SMF_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_AEX_EXT.4</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_AEX_EXT.5</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_AEX_EXT.6</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_AEX_EXT.7</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_BBD_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_BLT_EXT.1</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_NOT_EXT.2</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_TST_EXT.2/POSTKERNEL</htm:td><htm:td><selectables> -->
+              <!--         <selectable>Detected integrity violation</selectable> -->
+              <!--         <selectable>none</selectable> -->
+              <!--       </selectables></htm:td> -->
+              <!--     <htm:td><selectables> -->
+              <!--         <selectable>The TSF code file that caused the integrity violation</selectable> -->
+              <!--         <selectable>No additional information</selectable> -->
+              <!--       </selectables></htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_TST_EXT.3</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_TUD_EXT.2</htm:td><htm:td>Success or failure of -->
+              <!--       signature verification for software updates.</htm:td><htm:td>No additional -->
+              <!--       information.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_TUD_EXT.3</htm:td><htm:td>Success or failure of signature verification for -->
+              <!--       applications.</htm:td><htm:td>No additional information.</htm:td></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_TUD_EXT.4</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_TUD_EXT.5</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr> -->
+              <!--   <htm:tr><htm:td>FPT_TUD_EXT.6</htm:td><htm:td>None.</htm:td><htm:td/></htm:tr>            -->
+              <!--   <htm:tr><htm:td>FTP_ITC_EXT.1</htm:td><htm:td>Initiation and termination of trusted -->
+              <!--       channel.</htm:td><htm:td>Trusted channel protocol. Non-TOE endpoint of -->
+              <!--       connection.</htm:td></htm:tr> -->
+              <!-- </htm:table> -->
               <htm:br/>
               <htm:br/>
             </title>
@@ -1855,11 +1876,11 @@ The scope of this Protection Profile (PP) is to describe the security functional
               mandatory for FMT_MOF_EXT.1.2 (i.e. ‘M-MM’ in <xref to="fmt_smf"/>). If the TSF
               does not support removable media, number 4 is implicitly met. <htm:br/><htm:br/> The
               TSF must generate an audit record for all events contained in <xref
-                to="manaudit"/>. Generating audit records for events in <xref to="objaudit"
+                g="t-audit-mandatory"/>. Generating audit records for events in <xref to="t-audit-additional"
               /> is currently objective. It is acceptable to include individual SFRs from <xref
-                to="objaudit"/> in the ST, without including the entirety of <xref
-                to="objaudit"/>. <htm:br/><htm:br/>
-              <htm:b><xref to="manaudit"/> Application Note:</htm:b><htm:br/> FPT_TST_EXT.1 –
+                to="t-audit-additional"/> in the ST, without including the entirety of <xref
+                to="t-audit-additional"/>. <htm:br/><htm:br/>
+              <htm:b><xref g="t-audit-mandatory"/> Application Note:</htm:b><htm:br/> FPT_TST_EXT.1 –
               Audit of self-tests is required only at initial start-up. Since the TOE "transitions
               to non-operational mode" upon failure of a self-test, per FPT_NOT_EXT.1, this is
               considered equivalent evidence to an audit record for the failure of a self-test.
@@ -1868,7 +1889,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               encryption/decryption fails. If the TOE utilizes file-based encryption for protected
               data and audits when this encryption/decryption fails, then that auditable event should
               be selected.<htm:br/><htm:br/>
-              <htm:b><xref to="objaudit"/> Application Note:</htm:b>
+              <htm:b><xref to="t-audit-additional"/> Application Note:</htm:b>
               <htm:br/> If the audit event for FMT_SMF_EXT.1 is included in the ST, it is acceptable
               for the initiation of the software update to be audited without indicating the outcome
               (success or failure) of the update.<htm:br/>
@@ -1880,10 +1901,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <htm:li>Type of event</htm:li>
                 <htm:li>Subject identity</htm:li>
                 <htm:li>The outcome (success or failure) of the event</htm:li>
-                <htm:li>Additional information in <xref to="manaudit"/></htm:li>
+                <htm:li>Additional information in <xref g="t-audit-mandatory"/></htm:li>
                 <htm:li>
                   <selectables>
-                    <selectable>Additional information in <xref to="objaudit"/></selectable>
+                    <selectable>Additional information in <xref to="t-audit-additional"/></selectable>
                     <selectable> no additional information</selectable>
                   </selectables></htm:li>
               </htm:ol>
@@ -1892,7 +1913,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               type is often indicated by a severity level, for example, ‘info’, ‘warning’, or
               ‘error’. <htm:br/><htm:br/> If "no additional auditable events" is selected in the
               second selection of FAU_GEN.1.1, then "no additional information" must be selected.
-              <htm:br/><htm:br/> For each audit event selected from <xref to="objaudit"/> in
+              <htm:br/><htm:br/> For each audit event selected from <xref to="t-audit-additional"/> in
               FAU_GEN.1.1 if additional information is required to be recorded within the audit
               record, it should be included in this selection. </note>
             <aactivity>
