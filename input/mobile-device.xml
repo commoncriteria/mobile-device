@@ -2067,7 +2067,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
         </f-component>
         <f-component cc-id="fau_stg.4" name="Prevention of Audit Data Loss">
           <f-element id="fel-audit-loss">
-            <title>The TSF shall [<htm:i>overwrite the oldest stored audit records</htm:i>] <htm:s>and <assignable>other actions to be taken in case of audit storage failure</assignable></htm:s> if the audit trail is
+            <title>The TSF shall [<htm:i>overwrite the oldest stored audit records</htm:i>] <htm:s>and [assignment: other actions to be taken in case of audit storage failure]</htm:s> if the audit trail is
               full. </title>
             <aactivity>
               <TSS> The evaluator shall examine the TSS to ensure that it describes the size limits
@@ -2534,6 +2534,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable id="s-rek-128">128 bits</selectable>
                 <selectable id="s-rek-192">192 bits</selectable>
                 <selectable id="s-rek-256">256 bits</selectable></selectables>. </title>
+	        <ext-comp-def-title><title>The TSF shall support <assignable>description of REKs</assignable></title>
+		</ext-comp-def-title>
           </f-element>
           <f-element id="fel-rek-iso">
             <title>Each REK shall be hardware-isolated from the OS on the TSF in runtime. </title>
@@ -2615,7 +2617,11 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                       800-56C)</selectable></selectables></selectable>
               </selectables> with entropy corresponding to the security strength of AES key sizes of <selectables>
                 <selectable>128</selectable>
-                <selectable id="s-dek-256">256</selectable></selectables> bits. </title>
+            <selectable id="s-dek-256">256</selectable></selectables> bits. </title>
+	    <ext-comp-def-title><title>
+		All DEKs shall be <assignable>generation mechanism</assignable> with entropy corresponding
+		to the security strength of AES key sizes of <assignable>number greater than 128 </assignable> bits.
+	    </title></ext-comp-def-title>
             <note role="application"> The intent of this requirement is to ensure that the DEK
               cannot be recovered with less work than a full exhaust of the key space for AES. The
               key generation capability of the TOE uses an RBG implemented on the TOE device
@@ -2858,7 +2864,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     <selectable>128-bit</selectable>
                     <selectable id="s-kek-sym-256">256-bit</selectable></selectables> security strength corresponding to at least the security strength
                   of the keys encrypted by the KEK</selectable>
-              </selectables>. </title>
+            </selectables>. </title>
+	    <ext-comp-def-title>
+	      <title>The TSF shall use <assignable>description of KEKs</assignable>.</title>
+	    </ext-comp-def-title>
             <note role="application"> The ST author selects all applicable KEK types implemented by
               the TOE. </note>
           </f-element>
@@ -4103,7 +4112,11 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               accordance with NIST Special Publication 800-90A using <selectables>
                 <selectable>Hash_DRBG (any)</selectable>
                 <selectable>HMAC_DRBG (any)</selectable>
-                <selectable>CTR_DRBG (AES)</selectable></selectables>. </title>
+            <selectable>CTR_DRBG (AES)</selectable></selectables>. </title>
+	    <ext-comp-def-title><title>
+	      The TSF shall perform all deterministic random bit generation services in
+              accordance with NIST Special Publication 800-90A using <assignable>list of DRBG algorithms</assignable>.
+	    </title></ext-comp-def-title>
           </f-element>
           <f-element id="fel-rbg-seed">
             <title>The deterministic RBG shall be seeded by an entropy source that accumulates
@@ -4113,7 +4126,15 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </selectables> with a minimum of <selectables>
                 <selectable>128 bits</selectable>
                 <selectable id="s-rbg-256">256 bits</selectable></selectables> of entropy at least equal to the greatest security strength (according
-              to NIST SP 800-57) of the keys and hashes that it will generate. </title>
+            to NIST SP 800-57) of the keys and hashes that it will generate. </title>
+	    <ext-comp-def-title><title>
+	      The deterministic RBG shall be seeded by an entropy source that accumulates
+              entropy from
+	      <assignable>list of sources of random</assignable> with a minimum of
+	      <assignable>number of bits</assignable>
+	      of entropy at least equal to the greatest security strength (according
+              to NIST SP 800-57) of the keys and hashes that it will generate.
+	    </title></ext-comp-def-title>
           </f-element>
           <f-element id="fel-rbg-give">
             <title>The TSF shall be capable of providing output of the RBG to applications running
@@ -4451,7 +4472,11 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 </selectables> and <selectables>
                   <selectable>applications running on the TSF</selectable>
                   <selectable exclusive="yes">no other subjects</selectable>
-                </selectables>. </title>
+              </selectables>. </title>
+	      <ext-comp-def-title>
+              <title>The TSF shall be capable of importing keys or secrets into the secure key storage
+                upon request of <assignable>list of users</assignable> and <assignable>list of other subjects</assignable>. </title>
+	      </ext-comp-def-title>
               <note role="application"> If the ST selects only <xref to="import-user"/>, the ST author must select function <xref to="mf-keyStorage"/> in FMT_MOF_EXT.1.1. </note>
             </f-element>
             <f-element id="fel-keystore-kill">
@@ -4480,7 +4505,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <selectable id="s-killkey-user">the user</selectable>
                   <selectable id="s-killkey-admin">the administrator</selectable>
                   <selectable>a common application developer</selectable>
-                </selectables>. </title>
+              </selectables>. </title>
+	      <ext-comp-def-title>
+		<title>The TSF shall allow only the application that imported the key/secret to request
+                that the key/secret be destroyed. Exceptions may only be explicitly authorized by
+		<assignable>list of subjects</assignable>.</title>
+	      </ext-comp-def-title>
+
               <note role="application">If the ST selects <xref to="s-killkey-user"/> or <xref to="s-killkey-admin"/>,
 				the ST author must also select function <xref to="mf-keyWipeRules"/> in FMT_SMF.1.1.
 				If the ST selects only <xref to="s-killkey-user"/>, 
@@ -4638,8 +4669,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   that the documentation includes both an essay and one or more diagrams. Note that this may also be documented as 
                   separate proprietary evidence rather than being included in the TSS.<htm:br/><htm:br/> 
                 </TSS>
-                <Guidance></Guidance>
-                <Tests></Tests>
+                <!-- <Guidance></Guidance> -->
+                <!-- <Tests></Tests> -->
               </aactivity>
             </f-element>
             <f-element id="fel-encrypt-key-how">
@@ -4897,7 +4928,15 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable>the administrator</selectable>
                 <selectable>a common application developer</selectable>
                 <selectable>no one</selectable>
-              </selectables>. </title>
+            </selectables>. </title>
+	    <ext-comp-def-title>
+              <title>The TSF shall provide an access control policy that prevents
+	      <assignable>list of subjects</assignable> from accessing
+	      <selectables><selectable>all</selectable><selectable>private</selectable>
+		</selectables> data stored by other <assignable>list of subjects</assignable>.
+		Exceptions may only be explicitly authorized for such sharing by
+		<assignable>list of authorized subjects</assignable>.</title>
+	    </ext-comp-def-title>
             <note role="application">Application groups may be designated Enterprise or Personal.
               Applications installed by the user default to being in the Personal application group
               unless otherwise designated by the administrator in function <xref
@@ -5163,7 +5202,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </selectables> mode with key size <selectables>
                 <selectable>128</selectable>
                 <selectable id="s-dar-256">256</selectable>
-              </selectables> bits. </title>
+            </selectables> bits. </title>
+	    <ext-comp-def-title>
+	      <title>Encryption shall be performed using DEKs with AES in the
+	      <assignable>list of AES modes</assignable> mode with key size
+	      <assignable>list of acceptable key sizes</assignable> bits. </title>
+	    </ext-comp-def-title>
+
             <note role="application">IVs must be generated in accordance with
               FCS_IV_EXT.1.1.</note>
             <aactivity>
@@ -5731,7 +5776,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable> biometric in accordance with the cPP-Module for Biometric Enrollment and Verification</selectable>
                 <selectable> hybrid</selectable>
                 <selectable id="s-authfail-noother"> no other mechanism</selectable>
-              </selectables> as critical authentication mechanisms. </title>
+            </selectables> as critical authentication mechanisms. </title>
+	    <ext-comp-def-title>
+              <title>The TSF shall consider password and
+	      <assignable>list of acceptable authentication mechanisms</assignable>
+	      as critical authentication mechanisms. </title>
+	    </ext-comp-def-title>
+
             <note role="application">A critical authentication mechanism is one in which
               countermeasures are triggered (i.e. wipe of the device) when the maximum number of
               unsuccessful authentication attempts is exceeded, rendering the other factors
@@ -5757,7 +5808,15 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable id="s-authfail-num-unique">unique</selectable>
                 <selectable id="s-authfail-num-non-unique">non-unique</selectable>
               </selectables> unsuccessful authentication attempts occur related to last successful
-              authentication for each authentication mechanism. </title>
+            authentication for each authentication mechanism. </title>
+	    <ext-comp-def-title><title>
+	      The TSF shall detect when a configurable positive integer within
+                <assignable>range of acceptable values for each authentication
+                mechanism</assignable> of
+		<selectables><selectable>unique</selectable><selectable>non-unique</selectable>
+              </selectables> unsuccessful authentication attempts occur related to last successful
+              authentication for each authentication mechanism.
+	    </title></ext-comp-def-title>
             <note role="application">The positive integers is configured according to
               FMT_SMF.1.1 function <xref to="mf-screenlock"/>. <htm:br/><htm:br/> An unique
               authentication attempt is defined as any attempt to verify a password or biometric
@@ -6820,7 +6879,11 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   cases</selectable>
                 <selectable>accept the certificate</selectable>
                 <selectable id="s-revoke-deny">not accept the certificate</selectable>
-              </selectables>.</title>
+            </selectables>.</title>
+	    <ext-comp-def-title><title>
+	      When the TSF cannot establish a connection to determine the revocation status of
+              a certificate, the TSF shall <assignable>list of acceptable actions</assignable>.</title>
+		</ext-comp-def-title>
             <note role="application"> The TOE must not accept the certificate if it fails any of the
               other validation rules in FIA_X509_EXT.1. However, often a connection must be
               established to perform a verification of the revocation status of a certificate -
@@ -9084,7 +9147,11 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 <selectable><assignable>other administrator-configured
                   triggers</assignable></selectable>
                 <selectable> no other triggers</selectable>
-              </selectables>.</title>
+            </selectables>.</title>
+	    <ext-comp-def-title><title>
+	      The TSF shall offer <assignable>list of remediation actions</assignable>
+	      upon unenrollment and
+	      <assignable>list of triggers</assignable>.</title></ext-comp-def-title>
             <note role="application"> Unenrollment may consist of removing the MDM agent or
               removing the administrator’s policies. The functions in the selection are remediation
               actions that TOE may provide (perhaps via APIs) to the administrator (perhaps via an MDM
