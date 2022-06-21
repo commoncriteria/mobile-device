@@ -12,9 +12,9 @@
   <PPReference>
     <ReferenceTable>
       <PPTitle>Functional Package for Transport Layer Security (TLS)</PPTitle>
-      <PPVersion>1.1</PPVersion>
+      <PPVersion>1.2-draft</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
-      <PPPubDate>2019-03-01</PPPubDate>
+      <PPPubDate>2022-08-01</PPPubDate>
       <Keywords>TLS</Keywords>
     </ReferenceTable>
   </PPReference>
@@ -29,9 +29,16 @@
       <version>1.1</version>
       <date>2019-03-01</date>
       <subject>Clarifications regarding override for invalid certificates,
-      renegotation_info extension, DTLS versions, and named Diffie-Hellman groups in DTLS
+      renegotiation_info extension, DTLS versions, and named Diffie-Hellman groups in DTLS
       contexts</subject>
     </entry>
+     <entry>
+      <version>1.2</version>
+      <date>2022-08-01</date>
+      <subject>Added audit events</subject>
+    </entry>
+
+	  
   </RevisionHistory>
 	
   <!-- PP-style preferences   -->
@@ -41,31 +48,34 @@
   </pp-preferences>
 
   <sec:Introduction>
-    <section title="Overview" id="ppoverview">
+    <sec:Overview>
+      <h:p>      
 	  Transport Layer Security (TLS) and the closely-related Datagram TLS (DTLS) are
     cryptographic protocols designed to provide communications security over IP networks.
     Several versions of the protocol are in widespread use in software that provides functionality
-    such as web browsing, email, instant messaging, and voice-over-IP
-	  (VoIP). Major web sites use TLS to protect communications to
-	  and from their servers. TLS is also used to protect communications between
-	  hosts and network infrastructure devices for administration.
+    such as web browsing, email, instant messaging, and voice-over-IP (VoIP).
+    Major web sites use TLS to protect communications to and from their servers.
+    TLS is also used to protect communications between
+    hosts and network infrastructure devices for administration.
     The underlying platform, such as an operating system, often provides the
-    actual TLS implementation.  The primary goal of the TLS protocol is to
+    actual TLS implementation.
+    The primary goal of the TLS protocol is to
     provide confidentiality and integrity of data transmitted
     between two communicating endpoints, as well as authentication of at least
     the server endpoint.
-    <h:p/>
+    </h:p><h:p>
 	  TLS supports many different methods for exchanging keys, encrypting data,
 	  and authenticating message integrity. These methods are dynamically negotiated
     between the client and server when the TLS connection is established.
     As a result, evaluating the implementation of both endpoints is typically
     necessary to provide assurance for the operating environment.
-    <h:p/>
+    </h:p><h:p>
 	  This "Functional Package for Transport Layer Security" (short name "TLS-PKG")
     defines functional requirements for the implementation of the Transport Layer Security (TLS)
     and Datagram TLS (DTLS) protocols. The requirements are
     intended to improve the security of products by enabling their evaluation.
-    </section>
+  </h:p>
+    </sec:Overview>
     <tech-terms>
       <term abbr="AES" full="Advanced Encryption Standard"/>
       <term abbr="CA" full="Certificate Authority">
@@ -107,18 +117,18 @@
     </tech-terms>
 
     <sec:Compliant_Targets_of_Evaluation>
+      <h:p>
       The Target of Evaluation
       (TOE) in this Package is a product which acts as a TLS client or server, or both.
-      This Package describes the security functionality of TLS in terms of
-      <xref g="CC" />. 
-      <h:p/>
+      This Package describes the security functionality of TLS in terms of   <xref g="CC" />. 
+      </h:p><h:p>
       The contents of this Package must be appropriately
       combined with a PP or PP-Module.
       When this Package is instantiated by a PP or PP-Module, the Package must
       include selection-based requirements in accordance with the
       selections or assignments indicated in the PP or PP-Module.  These may be expanded by the
       the ST author.
-      <h:p/>
+      </h:p><h:p>
       The PP or PP-Module which instantiates this Package must typically include
       the following components in order to satisfy dependencies of this Package. It is the responsibility
       of the PP or PP-Module author who instantiates this Package to ensure that dependence
@@ -158,24 +168,27 @@
           </notes>
       </componentneeded>
     </componentsneeded>
-    <h:p/>
+    </h:p><h:p>
       An ST must identify the applicable version of the PP or
       PP-Module and this Package in its conformance claims.
+      </h:p>
     </sec:Compliant_Targets_of_Evaluation>
   </sec:Introduction>
   <sec:Conformance_Claims>
     <cclaims>
       <cclaim name="Conformance Statement">
-        <description>This Package serves to provide Protection Profiles with additional 
+        <description>
+	  <h:p>
+	    This Package serves to provide Protection Profiles with additional 
           SFRs and associated Evaluation Activities specific to TLS clients and servers.  
-          <h:p/>
+          </h:p><h:p>
           This Package conforms to Common Criteria
           <xref g="CC" /> for Information Technology Security Evaluation, Version 3.1,
           Revision 5. It is CC Part 2 extended conformant.
-          <h:p/>
+          </h:p><h:p>
           In accordance with CC Part 1, dependencies are not included when they are addressed
           by other SFRs. The evaluation activities provide adequate proof that any dependencies are
-          also satisfied.</description>
+          also satisfied.</h:p></description>
       </cclaim>
     </cclaims>
   </sec:Conformance_Claims>
@@ -202,13 +215,15 @@
       Technology Security Evaluation, Version 3.1, Revision 5, with additional extended functional
       components.-->
 	  
-    	<section id="ss-audit-table" title="Auditable Events for Mandatory SFRs">
-     		The auditable events specified in this Functional Package are included in a Security Target 
-	  	if the incorporating PP or PP-Module supports audit event reporting through FAU_GEN.1 and all other criteria in the incorporating
-	  	PP or PP-Module are met. <h:p/>
-     	<audit-table table="mandatory"/>
-    	</section>	  
-	  
+ <sec:Auditable_Events_for_Mandatory_SFRs>
+   <h:p>
+     The auditable events specified in this Functional Package are included in a Security Target 
+     if the incorporating PP or PP-Module supports audit event reporting through FAU_GEN.1 and all other criteria in the incorporating
+     PP or PP-Module are met.
+   </h:p>
+   <audit-table table="mandatory" id="t-audit-mandatory"/>
+
+ </sec:Auditable_Events_for_Mandatory_SFRs>
       <section title="Cryptographic Support (FCS)" id="fcs">
         <f-component cc-id="fcs_tls_ext.1" name="TLS Protocol">
           <f-element id="fel-tls-usage">
@@ -253,11 +268,14 @@
               </selectables> as a client that supports the cipher suites
           <selectables linebreak="yes">
             <selectable>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable>
+            <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
             <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
             <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+            <selectable>TLS_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>
             <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
             <selectable id="trsadhe1">TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
             <selectable id="trsadhe2">TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+            <selectable id="trsadhe2_5">TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>	    
             <selectable id="trsadhe3">TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
             <selectable id="tecdhe1">TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
             <selectable id="tecdhe2">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
@@ -272,6 +290,9 @@
           <selectables linebreak="yes">
             <selectable id="tlsc_mutual_auth">mutual authentication</selectable>
             <selectable id="tlsc_reneg">session renegotiation</selectable>
+	    <selectable id="tlsc_resump_ids">session resumption based on session IDs according to RFC 4346 (TLS 1.1) or RFC 5246 (TLS 1.2)</selectable>
+	    <selectable id="tlsc_resump_tickets">session resumption based on session tickets according to RFC 5077</selectable>
+	    <selectable id="tlsc_noresump">no session resumption or session tickets</selectable>
             <selectable exclusive="yes">none</selectable>
           </selectables>.
           </title>
@@ -308,6 +329,12 @@
         If <h:i>session renegotiation</h:i> is selected, then the ST must additionally include 
         the requirements from FCS_TLSC_EXT.4. If the TOE implements
         session renegotiation, this selection must be made.
+
+	<h:p>If the TOE does not support session resumption or session tickets, select <xref to="tlsc_noresump"/>.
+ If the TOE supports session resumption based on session IDs according to RFC 4346 (TLS 1.1) or RFC 5246 (TLS 1.2), select <xref to="tlsc_resump_ids"/>.
+ If the TOE supports session resumption based on session tickets according to RFC 5077, select <xref to="tlsc_resump_tickets"/>.
+	</h:p>
+
 	    </note>
             <aactivity level="element">
               <TSS>
@@ -328,14 +355,15 @@
 		
               <testlist>
                 <test>
-                  The evaluator shall establish a TLS connection
-                  using each of the cipher suites specified by the
-                  requirement. This connection may be established as part of the establishment of a
-                  higher-level protocol, e.g., as part of an EAP session. It is sufficient to
-                  observe the successful negotiation of a cipher suite to satisfy the intent of the
-                  test; it is not necessary to examine the characteristics of the encrypted traffic
-                  in an attempt to discern the cipher suite being used (for example, that the
-                  cryptographic algorithm is 128-bit AES and not 256-bit AES).
+		  <testlist>
+		    <test>The evaluator shall demonstrate that a server using a certificate with a valid certification path successfully connects.</test>
+
+		    <test>The evaluator shall modify the certificate chain used by the server in test 1a to be invalid and demonstrate that a server using a certificate without a valid certification path to a trust store element of the TOE results in an authentication failure.</test>
+
+		    <test>
+		      <depends/> If the TOE trust store can be managed, the evaluator shall modify the trust store element used in Test 1.1 to be untrusted and demonstrate that a connection attempt from the same server used in Test 1a results in an authentication failure.
+		    </test>
+		  </testlist>
                 </test>
                 <test>
                   The goal of the following test is to verify that the TOE accepts only certificates
@@ -415,7 +443,8 @@
           <f-element id="fel-present-identifier">
             <title> The product shall verify that the presented identifier matches the reference
               identifier according to RFC 6125. </title>
-            <note role="application"> The rules for verification of identity are described in
+              <note role="application">
+		<h:p>The rules for verification of identity are described in
               Section 6 of RFC 6125. The reference identifier is established by the user (e.g.
               entering a URL into a web browser or clicking a link), by configuration (e.g.
               configuring the name of a mail server or authentication server), or by an application
@@ -427,7 +456,7 @@
               client then compares this list of all acceptable reference identifiers to the
               presented identifiers in the TLS
               server’s certificate. 
-              <h:p/>
+              </h:p><h:p>
               The preferred method for verification is the Subject
               Alternative Name using DNS names, URI names, or Service Names. Verification using the
               Common Name for the purposes of backwards compatibility is optional. Additionally,
@@ -436,6 +465,7 @@
               should avoid constructing reference identifiers using wildcards. However, if the
               presented identifiers include wildcards, the client must follow the best practices
               regarding matching; these best practices are captured in the evaluation activity.
+	      </h:p>
             </note>
             <aactivity level="element">
               <TSS>
@@ -455,18 +485,21 @@
               <Tests>
               The evaluator shall
               configure the reference identifier according to the AGD guidance and perform the
-              following tests during a TLS connection:
+              following tests during a TLS connection.
+	      If the TOE supports certificate pinning, all pinned certificates must be removed before performing Tests 1 through 6. A pinned certificate must be added prior to performing Test 7.	      
               <testlist>
-                <test> 
+                <test>
+		  <h:p>
                   The evaluator shall present a server certificate that contains
                   a CN that does not match the reference identifier and does not
                   contain the SAN extension. The evaluator shall verify that the
                   connection fails. 
-                  <h:p/>Note that some systems might require the presence of the SAN extension.
+                  </h:p><h:p>Note that some systems might require the presence of the SAN extension.
                   In this case the connection would still fail but for the
                   reason of the missing SAN extension instead of the mismatch of
                   CN and reference identifier. Both reasons are acceptable to
                   pass Test 1.
+		  </h:p>
                 </test>
                 <test>
                   The evaluator shall present a server certificate that contains a CN that
@@ -861,11 +894,14 @@ during handshake.
               as a server that supports the cipher suites
               <selectables linebreak="yes">
                 <selectable>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable>
+                <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
                 <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
                 <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+                <selectable>TLS_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>
                 <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
                 <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
                 <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+                <selectable>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>
                 <selectable>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
                 <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
                 <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
@@ -964,13 +1000,6 @@ during handshake.
                   The evaluator shall perform the following modifications to the traffic:
                   <testlist>
                     <test>
-                      Change the <h:abbr title="Transport Layer Security">TLS</h:abbr> version proposed
-                      by the client in the Client Hello to a non-supported
-                      <h:abbr title="Transport Layer Security">TLS</h:abbr> version (for example 1.3
-                      represented by the two bytes 03 04) and verify that the server rejects the
-                      connection.
-                    </test>
-                    <test>
                       Modify a byte in the data of the client's Finished handshake message, and verify that the
                       server rejects the connection and does not send any application data.
                     </test>
@@ -978,14 +1007,45 @@ during handshake.
 		      Demonstrate that the TOE will not resume a
 		      session for which the client failed to complete
 		      the handshake (independent of TOE support for
-		      session resumption): Generate a Fatal Alert by
-		      sending a Finished message from the client
-		      before the client sends a ChangeCipherSpec
-		      message, and then send a Client Hello with the
-		      session identifier from the previous incomplete
-		      session, and verify that the server does not
-		      resume the session.
+		      session resumption): 
                     </test>
+
+		    <test>
+		      <depends on="tlsc_noresump"/>
+		      If the TOE does not support session resumption based on session IDs according to RFC 4346 (TLS 1.1) or RFC 5246 (TLS 1.2) or session tickets according to RFC 5077, the evaluator shall perform the following test:
+		    <h:ol type="a">
+		      <h:li>The evaluator shall send a Client Hello with a zero-length session identifier and with a SessionTicket extension containing a zero-length ticket.</h:li>
+		      <h:li>The evaluator shall verify the server does not send a NewSessionTicket handshake message (at any point in the handshake).</h:li>
+		      <h:li> The evaluator shall verify the Server Hello message contains a zero-length session identifier or passes the following steps: <h:br/>
+		      Note: The following steps are only performed if the ServerHello message contains a non-zero length SessionID.<h:ol type="i">
+		      <h:li>The evaluator shall complete the TLS handshake and capture the SessionID from the ServerHello.</h:li>
+		      <h:li>The evaluator shall send a ClientHello containing the SessionID captured in step d). This can be done by keeping the TLS session in step d) open or start a new TLS session using the SessionID captured in step d).</h:li>
+		      <h:li>The evaluator shall verify the TOE (1) implicitly rejects the SessionID by sending a ServerHello containing a different SessionID and by performing a full handshake (as shown in Figure 1 of RFC 4346 or RFC 5246), or (2) terminates the connection in some way that prevents the flow of application data.</h:li></h:ol></h:li>
+		    </h:ol>
+		    </test>
+
+		    <test>
+		      <depends on="tlsc_resump_ids"/>
+		      If the TOE supports session resumption using session IDs according to RFC 4346 (TLS 1.1) or RFC 5246 (TLS 1.2), the evaluator shall carry out the following steps (note that for each of these tests, it is not necessary to perform the test case for each supported version of TLS):
+		      <h:ol type="a">
+			<h:li>The evaluator shall conduct a successful handshake and capture the TOE-generated session ID in the Server Hello message. The evaluator shall then initiate a new TLS connection and send the previously captured session ID to show that the TOE resumed the previous session by responding with ServerHello containing the same SessionID immediately followed by ChangeCipherSpec and Finished messages (as shown in Figure 2 of RFC 4346 or RFC 5246).</h:li>
+
+			<h:li>The evaluator shall initiate a handshake and capture the TOE-generated session ID in the Server Hello message. The evaluator shall then, within the same handshake, generate or force an unencrypted fatal Alert message immediately before the client would otherwise send its ChangeCipherSpec message thereby disrupting the handshake. The evaluator shall then initiate a new Client Hello using the previously captured session ID, and verify that the server (1) implicitly rejects the session ID by sending a ServerHello containing a different SessionID and performing a full handshake (as shown in figure 1 of RFC 4346 or RFC 5246), or (2) terminates the connection in some way that prevents the flow of application data.
+			</h:li>
+		      </h:ol>
+		    </test>
+
+		    <test>
+		      <depends on="tlsc_resump_tickets"/>
+		      If the TOE supports session tickets according to RFC 5077, the evaluator shall carry out the following steps (note that for each of these tests, it is not necessary to perform the test case for each supported version of TLS):
+		      <h:ol type="a">
+			
+			<h:li>The evaluator shall permit a successful TLS handshake to occur in which a session ticket is exchanged with the non-TOE client. The evaluator shall then attempt to correctly reuse the previous session by sending the session ticket in the ClientHello. The evaluator shall confirm that the TOE responds with a ServerHello with an empty SessionTicket extension, NewSessionTicket, ChangeCipherSpec and Finished messages (as seen in figure 2 of RFC 5077).</h:li>
+
+			<h:li> The evaluator shall permit a successful TLS handshake to occur in which a session ticket is exchanged with the non-TOE client. The evaluator will then modify the session ticket and send it as part of a new Client Hello message. The evaluator shall confirm that the TOE either (1) implicitly rejects the session ticket by performing a full handshake (as shown in figure 3 or 4 of RFC 5077), or (2) terminates the connection in some way that prevents the flow of application data.</h:li>
+		      </h:ol>
+</test>
+		    
                     <test>
                       Send a message consisting of random bytes from
                       the client after the client has issued the
@@ -1144,6 +1204,10 @@ during handshake.
             <title>The product shall support authentication of
               TLS clients using X.509v3 certificates.
             </title>
+	    <aactivity level="element">
+	      Testing of this element is done in conjunction with <xref to="fel-bad-client-cert"/>.
+	      <no-tests/>
+	    </aactivity>
           </f-element>
           <f-element id="fel-bad-client-cert">
             <title>The product shall not establish a trusted channel
@@ -1211,7 +1275,7 @@ during handshake.
                   by an impostor CA (either Root CA or intermediate CA). To
                   carry out this test the  evaluator shall configure the client
                   to send a client identity certificate with an issuer field
-                  that identifies a  CA recognised by the TOE as a trusted CA,
+                  that identifies a  CA recognized by the TOE as a trusted CA,
                   but where the key used for the signature on the client
                   certificate  does not in fact correspond to the CA certificate
                   trusted by the TOE (meaning that the client certificate is
@@ -1519,11 +1583,14 @@ during handshake.
         as a server that supports the ciphersuites
         <selectables linebreak="yes">
           <selectable>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable>
+          <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
           <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
           <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+          <selectable>TLS_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>
           <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
           <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
           <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+          <selectable>TLS_DHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5288</selectable>
           <selectable>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
           <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
           <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
@@ -1751,8 +1818,8 @@ during handshake.
 	  <audit-event/>
       </f-component>
       </section>
-    </sec:Security_Functional_Requirements>
 
+  </sec:Security_Functional_Requirements>
     <bibliography>
       <cc-entry/>
     </bibliography>
