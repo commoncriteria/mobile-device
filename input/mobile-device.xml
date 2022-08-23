@@ -826,7 +826,11 @@ The scope of this Protection Profile (PP) is to describe the security functional
         <!-- TODO: Need to determine how to reference the Biometric cPP. UPDATE:its a module so the entry above might suffice?-->
       </cclaim>
       <cclaim name="Package Claim">
-        <description>This PP is TLS Package (version 1.1) Conformant.</description>
+        <description>This PP is conformant to the following packages:
+          <htm:ul>
+            <htm:li id="tlsPackage">Functional Package for TLS, Version 1.1</htm:li>            
+          </htm:ul>
+        </description>
       </cclaim>
     </cclaims>
   </sec:Conformance_Claims>
@@ -3992,13 +3996,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <title>The TSF shall implement the HTTPS protocol that complies with RFC 2818. </title>
           </f-element>
           <f-element id="fel-https-tls">
-            <title>The TSF shall implement HTTPS using TLS as defined in [<htm:i>the Package for Transport Layer Security</htm:i>]. </title>
+            <title>The TSF shall implement HTTPS using TLS as defined in [<htm:i>the <xref to="tlsPackage"/></htm:i>].</title>
             <ext-comp-def-title>
               <title>The TSF shall implement HTTPS using TLS as defined in 
                 <assignable>specification that defines TLS implementation requirements</assignable>. </title>
             </ext-comp-def-title>
             <note role="application"> 
-              The Package for Transport Layer Security must be included in the ST, with the following selections made: <htm:ul>
+              The <xref to="tlsPackage"/> must be included in the ST, with the following selections made: <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
                 <htm:ul>
                   <htm:li>TLS must be selected</htm:li>
@@ -4016,7 +4020,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <note role="application"> Validity is determined by the certificate path, the expiration
               date, and the revocation status in accordance with RFC 5280. <htm:br/><htm:br/> If
               "not establish the connection" is selected then "with no exceptions" must be selected
-              for FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. If "request
+              for FCS_TLSC_EXT.1.3 in the <xref to="tlsPackage"/>. If "request
               application authorization to establish the connection" is selected then "except when
               override is authorized" must be selected for FCS_TLSC_EXT.1.3 in the Package for
               Transport Layer Security. If "no other action" is selected either selection can be
@@ -4034,7 +4038,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     webserver, observe the traffic with a packet analyzer, and verify that the
                     connection succeeds and that the traffic is identified as TLS or HTTPS.
                     <htm:br/><htm:br/> Other tests are performed in conjunction with testing in the
-                    Package for Transport Layer Security. <htm:br/><htm:br/> Certificate validity
+                    <xref to="tlsPackage"/>. <htm:br/><htm:br/> Certificate validity
                     shall be tested in accordance with testing performed for FIA_X509_EXT.1, and the
                     evaluator shall perform the following test: </test><htm:br/>
                   <test>The evaluator shall demonstrate that using a certificate without a valid
@@ -5579,10 +5583,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         <f-component cc-id="fdp_upc_ext.1" iteration="APPS" name="Inter-TSF User Data Transfer Protection (Applications)">
           <f-element id="fel-tls-app">
             <title>The TSF shall provide a means for non-TSF applications executing on the TOE to use [<htm:i><htm:ul>
-                <htm:li>Mutually authenticated TLS as defined in the Package for Transport Layer Security,</htm:li>
+                <htm:li>Mutually authenticated TLS as defined in the <xref to="tlsPackage"/>,</htm:li>
                 <htm:li>HTTPS,</htm:li>
               </htm:ul>and <selectables linebreak="yes">
-                <selectable id="upc_dtls">mutually authenticated DTLS as defined in the Package for Transport Layer Security</selectable>
+                <selectable id="upc_dtls">mutually authenticated DTLS as defined in the <xref to="tlsPackage"/></selectable>
                 <selectable id="s-upc-ipsec">IPsec as defined in the <xref to="vpnClientPPMod"/></selectable>
                 <selectable>no other protocol</selectable>
               </selectables> </htm:i>] to provide a protected communication channel between the non-TSF
@@ -5593,7 +5597,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               The intent of this requirement is that one of the selected protocols is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. It should be noted that the FTP_ITC_EXT.1 requires that all TSF communications be protected using the protocols indicated in that requirement, so the protocols required by this component ride "on top of" those listed in FTP_ITC_EXT.1.<htm:br/><htm:br/> 
               It should also be noted that some applications are part of the TSF, and FTP_ITC_EXT.1 requires that TSF applications be protected by at least one of the protocols in first selection in FTP_ITC_EXT.1. It is not required to have two different implementations of a protocol, or two different protocols, to satisfy both this requirement (for non-TSF apps) and FTP_ITC_EXT.1 (for TSF apps), as long as the services specified are provided. <htm:br/><htm:br/> 
               The ST author must list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps.<htm:br/><htm:br/> 
-              The TSF must be validated against requirements from the Package for Transport Layer Security, with the following selections made: <htm:ul>
+              The TSF must be validated against requirements from the <xref to="tlsPackage"/>, with the following selections made: <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
                 <htm:ul>
                   <htm:li>TLS is selected</htm:li>
@@ -5610,7 +5614,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 </htm:ul>
               </htm:ul>            
               <htm:br/> 
-              If <xref to="upc_dtls"/> is selected, the TSF must be validated against requirements from the Package for Transport Layer Security, with the following selections made: <htm:ul>
+              If <xref to="upc_dtls"/> is selected, the TSF must be validated against requirements from the <xref to="tlsPackage"/>, with the following selections made: <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
                 <htm:ul>
                   <htm:li>DTLS is selected</htm:li>
@@ -6842,10 +6846,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           
           <f-element id="fel-cert-auth">
             <title>The TSF shall use X.509v3 certificates as defined by RFC 5280 to support
-              authentication for [<htm:i>mutually authenticated TLS as defined in the Package for Transport
-              Layer Security, HTTPS, <selectables>
+              authentication for [<htm:i>mutually authenticated TLS as defined in the <xref to="tlsPackage"/>, HTTPS, <selectables>
                 <selectable>IPsec in accordance with the <xref to="vpnClientPPMod"/></selectable>
-                <selectable id="x509_dtls">mutually authenticated DTLS as defined in the Package for Transport Layer Security</selectable>
+                <selectable id="x509_dtls">mutually authenticated DTLS as defined in the <xref to="tlsPackage"/></selectable>
                 <selectable>no other protocol</selectable>  
               </selectables></htm:i>] and <selectables>
                 <selectable id="x509_sys">code signing for system software updates</selectable>
@@ -8008,7 +8011,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               Function <xref to="mf-certInvalid"/> must be included in the ST if the function is configurable on the TOE for any of the trusted channels either mandated or selected in <xref to="fel-wlan"/> or <xref to="fel-tls-app"/>. The configuration can be different depending on the specific trusted channel(s) and they must be filled in for the assignment.
 		    </app-note>
 		    <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2,
-                    FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. </Tests></aactivity>
+                    FCS_TLSC_EXT.1.3 in the <xref to="tlsPackage"/>. </Tests></aactivity>
                 </management-function>
                 <!-- Start of the Optional to implement functions -->
                 <management-function id="mf-externalPorts">
@@ -10624,10 +10627,10 @@ The evaluator shall exercise the TSF configuration as the administrator and
               <htm:li>802.11-2012 in accordance with the [<htm:i><xref to="wlanPPMod"/></htm:i>],</htm:li>
               <htm:li>802.1X in accordance with the [<htm:i><xref to="wlanPPMod"/></htm:i>],</htm:li>
               <htm:li>EAP-TLS in accordance with the [<htm:i><xref to="wlanPPMod"/></htm:i>],</htm:li>
-              <htm:li>Mutually authenticated TLS in accordance with [<htm:i>the Package for Transport Layer Security</htm:i>]</htm:li>
+              <htm:li>Mutually authenticated TLS in accordance with [<htm:i>the <xref to="tlsPackage"/></htm:i>]</htm:li>
               </htm:ul> and <selectables linebreak="yes">
                 <selectable>IPsec in accordance with the <xref to="vpnClientPPMod"/></selectable>
-                <selectable id="itc_dtls">mutually authenticated DTLS as defined in the Package for Transport Layer Security</selectable>
+                <selectable id="itc_dtls">mutually authenticated DTLS as defined in the <xref to="tlsPackage"/></selectable>
                 <selectable>HTTPS</selectable>
               </selectables> protocols to provide a communication channel between itself and another trusted IT product that is logically distinct from other communication channels, 
               provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data. </title>
@@ -10647,7 +10650,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               The TSF must be validated against the <xref to="wlanPPMod"/> to satisfy the mandatory trusted channels of 802.11-2012, 802.1X, and EAP-TLS. <htm:br/><htm:br/>
 				
               To satisfy the mandatory trusted channel of TLS and 
-			  if <xref to="itc_dtls"/> is selected, the TSF must be validated against the TLS Functional Package, with the following selections made: <htm:ul>
+			  if <xref to="itc_dtls"/> is selected, the TSF must be validated against the <xref to="tlsPackage"/>, with the following selections made: <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
                 <htm:ul>
                   <htm:li>Either TLS or DTLS is selected as appropriate</htm:li>
