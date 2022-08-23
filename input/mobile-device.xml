@@ -6751,7 +6751,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <htm:li>RFC 5280 certificate validation and certificate path validation.</htm:li>              
               <htm:li>The certificate path must terminate with a certificate in the Trust Anchor Database.</htm:li>
               <htm:li>The TSF shall validate a certificate path by ensuring the presence of the basicConstraints extension, that the CA flag is set to TRUE for all CA certificates, and that any path constraints are met.</htm:li>
-              <htm:li>The TSF shall validate that any CA certificate includes caSigning purpose in the key usage field</htm:li>
+              <htm:li>The TSF shall validate that any CA certificate includes caSigning purpose in the key usage field.</htm:li>
               <htm:li>The TSF shall validate the revocation status of the certificate using <selectables>
                 <selectable>OCSP as specified in RFC 6960</selectable>
                 <selectable>CRL as specified in RFC 5759</selectable>
@@ -6761,9 +6761,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <htm:li>The TSF shall validate the extendedKeyUsage field according to the following rules:<htm:ul>
                 <htm:li>Certificates used for trusted updates and executable code integrity verification shall have the Code Signing Purpose (id-kp 3 with OID 1.3.6.1.5.5.7.3.3) in the extendedKeyUsage field.</htm:li>
                 <htm:li>Server certificates presented for TLS shall have the Server Authentication purpose (id-kp 1 with OID 1.3.6.1.5.5.7.3.1) in the extendedKeyUsage field.</htm:li>
-                <htm:li>Server certificates presented for EST shall have the CMC Registration Authority (RA) purpose (id-kp-cmcRA with OID 1.3.6.1.5.5.7.3.28) in the EKU field. [conditional]</htm:li>
-                <htm:li>Client certificates presented for TLS shall have the Client Authentication purpose (id-kp 2 with OID 1.3.6.1.5.5.7.3.2) in the EKU field.</htm:li>
-                <htm:li>OCSP certificates presented for OCSP responses shall have the OCSP Signing purpose (id-kp 9 with OID 1.3.6.1.5.5.7.3.9) in the EKU field. [conditional]</htm:li></htm:ul></htm:li>
+                <htm:li>Server certificates presented for EST shall have the CMC Registration Authority (RA) purpose (id-kp-cmcRA with OID 1.3.6.1.5.5.7.3.28) in the extendedKeyUsage field. [conditional]</htm:li>
+                <htm:li>Client certificates presented for TLS shall have the Client Authentication purpose (id-kp 2 with OID 1.3.6.1.5.5.7.3.2) in the extendedKeyUsage field.</htm:li>
+                <htm:li>OCSP certificates presented for OCSP responses shall have the OCSP Signing purpose (id-kp 9 with OID 1.3.6.1.5.5.7.3.9) in the extendedKeyUsage field. [conditional]</htm:li></htm:ul></htm:li>
               </htm:ul>
             </title>
             <note role="application">FIA_X509_EXT.1.1 lists the rules for validating certificates. The ST author must select whether revocation status is verified using OCSP or CRLs. OCSP stapling and OCSP multi-stapling only support TLS server certificate validation. If other certificate types are validated, either OCSP or CRL should be claimed. The <xref to="wlanPPMod"/>, to which a MDF TOE must also conform, requires that certificates are used for EAP-TLS; this use requires that the extendedKeyUsage rules are verified. Certificates may optionally be used for trusted updates of system software and applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2(1)) and, if implemented, must be validated to contain the Code Signing purpose extendedKeyUsage.<htm:br/><htm:br/>
@@ -10199,7 +10199,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
           
           <f-element id="fel-get-software-version">
             <title>The TSF shall provide authorized users the ability to query the current version
-              of the TOE firmware/software. </title>
+              of the TOE firmware/software.</title>
           </f-element>
           <f-element id="fel-get-hardware-version">
             <title>The TSF shall provide authorized users the ability to query the current version
