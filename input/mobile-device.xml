@@ -505,7 +505,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
       provided by the Mobile Device and serves as a foundation for a secure mobile architecture. The
       wireless connectivity shall be validated against the <xref to="wlanPPMod"/>. If the
       mobile device contains Bluetooth functionality (i.e., has Bluetooth hardware), the Bluetooth
-      connectivity shall be evaluated against the PP-Module for Bluetooth.
+      connectivity shall be evaluated against the <xref to="bluetoothPPMod"/>.
 	  As illustrated in <xref to="TOE"/>, it is expected that a typical deployment would also include either
       third-party or bundled components. Whether these components are bundled as part of the Mobile
       Device by the manufacturer or developed by a third-party, they must be separately validated
@@ -808,11 +808,11 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	<htm:p>
           The following PP-Modules are allowed to be specified in a PP-Configuration with this PP.
           <htm:ul>
-                <htm:li>PP-Module for VPN Client, Version 2.4</htm:li>
-                <htm:li>PP-Module for Bluetooth, Version 1.0</htm:li>
-                <htm:li>PP-Module for MDM Agent, Version 1.0</htm:li>
+                <htm:li id="vpnClientPPMod">PP-Module for VPN Client, Version 2.4</htm:li>
+                <htm:li id ="bluetoothPPMod">PP-Module for Bluetooth, Version 1.0</htm:li>
+                <htm:li id="agentPPMod">PP-Module for MDM Agent, Version 1.0</htm:li>
                 <htm:li id="wlanPPMod">PP-Module for Wireless Local Access Network (WLAN) Client, Version 1.0</htm:li>
-                <htm:li>cPP-Module for Biometric Enrollment and Verification, Version 1.1</htm:li>
+                <htm:li id="biocPPMod">cPP-Module for Biometric Enrollment and Verification, Version 1.1</htm:li>
           </htm:ul>
 	</htm:p>
         </description>
@@ -2087,7 +2087,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
          DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications.
          The following diagram shows an example key hierarchy to illustrate the concepts of this profile. 
          This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. 
-         Please note if <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If "hybrid" is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:br/>
+         Please note if <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If "hybrid" is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:br/>
         <figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"/>
         <f-component cc-id="fcs_ckm.1" name="Cryptographic Key Generation">
           <f-element id="fel-asym-key-gen">
@@ -5412,7 +5412,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable>provide an interface which allows a VPN client to protect all IP traffic
                   using IPsec</selectable>
                 <selectable>provide a VPN client which can protect all IP traffic using
-                  IPsec <htm:b>as defined in the PP-Module for VPN Client</htm:b></selectable>
+                  IPsec <htm:b>as defined in the <xref to="vpnClientPPMod"/></htm:b></selectable>
               </selectables> with the exception of IP traffic needed to manage the VPN
               connection, and
               <selectables> 
@@ -5429,8 +5429,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               TOE’s network stack to perform the required Information Flow Control.
               <htm:br/><htm:br/> The ST author must select the second option if the TSF implements
               a native VPN client (IPsec is selected in FTP_ITC_EXT.1). Thus the TSF must be
-              validated against the PP-Module for VPN Client and the ST author must also include
-              <no-link>FDP_IFC_EXT.1</no-link> from the PP-Module for VPN Client. <htm:br/><htm:br/> It is optional for
+              validated against the <xref to="vpnClientPPMod"/> and the ST author must also include
+              <no-link>FDP_IFC_EXT.1</no-link> from the <xref to="vpnClientPPMod"/>. <htm:br/><htm:br/> It is optional for
               the VPN client to be configured to be always-on per FMT_SMF.1 Function <xref
                 to="mf-alwaysOnVPN"/>. Always-on means the establishment of an IPsec trusted channel
               to allow any communication by the TSF. </note>
@@ -5583,7 +5583,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <htm:li>HTTPS,</htm:li>
               </htm:ul>and <selectables linebreak="yes">
                 <selectable id="upc_dtls">mutually authenticated DTLS as defined in the Package for Transport Layer Security</selectable>
-                <selectable id="s-upc-ipsec">IPsec as defined in the PP-Module for VPN Client</selectable>
+                <selectable id="s-upc-ipsec">IPsec as defined in the <xref to="vpnClientPPMod"/></selectable>
                 <selectable>no other protocol</selectable>
               </selectables> </htm:i>] to provide a protected communication channel between the non-TSF
               application and another IT product that is logically distinct from other communication
@@ -5677,9 +5677,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <f-element id="fel-bluetooth">
             <title>The TSF shall provide a means for non-TSF applications executing on the TOE to
               use [<htm:i><htm:ul>
-                <htm:li>Bluetooth BR/EDR in accordance with the PP-Module for Bluetooth,</htm:li>
+                <htm:li>Bluetooth BR/EDR in accordance with the <xref to="bluetoothPPMod"/>,</htm:li>
               </htm:ul>and <selectables linebreak="yes">
-                <selectable>Bluetooth LE in accordance with the PP-Module for Bluetooth</selectable>
+                <selectable>Bluetooth LE in accordance with the <xref to="bluetoothPPMod"/></selectable>
                 <selectable>no other protocol</selectable>
               </selectables> </htm:i>] to provide a protected communication channel between the non-TSF
               application and another IT product that is logically distinct from other communication
@@ -5692,7 +5692,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               necessarily part of the enterprise infrastructure. The ST author must list which
               trusted channel protocols are implemented by the Mobile Device for use by non-TSF
               apps.<htm:br/><htm:br/> The TSF must be validated against requirements from the
-              PP-Module for Bluetooth. It should be noted that the FTP_ITC_EXT.1 requires that all
+              <xref to="bluetoothPPMod"/>. It should be noted that the FTP_ITC_EXT.1 requires that all
               TSF communications be protected using the protocols indicated in that requirement, so
               the protocols required by this component ride "on top of" those listed in
               FTP_ITC_EXT.1.<htm:br/><htm:br/>
@@ -5776,7 +5776,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable> face</selectable>
                 <selectable> voice</selectable>
                 <selectable> vein</selectable> -->
-                <selectable> biometric in accordance with the cPP-Module for Biometric Enrollment and Verification</selectable>
+                <selectable> biometric in accordance with the <xref to="biocPPMod"/></selectable>
                 <selectable> hybrid</selectable>
                 <selectable id="s-authfail-noother"> no other mechanism</selectable>
             </selectables> as critical authentication mechanisms. </title>
@@ -6370,7 +6370,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <selectable id="uau_face"> face</selectable>
                   <selectable id="uau_vox"> voice</selectable>
                   <selectable id="uau_vein"> vein</selectable> -->
-                  <selectable id="uau_biometric"> biometric in accordance with the cPP-Module for Biometric Enrollment and Verification</selectable>
+                  <selectable id="uau_biometric"> biometric in accordance with the <xref to="biocPPMod"/></selectable>
                   <selectable id="uau_hybr"> hybrid</selectable>
                   <selectable>no other mechanism</selectable>
                 </selectables>
@@ -6380,7 +6380,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               (finger/palm) vein -->. A hybrid authentication factor is where a user has to submit a
               combination of PIN/password and biometric sample where both have to pass and if either
               fails the user is not made aware of which factor failed.<htm:br/><htm:br/> 
-              If <xref to="uau_biometric"/> or <xref to="uau_hybr"/> is selected, then the TSF must be validated against requirements from the cPP-Module for Biometric Enrollment and Verification.<htm:br/><htm:br/>
+              If <xref to="uau_biometric"/> or <xref to="uau_hybr"/> is selected, then the TSF must be validated against requirements from the <xref to="biocPPMod"/>.<htm:br/><htm:br/>
               If <xref to="uau_hybr"/> is selected, <xref to="uau_biometric"/> does not need to be selected, but should be
               selected if the biometric authentication can be used independent of the hybrid
               authentication, i.e. without having to enter a PIN/password.<htm:br/><htm:br/>              
@@ -6409,7 +6409,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 successful authentication (i.e. is the user input used to derive or unlock a key) and
                 which authentication mechanism can be used at which authentication factor interfaces
                 (i.e. if there are times, for example, after a reboot, that only specific
-                authentication mechanisms can be used). If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification, the interaction between the BAFs must be described. For example, whether the
+                authentication mechanisms can be used). If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/>, the interaction between the BAFs must be described. For example, whether the
                 multiple BAFs can be enabled at the same time.<htm:br/><htm:br/></TSS>
               <Guidance> The evaluator shall verify that configuration guidance for each
                 authentication mechanism is addressed in the AGD guidance.<htm:br/><htm:br/></Guidance>
@@ -6444,7 +6444,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     Authentication Factor according to the AGD guidance and verify that the TSF
                     requires the entry of the Password Authentication Factor before allowing the
                     factor to be changed.</test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/> the evaluator shall
                     configure the TSF to use the BAF, which includes configuring the Password
                     Authentication Factor, according to the AGD guidance. The evaluator shall change
                     the BAF according to the AGD guidance and verify that the TSF requires the entry
@@ -6479,7 +6479,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     evaluator shall wait until the TSF locks and then verify that the TSF requires
                     the entry of the Password Authentication Factor before transitioning to the
                     unlocked state.</test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/> the evaluator shall
                     repeat Test 1 verifying that the TSF requires the entry of the BAF before
                     transitioning to the unlocked state. </test>
                   <test>[conditional] If "hybrid" is selected in FIA_UAU.5.1, the evaluator shall
@@ -6489,7 +6489,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     guidance. The evaluator shall lock the TSF and then verify that the TSF requires
                     the entry of the Password Authentication Factor before transitioning to the
                     unlocked state.</test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/> the evaluator shall
                     repeat Test 4 verifying that the TSF requires the entry of the BAF before
                     transitioning to the unlocked state.</test>
                   <test>[conditional] If "hybrid" is selected in FIA_UAU.5.1, the evaluator shall
@@ -6528,7 +6528,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <test>The evaluator shall enter passwords on the device, including at least the
                     Password Authentication Factor at lock screen, and verify that the password is
                     not displayed on the device. </test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/> the evaluator shall
                     authenticate by producing a biometric sample at lock screen. As the biometric
                     algorithms are performed, the evaluator shall verify that sensitive images,
                     audio, or other information identifying the user are kept secret and are not
@@ -6844,7 +6844,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <title>The TSF shall use X.509v3 certificates as defined by RFC 5280 to support
               authentication for [<htm:i>mutually authenticated TLS as defined in the Package for Transport
               Layer Security, HTTPS, <selectables>
-                <selectable>IPsec in accordance with the PP-Module for VPN Client</selectable>
+                <selectable>IPsec in accordance with the <xref to="vpnClientPPMod"/></selectable>
                 <selectable id="x509_dtls">mutually authenticated DTLS as defined in the Package for Transport Layer Security</selectable>
                 <selectable>no other protocol</selectable>  
               </selectables></htm:i>] and <selectables>
@@ -7400,7 +7400,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		  Function <_/> addresses
 		  enabling and disabling the IPsec VPN only. The configuration of the VPN Client itself
 		  (with information such as VPN Gateway, certificates, and algorithms) is addressed by
-		  the PP-Module for VPN Client. The administrator options should only be listed if the
+		  the <xref to="vpnClientPPMod"/>. The administrator options should only be listed if the
 		  administrator can remotely enable/disable the VPN connection.
 		  <htm:p>
 		  Function <xref to="mf-vpn"/> optionally allows the VPN to be configured per-app or
@@ -7970,7 +7970,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		    Function <xref to="mf-authFactors"/> must be included in the ST if the TOE contains a BAF. This selection must correspond with the selection made in
               FIA_UAU.5.1. If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, "Biometric Authentication Factor"
               must be selected and the user or admin must have the option to disable the use of
-              it. If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification, this applies to all different
+              it. If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/>, this applies to all different
               modalities. If <xref to="uau_hybr"/> is selected in FIA_UAU.5.1 it must be selected and the user
               or admin must have the option to disable the use of it.
 		  </app-note>
@@ -7978,7 +7978,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		    The evaluator shall verify that the TSS states if the TOE supports a BAF
                     or hybrid authentication. If the TOE does not include a BAF or hybrid
                     authentication this test is implicitly met.<testlist>
-                      <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the cPP-Module for Biometric Enrollment and Verification the evaluator shall verify that the
+                      <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/> the evaluator shall verify that the
                         TSS describes the procedure to enable/disable the BAF.<!--If the TOE includes
                         multiple BAFs, the evaluator shall verify that the TSS describes how to
                         enable/disable each BAF, specifically if the different modalities can be
@@ -8460,7 +8460,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               connect, all data leaving the device uses the VPN when the VPN is connected and no
               data leaves that device when the VPN is disconnected. The configuration of the VPN
               Client itself (with information such as VPN Gateway, certificates, and algorithms) is
-              addressed by the PP-Module for VPN Client.
+              addressed by the <xref to="vpnClientPPMod"/>.
 		  </app-note>
 		  <aactivity><TSS>The evaluator shall verify that the TSS contains guidance to configure the
                   VPN as Always-On.
@@ -10259,7 +10259,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 <selectable><assignable>other processor system software</assignable></selectable>
                 <selectable>no other processor system software</selectable>
               </selectables> using a digital signature verified by the manufacturer trusted key
-              prior to installing those updates </title>
+              prior to installing those updates.</title>
             <note role="application">The digital signature mechanism is implemented in accordance
               with FCS_COP.1.1/SIGN. <htm:br/><htm:br/> At this time, this requirement does not
               require verification of software updates to the software operating outside the
@@ -10626,7 +10626,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               <htm:li>EAP-TLS in accordance with the [<htm:i><xref to="wlanPPMod"/></htm:i>],</htm:li>
               <htm:li>Mutually authenticated TLS in accordance with [<htm:i>the Package for Transport Layer Security</htm:i>]</htm:li>
               </htm:ul> and <selectables linebreak="yes">
-                <selectable>IPsec in accordance with the PP-Module for VPN Client</selectable>
+                <selectable>IPsec in accordance with the <xref to="vpnClientPPMod"/></selectable>
                 <selectable id="itc_dtls">mutually authenticated DTLS as defined in the Package for Transport Layer Security</selectable>
                 <selectable>HTTPS</selectable>
               </selectables> protocols to provide a communication channel between itself and another trusted IT product that is logically distinct from other communication channels, 
@@ -10664,7 +10664,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 </htm:ul>
               </htm:ul>
               <htm:br/> 
-              If the ST author selects IPsec, the TSF must be validated against the PP-Module for VPN Client. <htm:br/><htm:br/>                    
+              If the ST author selects IPsec, the TSF must be validated against the <xref to="vpnClientPPMod"/>. <htm:br/><htm:br/>                    
               <if-opt-app>
                 <!-- TODO: Looks like appref is broken -->Appendix B - Selection-Based Requirements
                 contains the requirements for implementing each of the other optional trusted
