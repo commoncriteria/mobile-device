@@ -97,14 +97,14 @@
       <term abbr="HTTP" full="Hypertext Transfer Protocol"/>
       <term abbr="IETF" full="Internet Engineering Task Force"/>
       <term abbr="IP" full="Internet Protocol"/>
-      <term abbr="LDAP" full="Lightweight Directory Access Protocol"/>
+      <!-- <term abbr="LDAP" full="Lightweight Directory Access Protocol"/>  -->
       <term abbr="NIST" full="National Institute of Standards and Technology"/>
       <term abbr="RFC" full="Request for Comment (IETF)"/>
       <term abbr="RSA" full="Rivest Shamir Adelman"/>
       <term abbr="SAN" full="Subject Alternative Name"/>
       <term abbr="SCSV" full="Signaling ciphersuite Value"/>
       <term abbr="SHA" full="Secure Hash Algorithm"/>
-      <term abbr="SIP" full="Session Initiation Protocol"/>
+      <!-- <term abbr="SIP" full="Session Initiation Protocol"/> -->
       <term abbr="TCP" full="Transmission Control Protocol"/>
       <term abbr="TLS" full="Transport Layer Security">
         Cryptographic network protocol for providing communications
@@ -238,8 +238,7 @@
           <selectable id="tlsc_impl">TLS as a client</selectable>
           <selectable id="tlss_impl">TLS as a server</selectable>
           <selectable id="dtlsc_impl">DTLS as a client</selectable>
-          <selectable id="dtlss_impl">DTLS as a server</selectable>
-        </selectables>.
+          <selectable id="dtlss_impl">DTLS as a server</selectable></selectables>.
         </title>
         <note role="application">
               If <h:i>TLS as a client</h:i> is selected, then the
@@ -263,6 +262,7 @@
 		consistent with selections in the dependent components.<h:p/>
 	      </Guidance>
               <Tests>
+                
                 There are no test activities for this SFR; the following information is provided as an overview of the expected functionality and test environment for all subsequent SFRs.
                 <h:p/>
                 <figure entity="images/figure1.png" title="TLS Hello" id="Hello"/>
@@ -274,7 +274,7 @@
                   <h:li>Green text indicates uniqueness to TLS 1.3.</h:li> 
                   <h:li>Black text indicates features common to both TLS 1.2 and TLS 1.3.</h:li> 
                   <h:li>Bold text indicates mandatory features.</h:li>
-                  <h:li>; italics emphasizes optional features. </h:li>
+                  <h:li>Italics emphasizes optional features. </h:li>
                   <h:li>A shaded text box indicates that the message is encrypted for TLS 1.2 (blue), TLS 1.3 (green) or both TLS 1.2 and TLS 1.3 (grey).</h:li> 
                   <h:li>An outlined text box indicates that the content in the message is signed, and/or provides authentication of the handshake to that point.</h:li>
                 </h:ul>
@@ -284,14 +284,14 @@
                 Tests for TLS 1.2 and TLS 1.3 include examination of the handshake messages and behavior of the TSF when presented with unexpected or invalid messages. 
                 For TLS 1.2 and below, previous versions of this Functional Package only required visibility of network traffic and the ability to modify a valid handshake message sent to the TSF.
                 <h:p/>
-                <figure entity="images/figure2.png" title="Test Scenario 1" id="Figure2"/>
+                <figure entity="images/figure2.png" title="Test environment for TLS 1.2 using network traffic visibility and control tools" id="Figure2"/>
                 <h:p/>
                 TLS 1.3 introduces the encryption of handshake messages subsequent to the server hello exchange which prevents visibility and control using midpoint capabilities. 
                 To achieve equivalent validation of TLS 1.3 requires the ability to modify the traffic underlying the encryption applied after the server hello message. 
                 This can be achieved by introducing additional control of the messages sent, and visibility of messages received by the test TLS client, 
                 when validating TLS server functionality or test server, when validating TLS client functionality.
                 <h:p/>
-                <figure entity="images/figure3.png" title="Test Scenario 2" id="Figure3"/>
+                <figure entity="images/figure3.png" title="Test environment for TLS 1.3 using custom endpoint capabilities for visibility and control" id="Figure3"/>
                 <h:p/>
                 Typically, a compliant TLS 1.3 library modified to provide visibility and control of the handshake messages prior to encryption suffices for all tests. 
                 Such modification will require the test client and/or server to be validated. 
@@ -301,7 +301,8 @@
                 For consistency, a compliant TLS client (or TLS server) together with the network sniffers and man-in-the-middle capabilities 
                 will also be referred to as a test TLS client (or test TLS server, respectively) in the following evaluation activities.
                 <h:p/>
-                <figure entity="images/figure4.png" title="Test Scenario 3" id="Figure4"/>
+                <figure entity="images/figure4.png" title="Combined test environment for TLS 1.2 and TLS 1.3 using both network tools and custom endpoint capabilities" id="Figure4"/>
+                 
               </Tests>
             </aactivity>
           </f-element>
@@ -381,7 +382,7 @@
               TLS 1.3 ciphersuites are claimed if support for TLS 1.3 is claimed in FCS_TLSC_EXT.1.1. 
               The assignment of preference order provides an ordered list of all supported ciphersuites with the most preferred ciphersuites listed first. 
               Ciphersuites listed in [RFC 9151, “CNSA Suite TLS Profile”] are preferred over all other ciphersuites, 
-              GCM ciphersuites are preferred over CBC ciphersuites, ECDHE preferred over RSA and DHE, and SHA256 or SHA384 over SHA. 
+              GCM ciphersuites are preferred over CBC ciphersuites, ECDHE preferred over RSA and DHE, and SHA256 or SHA384 over SHA1. 
               <h:p/>
               Ciphersuites for TLS 1.2 are of the form TLS_{key exchange algorithm}_WITH_{encryption algorithm}_(message digest algorithm}, and are listed in the TLS parameters section of the internet assignments at iana.org. 
             </note>
@@ -436,7 +437,8 @@
                    <selectable>ffdhe6144(259)</selectable>
                    <selectable>ffdhe8192(260)</selectable></selectables></selectable>
                  <selectable>key_share extension (RFC 8446)</selectable>
-                 <selectable>post_handshake_auth (RFC 8446), pre_shared_key (RFC 8446), and psk_key_exchange_mode (RFC 8446) indicating DHE or ECDHE mode</selectable></selectables>
+                 <selectable>post_handshake_auth (RFC 8446), pre_shared_key (RFC 8446), and psk_key_exchange_mode (RFC 8446) indicating DHE or ECDHE mode</selectable>
+                 <selectable>no other extensions</selectable></selectables>
                and shall not send the following extensions: <h:ul>
                  <h:li>early_data</h:li>
                  <h:li>psk_key_exchange_mode indicating PSK only mode.</h:li>
@@ -476,7 +478,7 @@
             <note role="application">
               The rules for verification identity are described in Section 6 of RFC 6125 and Section 7 of RFC 5280. 
               The reference identifier is established by the user (e.g., entering a URL into a web browser or clicking a link), 
-              by configuration (e.g., configuring the name of a mail or authentication server), 
+              by configuration (e.g., configuring the name of a mail server or authentication server), 
               or by an application (e.g., a parameter of an API) depending on the product service. 
               The client establishes all acceptable reference identifiers and interfaces with the TLS implementation to provide acceptable reference identifiers, 
               or to accept the presented identifiers as validated in the server’s certificate. 
@@ -491,6 +493,7 @@
               Finally, the client should avoid constructing reference identifiers using wildcards. 
               However, if the presented identifiers include wildcards, the client must follow the best practices regarding matching; 
               these best practices are captured in the evaluation activity. Support for other name types is rare, but may be claimed for specific applications. 
+              <h:p/><comment>[JF] App note talks about wildcards best practices being captured in the evaluation activity but nothing in the activity actually covers this.</comment>  
             </note>
           </f-element>
           <f-element>
@@ -516,8 +519,8 @@
                 The evaluator shall check the description of the implementation of this protocol in the TSS to ensure the supported TLS versions, features, ciphersuites, and extensions 
                 are specified in accordance with RFC 5246 (TLS 1.2) and RFC 8446 (TLS 1.3 and updates to TLS 1.2) and as refined in FCS_TLSC_EXT.1 as appropriate. 
                 <h:p/>
-                The evaluator shall verify that ciphersuites indicated in FCS_TLSC_EXT.1.2 are included in the description, and that no ciphersuites 
-                indicating 'NULL,' 'RC2,' 'RC4,' 'DES,' 'IDEA,' or 'TDES' in the encryption algorithm component, indicating 'anon,' or indicating MD5 or SHA in the message digest algorithm component, are supported.
+                The evaluator shall verify that ciphersuites indicated in FCS_TLSC_EXT.1.2 are included in the description, and that none of the following ciphersuites are supported: ciphersuites indicating 
+                'NULL,' 'RC2,' 'RC4,' 'DES,' 'IDEA,' or 'TDES' in the encryption algorithm component, indicating 'anon,' or indicating MD5 or SHA in the message digest algorithm component.
                 <h:p/>
                 The evaluator shall verify that the TLS implementation description includes the extensions as required in FCS_TLSC_EXT.1.4.
                 <h:p/>
@@ -530,7 +533,8 @@
                 The evaluator shall check the operational guidance to ensure that it contains instructions on configuring the product so that TLS conforms to the description in the TSS and that 
                 it includes any instructions on configuring the version, ciphersuites, or optional extensions that are supported.
                 <h:p/>
-                The evaluator shall verify that all configurable features for matching identifiers in certificates presented in the TLS handshake are identified, including any application specific reference identifiers.
+                The evaluator shall verify that all configurable features for matching identifiers in certificates presented in the TLS handshake to application specific reference identifiers are described.
+                <h:p/>
 	      </Guidance>
               <Tests>
 		The evaluator shall perform the following tests:
@@ -665,7 +669,7 @@
                       <h:p/></test>
                       <test>[conditional] If TLS 1.3 is supported, the evaluator shall configure the test TLS server to respond to the TOE with a compliant server hello message selecting TLS 1.3 
                         and a server certificate message, 
-                        but that it sends a certificate verification message that uses a signature algorithm method not included in the signature_algorithms extension. The evaluator shall observe that the TSF terminates the TLS handshake.
+                        but then also sends a certificate verification message that uses a signature algorithm method not included in the signature_algorithms extension. The evaluator shall observe that the TSF terminates the TLS handshake.
                         <h:p/>
                         <h:b>Note:</h:b> It is preferred that the TSF sends a fatal error alert message (e.g., handshake failure, illegal parameter, bad certificate, decryption error) in response to this, 
                         but it is acceptable that the TSF terminates the connection silently (i.e., without sending a fatal error alert).  
@@ -734,13 +738,13 @@
                 </testlist>
                 <h:p/></test>
                 
-                <!-- Test 5 and sub-tests -->
+                <!-- Test 5 and sub-tests -->  
                 <test>(TLS 1.3 extensions) [conditional] If the TSF supports TLS 1.3, the evaluator shall perform the following tests. 
                   For each test, the evaluator shall observe that the TSF’s client hello includes the supported versions extension with the value '03 04' indicating TLS 1.3:
                 <testlist>
                   <test>(supported versions) The evaluator shall initiate TLS 1.3 sessions in turn from the TOE to a test TLS server configured as indicated in the sub-tests below: 
                   <testlist>
-                    <test>The evaluator shall configure the test TLS server to include the supported versions extension in the server hello containing the value '03 03'. The evaluator shall observe that the TSF terminates the TLS session.
+                    <test>The evaluator shall configure the test TLS server to include the supported versions extension in the server hello containing the value '03 03.' The evaluator shall observe that the TSF terminates the TLS session.
                       <h:p/>
                       <h:b>Note:</h:b> It is preferred that the TSF sends a fatal error alert message (e.g., illegal parameter, handshake failure, protocol version) in response to this, 
                       but it is acceptable that the TSF terminates the connection silently (i.e., without sending a fatal error alert).   
@@ -757,7 +761,7 @@
                     <h:p/></test>
                   </testlist>
                   <h:p/></test>
-                  <test>(supported groups, key shares) The evaluator shall initiate TLS 1.3 sessions in turn with a test TLS server configured as indicated in the following sub-tests:<h:p/></test>
+                  <test>(supported groups, key shares) The evaluator shall initiate TLS 1.3 sessions in turn with a test TLS server configured as indicated in the following sub-tests:
                   <testlist>
                     <test>For each supported group, the evaluator shall configure the compliant test TLS 1.3 server to select a ciphersuite using the group. 
                       The evaluator shall observe that the TSF sends an element of the group in its client hello key shares extension 
@@ -775,6 +779,7 @@
                       but represents a point not on the curve. The evaluator can construct such an invalid point by modifying a byte in the y coordinate of a valid point and verify that the coordinates do not satisfy the curve equation.
                     <h:p/></test>
                   </testlist>
+                    <h:p/></test>
                   <test>
                     (PSK support) [conditional] If the TOE supports pre-shared keys, the evaluator shall follow the operational guidance to use pre-shared keys, 
                     shall establish a pre-shared key between the TSF and the test TLS server, and initiate TLS 1.3 sessions in turn 
@@ -801,12 +806,13 @@
                         If there is no indication from the TSF that this is blocked, the evaluator shall repeat test 
                         5.3.1 with the TSF so configured and observe that the TSF does not send application data prior to receiving the server hello. 
                         <h:p/>
-                        <h:b>Note:</h:b> Early data will be encrypted under the PSK and received by the test TLS server prior it to sending a server hello message. 
+                        <h:b>Note:</h:b> Early data will be encrypted under the PSK and received by the test TLS server prior to it sending a server hello message. 
                       <h:p/></test>
                     </testlist>
                   <h:p/></test>
                 </testlist>
                 <h:p/></test>
+                
                 
                 <!-- Test 6 and sub-tests -->
                 <test>(corrupt finished message) For each supported version, the evaluator shall initiate a TLS session from the TOE to a test TLS server that sends a compliant set of server handshake messages, 
@@ -1225,7 +1231,7 @@
             </title>
             <note role="application">
               This SFR is claimed when session resumption is supported for TLS 1.3. RFC 8446 allows pre-shared keys to be used directly 
-              and also allows early data to be protected using only previously established keys. This SFR refines the RFC to use PSK only with a supplemental DHE or ECDHE key exchange to ensure perfect forward secrecy for all sessions. 
+              and also allows early data to be protected using only the pre-shared key. This SFR refines the RFC to use PSK only with a supplemental DHE or ECDHE key exchange to ensure perfect forward secrecy for all sessions. 
               <h:p/>
               This SFR is claimed if "PSK and tickets in accordance with RFC 8446" is selected in FCS_TLSC_EXT.5.1.
             </note>
@@ -1328,7 +1334,8 @@
               The final selection indicates the TOE’s preference for negotiating a ciphersuite. 
               RFC 9151 indicates the required ciphersuites for NSS systems and ‘RFC 9151 priority’ is claimed if those ciphersuites are selected whenever offered by the client. 
               In general, it is preferred that GCM ciphersuites are selected over CBC ciphersuites, 
-              ECDHE is selected over RSA and DHE, and SHA256 or SHA384 is selected over SHA. 
+              ECDHE is selected over RSA and DHE, and SHA256 or SHA384 is selected over SHA1. 
+              <h:p/>
               The ‘client hello ordering’ option is claimed if client priority is considered; 
               if both are claimed, the ST author should indicate which is primary and which is secondary, and whether the priority scheme is configurable. 
               If other priority schemes or if tertiary priority is used, the ST author will claim the third option and describe the scheme in the ST.
@@ -1351,7 +1358,7 @@
                   <selectable>rsa_psks1_sha384 (RFC 8446)</selectable></selectables>, and <selectables linebreak="yes">
                     <selectable>rsa_pss_pss_sha384 (RFC 8603)</selectable>
                     <selectable>rsa_pss_rsae_sha384 (RFC 8603)</selectable>
-                    <selectable><assignable>other signature algorithms</assignable></selectable>
+                    <selectable><assignable>other non-deprecated signature algorithms</assignable></selectable>
                     <selectable>no other signature algorithms</selectable></selectables>
               </h:li>
               <h:li>
@@ -1366,7 +1373,7 @@
                       <selectable>rsa_pss_rsae_sha384 (RFC 8603)</selectable>
                       <selectable>rsa_pkcs1_sha256 (RFC 8446)</selectable>
                       <selectable>rsa_pss_rsae_sha256 (RFC 8446)</selectable>
-                      <selectable><assignable>other signature algorithms</assignable></selectable>
+                      <selectable><assignable>other non-deprecated signature algorithms</assignable></selectable>
                       <selectable>no other signature algorithms</selectable>
                     </selectables></selectable>
                   <selectable>supported_versions extension (RFC 8446) indicating support for TLS 1.3</selectable>
@@ -1379,7 +1386,8 @@
                     <selectable>ffdhe4096(258)</selectable>
                     <selectable>ffdhe6144(259)</selectable>
                     <selectable>ffdhe8192(260)</selectable></selectables></selectable>
-                  <selectable>key_share extension (RFC 8446)</selectable></selectables>.
+                  <selectable>key_share extension (RFC 8446)</selectable>
+                  <selectable>no other extensions</selectable></selectables>.
               </h:li>
             </h:ul>
           </title>
@@ -1439,7 +1447,7 @@
               the ST must include the selection for ECDHE using elliptic curves in the requirement, consistent with the support indicated for the supported groups extension in FCS_TLSS_EXT.1.4.
               <h:p/>
               When TLS 1.3 is negotiated (if supported), the supported group negotiated (a supported DHE or ECDHE group) 
-              agrees with one of the client’s supported groups and supplied key share element, and the product’s key share element is a member of the selected group. 
+              agrees with one of the client’s supported groups and the supplied key share element, and the product’s key share element is a member of the selected group. 
               If the TLS 1.3 client does not initially provide a key share element for a group supported by both the product and the client, 
               the TOE is expected to send a hello retry request message indicating the selected group; 
               the requirement for matching the group indicated in the client’s hello message applies to the client’s hello message received in response to the hello retry request message.
@@ -1451,8 +1459,8 @@
                 The evaluator shall check the description of the implementation of this protocol in the TSS to ensure the supported TLS versions, features, ciphersuites, and extensions, 
                 are specified in accordance with RFC 5246 (TLS 1.2) and RFC 8446 (TLS 1.3 and updates to TLS 1.2) as appropriate. The evaluator shall check the description to see if beta TLS 1.3 versions are supported.
                 <h:p/>
-                The evaluator shall verify that ciphersuites indicated in FCS_TLSS_EXT.1.2 are included in the description and that no ciphersuites indicating 
-                'NULL,' 'RC2,' 'RC4,' 'DES,' 'IDEA,' or 'TDES' in the encryption algorithm component, indicating 'anon,' or indicating MD5 or SHA in the message digest algorithm component, are supported.
+                The evaluator shall verify that ciphersuites indicated in FCS_TLSS_EXT.1.2 are included in the description, and that none of the following ciphersuites are supported: ciphersuites indicating 
+                'NULL,' 'RC2,' 'RC4,' 'DES,' 'IDEA,' or 'TDES' in the encryption algorithm component, indicating 'anon,' or indicating MD5 or SHA in the message digest algorithm component.
                 <h:p/>
                 The evaluator shall verify that the TLS implementation description includes the extensions as required in FCS_TLSS_EXT.1.4.
                 <h:p/>
@@ -1572,7 +1580,7 @@
                         but it is acceptable that the TSF terminates the connection silently (i.e., without sending a fatal error alert). 
                       <h:p/></test>
                       <test>(anon ciphersuite) The evaluator shall send the TSF a TLS 1.2 handshake that is compliant, 
-                        except that the ciphersuites field includes a ciphersuite list consisting only of ciphersuites using the anonymous server authentication method, 
+                        except that the ciphersuites field includes a ciphersuite list consisting only of ciphersuites using the anonymous server authentication method 
                         and observe that the TOE rejects the connection.
                         <h:p/>
                         <h:b>Note:</h:b> It is preferred that the TSF sends a fatal error alert message (e.g., handshake failure, insufficient security) in response to this, 
@@ -1604,12 +1612,19 @@
                       <test>
                         (signature algorithms) [conditional] If the TSF supports certificate-based authentication, 
                         then for each supported signature algorithm indicated in the ST, the evaluator shall perform the following sub-tests with certificates that represent the TOE. 
-                        For each subtest, the evaluator shall establish a to-be-signed certificate representing the TOE using a public-private key pair suitable for the specific signature algorithm value, 
-                        and request that the certificate from a certification authority that uses the same signature algorithm, in accordance with <no-link>FIA_X509_EXT.3</no-link>. 
+                        For each sub-test, the evaluator shall establish a to-be-signed certificate representing the TOE using a public-private key pair suitable for the specific signature algorithm value, 
+                        and request that the certificate from a certification authority that uses the same signature algorithm, in accordance with <no-link>FIA_X509_EXT.3</no-link>.
+                       <h:p/><comment>the reference to FIA_X509_EXT.3 implies that any PP or module that uses this package must have the ability to generate its own 
+                        CSRs (either as part of the TOE or its underlying platform), unsure if this is intended or if it will be permissible to load a cert issued by a CA.</comment>  
                         <h:p/>
                         If the TSF also supports the signature_algorithms_cert extension, then for each value of the signature_algorithms_cert extension, the evaluator shall repeat the sub-tests 
                         using a to-be-signed certificate using a key pair consistent with the signature algorithm, 
                         with a certificate obtained from a certification authority that signs certificates using the specific value of the signature_algorithms_cert extension. 
+                        <h:p/>
+                        <h:b>Note:</h:b> The TSF supports certificate-based server authentication if the TLS 1.2 supported ciphersuites include ciphersuites other than 
+                        TLS_ECDHE_PSK_WITH_AES_256_GCM_SHA384 as defined in RFC 8442, TLS_DHE_PSK_WITH_AES_256_GCM_SHA384 as defined in RFC 5487, 
+                        TLS_ECDHE_PSK_WITH_AES_128_GCM_SHA256 as defined in RFC 8442, and TLS_DHE_PSK_WITH_AES_128_GCM_SHA256 as defined in RFC 5487. 
+                        If these are the only supported ciphersuites, this test is omitted. For TLS 1.3, certificate-based server authentication, the client hello should not include the PSK extension.
                         <h:p/>
                         The evaluator shall follow operational guidance instructions to provision the TSF with one or more of these certificates as indicated in the following sub-tests: 
                         <testlist>
@@ -1629,7 +1644,7 @@
                             the evaluator shall provision a certificate with a key pair that is compatible with the specific signature_algorithm value, 
                             send a TLS 1.3 client hello that indicates a supported ciphersuite and has a signature_algorithm extension consisting of a single value matching the specific signature algorithm. 
                             <h:p/>
-                            If the TSF supports the signature_algorithms_cert extension, the client hello also contains a signature_algorithms_cert extensions with a value consistent with the provisioned certificate.
+                            If the TSF supports the signature_algorithms_cert extension, the client hello also contains a signature_algorithms_cert extension with a value consistent with the provisioned certificate.
                             <h:p/>
                             The evaluator shall observe that the TSF sends a certificate message containing the provisioned certificate consistent with the 
                             specific signature_algorithm value (and signed using the signature_algorithms_cert extension value) and a certificate verify message using the signature_algorithm extension value.
@@ -1638,11 +1653,15 @@
                             <h:p/>
                             It is not necessary to manually verify the signature used in the key exchange message (TLS 1.2) or certificate verify message (TLS 1.3). 
                             <h:p/></test>
-                          <test>[conditional] If the ST indicates that the TSF supports provisioning of multiple certificates, 
-                            the evaluator shall repeat this test with both the provisioned certificate indicated for Test 4.1.1 (and 4.1.2 if TLS 1.3 is supported)
+                          <test>
+                            [conditional] If the ST indicates that the TSF supports provisioning of multiple certificates, 
+                            the evaluator shall repeat Test 4.1.1 with both the provisioned certificate indicated for Test 4.1.1 (and 4.1.2 if TLS 1.3 is supported)
                             and a certificate that does not match the signature_algorithm value. 
                             The evaluator shall observe that the certificate message (for TLS 1.2) does not include the certificate that does not match the signature_algorithm value 
-                            (and signature_algorithms_cert value if supported) in the client hello.<h:p/></test>
+                            (and signature_algorithms_cert value if supported) in the client hello.<h:p/>
+                            <comment>[JF] Per SME, this test has issues with TLS 1.3 and will need updates</comment>
+                            <h:p/>  
+                          </test>
                           <test>(TLS 1.2) The evaluator shall provision a certificate as in Test 4.1.1 
                             but shall send a client hello that only offers ciphersuites whose signature component does not match the value of the signature_algorithm extension. The evaluator shall observe that the TSF terminates the handshake.
                             <h:p/>
@@ -1650,10 +1669,6 @@
                             but it is acceptable that the TSF terminates the connection silently (i.e., without sending a fatal error alert). 
                             <h:p/></test>
                         </testlist>
-                        <h:b>Note:</h:b> The TSF supports certificate-based server authentication if the TLS 1.2 supported ciphersuites include ciphersuites other than 
-                        TLS_ECDHE_PSK_WITH_AES_256_GCM_SHA384 as defined in RFC 8442, TLS_DHE_PSK_WITH_AES_256_GCM_SHA384 as defined in RFC 5487, 
-                        TLS_ECDHE_PSK_WITH_AES_128_GCM_SHA256 as defined in RFC 8442, and TLS_DHE_PSK_WITH_AES_128_GCM_SHA256 as defined in RFC 5487. 
-                        If these are the only supported ciphersuites, this test is omitted. For TLS 1.3, certificate-based server authentication, the client hello should not include the PSK extension.
                       <h:p/></test>
                       <test>(extended master secret): The evaluator shall initiate a TLS 1.2 session with the TSF from a test TLS client for which the client hello does not include the extended master secret extension
                         and observe that the TSF terminates the session.
@@ -1944,11 +1959,18 @@
 	            <h:li>For each supported name matching method indicated in the outer selection of FCS_TLSS_EXT.2.4, and for each name type supported by the matching method as indicated in the inner-selections claimed in each outer selection,
 	              the evaluator shall establish a valid primary certificate chain with single names for a test client containing only the supported name types 
 	              and a valid alternate certificate chain with single names indicating a different name of the same type. </h:li>
-	            <h:li>[conditional] If any of the supported name types include CN encoding of a name type that is also supported as a SAN entry, 
-	              the evaluator shall also establish a primary certificate chain with multiple names, 
-	              including both a CN encoding and a SAN entry of the same type, 
-	              where the SAN entry matches the name in the corresponding primary certificate chain having only the SAN entry and 
-	              where the name included in the CN encoding matches the name in the alternate certificate chain having only the corresponding CN encoding. 
+	            <h:li>[conditional] If any of the supported name types include CN encoding of a name type also supported as a SAN entry, the evaluator shall establish additional certificate chains as follows:
+	              <comment>[JF] This was updated based on SME feedback but unsure if further updates are needed</comment><h:p/> 
+	              <h:ul>
+	                <h:li>The evaluator shall establish a primary certificate chain with multiple names, to include a leaf certificate with: <h:ul>
+	                  <h:li>a SAN entry that matches the name in the primary certificate chain with single names, of the same SAN name type; and</h:li>
+	                  <h:li>a CN entry encoding the same SAN type which matches the name in the alternate certificate chain with single names of the CN encoding of the same SAN name type.</h:li>
+	                </h:ul></h:li>
+	                <h:li>The evaluator shall establish an alternate certificate chain with multiple names, to include a leaf certificate with:<h:ul>
+	                  <h:li>a SAN entry that matches the name in the alternate certificate chain with single names, of the same SAN name type; and </h:li>
+	                  <h:li>a CN entry encoding the same SAN type which matches the name in the primary certificate chain with single names, of the CN encoding of the same SAN name type.</h:li>
+	                </h:ul>
+	                </h:li></h:ul>
 	              In this case, the evaluator shall also obtain an alternate certificate chain with multiple names including a CN encoding of the name matching that in the corresponding primary certificate containing 
 	              only the CN encoding and a SAN entry of the same type that matches the name in the alternate certificate chain having the same SAN type. </h:li>
 	            <h:li>[conditional] If any of the supported name types include CN encoding, the evaluator shall follow the operational guidance to configure the TSF, 
@@ -1979,7 +2001,7 @@
           </f-element>
 	  <audit-event/>
         </f-component>
-
+ 
         <f-component cc-id="fcs_tlss_ext.3" name="TLS Server Downgrade Protection" status="sel-based">
           <depends on-sel="tlss_downgrade_protection"/>
           <f-element>
@@ -2088,7 +2110,7 @@
 	                <h:b>Note:</h:b> It is preferred that the TSF sends a fatal error alert message (e.g., unexpected message) in response to this, 
 	                but it is acceptable that the TSF terminates the connection silently (i.e., without sending a fatal error alert).
 	                <h:p/></test>
-	              <test>[conditional]: If the TSF allows renegotiation, for each TLS 1.2 RFC 5746 renegotiation method supported, 
+	              <test>[conditional]: If the TSF allows renegotiation, for each TLS 1.2 renegotiation method claimed in accordance with RFC 5746, 
 	                the evaluator shall send an initial client hello indicating the method, 
 	                send a new TLS 1.2 client hello on the TLS 1.2 channel with a renegotiation_info extension indicating an invalid client_verify_data value (modify a byte of a valid value), and observe that the TSF terminates the session.
 	                <h:p/>
@@ -2125,6 +2147,9 @@
               The ST author indicates which session resumption mechanisms are supported. 
               One or both of the first two options, "session ID in accordance with RFC 5246" and "tickets in accordance with RFC 5077" are claimed for TLS 1.2 resumption. 
               If resumption of TLS 1.3 sessions is supported, "PSK and tickets in accordance with RFC 8446" is selected, and the selection-based SFR FCS_TLSS_EXT.6 must also be claimed.
+              <h:p/>
+              While it is possible to perform session resumption using PSK ciphersuites in TLS 1.2, this is uncommon. 
+              Validation of key exchange and session negotiation rules for PSK ciphersuites is independent of the source of the pre-shared key and is covered in FCS_TLSS_EXT.1.
               <h:p/>
               This SFR is claimed if "session resumption" is selected in FCS_TLSS_EXT.1.1.
             </note>
