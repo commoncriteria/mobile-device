@@ -5,6 +5,12 @@ on:
     branches:
     - '*'
     - '!gh-pages'
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: string
+        default: DEV
+        required: true
 
 jobs:
   test:
@@ -17,19 +23,24 @@ jobs:
         submodules: true
 
     - name: Install Build Packages
-      run: "sudo apt-get update && sudo apt-get install -y xsltproc hunspell pandoc"
+#      run: "sudo apt-get update && sudo apt-get install -y xsltproc hunspell pandoc"
+      run: "sudo apt-get update && sudo apt-get install -y xsltproc hunspell"
 
     - name: Install Jing
       run: wget -O - https://github.com/relaxng/jing-trang/releases/download/V20181222/jing-20181222.zip | jar -x
 
     # Get current banch name to use it as dest directory
     - name: Extract branch name
+      id: extract_branch
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-      id: extract_branch
 
     - name: Quick Build
       run: |
+<<<<<<< HEAD
+=======
+        pwd
+>>>>>>> release-3.2
         WARN_PATH="output/SanityChecksOutput.md" make
 
     - name: PDFify
@@ -53,9 +64,31 @@ jobs:
 
     - id: tdate
       run: |
+<<<<<<< HEAD
         echo "##[set-output name=TDATE;]$(cd transforms && git log -1 --format=%cs; cd -)"
 
         
+=======
+        echo "##[set-output name=TDATE;]$(cd transforms && git log -1 --format=%cs; cd -)" #
+
+    - name: Setup Java JDK
+      uses: actions/setup-java@v1.4.3
+      with:
+        java-version: 1.8
+    - name: Get DaisyDiff
+      run: |
+        wget -O- https://github.com/AndroidKitKat/ExecuteDaisy/archive/master.zip | jar -x
+        [ -d "output/images" ] || mkdir "output/images";
+        cp -u -r ExecuteDaisy-master/js ExecuteDaisy-master/css output;
+        cp -u ExecuteDaisy-master/images/* output/images;
+
+      
+    - name: Make tmp dir
+      run: mkdir tmp
+      
+    # - name: Diff against specified versions
+    #   run: DAISY_DIR=ExecuteDaisy-master make diff
+>>>>>>> release-3.2
 
     - name: diff
       run: make diff || true; 
@@ -63,6 +96,24 @@ jobs:
     # The current checkout has  depth=1 and has no history
     #- name: little diff
     #  run: make little-diff || true
+
+
+    - name: Outstanding TDs
+      id: tds
+      run: |
+        make effective
+        PP_XML=output/effective.xml RNG_OUT=output/TDValidationReport.txt make validate || true
+        if [ "${{steps.extract_branch.outputs.branch}}" == "master" ] &&
+           ls input/tds/*.xml ; then
+          echo "Master branch should not have TDs" >> output/TDValidationReport.txt
+        fi
+        echo "##[set-output name=TDCOLOR;]$(if [ -s output/TDValidationReport.txt ]; then echo orange; else echo green; fi)"
+        echo "##[set-output name=TDWARNS;]$( wc -l output/TDValidationReport.txt | { read first rest ; echo $first;} )"
+        if ls input/tds/*.xml; then
+           PP_XML=output/effective.xml PP_RELEASE_HTML=output/AppliedTDs.html make release
+           java -jar ExecuteDaisy-master/*.jar output/*-release.html output/AppliedTDs.html --file=output/AppliedTDs-Diff.html
+        fi
+
 
     - name: Make a directory listing
       run: >
@@ -74,13 +125,8 @@ jobs:
                 echo "<li><a href='$aa'>$aa</a></li>";
            done;
            echo "</ol></body></html>") > index.html
+          cd -
  
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@4.0.0
-      with:
-        branch: gh-pages # The branch the action should deploy to.
-        folder: output # The folder the action should deploy.
-
     - name: Prepare environment
       id: coverage
       run: |
@@ -92,7 +138,7 @@ jobs:
         echo "##[set-output name=path;]${BADGE_PATH}"
         echo "##[set-output name=branch;]${BRANCH}"
       env:
-        BADGE_PATH: ${{ steps.extract_branch.outputs.branch }}/warnings-badge.svg
+        BADGE_PATH: output/warnings-badge.svg
         BRANCH: gh-pages
 
     - name: Get Status
@@ -100,23 +146,17 @@ jobs:
          echo ::set-output name=WORD::$(if [ -s output/SanityChecksOutput.md ]; then echo some; else echo none; fi )
          echo ::set-output name=COLOR::$(if [ -s output/SanityChecksOutput.md ]; then echo red; else echo green; fi )
       id: status
-      
 
-    - uses: actions/checkout@v1
-      with:
-        ref: ${{ steps.coverage.outputs.branch }}
+    # - uses: actions/checkout@v1
+    #   with:
+    #     ref: ${{ steps.coverage.outputs.branch }}
 
-    # Create the directory where badges will be saved, if needed
-    - name: Create destination directory
-      env:
-        BADGE_PATH: ${{ steps.coverage.outputs.path }}
-      run: mkdir -p "${BADGE_PATH%/*}"
+    # # Create the directory where badges will be saved, if needed
+    # - name: Create destination directory
+    #   env:
+    #     BADGE_PATH: ${{ steps.coverage.outputs.path }}
+    #   run: mkdir -p "${BADGE_PATH%/*}"
 
-    - name: debug
-      run: |
-        pwd
-        ls
-      
      # Use the output from the `coverage` step
     - name: Generate the spelling badge SVG image
       uses: emibcn/badge-action@v1
@@ -124,7 +164,7 @@ jobs:
         label: 'Misspellings'
         status: ${{ steps.spellcheck.outputs.LINES }}
         color: ${{ steps.coverage.outputs.spellcolor }}
-        path: spell-badge.svg
+        path: output/spell-badge.svg
 
     - name: Generate the built branch SVG
       uses: emibcn/badge-action@v1
@@ -132,7 +172,7 @@ jobs:
         label: 'Last Built'
         status: ${{ steps.extract_branch.outputs.branch }}
         color: black
-        path:  "build-branch-badge.svg"
+        path:  "output/build-branch-badge.svg"
 
 
     # - name: Upload badge as artifact
@@ -149,7 +189,12 @@ jobs:
         label: 'Warnings'
         status: ${{ steps.status.outputs.WORD }}
         color: ${{ steps.status.outputs.COLOR }}
+<<<<<<< HEAD
         path: warnings.svg
+=======
+        path: output/warnings.svg
+
+>>>>>>> release-3.2
 
     - name: Generate the transforms badge
       uses: emibcn/badge-action@v1
@@ -157,8 +202,22 @@ jobs:
         label: 'Transforms'
         status: ${{ steps.tdate.outputs.TDATE }}
         color: gray
+<<<<<<< HEAD
         path: transforms.svg
         
+=======
+        path: output/transforms.svg
+
+    - name: TD Badge
+      uses: emibcn/badge-action@v1
+      with:
+        label: 'TDs'
+        status: ${{steps.tds.outputs.TDWARNS}}
+        color:  ${{steps.tds.outputs.TDCOLOR}}
+        path: output/tds.svg
+
+
+>>>>>>> release-3.2
         
      # Use the output from the `coverage` step
     - name: Generate the validation badge SVG image
@@ -167,26 +226,28 @@ jobs:
         label: 'Validation'
         status: ${{ steps.validate.outputs.VALERRORS }}
         color: ${{ steps.coverage.outputs.valcolor }}
-        path: validation.svg
+        path: output/validation.svg
 
-    - name: Commit badges
-      continue-on-error: true
-      env:
-        BADGE: ${{ steps.coverage.outputs.path }}
+    - id: debug
       run: |
+<<<<<<< HEAD
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add warnings.svg validation.svg build-branch-badge.svg spell-badge.svg transforms.svg
         git commit -m "Add/Update badges"
+=======
+        ls
+        ls output
+        pwd
         
-        # - name: Upload badge as artifact
-    # - name: Upload badge as artifact
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: badge
-    #     path: ${{ steps.coverage.outputs.path }}
-    #     if-no-files-found: error
-
+        
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@4.0.0
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: output # The folder the action should deploy.
+>>>>>>> release-3.2
+        
     # - name: Commit badges
     #   continue-on-error: true
     #   env:
@@ -194,12 +255,30 @@ jobs:
     #   run: |
     #     git config --local user.email "action@github.com"
     #     git config --local user.name "GitHub Action"
-    #     git add "${{ steps.extract_branch.outputs.branch }}"
-    #     git commit -m "Add/Update badges"
+    #     git add output #warnings.svg validation.svg build-branch-badge.svg spell-badge.svg transforms.svg tds.svg
+    #     git commit -m "Update files"
+        
+    #     # - name: Upload badge as artifact
+    # # - name: Upload badge as artifact
+    # #   uses: actions/upload-artifact@v2
+    # #   with:
+    # #     name: badge
+    # #     path: ${{ steps.coverage.outputs.path }}
+    # #     if-no-files-found: error
 
-    - name: Push badge commit
-      uses: ad-m/github-push-action@master
-      if: ${{ success() }}
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ steps.coverage.outputs.branch }}
+    # # - name: Commit badges
+    # #   continue-on-error: true
+    # #   env:
+    # #     BADGE: ${{ steps.coverage.outputs.path }}
+    # #   run: |
+    # #     git config --local user.email "action@github.com"
+    # #     git config --local user.name "GitHub Action"
+    # #     git add "${{ steps.extract_branch.outputs.branch }}"
+    # #     git commit -m "Add/Update badges"
+
+    # - name: Push badge commit
+    #   uses: ad-m/github-push-action@master
+    #   if: ${{ success() }}
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     branch: ${{ steps.coverage.outputs.branch }}
