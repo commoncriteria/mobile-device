@@ -203,7 +203,6 @@ How is it differenet then me using subsection?
 	<branch>v2.4</branch>
       </git>
       <url><![CDATA[https://www.niap-ccevs.org/Profile/Info.cfm?PPID=467&id=467]]></url>
-      <depends on="s-provides-vpnclient"/>
     </module>
     <module id="mod-bluetooth">
       <git>
@@ -541,9 +540,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
       authentication, and software integrity protection are implemented in order to address threats.
       <htm:br/><htm:br/> This assurance standard describes these essential security services
       provided by the Mobile Device and serves as a foundation for a secure mobile architecture. The
-      wireless connectivity shall be validated against the <xref to="wlanPPMod"/>. If the
+      wireless connectivity shall be validated against the <xref to="mod-wlanclient"/>. If the
       mobile device contains Bluetooth functionality (i.e., has Bluetooth hardware), the Bluetooth
-      connectivity shall be evaluated against the <xref to="bluetoothPPMod"/>.
+      connectivity shall be evaluated against the <xref to="mod-bluetooth"/>.
 	  As illustrated in <xref to="TOE"/>, it is expected that a typical deployment would also include either
       third-party or bundled components. Whether these components are bundled as part of the Mobile
       Device by the manufacturer or developed by a third-party, they must be separately validated
@@ -664,7 +663,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	       <ref-id>s-kek-sym-256</ref-id>
 	       <guidance><ref-id>a-kek-asym-size</ref-id>128</guidance>
 	     </or>
-             <doc ref="pkg-tls"><ref-id>secp384r1</ref-id></doc>
+             <doc ref="pkg-tls"><ref-id>s-tls-secp384</ref-id></doc>
 	   </and>
 	 </or>
 	 <or><ref-id>s-locked-ecc-800-56A</ref-id><ref-id>s-locked-rsa</ref-id></or>
@@ -848,11 +847,11 @@ The scope of this Protection Profile (PP) is to describe the security functional
   <!-- 	<htm:p> -->
   <!--         The following PP-Modules are allowed to be specified in a PP-Configuration with this PP. -->
   <!--         <htm:ul> -->
-  <!--               <htm:li id="vpnClientPPMod">PP-Module for VPN Client, Version 2.4</htm:li> -->
-  <!--               <htm:li id ="bluetoothPPMod">PP-Module for Bluetooth, Version 1.0</htm:li> -->
+  <!--               <htm:li id="mod-vpnclient">PP-Module for VPN Client, Version 2.4</htm:li> -->
+  <!--               <htm:li id ="mod-bluetooth">PP-Module for Bluetooth, Version 1.0</htm:li> -->
   <!--               <htm:li id="agentPPMod">PP-Module for MDM Agent, Version 1.0</htm:li> -->
-  <!--               <htm:li id="wlanPPMod">PP-Module for Wireless Local Access Network (WLAN) Client, Version 1.0</htm:li> -->
-  <!--               <htm:li id="biocPPMod">cPP-Module for Biometric Enrollment and Verification, Version 1.1</htm:li> -->
+  <!--               <htm:li id="mod-wlanclient">PP-Module for Wireless Local Access Network (WLAN) Client, Version 1.0</htm:li> -->
+  <!--               <htm:li id="mod-biometrics">cPP-Module for Biometric Enrollment and Verification, Version 1.1</htm:li> -->
   <!--         </htm:ul> -->
   <!-- 	</htm:p> -->
   <!--       </description> -->
@@ -868,7 +867,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
   <!--     <cclaim name="Package Claim"> -->
   <!--       <description>This PP is conformant to the following packages: -->
   <!--         <htm:ul> -->
-  <!--           <htm:li id="tlsPackage">Functional Package for TLS, Version 1.1</htm:li>             -->
+  <!--           <htm:li id="pkg-tls">Functional Package for TLS, Version 1.1</htm:li>             -->
   <!--         </htm:ul> -->
   <!--       </description> -->
   <!--     </cclaim> -->
@@ -2131,18 +2130,18 @@ The scope of this Protection Profile (PP) is to describe the security functional
          DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications.
          The following diagram shows an example key hierarchy to illustrate the concepts of this profile. 
          This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. 
-         Please note if <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If "hybrid" is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:br/>
+         Please note if <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If "hybrid" is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:br/>
         <figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"/>
         <f-component cc-id="fcs_ckm.1" name="Cryptographic Key Generation">
           <f-element id="fel-asym-key-gen">
             <title> The TSF shall generate <refinement>asymmetric</refinement> cryptographic keys in
               accordance with a specified cryptographic key generation algorithm 
               <selectables linebreak="yes">
-                <selectable><refinement><snip>RSA schemes</snip> using</refinement> cryptographic key sizes of
+                <selectable><readable>RSA schemes</readable><refinement>RSA schemes using</refinement> cryptographic key sizes of
                   <assignable id="a-keygen-rsa-size">2048-bit or greater</assignable> that meet [<htm:i>FIPS PUB
                     186-4, "Digital Signature Standard (DSS)", Appendix
                     B.3</htm:i>]</selectable>
-                <selectable id="s-keygen-ecc"><refinement><snip>ECC schemes</snip> using: </refinement><selectables linebreak="yes">
+                <selectable id="s-keygen-ecc"><readable>ECC schemes</readable><refinement>ECC schemes using: </refinement><selectables linebreak="yes">
                   <selectable><refinement>"NIST curves" P-384 and </refinement><selectables>
                     <selectable><refinement>P-256</refinement></selectable>
                     <selectable><refinement>P-521</refinement></selectable>
@@ -2308,7 +2307,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <title>The TSF shall <refinement>perform</refinement> cryptographic <refinement>key
               establishment</refinement> in accordance with a specified cryptographic key
               <refinement>establishment</refinement> method <selectables linebreak="yes">
-                <selectable>[<htm:i>RSA-based key establishment schemes</htm:i>] that meet the following
+                <selectable><readable>RSA-based key establishment schemes</readable>[<htm:i>RSA-based key establishment schemes</htm:i>] that meet the following
                   <selectables linebreak="yes">
                     <selectable>NIST Special Publication 800-56B, “Recommendation for Pair-Wise
                       Key Establishment Schemes Using Integer Factorization
@@ -2317,7 +2316,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                       "Public-Key Cryptography Standards (PKCS) #1:RSA Cryptography Specifications
                       Version 2.2"</selectable>
                   </selectables></selectable>
-                <selectable>[<htm:i>Elliptic curve-based key establishment schemes</htm:i>]
+                <selectable><readable>Elliptic curve-based key establishment schemes</readable>[<htm:i>Elliptic curve-based key establishment schemes</htm:i>]
                   that meet the following: [<htm:i>NIST Special Publication 800-56A Revision 3,
                     "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm
                     Cryptography"</htm:i>]</selectable>
@@ -2486,12 +2485,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <title>The TSF shall <refinement>perform</refinement> cryptographic <refinement>key
               establishment</refinement> in accordance with a specified cryptographic key
               <refinement>establishment</refinement> method: <selectables linebreak="yes">
-                <selectable id="s-locked-rsa">[<htm:i><snip>RSA-based key establishment schemes</snip></htm:i>] that meet the following: [<htm:i>NIST Special Publication 800-56B, “Recommendation for Pair-Wise Key
+                <selectable id="s-locked-rsa"><readable>RSA-based key establishment schemes</readable>[<htm:i>RSA-based key establishment schemes</htm:i>] that meet the following: [<htm:i>NIST Special Publication 800-56B, “Recommendation for Pair-Wise Key
                   Establishment Schemes Using Integer Factorization
                   Cryptography”</htm:i>]</selectable>
-                <selectable>[<htm:i><snip>Elliptic curve-based key establishment schemes</snip></htm:i>]
+                <selectable><readable>Elliptic curve-based key establishment schemes</readable>[<htm:i>Elliptic curve-based key establishment schemes</htm:i>]
                   that meet the following: <selectables linebreak="yes">
-                    <selectable id="s-locked-ecc-800-56A"><refinement><snip>NIST Special Publication 800-56A Revision 3</snip>,
+                    <selectable id="s-locked-ecc-800-56A"><readable>Pair-Wise Key Establishment Schemes Using Discrete
+                      Logarithm Cryptography</readable><refinement>NIST Special Publication 800-56A Revision 3,
                       "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete
                       Logarithm Cryptography"</refinement></selectable>
                     <selectable><refinement>RFC 7748, "Elliptic Curves for
@@ -3512,8 +3512,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <selectable id="s-encrypt-256">256-bit key sizes</selectable>
                   <selectable exclusive="yes">no other key sizes</selectable></selectables></htm:i>]. </title>
             <note role="application">
-              For the first selection, the ST author should choose the mode or modes in which AES operates. For the second selection, the ST author should choose the key sizes that are supported by this functionality. 128-bit CBC and CCMP are required in order to comply with the <xref to="wlanPPMod"/>. <htm:br/><htm:br/> 
-              Note that to comply with the <xref to="wlanPPMod"/>, AES CCMP (which uses AES in CCM as specified in SP 800-38C) with cryptographic key size of 128 bits must be implemented. If CCM is only implemented to support CCMP for WLAN, AES-CCM does not need be selected. Optionally, AES-CCMP-256 or AES-GCMP-256 with cryptographic key size of 256 bits may be implemented. 
+              For the first selection, the ST author should choose the mode or modes in which AES operates. For the second selection, the ST author should choose the key sizes that are supported by this functionality. 128-bit CBC and CCMP are required in order to comply with the <xref to="mod-wlanclient"/>. <htm:br/><htm:br/> 
+              Note that to comply with the <xref to="mod-wlanclient"/>, AES CCMP (which uses AES in CCM as specified in SP 800-38C) with cryptographic key size of 128 bits must be implemented. If CCM is only implemented to support CCMP for WLAN, AES-CCM does not need be selected. Optionally, AES-CCMP-256 or AES-GCMP-256 with cryptographic key size of 256 bits may be implemented. 
             </note>
             <aactivity>
             <TSS>There are no TSS evaluation activities for this component.<htm:br/><htm:br/></TSS>  
@@ -3780,7 +3780,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               discouraged as there may be risk in accepting these signatures. It is expected that
               vendors will implement SHA-2 algorithms in accordance with SP
               800-131A.<htm:br/><htm:br/> SHA-1 is currently required in order to comply with the
-              <xref to="wlanPPMod"/>. Vendors are strongly encouraged to implement updated
+              <xref to="mod-wlanclient"/>. Vendors are strongly encouraged to implement updated
               protocols that support the SHA-2 family; until updated protocols are supported, this
               PP allows support for SHA-1 implementations in compliance with SP
               800-131A.<htm:br/><htm:br/> The intent of this requirement is to specify the hashing
@@ -3858,10 +3858,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <title>The TSF shall perform [<htm:i>cryptographic signature services (generation
               and verification)</htm:i>] in accordance with a specified cryptographic
               algorithm <selectables linebreak="yes">
-                <selectable>[<htm:i>RSA schemes</htm:i>] <refinement>using</refinement> cryptographic key sizes of [<htm:i>2048-bit or
+                <selectable><readable>RSA schemes</readable>[<htm:i><snip>RSA schemes</snip></htm:i>] <refinement>using</refinement> cryptographic key sizes of [<htm:i>2048-bit or
                   greater</htm:i>] that meet the following: [<htm:i>FIPS PUB 186-4, "Digital Signature Standard
                     (DSS)", Section 4</htm:i>]</selectable>
-                <selectable>[<htm:i>ECDSA schemes</htm:i>] <refinement>using</refinement> [<htm:i>"NIST curves" P-384 and <selectables>
+                <selectable><readable>ECDSA schemes</readable>[<htm:i>ECDSA schemes</htm:i>] <refinement>using</refinement> [<htm:i>"NIST curves" P-384 and <selectables>
                   <selectable>P-256</selectable>
                   <selectable>P-521</selectable>
                   <selectable exclusive="yes">no other curves</selectable></selectables></htm:i>] that meet the following: [<htm:i>FIPS PUB 186-4, "Digital Signature
@@ -3943,7 +3943,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <note role="application"> The selection in this requirement must be consistent with the
               key size specified for the size of the keys used in conjunction with the keyed-hash
               message authentication. HMAC-SHA-1 is currently required in order to comply with the
-              <xref to="wlanPPMod"/>.</note>
+              <xref to="mod-wlanclient"/>.</note>
             <aactivity>
               <TSS> The evaluator shall examine the TSS to ensure that it specifies the following
                 values used by the HMAC function: key length, hash function used, block size, and
@@ -4036,13 +4036,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <title>The TSF shall implement the HTTPS protocol that complies with RFC 2818. </title>
           </f-element>
           <f-element id="fel-https-tls">
-            <title>The TSF shall implement HTTPS using TLS as defined in [<htm:i>the <xref to="tlsPackage"/></htm:i>].</title>
+            <title>The TSF shall implement HTTPS using TLS as defined in [<htm:i>the <xref to="pkg-tls"/></htm:i>].</title>
             <ext-comp-def-title>
               <title>The TSF shall implement HTTPS using TLS as defined in 
                 <assignable>specification that defines TLS implementation requirements</assignable>. </title>
             </ext-comp-def-title>
             <note role="application"> 
-              The <xref to="tlsPackage"/> must be included in the ST, with the following selections made: <htm:ul>
+              The <xref to="pkg-tls"/> must be included in the ST, with the following selections made: <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
                 <htm:ul>
                   <htm:li>TLS must be selected</htm:li>
@@ -4060,7 +4060,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <note role="application"> Validity is determined by the certificate path, the expiration
               date, and the revocation status in accordance with RFC 5280. <htm:br/><htm:br/> If
               "not establish the connection" is selected then "with no exceptions" must be selected
-              for FCS_TLSC_EXT.1.3 in the <xref to="tlsPackage"/>. If "request
+              for FCS_TLSC_EXT.1.3 in the <xref to="pkg-tls"/>. If "request
               application authorization to establish the connection" is selected then "except when
               override is authorized" must be selected for FCS_TLSC_EXT.1.3 in the Package for
               Transport Layer Security. If "no other action" is selected either selection can be
@@ -4078,7 +4078,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     webserver, observe the traffic with a packet analyzer, and verify that the
                     connection succeeds and that the traffic is identified as TLS or HTTPS.
                     <htm:br/><htm:br/> Other tests are performed in conjunction with testing in the
-                    <xref to="tlsPackage"/>. <htm:br/><htm:br/> Certificate validity
+                    <xref to="pkg-tls"/>. <htm:br/><htm:br/> Certificate validity
                     shall be tested in accordance with testing performed for FIA_X509_EXT.1, and the
                     evaluator shall perform the following test: </test><htm:br/>
                   <test>The evaluator shall demonstrate that using a certificate without a valid
@@ -5456,7 +5456,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable>provide an interface which allows a VPN client to protect all IP traffic
                   using IPsec</selectable>
                 <selectable>provide a VPN client which can protect all IP traffic using
-                  IPsec <htm:b>as defined in the <xref to="vpnClientPPMod"/></htm:b></selectable>
+                  IPsec <htm:b>as defined in the <xref to="mod-vpnclient"/></htm:b></selectable>
               </selectables> with the exception of IP traffic needed to manage the VPN
               connection, and
               <selectables> 
@@ -5473,8 +5473,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               TOE’s network stack to perform the required Information Flow Control.
               <htm:br/><htm:br/> The ST author must select the second option if the TSF implements
               a native VPN client (IPsec is selected in FTP_ITC_EXT.1). Thus the TSF must be
-              validated against the <xref to="vpnClientPPMod"/> and the ST author must also include
-              <no-link>FDP_IFC_EXT.1</no-link> from the <xref to="vpnClientPPMod"/>. <htm:br/><htm:br/> It is optional for
+              validated against the <xref to="mod-vpnclient"/> and the ST author must also include
+              <no-link>FDP_IFC_EXT.1</no-link> from the <xref to="mod-vpnclient"/>. <htm:br/><htm:br/> It is optional for
               the VPN client to be configured to be always-on per FMT_SMF.1 Function <xref
                 to="mf-alwaysOnVPN"/>. Always-on means the establishment of an IPsec trusted channel
               to allow any communication by the TSF. </note>
@@ -5623,11 +5623,11 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         <f-component cc-id="fdp_upc_ext.1" iteration="APPS" name="Inter-TSF User Data Transfer Protection (Applications)">
           <f-element id="fel-tls-app">
             <title>The TSF shall provide a means for non-TSF applications executing on the TOE to use [<htm:i><htm:ul>
-                <htm:li>Mutually authenticated TLS as defined in the <xref to="tlsPackage"/>,</htm:li>
+                <htm:li>Mutually authenticated TLS as defined in the <xref to="pkg-tls"/>,</htm:li>
                 <htm:li>HTTPS,</htm:li>
               </htm:ul>and <selectables linebreak="yes">
-                <selectable id="upc_dtls">mutually authenticated DTLS as defined in the <xref to="tlsPackage"/></selectable>
-                <selectable id="s-upc-ipsec">IPsec as defined in the <xref to="vpnClientPPMod"/></selectable>
+                <selectable id="upc_dtls">mutually authenticated DTLS as defined in the <xref to="pkg-tls"/></selectable>
+                <selectable id="s-upc-ipsec">IPsec as defined in the <xref to="mod-vpnclient"/></selectable>
                 <selectable>no other protocol</selectable>
               </selectables> </htm:i>] to provide a protected communication channel between the non-TSF
               application and another IT product that is logically distinct from other communication
@@ -5637,7 +5637,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               The intent of this requirement is that one of the selected protocols is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. It should be noted that the FTP_ITC_EXT.1 requires that all TSF communications be protected using the protocols indicated in that requirement, so the protocols required by this component ride "on top of" those listed in FTP_ITC_EXT.1.<htm:br/><htm:br/> 
               It should also be noted that some applications are part of the TSF, and FTP_ITC_EXT.1 requires that TSF applications be protected by at least one of the protocols in first selection in FTP_ITC_EXT.1. It is not required to have two different implementations of a protocol, or two different protocols, to satisfy both this requirement (for non-TSF apps) and FTP_ITC_EXT.1 (for TSF apps), as long as the services specified are provided. <htm:br/><htm:br/> 
               The ST author must list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps.<htm:br/><htm:br/> 
-              The TSF must be validated against requirements from the <xref to="tlsPackage"/>, with the following selections made: <htm:ul>
+              The TSF must be validated against requirements from the <xref to="pkg-tls"/>, with the following selections made: <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
                 <htm:ul>
                   <htm:li>TLS is selected</htm:li>
@@ -5654,7 +5654,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 </htm:ul>
               </htm:ul>            
               <htm:br/> 
-              If <xref to="upc_dtls"/> is selected, the TSF must be validated against requirements from the <xref to="tlsPackage"/>, with the following selections made: <htm:ul>
+              If <xref to="upc_dtls"/> is selected, the TSF must be validated against requirements from the <xref to="pkg-tls"/>, with the following selections made: <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
                 <htm:ul>
                   <htm:li>DTLS is selected</htm:li>
@@ -5721,9 +5721,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <f-element id="fel-bluetooth">
             <title>The TSF shall provide a means for non-TSF applications executing on the TOE to
               use [<htm:i><htm:ul>
-                <htm:li>Bluetooth BR/EDR in accordance with the <xref to="bluetoothPPMod"/>,</htm:li>
+                <htm:li>Bluetooth BR/EDR in accordance with the <xref to="mod-bluetooth"/>,</htm:li>
               </htm:ul>and <selectables linebreak="yes">
-                <selectable>Bluetooth LE in accordance with the <xref to="bluetoothPPMod"/></selectable>
+                <selectable>Bluetooth LE in accordance with the <xref to="mod-bluetooth"/></selectable>
                 <selectable>no other protocol</selectable>
               </selectables> </htm:i>] to provide a protected communication channel between the non-TSF
               application and another IT product that is logically distinct from other communication
@@ -5736,7 +5736,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               necessarily part of the enterprise infrastructure. The ST author must list which
               trusted channel protocols are implemented by the Mobile Device for use by non-TSF
               apps.<htm:br/><htm:br/> The TSF must be validated against requirements from the
-              <xref to="bluetoothPPMod"/>. It should be noted that the FTP_ITC_EXT.1 requires that all
+              <xref to="mod-bluetooth"/>. It should be noted that the FTP_ITC_EXT.1 requires that all
               TSF communications be protected using the protocols indicated in that requirement, so
               the protocols required by this component ride "on top of" those listed in
               FTP_ITC_EXT.1.<htm:br/><htm:br/>
@@ -5820,7 +5820,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable> face</selectable>
                 <selectable> voice</selectable>
                 <selectable> vein</selectable> -->
-                <selectable> biometric in accordance with the <xref to="biocPPMod"/></selectable>
+                <selectable> biometric in accordance with the <xref to="mod-biometrics"/></selectable>
                 <selectable> hybrid</selectable>
                 <selectable id="s-authfail-noother"> no other mechanism</selectable>
             </selectables> as critical authentication mechanisms. </title>
@@ -6414,7 +6414,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <selectable id="uau_face"> face</selectable>
                   <selectable id="uau_vox"> voice</selectable>
                   <selectable id="uau_vein"> vein</selectable> -->
-                  <selectable id="uau_biometric"> biometric in accordance with the <xref to="biocPPMod"/></selectable>
+                  <selectable id="uau_biometric"> biometric in accordance with the <xref to="mod-biometrics"/></selectable>
                   <selectable id="uau_hybr"> hybrid</selectable>
                   <selectable>no other mechanism</selectable>
                 </selectables>
@@ -6424,7 +6424,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               (finger/palm) vein -->. A hybrid authentication factor is where a user has to submit a
               combination of PIN/password and biometric sample where both have to pass and if either
               fails the user is not made aware of which factor failed.<htm:br/><htm:br/> 
-              If <xref to="uau_biometric"/> or <xref to="uau_hybr"/> is selected, then the TSF must be validated against requirements from the <xref to="biocPPMod"/>.<htm:br/><htm:br/>
+              If <xref to="uau_biometric"/> or <xref to="uau_hybr"/> is selected, then the TSF must be validated against requirements from the <xref to="mod-biometrics"/>.<htm:br/><htm:br/>
               If <xref to="uau_hybr"/> is selected, <xref to="uau_biometric"/> does not need to be selected, but should be
               selected if the biometric authentication can be used independent of the hybrid
               authentication, i.e. without having to enter a PIN/password.<htm:br/><htm:br/>              
@@ -6453,7 +6453,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 successful authentication (i.e. is the user input used to derive or unlock a key) and
                 which authentication mechanism can be used at which authentication factor interfaces
                 (i.e. if there are times, for example, after a reboot, that only specific
-                authentication mechanisms can be used). If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/>, the interaction between the BAFs must be described. For example, whether the
+                authentication mechanisms can be used). If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/>, the interaction between the BAFs must be described. For example, whether the
                 multiple BAFs can be enabled at the same time.<htm:br/><htm:br/></TSS>
               <Guidance> The evaluator shall verify that configuration guidance for each
                 authentication mechanism is addressed in the AGD guidance.<htm:br/><htm:br/></Guidance>
@@ -6488,7 +6488,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     Authentication Factor according to the AGD guidance and verify that the TSF
                     requires the entry of the Password Authentication Factor before allowing the
                     factor to be changed.</test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/> the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall
                     configure the TSF to use the BAF, which includes configuring the Password
                     Authentication Factor, according to the AGD guidance. The evaluator shall change
                     the BAF according to the AGD guidance and verify that the TSF requires the entry
@@ -6523,7 +6523,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     evaluator shall wait until the TSF locks and then verify that the TSF requires
                     the entry of the Password Authentication Factor before transitioning to the
                     unlocked state.</test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/> the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall
                     repeat Test 1 verifying that the TSF requires the entry of the BAF before
                     transitioning to the unlocked state. </test>
                   <test>[conditional] If "hybrid" is selected in FIA_UAU.5.1, the evaluator shall
@@ -6533,7 +6533,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     guidance. The evaluator shall lock the TSF and then verify that the TSF requires
                     the entry of the Password Authentication Factor before transitioning to the
                     unlocked state.</test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/> the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall
                     repeat Test 4 verifying that the TSF requires the entry of the BAF before
                     transitioning to the unlocked state.</test>
                   <test>[conditional] If "hybrid" is selected in FIA_UAU.5.1, the evaluator shall
@@ -6572,7 +6572,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <test>The evaluator shall enter passwords on the device, including at least the
                     Password Authentication Factor at lock screen, and verify that the password is
                     not displayed on the device. </test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/> the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall
                     authenticate by producing a biometric sample at lock screen. As the biometric
                     algorithms are performed, the evaluator shall verify that sensitive images,
                     audio, or other information identifying the user are kept secret and are not
@@ -6810,8 +6810,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <htm:li>OCSP certificates presented for OCSP responses shall have the OCSP Signing purpose (id-kp 9 with OID 1.3.6.1.5.5.7.3.9) in the extendedKeyUsage field. [conditional]</htm:li></htm:ul></htm:li>
               </htm:ul>
             </title>
-            <note role="application">FIA_X509_EXT.1.1 lists the rules for validating certificates. The ST author must select whether revocation status is verified using OCSP or CRLs. OCSP stapling and OCSP multi-stapling only support TLS server certificate validation. If other certificate types are validated, either OCSP or CRL should be claimed. The <xref to="wlanPPMod"/>, to which a MDF TOE must also conform, requires that certificates are used for EAP-TLS; this use requires that the extendedKeyUsage rules are verified. Certificates may optionally be used for trusted updates of system software and applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2(1)) and, if implemented, must be validated to contain the Code Signing purpose extendedKeyUsage.<htm:br/><htm:br/>
-              While FIA_X509_EXT.1.1 requires that the TOE perform certain checks on the certificate presented by a TLS server, there are corresponding checks that the authentication server will have to perform on the certificate presented by the client; namely that the extendedKeyUsage field of the client certificate includes “Client Authentication” and that the key agreement bit (for the Diffie-Hellman ciphersuites) or the key encipherment bit (for RSA ciphersuites) be set. Certificates obtained for use by the TOE will have to conform to these requirements in order to be used in the enterprise. This check is required to support EAP-TLS for the <xref to="wlanPPMod"/>.</note>
+            <note role="application">FIA_X509_EXT.1.1 lists the rules for validating certificates. The ST author must select whether revocation status is verified using OCSP or CRLs. OCSP stapling and OCSP multi-stapling only support TLS server certificate validation. If other certificate types are validated, either OCSP or CRL should be claimed. The <xref to="mod-wlanclient"/>, to which a MDF TOE must also conform, requires that certificates are used for EAP-TLS; this use requires that the extendedKeyUsage rules are verified. Certificates may optionally be used for trusted updates of system software and applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2(1)) and, if implemented, must be validated to contain the Code Signing purpose extendedKeyUsage.<htm:br/><htm:br/>
+              While FIA_X509_EXT.1.1 requires that the TOE perform certain checks on the certificate presented by a TLS server, there are corresponding checks that the authentication server will have to perform on the certificate presented by the client; namely that the extendedKeyUsage field of the client certificate includes “Client Authentication” and that the key agreement bit (for the Diffie-Hellman ciphersuites) or the key encipherment bit (for RSA ciphersuites) be set. Certificates obtained for use by the TOE will have to conform to these requirements in order to be used in the enterprise. This check is required to support EAP-TLS for the <xref to="mod-wlanclient"/>.</note>
           </f-element>
           <f-element id="fel-cacert-what">
             <title>The TSF shall only treat a certificate as a CA certificate if the
@@ -6886,9 +6886,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           
           <f-element id="fel-cert-auth">
             <title>The TSF shall use X.509v3 certificates as defined by RFC 5280 to support
-              authentication for [<htm:i>mutually authenticated TLS as defined in the <xref to="tlsPackage"/>, HTTPS, <selectables>
-                <selectable>IPsec in accordance with the <xref to="vpnClientPPMod"/></selectable>
-                <selectable id="x509_dtls">mutually authenticated DTLS as defined in the <xref to="tlsPackage"/></selectable>
+              authentication for [<htm:i>mutually authenticated TLS as defined in the <xref to="pkg-tls"/>, HTTPS, <selectables>
+                <selectable>IPsec in accordance with the <xref to="mod-vpnclient"/></selectable>
+                <selectable id="x509_dtls">mutually authenticated DTLS as defined in the <xref to="pkg-tls"/></selectable>
                 <selectable>no other protocol</selectable>  
               </selectables></htm:i>] and <selectables>
                 <selectable id="x509_sys">code signing for system software updates</selectable>
@@ -7443,7 +7443,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		  Function <_/> addresses
 		  enabling and disabling the IPsec VPN only. The configuration of the VPN Client itself
 		  (with information such as VPN Gateway, certificates, and algorithms) is addressed by
-		  the <xref to="vpnClientPPMod"/>. The administrator options should only be listed if the
+		  the <xref to="mod-vpnclient"/>. The administrator options should only be listed if the
 		  administrator can remotely enable/disable the VPN connection.
 		  <htm:p>
 		  Function <xref to="mf-vpn"/> optionally allows the VPN to be configured per-app or
@@ -8013,7 +8013,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		    Function <xref to="mf-authFactors"/> must be included in the ST if the TOE contains a BAF. This selection must correspond with the selection made in
               FIA_UAU.5.1. If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, "Biometric Authentication Factor"
               must be selected and the user or admin must have the option to disable the use of
-              it. If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/>, this applies to all different
+              it. If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/>, this applies to all different
               modalities. If <xref to="uau_hybr"/> is selected in FIA_UAU.5.1 it must be selected and the user
               or admin must have the option to disable the use of it.
 		  </app-note>
@@ -8021,7 +8021,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		    The evaluator shall verify that the TSS states if the TOE supports a BAF
                     or hybrid authentication. If the TOE does not include a BAF or hybrid
                     authentication this test is implicitly met.<testlist>
-                      <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biocPPMod"/> the evaluator shall verify that the
+                      <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall verify that the
                         TSS describes the procedure to enable/disable the BAF.<!--If the TOE includes
                         multiple BAFs, the evaluator shall verify that the TSS describes how to
                         enable/disable each BAF, specifically if the different modalities can be
@@ -8051,7 +8051,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               Function <xref to="mf-certInvalid"/> must be included in the ST if the function is configurable on the TOE for any of the trusted channels either mandated or selected in <xref to="fel-wlan"/> or <xref to="fel-tls-app"/>. The configuration can be different depending on the specific trusted channel(s) and they must be filled in for the assignment.
 		    </app-note>
 		    <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2,
-                    FCS_TLSC_EXT.1.3 in the <xref to="tlsPackage"/>. </Tests></aactivity>
+                    FCS_TLSC_EXT.1.3 in the <xref to="pkg-tls"/>. </Tests></aactivity>
                 </management-function>
                 <!-- Start of the Optional to implement functions -->
                 <management-function id="mf-externalPorts">
@@ -8415,7 +8415,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                           <selectable>passcode</selectable>
                           <selectable>no authentication</selectable>
                         </selectables></selectable>
-                      <selectable id="s-tether">USB tethering authenticated by <selectables>
+                      <selectable id="s-tether"><snip>USB tethering</snip> authenticated by <selectables>
                           <selectable>pre-shared key</selectable>
                           <selectable>passcode</selectable>
                           <selectable>no authentication</selectable>
@@ -8503,7 +8503,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               connect, all data leaving the device uses the VPN when the VPN is connected and no
               data leaves that device when the VPN is disconnected. The configuration of the VPN
               Client itself (with information such as VPN Gateway, certificates, and algorithms) is
-              addressed by the <xref to="vpnClientPPMod"/>.
+              addressed by the <xref to="mod-vpnclient"/>.
 		  </app-note>
 		  <aactivity><TSS>The evaluator shall verify that the TSS contains guidance to configure the
                   VPN as Always-On.
@@ -10664,13 +10664,13 @@ The evaluator shall exercise the TSF configuration as the administrator and
           
           <f-element id="fel-wlan">
             <title>The TSF shall use <htm:ul>
-              <htm:li>802.11-2012 in accordance with the [<htm:i><xref to="wlanPPMod"/></htm:i>],</htm:li>
-              <htm:li>802.1X in accordance with the [<htm:i><xref to="wlanPPMod"/></htm:i>],</htm:li>
-              <htm:li>EAP-TLS in accordance with the [<htm:i><xref to="wlanPPMod"/></htm:i>],</htm:li>
-              <htm:li>Mutually authenticated TLS in accordance with [<htm:i>the <xref to="tlsPackage"/></htm:i>]</htm:li>
+              <htm:li>802.11-2012 in accordance with the [<htm:i><xref to="mod-wlanclient"/></htm:i>],</htm:li>
+              <htm:li>802.1X in accordance with the [<htm:i><xref to="mod-wlanclient"/></htm:i>],</htm:li>
+              <htm:li>EAP-TLS in accordance with the [<htm:i><xref to="mod-wlanclient"/></htm:i>],</htm:li>
+              <htm:li>Mutually authenticated TLS in accordance with [<htm:i>the <xref to="pkg-tls"/></htm:i>]</htm:li>
               </htm:ul> and <selectables linebreak="yes">
-                <selectable>IPsec in accordance with the <xref to="vpnClientPPMod"/></selectable>
-                <selectable id="itc_dtls">mutually authenticated DTLS as defined in the <xref to="tlsPackage"/></selectable>
+                <selectable>IPsec in accordance with the <xref to="mod-vpnclient"/></selectable>
+                <selectable id="itc_dtls">mutually authenticated DTLS as defined in the <xref to="pkg-tls"/></selectable>
                 <selectable>HTTPS</selectable>
               </selectables> protocols to provide a communication channel between itself and another trusted IT product that is logically distinct from other communication channels, 
               provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data. </title>
@@ -10687,10 +10687,10 @@ The evaluator shall exercise the TSF configuration as the administrator and
               The intent of the mandatory portion of the above requirement is to use the cryptographic protocols identified in the requirement to establish and maintain a trusted channel between the TOE and an access point, VPN Gateway, or other trusted IT product.<htm:br/><htm:br/> 
               The ST author must list which trusted channel protocols are implemented by the Mobile Device. <htm:br/><htm:br/> 
 				
-              The TSF must be validated against the <xref to="wlanPPMod"/> to satisfy the mandatory trusted channels of 802.11-2012, 802.1X, and EAP-TLS. <htm:br/><htm:br/>
+              The TSF must be validated against the <xref to="mod-wlanclient"/> to satisfy the mandatory trusted channels of 802.11-2012, 802.1X, and EAP-TLS. <htm:br/><htm:br/>
 				
               To satisfy the mandatory trusted channel of TLS and 
-			  if <xref to="itc_dtls"/> is selected, the TSF must be validated against the <xref to="tlsPackage"/>, with the following selections made: <htm:ul>
+			  if <xref to="itc_dtls"/> is selected, the TSF must be validated against the <xref to="pkg-tls"/>, with the following selections made: <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
                 <htm:ul>
                   <htm:li>Either TLS or DTLS is selected as appropriate</htm:li>
@@ -10707,7 +10707,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 </htm:ul>
               </htm:ul>
               <htm:br/> 
-              If the ST author selects IPsec, the TSF must be validated against the <xref to="vpnClientPPMod"/>. <htm:br/><htm:br/>                    
+              If the ST author selects IPsec, the TSF must be validated against the <xref to="mod-vpnclient"/>. <htm:br/><htm:br/>                    
               <if-opt-app>
                 <!-- TODO: Looks like appref is broken -->Appendix B - Selection-Based Requirements
                 contains the requirements for implementing each of the other optional trusted
