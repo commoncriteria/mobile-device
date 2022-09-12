@@ -1,0 +1,1594 @@
+<ns0:Module xmlns:html="http://www.w3.org/1999/xhtml" xmlns:ns0="https://niap-ccevs.org/cc/v1" xmlns:ns1="https://niap-ccevs.org/cc/v1/section" boilerplate="yes" target-product="MDM Agents" name="Mobile Device Management Agent">
+  <ns0:PPReference>
+    <ns0:ReferenceTable>
+      <ns0:PPVersion>1.0</ns0:PPVersion>
+      <ns0:PPAuthor>National Information Assurance Partnership</ns0:PPAuthor>
+      <ns0:PPPubDate>2019-04-25</ns0:PPPubDate>
+      <ns0:Keywords>Mobile Device Management; MDM; MDM Agents</ns0:Keywords>
+    </ns0:ReferenceTable>
+  </ns0:PPReference>
+  <ns0:RevisionHistory>
+    <ns0:entry>
+      <ns0:version>1.0</ns0:version>
+      <ns0:date>2013-10-21</ns0:date>
+      <ns0:subject>Initial Release</ns0:subject>
+    </ns0:entry>
+    <ns0:entry>
+      <ns0:version>1.1</ns0:version>
+      <ns0:date>2014-02-07</ns0:date>
+      <ns0:subject>Typographical changes and clarifications to front-matter</ns0:subject>
+    </ns0:entry>
+    <ns0:entry>
+      <ns0:version>2.0</ns0:version>
+      <ns0:date>2014-12-31</ns0:date>
+      <ns0:subject>Separation of MDM Agent SFRs. Updated cryptography, protocol, X.509 requirements.
+        Added objective requirement for Agent audit storage. New requirement for unenrollment
+        prevention. Initial Release of MDM Agent EP.</ns0:subject>
+    </ns0:entry>
+    <ns0:entry>
+      <ns0:version>3.0</ns0:version>
+      <ns0:date>2016-11-21</ns0:date>
+      <ns0:subject> Updates to align with Technical Decisions. Added requirements to support BYOD use
+        case. </ns0:subject>
+    </ns0:entry>
+    <ns0:entry>
+      <ns0:version>4.0</ns0:version>
+      <ns0:date>2019-03-01</ns0:date>
+      <ns0:subject> Convert to
+        PP-Module. </ns0:subject>
+    </ns0:entry>
+  </ns0:RevisionHistory>
+  <ns1:Introduction>
+    <ns0:section id="overview" title="Overview"> The scope of the MDM Agent PP-Module is to describe the security functionality of a Mobile Device Management (MDM) Agent in terms of [CC] and to define functional and assurance requirements for such products. This PP-Module is intended for use with the following Base-PPs: <html:ul>
+        <html:li>Mobile Device Management (MDM) Protection Profile, Version 4.0</html:li>
+        <html:li>Mobile Device Fundamentals (MDF) Protection Profile, Version 3.1</html:li>
+      </html:ul>
+      <html:br /> These Base-PPs are valid because a MDM Agent is
+      either a 3rd party application manufactured by the MDM Server vendor or is a
+      native application deployed on a mobile device. </ns0:section>
+
+      <ns0:tech-terms>
+            <ns0:term full="Administrator">The person who is responsible for management activities, including setting
+            the policy that is applied by the enterprise on the mobile device.</ns0:term>
+	    <ns0:term abbr="API" full="Application Programming Interface" />
+	    <ns0:term abbr="BYOD" full="Bring Your Own Device" />
+	    <ns0:term abbr="COPE" full="Corporately Owned, Personally Enabled" />
+	    <ns0:term abbr="DN" full="Distinguished Name" />
+	    <ns0:term abbr="DTLS" full="Datagram Transport Layer Security" />
+            <ns0:term full="Enrolled State">The state in which a mobile device is managed by a policy from an MDM.</ns0:term>
+	    <ns0:term abbr="GPOS" full="General Purpose Operating System" />
+	    <ns0:term abbr="HTTPS" full="HyperText Transfer Protocol Secure" />
+	    <ns0:term abbr="IP" full="Internet Protocol" />
+	    <ns0:term abbr="IPSec" full="Internet Protocol Security" />
+            <ns0:term full="Mobile Application Store" abbr="MAS">Mobile Application Store</ns0:term>
+            <ns0:term full="Mobile Device Management" abbr="MDM">Mobile Device Management</ns0:term>
+            <ns0:term full="Mobile Device User">The person who uses and is held responsible for a mobile device.</ns0:term>
+	    <ns0:term abbr="MD" full="Mobile Device" />
+	    <ns0:term abbr="MDF" full="Mobile Device Fundamentals" />
+            <ns0:term full="Operating System">
+	      Software which runs at the highest privilege level and can directly control
+              hardware resources. Modern mobile devices typically have at least two primary
+              operating systems: one which runs on the cellular baseband processor and one which
+              runs on the application processor. The platform of the application processor handles
+              most user interaction and provides the execution environment for apps. The platform of
+              the cellular baseband processor handles communications with the cellular network and
+              may control other peripherals. The term OS, without context, may be assumed to refer
+              to the platform of the application</ns0:term>
+	      <ns0:term abbr="RBG" full="Random Bit Generation" />
+	      <ns0:term abbr="SD" full="Supporting Document" />
+	      <ns0:term abbr="ST" full="Security Target" />
+	      <ns0:term abbr="TLS" full="Transport Layer Security" />
+              <ns0:term full="Unenrolled State">
+		The state in which a mobile device is not managed by an MDM system.
+	      </ns0:term>
+              <ns0:term full="User">See Mobile Device User.</ns0:term>
+	      <ns0:term abbr="VPN" full="Virtual Private Network" />
+	      <ns0:term abbr="WiFi" full="Wireless Fidelity" />
+      </ns0:tech-terms>
+
+    <ns0:section id="targets" title="Compliant Targets of Evaluation"> 
+      The MDM system
+      consists of two primary components: the MDM Server software and the MDM Agent. This PP-Module specifically addresses the MDM Agent. The MDM Agent establishes a secure connection back
+      to the MDM Server, from which it receives policies to enforce on the mobile
+      device. Optionally, the MDM Agent interacts with the Mobile Application
+      Store (MAS) Server to download and install enterprise-hosted applications.<html:br /><html:br /> A
+      compliant MDM Agent is installed on a mobile device as an application
+      (supplied by the developer of the MDM Server software) or is part of the
+      mobile device's OS.This PP-Module builds on either the MDF PP or the MDM PP. A TOE
+      that claims conformance to this PP-Module must also claim conformance to one
+      of those PPs as its Base-PP. A compliant TOE is obligated
+      to implement the functionality required in the Base-PP along with the
+      additional functionality defined in this PP-Module in order to mitigate the
+      threats that are defined by this PP-Module.<html:br /><html:br /> This PP-Module shall build on the MDF PP if the TOE is a native part of a mobile operating system. The TOE for
+      this PP-Module combined with the MDF PP is the mobile
+      device itself plus the MDM Agent. If the MDM Agent is part
+      of the mobile device’s OS, the MDM Agent may present multiple interfaces for
+      configuring the mobile device, such as a local interface and a remote interface. Agents
+      conforming to this PP-Module must at least offer an interface with a trusted
+      channel that serves as one piece of an MDM system. Conformant MDM Agents may also offer other interfaces, and the configuration aspects of
+      these additional interfaces are in scope of this .<html:br /><html:br />
+      This PP-Module shall build on the MDM Server PP if the TOE is a third-party application that is provided with
+      an MDM Server and installed on a mobile device by the user after acquiring
+      the mobile device. The distributed TOE for this PP-Module
+      combined with the MDM Server PP is the entire MDM environment, which includes both the MDM Server and the
+        MDM Agent. Even though the mobile device itself is not part of the TOE, it is expected to be evaluated against the MDF PP so that
+	its baseline security capabilities can be assumed to be present.
+
+	<ns1:TOE_Boundary> Figure 1 shows a high-level example of the PP-Module
+        TOE boundary and its Operational Environment. As stated above, the MDM Agent may either be provided as part of the mobile device itself (shown in
+        red) or distributed as a third-party application from the developer of the MDM Server software (shown in blue).<html:br /><html:br />
+        <ns0:figure entity="images/MDMagentoperatingenvironment.jpg" title="MDM Agent Operating Environment" id="toe" /><html:br /> The MDM
+        Agent must closely interact with or be part of the mobile device’s platform in order to
+        establish policies and to perform queries about device status. The mobile device, in turn,
+        has its own security requirements specified in the MDF PP. </ns1:TOE_Boundary>
+    </ns0:section>
+    <ns1:Use_Cases> This PP-Module defines 4 use cases:<html:br /><html:br />
+      <ns0:usecases>
+        <ns0:usecase title="Enterprise-owned device for general-purpose enterprise use" id="usecase1">
+          <ns0:description> An Enterprise-owned device for general-purpose business use is commonly
+            called Corporately Owned, Personally Enabled (COPE). This use case entails a significant
+            degree of Enterprise control over configuration and software inventory. Enterprise
+            administrators use an MDM product to establish policies on the mobile
+            devices prior to user issuance. Users may use Internet connectivity to browse the web or
+            access corporate mail or run Enterprise applications, but this connectivity may be under
+            significant control of the Enterprise. The user may also be expected to store data and
+            use applications for personal, non-enterprise use. The Enterprise administrator uses the
+              MDM product to deploy security policies and query mobile device
+            status. The MDM may issue commands for remediation actions.
+          </ns0:description>
+        </ns0:usecase>
+        <ns0:usecase title="Enterprise-owned device for specialized, high-security use" id="usecase2">
+          <ns0:description>An Enterprise-owned device with intentionally limited network connectivity,
+            tightly controlled configuration, and limited software inventory is appropriate for
+            specialized, high-security use cases. As in the previous use case, the MDM product is used to establish such policies on mobile devices prior to
+            issuance to users. The device may not be permitted connectivity to any external
+            peripherals. It may only be able to communicate via its Wi-Fi or cellular radios with
+            the Enterprise-run network, which may not even permit connectivity to the Internet. Use
+            of the device may require compliance with usage policies that are more restrictive than
+            those in any general-purpose use case, yet may mitigate risks to highly sensitive
+            information. Based upon the operation environment and the acceptable risk level of the
+            enterprise, those security functional requirements outlined in <ns0:xref to="sfr" />
+            of this Protection Profile along with the selections in the Use Case 2 template defined
+            in <ns0:xref to="usecase1" /> are sufficient for the high-security use case.
+          </ns0:description>
+	  <ns0:config>
+	    
+	    
+	    <ns0:ref-id>s-prevent-unenrollment</ns0:ref-id>
+	  </ns0:config>
+
+          
+          
+          
+          
+          
+          
+
+	</ns0:usecase>
+        <ns0:usecase title="Personally owned device for personal and enterprise use" id="usecase3">
+          <ns0:description>A personally owned device, which is used, for both personal activities and
+            enterprise data is commonly called Bring Your Own Device (BYOD). The device may be
+            provisioned for access to enterprise resources after significant personal usage has
+            occurred. Unlike in the enterprise-owned cases, the enterprise is limited in what
+            security policies it can enforce because the user purchased the device primarily for
+            personal use and is unlikely to accept policies that limit the functionality of the
+            device.<html:br /><html:br /> However, because the Enterprise allows the user full (or
+            nearly full) access to the Enterprise network, the Enterprise will require certain
+            security policies, for example a password or screen lock policy, and health reporting,
+            such as the integrity of the mobile device system software, before allowing access. The
+            administrator of the MDM can establish remediation actions, such as
+            wipe of the Enterprise data, for non-compliant devices. These controls could potentially
+            be enforced by a separation mechanism built-in to the device itself to distinguish
+            between enterprise and personal activities, or by a third-party application that
+            provides access to enterprise resources and leverages security capabilities provided by
+            the mobile device. Based upon the Operational Environment and the acceptable risk level
+            of the enterprise, those security functional requirements outlined in <ns0:xref to="sfr" /> of this Protection Profile along with the selections in the Use Case 3
+            template defined in <ns0:xref to="use-case" /> are sufficient for the secure
+          implementation of this BYOD use case.</ns0:description>
+	  <ns0:config>
+	    <ns0:ref-id>s-remediation</ns0:ref-id>
+	  </ns0:config>
+        </ns0:usecase>
+        <ns0:usecase title="Personally owned device for personal and limited enterprise use" id="usecase4">
+          <ns0:description>A personally owned device may also be given access to limited enterprise
+            services such as enterprise email. Because the user does not have full access to the
+            enterprise or enterprise data, the enterprise may not need to enforce any security
+            policies on the device. However, the enterprise may want secure email and web browsing
+            with assurance that the services being provided to those clients by the mobile device
+            are not compromised. Based upon the Operational Environment and the acceptable risk
+            level of the enterprise, those security functional requirements outlined in <ns0:xref to="sfr" /> of this PP are sufficient for the secure
+          implementation of this BYOD use case.</ns0:description>
+	  
+        </ns0:usecase>
+      </ns0:usecases>
+    </ns1:Use_Cases>
+  </ns1:Introduction>
+  <ns1:Conformance_Claims />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  <ns1:Security_Problem_Description>
+    <ns0:section id="threats" title="Threats"> The following threats are specific to MDM"
+      /&gt; Agents, and represents an addition to those identified in the Base-PPs. 
+      
+      <ns0:threats>
+        <ns0:threat name="T.MALICIOUS_APPS">
+	  <ns0:description>
+	    FILL IN
+	  </ns0:description>
+          <ns0:objective-refer ref="O.DATA_PROTECTION_TRANSIT">
+            <ns0:rationale>The threat T.MALICIOUS_APPS is countered by O.DATA_PROTECTION_TRANSIT as this
+              provides the capability to protect app loading/updates against malicious insertion
+              from the network.</ns0:rationale>
+          </ns0:objective-refer>
+          <ns0:objective-refer ref="O.APPLY_POLICY">
+            <ns0:rationale>The threat T.MALICIOUS_APPS is countered by O.APPLY_POLICY as this provides
+              policy preventing loading of unapproved apps into the TOE.</ns0:rationale>
+          </ns0:objective-refer>
+        </ns0:threat>
+        <ns0:threat name="T.BACKUP">
+          <ns0:description> An attacker may try to target backups of data or credentials and exfiltrate
+            data. Since the backup is stored on either a personal computer or end user’s backup
+            repository, it’s not likely the enterprise would detect compromise.</ns0:description>
+          <ns0:objective-refer ref="O.DATA_PROTECTION_TRANSIT">
+            <ns0:rationale>The threat T.BACKUP is countered by O.DATA_PROTECTION_TRANSIT as this
+              provides the capability to communicate using one (or more) standard protocols as a
+              means to maintain the confidentiality of data that are transmitted between the Agent
+              and other entities.</ns0:rationale>
+          </ns0:objective-refer>
+          <ns0:objective-refer ref="O.APPLY_POLICY">
+            <ns0:rationale>The threat T.BACKUP is countered by O.APPLY_POLICY as this provides policy to
+              enforce that backups be stored only in secure, protected locations.</ns0:rationale>
+          </ns0:objective-refer>
+        </ns0:threat>
+        <ns0:threat name="T.NETWORK_ATTACK">
+	  <ns0:description>FILL IN</ns0:description>
+          <ns0:objective-refer ref="O.DATA_PROTECTION_TRANSIT">
+            <ns0:rationale>The threat T.NETWORK_ATTACK is countered by O.DATA_PROTECTION_TRANSIT as this
+              provides the capability to communicate using one (or more) standard protocols as a
+              means to maintain the confidentiality of data that are transmitted between the Agent
+              and other entities.</ns0:rationale>
+          </ns0:objective-refer>
+          <ns0:objective-refer ref="O.APPLY_POLICY">
+            <ns0:rationale>The threat T.NETWORK_ATTACK is countered by O.APPLY_POLICY as this provides a
+              secure configuration of the Agent to protect data that it processes.</ns0:rationale>
+          </ns0:objective-refer>
+          <ns0:objective-refer ref="OE.IT_ENTERPRISE">
+            <ns0:rationale>The threat T.NETWORK_ATTACK is countered by OE.IT_ENTERPRISE by reducing the network exposure of the
+              mobile device.</ns0:rationale>
+          </ns0:objective-refer>
+        </ns0:threat>
+        <ns0:threat name="T.NETWORK_EAVESDROP">
+	  <ns0:description>FILL IN</ns0:description>
+          <ns0:objective-refer ref="O.DATA_PROTECTION_TRANSIT">
+            <ns0:rationale>The threat T.NETWORK_EAVESDROP is countered by O.DATA_PROTECTION_TRANSIT as
+              this provides the capability to communicate using one (or more) standard protocols as
+              a means to maintain the confidentiality of data that are transmitted between the Agent
+              and other entities.</ns0:rationale>
+          </ns0:objective-refer>
+          <ns0:objective-refer ref="O.APPLY_POLICY">
+            <ns0:rationale>The threat T.NETWORK_EAVESDROP is countered by O.APPLY_POLICY as this
+              provides a secure configuration of the Agent to protect data that it
+              processes.</ns0:rationale>
+          </ns0:objective-refer>
+          <ns0:objective-refer ref="OE.IT_ENTERPRISE">
+            <ns0:rationale>
+              The threat T.NETWORK_EAVESDROP is countered by OE.IT_ENTERPRISE by reducing the network exposure of the
+              mobile device.  
+            </ns0:rationale>
+          </ns0:objective-refer>
+        </ns0:threat>
+        <ns0:threat name="T.PHYSICAL_ACCESS">
+	  <ns0:description> FILL IN </ns0:description>
+          <ns0:objective-refer ref="O.ACCOUNTABILITY">
+            <ns0:rationale>The threat T.PHYSICAL_ACCESS is countered by O.ACCOUNTABILITY as this
+              provides the capability to log attempts by unauthorized personnel to access data, and
+              to log any access to the data or the device, as well as changes to the device during
+              the time when it is not under the control of an authorized user.</ns0:rationale>
+          </ns0:objective-refer>
+          <ns0:objective-refer ref="O.APPLY_POLICY">
+            <ns0:rationale>The threat T.PHYSICAL_ACCESS is countered by O.APPLY_POLICY as this provides
+              a secure configuration of the Agent to protect data that it processes.</ns0:rationale>
+          </ns0:objective-refer>
+          <ns0:objective-refer ref="O.STORAGE"> 
+            <ns0:rationale>The threat T.PHYSICAL_ACCESS is countered by O.STORAGE as this provides the capability to encrypt all user and enterprise data and authentication keys to ensure the confidentiality of data that it stores.</ns0:rationale>
+          </ns0:objective-refer>
+        </ns0:threat>        
+      </ns0:threats>
+    </ns0:section>
+    <ns0:section id="Assumptions" title="Assumptions">
+      <ns0:assumptions>
+        <ns0:assumption name="A.CONNECTIVITY">
+          <ns0:description>The TOE relies on network connectivity to carry out its
+            management activities. The TOE will robustly handle instances when
+            connectivity is unavailable or unreliable. </ns0:description>
+          <ns0:objective-refer ref="OE.WIRELESS_NETWORK">
+            <ns0:rationale>The Operational Environment objective OE.WIRELESS_NETWORK is realized through
+              A.CONNECTIVITY. </ns0:rationale>
+          </ns0:objective-refer>
+        </ns0:assumption>
+        <ns0:assumption name="A.MOBILE_DEVICE_PLATFORM">
+          <ns0:description>The MDM Agent relies upon mobile platform and hardware evaluated against the
+            MDF PP and assured to provide policy enforcement as well as cryptographic services and
+            data protection. The mobile platform provides trusted updates and software integrity
+            verification of the MDM Agent. </ns0:description>
+          <ns0:objective-refer ref="OE.MOBILE_DEVICE_PLATFORM">
+            <ns0:rationale>The Operational Environment objective OE.MOBILE_DEVICE_PLATFORM is realized
+              through A.MOBILE_DEVICE_PLATFORM. </ns0:rationale>
+          </ns0:objective-refer>
+        </ns0:assumption>
+        <ns0:assumption name="A.PROPER_ADMIN">
+          <ns0:description>One or more competent, trusted personnel who are not careless, willfully
+            negligent, or hostile, are assigned and authorized as the TOE
+            Administrators, and do so using and abiding by guidance documentation. </ns0:description>
+          <ns0:objective-refer ref="OE.DATA_PROPER_ADMIN">
+            <ns0:rationale>The Operational Environment objective OE.DATA_PROPER_ADMIN is realized
+              through A.PROPER_ADMIN. </ns0:rationale>
+          </ns0:objective-refer>
+        </ns0:assumption>
+        <ns0:assumption name="A.PROPER_USER">
+          <ns0:description> Mobile device users are not willfully negligent or hostile, and use the
+            device within compliance of a reasonable Enterprise security policy. </ns0:description>
+          <ns0:objective-refer ref="OE.DATA_PROPER_USER">
+            <ns0:rationale>The Operational Environment objective OE.DATA_PROPER_USER is realized through
+              A.PROPER_USER. </ns0:rationale>
+          </ns0:objective-refer>
+        </ns0:assumption>
+      </ns0:assumptions>
+    </ns0:section>
+    <ns0:section id="securityPolicy" title="Organizational Security Policies">
+      <ns0:OSPs>
+        <ns0:OSP name="P.ACCOUNTABILITY">
+          <ns0:description>Personnel operating the TOE shall be accountable for their
+            actions within the TOE. </ns0:description>
+          <ns0:objective-refer ref="O.ACCOUNTABILITY">
+            <ns0:rationale>O.ACCOUNTABILITY provides logging of personnel actions in order to provide
+              accountability of all personnel actions within the TOE. </ns0:rationale>
+          </ns0:objective-refer>
+        </ns0:OSP>
+        <ns0:OSP name="P.ADMIN">
+          <ns0:description>The configuration of the mobile device security functions must adhere to the
+            Enterprise security policy. </ns0:description>
+          <ns0:objective-refer ref="O.APPLY_POLICY">
+            <ns0:rationale>The TOE adheres to the Enterprise security policy through
+              the application of O.APPLY_POLICY. </ns0:rationale>
+          </ns0:objective-refer>
+        </ns0:OSP>
+        <ns0:OSP name="P.DEVICE_ENROLL">
+          <ns0:description>A mobile device must be enrolled for a specific user by the administrator of
+            the MDM prior to being used in the Enterprise network by the user. </ns0:description>
+          <ns0:objective-refer ref="O.APPLY_POLICY">
+            <ns0:rationale>The TOE enrolls mobile devices for specific users with
+              policy through the application of O.APPLY_POLICY. </ns0:rationale>
+          </ns0:objective-refer>
+        </ns0:OSP>
+        <ns0:OSP name="P.NOTIFY">
+          <ns0:description>The mobile user must immediately notify the administrator if a mobile device
+            is lost or stolen so that the administrator may apply remediation actions via the MDM system. </ns0:description>
+          <ns0:objective-refer ref="O.APPLY_POLICY">
+            <ns0:rationale>The TOE provides the capability for the administrator to
+              apply remediation actions via the MDM system through policy, which
+              is applied through O.APPLY_POLICY. </ns0:rationale>
+          </ns0:objective-refer>
+        </ns0:OSP>
+      </ns0:OSPs>
+    </ns0:section>
+  </ns1:Security_Problem_Description>
+  <ns1:Security_Objectives>
+    <ns0:section id="TOEobjectives" title="Security Objectives for the TOE">
+      <ns0:SOs>
+        <ns0:SO name="O.ACCOUNTABILITY">
+          <ns0:description>The TOE must provide logging facilities, which record
+            management actions undertaken by its administrators. </ns0:description>
+            <ns0:addressed-by>FAU_ALT_EXT.2, FAU_GEN.1(2), FAU_SEL.1(2)</ns0:addressed-by>
+	    <ns0:rationale>FILL IN</ns0:rationale>
+        </ns0:SO>
+        <ns0:SO name="O.APPLY_POLICY">
+          <ns0:description>The TOE must facilitate configuration and enforcement of
+            enterprise security policies on mobile devices via interaction with the mobile OS and
+            the MDM Server. This will include the initial enrollment of the device
+            into management, through its entire lifecycle, including policy updates and its possible
+            unenrollment from management services. </ns0:description>
+            <ns0:addressed-by>FAU_STG_EXT.3(objective), FIA_ENR_EXT.2, FMT_POL_EXT.2, FMT_SMF_EXT.4,FMT_UNR_EXT.1</ns0:addressed-by>
+	    <ns0:rationale>FILL IN </ns0:rationale>
+        </ns0:SO>
+        <ns0:SO name="O.DATA_PROTECTION_TRANSIT">
+          <ns0:description>Data exchanged between the MDM Server and the MDM Agent must be protected from being monitored, accessed, or altered. </ns0:description>
+	  <ns0:addressed-by>
+          
+          FCS_DTLSS_EXT.1 (from TLS Package),
+	  FCS_DTLSC_EXT.1 (from TLS Package),
+          
+          FCS_TLSC_EXT.1 (from TLS Package),
+	  FCS_TLSC_EXT.2 (from TLS Package),
+	  FCS_TLSS_EXT.1 (from TLS Package),
+	  FCS_TLSS_EXT.2 (from TLS Package),
+          
+           
+	  FPT_NET_EXT.1 (objective),
+	  FTP_ITC_EXT.1(2) (if MDF is Base-PP),
+          
+	  FTP_TRP.1(2) (if MDF is Base-PP)
+	  </ns0:addressed-by>
+	  <ns0:rationale>FILL IN</ns0:rationale>
+          
+          
+          
+          
+        </ns0:SO>
+        <ns0:SO name="O.STORAGE">
+          <ns0:description> To address the issue of loss of confidentiality of user data in the event of
+            loss of a mobile device (T.PHYSICAL), conformant TOEs will use
+            platform provide key storage. The TOE is expected to protect its
+            persistent secrets and private keys. </ns0:description>
+            <ns0:addressed-by>
+	      FCS_STG_EXT.1(2) (if MDM is Base-PP),
+              FCS_STG_EXT.4 (if MDF is Base-PP)
+	    </ns0:addressed-by>
+	    <ns0:rationale> FILL IN</ns0:rationale>
+	  
+          
+          
+          
+        </ns0:SO>
+      </ns0:SOs>
+    </ns0:section>
+    <ns0:section id="objectivesEnvironment" title="Security Objectives for the Operational Environment">
+      <ns0:SOEs>
+        <ns0:SOE name="OE.DATA_PROPER_ADMIN">
+          <ns0:description>TOE Administrators are trusted to follow and apply all administrator guidance
+            in a trusted manner. </ns0:description>
+          <ns0:consistency-rationale />
+        </ns0:SOE>
+        <ns0:SOE name="OE.DATA_PROPER_USER">
+          <ns0:description>Users of the mobile device are trained to securely use the mobile device and
+            apply all guidance in a trusted manner. </ns0:description>
+          <ns0:consistency-rationale />
+        </ns0:SOE>
+        <ns0:SOE name="OE.IT_ENTERPRISE">
+          <ns0:description>The Enterprise IT infrastructure provides security for a network that is
+            available to the TOE and mobile devices that prevents unauthorized
+            access. </ns0:description>
+          <ns0:consistency-rationale />
+        </ns0:SOE>
+        <ns0:SOE name="OE.MOBILE_DEVICE_PLATFORM">
+          <ns0:description>The MDM Agent relies upon the trustworthy mobile platform
+            and hardware to provide policy enforcement as well as cryptographic services and data
+            protection. The mobile platform provides trusted updates and software integrity
+            verification of the MDM Agent. </ns0:description>
+          <ns0:consistency-rationale />
+        </ns0:SOE>
+        <ns0:SOE name="OE.WIRELESS_NETWORK">
+          <ns0:description>A wireless network will be available to the mobile devices. </ns0:description>
+          <ns0:consistency-rationale />
+        </ns0:SOE>
+      </ns0:SOEs>
+    </ns0:section>
+    <ns0:section title="Security Objectives Rationale" id="rationale">
+      
+    </ns0:section>
+  </ns1:Security_Objectives>
+  <ns1:sfr title="Security Requirements">
+    <ns0:base-pp id="base-mdf">
+      <ns0:git>
+	<ns0:url>https://github.com/commoncriteria/mobile-device</ns0:url>
+	<ns0:branch>release-3.2</ns0:branch>
+      </ns0:git>
+      <ns0:url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=417&amp;id=417</ns0:url>
+
+      
+      <ns0:modified-sfrs />
+      <ns0:additional-sfrs>
+        <ns1:crypto-fcs title="Cryptographic Support (FCS)">
+          <ns0:ext-comp-def fam-id="FCS_STG_EXT" title="Trusted Channel">
+            <ns0:mod-def> This family is defined in both the MDF and the MDM Base-PPs. This PP-Module augments the extended family by adding one additional component, FCS_STG_EXT.4. This new component and its impact on the extended family’s component leveling are shown below; reference the MDF or MDM PP for all other definitions for this family. </ns0:mod-def>
+          </ns0:ext-comp-def>
+          <ns0:f-component cc-id="fcs_stg_ext.4" name="Cryptographic Key Storage">
+            <ns0:consistency-rationale> This SFR requires the MDM Agent to use
+              functionality defined by the Base-PP in FCS_CKM_EXT.1. </ns0:consistency-rationale>
+            <ns0:comp-lev> requires the TSF to define a specific location for its key
+              storage.</ns0:comp-lev>
+            <ns0:management>There are no management functions foreseen.</ns0:management>
+            <ns0:audit>There are no auditable events foreseen.</ns0:audit>
+            <ns0:dependencies>FCS_CKM.1 Cryptographic Key Generation</ns0:dependencies>
+            <ns0:f-element>
+              <ns0:title>The MDM Agent shall use the platform provided key storage for
+                all persistent secret and private keys.</ns0:title>
+              <ns0:note role="application">This requirement ensures that persistent secrets
+                (credentials, secret keys) and private keys are stored securely when not in use by
+                the mobile platform. </ns0:note>
+              <ns0:aactivity>
+                <ns0:TSS> The evaluator will verify that the TSS lists each persistent
+                  secret (credential, secret key) and private key needed to meet the requirements in
+                  the ST. For each of these items, the evaluator will confirm that
+                  the TSS lists for what purpose it is used, and, for each
+                  platform listed as supported in the ST, how it is stored. The
+                  evaluator shall verify that the Agent calls a platform-provided API to store
+                  persistent secrets and private keys. </ns0:TSS>
+              </ns0:aactivity>
+            </ns0:f-element>
+          </ns0:f-component>
+	</ns1:crypto-fcs>
+        <ns1:trust-path-ftp title="Trusted Path/Channels (FTP)">
+          <ns0:f-component cc-id="ftp_itc_ext.1" name="Trusted Channel Communication" iteration="TRUSTCHAN">
+            <ns0:consistency-rationale> The Base-PP defines FTP_ITC_EXT.1 to define the secure protocols used for trusted channel communications. This PP-Module iterates the SFR to specify a subset of these protocols that may be used for MDM Agent communications in particular. </ns0:consistency-rationale>
+            <ns0:f-element id="mut-chan-type">
+              <ns0:title><html:b>Refinement:</html:b> The TSF shall use <ns0:selectables linebreak="yes">
+                  <ns0:selectable>mutually authenticated TLS client as defined in the Package for
+                    Transport Layer Security</ns0:selectable>
+                  <ns0:selectable>mutually authenticated DTLS client as defined in the Package for
+                    Transport Layer Security</ns0:selectable>
+                  <ns0:selectable>HTTPS</ns0:selectable>
+                </ns0:selectables> to provide a communication channel between itself and another trusted
+                IT product that is logically distinct from other communication channels, provides
+                assured identification of its end points, protects channel data from disclosure, and
+                detects modification of the channel data.</ns0:title>
+              <ns0:note role="application"> The intent of this requirement is to protect the
+                communications channel between MDM Server and Agent, post
+                enrollment. <ns0:xref to="FTP_TRP.1(2)" /> is to protect the communications
+                channel between MDM Server and Agent during enrollment.
+                <html:br /><html:br /> This requirement is to ensure that the transmission of any audit
+                logs, mobile device information data (software version, hardware model, and
+                application versions), and configuration data collected by the MDM
+                Agent and sent from the MDM Agent to the MDM
+                Server, when commanded, or at configurable intervals, is properly protected. This
+                trusted channel also protects any commands and policies sent by the MDM Server to the MDM Agent. Either the MDM Agent or the MDM Server is able to initiate the
+                connection.<html:br /><html:br /> This requirement is iterated from the MDF PP to indicate the protocols that the MDM Agent can use for a trusted
+                channel. The mobile device is required to perform the mandated cryptographic
+                protocols as in the Base-PP for communication channels mandated in
+                the MDF PP. The ST author must select one of
+                TLS, DTLS, or HTTPS in order to establish and maintain a trusted channel between the
+                  MDM Agent and the MDM Server. Only TLS, DTLS,
+                or HTTPS are acceptable for this trusted channel.<html:br /><html:br /> Since this
+                requirement is only for the case when the PP-Module builds on MDF
+                PP and in this case it is expected that the MDM Agent will be a
+                native part of the mobile operating system, it is expected that the MDM Agent will utilize the mobile device's implementation of the
+                selected protocols. HTTPS (FCS_HTTPS_EXT.1) and TLS (FCS_TLSC_EXT.1) are already
+                mandatory for a MDF ST. If "TLS" or "DTLS" is selected the following selections from
+                the TLS Functional Package must be made: <html:ul>
+                  <html:li>FCS_TLS_EXT.1: <html:ul>
+                      <html:li>either TLS or DTLS is selected depending on the selection made in
+                        FTP_ITC_EXT.1.1</html:li>
+                      <html:li>client must be selected</html:li>
+                    </html:ul>
+                  </html:li>
+                  <html:li>FCS_TLSC_EXT.1.1: <html:ul>
+                      <html:li>The cipher suites selected must correspond with the algorithms and
+                        hash functions allowed in FCS_COP.1 from the MDF PP.</html:li>
+                      <html:li>mutual authentication must be selected</html:li>
+                    </html:ul>
+                  </html:li>
+                </html:ul> Protocol, RBG, Certificate validation, algorithm, and similar services may
+                be met with platform provided services. <html:br /><html:br />
+              </ns0:note>
+            </ns0:f-element>
+            <ns0:f-element id="mut-chan-init">
+              <ns0:title><html:b>Refinement:</html:b> The TSF shall permit the TSF and the MDM
+                Server and <ns0:selectables>
+                  <ns0:selectable>MAS Server</ns0:selectable>
+                  <ns0:selectable>no other IT entities</ns0:selectable>
+                </ns0:selectables> to initiate communication via the trusted channel.</ns0:title>
+              <ns0:note role="application"> For all other use cases, the mobile device initiates the
+                communication; however, for MDM Agents, the MDM
+                Server may also initiate communication.</ns0:note>
+            </ns0:f-element>
+            <ns0:f-element id="mut-chan-all-none">
+              <ns0:title><html:b>Refinement:</html:b> The TSF shall initiate communication via the trusted channel for all
+                communication between the MDM Agent and the MDM Server and <ns0:selectables>
+                  <ns0:selectable>all communication between the MAS Server and the MDM
+                    Agent</ns0:selectable>
+                  <ns0:selectable>no other communication</ns0:selectable>
+                </ns0:selectables>
+              </ns0:title>
+              <ns0:note role="application"> This element is iterated from the MDF PP;
+                it is expected that the mobile device will initiate the trusted channel between the MDM
+                Agent and the MDM Server for administrative communication and may initiate other
+                trusted channels to other trusted IT entities for other uses.</ns0:note>
+              <ns0:aactivity>
+                <ns0:TSS>The evaluator shall examine the TSS to determine that the
+                  methods of Agent-Server communication are indicated, along with how those
+                  communications are protected. The evaluator shall also confirm that all protocols
+                  listed in the TSS in support of remote TOE
+                  administration are consistent with those specified in the requirement, and are
+                  included in the requirements in the ST.<html:br /><html:br />
+                </ns0:TSS>
+                <ns0:Guidance> The evaluator shall confirm that the operational guidance contains
+                  instructions for configuring the communication channel between the MDM Agent and
+                  the MDM Server and conditionally, the MAS Server for each supported
+                  method.<html:br /><html:br />
+                </ns0:Guidance>
+                <ns0:Tests>For each supported identifier type (excluding DNs), the evaluator shall
+                  repeat the following tests:<html:br /><html:br />
+                  <ns0:testlist>
+                    <ns0:test>The evaluators shall ensure that communications using each specified (in
+                      the operational guidance) Agent-Server communication method is tested during
+                      the course of the evaluation, setting up the connections as described in the
+                      operational guidance and ensuring that communication is
+                      successful.
+                    </ns0:test>
+                    <ns0:test>The evaluator shall ensure, for each method of Agent-Server communication,
+                      the channel data is not sent in plaintext.
+                    </ns0:test>
+                    <ns0:test>The evaluator shall ensure, for each communication channel with the MDM
+                      Server, that a protocol analyzer identifies the traffic as the protocol under
+                      testing.
+                    </ns0:test>
+                  </ns0:testlist> 
+                    <html:br />
+                    Further evaluation activities are associated with the specific protocols.<html:br /><html:br />
+                </ns0:Tests>
+              </ns0:aactivity>
+            </ns0:f-element>
+          </ns0:f-component>
+          <ns0:f-component cc-id="ftp_trp.1" name="Trusted Path (for Enrollment)" iteration="TRUSTPATH">
+            <ns0:consistency-rationale>This SFR uses the trusted channel protocols defined by the Base-PP in FTP_ITC_EXT.1 to facilitate a trusted path that the MDM Agent can use to enroll the mobile device it runs on into
+              management. Even though the Base-PP does not define FTP_TRP.1, the
+              requirement was given an iteration label for consistency with the MDM Server requirement of the same name. </ns0:consistency-rationale>
+            <ns0:f-element>
+              <ns0:title><html:b>Refinement:</html:b> The TSF shall use <ns0:selectables linebreak="yes">
+                  <ns0:selectable id="TRP_TLS_2">TLS client as defined in the Package for Transport Layer Security</ns0:selectable>
+                  <ns0:selectable id="TRP_HTTPS_2">HTTPS</ns0:selectable>
+                </ns0:selectables> to provide a trusted communication path between itself and another
+                trusted IT product that is logically distinct from other communication paths and
+                provides assured identification of its endpoints and protection of the communicated
+                data from disclosure and detection of modification of the communicated data from
+                [<html:i>modification, disclosure</html:i>]. </ns0:title>
+            </ns0:f-element>
+            <ns0:f-element>
+              <ns0:title><html:b>Refinement:</html:b> The TSF shall permit MD users to initiate communication via the trusted path.
+              </ns0:title>
+            </ns0:f-element>
+            <ns0:f-element>
+              <ns0:title><html:b>Refinement:</html:b> The TSF shall require the use of the trusted path for [<html:i>[all MD user actions]</html:i>]. 
+              </ns0:title>
+              <ns0:note role="application"> This requirement ensures that authorized MD users initiate
+                all communication with the TOE via a trusted path, and that all
+                communications with the TOE by MD users is performed over this
+                path. The purpose of this connection is for enrollment by the MD user.
+                <html:br /><html:br /> The ST author chooses the mechanism or
+                mechanisms supported by the TOE. The data passed in this trusted
+                communication channel are encrypted as defined by the protocol selected.
+                <html:br /><html:br /> Since this requirement is only for the case when the PP-Module builds on MDF PP and in this case it is expected that the
+                  MDM Agent will be a native part of the mobile operating system,
+                it is expected that the MDM Agent will utilize the mobile device's
+                implementation of the selected protocols. HTTPS (FCS_HTTPS_EXT.1) and TLS
+                (FCS_TLSC_EXT.1) are already mandatory for a MDF ST. If "TLS" or "DTLS" is selected
+                the following selections from the TLS Functional Package must be made: 
+                
+                <html:ul>
+                  <html:li>FCS_TLS_EXT.1: <html:ul>
+                      <html:li>TLS must be selected</html:li>
+                      <html:li>client must be selected</html:li>
+                    </html:ul>
+                  </html:li>
+                  <html:li>FCS_TLSC_EXT.1.1: <html:ul>
+                      <html:li>The cipher suites selected must correspond with the algorithms and
+                        hash functions allowed in FCS_COP.1 from the MDF PP.</html:li>
+                    </html:ul>
+                  </html:li>
+                </html:ul>
+              </ns0:note>
+              <ns0:aactivity>
+                <ns0:TSS>The evaluator shall examine the TSS to determine that the
+                  methods of remote enrollment are indicated, along with how those communications
+                  are protected. The evaluator shall also confirm that all protocols listed in the
+                    TSS in support of enrollment are consistent with those
+                  specified in the requirement, and are included in the requirements in the ST.<html:br /><html:br />
+                </ns0:TSS>
+                <ns0:Guidance>The evaluator shall confirm that the operational guidance contains
+                  instructions for establishing the enrollment sessions for each supported
+                  method.<html:br /><html:br />
+                </ns0:Guidance>
+                <ns0:Tests>For each MDM Agent/platform listed as supported in the
+                    ST: <html:br /><html:br />
+                  <ns0:testlist>
+                    <ns0:test>The evaluators shall ensure that communications using each specified (in
+                      the operational guidance) enrollment method is tested during the course of the
+                      evaluation, setting up the connections as described in the operational
+                      guidance and ensuring that communication is successful.
+                    </ns0:test>
+                    <ns0:test>For each method of enrollment supported, the evaluator shall follow the
+                      operational guidance to ensure that there is no available interface that can
+                      be used by a remote user to establish enrollment sessions without invoking the
+                      trusted path.
+                    </ns0:test>
+                    <ns0:test>The evaluator shall ensure, for each method enrollment, the channel data
+                      is not sent in plaintext.
+                    </ns0:test>
+                  </ns0:testlist> 
+                    <html:br />
+                    Further evaluation activities are associated with the specific protocols.<html:br /><html:br />
+                </ns0:Tests>
+              </ns0:aactivity>
+            </ns0:f-element>
+          </ns0:f-component>
+	</ns1:trust-path-ftp>
+      </ns0:additional-sfrs>
+      <ns0:con-toe> When this PP-Module is used to extend the MDF PP, the TOE type for
+        the overall TOE is still a mobile device. The TOE boundary is simply extended to include the
+          MDM Agent application that runs on the mobile device.</ns0:con-toe>
+      <ns0:con-sec-prob />
+      <ns0:con-obj />
+      <ns0:con-op-en />
+      <ns0:con-mod ref="T.BACKUP"> This threat protects user data from unauthorized logical access. An
+        attacker would attempt to exploit this threat by first exploiting the T.PHYSICAL, T.FLAWAPP,
+        or T.PERSISTENT threats defined in the Base-PP against the mobile device
+        as a whole, and then using the device itself as an attack vector against any backup data
+        stored on the TOE.</ns0:con-mod>
+      <ns0:con-mod ref="O.ACCOUNTABILITY"> The Base-PP provides an objective,
+        O.INTEGRITY, that ensures that the integrity of the mobile device is maintained. This
+        objective assists in the implementation of O.INTEGRITY by providing records of
+        administrative activity, which would include actions that could cause the integrity of the
+        mobile device to be lost.</ns0:con-mod>
+      <ns0:con-mod ref="O.APPLY_POLICY"> This objective supports the implementation of the O.CONFIG
+        objective defined in the Base-PP by specifying an additional method by
+        which the TSF may be configured.</ns0:con-mod>
+	<ns0:con-mod ref="O.DATA_PROTECTION_TRANSIT"> This objective extends the Base-PP's O.COMMS
+	objective by ensuring that the communications related to MDM
+        Agent functionality are secured in the same manner as other sensitive data transmitted
+        to/from the mobile device.</ns0:con-mod>
+      <ns0:con-mod ref="O.STORAGE"> This objective extends the Base-PP’s O.STORAGE
+        objective by ensuring that the mobile device’s data-at-rest protection mechanisms can also
+        be used to secure the MDM Agent and related data.</ns0:con-mod>
+      <ns0:con-mod ref="OE.DATA_PROPER_ADMIN"> This objective extends the Base-PP’s
+        OE.CONFIG objective by expecting that TOE administrators act appropriately when installing
+        or configuring the MDM Agent.</ns0:con-mod>
+      <ns0:con-mod ref="OE.DATA_PROPER_USER"> This objective extends the Base-PP’s
+        OE.NOTIFY and OE.PRECAUTION objectives by setting reasonable expectations for user security
+        behavior.</ns0:con-mod>
+      <ns0:con-mod ref="OE.IT_ENTERPRISE"> This objective helps mitigate the T.EAVESDROP and T.NETWORK
+        threats defined by the Base-PP by reducing the network exposure of the
+        mobile device. This does not conflict with the Base-PP because the Base-PP does not set specific expectations for the level of security that the
+        enterprise provides, but all use cases from the Base-PP set expectations
+        that the mobile device is used for some enterprise purposes so it is reasonable to expect
+        the enterprise have security controls in place to protect these functions. </ns0:con-mod>
+      <ns0:con-mod ref="OE.MOBILE_DEVICE_PLATFORM"> This objective is suitable because the MDM Agent can reasonably expect the device it has been deployed on to be
+        secure.</ns0:con-mod>
+      <ns0:con-mod ref="OE.WIRELESS_NETWORK"> This objective is suitable because while the Base-PP does not associate any availability metrics with wireless
+        communications, the mobile device will always provide the ability to access a wireless
+        network.</ns0:con-mod>
+      <ns0:con-mod ref="fau_alt_ext.2"> This SFR requires the MDM Agent to use a
+        trusted channel defined by FTP_ITC_EXT.1 in the Base-PP to transmit data
+        about its own behavior to the Operational Environment.</ns0:con-mod>
+      <ns0:con-mod ref="fau_gen.1(2)"> The Base-PP defines FAU_GEN.1; this PP-Module defines a second iteration to use the same audit mechanism to
+        generate audit records for the MDM Agent’s behavior. It may alternatively
+        allow the TSF to generate its own audit trail, which does not impede the MDF from enforcing
+        its own security functionality.</ns0:con-mod>
+      <ns0:con-mod ref="fau_sel.1(2)"> The Base-PP defines FAU_SEL.1; this PP-Module defines a second iteration to use the same audit mechanism to select
+        the auditable events to be generated by the MDM Agent. Note that the Base-PP does not mandate this requirement so it is possible that only the
+          MDM Agent portion of the TOE may implement it. In this case, the SFR
+        provides a selection for the MDM Agent to implement its own mechanism to
+        perform this function rather than a platform-provided one.</ns0:con-mod>
+      <ns0:con-mod ref="fia_enr_ext.2"> This SFR requires the MDM Agent to record data
+        that it receives from the Operational Environment. It does not need to use any functionality
+        defined in the Base-PP to do this, and doing this does not prevent the
+        enforcement of any security requirements from the Base-PP. </ns0:con-mod>
+      <ns0:con-mod ref="fmt_pol_ext.2"> This SFR requires the MDM Agent to use a
+        digital signature algorithm to validate data that it receives from the Operational
+        Environment. To do this, the MDM Agent will use the functionality defined
+        by the Base-PP in FCS_COP.1(3).</ns0:con-mod>
+      <ns0:con-mod ref="fmt_smf_ext.4"> This SFR defines the ability of the MDM Agent
+        to interact with the mobile device to execute the management functions defined by
+        FMT_MOF_EXT.1 in the Base-PP. The Base-PP specifically
+        indicates in FMT_MOF_EXT.1.2 that some management functions may be performed via
+        MDM.</ns0:con-mod>
+	<ns0:con-mod ref="fmt_unr_ext.1"> This SFR defines the functions performed by the MDM Agent when unenrolled from an MDM. The Base-PP
+	defines unenrollment actions in FMT_SMF_EXT.2, and goes on to note
+        that these actions may be performed “perhaps via an MDM agent,” so this is
+        expected behavior. </ns0:con-mod>
+      <ns0:con-mod ref="fau_stg_ext.3"> This SFR defines the ability of the MDM Agent
+        to store generated audit data in the audit storage provided by the mobile device. The Base-PP defines the capability for audit storage in FAU_STG.1.</ns0:con-mod>
+      <ns0:con-mod ref="fpt_net_ext.1"> This SFR defines the ability of the MDM Agent
+        to maintain information about its last successful connection with the environmental MDM Server (i.e., the last successful invocation of the trusted channel for
+        that interface, as defined in FTP_ITC_EXT.1 of the Base-PP). It does not
+        need to use any functionality defined in the Base-PP to do this, and doing
+        this does not prevent the enforcement of any security requirements from the Base-PP.</ns0:con-mod>
+    </ns0:base-pp>
+    <ns0:base-pp version="4.0" name="Mobile Device Management" product="MDM Server" short="MDM" id="bpp-mdmserver">
+      <ns0:url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=392&amp;id=392</ns0:url>
+      
+
+      
+      <ns0:modified-sfrs />
+      <ns0:additional-sfrs>
+        <ns1:mdm-crypto-fcs title="Cryptographic Support (FCS)">
+          <ns0:f-component cc-id="fcs_stg_ext.1" name="Cryptographic Key Storage" iteration="KEYSTO">
+            
+            <ns0:consistency-rationale> The Base-PP requires the TOE to define a
+              method of key storage. This PP-Module iterates it to specify the use
+              of platform key storage for MDM Agents. </ns0:consistency-rationale>
+            <ns0:f-element>
+              <ns0:title><html:b>Refinement:</html:b> The MDM Agent shall use the [<html:i>platform-provided key storage</html:i>] for all persistent
+                secret and private keys.</ns0:title>
+              <ns0:note role="application"> This requirement ensures that persistent secrets
+                (credentials, secret keys) and private keys are stored securely when not in use by
+                the mobile platform.<html:br /><html:br />
+              </ns0:note>
+              <ns0:aactivity>
+                <ns0:TSS> The evaluator will verify that the TSS lists each persistent
+                  secret (credential, secret key) and private key needed to meet the requirements in
+                  the ST. For each of these items, the evaluator will confirm that
+                  the TSS lists for what purpose it is used, and, for each
+                  platform listed as supported in the ST, how it is stored. The
+                  evaluator shall verify that the Agent calls a platform-provided API to store
+                  persistent secrets and private keys.<html:br /><html:br />
+                </ns0:TSS>
+              </ns0:aactivity>
+            </ns0:f-element>
+          </ns0:f-component>
+	</ns1:mdm-crypto-fcs>
+
+      </ns0:additional-sfrs>
+      <ns0:con-toe> When this PP-Module is used to extend the MDM
+        PP, the TOE type for the overall TOE is still mobile device management. The TOE boundary is
+        simply extended to include the MDM Agent(s) that reside on individual
+        mobile devices and support the management functionality that the MDM
+        Server component implements.</ns0:con-toe>
+      <ns0:con-sec-prob />
+      <ns0:con-obj />
+      <ns0:con-op-en />
+      <ns0:con-mod ref="T.BACKUP"> This threat protects user data from unauthorized logical access. If
+        the backup data is stored outside the MDM or the mobile device that it protects, then there
+        is no conflict with the MDM PP since it is a different security boundary. If the backup data
+        is stored either on the MDM or on the protected device, an attacker would attempt to exploit
+        this threat by first exploiting any of the threats that the MDM PP defines
+        (T.MALICIOUS_APPS, T.NETWORK_ATTACK, T.NETWORK_EAVESDROP, T.PHYSICAL_ACCESS) depending on
+        where and how the backup data is stored, and then use successful exploitation of one of
+        these threats to attempt to access the backup data itself.</ns0:con-mod>
+      <ns0:con-mod ref="O.ACCOUNTABILITY"> The MDM PP contains this same objective with the same
+        purpose.</ns0:con-mod>
+      <ns0:con-mod ref="O.APPLY_POLICY"> The MDM PP contains this same objective with the same purpose. </ns0:con-mod>
+      <ns0:con-mod ref="O.DATA_PROTECTION_TRANSIT"> The MDM PP contains this same objective with the same
+        purpose. </ns0:con-mod>
+      <ns0:con-mod ref="O.STORAGE"> This objective requires the MDM Agent to use platform key storage to
+        protect secret and private key data. The MDM PP defines a requirement for key storage
+        (FCS_STG_EXT.1) that allows the MDM Agent to satisfy this objective. </ns0:con-mod>
+      <ns0:con-mod ref="OE.DATA_PROPER_ADMIN"> The MDM PP contains this same objective with the same
+        purpose. </ns0:con-mod>
+      <ns0:con-mod ref="OE.DATA_PROPER_USER"> The MDM PP contains this same objective with the same
+        purpose. </ns0:con-mod>
+      <ns0:con-mod ref="OE.IT_ENTERPRISE"> The MDM PP contains this same objective with the same purpose. </ns0:con-mod>
+      <ns0:con-mod ref="OE.MOBILE_DEVICE_PLATFORM"> The MDM PP contains this same objective with the same
+        purpose. </ns0:con-mod>
+      <ns0:con-mod ref="OE.WIRELESS_NETWORK"> The MDM PP contains this same objective with the same
+        purpose. </ns0:con-mod>
+      <ns0:con-mod ref="fau_alt_ext.2"> This SFR provides the alerts that are received by the MDM Server as per FAU_ALT_EXT.1 in the Base-PP.</ns0:con-mod>
+      <ns0:con-mod ref="fau_gen.1(2)"> This SFR requires the MDM Agent to generate audit records of its
+        behavior. The mechanism by which it does this is not relevant to the MDM Server portion of
+        the TOE as they reside on different platforms.</ns0:con-mod>
+      <ns0:con-mod ref="fau_sel.1(2)"> The Base-PP defines FAU_SEL.1 as an optional SFR
+        to limit the audit events that are generated by the TSF. This PP-Module
+        adds another iteration that requires the MDM Agent to include this
+        capability by default.</ns0:con-mod>
+      <ns0:con-mod ref="fia_enr_ext.2"> This SFR provides information during agent enrollment that is
+        required by the MDM Server to meet the FIA_ENR_EXT.1 requirement defined
+        by the Base-PP.</ns0:con-mod>
+      <ns0:con-mod ref="fmt_pol_ext.2"> The Base-PP defines an SFR (FMT_POL_EXT.1) that
+        requires the MDM Server to provide digitally signed policies and policy
+        updates to the MDM Agent. FMT_POL_EXT.2 completes this transaction by
+        requiring the MDM Agent to accept only signed policies and policy
+        updates.</ns0:con-mod>
+      <ns0:con-mod ref="fmt_smf_ext.4"> This SFR requires the MDM Agent to interact
+        with the underlying mobile device platform to enforce management functions that are
+        configured by the MDM Server (FMT_SMF.1(1) in the Base-PP).</ns0:con-mod>
+      <ns0:con-mod ref="fmt_unr_ext.1"> This SFR requires the TSF to define its behavior upon
+        unenrollment from management. Unenrollment from management is a management function that is
+        specified in the Base-PP.</ns0:con-mod>
+      <ns0:con-mod ref="fau_stg_ext.3"> This SFR defines the ability of the MDM Agent
+        to store generated audit data in the audit storage provided by the mobile device. This does
+        not impact the Base-PP since it resides on a different platform from the
+          MDM Agent. </ns0:con-mod>
+      <ns0:con-mod ref="fpt_net_ext.1"> This SFR defines the ability of the MDM Agent
+        to maintain information about its last successful connection with the environmental MDM Server (i.e., the last successful invocation of the trusted channel for
+        that interface, as defined in FPT_ITT.1(2) of the Base-PP). It does not
+        otherwise impact the Base-PP since it describes behavior that occurs local
+        to the MDM Agent during a period where it is not interacting with the
+          MDM Server. </ns0:con-mod>
+    </ns0:base-pp>
+    <ns0:man-sfrs>
+      <ns1:fau title="Security Audit (FAU)">
+        <ns0:ext-comp-def fam-id="FAU_ALT_EXT" title="MDM Alerts">
+          <ns0:mod-def> This family is defined in the MDM
+            Base-PP. This PP-Module augments the extended family
+            by adding one additional component, FAU_ALT_EXT.2. This new component and its impact on
+            the extended family’s component leveling are shown below; reference the MDM PP for all other definitions for this family. </ns0:mod-def>
+        </ns0:ext-comp-def>
+        <ns0:f-component cc-id="fau_alt_ext.2" name="Agent Alerts">
+          <ns0:consistency-rationale />
+          <ns0:comp-lev>requires the TSF to define when and how an MDM Agent generates
+            alerts and transmits them to an MDM Server based on its
+            activity.</ns0:comp-lev>
+          <ns0:management>The following actions could be considered for the management functions in FMT: <html:ul>
+              <html:li>Ability to configure the specific events that result in generation of
+                alerts.</html:li>
+            </html:ul>
+          </ns0:management>
+          <ns0:audit> The following actions should be auditable if FAU_GEN Security audit data
+            generation is included in the PP/ST:<html:ul>
+              <html:li>Minimal: Success/failure of sending alert. </html:li>
+            </html:ul>
+          </ns0:audit>
+          <ns0:dependencies> FAU_ALT_EXT.1 Server Alerts<html:br /> [FPT_ITT.1(2) Basic Internal TSF Data
+            Transfer Protection; or<html:br /> FTP_ITC.1 Inter-TSF Trusted Channel] </ns0:dependencies>
+          <ns0:f-element>
+            <ns0:title>The MDM Agent shall provide an alert via the trusted channel to
+              the MDM Server in the event of any of the following audit events: <html:ul>
+                <html:li>successful application of policies to a mobile device,</html:li>
+                <html:li>
+                  <ns0:selectables>
+                    <ns0:selectable>receiving</ns0:selectable>
+                    <ns0:selectable>generating</ns0:selectable>
+                  </ns0:selectables> periodic reachability events, </html:li>
+                <html:li><ns0:selectables linebreak="yes">
+                  <ns0:selectable>change in enrollment state</ns0:selectable>
+                  <ns0:selectable>failure to install an application from the MAS Server</ns0:selectable>
+                  <ns0:selectable>failure to update an application from the MAS Server</ns0:selectable>
+                  <ns0:selectable><ns0:assignable>other events</ns0:assignable></ns0:selectable>
+                  <ns0:selectable>no other events</ns0:selectable>
+                </ns0:selectables>.</html:li>
+              </html:ul>
+            </ns0:title>
+            <ns0:note role="application"> The trusted channel is defined in FPT_ITT.1(2) of the Base-PP if Agent extends MDM Server and FTP_ITC_EXT.1 if Agent extends MDF PP. “Alert” in this requirement could be as simple as an audit record or
+              a notification. If any prior alerts exist in the queue, per FAU_ALT_EXT.2.2, those
+              alerts must be sent when the trusted channel is available.<html:br /><html:br /> This
+              requirement is to ensure that the MDM Agent must notify the MDM Server whenever one of the events listed above occurs. Lack of
+              receipt of a successful policy installation indicates the failure of the policy
+              installation.<html:br /><html:br /> The periodic reachability events ensure that either
+              the MDM Agent responds to MDM Server polls to
+              determine device network reachability, or the MDM Agent can be
+              configured to regularly notify the Server that it is reachable. The ST author must select “receiving” in the first case and “generating” in the second.
+              The corresponding requirement for the MDM Server is FAU_NET_EXT.1 in
+              the MDM
+              PP.<html:br /><html:br /> The ST author must either
+              assign further events or select the “no other events” option. Note that alerts may
+              take time to reach the MDM Server, or not arrive, due to poor
+              connectivity. <html:br /><html:br />
+            </ns0:note>            
+          </ns0:f-element>
+          <ns0:f-element>
+            <ns0:title>The MDM Agent shall queue alerts if the trusted channel is not available.</ns0:title>
+            <ns0:note role="application">If the trusted channel is not available, alerts must be queued. When the trusted channel becomes available, the queued alerts must be sent.<html:br /><html:br />
+            </ns0:note>
+            <ns0:aactivity>
+              <ns0:TSS>                  
+                  The evaluator shall examine the TSS and verify that it describes how the alerts are implemented.<html:br /><html:br /> 
+                  The evaluator shall examine the TSS and verify that it describes how the candidate policy updates are obtained and the actions that take place for successful (policy update installed) and unsuccessful (policy update not installed) cases. The software components that are performing the processing must also be identified in the TSS and verified by the evaluator.<html:br /><html:br /> 
+                  The evaluator also ensures that the TSS describes how reachability events are implemented, and if configurable are selected in FMT_SMF_EXT.4.2. The evaluator verifies that this description clearly indicates who (MDM Agent or MDM Server) initiates reachability events.<html:br /><html:br /> 
+                  The evaluator shall ensure that the TSS describes under what circumstances, if any, the alert may not be generated (e.g., the device is powered off or disconnected from the trusted channel), how alerts are queued, and the maximum amount of storage for queued messages.<html:br /><html:br />
+              </ns0:TSS>
+              <ns0:Tests>
+                  <ns0:testlist>
+                      <ns0:test>The evaluator shall perform a policy update from the test environment MDM server. The evaluator shall verify the MDM Agent accepts the update, makes the configured changes, and reports the success of the policy update back to the MDM Server.</ns0:test>
+                      <ns0:test>The evaluator shall perform each of the actions listed in FAU_ALT_EXT.2.1 and verify that the alert does in fact reach the MDM Server.</ns0:test>
+                      <ns0:test>The evaluator shall configure the MDM Agent to perform a network reachability test, both with and without such connectivity and ensure that results reflect each.</ns0:test>
+                      <ns0:test>The evaluator shall remove network connectivity from the MDM Agent and generate an alert/event as defined in FAU_ALT_EXT.2.1. The evaluator shall restore network connectivity to the MDM Agent and verify that the alert generated while the TOE was disconnected is sent by the MDM Agent upon re-establishment of the connectivity.</ns0:test>
+                  </ns0:testlist>
+              </ns0:Tests>
+            </ns0:aactivity>
+          </ns0:f-element>
+        </ns0:f-component>
+        <ns0:f-component cc-id="fau_gen.1" name="Audit Data Generation" iteration="AUDITGEN">
+          <ns0:consistency-rationale />
+          <ns0:f-element>
+            <ns0:title><html:b>Refinement:</html:b> The MDM Agent shall <ns0:selectables>
+                <ns0:selectable>invoke platform-provided functionality</ns0:selectable>
+                <ns0:selectable>implement functionality</ns0:selectable>
+              </ns0:selectables> to generate an MDM Agent audit record of the
+              following auditable events: <html:ol type="a">
+                <html:li>Startup and shutdown of the MDM Agent;</html:li>
+                <html:li>All auditable events for [<html:i>not specified</html:i>] level of audit; and</html:li>
+                <html:li>[<html:i>MDM policy updated, any modification commanded by the 
+                  MDM Server, specifically defined auditable events listed in 
+                  <ns0:xref to="audit" />, and <ns0:selectables>
+                  <ns0:selectable><ns0:assignable>other events</ns0:assignable></ns0:selectable>
+                  <ns0:selectable>no other events</ns0:selectable>
+                </ns0:selectables></html:i>].</html:li>
+              </html:ol>
+            </ns0:title>
+            <ns0:note role="application"> This requirement outlines the information to be included in
+              the MDM Agent’s audit records. The ST author can
+              include other auditable events directly in the Auditable Events table in
+              FAU_GEN.1.1(2); they are not limited to the list presented.<html:br /><html:br />
+              MDM policy update must minimally indicate that an update to policy
+              occurred. The event record need not contain the differences between the prior policy
+              and the new policy; optionally, the specific change(s) to policy that were included in
+              that update may be detailed. All updates to policy should trigger this alert.
+              Modifications commanded by the MDM Server are those commands listed
+              in FMT_SMF.1.1.<html:br /><html:br /> The selection for the FMT_UNR_EXT.1 auditable event
+              in the Auditable Events table corresponds to the selection in FMT_UNR_EXT.1. If “apply
+              remediation actions” is selected in FMT_UNR_EXT.1, then the ST
+              author selects “attempt to unenroll” in FAU_GEN.1.1(2) Auditable Events table for
+              FMT_UNR_EXT.1; otherwise, "none" is selected.<html:br /><html:br />
+              <html:b><ns0:ctr id="audit" ctr-type="Table"> Auditable Events</ns0:ctr></html:b>
+              <html:table style="margin-top:0px;white-space:10px">
+                <html:TR>
+                  <html:TH>Requirement</html:TH>
+                  <html:TH>Auditable Events</html:TH>
+                  <html:TH>Additional Audit Record Contents</html:TH>
+                </html:TR>
+                <html:TR>
+                  <html:TD>FAU_ALT_EXT.2</html:TD>
+                  <html:TD>Success/failure of sending alert.</html:TD>
+                  <html:TD>No additional information.</html:TD>
+                </html:TR>
+                <html:TR>
+                  <html:TD>FAU_GEN.1</html:TD>
+                  <html:TD>None.</html:TD>
+                  <html:TD>N/A</html:TD>
+                </html:TR>
+                <html:TR>
+                  <html:TD>FAU_SEL.1</html:TD>
+                  <html:TD>All modifications to the audit configuration that occur while the audit
+                    collection functions are operating.</html:TD>
+                  <html:TD>No additional information.</html:TD>
+                </html:TR>
+                <html:TR>
+                  <html:TD>FCS_STG_EXT.4/<html:br /> FCS_STG_EXT.1(2)</html:TD>
+                  <html:TD>None.</html:TD>
+                  <html:TD />
+                </html:TR>
+                <html:TR>
+                  <html:TD rowspan="3">FCS_TLSC_EXT.1</html:TD>
+                  <html:TD>Failure to establish a TLS session.</html:TD><html:TD>Reason for failure.</html:TD></html:TR>
+                <html:TR><html:TD>Failure to verify presented identifier.</html:TD><html:TD>Presented identifier and reference identifier.</html:TD></html:TR>
+                <html:TR><html:TD>Establishment/termination of a TLS session.</html:TD><html:TD>Non-TOE endpoint of connection.</html:TD>
+                </html:TR>
+                <html:TR>
+                  <html:TD>FIA_ENR_EXT.2</html:TD>
+                  <html:TD>Enrollment in management.</html:TD>
+                  <html:TD>Reference identifier of MDM Server.</html:TD>
+                </html:TR>
+                <html:TR>
+                  <html:TD>FMT_POL_EXT.2</html:TD>
+                  <html:TD>Failure of policy validation.</html:TD>
+                  <html:TD>Reason for failure of validation.</html:TD>
+                </html:TR>
+                <html:TR>
+                  <html:TD>FMT_SMF_EXT.4</html:TD>
+                  <html:TD>Outcome (Success/failure) of function.</html:TD>
+                  <html:TD>No additional information.</html:TD>
+                </html:TR>
+                <html:TR>
+                  <html:TD>FMT_UNR_EXT.1.1</html:TD>
+                  <html:TD>
+                    <ns0:selectables>
+                      <ns0:selectable>Attempt to unenroll</ns0:selectable>
+                      <ns0:selectable>none</ns0:selectable>
+                    </ns0:selectables>
+                  </html:TD>
+                  <html:TD>No additional information.</html:TD>
+                </html:TR>
+                <html:TR>
+                  <html:TD>FTP_ITC_EXT.1(2)</html:TD>
+                  <html:TD>Initiation and termination of trusted channel.</html:TD>
+                  <html:TD>Trusted channel protocol. Non-TOE endpoint of connection.</html:TD>
+                </html:TR>
+              </html:table>
+              <html:br /><html:br />
+            </ns0:note>            
+          </ns0:f-element>
+          <ns0:f-element>
+            <ns0:title><html:b>Refinement:</html:b> The <ns0:selectables>
+                <ns0:selectable>TSF</ns0:selectable>
+                <ns0:selectable>TOE platform</ns0:selectable>
+              </ns0:selectables> shall record within each MDM Agent audit record at
+              least the following information: <html:ol type="a">
+                <html:li>Date and time of the event, type of event, subject identity, (if relevant) the outcome 
+                  (success or failure) of the event, and additional information in <ns0:xref to="audit" />; and</html:li>         
+                <html:li>For each audit event type, based on the auditable event definitions of the functional components 
+                  included in the PP-Module/ST, <ns0:assignable>other audit relevant information</ns0:assignable>.</html:li>
+              </html:ol>
+            </ns0:title>
+            <ns0:note role="application">All audits must contain at least the information mentioned in
+              FAU_GEN.1.2(2), but may contain more information which can be assigned. The ST author must identify in the TSS which information
+              of the audit record that is performed by the MDM Agent and that
+              which is performed by the MDM Agent’s platform.<html:br /><html:br />
+            </ns0:note>
+            <ns0:aactivity>
+              <ns0:TSS>
+                  The evaluator shall check the TSS and ensure that it provides a format for audit records. Each audit record format type must be covered, along with a brief description of each field. <html:br /><html:br /> 
+                  If "invoke platform-provided functionality" is selected, the evaluator shall examine the TSS to verify that it describes (for each supported platform) how this functionality is invoked (it should be noted that this may be through a mechanism that is not implemented by the MDM Agent; nonetheless, that mechanism will be identified in the TSS as part of this evaluation activity).<html:br /><html:br /> 
+              </ns0:TSS>
+              <ns0:Tests>
+                  The evaluator shall use the TOE to perform the auditable
+                  events defined in the Auditable Events table in FAU_GEN.1.1(2) and observe that
+                  accurate audit records are generated with contents and formatting consistent with
+                  those described in the TSS. Note that this testing can be
+                  accomplished in conjunction with the testing of the security mechanisms
+                  directly.<html:br /><html:br />                                 
+              </ns0:Tests>
+            </ns0:aactivity>
+          </ns0:f-element>
+        </ns0:f-component>
+        <ns0:f-component cc-id="fau_sel.1" name="Security Audit Event Selection" iteration="EVENTSEL">
+          <ns0:consistency-rationale />
+          <ns0:f-element>
+            <ns0:title><html:b>Refinement:</html:b> The TSF shall <ns0:selectables>
+                <ns0:selectable>invoke platform-provided functionality</ns0:selectable>
+                <ns0:selectable>implement functionality</ns0:selectable>
+              </ns0:selectables> to select the set of events to be audited from the set of all auditable
+              events based on the following attributes: <html:ol type="a">
+                <html:li>[<html:i>event type</html:i>]</html:li>
+                <html:li>[<html:i>success of auditable security events, failure of auditable security events, 
+                  <ns0:assignable>other attributes</ns0:assignable></html:i>].</html:li>
+              </html:ol></ns0:title>
+            <ns0:note role="application">The intent of this requirement is to identify all criteria that
+              can be selected to trigger an audit event. For the ST author, the
+              assignment is used to list any additional criteria or “no other attributes”. This selection may be
+              configured by the MDM Server.<html:br /><html:br />
+            </ns0:note>
+            <ns0:aactivity>
+              <ns0:TSS>If "invoke platform-provided functionality" is selected, the evaluator shall
+                examine the TSS of the ST to verify that it
+                describes (for each supported platform) how this functionality is invoked (it should
+                be noted that this may be through a mechanism that is not implemented by the MDM
+                Agent; nonetheless, that mechanism will be identified in the TSS
+                as part of this evaluation activity).<html:br /><html:br />
+              </ns0:TSS>
+              <ns0:Guidance>The evaluator shall examine the operational guidance to determine that it
+                contains instructions on how to define the set of auditable events as well as
+                explains the syntax for multi-value selection (if applicable). The evaluator shall
+                also verify that the operational guidance shall identify those audit records that
+                are always recorded, regardless of the selection criteria currently being
+                enforced.<html:br /><html:br />
+              </ns0:Guidance>
+              <ns0:Tests>
+                <ns0:testlist>
+                  <ns0:test>For each attribute listed in the requirement, the evaluator shall devise a
+                    test to show that selecting the attribute causes only audit events with that
+                    attribute (or those that are always recorded, as identified in the
+                    administrative guidance) to be recorded.
+                  </ns0:test>
+                  <ns0:test>[conditional]: If the TSF supports specification of more complex audit
+                    pre-selection criteria (e.g., multiple attributes, logical expressions using
+                    attributes) then the evaluator shall devise tests showing that this capability
+                    is correctly implemented. The evaluator shall also, in the test plan, provide a
+                    short narrative justifying the set of tests as representative and sufficient to
+                    exercise the capability.
+                  </ns0:test>
+                </ns0:testlist>
+              </ns0:Tests>
+            </ns0:aactivity>
+          </ns0:f-element>
+        </ns0:f-component>
+      </ns1:fau>
+      <ns1:fia title="Identification and Authentication (FIA)">
+        <ns0:ext-comp-def title="Enrollment" fam-id="FIA_ENR_EXT">
+          <ns0:mod-def> This family is defined in the MDM
+            Base-PP. This PP-Module augments the extended family
+            by adding one additional component, FIA_ENR_EXT.2. This new component and its impact on
+            the extended family’s component leveling are shown below; reference the MDM PP for all other definitions for this family. </ns0:mod-def>
+        </ns0:ext-comp-def>
+        <ns0:f-component cc-id="fia_enr_ext.2" name="Agent Enrollment of Mobile Device into Management">
+          <ns0:consistency-rationale />
+          <ns0:comp-lev> requires the TSF to record specific information about the MDM
+            Server (i.e. the entity that is enrolling it) during the enrollment process.</ns0:comp-lev>
+          <ns0:management>There are no management functions foreseen.</ns0:management>
+          <ns0:audit>The following actions should be auditable if FAU_GEN Security audit data generation
+            is included in the PP/ST:<html:ul>
+              <html:li>Minimal: Completion of enrollment process.</html:li>
+            </html:ul>
+          </ns0:audit>
+          <ns0:dependencies>FIA_ENR_EXT.1 Enrollment of Mobile Device into Management</ns0:dependencies>
+          <ns0:f-element>
+            <ns0:title>The MDM Agent shall record the reference identifier of the
+                MDM Server during the enrollment process. </ns0:title>
+            <ns0:note role="application">The reference identifier of the MDM Server
+              may be the Distinguished Name, Domain Name, and/or the IP address of the MDM Server. This requirement allows the specification of the information
+              to be to be used to establish a network connection and the reference identifier for
+              authenticating the trusted channel between the MDM Server and MDM Agent.<html:br /><html:br />
+            </ns0:note>
+            <ns0:aactivity>
+              <ns0:TSS>The evaluator shall examine the TSS to verify that it describes
+                which types of reference identifiers are acceptable and how the identifier is
+                specified (e.g. preconfigured in the MDM Agent, by the user, by
+                the MDM server, in a policy).<html:br /><html:br />
+              </ns0:TSS>
+              <ns0:Guidance>The evaluator shall examine the operational guidance to verify that it
+                describes how to configure reference identifier of the MDM
+                Server’s certificate and, if different than the reference identifier, the Domain
+                Name or IP address (for connectivity) of the MDM
+                Server.<html:br /><html:br />
+              </ns0:Guidance>
+              <ns0:Tests>The evaluator shall follow the operational guidance to establish the reference
+                identifier of the MDM server on the MDM Agent
+                and in conjunction with other evaluation activities verify that the MDM Agent can connect to the MDM Server and validate
+                the MDM Server’s certificate.<html:br /><html:br />
+              </ns0:Tests>
+            </ns0:aactivity>
+          </ns0:f-element>
+        </ns0:f-component>
+      </ns1:fia>
+      <ns1:fmt title="Security Management (FMT)">
+        <ns0:ext-comp-def title="Trusted Policy Update" fam-id="FMT_POL_EXT">
+          <ns0:mod-def> This family is defined in the MDM
+            Base-PP. This PP-Module augments the extended family
+            by adding one additional component, FMT_POL_EXT.2. This new component and its impact on
+            the extended family’s component leveling are shown below; reference the MDM PP for all other definitions for this family.</ns0:mod-def>
+        </ns0:ext-comp-def>
+        <ns0:f-component cc-id="fmt_pol_ext.2" name="Agent Trusted Policy Update">
+          <ns0:consistency-rationale />
+          <ns0:comp-lev> requires the TSF to verify the validity of the source of a policy before
+            applying it.</ns0:comp-lev>
+          <ns0:management>There are no management functions foreseen.</ns0:management>
+          <ns0:audit>The following actions should be auditable if FAU_GEN Security audit data generation
+            is included in the PP/ST:<html:ul>
+              <html:li>Minimal: Failure to validate policy.</html:li>
+            </html:ul>
+          </ns0:audit>
+          <ns0:dependencies>FCS_COP.1 Cryptographic Operation<html:br /> FMT_POL_EXT.1 Trusted Policy
+            Update </ns0:dependencies>
+          <ns0:f-element>
+            <ns0:title>The MDM Agent shall only accept policies and policy updates
+              that are digitally signed by a certificate that has been authorized for policy updates
+              by the MDM Server. </ns0:title>
+            <ns0:note role="application">The intent of this requirement is to cryptographically tie the
+              policies to the enterprise that mandated the policy, not to protect the policies in
+              transit (as they are already protected by FPT_ITT.1(2) of the Base-PP). This is especially critical for
+              users who connect to multiple enterprises.<html:br /><html:br /> Policies must be
+              digitally signed by the enterprise using the algorithms in
+              FCS_COP.1(3).<html:br /><html:br />
+            </ns0:note>           
+          </ns0:f-element>
+          <ns0:f-element>
+            <ns0:title>The MDM Agent shall not install policies if the policy-signing certificate is
+              deemed invalid. </ns0:title>
+            <ns0:aactivity>
+                <ns0:TSS>
+                The evaluator ensures that the TSS describes how the candidate policies are obtained by the MDM Agent, the processing associated with verifying the digital signature of the policy updates, and the actions that take place for successful (signature was verified) and unsuccessful (signature could not be verified) cases. The software components that are performing the processing must also be identified in the TSS and verified by the evaluators.<html:br /><html:br />
+                </ns0:TSS>
+              <ns0:Tests> 
+                  This evaluation activity is performed in conjunction with the evaluation activity for FIA_X509_EXT.1 and FIA_X509_EXT.2 as defined in the Base-PPs.<html:br /><html:br />
+                  <ns0:testlist>
+                      <ns0:test>The evaluator shall perform a policy update from an available configuration interface (such as through a test MDM Server). The evaluator shall verify the update is signed and is provided to the MDM Agent. The evaluator shall verify the MDM Agent accepts the digitally signed policy.</ns0:test>
+                      <ns0:test>The evaluator shall perform a policy update from an available configuration interface (such as through a test MDM Server). The evaluator shall provide an unsigned and an incorrectly signed policy to the MDM Agent. The evaluator shall verify the MDM Agent does not accept the digitally signed policy.</ns0:test>
+                  </ns0:testlist>            
+              </ns0:Tests>
+            </ns0:aactivity>
+          </ns0:f-element>
+        </ns0:f-component>
+        <ns0:ext-comp-def title="Specification of Management Functions (Agent)" fam-id="FMT_SMF_EXT">
+          <ns0:mod-def> This family is defined in the MDF Base-PP. This PP-Module augments the extended family by adding one additional component,
+            FMT_SMF_EXT.4. This new component and its impact on the extended family’s component
+            leveling are shown below; reference the MDF PP for all other definitions for this
+            family. </ns0:mod-def>
+        </ns0:ext-comp-def>
+        <ns0:f-component cc-id="fmt_smf_ext.4" name="Specification of Management Functions">
+          
+          <ns0:consistency-rationale> </ns0:consistency-rationale>
+          <ns0:comp-lev> requires the TSF to support the execution of certain management functions that
+            require interfacing with other TOE components.</ns0:comp-lev>
+          <ns0:management>The following actions could be considered for the management functions in FMT:<html:ul>
+              <html:li>Execution of management functions.</html:li>
+              <html:li>Configuration of management functions behavior.</html:li>
+            </html:ul>
+          </ns0:management>
+          <ns0:audit>The following actions should be auditable if FAU_GEN Security audit data generation
+            is included in the PP/ST:<html:ul>
+              <html:li>Minimal: Successful and failed execution of management functions.</html:li>
+            </html:ul>
+          </ns0:audit>
+          <ns0:dependencies>FCS_CKM.1 Cryptographic Key Generation</ns0:dependencies>
+          <ns0:f-element>
+            <ns0:title>The MDM Agent shall be capable of interacting with the platform
+              to perform the following functions: <html:ul>
+                <html:li>Import the certificates to be used for authentication of MDM Agent communications,</html:li>
+                <html:li><ns0:selectables>
+                    <ns0:selectable>administrator-provided management functions in MDF PP</ns0:selectable>
+                    <ns0:selectable>administrator-provided device management functions in MDM
+                      PP</ns0:selectable>
+                  </ns0:selectables></html:li>
+                <html:li><ns0:selectables>
+                    <ns0:selectable><ns0:assignable>additional functions</ns0:assignable></ns0:selectable>
+                    <ns0:selectable> no additional functions</ns0:selectable>
+                  </ns0:selectables>.</html:li>
+              </html:ul>
+            </ns0:title>
+            <ns0:note role="application"> This requirement captures all the configuration functionality
+              in the MDM Agent to configure the underlying mobile device with the
+              configuration policies sent from the MDM Server to the Agent. The
+                ST author selects the Base-PP (MDF PP or MDM
+              PP) as the source of the management functions.<html:br /><html:br /> The
+              administrator-provided management functions in MDF PP are specified
+              in Column 4 of Table 5 in MDF PP and in FPT_TUD_EXT.1 (for version
+              queries). The administrator-provided device management functions in MDM
+              PP are specified in FMT_SMF.1.1(1); the functions in the selection
+              of FMT_SMF.1.1(1) in the MDM
+              PP are required to correspond to the functions available on the
+              platforms supported by the MDM Agent.<html:br /><html:br /> The ST author can add more commands and configuration policies by completing
+              the assignment statement; the mobile device must support these additional commands or
+              configuration policies.<html:br /><html:br /> The agent must configure the platform based
+              on the commands and configuration policies received from the MDM
+              Server. The ST author must not claim any functionality not provided
+              by the supported mobile device(s). All selections and assignments performed by the
+                ST author in this requirement should match the selections and
+              assignments of the validated mobile device ST.<html:br /><html:br />
+            </ns0:note>           
+          </ns0:f-element>
+          <ns0:f-element>
+            <ns0:title>The MDM Agent shall be capable of performing the following
+              functions: <html:ul>
+                <html:li>Enroll in management</html:li>
+                <html:li>Configure whether users can unenroll from management</html:li>
+                <html:li>
+                  <ns0:selectables>
+                    <ns0:selectable>configure periodicity of reachability events</ns0:selectable>
+                    <ns0:selectable><ns0:assignable>other management functions</ns0:assignable></ns0:selectable>
+                    <ns0:selectable>no other functions</ns0:selectable>
+                  </ns0:selectables>.</html:li>
+              </html:ul></ns0:title>
+            <ns0:note role="application"> This requirement captures all of the configuration in the
+                MDM Agent for configuration of itself.<html:br /><html:br /> If the
+                MDM Agent is a part of the mobile device, enrollment is a single
+              function both of the Agent and of the mobile device
+              (FMT_SMF_EXT.4.1).<html:br /><html:br /> If the MDM Agent is an
+              application developed separately from the mobile device, the MDM
+              Agent performs the function “enroll the mobile device in management” (per
+              FMT_SMF_EXT.4.1) by registering itself to the mobile device as a device administrator.
+              The Agent itself is enrolled in management by configuring the MDM
+              Server to which the Agent answers.<html:br /><html:br /> If the MDM
+              Agent does not support unenrollment prevention, remediation actions should be applied
+              upon unenrollment (per FMT_UNR_EXT.1).<html:br /><html:br /> If the Agent generates
+              periodic reachability events in FAU_ALT_EXT.2.1 and the periodicity of these events is
+              configurable, “configure periodicity of reachability events” must be
+              selected.<html:br /><html:br />
+            </ns0:note> 
+            <ns0:aactivity>
+                
+                This assurance activity may be performed in conjunction with other assurance
+                activities in the Base-PP.<html:br /><html:br />
+                
+              <ns0:TSS> 
+                  The evaluator shall verify that the any assigned functions are described in the TSS and that these functions are documented as supported by the platform. The evaluator shall examine the TSS to verify that any differences between management functions and policies for each supported mobile device are listed.<html:br /><html:br />
+                  The evaluator shall verify that the TSS describes the methods in which the MDM Agent can be enrolled.<html:br /><html:br /> 
+                  The TSS description shall make clear if the MDM Agent supports multiple interfaces for enrollment and configuration (for example, both remote configuration and local configuration).<html:br /><html:br />                  
+              </ns0:TSS>
+              <ns0:Guidance> 
+                  The evaluator shall verify the AGD guidance includes detailed instructions for configuring each function in this requirement.<html:br /><html:br /> 
+                  If the MDM Agent is a component of the MDM system (i.e. MDM Server is the Base-PP), the evaluator shall verify, by consulting documentation for the claimed mobile device platforms, that the configurable functions listed for this Agent are supported by the platforms.<html:br /><html:br /> 
+                  If the MDM Agent supports multiple interfaces for configuration (for example, both remote configuration and local configuration), the AGD guidance makes clear whether some functions are restricted to certain interfaces.<html:br /><html:br />                
+              </ns0:Guidance>
+              <ns0:Tests>
+                <ns0:testlist>
+                    <ns0:test>In conjunction with the evaluation activities in the Base-PP, the evaluator shall attempt to configure each administrator-provided management function and shall verify that the mobile device executes the commands and enforces the policies.</ns0:test>
+                  <ns0:test>The evaluator shall configure the MDM Agent authentication certificate in accordance with the configuration guidance. The evaluator shall verify that the MDM Agent uses this certificate in performing the tests for FPT_ITT.1(2) (from the MDM PP).</ns0:test>
+                    <ns0:test>In conjunction with other evaluation activities, the evaluator shall attempt to enroll the MDM Agent in management with each interface identified in the TSS, and verify that the MDM Agent can manage the device and communicate with the MDM Server.</ns0:test>
+                    <ns0:test>[conditional] In conjunction with the evaluation activity for FAU_ALT_EXT.2.1, the evaluator shall configure the periodicity for reachability events for several configured time periods and shall verify that the MDM Server receives alerts on that schedule.</ns0:test>
+                  <ns0:test>[conditional] The evaluator shall design and perform tests to demonstrate that the assigned function may be configured and that the intended behavior of the function is enacted by the mobile device.</ns0:test>
+                </ns0:testlist>
+              </ns0:Tests>
+            </ns0:aactivity>
+          </ns0:f-element>
+        </ns0:f-component>
+        <ns0:ext-comp-def title="Unenrollment" fam-id="FMT_UNR_EXT">
+          <ns0:fam-behavior> Components in this family define requirements for TSF behavior when a user
+            attempts to unenroll the TOE from mobile device management.</ns0:fam-behavior>
+        </ns0:ext-comp-def>
+        <ns0:f-component cc-id="fmt_unr_ext.1" name="User Unenrollment Prevention">
+          <ns0:consistency-rationale />
+          <ns0:comp-lev> requires the TSF either to prevent unenrollment entirely or to take some
+            corrective action in the event that an unenrollment is initiated.</ns0:comp-lev>
+          <ns0:management>There are no management functions foreseen.</ns0:management>
+          <ns0:audit>The following actions should be auditable if FAU_GEN Security audit data generation
+            is included in the PP/ST:<html:ul>
+              <html:li>Minimal: Unenrollment from MDM.</html:li>
+            </html:ul>
+          </ns0:audit>
+          <ns0:dependencies> [FIA_ENR_EXT.1 Enrollment of Mobile Device into Management; or<html:br />
+            FMT_MOF_EXT.1 Management of Functions Behavior] </ns0:dependencies>
+          <ns0:f-element>
+            <ns0:title>The MDM Agent shall provide a mechanism to enforce the
+              following behavior upon an attempt to unenroll the mobile device from management: <ns0:selectables>
+                <ns0:selectable id="s-prevent-unenrollment">prevent the unenrollment from occurring</ns0:selectable>
+                <ns0:selectable id="s-remediation">apply remediation actions</ns0:selectable>
+              </ns0:selectables>.
+            </ns0:title>
+            <ns0:note role="application">
+	      Unenrolling is the action of transitioning from the enrolled
+              state to the unenrolled state. If preventing the user from unenrolling is
+              configurable, administrators configure whether users are allowed to unenroll through
+              the MDM Server.<html:br /><html:br />
+	      For those configurations where
+              unenrollment is allowed, for example a BYOD usage, the MDF PP describes remediation
+              actions performed upon unenrollment, such as wiping enterprise data, in
+              FMT_SMF_EXT.2.1; however, the MDM Agent is limited to those actions
+              supported by the mobile device on which the Agent is operating.<html:br /><html:br />
+            </ns0:note>
+            <ns0:aactivity>
+              <ns0:TSS> The evaluator shall ensure that the TSS describes the
+                mechanism used to prevent users from unenrolling or the remediation actions applied
+                when unenrolled.<html:br /><html:br />
+              </ns0:TSS>
+              <ns0:Guidance> The evaluator shall ensure that the administrative guidance instructs
+                administrators in configuring the unenrollment prevention in each available
+                configuration interface. If any configuration allows users to unenroll, the guidance
+                also describes the actions that unenroll the Agent.<html:br /><html:br />
+              </ns0:Guidance>
+              <ns0:Tests>
+                <ns0:testlist>
+                  <ns0:test>If ‘prevent the unenrollment from occurring’ is selected: The evaluator shall configure the Agent according to the administrative guidance for each available configuration interface, shall attempt to unenroll the device, and shall verify that the attempt fails.
+                  </ns0:test>
+                  <ns0:test>If ‘apply remediation actions’ is selected: If any configuration allows the user to unenroll, the evaluator shall configure the Agent to allow user unenrollment, attempt to unenroll, and verify that the remediation actions are applied.
+                  </ns0:test>
+                </ns0:testlist>
+              </ns0:Tests>
+            </ns0:aactivity>
+          </ns0:f-element>
+        </ns0:f-component>
+      </ns1:fmt>
+    </ns0:man-sfrs>
+    <ns0:opt-sfrs />
+    <ns0:sel-sfrs />
+    <ns0:obj-sfrs>
+      <ns1:fau_obj title="Security Audit (FAU)">
+        <ns0:ext-comp-def title="Protected Audit Event Storage" fam-id="FAU_STG_EXT">
+          <ns0:mod-def>This family is defined in the MDM
+            Base-PP. This PP-Module augments the extended family
+            by adding one additional component, FAU_STG_EXT.3. This new component and its impact on
+            the extended family’s component leveling are shown below; reference the MDM PP for all other definitions for this family.</ns0:mod-def>
+        </ns0:ext-comp-def>
+        <ns0:f-component cc-id="fau_stg_ext.3" name="Security Audit Event Storage">
+          
+          <ns0:consistency-rationale />
+          <ns0:comp-lev> requires the TSF to identify a location for audit record storage and the events
+            that are stored at this location.</ns0:comp-lev>
+          <ns0:management>There are no management functions foreseen.</ns0:management>
+          <ns0:audit>There are no auditable events foreseen.</ns0:audit>
+          <ns0:dependencies>FAU_GEN.1 Audit Data Generation</ns0:dependencies>
+          <ns0:f-element>
+            <ns0:title>The MDM Agent shall store MDM audit records in the platform-provided audit storage. </ns0:title>
+            <ns0:note role="application">FAU_STG_EXT.3 should only be included in the ST for MDM Agent platforms (i.e., mobile devices) that conform to MDF PP version 3 or later.<html:br /><html:br />
+            </ns0:note>
+            <ns0:aactivity>
+              <ns0:TSS>The evaluator shall verify that the TSS description of the
+                audit records indicates how the records are stored. The evaluator shall verify that
+                the Agent calls a platform-provided API to store audit records.<html:br /><html:br />
+              </ns0:TSS>
+            </ns0:aactivity>
+          </ns0:f-element>
+        </ns0:f-component>
+      </ns1:fau_obj>
+      <ns1:fpt title="Protection of the TSF (FPT)">
+        <ns0:ext-comp-def title="Network Reachability" fam-id="FPT_NET_EXT">
+          <ns0:fam-behavior> Components in this family define requirements for tracking the availability
+            of network components. </ns0:fam-behavior>
+        </ns0:ext-comp-def>
+        <ns0:f-component cc-id="fpt_net_ext.1" name="Network Reachability">
+          <ns0:consistency-rationale />
+          <ns0:comp-lev> requires the TSF to keep track of failed attempts to communicate with a remote
+            entity.</ns0:comp-lev>
+          <ns0:management>The following actions could be considered for the management functions in FMT:<html:br />
+            <html:ul>
+              <html:li>Configuration of unreachability threshold.</html:li></html:ul>
+          </ns0:management>
+          <ns0:audit>The following actions should be auditable if FAU_GEN Security audit data generation
+            is included in the PP/ST:<html:ul>
+              <html:li>Minimal: Reaching/exceeding unreachability threshold.</html:li></html:ul>
+          </ns0:audit>
+          <ns0:dependencies>FPT_STM.1 Reliable Time Stamps</ns0:dependencies>
+          <ns0:f-element>
+            <ns0:title>The TSF shall detect when a configurable <ns0:selectables>
+                <ns0:selectable>positive integer of missed reachability events occur</ns0:selectable>
+                <ns0:selectable>time limit is exceeded</ns0:selectable>
+              </ns0:selectables> related to the last successful connection with the server has been
+              reached. </ns0:title>
+            <ns0:note role="application"> This requirement is to enable the Agent to determine if it has
+              been out of connectivity with the Server for too long. The configuration of the number
+              of allowed missed reachability events or time limit since last successful connection
+              with the server is handled in Server configuration policy of the Agent (the first selection of
+              function 56 in FMT_SMF.1.1(1) within the MDM PP). If the first selection of FMT_SMF.1.1(1) function 56 is included in the ST,
+              then FPT_NET_EXT.1.1 must be included in the ST.<html:br /><html:br /> If the Agent has been out of connectivity with the server for
+              too long than the remediation actions specified in the second selection of function 56 must occur. For
+              example if the Agent has not synced with the server in the allowed amount of time that
+              the Agent must wipe the device without requiring a command from the
+              Server.<html:br /><html:br />
+            </ns0:note>
+            <ns0:aactivity>
+              <ns0:TSS> The evaluator shall verify that the TSS contains a description
+                of how the Agent determines how long it has been since the last successful
+                connection with the Server (i.e., total number of missed reachability events or
+                time). If total number of missed reachability events is selected, the evaluator
+                shall verify that the TSS contains a description of how often the
+                reachability events are sent.<html:br /><html:br />
+              </ns0:TSS>
+              <ns0:Guidance> The evaluator shall verify that the AGD guidance instructs the
+                administrator, if needed, how to configure the TOE to detect when
+                the time since last successful connection with the server has been
+                reached.<html:br /><html:br />
+              </ns0:Guidance>
+              <ns0:Tests> The evaluator shall configure the Server configuration policy of the Agent per
+                FMT_SMF.1.1(1) function 56 within the Mobile Device Managment PP. The device shall be placed in airplane mode to prevent
+                connectivity with the Server. The evaluator shall verify that after the configured
+                time, the remediation actions selected in function 56 occur.<html:br /><html:br />
+              </ns0:Tests>
+            </ns0:aactivity>
+          </ns0:f-element>
+        </ns0:f-component>
+      </ns1:fpt>
+    </ns0:obj-sfrs>
+    <ns0:impl-dep-sfrs />
+  </ns1:sfr>
+
+  <ns0:appendix title="Use Case Templates" id="use-case" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  <ns0:bibliography>
+    <ns0:cc-entry />
+  </ns0:bibliography>
+
+</ns0:Module>
