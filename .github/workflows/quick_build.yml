@@ -37,10 +37,7 @@ jobs:
 
     - name: Quick Build
       run: |
-<<<<<<< HEAD
-=======
         pwd
->>>>>>> release-3.2
         WARN_PATH="output/SanityChecksOutput.md" make
 
     - name: PDFify
@@ -64,31 +61,30 @@ jobs:
 
     - id: tdate
       run: |
-<<<<<<< HEAD
         echo "##[set-output name=TDATE;]$(cd transforms && git log -1 --format=%cs; cd -)"
 
         
-=======
-        echo "##[set-output name=TDATE;]$(cd transforms && git log -1 --format=%cs; cd -)" #
+# =======
+#         echo "##[set-output name=TDATE;]$(cd transforms && git log -1 --format=%cs; cd -)" #
 
-    - name: Setup Java JDK
-      uses: actions/setup-java@v1.4.3
-      with:
-        java-version: 1.8
-    - name: Get DaisyDiff
-      run: |
-        wget -O- https://github.com/AndroidKitKat/ExecuteDaisy/archive/master.zip | jar -x
-        [ -d "output/images" ] || mkdir "output/images";
-        cp -u -r ExecuteDaisy-master/js ExecuteDaisy-master/css output;
-        cp -u ExecuteDaisy-master/images/* output/images;
+#     - name: Setup Java JDK
+#       uses: actions/setup-java@v1.4.3
+#       with:
+#         java-version: 1.8
+#     - name: Get DaisyDiff
+#       run: |
+#         wget -O- https://github.com/AndroidKitKat/ExecuteDaisy/archive/master.zip | jar -x
+#         [ -d "output/images" ] || mkdir "output/images";
+#         cp -u -r ExecuteDaisy-master/js ExecuteDaisy-master/css output;
+#         cp -u ExecuteDaisy-master/images/* output/images;
 
       
-    - name: Make tmp dir
-      run: mkdir tmp
+#     - name: Make tmp dir
+#       run: mkdir tmp
       
-    # - name: Diff against specified versions
-    #   run: DAISY_DIR=ExecuteDaisy-master make diff
->>>>>>> release-3.2
+#     # - name: Diff against specified versions
+#     #   run: DAISY_DIR=ExecuteDaisy-master make diff
+# >>>>>>> release-3.2
 
     - name: diff
       run: make diff || true; 
@@ -189,12 +185,7 @@ jobs:
         label: 'Warnings'
         status: ${{ steps.status.outputs.WORD }}
         color: ${{ steps.status.outputs.COLOR }}
-<<<<<<< HEAD
-        path: warnings.svg
-=======
         path: output/warnings.svg
-
->>>>>>> release-3.2
 
     - name: Generate the transforms badge
       uses: emibcn/badge-action@v1
@@ -202,10 +193,6 @@ jobs:
         label: 'Transforms'
         status: ${{ steps.tdate.outputs.TDATE }}
         color: gray
-<<<<<<< HEAD
-        path: transforms.svg
-        
-=======
         path: output/transforms.svg
 
     - name: TD Badge
@@ -217,7 +204,6 @@ jobs:
         path: output/tds.svg
 
 
->>>>>>> release-3.2
         
      # Use the output from the `coverage` step
     - name: Generate the validation badge SVG image
@@ -230,12 +216,6 @@ jobs:
 
     - id: debug
       run: |
-<<<<<<< HEAD
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add warnings.svg validation.svg build-branch-badge.svg spell-badge.svg transforms.svg
-        git commit -m "Add/Update badges"
-=======
         ls
         ls output
         pwd
@@ -246,7 +226,7 @@ jobs:
       with:
         branch: gh-pages # The branch the action should deploy to.
         folder: output # The folder the action should deploy.
->>>>>>> release-3.2
+
         
     # - name: Commit badges
     #   continue-on-error: true
