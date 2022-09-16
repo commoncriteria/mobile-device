@@ -2140,7 +2140,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
          DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications.
          The following diagram shows an example key hierarchy to illustrate the concepts of this profile. 
          This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. 
-         Please note if <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If "hybrid" is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:br/>
+         Please note if <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys.
+	 If <xref to="uau_hybr"/> is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:br/>
         <figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"/>
         <f-component cc-id="fcs_ckm.1" name="Cryptographic Key Generation">
           <f-element id="fel-asym-key-gen">
@@ -2355,9 +2356,12 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <TSS> The evaluator shall ensure that the supported key establishment schemes
                 correspond to the key generation schemes identified in FCS_CKM.1.1. If the ST
                 specifies more than one scheme, the evaluator shall examine the TSS to verify that
-                it identifies the usage for each scheme. <htm:br/><htm:br/> If Diffie-Hellman group
-                14 is selected from FCS_CKM.2/UNLOCKED, the TSS shall describe how the implementation
-                meets RFC 3526 Section 3.<htm:br/><htm:br/>
+                it identifies the usage for each scheme.
+		<!-- There is no more DH group 14 in FCS_CKM.2"-->
+		<!-- <htm:br/><htm:br/> -->
+		<!-- If Diffie-Hellman group 14 is selected from FCS_CKM.2/UNLOCKED, -->
+		<!-- the TSS shall describe how the implementation -->
+                <!-- meets RFC 3526 Section 3.<htm:br/><htm:br/> -->
               </TSS>
               <Guidance> The evaluator shall verify that the AGD guidance instructs the
                 administrator how to configure the TOE to use the selected key establishment
@@ -2580,10 +2584,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </htm:ul></audit>
           <dependencies>FCS_RBG_EXT.1 Random Bit Generation</dependencies>
           
-          
+          <!-- fcs_ckm_ext.1.1-->
           <f-element id="fel-mut-hard">
             <title>The TSF shall support <selectables>
-                <selectable>immutable hardware</selectable>
+                <selectable id="s-immutable-hardware">immutable hardware</selectable>
                 <selectable id="mutable_hardware">mutable hardware</selectable></selectables> REKs with a <selectables>
                 <selectable id="s-rek-sym">symmetric</selectable>
                 <selectable id="s-rek-asym">asymmetric</selectable></selectables> key of strength <selectables>
@@ -2602,11 +2606,17 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <note role="application"> Either asymmetric or symmetric keys are allowed; the ST author
               makes the selection appropriate for the device. Symmetric keys must be of size 128 or
               256 bits in order to correspond with FCS_COP.1/ENCRYPT. Asymmetric keys may be of any
-              strength corresponding to FCS_CKM.1. <htm:br/><htm:br/> The raw key material of
+              strength corresponding to FCS_CKM.1. <htm:br/><htm:br/>
+
+	      The raw key material of
               "immutable hardware" REKs is computationally processed by hardware and software
-              cannot access the raw key material. Thus if "immutable-hardware" is selected in
-              FCS_CKM_EXT.1.1 it implicitly meets FCS_CKM_EXT.7. If "mutable-hardware" is selected
-              in FCS_CKM_EXT.1.1, FCS_CKM_EXT.7 must be included in the ST. <htm:br/><htm:br/> The
+              cannot access the raw key material. Thus if <xref to="s-immutable-hardware"/>
+	      is selected in
+              FCS_CKM_EXT.1.1 it implicitly meets FCS_CKM_EXT.7.
+	      If <xref to="mutable_hardware"/> is selected
+              in FCS_CKM_EXT.1.1, FCS_CKM_EXT.7 must be included in the ST. <htm:br/><htm:br/>
+
+	      The
               lack of a public/documented API for importing or exporting the REK, when a
               private/undocumented API exists, is not sufficient to meet this requirement.
               <htm:br/><htm:br/> The RBG used to generate a REK may be an RBG native to the hardware
@@ -2670,7 +2680,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     <selectable>using an XOR operation</selectable>
                     <selectable> concatenating the keys and using a KDF (as described in SP
                       800-108)</selectable>
-                    <selectable>concatenating the keys and using a KDF (as described in SP
+                    <selectable id="s-dek-800-56">concatenating the keys and using a KDF (as described in SP
                       800-56C)</selectable></selectables></selectable>
               </selectables> with entropy corresponding to the security strength of AES key sizes of <selectables>
                 <selectable>128</selectable>
@@ -2719,8 +2729,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     XOR or a KDF to justify that the effective entropy of each factor is preserved. 
                     The evaluator shall also verify that each combined value was originally generated 
                   from an Approved DRBG described in FCS_RBG_EXT.1.</htm:li>
-                  <htm:li>If “concatenating the keys and using a KDF (as described in (SP 800-56C)”
-                    is selected, the evaluator shall ensure the TSS includes a description of the
+                  <htm:li>If <xref to="s-dek-800-56"/> is selected,
+		  the evaluator shall ensure the TSS includes a description of the
                     randomness extraction step.</htm:li>
                 </htm:ul> The description must include how an approved untruncated MAC function is
                 being used for the randomness extraction step and the evaluator must verify the TSS
@@ -3012,7 +3022,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 ensure that the TSS includes a description of the key derivation function and shall
                 verify the key derivation uses an approved derivation mode and key expansion
                 algorithm according to SP 800-108. <htm:br/><htm:br/> (conditional) If
-                "concatenating the keys and using a KDF (as described in (SP 800-56C)" is selected,
+                <xref to="s-dek-800-56"/> is selected,
                 the evaluator shall ensure the TSS includes a description of the randomness
                 extraction step. The description must include <htm:ul>
                   <htm:li>How an approved untruncated MAC function is being used for the randomness
@@ -3488,10 +3498,11 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           
           <f-element id="fel-rek-stay-hardware">
             <title>A REK shall not be able to be read from or exported from the hardware. </title>
-            <note role="application">If "mutable-hardware" is selected in FCS_CKM_EXT.1.1,
-              FCS_CKM_EXT.7 must be included in the ST. Note that if "immutable-hardware" is
-              selected in FCS_CKM_EXT.1.1 it implicitly meets FCS_CKM_EXT.7. <htm:br/><htm:br/> The
-              lack of a public/documented API for importing or exporting, when a
+            <note role="application">If <xref to="mutable_hardware"/> is selected in FCS_CKM_EXT.1.1,
+              FCS_CKM_EXT.7 must be included in the ST. Note that if <xref to="s-immutable-hardware"/> is
+              selected in FCS_CKM_EXT.1.1 it implicitly meets FCS_CKM_EXT.7. <htm:br/><htm:br/>
+	      
+	      The lack of a public/documented API for importing or exporting, when a
               private/undocumented API exists, is not sufficient to meet this requirement. </note>
             <aactivity>
               <TSS>The evaluation activity for this component is performed in conjunction with the
@@ -3868,10 +3879,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <title>The TSF shall perform [<htm:i>cryptographic signature services (generation
               and verification)</htm:i>] in accordance with a specified cryptographic
               algorithm <selectables linebreak="yes">
-                <selectable><readable>RSA schemes</readable>[<htm:i><snip>RSA schemes</snip></htm:i>] <refinement>using</refinement> cryptographic key sizes of [<htm:i>2048-bit or
+                <selectable id="s-sign-rsa"><readable>RSA schemes</readable>[<htm:i><snip>RSA schemes</snip></htm:i>] <refinement>using</refinement> cryptographic key sizes of [<htm:i>2048-bit or
                   greater</htm:i>] that meet the following: [<htm:i>FIPS PUB 186-4, "Digital Signature Standard
                     (DSS)", Section 4</htm:i>]</selectable>
-                <selectable><readable>ECDSA schemes</readable>[<htm:i>ECDSA schemes</htm:i>] <refinement>using</refinement> [<htm:i>"NIST curves" P-384 and <selectables>
+                <selectable id="s-sign-ecdsa"><readable>ECDSA schemes</readable>[<htm:i>ECDSA schemes</htm:i>] <refinement>using</refinement> [<htm:i>"NIST curves" P-384 and <selectables>
                   <selectable>P-256</selectable>
                   <selectable>P-521</selectable>
                   <selectable exclusive="yes">no other curves</selectable></selectables></htm:i>] that meet the following: [<htm:i>FIPS PUB 186-4, "Digital Signature
@@ -3891,7 +3902,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 provide access to a test platform that provides the evaluator with tools that are
                 typically not found on factory products. <htm:br/><htm:br/>
                 <testlist>
-                  <test><htm:b>[conditional] If "ECDSA schemes..." is selected in FCS_COP.1.1/SIGN</htm:b><htm:br/>
+                  <test><htm:b>[conditional] If <xref to="s-sign-ecdsa"/> is selected in FCS_COP.1.1/SIGN</htm:b><htm:br/>
                     <testlist>
                       <test><htm:b>ECDSA FIPS 186-4 Signature Generation Test </htm:b><htm:br/> For
                         each supported NIST curve (i.e. P-256, P-384 and P-521) and SHA function
@@ -3907,7 +3918,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                         a set of 10 PASS/FAIL values. </test>
                     </testlist>
                   </test>
-                  <test><htm:b>[conditional] If "RSA schemes..." is selected in FCS_COP.1.1/SIGN</htm:b><htm:br/>
+                  <test><htm:b>[conditional] If <xref to="s-sign-rsa"/> is selected in FCS_COP.1.1/SIGN</htm:b><htm:br/>
                     <testlist>
                       <test><htm:b>Signature Generation Test</htm:b><htm:br/> The evaluator shall
                         verify the implementation of RSA Signature Generation by the TOE using the
