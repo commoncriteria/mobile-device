@@ -3786,16 +3786,50 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <f-element id="fel-hash-how">
             <title>The TSF shall perform [<htm:i>cryptographic hashing</htm:i>] in
               accordance with a specified cryptographic algorithm [<htm:i>SHA-1 and <selectables>
-                <selectable>SHA-256</selectable>
-                <selectable>SHA-384</selectable>
-                <selectable>SHA-512</selectable>
+                <selectable id="s-sha-256">SHA-256</selectable>
+                <selectable id="s-sha-384">SHA-384</selectable>
+                <selectable id="s-sha-512">SHA-512</selectable>
                 <selectable exclusive="yes">no other algorithms</selectable></selectables></htm:i>] and <refinement>message digest</refinement> sizes
               [<htm:i>160 and <selectables>
-                <selectable>256</selectable>
-                <selectable>384</selectable>
-                <selectable>512 bits</selectable>
+                <selectable id="s-hash-size-256">256 bits</selectable>
+                <selectable id="s-hash-size-384">384 bits</selectable>
+                <selectable id="s-hash-size-512">512 bits</selectable>
                 <selectable exclusive="yes">no other message digest sizes</selectable></selectables></htm:i>] that meet the following: [<htm:i>FIPS Pub
-                180-4</htm:i>]. </title>
+                180-4</htm:i>].
+		<rule id="r-sha256">
+		  <or>
+		    <and>
+		      <ref-id>s-sha-256</ref-id><ref-id>s-hash-size-256</ref-id>
+		    </and>
+		    <and>
+		      <not><ref-id>s-sha-256</ref-id></not>
+		      <not><ref-id>s-hash-size-256</ref-id></not>
+		    </and>
+		  </or>
+		</rule>
+		<rule id="r-sha384">
+		  <or>
+		    <and>
+		      <ref-id>s-sha-384</ref-id><ref-id>s-hash-size-384</ref-id>
+		    </and>
+		    <and>
+		      <not><ref-id>s-sha-384</ref-id></not>
+		      <not><ref-id>s-hash-size-384</ref-id></not>
+		    </and>
+		  </or>
+		</rule>
+		<rule id="r-sha512">
+		  <or>
+		    <and>
+		      <ref-id>s-sha-512</ref-id><ref-id>s-hash-size-512</ref-id>
+		    </and>
+		    <and>
+		      <not><ref-id>s-sha-512</ref-id></not>
+		      <not><ref-id>s-hash-size-512</ref-id></not>
+		    </and>
+		  </or>
+		</rule>
+	    </title>
             <note role="application">Per NIST SP 800-131A, SHA-1 for generating digital signatures
               is no longer allowed, and SHA-1 for verification of digital signatures is strongly
               discouraged as there may be risk in accepting these signatures. It is expected that
@@ -4074,19 +4108,30 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
           <f-element id="fel-conn-notify">
             <title>The TSF shall notify the application and <selectables>
-                <selectable>not establish the connection</selectable>
-                <selectable>request application authorization to establish the
+                <selectable id="s-not-estab">not establish the connection</selectable>
+                <selectable id="s-req-app-auth">request application authorization to establish the
                   connection</selectable>
-                <selectable exclusive="yes">no other action</selectable></selectables> if the peer certificate is deemed invalid. </title>
+                <selectable id="s-no-other-action" exclusive="yes">no other action</selectable></selectables> if the peer certificate is deemed invalid. </title>
             <note role="application"> Validity is determined by the certificate path, the expiration
-              date, and the revocation status in accordance with RFC 5280. <htm:br/><htm:br/> If
-              "not establish the connection" is selected then "with no exceptions" must be selected
-              for FCS_TLSC_EXT.1.3 in the <xref to="pkg-tls"/>. If "request
-              application authorization to establish the connection" is selected then "except when
-              override is authorized" must be selected for FCS_TLSC_EXT.1.3 in the Package for
-              Transport Layer Security. If "no other action" is selected either selection can be
-              made in FCS_TLSC_EXT.1.3.<htm:br/><htm:br/> FMT_SMF.1 Function <xref
-                to="mf-certInvalid"/> configures whether to allow or disallow the establishment of a
+            date, and the revocation status in accordance with RFC 5280. <htm:br/><htm:br/>
+
+	    If <xref to="s-not-estab"/> is selected then "with no exceptions" must be selected
+            for FCS_TLSC_EXT.1.3 in the <xref to="pkg-tls"/>.
+	    <rule id="r-not-estab">
+	      <if><ref-id>s-not-estab</ref-id></if>
+	      <then><doc ref="pkg-tls"><ref-id>s-tlsc-no-excep</ref-id></doc></then>
+	    </rule>
+	    If <xref to="s-req-app-auth"/> is selected then
+	    "except when  override is authorized" must be selected
+	    for FCS_TLSC_EXT.1.3 in the Package for
+            Transport Layer Security.
+	    <rule id="r-override">
+	      <if><ref-id>s-req-app-auth</ref-id></if>
+	      <then><doc ref="pkg-tls"><ref-id>s-tlsc-override</ref-id></doc></then>
+	    </rule>
+	    If <xref to="s-no-other-action"/> is selected either selection can be
+            made in FCS_TLSC_EXT.1.3.<htm:br/><htm:br/>
+	    FMT_SMF.1 Function <xref to="mf-certInvalid"/> configures whether to allow or disallow the establishment of a
               trusted channel if the peer certificate is deemed invalid. </note>
             <aactivity>
               <!-- TODO: Need to fix EA and interweave FMT_SMF_EXT function certInvalid -->
@@ -4512,11 +4557,11 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               FMT_SMR.1 Security Roles
             </dependencies>
             
-            
+            <!--fcs_stg_ext.1.1 -->
             <f-element id="fel-key-store">
               <title>The TSF shall provide <selectables>
                 <selectable>mutable hardware</selectable>
-                <selectable>software-based</selectable>
+                <selectable id="s-software-store">software-based</selectable>
               </selectables> secure key storage for asymmetric private keys and <selectables>
                 <selectable>symmetric keys</selectable>
                 <selectable>persistent secrets</selectable>
@@ -4525,13 +4570,24 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <note role="application">A hardware keystore can be exposed to the TSF through a variety
                 of interfaces, including embedded on the motherboard, USB, microSD, and Bluetooth.
                 <htm:br/><htm:br/> Immutable hardware is considered outside of this requirement and
-                will be covered elsewhere. <htm:br/><htm:br/> If the secure key storage is implemented
+                will be covered elsewhere. <htm:br/><htm:br/>
+		
+		If the secure key storage is implemented
                 in software that is protected as required by FCS_STG_EXT.2, the ST author must select
-                "software-based." If "software-based" is selected, the ST author must select "all
-                software-based key storage" in FCS_STG_EXT.2. <htm:br/><htm:br/> Support for secure
+                <xref to="s-software-store"/>.
+		If <xref to="s-software-store"/> is selected,
+		the ST author must select <xref to="s-all-software-key-store"/> in FCS_STG_EXT.2.1.
+		<rule id="r-store">
+		  <if><ref-id>s-software-store</ref-id></if>
+		  <then><ref-id>s-all-software-key-store</ref-id></then>
+		</rule>
+		<htm:br/><htm:br/>
+
+		Support for secure
                 key storage for all symmetric keys and persistent secrets will be required in future
                 revisions. </note>
             </f-element>
+            <!--fcs_stg_ext.1.2 -->
             <f-element id="fel-key-import">
               <title>The TSF shall be capable of importing keys or secrets into the secure key storage
                 upon request of <selectables>
@@ -4547,6 +4603,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
 	      </ext-comp-def-title>
               <note role="application"> If the ST selects only <xref to="import-user"/>, the ST author must select function <xref to="mf-keyStorage"/> in FMT_MOF_EXT.1.1. </note>
             </f-element>
+            <!--fcs_stg_ext.1.3 -->
             <f-element id="fel-keystore-kill">
               <title>The TSF shall be capable of destroying keys or secrets in the secure key storage
                 upon request of <selectables>
@@ -4555,6 +4612,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 </selectables>. </title>
               <note role="application">If the ST selects <xref to="import-user"/>, the ST author must select function <xref to="mf-keyWipe"/> in FMT_MOF_EXT.1.1. </note>
             </f-element>
+            <!--fcs_stg_ext.1.4 -->
             <f-element id="fel-keystore-who-access">
               <title>The TSF shall have the capability to allow only the application that imported the
                 key or secret the use of the key or secret. Exceptions may only be explicitly authorized by <selectables>
@@ -4567,6 +4625,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
 				If the ST selects <xref to="import-user"/>, the ST author must select function <xref to="mf-sharedKeys"/> in FMT_MOF_EXT.1.1.
 			  </note>
             </f-element>
+            <!--fcs_stg_ext.5. -->
             <f-element id="fel-keystore-who-kill">
               <title>The TSF shall allow only the application that imported the key or secret to request
                 that the key or secret be destroyed. Exceptions may only be explicitly authorized by <selectables>
@@ -4679,7 +4738,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <f-element id="fel-encrypt-key-what">
               <title>The TSF shall encrypt all DEKs, KEKs, <assignable>any long-term trusted channel
                 key material</assignable> and <selectables>
-                  <selectable>all software-based key storage</selectable>
+                  <selectable id="s-all-software-key-store">all software-based key storage</selectable>
                   <selectable exclusive="yes">no other keys</selectable>
                 </selectables> by KEKs that are <selectables linebreak="yes">
                   <selectable>Protected by the REK with <selectables linebreak="yes">
@@ -4697,10 +4756,11 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   </selectables>
                   </selectable>
                 </selectables>. </title>
-              <note role="application">The ST author must select "all software-based key storage" if
-                "software-based" is selected in FCS_STG_EXT.1.1. If the ST author selects "mutable
-                hardware" in FCS_STG_EXT.1.1, the secure key storage is not subject to this
-                requirement. REKs are not subject to this requirement. <htm:br/><htm:br/> 
+		<note role="application">The ST author must select <xref to="s-all-software-key-store"/>
+		if <xref to="s-software-store"/> is selected in FCS_STG_EXT.1.1.
+		If the ST author selects <xref to="mutable_hardware"/> in FCS_STG_EXT.1.1,
+		the secure key storage is not subject to this requirement.
+		REKs are not subject to this requirement. <htm:br/><htm:br/> 
                 A REK and
                 the password-derived KEK may be combined to form a combined KEK (as described in
                 FCS_CKM_EXT.3) in order to meet this requirement. <htm:br/><htm:br/> 
@@ -4983,18 +5043,18 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
           <f-element id="fel-acp">
             <title>The TSF shall provide an access control policy that prevents <selectables>
-                <selectable>application</selectable>
+                <selectable id="s-fdp-app">application</selectable>
                 <selectable id="fdp_group">groups of applications</selectable>
               </selectables> from accessing <selectables>
                 <selectable>all</selectable>
-                <selectable>private</selectable>
+                <selectable id="s-private">private</selectable>
               </selectables> data stored by other <selectables>
                 <selectable>application</selectable>
                 <selectable>groups of applications</selectable>
               </selectables>. Exceptions may only be explicitly authorized for such sharing by <selectables>
-                <selectable>the user</selectable>
-                <selectable>the administrator</selectable>
-                <selectable>a common application developer</selectable>
+                <selectable id="s-acl-user">the user</selectable>
+                <selectable id="s-acl-admin">the administrator</selectable>
+                <selectable id="s-acl-devel">a common application developer</selectable>
                 <selectable>no one</selectable>
             </selectables>. </title>
 	    <ext-comp-def-title>
@@ -5017,8 +5077,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               have multiple instances installed, each in different application groups. Private data
               is defined as data that is accessible only by the application that wrote it. Private
               data is distinguished from data that an application may, by design, write to shared
-              storage areas. <htm:br/><htm:br/> If "groups of applications" is selected,
-              FDP_ACF_EXT.2 must be included in the ST. </note>
+              storage areas. <htm:br/><htm:br/>
+	      If <xref to="fdp_group"/> is selected, FDP_ACF_EXT.2 must be included in the ST.
+	    </note>
             <aactivity level="element">
               <TSS>The evaluator shall examine the TSS to verify that it describes which data
                 sharing is permitted between applications, which data sharing is not permitted, and
@@ -5030,17 +5091,24 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <testlist>
                   <test>The evaluator shall write, or the developer shall provide, two applications,
                     one that saves data containing a unique string and the other, which attempts to
-                    access that data. If "groups of applications" is selected, the applications
-                    shall be placed into different groups. If "application" is selected, the
-                    evaluator shall install the two applications. If "private data" is selected, the
-                    application shall not write to a designated shared storage area. The evaluator
+                    access that data.
+		    If <xref to="fdp_group"/> is selected, the applications
+                    shall be placed into different groups.
+		    If <xref to="s-fdp-app"/> is selected, the
+                    evaluator shall install the two applications.
+		    If <xref to="s-private"/> is selected, the
+                    application shall not write to a designated shared storage area.
+		    The evaluator
                     shall verify that the second application is unable to access the stored unique
-                    string. <htm:br/><htm:br/> If "the user" is selected, the evaluator shall grant
+                    string. <htm:br/><htm:br/> If <xref to="s-acl-user"/> is selected, the evaluator shall grant
                     access as the user and verify that the second application is able to access the
-                    stored unique string. <htm:br/><htm:br/> If "the administrator" is selected, the
+                    stored unique string. <htm:br/><htm:br/>
+
+		    If <xref to="s-acl-admin"/> is selected, the
                     evaluator shall grant access as the administrator and verify that the second
-                    application is able to access the stored unique string. <htm:br/><htm:br/> If "a
-                    common application developer" is selected, the evaluator shall grant access to
+                    application is able to access the stored unique string. <htm:br/><htm:br/>
+
+		    If <xref to="s-acl-devel"/>  is selected, the evaluator shall grant access to
                     an, application with a common application developer to the first, and verify
                     that the application is able to access the stored unique string. </test>
                 </testlist>
@@ -5077,7 +5145,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable>the administrator</selectable>
                 <selectable>no one</selectable>
               </selectables>. </title>
-            <note role="application">If "groups of applications" is selected in FDP_ACF_EXT.1.2,
+            <note role="application">If <xref to="fdp_group"/> is selected in FDP_ACF_EXT.1.2, <!-- taken care of by depends -->
               FDP_ACF_EXT.2 must be included in the ST. </note>
             <aactivity>
               <TSS>There are no TSS evaluation activities for this component.<htm:br/><htm:br/></TSS>
@@ -5151,8 +5219,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           
           <f-element id="fel-backup-mark">
             <title>The TSF shall provide a mechanism for applications to mark <selectables>
-                <selectable>all application data</selectable>
-                <selectable>selected application data</selectable>
+                <selectable id="s-all-app-data">all application data</selectable>
+                <selectable id="s-sel-app-data">selected application data</selectable>
               </selectables> to be excluded from device backups. </title>
             <note role="application"> Device backups include any mechanism built into the TOE that
               allows stored application data to be extracted over a physical port or sent over the
@@ -5162,12 +5230,15 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               to meet this requirement. </note>
             <aactivity>
               <TSS>There are no TSS evaluation activities for this component.<htm:br/><htm:br/></TSS>
-              <Guidance>There are no guidance evaluation activities for this component.<htm:br/><htm:br/></Guidance><Tests>If "all application data" is selected, the evaluator shall install an
+              <Guidance>There are no guidance evaluation activities for this component.<htm:br/><htm:br/></Guidance>
+	      <Tests>If <xref to="s-all-app-data"/> is selected, the evaluator shall install an
                 application that has marked all of its application data to be excluded from backups.
                 The evaluator shall cause data to be placed into the application’s storage area. The
                 evaluator shall attempt to back up the application data and verify that the backup
                 fails or that the application’s data was not included in the backup.
-                <htm:br/><htm:br/> If "selected application data" is selected, the evaluator shall
+                <htm:br/><htm:br/>
+
+		If <xref to="s-sel-app-data"/> is selected, the evaluator shall
                 install an application that has marked selected application data to be excluded from
                 backups. The evaluator shall cause data covered by "selected application data" to be
                 placed into the application’s storage area. The evaluator shall attempt to backup
@@ -5492,8 +5563,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               required Information Flow Control, the first option must be selected. In these cases,
               the TOE provides an API to third-party VPN clients that allow them to configure the
               TOE’s network stack to perform the required Information Flow Control.
-              <htm:br/><htm:br/> The ST author must select the second option if the TSF implements
-              a native VPN client (IPsec is selected in FTP_ITC_EXT.1). Thus the TSF must be
+              <htm:br/><htm:br/>
+	      The ST author must select the second option if the TSF implements
+              a native VPN client (<xref to="s-itc-ipsec"/> is selected in <xref to="fel-wlan"/>). Thus the TSF must be
               validated against the <xref to="mod-vpnclient"/> and the ST author must also include
               <no-link>FDP_IFC_EXT.1</no-link> from the <xref to="mod-vpnclient"/>. <htm:br/><htm:br/> It is optional for
               the VPN client to be configured to be always-on per FMT_SMF.1 Function <xref
@@ -6445,7 +6517,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               (finger/palm) vein -->. A hybrid authentication factor is where a user has to submit a
               combination of PIN/password and biometric sample where both have to pass and if either
               fails the user is not made aware of which factor failed.<htm:br/><htm:br/> 
-              If <xref to="uau_biometric"/> or <xref to="uau_hybr"/> is selected, then the TSF must be validated against requirements from the <xref to="mod-biometrics"/>.<htm:br/><htm:br/>
+              If <xref to="uau_biometric"/> or <xref to="uau_hybr"/> is selected,
+	      then the TSF must be validated against requirements from the <xref to="mod-biometrics"/>.<htm:br/><htm:br/>
+	      
               If <xref to="uau_hybr"/> is selected, <xref to="uau_biometric"/> does not need to be selected, but should be
               selected if the biometric authentication can be used independent of the hybrid
               authentication, i.e. without having to enter a PIN/password.<htm:br/><htm:br/>              
@@ -6514,7 +6588,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     Authentication Factor, according to the AGD guidance. The evaluator shall change
                     the BAF according to the AGD guidance and verify that the TSF requires the entry
                     of the Password Authentication Factor before allowing the BAF to be changed. </test>
-                  <test>[conditional] If "hybrid" is selected in FIA_UAU.5.1, the evaluator shall
+                  <test>[conditional] If <xref to="uau_hybr"/> is selected in FIA_UAU.5.1, the evaluator shall
                     configure the TSF to use the BAF and PIN or password, which includes configuring
                     the Password Authentication Factor, according to the AGD guidance. The evaluator
                     shall change the BAF and PIN according to the AGD guidance and verify that the
@@ -6575,7 +6649,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <note role="application">This applies to all authentication methods specified in
               FIA_UAU.5.1. The TSF may briefly (1 second or less) display each character or provide
               an option to allow the user to unmask the password; however, the password must be
-              obscured by default. <htm:br/><htm:br/> If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, the TSF
+              obscured by default. <htm:br/><htm:br/>
+
+	      If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, the TSF
               must not display sensitive information regarding any BAF that could aid an
               adversary in identifying or spoofing the respective biometric characteristics of a
               given human user. While it is true that biometric samples, by themselves, are not
@@ -6593,7 +6669,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <test>The evaluator shall enter passwords on the device, including at least the
                     Password Authentication Factor at lock screen, and verify that the password is
                     not displayed on the device. </test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall
+                    <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1,
+		    for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall
                     authenticate by producing a biometric sample at lock screen. As the biometric
                     algorithms are performed, the evaluator shall verify that sensitive images,
                     audio, or other information identifying the user are kept secret and are not
@@ -6820,7 +6897,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <htm:li>The TSF shall validate that any CA certificate includes caSigning purpose in the key usage field.</htm:li>
               <htm:li>The TSF shall validate the revocation status of the certificate using <selectables>
                 <selectable>OCSP as specified in RFC 6960</selectable>
-                <selectable>CRL as specified in RFC 5759</selectable>
+                <selectable id="s-crl">CRL as specified in RFC 5759</selectable>
                 <selectable>an OCSP TLS Status Request Extension (OCSP stapling) as specified in RFC 6066</selectable>
                 <selectable>OCSP TLS Multi-Certificate Status Request Extension (i.e., OCSP Multi-Stapling) as specified in RFC 6961</selectable>
               </selectables>.</htm:li>
@@ -6865,7 +6942,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 
                 The evaluator shall ensure that a valid certificate is used, and that the validation function succeeds. The evaluator then attempts the test with a certificate that has been revoked (for each method chosen in the selection) to ensure when the certificate is no longer valid that the validation function fails.<htm:br/>
                   </test><htm:br/>
-                <test>If any OCSP option is selected, the evaluator shall configure the OCSP server or use a man-in-the-middle tool to present a certificate that does not have the OCSP signing purpose and verify that validation of the OCSP response fails. If CRL is selected, the evaluator shall configure the CA to sign a CRL with a certificate that does not have the cRLsign key usage bit set, and verify that validation of the CRL fails.
+                  <test>
+		    If any OCSP option is selected, the evaluator shall configure the OCSP server or use a man-in-the-middle tool to present a certificate that does not have the OCSP signing purpose and verify that validation of the OCSP response fails. If <xref to="s-crl"/> is selected,
+		  the evaluator shall configure the CA to sign a CRL with a certificate that does not have the cRLsign key usage bit set, and verify that validation of the CRL fails.
                 </test><htm:br/>
                 <test>The evaluator shall modify any byte in the first eight bytes of the certificate and demonstrate that the certificate fails to validate (the certificate will fail to parse correctly).
                 </test> <htm:br/>
@@ -7708,7 +7787,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     application installation policy by <htm:div class="indent"><selectables linebreak="yes">
                         <selectable id="mf-appInstallRules-restrict">restricting the sources of applications</selectable>
                         <selectable id="mf-appInstallRules-specify">specifying a set of allowed applications based on
-                            <assignable>application characteristics</assignable> (an application allowlist)</selectable>
+                            <assignable>application characteristics</assignable> (an <snip>application allowlist</snip>)</selectable>
                         <selectable id="mf-appInstallRules-deny">denying installation of applications</selectable>
                       </selectables></htm:div>
                   </text>
@@ -7733,8 +7812,9 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		  <aactivity><TSS>
 		     The evaluator
                   shall verify the TSS describes the allowable application installation policy
-                  options based on the selection included in the ST. If the application allowlist is
-                  selected, the evaluator shall verify that the TSS includes a description of each
+                  options based on the selection included in the ST.
+		  If the <xref to="mf-appInstallRules-specify"/> is selected,
+		  the evaluator shall verify that the TSS includes a description of each
                   application characteristic upon which the allowlist may be based.
 		</TSS>
 		<Tests> The evaluator shall exercise the TSF configuration as the administrator to
@@ -8071,7 +8151,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                         authentication can be achieved using the BAF. The evaluator shall configure
                         the TOE to disable the use of each supported BAF for authentication and
                         confirm that the BAF cannot be used to authenticate. </test>
-                      <test>[conditional] If "Hybrid" is selected the evaluator shall verify that
+                      <test>[conditional] If <xref to="uau_hybr"/> is selected the evaluator shall verify that
                         the TSS describes the procedure to enable/disable the hybrid (biometric
                         credential and PIN/password) authentication. The evaluator shall configure
                         the TOE to allow hybrid authentication to authenticate and confirm that
@@ -8329,9 +8409,17 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     destruction of keys or secrets by applications that did not import the key or secret
                   </text>
 		  <app-note>
-		    Function <xref to="mf-keyWipeRules"
-              /> should be included in the selection if user or administrator is selected in
-		    FCS_STG_EXT.1.5.
+		    Function <xref to="mf-keyWipeRules"/> should be included in the selection if
+		    <xref to="s-killkey-user"/> or <xref to="s-killkey-admin"/>
+		    is selected in FCS_STG_EXT.1.5.
+		    <rule id="r-killkey-user-mf">
+		      <if><ref-id>s-killkey-user</ref-id></if>
+		      <then><ref-id>mf-keyWipeRules</ref-id></then>
+		    </rule>
+		    <rule id="r-killkey-admin-mf">
+		      <if><ref-id>s-killkey-admin</ref-id></if>
+		      <then><ref-id>mf-keyWipeRules</ref-id></then>
+		    </rule>
 		  </app-note>
 		<aactivity><TSS>The
                   evaluator shall verify that the TSS describes how the approval for exceptions for
@@ -8412,10 +8500,10 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 <management-function id="mf-backup">
                   <text>
                     <!-- <ctr id="backup" pre="" ctr-type="function">.</ctr>--> enable/disable backup of <selectables>
-                      <selectable>all applications</selectable>
-                      <selectable>selected applications</selectable>
-                      <selectable>selected groups of applications</selectable>
-                      <selectable>configuration data</selectable>
+                      <selectable id="s-backup-all-apps">all applications</selectable>
+                      <selectable id="s-backup-sel-apps">selected applications</selectable>
+                      <selectable id="s-backup-sel-grps">selected groups of applications</selectable>
+                      <selectable id="s-backup-cfg">configuration data</selectable>
                     </selectables> to <selectables>
                       <selectable>locally connected system</selectable>
                       <selectable>remote system</selectable>
@@ -8427,20 +8515,25 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   of applications" are selected the TSS shall include which applications of groups of
                   applications backup can be enabled/disabled.</TSS>
                   
-                <Tests> If "all applications" is selected, the evaluator shall disable each selected
+                <Tests> If <xref to="s-backup-all-apps"/> is selected, the evaluator shall disable each selected
                     backup location in turn and verify that the TOE cannot complete a backup. The
                     evaluator shall then enable each selected backup location in turn and verify
-                    that the TOE can perform a backup. <htm:br/><htm:br/> If "selected applications"
-                    is selected, the evaluator shall disable each selected backup location in turn
+                    that the TOE can perform a backup. <htm:br/><htm:br/>
+		    
+		    If <xref to="s-backup-sel-apps"/> is selected,
+		    the evaluator shall disable each selected backup location in turn
                     and verify that for the selected application the TOE prevents backup from
                     occurring. The evaluator shall then enable each selected backup location in turn
                     and verify that for the selected application the TOE can perform a backup.
-                    <htm:br/><htm:br/> If "selected groups of applications" is selected, the
+                    <htm:br/><htm:br/>
+		    
+		    If <xref to="s-backup-sel-grps"/> is selected, the
                     evaluator shall disable each selected backup location in turn and verify that
                     for a group of applications the TOE prevents the backup from occurring. The
                     evaluator shall then enable each selected backup location in turn and verify for
-                    the group of application the TOE can perform a backup. <htm:br/><htm:br/> If
-                    "configuration data" is selected, the evaluator shall disable each selected
+                    the group of application the TOE can perform a backup. <htm:br/><htm:br/>
+		    
+		    If <xref to="s-backup-cfg"/> is selected, the evaluator shall disable each selected
                     backup location in turn and verify that the TOE prevents the backup of
                     configuration data from occurring. The evaluator shall then enable each selected
                     backup location in turn and verify that the TOE can perform a backup of
@@ -8537,8 +8630,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     </selectables></htm:div>                
                   </text>
 		  <app-note>
-		    For function <xref
-                to="mf-alwaysOnVPN"/>, must be included in the ST if IPsec is selected in
+		    Function <_/> must be included in the ST if IPsec is selected in
               FTP_ITC_EXT.1 and the native IPsec VPN client can be configured to be Always-On.
               Always-On is defined as when the TOE has a network connection the VPN attempts to
               connect, all data leaving the device uses the VPN when the VPN is connected and no
@@ -9741,16 +9833,16 @@ The evaluator shall exercise the TSF configuration as the administrator and
           
           <f-element id="fel-jtag">
             <title>The TSF shall <selectables>
-                <selectable>disable access through hardware</selectable>
-                <selectable>control access by a signing key</selectable>
+                <selectable id="s-jtag-kill-hw">disable access through hardware</selectable>
+                <selectable id="s-jtag-control-key">control access by a signing key</selectable>
               </selectables> to JTAG. </title>
             <note role="application">This requirement means that access to JTAG must be disabled
               either through hardware or restricted through the use of a signing key.</note>
             <aactivity>
-              <TSS> If "disable access through hardware" is selected:<htm:br/> The evaluator shall
+              <TSS> If <xref to="s-jtag-kill-hw"/> is selected:<htm:br/> The evaluator shall
                 examine the TSS to determine the location of the JTAG ports on the TSF, to include
-                the order of the ports (i.e. Data In, Data Out, Clock, etc.).<htm:br/><htm:br/> If
-                "control access by a signing key" is selected:<htm:br/> The evaluator shall examine
+                the order of the ports (i.e. Data In, Data Out, Clock, etc.).<htm:br/><htm:br/>
+		If <xref to="s-jtag-control-key"/> is selected:<htm:br/> The evaluator shall examine
                 the TSS to determine how access to the JTAG is controlled by a signing key. The
                 evaluator shall examine the TSS to determine when the JTAG can be accessed, i.e.
                 what has the access to the signing key.<htm:br/><htm:br/></TSS>
@@ -9758,7 +9850,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               <Tests>
                 <htm:b>Evaluation Activity Note:</htm:b> The following test requires the developer to
                 provide access to a test platform that provides the evaluator with chip level
-                access. <htm:br/><htm:br/> If "disable access through hardware" is
+                access. <htm:br/><htm:br/> If <xref to="s-jtag-kill-hw"/> is
                 selected:<htm:br/> The evaluator shall connect a packet analyzer to the JTAG ports.
                 The evaluator shall query the JTAG port for its device ID and confirm that the
                 device ID cannot be retrieved. <htm:br/><htm:br/>
@@ -9850,8 +9942,9 @@ The evaluator shall exercise the TSF configuration as the administrator and
               threshold values used in making the match adjudication, intermediate calculations
               generated while building an enrollment or authentication template (i.e. direction
               maps, minutia counts, binarized and skeletonized representations of friction ridge
-              patterns), and final match scores. <htm:br/><htm:br/>--> If "hybrid" is selected in
-              FIA_UAU.5.1<!-- ToDo: Remove per bio cPP module:, in addition to the keying material included for the BAF, mentioned in the
+              patterns), and final match scores. <htm:br/><htm:br/>-->
+	      If <xref to="uau_hybr"/> is selected in  FIA_UAU.5.1
+	      <!-- ToDo: Remove per bio cPP module:, in addition to the keying material included for the BAF, mentioned in the
               previous paragraph,--> keying material also refers to the PIN/password used as part of
               the hybrid authentication. <htm:br/><htm:br/> In the future, this requirement will
               apply to symmetric and asymmetric private keys stored in the TOE secure key storage
@@ -10253,10 +10346,11 @@ The evaluator shall exercise the TSF configuration as the administrator and
           <f-element id="fel-integrity-fail">
             <title>The TSF shall not execute code if the code signing certificate is deemed invalid. </title>
             <note role="application">Certificates may optionally be used for code signing for
-              integrity verification (FPT_TST_EXT.2.1/PREKERNEL). If "code signing for integrity
-              verification" is selected in FIA_X509_EXT.2.1, FPT_TST_EXT.3.1 must be included in the
-              ST. <htm:br/><htm:br/> Validity is determined by the certificate path, the expiration
-              date, and the revocation status in accordance with RFC 5280. </note>
+            integrity verification (FPT_TST_EXT.2.1/PREKERNEL).
+	    If <xref to="x509_sign"/> is selected in FIA_X509_EXT.2.1, FPT_TST_EXT.3 must be included in the
+            ST. <htm:br/><htm:br/>
+	    Validity is determined by the certificate path, the expiration
+            date, and the revocation status in accordance with RFC 5280. </note>
             <aactivity>
               <TSS>There are no TSS evaluation activities for this component.<htm:br/><htm:br/></TSS>
               <Guidance>There are no guidance evaluation activities for this component.<htm:br/><htm:br/></Guidance>
@@ -10388,21 +10482,28 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 TSF is described and, if multiple stages and software are indicated, that the
                 software/firmware responsible for each stage is indicated and that the stages
                 which perform signature verification of the update are identified.
-                <htm:br/><htm:br/> The evaluator shall verify that the TSS describes the method by
+                <htm:br/><htm:br/>
+
+		<!-- TODO: Where is hardware-protection selection -->
+		The evaluator shall verify that the TSS describes the method by
                 which the digital signature is verified and that the public key used to verify the
                 signature is either hardware-protected or is validated to chain to a public key in
                 the Trust Anchor Database. If hardware-protection is selected, the evaluator shall
                 verify that the method of hardware-protection is described and that the ST author
                 has justified why the public key may not be modified by unauthorized parties.
-                <htm:br/><htm:br/> [conditional] If the ST author indicates that software updates to
+		<htm:br/><htm:br/>
+		
+		[conditional] If the ST author indicates that software updates to
                 system software running on other processors is verified, the evaluator shall verify
                 that these other processors are listed in the TSS and that the description includes
                 the software update mechanism for these processors, if different than the update
-                mechanism for the software executing on the Application Processor.
-                <htm:br/><htm:br/> [conditional] If the ST author indicates that the public key is
+                mechanism for the software executing on the Application Processor.<htm:br/><htm:br/>
+
+		[conditional] If the ST author indicates that the public key is
                 used for software update digital signature verification, the evaluator shall verify
                 that the update mechanism includes a certificate validation according to
                 FIA_X509_EXT.1 and a check for the Code Signing purpose in the extendedKeyUsage.
+		
                 <htm:br/><htm:br/></TSS>
               <Guidance>There are no guidance evaluation activities for this component.<htm:br/><htm:br/></Guidance>
               <Tests> The evaluator shall verify that the developer has provided evidence that the
@@ -10488,8 +10589,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
             <note role="application">Certificates may optionally be used for code signing of system
               software updates (FPT_TUD_EXT.2.3) and of mobile applications (<xref to="fel-app-verify-how"/>). This
               element must be included in the ST if certificates are used for either update element.
-              If either "code signing for system software updates" or "code signing for mobile
-              applications" is selected in FIA_X509_EXT.2.1, FPT_TUD_EXT.4.1 must be included in the
+              If either <xref to="x509_sys"/> or <xref to="x509_apps"/> is selected in FIA_X509_EXT.2.1,
+	      FPT_TUD_EXT.4 must be included in the
               ST. <htm:br/><htm:br/> Validity is determined by the certificate path, the expiration
               date, and the revocation status in accordance with RFC 5280. </note>
             <aactivity>
@@ -10710,8 +10811,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
               <htm:li>EAP-TLS in accordance with the [<htm:i><xref to="mod-wlanclient"/></htm:i>],</htm:li>
               <htm:li>Mutually authenticated TLS in accordance with [<htm:i>the <xref to="pkg-tls"/></htm:i>]</htm:li>
               </htm:ul> and <selectables linebreak="yes">
-                <selectable>IPsec in accordance with the <xref to="mod-vpnclient"/></selectable>
-                <selectable id="itc_dtls">mutually authenticated DTLS as defined in the <xref to="pkg-tls"/></selectable>
+                <selectable id="s-itc-ipsec"><snip>IPsec</snip> in accordance with the <xref to="mod-vpnclient"/></selectable>
+                <selectable id="itc_dtls"><snip>mutually authenticated DTLS</snip> as defined in the <xref to="pkg-tls"/></selectable>
                 <selectable>HTTPS</selectable>
               </selectables> protocols to provide a communication channel between itself and another trusted IT product that is logically distinct from other communication channels, 
               provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data. </title>
@@ -10731,7 +10832,16 @@ The evaluator shall exercise the TSF configuration as the administrator and
               The TSF must be validated against the <xref to="mod-wlanclient"/> to satisfy the mandatory trusted channels of 802.11-2012, 802.1X, and EAP-TLS. <htm:br/><htm:br/>
 				
               To satisfy the mandatory trusted channel of TLS and 
-			  if <xref to="itc_dtls"/> is selected, the TSF must be validated against the <xref to="pkg-tls"/>, with the following selections made: <htm:ul>
+	      if <xref to="itc_dtls"/> is selected, the TSF must be validated against the <xref to="pkg-tls"/>, with the following selections made:
+	      <rule id="r-tls">
+		  <doc ref="pkg-tls"><ref-id>tlsc_impl</ref-id><ref-id>tlsc_mutual_auth</ref-id></doc>
+	      </rule>
+	      <rule id="r-dtls">
+		<if><ref-id>itc_dtls</ref-id></if>
+		<then><doc ref="pkg-tls"><ref-id>dtlsc_impl</ref-id></doc></then>
+	      </rule>
+<!-- TODO: Can these be expressed as rules? -->	      
+	      <htm:ul>
                 <htm:li>FCS_TLS_EXT.1:</htm:li>
                 <htm:ul>
                   <htm:li>Either TLS or DTLS is selected as appropriate</htm:li>
