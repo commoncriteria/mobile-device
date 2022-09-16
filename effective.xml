@@ -10013,11 +10013,11 @@ The evaluator shall exercise the TSF configuration as the administrator and
               To satisfy the mandatory trusted channel of TLS and 
 	      if <xref to="itc_dtls" /> is selected, the TSF must be validated against the <xref to="pkg-tls" />, with the following selections made:
 	      <rule id="r-tls">
-		  <doc ref="pkg-tls"><ref-id>tlsc_impl</ref-id><ref-id>tlsc_mutual_auth</ref-id></doc>
+		  <doc ref="pkg-tls"><ref-id>tlsc_impl</ref-id><ref-id>tlsc_mutual_auth</ref-id><ref-id>s-tlsc-no-excep</ref-id></doc>
 	      </rule>
 	      <rule id="r-dtls">
 		<if><ref-id>itc_dtls</ref-id></if>
-		<then><doc ref="pkg-tls"><ref-id>dtlsc_impl</ref-id></doc></then>
+		<then><doc ref="pkg-tls"><ref-id>dtlsc_impl</ref-id><ref-id>dtlsc_mutual_auth</ref-id><ref-id>s-dtlsc-no-excep</ref-id></doc></then>
 	      </rule>
 	      
 	      <h:ul>
@@ -10036,10 +10036,15 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   <h:li>With no exceptions is selected.</h:li>                  
                 </h:ul>
               </h:ul>
-              <h:br /> 
-              If the ST author selects IPsec, the TSF must be validated against the <xref to="mod-vpnclient" />. <h:br /><h:br />                    
+              <h:br />
+	      <rule id="r-ipsec">
+		<if><ref-id>s-itc-ipsec</ref-id></if>
+		<then><ref-id>mod-vpnclient</ref-id></then>
+	      </rule>
+              If the ST author selects <xref to="s-itc-ipsec" />, the TSF must be validated against the <xref to="mod-vpnclient" />. <h:br /><h:br />                    
               <if-opt-app>
-                Appendix B - Selection-Based Requirements
+                
+		<xref to="sel-based-reqs" />Appendix B - Selection-Based Requirements
                 contains the requirements for implementing each of the other optional trusted
                 channel protocols. </if-opt-app> The ST author must include the security functional
               requirements for the trusted channel protocol selected in FTP_ITC_EXT.1 in the main
@@ -10076,7 +10081,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   <test>The evaluator shall ensure, for each communication channel with an
                     authorized IT entity, the channel data are not sent in plaintext and that a
                     protocol analyzer identifies the traffic as the protocol under testing.</test><h:br />
-                  <test>[conditional] If IPsec is selected, the evaluator shall ensure that the TOE 
+                    <test>[conditional] If  <xref to="s-itc-ipsec" /> is selected,
+		    the evaluator shall ensure that the TOE 
                     is able to initiate communications with a VPN Gateway, setting up the 
                     connections as described in the operational guidance and ensuring that 
                     communication is successful.</test><h:br />
@@ -10623,7 +10629,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
       </sec:ava>
     </section>
   </sec:Security_Requirements>
-  <appendix title="Validation Guidelines" />
+  <appendix title="Validation Guidelines" id="valguide" />
   
   <appendix title="Implicitly Satisfied Requirements" id="satisfiedreqs"> 
     <h:table>
