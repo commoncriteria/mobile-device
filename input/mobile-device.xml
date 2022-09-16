@@ -1696,7 +1696,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <selectable>Audit records reaching <assignable>integer value less than 100</assignable> percentage of audit capacity</selectable>
                   <selectable>Specifically defined auditable events in <xref to="t-audit-additional"/></selectable>
                   <selectable><assignable>other auditable events derived from this Protection Profile</assignable></selectable>
-                  <selectable><assignable>no additional auditable events</assignable></selectable>
+                  <selectable exclusive="yes" id="s-audit-gen-no-add-audit">no additional auditable events</selectable>
                     </selectables></refinement></htm:li>
               </htm:ol>
 
@@ -1965,17 +1965,27 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <htm:li>
                   <selectables>
                     <selectable>Additional information in <xref to="t-audit-additional"/></selectable>
-                    <selectable> no additional information</selectable>
+                    <selectable id="s-audit-no-add-info" exclusive="yes"> no additional information</selectable>
                   </selectables></htm:li></refinement>
             </htm:ol>
             </title>
             <note role="application"> The subject identity is usually the process name/ID. The event
               type is often indicated by a severity level, for example, ‘info’, ‘warning’, or
-              ‘error’. <htm:br/><htm:br/> If "no additional auditable events" is selected in the
-              second selection of FAU_GEN.1.1, then "no additional information" must be selected.
-              <htm:br/><htm:br/> For each audit event selected from <xref to="t-audit-additional"/> in
+              ‘error’. <htm:br/><htm:br/>
+	      
+	      If <xref to="s-audit-gen-no-add-audit"/> is selected in the
+              second selection of FAU_GEN.1.1, then <xref to="s-audit-no-add-info"/> must be selected.
+	      <rule id="r-no-add-audit">
+		<if><ref-id>s-audit-gen-no-add-audit</ref-id></if>
+		<then><ref-id>s-audit-no-add-info</ref-id></then>
+	      </rule>
+              <htm:br/><htm:br/>
+	      
+	      For each audit event selected from <xref to="t-audit-additional"/> in
               FAU_GEN.1.1 if additional information is required to be recorded within the audit
-              record, it should be included in this selection. </note>
+              record, it should be included in this selection.
+
+	    </note>
             <aactivity>
               <TSS> The evaluator shall check the TSS and ensure that it lists all of the auditable
                 events and provides a format for audit records. Each audit record format type must
@@ -3972,12 +3982,12 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <selectable>PBKDF2 with <assignable>number of iterations</assignable>
                     iterations</selectable>
                   <selectable><assignable>key stretching function</assignable></selectable>
-                  <selectable>no other function</selectable></selectables> and output</refinement> cryptographic key sizes<refinement>
+                  <selectable  exclusive="yes">no other function</selectable></selectables> and output</refinement> cryptographic key sizes<refinement>
                 <selectables>
                   <selectable>128</selectable>
                   <selectable>256</selectable></selectables></refinement> that meet the following: <refinement><selectables>
                   <selectable>NIST SP 800-132</selectable>
-                  <selectable>no standard</selectable></selectables>.</refinement>
+                  <selectable  exclusive="yes">no standard</selectable></selectables>.</refinement>
             </title>
             <note role="application">The key cryptographic key sizes in the third selection should
               be made to correspond to the KEK key sizes selected in FCS_CKM_EXT.3.
@@ -5628,7 +5638,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </htm:ul>and <selectables linebreak="yes">
                 <selectable id="upc_dtls">mutually authenticated DTLS as defined in the <xref to="pkg-tls"/></selectable>
                 <selectable id="s-upc-ipsec">IPsec as defined in the <xref to="mod-vpnclient"/></selectable>
-                <selectable>no other protocol</selectable>
+                <selectable exclusive="yes">no other protocol</selectable>
               </selectables> </htm:i>] to provide a protected communication channel between the non-TSF
               application and another IT product that is logically distinct from other communication
               channels, provides assured identification of its end points, protects channel data
@@ -5724,7 +5734,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <htm:li>Bluetooth BR/EDR in accordance with the <xref to="mod-bluetooth"/>,</htm:li>
               </htm:ul>and <selectables linebreak="yes">
                 <selectable>Bluetooth LE in accordance with the <xref to="mod-bluetooth"/></selectable>
-                <selectable>no other protocol</selectable>
+                <selectable exclusive="yes">no other protocol</selectable>
               </selectables> </htm:i>] to provide a protected communication channel between the non-TSF
               application and another IT product that is logically distinct from other communication
               channels, provides assured identification of its end points, protects channel data
@@ -5822,7 +5832,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable> vein</selectable> -->
                 <selectable> biometric in accordance with the <xref to="mod-biometrics"/></selectable>
                 <selectable> hybrid</selectable>
-                <selectable id="s-authfail-noother"> no other mechanism</selectable>
+                <selectable exclusive="yes" id="s-authfail-noother"> no other mechanism</selectable>
             </selectables> as critical authentication mechanisms. </title>
 	    <ext-comp-def-title>
               <title>The TSF shall consider password and
@@ -6416,7 +6426,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <selectable id="uau_vein"> vein</selectable> -->
                   <selectable id="uau_biometric"> biometric in accordance with the <xref to="mod-biometrics"/></selectable>
                   <selectable id="uau_hybr"> hybrid</selectable>
-                  <selectable>no other mechanism</selectable>
+                  <selectable exclusive="yes">no other mechanism</selectable>
                 </selectables>
               </refinement>to support user authentication. </title>
             <note role="application">The TSF must support a Password Authentication Factor and may
@@ -6526,18 +6536,18 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall
                     repeat Test 1 verifying that the TSF requires the entry of the BAF before
                     transitioning to the unlocked state. </test>
-                  <test>[conditional] If "hybrid" is selected in FIA_UAU.5.1, the evaluator shall
+                  <test>[conditional] If <xref to="uau_hybr"/> is selected in FIA_UAU.5.1, the evaluator shall
                     repeat Test 1 verifying that the TSF requires the entry of the BAF and
                     PIN/password before transitioning to the unlocked state. </test>
-                  <test>The evaluator shall configure user-initiated locking according to the AGD
+                  <test id="t-locks">The evaluator shall configure user-initiated locking according to the AGD
                     guidance. The evaluator shall lock the TSF and then verify that the TSF requires
                     the entry of the Password Authentication Factor before transitioning to the
                     unlocked state.</test>
                   <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall
-                    repeat Test 4 verifying that the TSF requires the entry of the BAF before
+                    repeat <xref to="t-locks"/> verifying that the TSF requires the entry of the BAF before
                     transitioning to the unlocked state.</test>
-                  <test>[conditional] If "hybrid" is selected in FIA_UAU.5.1, the evaluator shall
-                    repeat Test 4 verifying that the TSF requires the entry of the BAF and
+                  <test>[conditional] If <xref to="uau_hybr"/> is selected in FIA_UAU.5.1, the evaluator shall
+                    repeat <xref to="t-locks"/> verifying that the TSF requires the entry of the BAF and
                     PIN/password before transitioning to the unlocked state.</test>
                 </testlist>
               </Tests>
@@ -6612,7 +6622,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               prior to decryption of protected data and encrypted DEKs, KEKs and <selectables>
                 <selectable>long-term trusted channel key material</selectable>
                 <selectable>all software-based key storage</selectable>
-                <selectable>no other keys</selectable>
+                <selectable exclusive="yes">no other keys</selectable>
               </selectables> at startup. </title>
             <note role="application">The intent of this requirement is to prevent decryption of
               protected data before the user has authorized to the device using the Password
@@ -6713,8 +6723,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
 	    <audit-event-descr>Action performed before authentication.</audit-event-descr>
 	  </audit-event>
         </f-component>
-        <f-component cc-id="fia_uau_ext.4" name="Secondary User Authentication" status="optional">
-          
+        <f-component cc-id="fia_uau_ext.4" id="fc-fia-uau-ext-4" name="Secondary User Authentication" status="optional">
           <comp-lev> requires the TSF to enforce the use of a secondary authentication factor to access certain user data.</comp-lev>
           <management>There are no management activities foreseen.</management>
           <audit>There are no auditable events foreseen.</audit>
@@ -6754,8 +6763,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <title>The TSF shall require the user to present the secondary authentication factor
               prior to decryption of Enterprise application data and Enterprise shared resource
               data.</title>
-            <note role="application">This requirement must be selected if FIA_UAU_EXT.4.1 is
-              selected. The intent of this requirement is to prevent decryption of protected
+              <note role="application">
+		<!-- This requirement must be selected if FIA_UAU_EXT.4.1 is -->
+		<!-- selected. -->
+		The intent of this requirement is to prevent decryption of protected
               Enterprise application data and Enterprise shared resource data before the user has
               authenticated to the device using the secondary authentication factor. Enterprise
               shared resource data consists of the FDP_ACF_EXT.2.1 selections.</note>
@@ -6889,13 +6900,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               authentication for [<htm:i>mutually authenticated TLS as defined in the <xref to="pkg-tls"/>, HTTPS, <selectables>
                 <selectable>IPsec in accordance with the <xref to="mod-vpnclient"/></selectable>
                 <selectable id="x509_dtls">mutually authenticated DTLS as defined in the <xref to="pkg-tls"/></selectable>
-                <selectable>no other protocol</selectable>  
+                <selectable exclusive="yes">no other protocol</selectable>  
               </selectables></htm:i>] and <selectables>
                 <selectable id="x509_sys">code signing for system software updates</selectable>
                 <selectable id="x509_apps">code signing for mobile applications</selectable>
                 <selectable id="x509_sign">code signing for integrity verification</selectable>
                 <selectable><assignable>other uses</assignable></selectable>
-                <selectable>no additional uses</selectable>
+                <selectable exclusive="yes">no additional uses</selectable>
               </selectables>. </title>
             <ext-comp-def-title>
               <title>
@@ -6909,11 +6920,19 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   </selectables>. 
               </title>
             </ext-comp-def-title>
-            <note role="application">The ST author’s first selection must match the selection of <xref to="fel-tls-app"/> and <xref to="fel-wlan"/>.<htm:br/><htm:br/>
-            Certificates may optionally be used for trusted updates of system software (<xref to="fel-update-key-verify"/>) and mobile applications (<xref to="fel-updates-inc-version"/>) and for integrity verification (<xref to="fel-bootchain"/> and <xref to="fel-integrity-fail"/>).
-			  If <xref to="x509_sys"/> or <xref to="x509_apps"/> is selected <xref to="fel-update-int-fail"/> must be included in the ST.<htm:br/><htm:br/>
-        If <xref to="x509_sign"/> is selected <xref to="fel-integrity-fail"/> must be included in the ST.<htm:br/><htm:br/>		
-			  If <xref to="fel-app-verify-how"/> is included in the ST, <xref to="x509_apps"/> must be included in the selection.
+            <note role="application">
+	      <!-- TODO: Are there rules possible here -->
+	      The ST author’s first selection must match the selection of <xref to="fel-tls-app"/> and <xref to="fel-wlan"/>.<htm:br/><htm:br/>
+              Certificates may optionally be used for trusted updates of system software (<xref to="fel-update-key-verify"/>) and mobile applications (<xref to="fel-updates-inc-version"/>) and for integrity verification (<xref to="fel-bootchain"/> and <xref to="fel-integrity-fail"/>).
+
+	      <!-- these are implemented with depends elements in the larger f-component -->
+	    If <xref to="x509_sys"/> or <xref to="x509_apps"/> is selected <xref to="fel-update-int-fail"/> must be included in the ST.<htm:br/><htm:br/>
+
+	    <!-- these are implemented with depends elements in the larger f-component -->
+	    If <xref to="x509_sign"/> is selected <xref to="fel-integrity-fail"/> must be included in the ST.<htm:br/><htm:br/>
+
+	    <!-- these are implemented with depends elements in the larger f-component -->
+	    If <xref to="fel-app-verify-how"/> is included in the ST, <xref to="x509_apps"/> must be included in the selection.
         </note>
           </f-element>
           <f-element id="fel-fail-crt">
@@ -6921,7 +6940,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               a certificate, the TSF shall <selectables>
                 <selectable id="s-revoke-admin"><snip>allow the administrator to choose</snip> whether to accept the certificate in
                   these cases</selectable>
-                <selectable>allow the user to choose whether to accept the certificate in these
+                <selectable id="s-revoke-user"><snip>allow the user to choose</snip> whether to accept the certificate in these
                   cases</selectable>
                 <selectable>accept the certificate</selectable>
                 <selectable id="s-revoke-deny">not accept the certificate</selectable>
@@ -6937,9 +6956,20 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               behavior in the event that such a connection cannot be established (for example, due
               to a network error). If the TOE has determined the certificate is valid according to all
               other rules in FIA_X509_EXT.1, the behavior indicated in the selection must determine
-              the validity. If the administrator-configured or user-configured option is selected,
+              the validity. If <xref to="s-revoke-admin"/> or <xref to="s-revoke-user"/>
+	      the administrator-configured or user-configured option is selected,
               the ST author must also select function <xref to="mf-certValidity"/> in
-              FMT_SMF.1. <htm:br/><htm:br/> The TOE may behave differently depending on the
+              FMT_SMF.1.<htm:br/><htm:br/> 
+	      <rule id="r-revoke-admin">
+		<if><ref-id>s-revoke-admin</ref-id></if>
+		<then><ref-id>mf-certValidity</ref-id></then>
+	      </rule>
+	      <rule id="r-revoke-user">
+		<if><ref-id>s-revoke-user</ref-id></if>
+		<then><ref-id>mf-certValidity</ref-id></then>
+	      </rule>
+	      
+	      The TOE may behave differently depending on the
               trusted channel; for example, in the case of WLAN where connections are unlikely to be
               established, the TOE may accept the certificate even though certificates are not
               accepted for other channels. The ST author should select all applicable behaviors. </note>
@@ -7430,7 +7460,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 					<selectables linebreak="yes">
                         <selectable id="s-vpn-per-app">on a per-app basis</selectable>
                         <selectable id="s-vpn-per-appgroup">on a per-group of applications processes basis</selectable>
-                        <selectable>no other method</selectable>
+                        <selectable exclusive="yes">no other method</selectable>
                       </selectables></htm:div>
                   </text>
                   <M ref="I"/>
@@ -7568,7 +7598,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     <htm:div class="indent"><selectables linebreak="yes">
                         <selectable id="s-audiovisual-per-app">on a per-app basis</selectable>
                         <selectable id="s-audiovisual-per-appgroup">on a per-group of applications processes basis</selectable>
-                        <selectable>no other method</selectable>
+                        <selectable exclusive="yes">no other method</selectable>
                       </selectables></htm:div>
                   </text>
                   <M ref="I"/>
@@ -7734,7 +7764,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     <!-- 10. -->
                     <!-- <ctr id="keyWipe" pre="" ctr-type="function">.</ctr>--> destroy imported
                     keys or secrets and <selectables>
-                      <selectable>no other keys or secrets</selectable>
+                      <selectable exclusive="yes">no other keys or secrets</selectable>
                       <selectable><assignable>list of other categories of
                         keys or secrets</assignable></selectable>
                     </selectables> in the secure key storage </text>
@@ -7767,7 +7797,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     <!-- 12. -->
                     <!-- <ctr id="certWipe" pre="" ctr-type="function">.</ctr>--> remove imported X.509v3
                     certificates and <selectables>
-                      <selectable>no other X.509v3 certificates</selectable>
+                      <selectable exclusive="yes">no other X.509v3 certificates</selectable>
                       <selectable><assignable>list of other categories of X.509v3
                           certificates</assignable></selectable>
                     </selectables> in the Trust Anchor Database </text>
@@ -7976,7 +8006,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     <htm:div class="indent"><selectables linebreak="yes">
                         <selectable id="mf-location-per_app">on a per-app basis</selectable>
                         <selectable>on a per-group of applications processes basis</selectable>
-                        <selectable>no other method</selectable>
+                        <selectable exclusive="yes">no other method</selectable>
                       </selectables></htm:div>
                   </text>
                   <M ref="I"/>
@@ -8413,12 +8443,12 @@ The evaluator shall exercise the TSF configuration as the administrator and
                       <selectable>Hotspot functionality authenticated by <selectables>
                           <selectable>pre-shared key</selectable>
                           <selectable>passcode</selectable>
-                          <selectable>no authentication</selectable>
+                          <selectable exclusive="yes">no authentication</selectable>
                         </selectables></selectable>
                       <selectable id="s-tether"><snip>USB tethering</snip> authenticated by <selectables>
                           <selectable>pre-shared key</selectable>
                           <selectable>passcode</selectable>
-                          <selectable>no authentication</selectable>
+                          <selectable exclusive="yes">no authentication</selectable>
                         </selectables>
                       </selectable>
                     </selectables>
@@ -8492,7 +8522,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     <htm:div class="indent"><selectables linebreak="yes">
                       <selectable>on a per-app basis</selectable>
                       <selectable>on a per-group of applications processes basis</selectable>
-                      <selectable>no other method</selectable>
+                      <selectable exclusive="yes">no other method</selectable>
                     </selectables></htm:div>                
                   </text>
 		  <app-note>
@@ -9192,7 +9222,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </selectables> upon unenrollment and <selectables>
                 <selectable><assignable>other administrator-configured
                   triggers</assignable></selectable>
-                <selectable> no other triggers</selectable>
+                <selectable exclusive="yes"> no other triggers</selectable>
             </selectables>.</title>
 	    <ext-comp-def-title><title>
 	      The TSF shall offer <assignable>list of remediation actions</assignable>
@@ -9895,12 +9925,12 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 <selectable>notify the administrator</selectable>
                 <selectable>
                   <assignable>other actions</assignable></selectable>
-                <selectable>no other actions</selectable>
+                <selectable exclusive="yes">no other actions</selectable>
               </selectables> when the following types of failures occur: <htm:ul>
                 <htm:li>failures of the self-tests</htm:li>
                 <htm:li>TSF software integrity verification failures</htm:li>
                 <htm:li><selectables>
-                    <selectable>no other failures</selectable>
+                    <selectable exclusive="yes">no other failures</selectable>
                     <selectable>
                       <assignable>other failures</assignable></selectable>
                   </selectables></htm:li>
@@ -10726,7 +10756,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               point connections, administrative communication, configured enterprise connections,
               and <selectables>
                 <selectable>OTA updates</selectable>
-                <selectable>no other connections</selectable>
+                <selectable exclusive="yes">no other connections</selectable>
               </selectables>. </title>
             <aactivity>
               <TSS> The evaluator shall examine the TSS to determine that it describes the details
@@ -11294,6 +11324,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
       </sec:ava>
     </section>
   </sec:Security_Requirements>
+  <appendix title="Validation Guidelines"/>
+  
   <appendix title="Implicitly Satisfied Requirements" id="satisfiedreqs"> 
     <htm:table>
       <htm:tr>
