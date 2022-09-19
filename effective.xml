@@ -3677,6 +3677,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <f-element id="fel-https-how">
             <title>The TSF shall implement the HTTPS protocol that complies with RFC 2818. </title>
           </f-element>
+
           <f-element id="fel-https-tls">
             <title>The TSF shall implement HTTPS using TLS as defined in [<h:i>the <xref to="pkg-tls" /></h:i>].</title>
             <ext-comp-def-title>
@@ -3694,11 +3695,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </note>
           </f-element>
           <f-element id="fel-conn-notify">
+
             <title>The TSF shall notify the application and <selectables>
                 <selectable id="s-not-estab">not establish the connection</selectable>
                 <selectable id="s-req-app-auth">request application authorization to establish the
                   connection</selectable>
-                <selectable id="s-no-other-action" exclusive="yes">no other action</selectable></selectables> if the peer certificate is deemed invalid. </title>
+            <selectable id="s-no-other-action" exclusive="yes">no other action</selectable></selectables> if the peer certificate is deemed invalid. </title>
+	    <ext-comp-def-title><title>The TSF shall notify the application and <assignable>a response</assignable> if the peer certificate is deemed invalid.</title></ext-comp-def-title>
             <note role="application"> Validity is determined by the certificate path, the expiration
             date, and the revocation status in accordance with RFC 5280. <h:br /><h:br />
 
@@ -4154,7 +4157,15 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable>symmetric keys</selectable>
                 <selectable>persistent secrets</selectable>
                 <selectable exclusive="yes">no other keys</selectable>
-              </selectables>. </title>
+              </selectables>.</title>
+	      <ext-comp-def-title>
+		<title>The TSF shall provide
+		<assignable>storage medium</assignable>
+		secure key storage for asymmetric private keys and
+		<assignable>list of secrets</assignable>
+		.</title>
+	      </ext-comp-def-title>
+	      
               <note role="application">A hardware keystore can be exposed to the TSF through a variety
                 of interfaces, including embedded on the motherboard, USB, microSD, and Bluetooth.
                 <h:br /><h:br /> Immutable hardware is considered outside of this requirement and
@@ -4343,7 +4354,14 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                       password-derived or biometric-unlocked KEK</selectable>
                   </selectables>
                   </selectable>
-                </selectables>. </title>
+              </selectables>.</title>
+	      <ext-comp-def-title><title>
+		The TSF shall encrypt all DEKs, KEKs, <assignable>any long-term trusted channel
+                key material</assignable> and
+		<assignable>other secrets </assignable>
+		by KEKs that are 
+		<assignable>protection mechanism</assignable>.
+	      </title></ext-comp-def-title>
 		<note role="application">The ST author must select <xref to="s-all-software-key-store" />
 		if <xref to="s-software-store" /> is selected in FCS_STG_EXT.1.1.
 		If the ST author selects <xref to="mutable_hardware" /> in FCS_STG_EXT.1.1,
@@ -4806,7 +4824,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <title>The TSF shall provide a mechanism for applications to mark <selectables>
                 <selectable id="s-all-app-data">all application data</selectable>
                 <selectable id="s-sel-app-data">selected application data</selectable>
-              </selectables> to be excluded from device backups. </title>
+            </selectables> to be excluded from device backups. </title>
+	    <ext-comp-def-title><title>The TSF shall provide a mechanism for applications to mark <assignable>list of data categories </assignable> to be excluded from device backups. </title>
+	    </ext-comp-def-title>
             <note role="application"> Device backups include any mechanism built into the TOE that
               allows stored application data to be extracted over a physical port or sent over the
               network, but does not include any functionality implemented by a specific application
@@ -6156,6 +6176,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <h:li>OCSP certificates presented for OCSP responses shall have the OCSP Signing purpose (id-kp 9 with OID 1.3.6.1.5.5.7.3.9) in the extendedKeyUsage field. [conditional]</h:li></h:ul></h:li>
               </h:ul>
             </title>
+	    <ext-comp-def-title>            <title>The TSF shall validate certificates in accordance with the following rules: <assignable>list of rules</assignable>.
+	    </title></ext-comp-def-title>
             <note role="application">FIA_X509_EXT.1.1 lists the rules for validating certificates. The ST author must select whether revocation status is verified using OCSP or CRLs. OCSP stapling and OCSP multi-stapling only support TLS server certificate validation. If other certificate types are validated, either OCSP or CRL should be claimed. The <xref to="mod-wlanclient" />, to which a MDF TOE must also conform, requires that certificates are used for EAP-TLS; this use requires that the extendedKeyUsage rules are verified. Certificates may optionally be used for trusted updates of system software and applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2(1)) and, if implemented, must be validated to contain the Code Signing purpose extendedKeyUsage.<h:br /><h:br />
               While FIA_X509_EXT.1.1 requires that the TOE perform certain checks on the certificate presented by a TLS server, there are corresponding checks that the authentication server will have to perform on the certificate presented by the client; namely that the extendedKeyUsage field of the client certificate includes “Client Authentication” and that the key agreement bit (for the Diffie-Hellman ciphersuites) or the key encipherment bit (for RSA ciphersuites) be set. Certificates obtained for use by the TOE will have to conform to these requirements in order to be used in the enterprise. This check is required to support EAP-TLS for the <xref to="mod-wlanclient" />.</note>
           </f-element>
@@ -9056,7 +9078,10 @@ The evaluator shall exercise the TSF configuration as the administrator and
             <title>The TSF shall <selectables>
                 <selectable id="s-jtag-kill-hw">disable access through hardware</selectable>
                 <selectable id="s-jtag-control-key">control access by a signing key</selectable>
-              </selectables> to JTAG. </title>
+            </selectables> to JTAG. </title>
+	    <ext-comp-def-title><title>
+	      The TSF shall <assignable>list access control mechanisms</assignable> to JTAG.
+	    </title></ext-comp-def-title>
             <note role="application">This requirement means that access to JTAG must be disabled
               either through hardware or restricted through the use of a signing key.</note>
             <aactivity>
