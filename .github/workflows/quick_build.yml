@@ -38,6 +38,13 @@ jobs:
     - name: Quick Build
       run: WARN_PATH="output/SanityChecksOutput.md" make
 
+
+    - name: Debug
+      run: |
+         echo "Action branch: ${{ env.action_branch }}"
+         echo "Blach: ${{ github.refname }}"
+
+
       # PDFify
     - name: PDFify
       if: ${{ github.event_name == 'workflow_dispatch' }} || ${{ env.action_branch != 'master' }}
@@ -84,7 +91,6 @@ jobs:
     # The current checkout has  depth=1 and has no history
     #- name: little diff
     #  run: make little-diff || true
-
 
     - name: Outstanding TDs
       id: tds
