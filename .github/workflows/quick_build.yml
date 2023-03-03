@@ -40,7 +40,7 @@ jobs:
 
       # PDFify
     - name: PDFify
-      if: ${{ github.event_name == 'workflow_dispatch' }} || ${{ github.refname != 'master' }}
+      if: ${{ env.action_branch != 'master' }}
       run: |
         sudo apt-get install -y wkhtmltopdf xvfb
         xvfb-run --auto-servernum --server-args='-screen 0, 1024x768x16' /usr/bin/wkhtmltopdf \
@@ -84,7 +84,6 @@ jobs:
     # The current checkout has  depth=1 and has no history
     #- name: little diff
     #  run: make little-diff || true
-
 
     - name: Outstanding TDs
       id: tds
