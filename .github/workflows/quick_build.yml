@@ -38,36 +38,9 @@ jobs:
     - name: Quick Build
       run: WARN_PATH="output/SanityChecksOutput.md" make
 
-
-    - name: Debug
-      if: ${{ github.event_name == 'workflow_dispatch' }}
-      run: |
-         echo "Action branch: ${{ env.action_branch }}"
-         echo "Blach: ${{ github.refname }}"
-
-    - name: Debug1
-      if: ${{ env.action_branch != 'master' }}
-      run: |
-         echo "Action branch: ${{ env.action_branch }}"
-         echo "Blach: ${{ github.refname }}"
-         
-    - name: Debug2
-      if: ${{ github.event_name == 'workflow_dispatch' }} || ${{ env.action_branch != 'master' }}
-      run: |
-         echo "Action branch: ${{ env.action_branch }}"
-         echo "Blach: ${{ github.refname }}"
-
-    - name: Debug3
-      if: ${{ env.action_branch == 'master' }}
-      run: |
-         echo "Action branch: ${{ env.action_branch }}"
-         echo "Blach: ${{ github.refname }}"
-
-
       # PDFify
     - name: PDFify
-#      if: ${{ github.event_name == 'workflow_dispatch' }} || ${{ env.action_branch != 'master' }}
-      if: ${{ github.event_name == 'workflow_dispatch' }} || ${{ env.action_branch != 'master' }}
+      if: ${{ env.action_branch != 'master' }}
       run: |
         sudo apt-get install -y wkhtmltopdf xvfb
         xvfb-run --auto-servernum --server-args='-screen 0, 1024x768x16' /usr/bin/wkhtmltopdf \
