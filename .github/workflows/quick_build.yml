@@ -38,9 +38,12 @@ jobs:
     - name: Quick Build
       run: WARN_PATH="output/SanityChecksOutput.md" make
 
+    - name: Debug
+      run: 
+
       # PDFify
     - name: PDFify
-      if: ${{ github.event_name == 'workflow_dispatch' }} || ${{ github.refname != 'master' }}
+      if: ${{ github.event_name == 'workflow_dispatch' }} || ${{ env.action_branch != 'master' }}
       run: |
         sudo apt-get install -y wkhtmltopdf xvfb
         xvfb-run --auto-servernum --server-args='-screen 0, 1024x768x16' /usr/bin/wkhtmltopdf \
