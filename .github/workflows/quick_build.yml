@@ -1,4 +1,4 @@
-name: QuickBuild
+name: QuickBuild v4.1
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
     name: Quick Build
     steps:
     - name: Checkout project and transforms
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         submodules: true
 
@@ -31,13 +31,16 @@ jobs:
 
     - name: Set branch name
       run: echo "action_branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
+    - name: Set base URL
+      run: echo "action_projname=${PWD##*/}" >> $GITHUB_ENV
       
     - name: Quick Build
       run: WARN_PATH="output/SanityChecksOutput.md" make
 
       # PDFify
     - name: PDFify
-      if: ${{ github.event_name == 'workflow_dispatch' }}
+      if: ${{ github.event_name == 'workflow_dispatch' }} || ${{ github.refname != 'master' }}
       run: |
         sudo apt-get install -y wkhtmltopdf xvfb
         xvfb-run --auto-servernum --server-args='-screen 0, 1024x768x16' /usr/bin/wkhtmltopdf \
@@ -63,12 +66,7 @@ jobs:
     - name: Get Transforms Date
 #      run: echo "action_tdate=2002222" >> $GITHUB_ENV
       run: echo "action_tdate=$(cd transforms && git log -1 --format=%cs; cd ->/dev/null)" >> $GITHUB_ENV
-
-    - name: Setup Java JDK
-      uses: actions/setup-java@v1.4.3
-      with:
-        java-version: 1.8
-        
+       
     - name: Get DaisyDiff
       run: |
         wget -O- https://github.com/AndroidKitKat/ExecuteDaisy/archive/master.zip | jar -x
@@ -105,15 +103,18 @@ jobs:
 
     - name: Set TD badge attributes
       run: |
-        echo "action_tdcolor=$(if [ -s output/TDValidationReport.txt ]; then echo orange; else echo green; fi)" >> $GITHUB_ENV
-        echo "action_tdwarns=$(wc -l output/TDValidationReport.txt | { read first rest ; echo $first;} )" >> $GITHUB_ENV
-        
+        if ls input/tds/*.xml; then
+            echo "action_tdcolor=$(if [ -s output/TDValidationReport.txt ]; then echo orange; else echo green; fi)" >> $GITHUB_ENV
+            echo "action_tdwarns=$(wc -l output/TDValidationReport.txt | { read first rest ; echo $first;} )" >> $GITHUB_ENV
+        else
+            echo "action_tdcolor=gray" >> $GITHUB_ENV
+            echo "action_tdwarns=N/A"  >> $GITHUB_ENV
+        fi
         
     - name: Validate Effective
       run: |
         echo "action_tdcolor=$(if [ -s output/TDValidationReport.txt ]; then echo orange; else echo green; fi)" >> $GITHUB_ENV
         echo "action_tdwarns=$(wc -l output/TDValidationReport.txt | { read first rest ; echo $first;} )"       >> $GITHUB_ENV
-
 
 
     - name: Prepare environment
@@ -126,18 +127,18 @@ jobs:
           
 
 
-     # Use the output from the `coverage` step
     - name: Generate the spelling badge SVG image
-      uses: emibcn/badge-action@v1
+      uses: emibcn/badge-action@v2.0.2
       with:
         label: 'Misspellings'
         status: ${{ env.action_spellerrors }}
         color: ${{ env.action_spellcolor }}
         path: output/spell-badge.svg
 
-     # Use the output from the `coverage` step
+
+
     - name: Generate the validation badge SVG image
-      uses: emibcn/badge-action@v1
+      uses: emibcn/badge-action@v2.0.2
       with:
         label: 'Validation'
         status: ${{ env.action_valerrors }}
@@ -145,9 +146,8 @@ jobs:
         path: output/validation.svg
 
 
-   # Use the output from the `coverage` step
-    - name: Generate the badge SVG image
-      uses: emibcn/badge-action@v1
+    - name: Generate the warnings badge
+      uses: emibcn/badge-action@v2.0.2
       with:
         label: 'Warnings'
         status: ${{ env.action_sanitystatus }}
@@ -156,7 +156,7 @@ jobs:
 
 
     - name: Generate the transforms badge
-      uses: emibcn/badge-action@v1
+      uses: emibcn/badge-action@v2.0.2
       with:
         label: 'Transforms'
         status: ${{ env.action_tdate }}
@@ -164,18 +164,44 @@ jobs:
         path: output/transforms.svg
 
     - name: TD Badge
-      uses: emibcn/badge-action@v1
+      uses: emibcn/badge-action@v2.0.2
       with:
         label: 'TDs'
         status: ${{ env.action_tdwarns }}
         color:  ${{ env.action_tdcolor }}
         path: output/tds.svg
 
+    - name:  Make Dashboard Snippet
+      run: |
+        (
+        rurl="https://raw.githubusercontent.com/commoncriteria/${{env.action_projname}}/gh-pages/${{env.action_branch}}"
+        surl="https://commoncriteria.github.io/${{env.action_projname}}/${{env.action_branch}}"
+        gurl="https://github.com/commoncriteria/${{env.action_projname}}/blob/gh-pages/${{env.action_branch}}"
+        echo '[cols="1,1,1,1,1,1,1,1"]'
+        echo '|==='
+        echo "8+|${{ env.action_projname }} "
+        echo "| https://github.com/commoncriteria/${{env.action_projname}}/tree/${{env.action_branch}}[${{ env.action_branch }}] "
+        echo "a| $surl/${{env.action_projname}}-release.html[📄]"
+        echo "a|[link=$gurl/ValidationReport.txt]"
+        echo "image::$rurl/validation.svg[Validation]"
+        echo "a|[link=$gurl/SanityChecksOutput.md]"
+        echo "image::$rurl/warnings.svg[SanityChecks]"
+        echo "a|[link=$gurl/SpellCheckReport.txt]"
+        echo "image::$rurl/spell-badge.svg[SpellCheck]"
+        echo "a|[link=$gurl/TDValidationReport.txt]"
+        echo "image::$rurl/tds.svg[TDs]"
+        echo "a|image::$rurl/transforms.svg[transforms,150]"
+        echo "a| "
+        for aa in output/*.html output/*.pdf; do
+           echo "$surl/${aa#*/}[${aa#*/}] +"
+        done
+        echo '|==='
+        ) > output/Minidash.adoc
+
+
+        
     - name:  Prepare checkout
       run: |
-        pwd
-        ls
-        echo "---"
         mkdir gh-pages
 
     - uses: actions/checkout@v3
@@ -183,11 +209,9 @@ jobs:
         ref: gh-pages
         path: gh-pages
 
+        
     - name:  Move output to branch
       run: |
-        pwd
-        ls
-        echo "+++"
         rm -rf gh-pages/${{ env.action_branch }}
         mv output gh-pages/${{ env.action_branch }}
         
@@ -203,7 +227,7 @@ jobs:
          echo "</ol></body></html>") > index.html
         
     - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@4.0.0
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages # The branch the action should deploy to.
         folder: gh-pages # The folder the action should deploy.
