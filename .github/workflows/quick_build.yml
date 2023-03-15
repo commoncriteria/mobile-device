@@ -1,4 +1,4 @@
-name: QuickBuild v4.1
+name: QuickBuild v4.3
 
 on:
   push:
@@ -94,10 +94,8 @@ jobs:
            ls input/tds/*.xml ; then
           echo "Master branch should not have TDs" >> output/TDValidationReport.txt
         fi
-        if ls input/tds/*.xml; then
-           PP_XML=output/effective.xml PP_RELEASE_HTML=output/AppliedTDs.html make release
-           java -jar ExecuteDaisy-master/*.jar output/*-release.html output/AppliedTDs.html --file=output/AppliedTDs-Diff.html
-        fi
+        PP_XML=output/effective.xml PP_RELEASE_HTML=output/AppliedTDs.html make release
+        java -jar ExecuteDaisy-master/*.jar output/*-release.html output/AppliedTDs.html --file=output/AppliedTDs-Diff.html
 
 
     - name: Set TD badge attributes
@@ -172,10 +170,10 @@ jobs:
 
     - name:  Make Dashboard Snippet
       run: |
-        (
         rurl="https://raw.githubusercontent.com/commoncriteria/${{env.action_projname}}/gh-pages/${{env.action_branch}}"
         surl="https://commoncriteria.github.io/${{env.action_projname}}/${{env.action_branch}}"
         gurl="https://github.com/commoncriteria/${{env.action_projname}}/blob/gh-pages/${{env.action_branch}}"
+        (
         echo '[cols="1,1,1,1,1,1,1,1"]'
         echo '|==='
         echo "8+|${{ env.action_projname }} "
@@ -190,13 +188,49 @@ jobs:
         echo "a|[link=$gurl/TDValidationReport.txt]"
         echo "image::$rurl/tds.svg[TDs]"
         echo "a|image::$rurl/transforms.svg[transforms,150]"
-        echo "a| "
-        for aa in output/*.html output/*.pdf; do
-           echo "$surl/${aa#*/}[${aa#*/}] +"
-        done
+        echo "a| [link=$gurl/HTMLs.adoc]"
+        echo "image::$rurl/html_count.svg[HTML Count]"
+        echo "[link=$gurl/PDFs.adoc]"
+        echo "image::$rurl/pdf_count.svg[PDF Count]"
         echo '|==='
         ) > output/Minidash.adoc
 
+
+    - name: HTML List
+      run: |
+        surl="https://commoncriteria.github.io/${{env.action_projname}}/${{env.action_branch}}"
+        ( for aa in output/*.html ; do
+           echo "* $surl/${aa#*/}[${aa#*/}]"
+        done ) > output/HTMLs.adoc
+        HTML_COUNT=$(wc -l < output/HTMLs.adoc)
+        echo "action_html_count=$HTML_COUNT" >> $GITHUB_ENV
+
+    - name: PDF List
+      run: |
+        surl="https://commoncriteria.github.io/${{env.action_projname}}/${{env.action_branch}}"
+        cd output
+        (for aa in $(find . -name '*.pdf') ; do
+           echo "* $surl/${aa#*/}[${aa#*/}]"
+        done ) > PDFs.adoc
+        PDF_COUNT=$(wc -l < PDFs.adoc)
+        echo "action_pdf_count=$PDF_COUNT" >> $GITHUB_ENV
+
+
+    - name: HTML Badge
+      uses: emibcn/badge-action@v2.0.2
+      with:
+        label: 'HTMLs'
+        status: ${{ env.action_html_count }}
+        color:  gray
+        path: output/html_count.svg
+
+    - name: PDF Badge
+      uses: emibcn/badge-action@v2.0.2
+      with:
+        label: 'PDFs'
+        status: ${{ env.action_pdf_count }}
+        color:  gray
+        path: output/pdf_count.svg
 
         
     - name:  Prepare checkout
