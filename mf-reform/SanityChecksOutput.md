@@ -1,3 +1,17 @@
+* Error: Detected multiple elements with an id of 'mf-pwd'.
+* Error: Detected multiple elements with an id of 'mf-screenlock'.
+* Error: Detected multiple elements with an id of 'mf-vpn'.
+* Error: Detected multiple elements with an id of 'mf-radios'.
+* Error: Detected multiple elements with an id of 'mf-audioVisual'.
+* Error: Detected multiple elements with an id of 'mf-lockState'.
+* Error: Detected multiple elements with an id of 'mf-wipe'.
+* Error: Detected multiple elements with an id of 'mf-pwd'.
+* Error: Detected multiple elements with an id of 'mf-screenlock'.
+* Error: Detected multiple elements with an id of 'mf-vpn'.
+* Error: Detected multiple elements with an id of 'mf-radios'.
+* Error: Detected multiple elements with an id of 'mf-audioVisual'.
+* Error: Detected multiple elements with an id of 'mf-lockState'.
+* Error: Detected multiple elements with an id of 'mf-wipe'.
 * Warning: Detected an empty _p_ element./PP[1]""/section[2]""/cclaims[1]""/cclaim[1]""/description[1]"An ST mus"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[4]""/section[1]""/SOs[1]""/SO[5]""/rationale[1]"FAU_GEN.1"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[4]""/section[1]""/SOs[1]""/SO[5]""/rationale[2]"FAU_SAR.1"/htm:p[1]""
@@ -28,3 +42,19 @@
 * Warning: Detected an empty _p_ element./PP[1]""/section[4]""/section[1]""/SOs[1]""/SO[5]""/rationale[27]"FPT_TUD_E"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[4]""/section[1]""/SOs[1]""/SO[5]""/rationale[28]"FPT_TUD_E"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[4]""/section[1]""/SOs[1]""/SO[5]""/rationale[29]"FPT_TUD_E"/htm:p[1]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[2]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[5]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[5]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[3]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[4]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[5]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[7]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[4]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[4]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[2]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[6]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[3]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[4]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[5]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[3]""
+Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[5]""
