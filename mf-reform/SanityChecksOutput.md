@@ -1,3 +1,7 @@
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[4]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[5]""/depends[1]""
 * Error: Detected multiple elements with an id of 'mf-pwd'.
 * Error: Detected multiple elements with an id of 'mf-screenlock'.
 * Error: Detected multiple elements with an id of 'mf-vpn'.
