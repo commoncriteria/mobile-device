@@ -12,6 +12,8 @@
           /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[4]""/depends[1]""
 * Warning: Potentially illegal 'depends' element.
           /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[5]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[7]""/depends[1]""
 * Error: Detected multiple elements with an id of 'mf-pwd'.
 * Error: Detected multiple elements with an id of 'mf-screenlock'.
 * Error: Detected multiple elements with an id of 'mf-vpn'.
@@ -26,6 +28,7 @@
 * Error: Detected multiple elements with an id of 'mf-audioVisual'.
 * Error: Detected multiple elements with an id of 'mf-lockState'.
 * Error: Detected multiple elements with an id of 'mf-wipe'.
+* Warning: Detected an empty _p_ element./PP[1]""/section[1]""/section[8]"This Prot"/usecases[1]""/usecase[1]""/description[1]"EUDs used"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[2]""/cclaims[1]""/cclaim[1]""/description[1]"An ST mus"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[4]""/section[1]""/SOs[1]""/SO[5]""/rationale[1]"FAU_GEN.1"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[4]""/section[1]""/SOs[1]""/SO[5]""/rationale[2]"FAU_SAR.1"/htm:p[1]""
