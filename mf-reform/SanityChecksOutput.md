@@ -1,5 +1,3 @@
-* Error: Detected dangling id-reference to fmt_smr.1 from attribute
-        on/PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[2]""/depends[1]""/on[1]""
 * Warning: Potentially illegal 'depends' element.
           /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[1]""/depends[1]""
 * Warning: Potentially illegal 'depends' element.
