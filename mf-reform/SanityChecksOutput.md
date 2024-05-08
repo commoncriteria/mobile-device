@@ -1,33 +1,53 @@
 * Warning: Potentially illegal 'depends' element.
-          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[1]""/depends[1]""
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[24]""/depends[1]""
 * Warning: Potentially illegal 'depends' element.
-          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[1]""/depends[2]""
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[25]""/depends[1]""
 * Warning: Potentially illegal 'depends' element.
-          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[2]""/depends[1]""
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[26]""/depends[1]""
 * Warning: Potentially illegal 'depends' element.
-          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[2]""/depends[2]""
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[27]""/depends[1]""
 * Warning: Potentially illegal 'depends' element.
-          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[3]""/depends[1]""
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[28]""/depends[1]""
 * Warning: Potentially illegal 'depends' element.
-          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[4]""/depends[1]""
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[29]""/depends[1]""
 * Warning: Potentially illegal 'depends' element.
-          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[5]""/depends[1]""
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[30]""/depends[1]""
 * Warning: Potentially illegal 'depends' element.
-          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[7]""/depends[1]""
-* Error: Detected multiple elements with an id of 'mf-pwd'.
-* Error: Detected multiple elements with an id of 'mf-screenlock'.
-* Error: Detected multiple elements with an id of 'mf-vpn'.
-* Error: Detected multiple elements with an id of 'mf-radios'.
-* Error: Detected multiple elements with an id of 'mf-audioVisual'.
-* Error: Detected multiple elements with an id of 'mf-lockState'.
-* Error: Detected multiple elements with an id of 'mf-wipe'.
-* Error: Detected multiple elements with an id of 'mf-pwd'.
-* Error: Detected multiple elements with an id of 'mf-screenlock'.
-* Error: Detected multiple elements with an id of 'mf-vpn'.
-* Error: Detected multiple elements with an id of 'mf-radios'.
-* Error: Detected multiple elements with an id of 'mf-audioVisual'.
-* Error: Detected multiple elements with an id of 'mf-lockState'.
-* Error: Detected multiple elements with an id of 'mf-wipe'.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[31]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[32]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[33]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[34]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[34]""/depends[2]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[35]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[35]""/depends[2]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[36]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[37]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[38]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[39]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[40]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[41]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[42]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[43]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[44]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[45]""/depends[1]""
+* Warning: Potentially illegal 'depends' element.
+          /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[46]""/depends[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[1]""/section[8]"This Prot"/usecases[1]""/usecase[1]""/description[1]"EUDs used"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[2]""/cclaims[1]""/cclaim[1]""/description[1]"An ST mus"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[4]""/section[1]""/SOs[1]""/SO[5]""/rationale[1]"FAU_GEN.1"/htm:p[1]""
@@ -59,19 +79,3 @@
 * Warning: Detected an empty _p_ element./PP[1]""/section[4]""/section[1]""/SOs[1]""/SO[5]""/rationale[27]"FPT_TUD_E"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[4]""/section[1]""/SOs[1]""/SO[5]""/rationale[28]"FPT_TUD_E"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[4]""/section[1]""/SOs[1]""/SO[5]""/rationale[29]"FPT_TUD_E"/htm:p[1]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[2]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[5]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[5]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[3]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[4]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[5]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[7]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[4]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[4]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[2]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[6]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[3]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[4]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[5]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[3]""
-Unable to make an xref for |mgmt-func-def| /PP[1]""/section[5]""/section[1]""/section[6]"Both the "/f-component[2]""/f-element[2]""/title[1]"The TSF s"/mgmt-func-list[1]""/mgmt-func-def[5]""
