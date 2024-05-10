@@ -1,5 +1,3 @@
-compilation error: file transforms/xsl/ppcommons.xsl line 918 element get-value
-xsltStylePreCompute: unknown xsl:get-value
 * Warning: Detected an empty _p_ element./PP[1]""/section[1]""/section[8]"This Prot"/usecases[1]""/usecase[1]""/description[1]"EUDs used"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[2]""/cclaims[1]""/cclaim[1]""/description[1]"An ST mus"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/section[4]""/section[1]""/SOs[1]""/SO[5]""/rationale[1]"FAU_GEN.1"/htm:p[1]""
