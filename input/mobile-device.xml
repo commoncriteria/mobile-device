@@ -59,8 +59,119 @@
   </include-pkg>
   <sec:Introduction xmlns="">
     <sec:Overview>The scope of this Protection Profile (PP) is to describe the security functionality of mobile devices in terms of [CC] and to define functional and assurance requirements for such devices.</sec:Overview>
-    <tech-terms/>
-    <section title="Compliant Targets of Evaluation" id="TOEdescription">This assurance standard specifies information security requirements for Mobile Devices for use in an enterprise. A Mobile Device in the context of this assurance standard is a device, which is composed of a hardware platform and its system software. The device typically provides wireless connectivity and may include software for functions like secure messaging, email, web, VPN connection, and VoIP (Voice over IP), for access to the protected enterprise network, enterprise data and applications, and for communicating to other Mobile Devices. <htm:p/><htm:br><htm:p/> <xref to="NetEnv"></xref> illustrates the network operating environment of the Mobile Device. <htm:p/><htm:br><htm:p/> <figure entity="images/figure1.jpg" title="Mobile Device Network Environment" id="NetEnv"></figure><htm:p/><htm:br><htm:p/> Examples of a "Mobile Device" that should claim conformance to this Protection Profile include smartphones, tablet computers, and other Mobile Devices with similar capabilities. <htm:p/><htm:br><htm:p/> The Mobile Device provides essential services, such as cryptographic services, data-at-rest protection, and key storage services to support the secure operation of applications on the device. Additional security features such as security policy enforcement, application mandatory access control, anti-exploitation features, user authentication, and software integrity protection are implemented in order to address threats. <htm:p/><htm:br><htm:p/> This assurance standard describes these essential security services provided by the Mobile Device and serves as a foundation for a secure mobile architecture. The wireless connectivity shall be validated against the <xref to="mod-wlanclient"></xref>. If the mobile device contains Bluetooth functionality (i.e., has Bluetooth hardware), the Bluetooth connectivity shall be evaluated against the <xref to="mod-bluetooth"></xref>. As illustrated in <xref to="TOE"></xref>, it is expected that a typical deployment would also include either third-party or bundled components. Whether these components are bundled as part of the Mobile Device by the manufacturer or developed by a third-party, they must be separately validated against the related assurance standards such as the PP-Module for MDM Agent, PP-Module for VPN Client, PP-Module for VVoIP, and cPP-Module for Biometrics. It is the responsibility of the architect of the overall secure mobile architecture to ensure validation of these components. Additional applications that may come pre-installed on the Mobile Device that are not validated are considered to be potentially flawed, but not malicious. Examples include email client and web browser. <htm:p/><htm:br><htm:p/> <figure entity="images/figure2.jpg" title="Optional Additional Mobile Device Components" id="TOE"></figure></section>
+    <tech-terms>
+      <term full="Address Space Layout Randomization" abbr="ASLR"> An anti-exploitation feature,
+        which loads memory mappings into unpredictable locations. ASLR makes it more difficult for
+        an attacker to redirect control to code that they have introduced into the address space of
+        a process or the kernel.</term>
+      <term full="Administrator" abbr="null"> The Administrator is responsible for management activities,
+        including setting the policy that is applied by the enterprise on the Mobile Device. This
+        administrator is likely to be acting remotely and could be the Mobile Device Management
+        (MDM) Administrator acting through an MDM Agent. If the device is unenrolled, the user is
+        the administrator.</term>
+      <term full="Auxiliary Boot Modes" abbr="null"> Auxiliary boot modes are states in which the device
+        provides power to one or more components to provide an interface that enables an
+        unauthenticated user to interact with either a specific component or several components that
+        exist outside of the device’s fully authenticated, operational state.</term>
+      <term full="Biometric Authentication Factor" abbr="BAF"> Authentication factor, which uses
+        biometric sample, matched to a biometric authentication template to help establish
+        identity.</term>
+      <term full="Common Application Developer" abbr="null"> Application developers (or software companies)
+        often produce many applications under the same name. Mobile devices often allow shared
+        resources by such applications where otherwise resources would not be shared. </term>
+      <term full="Critical Security Parameter" abbr="CSP"> Security-related information whose
+        disclosure or modification can compromise the security of a cryptographic module or
+        authentication system. </term>
+      <term full="Data" abbr="null"> Program/application or data files that are stored or transmitted by a
+        server or Mobile Device (MD). </term>
+      <term full="Data Encryption Key" abbr="DEK">A key used to encrypt data-at-rest.</term>
+      <term full="Developer Modes" abbr="null"> Developer modes are states in which additional services are
+        available to a user in order to provide enhanced system access for debugging of software. </term>
+      <term full="Encrypted Software Keys" abbr="null"> These keys are stored in the main file system encrypted
+        by another key and can be changed and sanitized.</term>
+      <term full="Enrolled State" abbr="null"> The state in which the Mobile Device is managed with active
+        policy settings from the administrator.</term>
+      <term full="Enterprise Data" abbr="null"> Enterprise data is any data residing in the enterprise servers,
+        or temporarily stored on Mobile Devices to which the Mobile Device user is allowed access
+        according to security policy defined by the enterprise and implemented by the
+        administrator.</term>
+      <term full="Ephemeral Keys" abbr="null"> These keys are stored in volatile memory.</term>
+      <term full="File Encryption Key" abbr="FEK"> A DEK used to encrypt a file or a director when
+        File Encryption is used. FEKs are unique to each encrypted file or directory. </term>
+      <term full="Hardware-Isolated Keys" abbr="null"> The OS can only access these keys by reference, if
+        at all, during runtime. </term>
+      <term full="Hybrid Authentication" abbr="null"> A hybrid authentication factor is one where a user has to
+        submit a combination of a biometric sample and a PIN or password and both must pass. If either factor fails, the entire attempt fails. The user shall not be made aware of which factor failed, if either fails.</term>
+      <term full="Immutable Hardware Key" abbr="null"> These keys are stored as hardware-protected raw key and
+        cannot be changed or sanitized.</term>
+      <term full="Key Chaining" abbr="null"> The method of using multiple layers of encryption keys to protect
+        data. A top layer key encrypts a lower layer key, which encrypts the data; this method can
+      have any number of layers.</term>
+      <term full="Key Encryption Key" abbr="KEK"> A key used to encrypt other keys, such as DEKs or
+        storage that contains keys.</term>
+      <term full="Locked State" abbr="null"> Powered on but most functionality is unavailable for use. User
+        authentication is required to access functionality.</term>
+      <term full="Mobile Device" abbr="MD"> A device which is composed of a hardware platform and
+        its system software. The device typically provides wireless connectivity and may include
+        software for functions like secure messaging, email, web, VPN (Virtual Private Network) connection, and VoIP (Voice
+        over IP), for access to the protected enterprise network, enterprise data and applications,
+        and for communicating to other Mobile Devices. </term>
+      <term full="Mobile Device Management" abbr="MDM"> Mobile device management (MDM) products
+        allow enterprises to apply security policies to mobile devices. This system consists of two
+        primary components: the MDM Server and the MDM Agent. </term>
+      <term full="MDM Agent" abbr="null"> The MDM Agent is installed on a Mobile Device as an application or is
+        part of the Mobile Device’s OS. The MDM Agent establishes a secure connection back to the
+        MDM Server controlled by the administrator.</term>
+      <term full="Minutia Point" abbr="null"> Friction ridge characteristics that are used to individualize a
+        fingerprint image. Minutia are the points where friction ridges begin, terminate, or split
+        into two or more ridges. In many fingerprint systems, the minutia points are compared for
+        recognition purposes.</term>
+      <term full="Mobile Device User" abbr="User"> The individual authorized to physically control and
+        operate the Mobile Device. Depending on the use case, this can be the device owner or an
+        individual authorized by the device owner.</term>
+      <term full="Modality" abbr="Biometrics"> A type or class of biometric system, such as fingerprint
+        recognition, facial recognition, iris recognition, voice recognition, signature/sign, and
+        others.</term>
+      <term full="Mutable Hardware Key" abbr="null"> These keys are stored as hardware-protected raw key and can
+      be changed or sanitized.</term>
+      <term full="Operating System" abbr="OS"> Software that runs at the highest privilege level
+        and can directly control hardware resources. Modern Mobile Devices typically have at least
+        two primary operating systems: one, which runs on the application processor and one,
+        which runs on the cellular baseband processor. The OS of the application processor handles most
+        user interactions and provides the execution environment for apps. The OS of the cellular
+        baseband processor handles communications with the cellular network and may control other
+        peripherals. The term OS, without context, may be assumed to refer to the OS of the
+        application processor. </term>
+      <term full="Password Authentication Factor" abbr="null"> A type of authentication factor requiring the
+        user to provide a secret set of characters to gain access.</term>
+      <term full="PIN Authentication Factor" abbr="null"> A PIN is a set of numeric or alphabetic characters that may be used
+        in addition to a biometric factor to provide a hybrid authentication factor. At this time it
+        is not considered as a stand-alone authentication mechanism. A PIN is distinct from a password in that the allowed character set and required length of a PIN
+      is typically smaller than that of a password as it is designed to be input quickly.</term>
+      <term full="Powered Off State" abbr="null"> The device has been shut down such that no TOE function can be
+        performed.</term>
+      <term full="Protected Data" abbr="PD"> Protected data is all non-TSF data, including all user
+        or enterprise data. Some or all of this data may be considered sensitive data as well. </term>
+      <term full="Root Encryption Key" abbr="REK"> A key tied to the device used to encrypt other
+        keys. </term>
+      <term full="Sensitive data" abbr="null"> Sensitive data shall be identified in the TSS section of the
+        Security Target (ST) by the ST author. Sensitive data is a subset or all of the Protected
+        data. Sensitive data may include all user or enterprise data or may be specific application
+        data such as emails, messaging, documents, calendar items, and contacts. Sensitive data is
+        protected while in the locked state (FDP_DAR_EXT.2). </term>
+      <term full="Software Keys" abbr="null"> The OS access the raw bytes of these keys during runtime.</term>
+      <term full="Trust Anchor Database" abbr="null"> A list of trusted root Certificate Authority
+        certificates.</term>
+      <term full="TSF Data" abbr="null"> Data for the operation of the TSF upon which the enforcement of the
+        requirements relies.</term>
+      <term full="Unenrolled State" abbr="null"> The state in which the Mobile Device is not managed. </term>
+      <term full="Unlocked State" abbr="null"> Powered on and device functionality is available for use. Implies
+        user authentication has occurred (when so configured).</term>
+      <term full="Verification" abbr="Biometrics"> A task where the biometric system attempts to confirm
+        an individual’s claimed identity by comparing a submitted sample to one or more previously
+        enrolled authentication templates.</term>
+    </tech-terms>
+    <section title="Compliant Targets of Evaluation" id="TOEdescription">This assurance standard specifies information security requirements for Mobile Devices for use in an enterprise. A Mobile Device in the context of this assurance standard is a device, which is composed of a hardware platform and its system software. The device typically provides wireless connectivity and may include software for functions like secure messaging, email, web, VPN connection, and VoIP (Voice over IP), for access to the protected enterprise network, enterprise data and applications, and for communicating to other Mobile Devices.<htm:p/><htm:br><htm:p/><xref to="NetEnv"></xref> illustrates the network operating environment of the Mobile Device.<htm:p/><htm:br><htm:p/><figure entity="images/figure1.jpg" title="Mobile Device Network Environment" id="NetEnv"></figure><htm:p/><htm:br><htm:p/>Examples of a "Mobile Device" that should claim conformance to this Protection Profile include smartphones, tablet computers, and other Mobile Devices with similar capabilities.<htm:p/><htm:br><htm:p/>The Mobile Device provides essential services, such as cryptographic services, data-at-rest protection, and key storage services to support the secure operation of applications on the device. Additional security features such as security policy enforcement, application mandatory access control, anti-exploitation features, user authentication, and software integrity protection are implemented in order to address threats.<htm:p/><htm:br><htm:p/>This assurance standard describes these essential security services provided by the Mobile Device and serves as a foundation for a secure mobile architecture. The wireless connectivity shall be validated against the <xref to="mod-wlanclient"></xref>. If the mobile device contains Bluetooth functionality (i.e., has Bluetooth hardware), the Bluetooth connectivity shall be evaluated against the <xref to="mod-bluetooth"></xref>. As illustrated in <xref to="TOE"></xref>, it is expected that a typical deployment would also include either third-party or bundled components. Whether these components are bundled as part of the Mobile Device by the manufacturer or developed by a third-party, they must be separately validated against the related assurance standards such as the PP-Module for MDM Agent, PP-Module for VPN Client, PP-Module for VVoIP, and cPP-Module for Biometrics. It is the responsibility of the architect of the overall secure mobile architecture to ensure validation of these components. Additional applications that may come pre-installed on the Mobile Device that are not validated are considered to be potentially flawed, but not malicious. Examples include email client and web browser.<htm:p/><htm:br><htm:p/><figure entity="images/figure2.jpg" title="Optional Additional Mobile Device Components" id="TOE"></figure></section>
     <section title="Platforms with Specific EAs" id="sec-platforms"/>
     <sec:Use_Cases>
       The Mobile Device may be operated in a number of use cases. <xref g="use-case-appendix"></xref> provides use case templates that list those selections, assignments, and objective requirements that best support the use cases identified by this Protection Profile. In addition to providing essential security services, the Mobile Device includes the necessary security functionality to support configurations for these various use cases. Each use case may require additional configuration and applications to achieve the desired security. A selection of these use cases is elaborated below.<htm:p/>Several of the use case templates include objective requirements that are strongly desired for the indicated use cases. Readers can expect those requirements to be made mandatory in a future revision of this protection profile, and industry should aim to include that security functionality in products in the near-term.<htm:p/>As of publication of this version of the Protection Profile, meeting the requirements in <xref to="Security_Requirements"></xref> is necessary for all use cases.
