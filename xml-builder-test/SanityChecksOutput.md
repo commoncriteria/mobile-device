@@ -108,10 +108,6 @@
         on-also/PP[1]""/include-pkg[1]""/depends[1]""/on-also[1]""
 * Error: Detected multiple elements with an id of 'fmt_smf'.
 * Error: Detected multiple elements with an id of 'fmt_smf'.
-* Error: Detected multiple elements with an id of 'CEM'.
-* Error: Detected multiple elements with an id of 'CEM'.
-* Error: Detected multiple elements with an id of 'CEM'.
-* Error: Detected multiple elements with an id of 'CEM'.
 * Error: Detected dangling ref-id to 'mod-vpnclient'.
 	  /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[9]""/f-component[1]""/f-element[1]""/note[1]"The inten"/rule[3]""/then[1]""/ref-id[1]"mod-vpncl"
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[1]""
