@@ -102,10 +102,6 @@
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[9]""/f-component[1]""/f-element[1]""
 * Error: f-element FTP_ITC_EXT.1.2  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[9]""/f-component[1]""/f-element[2]""
-* Error: Detected dangling id-reference to QQQQ from attribute
-        on-sel/PP[1]""/include-pkg[1]""/depends[1]""/on-sel[1]""
-* Error: Detected dangling id-reference to QQQQ from attribute
-        on-also/PP[1]""/include-pkg[1]""/depends[1]""/on-also[1]""
 * Error: Detected multiple elements with an id of 'fmt_smf'.
 * Error: Detected multiple elements with an id of 'fmt_smf'.
 * Error: Detected dangling ref-id to 'mod-vpnclient'.
@@ -142,21 +138,12 @@
  Failed to find a reference to mod-wlanclient.
  Failed to find a reference to mod-wlanclient.
  Failed to find a reference to s-sign-ecdsa.
- Failed to find a reference to pkg-tls.
- Failed to find a reference to pkg-tls.
- Failed to find a reference to pkg-tls.
- Failed to find a reference to pkg-tls.
  Failed to find a reference to ivtable.
  Failed to find a reference to ivtable.
  Failed to find a reference to mod-vpnclient.
  Failed to find a reference to mod-vpnclient.
  Failed to find a reference to mod-vpnclient.
- Failed to find a reference to pkg-tls.
- Failed to find a reference to pkg-tls.
  Failed to find a reference to mod-vpnclient.
- Failed to find a reference to pkg-tls.
- Failed to find a reference to pkg-tls.
- Failed to find a reference to pkg-tls.
  Failed to find a reference to mod-vpnclient.
  Failed to find a reference to mod-bluetooth.
  Failed to find a reference to mod-bluetooth.
@@ -180,24 +167,18 @@
  Failed to find a reference to mod-biometrics.
  Failed to find a reference to mod-wlanclient.
  Failed to find a reference to mod-wlanclient.
- Failed to find a reference to pkg-tls.
  Failed to find a reference to mod-vpnclient.
- Failed to find a reference to pkg-tls.
  Failed to find a reference to mod-vpnclient.
  Failed to find a reference to mod-biometrics.
  Failed to find a reference to mod-biometrics.
  Failed to find a reference to mod-vpnclient.
  Failed to find a reference to mod-biometrics.
  Failed to find a reference to mod-biometrics.
- Failed to find a reference to pkg-tls.
  Failed to find a reference to mod-wlanclient.
  Failed to find a reference to mod-wlanclient.
  Failed to find a reference to mod-wlanclient.
- Failed to find a reference to pkg-tls.
  Failed to find a reference to mod-vpnclient.
- Failed to find a reference to pkg-tls.
  Failed to find a reference to mod-wlanclient.
- Failed to find a reference to pkg-tls.
  Failed to find a reference to mod-vpnclient.
  Failed to find a reference to sel-based-reqs.
  Failed to find a reference to Security_Problem_Description.
