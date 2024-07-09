@@ -110,6 +110,7 @@
 * Error: Detected multiple elements with an id of 'fmt_smf'.
 * Error: Detected multiple elements with an id of 'CEM'.
 * Error: Detected multiple elements with an id of 'CEM'.
+* Error: Detected multiple elements with an id of 'CEM'.
 * Error: Detected dangling ref-id to 'mod-vpnclient'.
 	  /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[9]""/f-component[1]""/f-element[1]""/note[1]"The inten"/rule[3]""/then[1]""/ref-id[1]"mod-vpncl"
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[1]""
@@ -126,6 +127,10 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[12]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/sec:Use_Cases[1]"The Mobil"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/sec:Use_Cases[1]"The Mobil"/htm:p[2]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/htm:p[1]"Both the "/htm:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/htm:p[1]"Both the "/htm:p[2]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/htm:p[1]"Both the "/htm:p[3]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/htm:p[1]"Both the "/htm:p[4]""
 * Rules without a 'Validation Guidelines' appendix has been detected.
  Failed to find a reference to mod-wlanclient.
  Failed to find a reference to mod-bluetooth.
@@ -185,6 +190,10 @@
  Failed to find a reference to pkg-tls.
  Failed to find a reference to mod-vpnclient.
  Failed to find a reference to pkg-tls.
+ Failed to find a reference to mod-vpnclient.
+ Failed to find a reference to mod-biometrics.
+ Failed to find a reference to mod-biometrics.
+ Failed to find a reference to mod-vpnclient.
  Failed to find a reference to mod-biometrics.
  Failed to find a reference to mod-biometrics.
  Failed to find a reference to pkg-tls.

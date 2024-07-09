@@ -4649,13 +4649,18 @@
             </div>
         </div>
         <h3 id="fmt" class="indexable" data-level="3">5.1.6 Class: Security Management (FMT)</h3>
-         Both the user and the administrator may manage the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. This administrator is likely to be acting remotely and could be the Mobile Device Management (<abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr>) Administrator acting through an <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agent. 
+        <p>
+            Both the user and the administrator may manage the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. This administrator is likely to be acting remotely and could be the Mobile Device Management (<abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr>) Administrator acting through an <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agent.
+        </p>
+        <p></p>
         <br>
+        <p></p>
+        The Administrator is responsible for management activities, including setting the policy that is applied by the enterprise on the Mobile Device. These management functions are likely to be a different set than those management functions provided to the user. Management functions that are provided to the user and not the administrator are listed in <a href="#FMT_MOF_EXT.1.1">FMT_MOF_EXT.1.1</a>. Management functions for which the administrator may adopt a policy that restricts the user from performing that function are listed in <a href="#FMT_MOF_EXT.1.2">FMT_MOF_EXT.1.2</a>.
+        <p></p>
         <br>
-         The Administrator is responsible for management activities, including setting the policy that is applied by the enterprise on the Mobile Device. These management functions are likely to be a different set than those management functions provided to the user. Management functions that are provided to the user and not the administrator are listed in <a href="#FMT_MOF_EXT.1.1">FMT_MOF_EXT.1.1</a>. Management functions for which the administrator may adopt a policy that restricts the user from performing that function are listed in <a href="#FMT_MOF_EXT.1.2">FMT_MOF_EXT.1.2</a>. 
-        <br>
-        <br>
-         <a href="#fmt_smf" class="fmt_smf-ref">Table <span class="counter">6</span></a><a href="#fmt_smf" class="fmt_smf-ref">Table <span class="counter">6</span></a> compares the management functions required by this Protection Profile in the following three requirements (<a href="#FMT_MOF_EXT.1.1">FMT_MOF_EXT.1.1</a>, <a href="#FMT_MOF_EXT.1.2">FMT_MOF_EXT.1.2</a>, and <a href="#FMT_SMF.1">FMT_SMF.1</a>). 
+        <p></p>
+        <a href="#fmt_smf" class="fmt_smf-ref">Table <span class="counter">6</span></a><a href="#fmt_smf" class="fmt_smf-ref">Table <span class="counter">6</span></a> compares the management functions required by this Protection Profile in the following three requirements (<a href="#FMT_MOF_EXT.1.1">FMT_MOF_EXT.1.1</a>, <a href="#FMT_MOF_EXT.1.2">FMT_MOF_EXT.1.2</a>, and <a href="#FMT_SMF.1">FMT_SMF.1</a>).
+        <p></p>
         <div class="comp" id="FMT_MOF_EXT.1">
             <h4>FMT_MOF_EXT.1 Management of Security Functions Behavior</h4>
             <div class="element">
@@ -5860,6 +5865,124 @@
                              The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author may use a table in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, listing only those functions that are implemented. For functions that are mandatory, any sub-functions not in a selection are also mandatory and any assignments must contain at least one assigned value. For functions that are optional and contain an assignment or selection, at least one value must be assigned/selected to be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. For non-selectable sub-functions in an optional function, all sub-functions must be implemented in order for the function to be included. For functions with a "per-app basis" sub function and an assignment, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must indicate which assigned features are manageable on a per-app basis and which are not by iterating the row. 
                             <br>
                             <br>
+                            <br>
+                            <br>
+                            <b>Function-specific Application Notes:</b>
+                            <br>
+                            <br>
+                            <p>
+                                 Functions <a href="#mf-vpn">3</a> , <a href="#mf-audioVisual">5</a> , and <a href="#mf-location">21</a> must be implemented on a device-wide basis but may also be implemented on a per-app basis or on a per-group of applications basis in which the configuration includes the list of applications or groups of applications to which the enable/disable applies.
+                            </p>
+                            <p>
+                                 Function <a href="#mf-vpn">3</a> addresses enabling and disabling the IPsec VPN only. The configuration of the VPN Client itself (with information such as VPN Gateway, certificates, and algorithms) is addressed by the <a href="#mod-vpnclient" class="dynref" data-format=""></a>. The administrator options should only be listed if the administrator can remotely enable/disable the VPN connection. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-vpn">3</a> optionally allows the VPN to be configured per-app or per-groups of apps. If this configuration is selected, it does not void <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a>. Instead <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a> is applied to the application or group of applications the VPN is applied to. In other words, all traffic destined for the VPN-enabled application or group of applications, must travel through the VPN, but traffic not destined for that application or group of applications can travel outside the VPN. When the VPN is configured across the device <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a> applies to all traffic and the VPN must not split tunnel. 
+                            </p>
+                            <p></p>
+                            <p>
+                                 The assignment in function <a href="#mf-radios">4</a> consists of all radios present on the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, such as Wi-Fi, cellular, NFC, Bluetooth BR/EDR, and Bluetooth LE, which can be enabled and disabled. In the future, if both Bluetooth BR/EDR and Bluetooth LE are supported, they will be required to be enabled and disabled separately. Disablement of the cellular radio does not imply that the radio may not be enabled in order to place emergency phone calls; however, it is not expected that a device in "airplane mode", where all radios are disabled, will automatically (without authorization) turn on the cellular radio to place emergency calls.
+                            </p>
+                            <p>
+                                The assignment in function <a href="#mf-audioVisual">5</a> consists of at least one audio or visual device, such as camera and microphone, which can be enabled and disabled by either the user or administrator. Disablement of the microphone does not imply that the microphone may not be enabled in order to place emergency phone calls. If certain devices are able to be restricted to the enterprise (either device-wide, per-app or per-group of applications) and others are able to be restricted to users, then this function should be iterated in the table with the appropriate table entries. 
+                            </p>
+                            <p>
+                                 Regarding functions <a href="#mf-radios">4</a> and <a href="#mf-audioVisual">5</a>, disablement of a particular radio or audio/visual device must be effective as soon as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has power. Disablement must also apply when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is booted into auxiliary boot modes, for example, associated with updates or backup. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports states in which security management policy is inaccessible, for example, due to data-at-rest protection, it is acceptable to meet this requirement by ensuring that these devices are disabled by default while in these states. That these devices are disabled during auxiliary boot modes does not imply that the device (particularly the cellular radio) may not be enabled in order to perform emergency phone calls. 
+                            </p>
+                            <p></p>
+                            <p>
+                                 Wipe of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> (function <a href="#mf-wipe">7</a>) is performed according to <a href="#FCS_CKM_EXT.5">FCS_CKM_EXT.5</a>. Protected data is all non-TSF data, including all user or enterprise data. Some or all of this data may be considered sensitive data as well.
+                            </p>
+                            <p>
+                                 The selection in function <a href="#mf-appInstallRules">8</a> allows the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author to select which mechanisms are available to the administrator through the <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agent to restrict the applications which the user may install. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must state if application allowlist is applied device-wide or if it can be specified to apply to either the Enterprise or Personal applications. 
+                                <ul>
+                                    <li>
+                                        If the administrator can restrict the sources from which applications can be installed, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<a href="#mf-appInstallRules-restrict">restricting the sources of applications</a>". 
+                                    </li>
+                                    <li>
+                                        If the administrator can specify a allowlist of allowed applications, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<a href="#mf-appInstallRules-specify">application allowlist</a>". The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should list any application characteristics (e.g. name, version, or developer) based on which the allowlist can be formed.
+                                    </li>
+                                    <li>
+                                        If the administrator can prevent the user from installing additional applications, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<a href="#mf-appInstallRules-deny">denying installation of applications</a>". 
+                                    </li>
+                                </ul>
+                            </p>
+                            <p>
+                                 In the future, function <a href="#mf-certWipe">12</a> may require destruction or disabling of any default trusted CA certificates, excepting those CA certificates necessary for continued operation of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, such as the developer&rsquo;s certificate. At this time, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must indicate in the assignment whether pre-installed or any other category of X.509v3 certificates may be removed from the Trust Anchor Database. 
+                            </p>
+                            <p>
+                                 For function <a href="#mf-enroll">13</a>, the enrollment function may be installing an <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> agent and includes the policies to be applied to the device. It is acceptable for the user approval notice to require the user to intentionally opt to view the policies (for example, by "tapping" on a "View" icon) rather than listing the policies in full in the notice. 
+                            </p>
+                            <p>
+                                 For function <a href="#mf-update">15</a>, the administrator capability to update the system software may be limited to causing a prompt to the user to update rather than the ability to initiate the update itself. As the administrator is likely to be acting remotely, he/she would be unaware of inopportune situations, such as low power, which may cause the update to fail and the device to become inoperable. The user can refuse to accept the update in such situations. It is expected that system architects will be cognizant of this limitation and will enforce network access controls in order to enforce enterprise-critical updates. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-appInstall">16</a> addresses both installation and update. This protection profile does not distinguish between installation and update of applications because mobile devices typically completely overwrite the previous installation with a new installation during an application update. 
+                            </p>
+                            <p>
+                                 For function <a href="#mf-entAppRemove">17</a>, "Enterprise applications" are those applications that belong to the Enterprise application group. Applications installed by the enterprise administrator (including automatic installation by the administrator after being requested by the user from a catalog of enterprise applications) are by default placed in the Enterprise application group unless an exception has been made in function <a href="#mf-appGroups">43</a> of <a href="#FMT_SMF.1.1">FMT_SMF.1.1</a>. 
+                            </p>
+                            <p>
+                                 If the display of notifications in the locked state is supported, the configuration of these notifications (function <a href="#mf-notifications">18</a>) must be included in the selection. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-dar">19</a> must be included in the selection if data-at-rest protection is not natively enabled. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-rmediaDar">20</a> is implicitly met if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not support removable media. 
+                            </p>
+                            <p>
+                                 For function <a href="#mf-location">21</a>, location services include location information gathered from GPS, cellular, and Wi-Fi. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-authFactors">22</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> contains a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>. This selection must correspond with the selection made in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>. If <a href="#uau_biometric"> biometric in accordance with the <a href="#mod-biometrics" class="dynref" data-format=""></a></a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, "Biometric Authentication Factor" must be selected and the user or admin must have the option to disable the use of it. If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the <a href="#mod-biometrics" class="dynref" data-format=""></a>, this applies to all different modalities. If <a href="#uau_hybr"> hybrid</a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a> it must be selected and the user or admin must have the option to disable the use of it. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-certInvalid">23</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if the function is configurable on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> for any of the trusted channels either mandated or selected in <a href="#FTP_ITC_EXT.1.1">FTP_ITC_EXT.1.1</a> or <a href="#FDP_UPC_EXT.1.1/APPS">FDP_UPC_EXT.1.1/APPS</a>. The configuration can be different depending on the specific trusted channel(s) and they must be filled in for the assignment. 
+                            </p>
+                            <p>
+                                 The assignment in function <a href="#mf-externalPorts">24</a> consists of all externally accessible hardware ports, such as USB, the SD card, and HDMI, whose data transfer capabilities can be enabled and disabled by either the user or administrator. Disablement of data transfer over an external port must be effective during and after boot into the normal operative mode of the device. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports states in which configured security management policy is inaccessible, for example, due to data-at-rest protection, it is acceptable to meet this requirement by ensuring that data transfer is disabled by default while in these states. Each of the ports may be enabled or disabled separately. The configuration policy need not disable all ports together. In the case of USB, charging is still allowed if data transfer capabilities have been disabled. 
+                            </p>
+                            <p>
+                                 The assignment in function <a href="#mf-serverProtocols">25</a> consists of all protocols where the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> acts as a server, which can be enabled and disabled by either the user or administrator. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-devModes">26</a> must be included in the selection if developer modes are supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-authBypass">27</a> must be included in the selection if bypass of local user authentication, such as a "Forgot Password", password hint, or remote authentication feature, is supported. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-appCert">29</a> must be included in the selection if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> allows applications, other than the <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agents, to import or remove X.509v3 certificates from the Trust Anchor Database. The <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agent is considered the administrator. This function does not apply to applications trusting a certificate for its own validations. The function only applies to situations where the application modifies the device-wide Trust Anchor Database, affecting the validations performed by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> for other applications. The user or administrator may be provided the ability to globally allow or deny any application requests in order to meet this requirement. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-certValidity">30</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if "administrator-configured option" is selection in <a href="#FIA_X509_EXT.2.2">FIA_X509_EXT.2.2</a>. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-digSign">33</a> should be included in the selection if <a href="#FPT_TUD_EXT.5.1">FPT_TUD_EXT.5.1</a> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> and the configurable option is selected. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-sharedKeys">34</a> should be included in the selection if user or administrator is selected in <a href="#FCS_STG_EXT.1.4">FCS_STG_EXT.1.4</a>. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-keyWipeRules">35</a> should be included in the selection if <a href="#s-killkey-user">the user</a> or <a href="#s-killkey-admin">the administrator</a> is selected in <a href="#FCS_STG_EXT.1.5">FCS_STG_EXT.1.5</a>. 
+                            </p>
+                            <p></p>
+                            <p>
+                                 Function <a href="#mf-auditItems">37</a> must be included in the selection if <a href="#FAU_SEL.1">FAU_SEL.1</a> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
+                            </p>
+                            <p>
+                                 For function <a href="#mf-hotspot">41</a>, hotspot functionality refers to the condition in which the mobile device is serving as an access point to other devices, not the connection of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to external hotspots. 
+                            </p>
+                            <p>
+                                 Functions <a href="#mf-dataSharing">42</a> and <a href="#mf-appGroups">43</a> correspond to <a href="#FDP_ACF_EXT.1.2">FDP_ACF_EXT.1.2</a>. 
+                            </p>
+                            <p>
+                                 For function <a href="#mf-unenroll">44</a>, <a href="#FMT_SMF_EXT.2.1">FMT_SMF_EXT.2.1</a> specifies actions to be performed when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is unenrolled from management. 
+                            </p>
+                            <p>
+                                 Function <a href="#mf-alwaysOnVPN">45</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if IPsec is selected in <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a> and the native IPsec VPN client can be configured to be Always-On. Always-On is defined as when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has a network connection the VPN attempts to connect, all data leaving the device uses the VPN when the VPN is connected and no data leaves that device when the VPN is disconnected. The configuration of the VPN Client itself (with information such as VPN Gateway, certificates, and algorithms) is addressed by the <a href="#mod-vpnclient" class="dynref" data-format=""></a>. 
+                            </p>
                         </span>
                     </div>
                     <div class="validationguidelines_label">Validation Guidelines:</div>
@@ -8156,7 +8279,7 @@
                     <div class="component-activity-header">
                         <a href="#AGD_OPE.1">AGD_OPE.1</a>
                     </div>
-                    Some of the contents of the operational guidance are verified by the evaluation activities in <a href="#sfr" class="dynref" data-format=""></a> and evaluation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> according to the <a href="#CEM">[CEM]</a><a href="#CEM">[CEM]</a>. The following additional information is also required. 
+                    Some of the contents of the operational guidance are verified by the evaluation activities in <a href="#sfr" class="dynref" data-format=""></a> and evaluation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> according to the <a href="#CEM">[CEM]</a><a href="#CEM">[CEM]</a><a href="#CEM">[CEM]</a>. The following additional information is also required. 
                     <br>
                     <br>
                      The operational guidance shall contain a list of natively installed applications and any relevant version numbers. If any third party vendors are permitted to install applications before purchase by the end user or enterprise, these applications shall also be listed.
@@ -8467,7 +8590,7 @@
                     <div class="component-activity-header">
                         <a href="#ATE_IND.1">ATE_IND.1</a>
                     </div>
-                    The evaluator shall prepare a test plan and report documenting the testing aspects of the system. The test plan covers all of the testing actions contained in the <a href="#CEM">[CEM]</a><a href="#CEM">[CEM]</a> and the body of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>&rsquo;s Evaluation Activities. While it is not necessary to have one test case per test listed in an evaluation activity, the evaluator must document in the test plan that each applicable testing requirement in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> is covered. 
+                    The evaluator shall prepare a test plan and report documenting the testing aspects of the system. The test plan covers all of the testing actions contained in the <a href="#CEM">[CEM]</a><a href="#CEM">[CEM]</a><a href="#CEM">[CEM]</a> and the body of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>&rsquo;s Evaluation Activities. While it is not necessary to have one test case per test listed in an evaluation activity, the evaluator must document in the test plan that each applicable testing requirement in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> is covered. 
                     <br>
                     <br>
                      The test plan identifies the platforms to be tested, and for those platforms not included in the test plan but included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, the test plan provides a justification for not testing the platforms. This justification must address the differences between the tested platforms and the untested platforms, and make an argument that the differences do not affect the testing to be performed. It is not sufficient to merely assert that the differences have no affect; rationale must be provided. If all platforms claimed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> are tested, then no rationale is necessary. 
@@ -10102,6 +10225,9 @@
                             </li>
                         </ul>
                     </span></td>
+            </tr>
+            <tr>
+                <td><span id="CEM">[<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>]</span></td><td><span class="description"> <a href="http://www.commoncriteriaportal.org/files/ccfiles/CEMV3.1R5.pdf">Common Evaluation Methodology for Information Technology Security - Evaluation Methodology</a>, CCMB-2012-09-004, Version 3.1, Revision 5, April 2017. </span></td>
             </tr>
             <tr>
                 <td><span id="CEM">[<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>]</span></td><td><span class="description"> <a href="http://www.commoncriteriaportal.org/files/ccfiles/CEMV3.1R5.pdf">Common Evaluation Methodology for Information Technology Security - Evaluation Methodology</a>, CCMB-2012-09-004, Version 3.1, Revision 5, April 2017. </span></td>
