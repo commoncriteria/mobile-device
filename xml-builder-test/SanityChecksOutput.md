@@ -36,6 +36,8 @@
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[6]""/f-element[1]""
 * Error: f-element FDP_UPC_EXT.1.1  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[10]""/f-element[1]""
+* Error: f-element FDP_UPC_EXT.1.2  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[10]""/f-element[2]""
 * Error: f-element FDP_UPC_EXT.1.1/APPS  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[11]""/f-element[1]""
 * Error: f-element FDP_UPC_EXT.1.1/BLUETOOTH  appears not to have an associated evaluation activity.:
@@ -82,6 +84,8 @@
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[7]""/f-component[4]""/f-element[1]""
 * Error: f-element FPT_AEX_EXT.5.1  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[7]""/f-component[5]""/f-element[1]""
+* Error: f-element FPT_TST_EXT.2.1  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[7]""/f-component[18]""/f-element[1]""
 * Error: f-element FPT_TUD_EXT.1.1  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[7]""/f-component[22]""/f-element[1]""
 * Error: f-element FPT_TUD_EXT.1.2  appears not to have an associated evaluation activity.:
@@ -104,6 +108,8 @@
         on-also/PP[1]""/include-pkg[1]""/depends[1]""/on-also[1]""
 * Error: Detected multiple elements with an id of 'fmt_smf'.
 * Error: Detected multiple elements with an id of 'fmt_smf'.
+* Error: Detected multiple elements with an id of 'CEM'.
+* Error: Detected multiple elements with an id of 'CEM'.
 * Error: Detected dangling ref-id to 'mod-vpnclient'.
 	  /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[9]""/f-component[1]""/f-element[1]""/note[1]"The inten"/rule[3]""/then[1]""/ref-id[1]"mod-vpncl"
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[1]""
@@ -179,64 +185,6 @@
  Failed to find a reference to pkg-tls.
  Failed to find a reference to mod-vpnclient.
  Failed to find a reference to pkg-tls.
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:o
-DONTKNOWWHATIT IS:o
-DONTKNOWWHATIT IS:o
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:m
-DONTKNOWWHATIT IS:na
-DONTKNOWWHATIT IS:na
  Failed to find a reference to mod-biometrics.
  Failed to find a reference to mod-biometrics.
  Failed to find a reference to pkg-tls.
