@@ -104,8 +104,6 @@
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[9]""/f-component[1]""/f-element[2]""
 * Error: Detected multiple elements with an id of 'fmt_smf'.
 * Error: Detected multiple elements with an id of 'fmt_smf'.
-* Error: Detected dangling ref-id to 'mod-vpnclient'.
-	  /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[9]""/f-component[1]""/f-element[1]""/note[1]"The inten"/rule[3]""/then[1]""/ref-id[1]"mod-vpncl"
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[3]""
@@ -121,8 +119,6 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/sec:Use_Cases[1]"The Mobil"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/sec:Use_Cases[1]"The Mobil"/htm:p[2]""
 * Rules without a 'Validation Guidelines' appendix has been detected.
- Failed to find a reference to mod-wlanclient.
- Failed to find a reference to mod-bluetooth.
  Failed to find a reference to Security_Requirements.
  Failed to find a reference to t-audit-additional.
  Failed to find a reference to t-audit-additional.
@@ -131,55 +127,11 @@
  Failed to find a reference to t-audit-additional.
  Failed to find a reference to t-audit-additional.
  Failed to find a reference to t-audit-additional.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-wlanclient.
- Failed to find a reference to mod-wlanclient.
- Failed to find a reference to mod-wlanclient.
- Failed to find a reference to mod-wlanclient.
  Failed to find a reference to s-sign-ecdsa.
  Failed to find a reference to ivtable.
  Failed to find a reference to ivtable.
- Failed to find a reference to mod-vpnclient.
- Failed to find a reference to mod-vpnclient.
- Failed to find a reference to mod-vpnclient.
- Failed to find a reference to mod-vpnclient.
- Failed to find a reference to mod-vpnclient.
- Failed to find a reference to mod-bluetooth.
- Failed to find a reference to mod-bluetooth.
- Failed to find a reference to mod-bluetooth.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
  Failed to find a reference to t-locks.
  Failed to find a reference to t-locks.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-wlanclient.
- Failed to find a reference to mod-wlanclient.
- Failed to find a reference to mod-vpnclient.
- Failed to find a reference to mod-vpnclient.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-vpnclient.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-biometrics.
- Failed to find a reference to mod-wlanclient.
- Failed to find a reference to mod-wlanclient.
- Failed to find a reference to mod-wlanclient.
- Failed to find a reference to mod-vpnclient.
- Failed to find a reference to mod-wlanclient.
- Failed to find a reference to mod-vpnclient.
  Failed to find a reference to sel-based-reqs.
  Failed to find a reference to Security_Problem_Description.
  Failed to find a reference to sfr.
