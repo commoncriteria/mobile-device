@@ -128,6 +128,8 @@
  Failed to find a reference to t-audit-additional.
  Failed to find a reference to t-audit-additional.
  Failed to find a reference to s-sign-ecdsa.
+ Failed to find a reference to ivtable.
+ Failed to find a reference to ivtable.
  Failed to find a reference to t-locks.
  Failed to find a reference to t-locks.
  Failed to find a reference to sel-based-reqs.
@@ -141,4 +143,3 @@
  Failed to find a reference to sfr.
  Failed to find a reference to sfr.
  Failed to find a reference to sar.
- Failed to find a reference to entropy.
