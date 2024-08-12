@@ -118,16 +118,16 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[12]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/sec:Use_Cases[1]"The Mobil"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/sec:Use_Cases[1]"The Mobil"/htm:p[2]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/undefined[1]""/htm:p[1]"The Secur"/htm:p[1]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/undefined[1]""/htm:p[1]"The Secur"/htm:p[2]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/undefined[1]""/htm:p[1]"The Secur"/htm:p[3]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/undefined[1]""/htm:p[1]"The Secur"/htm:p[4]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/undefined[1]""/htm:p[1]"The Secur"/htm:p[5]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/undefined[1]""/htm:p[1]"The Secur"/htm:p[6]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/undefined[1]""/htm:p[1]"The Secur"/htm:p[7]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/undefined[1]""/htm:p[1]"The Secur"/htm:p[8]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/undefined[1]""/htm:p[1]"The Secur"/htm:p[9]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/undefined[1]""/htm:p[1]"The Secur"/htm:p[10]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[2]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[3]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[4]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[5]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[6]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[7]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[8]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[9]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[10]""
 * Rules without a 'Validation Guidelines' appendix has been detected.
  Failed to find a reference to Security_Requirements.
  Failed to find a reference to t-audit-additional.
@@ -152,4 +152,3 @@
  Failed to find a reference to sfr.
  Failed to find a reference to sfr.
  Failed to find a reference to sfr.
-Unable to make an xref for |undefined| /PP[1]""/sec:req[1]""/undefined[1]""
