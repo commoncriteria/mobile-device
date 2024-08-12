@@ -38,6 +38,15 @@
     </entry>
   </RevisionHistory>
 
+  <include-pkg id="pkg-tls">
+    <git>
+      <url>https://github.com/commoncriteria/tls</url>
+      <branch>release-2.0</branch>
+    </git>
+    <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=465&amp;id=465</url>
+    <depends on="fcs-eap-ext-1"/>
+  </include-pkg>
+
   <!-- 1.0 Introduction. -->
   <sec:Introduction>
     
@@ -4417,8 +4426,10 @@ expected to enforce.<h:br/><h:br/>
         
         <!-- FCS_EAP_EXT.1 EAP TLS -->
         <f-component cc-id="fcs_eap_ext.1" id="fcs-eap-ext-1" name="EAP-TLS">
-          <depends on-sel="sel-ipsec-e11-psk" also="sel-ipsec-e11-pskeap" and="sel-ipsec-e11-pskeapma"/>
-	  <!-- QQQQ: The latter two dependencies apply to IKEv2 and are correct. The first dependency applies only
+      <!--    <depends on-sel="sel-ipsec-e11-psk" also="sel-ipsec-e11-pskeap" and="sel-ipsec-e11-pskeapma"/>  -->
+          <depends also="sel-ipsec-e11-pskeap" and="sel-ipsec-e11-pskeapma"/>
+		  <!-- RESOLVED: Above line resolves the following issue. (rmc, 18 Apr 23) -->
+	  <!-- XXXX: The latter two dependencies apply to IKEv2 and are correct. The first dependency applies only
 		to IKEv1, and the AppNote in IPSEC.1.11 says you can use one of the mechanisms listed in the RFC, one of which
 		is EAP, but it could use a native IKE method, in which case this SFR should not be included. 
 		Which RFC is this referring to? Is this selection correct? There is no time to find out
@@ -4573,7 +4584,7 @@ expected to enforce.<h:br/><h:br/>
             <title>
               The TSF shall truncate the HOTP hash per FIA_HOTP_EXT.1.4 to create an HOTP of  
               <selectables>
-                <selectable>administrator configurable character length of at least 6</selectable>
+                <selectable exclusive="yes">administrator configurable character length of at least 6</selectable>
                 <selectable>non-configurable character length of
                   <selectables onlyone="yes">
                     <selectable>6</selectable>
@@ -4668,7 +4679,8 @@ expected to enforce.<h:br/><h:br/>
 		
 		<!-- FIA_PSK_EXT.1 Pre-Shared Key Composition -->
         <f-component cc-id="fia_psk_ext.1" id="fia-psk-ext-1" name="Pre-Shared Key Composition">
-          <depends on-sel="sel-ipsec-e11-psk" and="sel-ipsec-e11-pskeap" also="sel-ipsec-e11-pskeapma"/>
+           <depends on-fcomp="fpf-mfa-ext-1"/>
+		   <depends on-sel="sel-ipsec-e11-psk" and="sel-ipsec-e11-pskeap" also="sel-ipsec-e11-pskeapma"/>
           <consistency-rationale/>
           <comp-lev>defines the use and composition of pre-shared keys used for IPsec.</comp-lev>
           <management>No specific management functions are identified.</management>
