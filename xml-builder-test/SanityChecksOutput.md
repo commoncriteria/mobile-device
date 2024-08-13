@@ -118,11 +118,16 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[12]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/sec:Use_Cases[1]"The Mobil"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/sec:Use_Cases[1]"The Mobil"/htm:p[2]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]": Securit"/htm:p[1]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]": Securit"/htm:p[2]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[2]"Guidance "/htm:p[1]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[2]"Guidance "/htm:p[2]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[2]"Guidance "/htm:p[3]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[2]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[3]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[4]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[5]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[6]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[7]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[8]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[9]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[10]""
 * Rules without a 'Validation Guidelines' appendix has been detected.
  Failed to find a reference to Security_Requirements.
  Failed to find a reference to t-audit-additional.
@@ -136,6 +141,13 @@
  Failed to find a reference to ivtable.
  Failed to find a reference to t-locks.
  Failed to find a reference to t-locks.
- Failed to find a reference to adv.
  Failed to find a reference to sel-based-reqs.
+ Failed to find a reference to Security_Problem_Description.
+ Failed to find a reference to sfr.
+ Failed to find a reference to sfr.
+ Failed to find a reference to sfr.
+ Failed to find a reference to sfr.
+ Failed to find a reference to sfr.
+ Failed to find a reference to sfr.
+ Failed to find a reference to sfr.
  Failed to find a reference to sfr.

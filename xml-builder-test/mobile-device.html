@@ -637,7 +637,7 @@ function showTarget(id){
 <tr><td>3.1</td><td>2017-04-05</td><td>Included changes based on Technical Rapid Response Team Decisions and incorporated<br/>Technical Decisions. Modified biometric requirements: <a href="#FIA_UAU.5">FIA_UAU.5</a> - Added iris, face, voice and vein as supported modalities, in addition<br/>to fingerprint (allowed in version 3)FIA_BMG_EXT.1.1 - Clarified AA to specify that vendor evidence is acceptable and<br/>expectations of evidence provided. FIA_BMG_EXT.1.2 - SAFAR was changed to an assignment of a SAFAR no greater than<br/>1:500. <a href="#FIA_AFL_EXT.1">FIA_AFL_EXT.1</a> - Updated to allow each biometric modality to utilize an individual<br/>or shared counter. FCS_TLSC_EXT.1.1 - Removed TLS ciphersuites that utilized SHA1 and updated<br/>optional ciphersuites to be uniformed across <abbr class="dyn-abbr"><a href="#abbr_PP">PPs</a></abbr>. <a href="#FCS_STG_EXT.2.2">FCS_STG_EXT.2.2</a> - Modified to<br/>require long term trusted channel key material be encrypted by an approved method.<br/><a href="#FIA_UAU_EXT.1.1">FIA_UAU_EXT.1.1</a> - Modified to allow the long term trusted channel key material to be<br/>available prior to password being entered at start-up.</td></tr>
 <tr><td>3.2</td><td>2021-04-15</td><td>Removed TLS <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> and utilized TLS Functional Package Removed Bluetooth <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr><br/>and utilized Bluetooth Module. Bluetooth <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> moved to Implementation Dependent.<br/><a href="#FPT_TUD_EXT.4">FPT_TUD_EXT.4</a>.2 renumbered to</td></tr>
 <tr><td>3.3</td><td>2022-09-12</td><td>Integrated Biometrics <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr> Module, Included changes based on Technical Rapid Response Team Decisions and open issues from GitHub.Removed biometric definitions from Tech TermsRemoved FDP_PBARemoved FIA_BMGUpdated <a href="#FIA_UAU.5">FIA_UAU.5</a> to support bio <abbr class="dyn-abbr"><a href="#abbr_cPP">cPP</a></abbr> moduleMoved <a href="#FTA_TAB.1">FTA_TAB.1</a> to mandatoryMoved <a href="#FAU_SAR.1">FAU_SAR.1</a> to mandatoryAdded ECDUpdated WLAN Client reference from Extended Package to ModuleRemoved Diffie-Hellman group 14 selection from <a href="#FCS_CKM.1.1">FCS_CKM.1.1</a> and <a href="#FCS_CKM.2.1/UNLOCKED">FCS_CKM.2.1/UNLOCKED</a></td></tr>
-</table><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Objectives_of_Document" style="text-indent:10px">1.1<span>Objectives of Document</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#TOEdescription" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#Use_Cases" style="text-indent:10px">1.4<span>Use Cases</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Problem_Definition" style="text-indent:0px">3<span>Security Problem Definition</span></a><a href="#Threats" style="text-indent:10px">3.1<span>Threats</span></a><a href="#Assumptions" style="text-indent:10px">3.2<span>Assumptions</span></a><a href="#Organizational_Security_Policies" style="text-indent:10px">3.3<span>Organizational Security Policies</span></a><a href="#Security_Objectives" style="text-indent:0px">4<span>Security Objectives</span></a><a href="#Security_Objectives_for_the_TOE" style="text-indent:10px">4.1<span>Security Objectives for the TOE</span></a><a href="#Security_Objectives_for_the_Operational_Environment" style="text-indent:10px">4.2<span>Security Objectives for the Operational Environment</span></a><a href="#" style="text-indent:10px">4.3<span>Security Objectives Rationale</span></a><a href="#req" style="text-indent:0px">5<span>Security Requirements</span></a><a href="#SFRs" style="text-indent:10px">5.1<span>Security Functional Requirements</span></a><a href="#fau" style="text-indent:20px">5.1.1<span>Class: Security Audit (FAU)</span></a><a href="#fcs" style="text-indent:20px">5.1.2<span>Class: Cryptographic Support (FCS)</span></a><a href="#fcs_stg_ext" style="text-indent:20px">5.1.3<span>Class: Cryptographic Storage (FCS_STG_EXT)</span></a><a href="#fdp" style="text-indent:20px">5.1.4<span>Class: User Data Protection (FDP)</span></a><a href="#fia" style="text-indent:20px">5.1.5<span>Class: Identification and Authentication (FIA)</span></a><a href="#fmt" style="text-indent:20px">5.1.6<span>Class: Security Management (FMT)</span></a><a href="#fpt" style="text-indent:20px">5.1.7<span>Class: Protection of the TSF (FPT)</span></a><a href="#fta" style="text-indent:20px">5.1.8<span>Class: TOE Access (FTA)</span></a><a href="#ftp" style="text-indent:20px">5.1.9<span>Class: Trusted Path/Channels (FTP)</span></a><a href="#obj-req-map" style="text-indent:20px">5.1.10<span>TOE Security Functional Requirements Rationale</span></a><a href="#sar" style="text-indent:10px">5.2<span>Security Assurance Requirements</span></a><a href="#impl-reqs" style="text-indent:0px">Appendix A - <span>Implementation-dependent Requirements</span></a><a href="#satisfiedreqs" style="text-indent:0px">Appendix B - <span>Implicitly Satisfied Requirements</span></a><a href="#entropy" style="text-indent:0px">Appendix C - <span>Entropy Documentation And Assessment</span></a><a href="#description" style="text-indent:10px">C.1<span>Design Description</span></a><a href="#justification" style="text-indent:10px">C.2<span>Entropy Justification</span></a><a href="#conditions" style="text-indent:10px">C.3<span>Operating Conditions</span></a><a href="#testing" style="text-indent:10px">C.4<span>Health Testing</span></a><a href="#acronyms" style="text-indent:0px">Appendix D - <span>Acronyms</span></a><a href="#appendix-bibliography" style="text-indent:0px">Appendix E - <span>Bibliography</span></a><a href="#ack" style="text-indent:0px">Appendix F - <span>Acknowledgments</span></a></div><h1 class="indexable" data-level="1" id="Introduction">1 Introduction</h1>
+</table><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Objectives_of_Document" style="text-indent:10px">1.1<span>Objectives of Document</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#TOEdescription" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#Use_Cases" style="text-indent:10px">1.4<span>Use Cases</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Problem_Definition" style="text-indent:0px">3<span>Security Problem Definition</span></a><a href="#Threats" style="text-indent:10px">3.1<span>Threats</span></a><a href="#Assumptions" style="text-indent:10px">3.2<span>Assumptions</span></a><a href="#Organizational_Security_Policies" style="text-indent:10px">3.3<span>Organizational Security Policies</span></a><a href="#Security_Objectives" style="text-indent:0px">4<span>Security Objectives</span></a><a href="#Security_Objectives_for_the_TOE" style="text-indent:10px">4.1<span>Security Objectives for the TOE</span></a><a href="#Security_Objectives_for_the_Operational_Environment" style="text-indent:10px">4.2<span>Security Objectives for the Operational Environment</span></a><a href="#" style="text-indent:10px">4.3<span>Security Objectives Rationale</span></a><a href="#req" style="text-indent:0px">5<span>Security Requirements</span></a><a href="#SFRs" style="text-indent:10px">5.1<span>Security Functional Requirements</span></a><a href="#fau" style="text-indent:20px">5.1.1<span>Class: Security Audit (FAU)</span></a><a href="#fcs" style="text-indent:20px">5.1.2<span>Class: Cryptographic Support (FCS)</span></a><a href="#fcs_stg_ext" style="text-indent:20px">5.1.3<span>Class: Cryptographic Storage (FCS_STG_EXT)</span></a><a href="#fdp" style="text-indent:20px">5.1.4<span>Class: User Data Protection (FDP)</span></a><a href="#fia" style="text-indent:20px">5.1.5<span>Class: Identification and Authentication (FIA)</span></a><a href="#fmt" style="text-indent:20px">5.1.6<span>Class: Security Management (FMT)</span></a><a href="#fpt" style="text-indent:20px">5.1.7<span>Class: Protection of the TSF (FPT)</span></a><a href="#fta" style="text-indent:20px">5.1.8<span>Class: TOE Access (FTA)</span></a><a href="#ftp" style="text-indent:20px">5.1.9<span>Class: Trusted Path/Channels (FTP)</span></a><a href="#obj-req-map" style="text-indent:20px">5.1.10<span>TOE Security Functional Requirements Rationale</span></a><a href="#sar" style="text-indent:10px">5.2<span>Security Assurance Requirements</span></a><a href="#ase" style="text-indent:20px">5.2.1<span>Class ASE: Security Target</span></a><a href="#adv" style="text-indent:20px">5.2.2<span>Class ADV: Development</span></a><a href="#agd" style="text-indent:20px">5.2.3<span>Class AGD: Guidance Documentation</span></a><a href="#alc" style="text-indent:20px">5.2.4<span>Class ALC: Life-cycle Support</span></a><a href="#ate" style="text-indent:20px">5.2.5<span>Class ATE: Tests</span></a><a href="#ava" style="text-indent:20px">5.2.6<span>Class AVA: Vulnerability Assessment</span></a><a href="#impl-reqs" style="text-indent:0px">Appendix A - <span>Implementation-dependent Requirements</span></a><a href="#satisfiedreqs" style="text-indent:0px">Appendix B - <span>Implicitly Satisfied Requirements</span></a><a href="#entropy" style="text-indent:0px">Appendix C - <span>Entropy Documentation And Assessment</span></a><a href="#description" style="text-indent:10px">C.1<span>Design Description</span></a><a href="#justification" style="text-indent:10px">C.2<span>Entropy Justification</span></a><a href="#conditions" style="text-indent:10px">C.3<span>Operating Conditions</span></a><a href="#testing" style="text-indent:10px">C.4<span>Health Testing</span></a><a href="#acronyms" style="text-indent:0px">Appendix D - <span>Acronyms</span></a><a href="#appendix-bibliography" style="text-indent:0px">Appendix E - <span>Bibliography</span></a><a href="#ack" style="text-indent:0px">Appendix F - <span>Acknowledgments</span></a></div><h1 class="indexable" data-level="1" id="Introduction">1 Introduction</h1>
     <h2 class="indexable" data-level="2" id="Objectives_of_Document">1.1 Objectives of Document</h2>The scope of this Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>) is to describe the security functionality of mobile devices in terms of [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] and to define functional and assurance requirements for such devices.
     <div class="no-link"><h2 id="glossary" class="indexable" data-level="2">1.2 Terms</h2>
 The following sections list Common Criteria and technology terms used in this document.
@@ -791,6 +791,7 @@ The following sections list Common Criteria and technology terms used in this do
   <h1 class="indexable" data-level="1" id="Conformance_Claims">2 Conformance Claims</h1>
     <dl><dt class="cclaim defined" id="Conformance Statement">Conformance Statement</dt><dd><span class="description"><br/></span></dd><dt class="cclaim defined" id="CC Conformance Claims">CC Conformance Claims</dt><dd><span class="description"><br/></span></dd><dt class="cclaim defined" id="PP Claims">PP Claims</dt><dd><span class="description"><br/></span></dd><dt class="cclaim defined" id="Package Claims">Package Claims</dt><dd><span class="description"><br/></span></dd></dl>
   <h1 class="indexable" data-level="1" id="Security_Problem_Definition">3 Security Problem Definition</h1>
+    <br/>
     
     <h2 class="indexable" data-level="2" id="Threats">3.1 Threats</h2>
       <p>Mobile devices are subject to the threats of traditional computer systems along with those entailed by their mobile nature. The threats considered in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> are those of network eavesdropping, network attacks, physical access, malicious or flawed applications, persistent presence, and backup as detailed in the following sections.</p>
@@ -798,6 +799,7 @@ The following sections list Common Criteria and technology terms used in this do
     
     
     <h2 class="indexable" data-level="2" id="Assumptions">3.2 Assumptions</h2>
+      <p><br/></p>
       <dl><dt class="assumption defined" id="A.CONFIG">A.CONFIG</dt><dd><span class="description">It is assumed that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s security functions are configured correctly in a manner to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> security policies will be enforced on all applicable network traffic flowing among the attached networks.</span></dd><dt class="assumption defined" id="A.NOTIFY">A.NOTIFY</dt><dd><span class="description">It is assumed that the mobile user will immediately notify the administrator if the Mobile Device is lost or stolen.</span></dd><dt class="assumption defined" id="A.PRECAUTION">A.PRECAUTION</dt><dd><span class="description">It is assumed that the mobile user exercises precautions to reduce the risk of loss or theft of the Mobile Device.</span></dd><dt class="assumption defined" id="A.PROPER_USER">A.PROPER_USER</dt><dd><span class="description">Mobile Device users are not willfully negligent or hostile, and use the device within compliance of a reasonable Enterprise security policy.</span></dd></dl>
     
     
@@ -810,10 +812,12 @@ The following sections list Common Criteria and technology terms used in this do
   <h1 class="indexable" data-level="1" id="Security_Objectives">4 Security Objectives</h1>
     
     <h2 class="indexable" data-level="2" id="Security_Objectives_for_the_TOE">4.1 Security Objectives for the TOE</h2>
+      <p><br/></p>
       <dl><dt class="SO defined" id="O.AUTH">O.AUTH</dt><dd><span class="description">To address the issue of loss of confidentiality of user data in the event of loss of a Mobile Device (<a href="#T.PHYSICAL_ACCESS">T.PHYSICAL_ACCESS</a>), users are required to enter an authentication factor to the device prior to accessing protected functionality and data. Some non-sensitive functionality (e.g., emergency calling, text notification) can be accessed prior to entering the authentication factor. The device will automatically lock following a configured period of inactivity in an attempt to ensure authorization will be required in the event of the device being lost or stolen. Authentication of the endpoints of a trusted communication path is required for network access to ensure attacks are unable to establish unauthorized network connections to undermine the integrity of the device. Repeated attempts by a user to authorize to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will be limited or throttled to enforce a delay between unsuccessful attempts.</span></dd><dt class="SO defined" id="O.CONFIG">O.CONFIG</dt><dd><span class="description">To ensure a Mobile Device protects user and enterprise data that it may store or process, conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> will provide the capability to configure and apply security policies defined by the user and the Enterprise Administrator. If Enterprise security policies are configured these must be applied in precedence of user specified security policies.</span></dd><dt class="SO defined" id="O.INTEGRITY">O.INTEGRITY</dt><dd><span class="description">To ensure the integrity of the Mobile Device is maintained conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> will perform self-tests to ensure the integrity of critical functionality, software/firmware and data has been maintained. The user shall be notified of any failure of these self-tests. This will protect against the threat T.PERSISTENT. To address the issue of an application containing malicious or flawed code (<a href="#T.MALICIOUS_APP">T.MALICIOUS_APP</a>), the integrity of downloaded updates to software/firmware will be verified prior to installation/execution of the object on the Mobile Device. In addition, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will restrict applications to only have access to the system services and data they are permitted to interact with. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will further protect against malicious applications from gaining access to data they are not authorized to access by randomizing the memory layout.</span></dd><dt class="SO defined" id="O.PRIVACY">O.PRIVACY</dt><dd><span class="description">In a BYOD environment (use cases 3 and 4), a personally-owned mobile device is used for both personal activities and enterprise data. Enterprise management solutions may have the technical capability to monitor and enforce security policies on the device. However, the privacy of the personal activities and data must be ensured. In addition, since there are limited controls that the enterprise can enforce on the personal side, separation of personal and enterprise data is needed. This will protect against the <a href="#T.MALICIOUS_APP">T.MALICIOUS_APP</a> and <a href="#T.PERSISTENT_PRESENCE">T.PERSISTENT_PRESENCE</a> threats.</span></dd><dt class="SO defined" id="O.PROTECTED_COMMS">O.PROTECTED_COMMS</dt><dd><span class="description">To address the network eavesdropping (<a href="#T.NETWORK_EAVESDROP">T.NETWORK_EAVESDROP</a>) and network attack (<a href="#T.NETWORK_ATTACK">T.NETWORK_ATTACK</a>) threats described in , concerning wireless transmission of Enterprise and user data and configuration data between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and remote network entities, conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> will use a trusted communication path. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must be capable of communicating using mutually authenticated TLS, EAP-TLS, HTTPS, 802.1X, and 802.11-2012. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may optionally communicate using these standard protocols: IPsec, mutually-authenticated DTLS, or Bluetooth. These protocols are specified by RFCs that offer a variety of implementation choices. Requirements have been imposed on some of these choices (particularly those for cryptographic primitives) to provide interoperability and resistance to cryptographic attack. While conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> must support all of the choices specified in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> including any optional <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> defined in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, they may support additional algorithms and protocols. If such additional mechanisms are not evaluated, guidance must be given to the administrator to make clear the fact that they were not evaluated.</span></dd><dt class="SO defined" id="O.STORAGE">O.STORAGE</dt><dd><span class="description">To address the issue of loss of confidentiality of user data in the event of loss of a Mobile Device (<a href="#T.PHYSICAL_ACCESS">T.PHYSICAL_ACCESS</a>), conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> will use data-at-rest protection. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will be capable of encrypting data and keys stored on the device and will prevent unauthorized access to encrypted data.</span></dd></dl>
     
     
     <h2 class="indexable" data-level="2" id="Security_Objectives_for_the_Operational_Environment">4.2 Security Objectives for the Operational Environment</h2>
+      <p><br/></p>
       <dl><dt class="SOE defined" id="OE.CONFIG">OE.CONFIG</dt><dd><span class="description"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> administrators will configure the Mobile Device security functions correctly to create the intended security policy</span></dd><dt class="SOE defined" id="OE.DATA_PROPER_USER">OE.DATA_PROPER_USER</dt><dd><span class="description">Administrators take measures to ensure that mobile device users are adequately vetted against malicious intent and are made aware of the expectations for appropriate use of the device.</span></dd><dt class="SOE defined" id="OE.NOTIFY">OE.NOTIFY</dt><dd><span class="description">The Mobile User will immediately notify the administrator if the Mobile Device is lost or stolen.</span></dd><dt class="SOE defined" id="OE.PRECAUTION">OE.PRECAUTION</dt><dd><span class="description">The mobile device user exercises precautions to reduce the risk of loss or theft of the Mobile Device.</span></dd></dl>
     
     
@@ -851,6 +855,7 @@ The following sections list Common Criteria and technology terms used in this do
    
     
     <h2 id="SFRs" class="indexable" data-level="2">5.1 Security Functional Requirements</h2>
+      <p><br/></p>
       
       <h3 id="fau" class="indexable" data-level="3">5.1.1 Class: Security Audit (FAU)</h3>
         
@@ -919,7 +924,7 @@ The following sections list Common Criteria and technology terms used in this do
                 record. <br/><br/> Note that the testing here can be accomplished in
                 conjunction with the testing of the security mechanisms directly. For example,
                 testing performed to ensure that the administrative guidance provided is correct
-                verifies that AGD_OPE.1 is satisfied and should address the invocation of the
+                verifies that <a href="#AGD_OPE.1">AGD_OPE.1</a> is satisfied and should address the invocation of the
                 administrative actions that are needed to verify the audit records are generated as
                 expected. <br/><br/></div>
             </div></div></div>
@@ -4834,7 +4839,7 @@ The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF<
                   perform the selected action (import, removal) with respect to certificates in the
                   Trust Anchor Database is accomplished (e.g., a pop-up, policy setting, etc.).
                   <br/><br/> The evaluator shall also verify that the API documentation
-                  provided according to <a href="#adv" class="dynref" data-format=""></a> includes any security functions
+                  provided according to <a href="#adv" class="dynref">Section 5.2.2 Class ADV: Development</a> includes any security functions
                   (import, modification, or destruction of the Trust Anchor Database) allowed by applications.
 		</div><div class="eacategory">Tests</div><div class="ea">The evaluator shall perform one of the following tests: <span class="testlist-"><ul><li class="test-"><a id="_t_103" class="defined" href="#_t_103">Test FMT_SMF.1.1:13</a>:
       [conditional] If applications may import certificates to the Trust
@@ -6279,7 +6284,386 @@ The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF<
 <tr><td><a href="#FPT_KST_EXT.3">FPT_KST_EXT.3</a></td><td><a href="#FPT_KST_EXT.3">FPT_KST_EXT.3</a> supports the objective by requiring the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to prevent export of any stored plaintext keys.</td></tr>
 </table></p>
     
-    <h2 class="indexable" data-level="2" id="sar">5.2 Security Assurance Requirements</h2><p>: Security Assurance Requirements The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> is evaluated as per ASE activities defined in the <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> for ASE_CCL.1, ASE_ECD.1, ASE_INT.1, ASE_OBJ.1, ASE_REQ.1, ASE_SPD.1, and ASE_TSS.1. In addition, there may be Evaluation Activities specified within <a href="#sfr" class="dynref" data-format=""></a> that call for necessary descriptions to be included in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> that are specific to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> technology type. The design information about the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is contained in the guidance documentation available to the end user as well as the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> portion of the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, and any additional information required by this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> that is not to be made public. The guidance documents will be provided with the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. Guidance must include a description of how the IT personnel verifies that the Operational Environment can fulfill its role for the security functionality. The documentation should be in an informal style and readable by the IT personnel.<p></p><br/><p></p>Guidance must be provided for every operational environment that the product supports as claimed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. This guidance includes:</p><ol><li>Instructions to successfully install the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> in that environment</li><li>Instructions to manage the security of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> as a product and as a component of the larger operational environment</li><li>Instructions to provide a protected administrative capability</li></ol><p><br/><p></p>Guidance pertaining to particular security functionality is also provided; requirements on such guidance are contained in the evaluation activities specified with each requirement. At the assurance level provided for <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> conformant to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, life-cycle support is limited to end-user-visible aspects of the life-cycle, rather than an examination of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> vendor’s development and configuration management process. This is not meant to diminish the critical role that a developer’s practices play in contributing to the overall trustworthiness of a product; rather, it is a reflection on the information to be made available for evaluation at this assurance level. Testing is specified for functional aspects of the system as well as aspects that take advantage of design or implementation weaknesses. The former is done through the ATE_IND family, while the latter is through the AVA_VAN family. At the assurance level specified in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, testing is based on advertised functionality and interfaces with dependency on the availability of design information. One of the primary outputs of the evaluation process is the test report as specified in the following requirements.<p></p><br/><p></p>Since many of the APIs are not exposed at the user interface (e.g., touch screen), the ability to stimulate the necessary interfaces requires a developer’s test environment. This test environment will allow the evaluator, for example, to access APIs and view file system information that is not available on consumer Mobile Devices. For the current generation of this protection profile, the evaluation lab is expected to survey open sources to discover what vulnerabilities have been discovered in these types of products. In most cases, these vulnerabilities will require sophistication beyond that of a basic attacker. Until penetration tools are created and uniformly distributed to the evaluation labs, the evaluator will not be expected to test for these vulnerabilities in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The labs will be expected to comment on the likelihood of these vulnerabilities given the documentation provided by the vendor. This information will be used in the development of penetration testing tools and for the development of future protection profiles.</p>
+    <h2 class="indexable" data-level="2" id="sar">5.2 Security Assurance Requirements</h2>
+      <p>The Security Objectives in <a href="#Security_Objectives" class="dynref">Section 4 Security Objectives</a> were constructed to address threats identified in <a href="#Security_Problem_Description" class="dynref" data-format=""></a>. The Security Functional Requirements (<abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>) in <a href="#sfr" class="dynref" data-format=""></a> are a formal instantiation of the Security Objectives. The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> identifies the Security Assurance Requirements (<abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>) to frame the extent to which the evaluator assesses the documentation applicable for the evaluation and performs independent testing.<p></p><br/><p></p>This section lists the set of <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> from <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> part 3 that are required in evaluations against this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Individual Evaluation Activities to be performed are specified both in <a href="#sfr" class="dynref" data-format=""></a> as well as in this section.<p></p><br/><p></p>The general model for evaluation of <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> against <abbr class="dyn-abbr"><a href="#abbr_ST">STs</a></abbr> written to conform to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is as follows:<p></p><br/><p></p>After the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> has been approved for evaluation, the ITSEF will obtain the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, supporting environmental IT, and the administrative/user guides for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The ITSEF is expected to perform actions mandated by the Common Evaluation Methodology (<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>) for the ASE and ALC <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>. The ITSEF also performs the Evaluation Activities contained within <a href="#sfr" class="dynref" data-format=""></a>, which are intended to be an interpretation of the other <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> evaluation requirements as they apply to the specific technology instantiated in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The Evaluation Activities that are captured in <a href="#sfr" class="dynref" data-format=""></a> also provide clarification as to what the developer needs to provide to demonstrate the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is compliant with the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.<p></p><br/><p></p>The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Assurance Requirements are identified in <a onclick="showTarget('sartable')" href="#sartable" class="sartable-ref">Table <span class="counter">8</span></a>.<p></p><br/><p></p><span class="ctr" data-myid="sartable" data-counter-type="ct-Table" id="sartable">Table <span class="counter">8</span>: Security Assurance Requirements</span> <table><tr class="header"><td>Assurance Class</td><td>Assurance Components</td></tr><tr><td rowspan="7">Security Target (ASE)</td><td>Conformance Claims (ASE_CCL.1)</td></tr><tr><td>Extended Components Definition (ASE_ECD.1)</td></tr><tr><td><abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> Introduction (ASE_INT.1)</td></tr><tr><td>Security Objectives for the Operational Environment (ASE_OBJ.1)</td></tr><tr><td>Stated Security Requirements (ASE_REQ.1)</td></tr><tr><td>Security Problem Definition (ASE_SPD.1)</td></tr><tr><td><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification (ASE_TSS.1)</td></tr><tr><td>Development (ADV)</td><td>Basic Functional Specification (<a href="#ADV_FSP.1">ADV_FSP.1</a>)</td></tr><tr><td rowspan="2">Guidance Documents (AGD)</td><td>Operational User Guidance (<a href="#AGD_OPE.1">AGD_OPE.1</a>)</td></tr><tr><td>Preparative Procedures (<a href="#AGD_PRE.1">AGD_PRE.1</a>)</td></tr><tr><td rowspan="3">Life Cycle Support (ALC)</td><td>Labeling of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (<a href="#ALC_CMC.1">ALC_CMC.1</a>)</td></tr><tr><td><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> CM Coverage (<a href="#ALC_CMS.1">ALC_CMS.1</a>)</td></tr><tr><td>Timely Security Updates (ALC_TSU_EXT)</td></tr><tr><td>Tests (ATE)</td><td>Independent Testing – Sample (<a href="#ATE_IND.1">ATE_IND.1</a>)</td></tr><tr><td>Vulnerability Assessment (AVA)</td><td>Vulnerability Survey (<a href="#AVA_VAN.1">AVA_VAN.1</a>)</td></tr></table></p>
+      <h3 class="indexable" data-level="3" id="ase">5.2.1 Class ASE: Security Target</h3> The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> is evaluated as per ASE
+        activities defined in the <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> for ASE_CCL.1, ASE_ECD.1, ASE_INT.1, ASE_OBJ.1, ASE_REQ.1,
+        ASE_SPD.1, and ASE_TSS.1. In addition, there may be Evaluation Activities specified within
+           <a href="#sfr" class="dynref" data-format=""></a> that call for necessary descriptions to be included in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+        that are specific to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> technology type.
+      <h3 class="indexable" data-level="3" id="adv">5.2.2 Class ADV: Development</h3>
+         The design information about the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is
+        contained in the guidance documentation available to the end user as well as the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> portion
+        of the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, and any additional information required by this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> that is not to be made public.
+          
+        <div class="comp" id="ADV_FSP.1"><h4>ADV_FSP.1 Basic Functional Specification</h4>
+          The functional specification describes the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functions Interface (<abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFIs</a></abbr>).
+            It is not necessary to have a formal or
+            complete specification of these interfaces. Additionally, because <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> conforming to
+            this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> will necessarily have interfaces to the Operational Environment that are not
+            directly invokable by <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> users, there is little point specifying that such interfaces
+            be described in and of themselves since only indirect testing of such interfaces may be
+            possible. For this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, the activities for this family should focus on understanding the
+            interfaces presented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> in response to the functional requirements and the
+            interfaces presented in the AGD documentation.
+			No additional "functional specification"
+            documentation is necessary to satisfy the evaluation activities specified.
+            <br/><br/>
+			  
+			The interfaces that need to be evaluated are characterized through
+            the information needed to perform the evaluation activities listed, rather than as an
+            independent, abstract list.
+          
+          
+          
+          
+          
+          
+          
+          
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.1D"><a href="#ADV_FSP.1.1D" class="abbr">ADV_FSP.1.1D</a></div><div class="reqdesc">The developer shall provide a functional specification.</div></div><div class="element"><div class="reqid" id="ADV_FSP.1.2D"><a href="#ADV_FSP.1.2D" class="abbr">ADV_FSP.1.2D</a></div><div class="reqdesc">The developer shall provide a tracing from the functional specification to the
+              <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.<div class="appnote"><span class="note-header">
+      Note:
+    </span><span class="note">As indicated in the introduction to this section, the
+              functional specification is comprised of the information contained in the AGD_OPE,
+              AGD_PRE, and the API information that is provided to application developers, including
+              the APIs that require privilege to invoke. <br/><br/> The developer may
+              reference a website accessible to application developers and the evaluator. The API
+              documentation must include those interfaces required in this profile. The API
+              documentation must clearly indicate to which products and versions each available
+              function applies. <br/><br/> The evaluation activities in the functional
+              requirements point to evidence that should exist in the documentation and <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> section;
+              since these are directly associated with the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>, the tracing in element <a href="#ADV_FSP.1.2D">ADV_FSP.1.2D</a>
+              is implicitly already done and no additional documentation is necessary.</span></div></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.1C"><a href="#ADV_FSP.1.1C" class="abbr">ADV_FSP.1.1C</a></div><div class="reqdesc">The functional specification shall describe the purpose and method of use for
+              each <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-enforcing and <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-supporting <abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFI</a></abbr>.</div></div><div class="element"><div class="reqid" id="ADV_FSP.1.2C"><a href="#ADV_FSP.1.2C" class="abbr">ADV_FSP.1.2C</a></div><div class="reqdesc">The functional specification shall identify all parameters associated with each
+              <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-enforcing and <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-supporting <abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFI</a></abbr>.</div></div><div class="element"><div class="reqid" id="ADV_FSP.1.3C"><a href="#ADV_FSP.1.3C" class="abbr">ADV_FSP.1.3C</a></div><div class="reqdesc">The functional specification shall provide rationale for the implicit
+              categorization of interfaces as <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>-non-interfering.</div></div><div class="element"><div class="reqid" id="ADV_FSP.1.4C"><a href="#ADV_FSP.1.4C" class="abbr">ADV_FSP.1.4C</a></div><div class="reqdesc">The tracing shall demonstrate that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> trace to 
+                <abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFIs</a></abbr> in the functional specification.</div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ADV_FSP.1.1E"><a href="#ADV_FSP.1.1E" class="abbr">ADV_FSP.1.1E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
+              for content and presentation of evidence.</div></div><div class="element"><div class="reqid" id="ADV_FSP.1.2E"><a href="#ADV_FSP.1.2E" class="abbr">ADV_FSP.1.2E</a></div><div class="reqdesc">The evaluator shall determine that the functional specification is an accurate
+              and complete instantiation of the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.</div></div><div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#ADV_FSP.1">ADV_FSP.1</a></div>There are no specific evaluation activities associated with these <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>, except
+              ensuring the information is provided. The functional specification documentation is
+              provided to support the evaluation activities described in  <a href="#sfr" class="dynref" data-format=""></a>,
+              and other activities described for AGD, ATE, and AVA <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>. The requirements on the
+              content of the functional specification information is implicitly assessed by virtue
+              of the other evaluation activities being performed; if the evaluator is unable to
+              perform an activity because there is insufficient interface information, then an
+              adequate functional specification has not been provided. </div></div></div>
+      
+      <h3 class="indexable" data-level="3" id="agd">5.2.3 Class AGD: Guidance Documentation</h3>
+         The guidance documents will be
+        provided with the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. Guidance must include a description of how the IT personnel verifies
+        that the Operational Environment can fulfill its role for the security functionality. The
+        documentation should be in an informal style and readable by the IT personnel.
+        <br/><br/> Guidance must be provided for every operational environment that the
+        product supports as claimed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. This guidance includes: <ul><li>Instructions to successfully install the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> in that environment</li><li>Instructions to manage the security of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> as a product and as a component of
+            the larger operational environment</li><li>Instructions to provide a protected administrative capability</li></ul><br/> Guidance pertaining to particular security functionality is also provided;
+        requirements on such guidance are contained in the evaluation activities specified with each
+        requirement. 
+        <div class="comp" id="AGD_OPE.1"><h4>AGD_OPE.1 Operational User Guidance</h4>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.1D"><a href="#AGD_OPE.1.1D" class="abbr">AGD_OPE.1.1D</a></div><div class="reqdesc">The developer shall provide operational user guidance.<div class="appnote"><span class="note-header">
+      Note:
+    </span><span class="note">The operational user guidance does not have to be contained in
+              a single document. Guidance to users, administrators and application developers can be
+              spread among documents or web pages. Where appropriate, the guidance documentation is
+              expressed in the eXtensible Configuration Checklist Description Format (XCCDF) to
+              support security automation.<br/><br/> Rather than repeat information here,
+              the developer should review the evaluation activities for this component to ascertain
+              the specifics of the guidance that the evaluator will be checking for. This will
+              provide the necessary information for the preparation of acceptable guidance.</span></div></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.1C"><a href="#AGD_OPE.1.1C" class="abbr">AGD_OPE.1.1C</a></div><div class="reqdesc">The operational user guidance shall describe, for each user role, the
+              user-accessible functions and privileges that should be controlled in a secure
+              processing environment, including appropriate warnings.<div class="appnote"><span class="note-header">
+      Note:
+    </span><span class="note">User and administrator (e.g., MDM agent), and application
+              developer are to be considered in the definition of user role.</span></div></div></div><div class="element"><div class="reqid" id="AGD_OPE.1.2C"><a href="#AGD_OPE.1.2C" class="abbr">AGD_OPE.1.2C</a></div><div class="reqdesc">The operational user guidance shall describe, for each user role, how to use the
+              available interfaces provided by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in a secure manner.</div></div><div class="element"><div class="reqid" id="AGD_OPE.1.3C"><a href="#AGD_OPE.1.3C" class="abbr">AGD_OPE.1.3C</a></div><div class="reqdesc">The operational user guidance shall describe, for each user role, the available
+              functions and interfaces, in particular all security parameters under the control of
+              the user, indicating secure values as appropriate.</div></div><div class="element"><div class="reqid" id="AGD_OPE.1.4C"><a href="#AGD_OPE.1.4C" class="abbr">AGD_OPE.1.4C</a></div><div class="reqdesc">The operational user guidance shall, for each user role, clearly present each
+              type of security-relevant event relative to the user-accessible functions that need to
+              be performed, including changing the security characteristics of entities under the
+              control of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.</div></div><div class="element"><div class="reqid" id="AGD_OPE.1.5C"><a href="#AGD_OPE.1.5C" class="abbr">AGD_OPE.1.5C</a></div><div class="reqdesc">The operational user guidance shall identify all possible modes of operation of
+              the OS (including operation following failure or operational error), their
+              consequences, and implications for maintaining secure operation.</div></div><div class="element"><div class="reqid" id="AGD_OPE.1.6C"><a href="#AGD_OPE.1.6C" class="abbr">AGD_OPE.1.6C</a></div><div class="reqdesc">The operational user guidance shall, for each user role, describe the security
+              measures to be followed in order to fulfill the security objectives for the
+              operational environment as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.</div></div><div class="element"><div class="reqid" id="AGD_OPE.1.7C"><a href="#AGD_OPE.1.7C" class="abbr">AGD_OPE.1.7C</a></div><div class="reqdesc">The operational user guidance shall be clear and reasonable.</div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.1E"><a href="#AGD_OPE.1.1E" class="abbr">AGD_OPE.1.1E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
+              for content and presentation of evidence. </div></div><div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#AGD_OPE.1">AGD_OPE.1</a></div>Some of the contents of the operational guidance are verified by the
+              evaluation activities in  <a href="#sfr" class="dynref" data-format=""></a> and evaluation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> according to
+              the  <a href="#CEM">[CEM]</a>. The following additional information is also required.
+              <br/><br/> The operational guidance shall contain a list of natively installed
+              applications and any relevant version numbers. If any third party vendors are
+              permitted to install applications before purchase by the end user or enterprise, these
+              applications shall also be listed.<br/><br/> The operational guidance shall
+              contain instructions for configuring the cryptographic engine associated with the
+              evaluated configuration of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. It shall provide a warning to the administrator
+              that use of other cryptographic engines was not evaluated nor tested during the <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>
+              evaluation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. <br/><br/> The documentation must describe the process
+              for verifying updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> by verifying a digital signature. The evaluator shall
+              verify that this process includes the following steps: <ul><li>Instructions for obtaining the update itself. This should include
+                  instructions for making the update accessible to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> (e.g., placement in a
+                  specific directory).</li><li>Instructions for initiating the update process, as well as discerning
+                  whether the process was successful or unsuccessful. This includes generation of
+                  the hash/digital signature.</li></ul> The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will likely contain security functionality that does not fall in the
+              scope of evaluation under this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. The operational guidance shall make it clear to an
+              administrator which security functionality is covered by the evaluation activities.
+            </div></div></div>
+        <div class="comp" id="AGD_PRE.1"><h4>AGD_PRE.1 Preparative Procedures</h4>
+          
+          
+          
+          
+          
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.1D"><a href="#AGD_PRE.1.1D" class="abbr">AGD_PRE.1.1D</a></div><div class="reqdesc">The developer shall provide the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, including its preparative
+              procedures.<div class="appnote"><span class="note-header">
+      Note:
+    </span><span class="note">As with the operational guidance, the developer should look to
+              the evaluation activities to determine the required content with respect to preparative
+              procedures.</span></div></div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.1C"><a href="#AGD_PRE.1.1C" class="abbr">AGD_PRE.1.1C</a></div><div class="reqdesc">The preparative procedures shall describe all the steps necessary for secure
+              acceptance of the delivered <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in accordance with the developer's delivery
+              procedures.</div></div><div class="element"><div class="reqid" id="AGD_PRE.1.2C"><a href="#AGD_PRE.1.2C" class="abbr">AGD_PRE.1.2C</a></div><div class="reqdesc">The preparative procedures shall describe all the steps necessary for secure
+              installation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and for the secure preparation of the operational environment
+              in accordance with the security objectives for the operational environment as
+              described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.</div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AGD_PRE.1.1E"><a href="#AGD_PRE.1.1E" class="abbr">AGD_PRE.1.1E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
+              for content and presentation of evidence.</div></div><div class="element"><div class="reqid" id="AGD_PRE.1.2E"><a href="#AGD_PRE.1.2E" class="abbr">AGD_PRE.1.2E</a></div><div class="reqdesc">The evaluator shall apply the preparative procedures to confirm that the OS can
+              be prepared securely for operation.</div></div><div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#AGD_PRE.1">AGD_PRE.1</a></div>As indicated in the introduction above, there are significant expectations
+              with respect to the documentation—especially when configuring the operational
+              environment to support <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> functional requirements. The evaluator shall check to
+              ensure that the guidance provided for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> adequately addresses all platforms
+              claimed for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. </div></div></div>
+      
+      <h3 class="indexable" data-level="3" id="alc">5.2.4 Class ALC: Life-cycle Support</h3>
+         At the assurance level provided
+        for <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> conformant to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, life-cycle support is limited to end-user-visible aspects of
+        the life-cycle, rather than an examination of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> vendor’s development and configuration
+        management process. This is not meant to diminish the critical role that a developer’s
+        practices play in contributing to the overall trustworthiness of a product; rather, it is a
+        reflection on the information to be made available for evaluation at this assurance level.
+          
+        <div class="comp" id="ALC_CMC.1"><h4>ALC_CMC.1 Labeling of the TOE</h4>
+          This component is targeted at identifying the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> such that it can be
+            distinguished from other products or versions from the same vendor and can be easily
+            specified when being procured by an end user. 
+          
+          
+          
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ALC_CMC.1.1D"><a href="#ALC_CMC.1.1D" class="abbr">ALC_CMC.1.1D</a></div><div class="reqdesc">The developer shall provide the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and a reference for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_CMC.1.1C"><a href="#ALC_CMC.1.1C" class="abbr">ALC_CMC.1.1C</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall be labeled with a unique reference.</div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_CMC.1.1E"><a href="#ALC_CMC.1.1E" class="abbr">ALC_CMC.1.1E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
+              for content and presentation of evidence.</div></div><div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#ALC_CMC.1">ALC_CMC.1</a></div>The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> to ensure that it contains an identifier
+              (such as a product name/version number) that specifically identifies the version that
+              meets the requirements of the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. Further, the evaluator shall check the AGD guidance
+              and <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> samples received for testing to ensure that the version number is consistent
+              with that in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. If the vendor maintains a web site advertising the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the
+              evaluator shall examine the information on the web site to ensure that the information
+              in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> is sufficient to distinguish the product.</div></div></div>
+        <div class="comp" id="ALC_CMS.1"><h4>ALC_CMS.1 TOE CM Coverage</h4>
+          Given the scope of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements,
+            this component’s evaluation activities are covered by the evaluation activities listed for
+            <a href="#ALC_CMC.1">ALC_CMC.1</a>.
+          
+          
+          
+          
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.1D"><a href="#ALC_CMS.1.1D" class="abbr">ALC_CMS.1.1D</a></div><div class="reqdesc"> The developer shall provide a configuration list for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. </div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.1C"><a href="#ALC_CMS.1.1C" class="abbr">ALC_CMS.1.1C</a></div><div class="reqdesc">The configuration list shall include the following: the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself; and the
+              evaluation evidence required by the <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>.</div></div><div class="element"><div class="reqid" id="ALC_CMS.1.2C"><a href="#ALC_CMS.1.2C" class="abbr">ALC_CMS.1.2C</a></div><div class="reqdesc">The configuration list shall uniquely identify the configuration items.</div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_CMS.1.1E"><a href="#ALC_CMS.1.1E" class="abbr">ALC_CMS.1.1E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
+              for content and presentation of evidence.<div class="appnote"><span class="note-header">
+      Note:
+    </span><span class="note"> The "evaluation evidence required by the <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>" in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is
+              limited to the information in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> coupled with the guidance provided to
+              administrators and users under the AGD requirements. By ensuring that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is
+              specifically identified and that this identification is consistent in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> and in
+              the AGD guidance (as done in the evaluation activity for <a href="#ALC_CMC.1">ALC_CMC.1</a>), the evaluator
+              implicitly confirms the information required by this component.<br/><br/>
+              Life-cycle support is targeted aspects of the developer’s life-cycle and instructions
+              to providers of applications for the developer’s devices, rather than an in-depth
+              examination of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> manufacturer’s development and configuration management
+              process. This is not meant to diminish the critical role that a developer’s practices
+              play in contributing to the overall trustworthiness of a product; rather, it’s a
+              reflection on the information to be made available for evaluation.</span></div></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#ALC_CMS.1">ALC_CMS.1</a></div> The evaluator shall ensure that the developer has identified (in
+              public-facing development guidance for their platform) one or more development
+              environments appropriate for use in developing applications for the developer’s
+              platform. For each of these development environments, the developer shall provide
+              information on how to configure the environment to ensure that buffer overflow
+              protection mechanisms in the environments are invoked (e.g., compiler and linker
+              flags). The evaluator shall ensure that this documentation also includes an indication
+              of whether such protections are on by default, or have to be specifically enabled.
+              <br/><br/> The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is uniquely identified
+              (with respect to other products from the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> vendor), and that documentation provided
+              by the developer in association with the requirements in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> is associated with the
+              <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> using this unique identification.</div></div></div>
+        <div class="comp" id="ALC_TSU_EXT.1"><h4>ALC_TSU_EXT.1 Timely Security Updates</h4>
+          This component requires the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> developer, in conjunction with any other
+            necessary parties, to provide information as to how the end-user devices are updated to
+            address security issues in a timely manner. The documentation describes the process of
+            providing updates to the public from the time a security flaw is reported/discovered, to
+            the time an update is released. This description includes the parties involved (e.g.,
+            the developer, cellular carriers) and the steps that are performed (e.g., developer testing,
+            carrier testing), including worst-case time periods, before an update is made available
+            to the public. 
+          
+          
+          
+          
+          
+          
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.1D"><a href="#ALC_TSU_EXT.1.1D" class="abbr">ALC_TSU_EXT.1.1D</a></div><div class="reqdesc">The developer shall provide a description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> of how timely security
+              updates are made to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.1C"><a href="#ALC_TSU_EXT.1.1C" class="abbr">ALC_TSU_EXT.1.1C</a></div><div class="reqdesc">The description shall include the process for creating and deploying security
+              updates for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> software.<div class="appnote"><span class="note-header">
+      Note:
+    </span><span class="note">The software to be described includes the operating systems of the application
+              processor and the baseband processor, as well as any firmware and applications. The
+              process description includes the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> developer processes as well as any third-party
+              (carrier) processes. The process description includes each deployment mechanism (e.g.,
+              over-the-air updates, per-carrier updates, downloaded updates).</span></div></div></div><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.2C"><a href="#ALC_TSU_EXT.1.2C" class="abbr">ALC_TSU_EXT.1.2C</a></div><div class="reqdesc">The description shall express the time window as the length of time, in days,
+              between public disclosure of a vulnerability and the public availability of security
+              updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.<div class="appnote"><span class="note-header">
+      Note:
+    </span><span class="note"> The total length of time may be presented as a summation of the periods of time
+              that each party (e.g., <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> developer, mobile carrier) on the critical path consumes.
+              The time period until public availability per deployment mechanism may differ; each is
+              described.</span></div></div></div><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.3C"><a href="#ALC_TSU_EXT.1.3C" class="abbr">ALC_TSU_EXT.1.3C</a></div><div class="reqdesc">The description shall include the mechanisms publicly available for reporting
+              security issues pertaining to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. <div class="appnote"><span class="note-header">
+      Note:
+    </span><span class="note">The reporting mechanism could include web sites, email addresses, as well as a
+              means to protect the sensitive nature of the report (e.g., public keys that could be
+              used to encrypt the details of a proof-of-concept exploit).</span></div></div></div><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.4C"><a href="#ALC_TSU_EXT.1.4C" class="abbr">ALC_TSU_EXT.1.4C</a></div><div class="reqdesc">The description shall include where users can seek information about the
+              availability of new updates including details (e.g. CVE identifiers) of the specific
+              public vulnerabilities corrected by each update. <div class="appnote"><span class="note-header">
+      Note:
+    </span><span class="note">The purpose of providing this information is so that users and enterprises can
+              determine which devices are susceptible to publicly known vulnerabilities so that they
+              can make appropriate risk decisions, such as limiting access to enterprise resources
+              until updates are installed. </span></div></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ALC_TSU_EXT.1.1E"><a href="#ALC_TSU_EXT.1.1E" class="abbr">ALC_TSU_EXT.1.1E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
+              for content and presentation of evidence. </div></div><div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#ALC_TSU_EXT.1">ALC_TSU_EXT.1</a></div> The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains a description of the timely
+              security update process used by the developer to create and deploy security updates.
+              The evaluator shall verify that this description addresses the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> OS, the firmware,
+              and bundled applications, each. The evaluator shall also verify that, in addition to
+              the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> developer’s process, any carrier or other third-party processes are also
+              addressed in the description. The evaluator shall also verify that each mechanism for
+              deployment of security updates is described. <br/><br/> The evaluator shall
+              verify that, for each deployment mechanism described for the update process, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+              lists a time between public disclosure of a vulnerability and public availability of
+              the security update to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> patching this vulnerability, to include any third-party
+              or carrier delays in deployment. The evaluator shall verify that this time is
+              expressed in a number or range of days. <br/><br/> The evaluator shall verify
+              that this description includes the publicly available mechanisms (including either an
+              email address or website) for reporting security issues related to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The
+              evaluator shall verify that the description of this mechanism includes a method for
+              protecting the report either using a public key for encrypting email or a trusted
+              channel for a website. <br/><br/> The evaluator shall verify that the
+              description includes where users can seek information about the availability of new
+              security updates including details of the specific public vulnerabilities corrected by
+              each update. The evaluator shall verify that the description includes the minimum
+              amount of time that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is expected to be supported with security updates, and the
+              process by which users can seek information about when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is no longer expected
+              to receive security updates. </div></div></div>
+      
+      <h3 class="indexable" data-level="3" id="ate">5.2.5 Class ATE: Tests</h3>
+         Testing is specified for functional aspects of
+        the system as well as aspects that take advantage of design or implementation weaknesses.
+        The former is done through the ATE_IND family, while the latter is through the AVA_VAN
+        family. At the assurance level specified in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, testing is based on advertised
+        functionality and interfaces with dependency on the availability of design information. One
+        of the primary outputs of the evaluation process is the test report as specified in the
+        following requirements. <br/><br/> Since many of the APIs are not exposed at the
+        user interface (e.g., touch screen), the ability to stimulate the necessary interfaces
+        requires a developer’s test environment. This test environment will allow the evaluator, for
+        example, to access APIs and view file system information that is not available on consumer
+        Mobile Devices.
+		
+        <div class="comp" id="ATE_IND.1"><h4>ATE_IND.1 Independent Testing – Conformance</h4>
+          Testing is performed to confirm the functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as
+            the administrative (including configuration and operational) documentation provided.
+			The focus of the testing is to confirm that the requirements specified in 
+			 <a href="#sfr" class="dynref" data-format=""></a> being met, although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in
+             <a href="#sar" class="dynref">Section 5.2 Security Assurance Requirements</a>.
+			The Evaluation Activities identify the additional testing
+            activities associated with these components.
+			The evaluator produces a test report
+            documenting the plan for and results of testing, as well as coverage arguments focused
+            on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. 
+          
+          
+          
+          
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.1D"><a href="#ATE_IND.1.1D" class="abbr">ATE_IND.1.1D</a></div><div class="reqdesc">The developer shall provide the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> for testing.</div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.1C"><a href="#ATE_IND.1.1C" class="abbr">ATE_IND.1.1C</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall be suitable for testing.</div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="ATE_IND.1.1E"><a href="#ATE_IND.1.1E" class="abbr">ATE_IND.1.1E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets
+              all requirements for content and presentation of evidence.</div></div><div class="element"><div class="reqid" id="ATE_IND.1.2E"><a href="#ATE_IND.1.2E" class="abbr">ATE_IND.1.2E</a></div><div class="reqdesc">The evaluator shall test a subset of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> operates as
+              specified.</div></div><div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#ATE_IND.1">ATE_IND.1</a></div>The evaluator shall prepare a test plan and report documenting the testing
+              aspects of the system. The test plan covers all of the testing actions contained in
+              the  <a href="#CEM">[CEM]</a> and the body of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>’s Evaluation Activities. While it is
+              not necessary to have one test case per test listed in an evaluation activity, the
+              evaluator must document in the test plan that each applicable testing requirement in
+              the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> is covered. <br/><br/> The test plan identifies the platforms to be
+              tested, and for those platforms not included in the test plan but included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>,
+              the test plan provides a justification for not testing the platforms. This
+              justification must address the differences between the tested platforms and the
+              untested platforms, and make an argument that the differences do not affect the
+              testing to be performed. It is not sufficient to merely assert that the differences
+              have no affect; rationale must be provided. If all platforms claimed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> are
+              tested, then no rationale is necessary. <br/><br/> The test plan describes the
+              composition of each platform to be tested, and any setup that is necessary beyond what
+              is contained in the AGD documentation. It should be noted that the evaluator is
+              expected to follow the AGD documentation for installation and setup of each platform
+              either as part of a test or as a standard pre-test condition. This may include special
+              test drivers or tools. For each driver or tool, an argument (not just an assertion)
+              should be provided that the driver or tool will not adversely affect the performance
+              of the functionality by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its platform. This also includes the configuration
+              of the cryptographic engine to be used. The cryptographic algorithms implemented by
+              this engine are those specified by this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and used by the cryptographic protocols
+              being evaluated (IPsec, TLS/HTTPS, SSH). <br/><br/> The test plan identifies
+              high-level test objectives as well as the test procedures to be followed to achieve
+              those objectives. These procedures include expected results. The test report (which
+              could just be an annotated version of the test plan) details the activities that took
+              place when the test procedures were executed, and includes the actual results of the
+              tests. This shall be a cumulative account, so if there was a test run that resulted in
+              a failure; a fix installed; and then a successful re-run of the test, the report would
+              show a "fail" and "pass" result (and the supporting details), and not just the "pass"
+              result.</div></div></div>
+      
+      <h3 class="indexable" data-level="3" id="ava">5.2.6 Class AVA: Vulnerability Assessment</h3>
+         For the current generation
+        of this protection profile, the evaluation lab is expected to survey open sources to
+        discover what vulnerabilities have been discovered in these types of products. In most
+        cases, these vulnerabilities will require sophistication beyond that of a basic attacker.
+        Until penetration tools are created and uniformly distributed to the evaluation labs, the
+        evaluator will not be expected to test for these vulnerabilities in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The labs will
+        be expected to comment on the likelihood of these vulnerabilities given the documentation
+        provided by the vendor. This information will be used in the development of penetration
+        testing tools and for the development of future protection profiles.
+	
+        <div class="comp" id="AVA_VAN.1"><h4>AVA_VAN.1 Vulnerability Survey</h4>
+          
+          
+          
+          
+          
+        <h4>Developer action elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.1D"><a href="#AVA_VAN.1.1D" class="abbr">AVA_VAN.1.1D</a></div><div class="reqdesc">The developer shall provide the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> for testing.</div></div><h4>Content and presentation elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.1C"><a href="#AVA_VAN.1.1C" class="abbr">AVA_VAN.1.1C</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> shall be suitable for testing.</div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.1E"><a href="#AVA_VAN.1.1E" class="abbr">AVA_VAN.1.1E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
+              for content and presentation of evidence.</div></div><div class="element"><div class="reqid" id="AVA_VAN.1.2E"><a href="#AVA_VAN.1.2E" class="abbr">AVA_VAN.1.2E</a></div><div class="reqdesc">The evaluator shall perform a search of public domain sources to identify
+              potential vulnerabilities in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.<div class="appnote"><span class="note-header">
+      Note:
+    </span><span class="note">Public domain sources include the Common Vulnerabilities and
+              Exposures (CVE) dictionary for publicly-known vulnerabilities. </span></div></div></div><div class="element"><div class="reqid" id="AVA_VAN.1.3E"><a href="#AVA_VAN.1.3E" class="abbr">AVA_VAN.1.3E</a></div><div class="reqdesc">The evaluator shall conduct penetration testing, based on the identified
+              potential vulnerabilities, to determine that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is resistant to attacks performed
+              by an attacker possessing Basic attack potential.</div></div><div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#AVA_VAN.1">AVA_VAN.1</a></div>The evaluator shall generate a report to document their findings with respect
+              to this requirement. This report could physically be part of the overall test report
+              mentioned in ATE_IND, or a separate document. The evaluator performs a search of
+              public information to find vulnerabilities that have been found in mobile devices and
+              the implemented communication protocols in general, as well as those that pertain to
+              the particular <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluator documents the sources consulted and the
+              vulnerabilities found in the report. <br/><br/> For each vulnerability found,
+              the evaluator either provides a rationale with respect to its non-applicability, or
+              the evaluator formulates a test (using the guidelines provided in ATE_IND) to confirm
+              the vulnerability, if suitable. Suitability is determined by assessing the attack
+              vector needed to take advantage of the vulnerability. If exploiting the vulnerability
+              requires expert skills and an electron microscope, for instance, then a test would not
+              be suitable and an appropriate justification would be formulated.</div></div></div>
+      
+    
   <h1 id="impl-reqs" class="indexable" data-level="A">Appendix A -  Implementation-dependent Requirements</h1>
                 Implementation-dependent Requirements 
 		Appendix <a href="#feat-based-reqs" class="dynref"></a> defines requirements that must be claimed in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>  
@@ -6346,7 +6730,7 @@ The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF<
       the rate and conditions under which each health test is performed (e.g., at startup,
       continuously, or on-demand), the expected results for each health test, and rationale
       indicating why each test is believed to be appropriate for detecting one or more failures in
-      the entropy source.<h1 id="acronyms" class="indexable" data-level="A">Appendix D -  Acronyms</h1><table><caption><span class="ctr" data-myid="t-acronyms" data-counter-type="ct-Table" id="t-acronyms">Table <span class="counter">8</span></span>: Acronyms
+      the entropy source.<h1 id="acronyms" class="indexable" data-level="A">Appendix D -  Acronyms</h1><table><caption><span class="ctr" data-myid="t-acronyms" data-counter-type="ct-Table" id="t-acronyms">Table <span class="counter">9</span></span>: Acronyms
 		</caption><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_Base-PP" data-plural="Base-PPs"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr>
 <tr><td><span class="term" id="abbr_CC"><abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr></span></td><td><span id="long_abbr_CC">Common Criteria</span></td></tr>
 <tr><td><span class="term" id="abbr_CEM"><abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr></span></td><td><span id="long_abbr_CEM">Common Evaluation Methodology</span></td></tr>
@@ -6364,7 +6748,7 @@ The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF<
 <tr><td><span class="term" id="abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span></td><td><span id="long_abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality</span></td></tr>
 <tr><td><span class="term" id="abbr_TSFI" data-plural="TSFIs"><abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFI</a></abbr></span></td><td><span id="long_abbr_TSFI"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> Interface</span></td></tr>
 <tr><td><span class="term" id="abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></span></td><td><span id="long_abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification</span></td></tr>
-</table><h1 id="appendix-bibliography" class="indexable" data-level="A">Appendix E -  Bibliography</h1><table><caption><span class="ctr" data-myid="t-biblio" data-counter-type="ct-Table" id="t-biblio">Table <span class="counter">9</span></span>: Bibliography</caption><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibCC">[<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>]</span></td><td><span class="description">Common Criteria for Information Technology Security Evaluation - <ul>
+</table><h1 id="appendix-bibliography" class="indexable" data-level="A">Appendix E -  Bibliography</h1><table><caption><span class="ctr" data-myid="t-biblio" data-counter-type="ct-Table" id="t-biblio">Table <span class="counter">10</span></span>: Bibliography</caption><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibCC">[<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>]</span></td><td><span class="description">Common Criteria for Information Technology Security Evaluation - <ul>
             <li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R5.pdf">Part
                 1: Introduction and General Model</a>, CCMB-2017-04-001, Version 3.1 Revision 5,
               April 2017.</li>
