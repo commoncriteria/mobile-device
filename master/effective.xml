@@ -509,7 +509,7 @@
         </description>
       </cclaim>
       <cclaim name="CC Conformance Claims">
-        <description>This PP is conformant to Parts 2 (extended) and 3 (extended) of Common
+        <description>This PP is conformant to Parts 2 (extended) and 3 (conformant) of Common
           Criteria Version 3.1, Revision 5.</description>
       </cclaim>
       <cclaim name="PP Claim">
@@ -517,7 +517,10 @@
         <!-- TODO: Need to deteremine how to reference the Biometric cPP-->
       </cclaim>
       <cclaim name="Package Claim">
-        <description>This PP is TLS Package Conformant.</description>
+        <description>This PP is TLS Package Conformant.<htm:br/>
+          This PP is Assurance Package for Flaw Remediation Version 1.0 Conformant.
+        </description>
+        
       </cclaim>
     </cclaims>
   </section>
@@ -1293,17 +1296,17 @@
             <title>The TSF shall be able to generate an audit record of the following auditable events:<htm:br/>
               <htm:ol>
                 <htm:li>Start-up and shutdown of the audit functions</htm:li>
-                <htm:li>All auditable events for the [<refinement>not selected</refinement>] level of audit</htm:li>
-                <htm:li><refinement>All administrative actions</refinement></htm:li>
-                <htm:li><refinement>Start-up and shutdown of the OS</refinement></htm:li>
-                <htm:li><refinement>Insertion or removal of removable media</refinement></htm:li>
-                <htm:li><refinement>Specifically defined auditable events in <xref to="manaudit"/></refinement></htm:li>
-                <htm:li><refinement><selectables>
+                <htm:li>All auditable events for the [<htm:i>not selected</htm:i>] level of audit</htm:li>
+                <htm:li>[<htm:i>All administrative actions</htm:i></htm:li>
+                <htm:li><htm:i>Start-up and shutdown of the OS</htm:i></htm:li>
+                <htm:li><htm:i>Insertion or removal of removable media</htm:i></htm:li>
+                <htm:li><htm:i>Specifically defined auditable events in <xref to="manaudit"/></htm:i></htm:li>
+                <htm:li><htm:i><selectables>
                       <selectable>Audit records reaching <assignable>integer value less than 100</assignable> percentage of audit capacity</selectable>
                   <selectable>Specifically defined auditable events in <xref to="objaudit"/></selectable>    
                   <selectable><assignable>other auditable events derived from this Protection Profile</assignable></selectable>
                   <selectable><assignable>no additional auditable events</assignable></selectable>
-                    </selectables></refinement></htm:li>
+                    </selectables></htm:i></htm:li>]
               </htm:ol>
               <htm:table>
                 <htm:tr class="header"><htm:td>Requirement</htm:td><htm:td>Auditable Events</htm:td><htm:td>Additional Audit Record Contents</htm:td></htm:tr>
@@ -3663,7 +3666,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     Function does not use a nonce), the nonce bit length is one-half the seed
                     length.</htm:li>
                   <htm:li><htm:b>Personalization string: </htm:b>The length of the personalization
-                    string must be ࣘ seed length. If the implementation only supports one
+                    string must be ≤ seed length. If the implementation only supports one
                     personalization string length, then the same length can be used for both values.
                     If more than one string length is support, the evaluator shall use
                     personalization strings of two different lengths. If the implementation does not
@@ -5652,7 +5655,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <htm:li>The TSF shall validate that any CA certificate includes caSigning purpose in the key usage field</htm:li>
               <htm:li>The TSF shall validate the revocation status of the certificate using <selectables>
                 <selectable>OCSP as specified in RFC 6960</selectable>
-                <selectable>CRL as specified in RFC 5759</selectable>
+                <selectable>CRL as specified in RFC 8603</selectable>
                 <selectable>an OCSP TLS Status Request Extension (OCSP stapling) as specified in RFC 6066</selectable>
                 <selectable>OCSP TLS Multi-Certificate Status Request Extension (i.e., OCSP Multi-Stapling) as specified in RFC 6961</selectable>
               </selectables>.</htm:li>
@@ -5697,7 +5700,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 
                 The evaluator shall ensure that a valid certificate is used, and that the validation function succeeds. The evaluator then attempts the test with a certificate that has been revoked (for each method chosen in the selection) to ensure when the certificate is no longer valid that the validation function fails.<htm:br/>
                   </test><htm:br/>
-                <test>If any OCSP option is selected, the evaluator shall configure the OCSP server or use a man-in-the-middle tool to present a certificate that does not have the OCSP signing purpose and verify that validation of the OCSP response fails. If CRL is selected, the evaluator shall configure the CA to sign a CRL with a certificate that does not have the cRLsign key usage bit set, and verify that validation of the CRL fails.
+                <test>If any OCSP option is selected, the evaluator shall configure the OCSP server or use a man-in-the-middle tool to present a certificate that does not have the OCSP signing purpose and verify that validation of the OCSP response fails. If CRL as specified in RFC 8603 is selected, the evaluator shall configure the CA to sign a CRL with a certificate that does not have the cRLsign key usage bit set, and verify that validation of the CRL fails.
                 </test><htm:br/>
                 <test>The evaluator shall modify any byte in the first eight bytes of the certificate and demonstrate that the certificate fails to validate (the certificate will fail to parse correctly).
                 </test> <htm:br/>
