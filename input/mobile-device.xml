@@ -186,6 +186,9 @@ How is it differenet then me using section?
     </entry>
   </RevisionHistory>
   
+  <pp-preferences>
+    <using-cc2022/>
+  </pp-preferences>
   
   <section id="int" title="Introduction" boilerplate="no">
     <section title="Objectives of Document" id="objdoc"> 
@@ -580,6 +583,28 @@ How is it differenet then me using section?
       case. </section>
   </section>
   <section title="Conformance Claims" id="ccl" boilerplate="no">
+    
+    <!-- The new CClaimsInfo construct -->
+    <CClaimsInfo cc-version="cc-2022r1" cc-approach="direct-rationale">
+      <cc-st-conf>exact</cc-st-conf>       
+      <cc-pt2-conf>extended</cc-pt2-conf>
+      <cc-pt3-conf>extended</cc-pt3-conf>
+      <cc-pp-conf/>
+      <cc-pp-config-with>       
+        <Mod-cc-ref>PP-Module for Virtual Private Network (VPN) Clients, version 2.4</Mod-cc-ref>  
+        <Mod-cc-ref>PP-Module for Bluetooth, version 1.0</Mod-cc-ref>
+        <Mod-cc-ref>PP-Module for Mobile Device Management Agent, version 1.0</Mod-cc-ref>
+        <Mod-cc-ref>PP-Module for Wireless LAN Clients, version 1.0</Mod-cc-ref>
+        <Mod-cc-ref>cPP-Module for Biometric Enrolment and Verification, version 1.1</Mod-cc-ref>  
+      </cc-pp-config-with>
+      <cc-pkg-claim>
+        <FP-cc-ref conf="conformant">Functional Package for Transport Layer Security Version 2.1</FP-cc-ref>
+        <FP-cc-ref conf="conformant">Functional Package for Secure Shell Version 1.1</FP-cc-ref>
+        <FP-cc-ref conf="conformant">Functional Package for X.509 Version 1.0</FP-cc-ref>
+      </cc-pkg-claim>
+    </CClaimsInfo>	
+    
+<!--    
     <cclaims>
       <cclaim name="Conformance Statement">
         <description> An ST must claim exact conformance to this PP, as defined in the CC and CEM
@@ -598,15 +623,15 @@ How is it differenet then me using section?
       </cclaim>
       <cclaim name="PP Claim">
         <description>This PP does not claim conformance to any Protection Profile.</description>
-        <!-- TODO: Need to deteremine how to reference the Biometric cPP-->
+
       </cclaim>
       <cclaim name="Package Claim">
         <description>This PP is TLS Package Conformant.<h:br/>
           This PP is Assurance Package for Flaw Remediation Version 1.0 Conformant.
-        </description>
-        
+        </description>        
       </cclaim>
     </cclaims>
+    -->
   </section>
   <sec:Security_Problem_Definition>
     <sec:Threats>
@@ -621,6 +646,11 @@ How is it differenet then me using section?
           <description> An attacker is positioned on a wireless communications channel or elsewhere
             on the network infrastructure. Attackers may monitor and gain access to data exchanged
             between the Mobile Device and other endpoints. </description>
+          
+          <addressed-by>QQQQ</addressed-by>
+          <rationale>QQQQ</rationale>
+          
+          <!--
           <objective-refer ref="O.PROTECTED_COMMS">
             <rationale>The threat T.NETWORK_EAVESDROP is countered by O.PROTECTED_COMMS as this provides the
               capability to communicate using one (or more) standard protocols as a means to
@@ -636,6 +666,7 @@ How is it differenet then me using section?
             <rationale>The threat T.NETWORK_EAVESDROP is countered by O.AUTH as this provides
               authentication of the endpoints of a trusted communication path.</rationale>
           </objective-refer>
+          -->
         </threat>
         <threat name="T.NETWORK_ATTACK">
           <description> An attacker is positioned on a wireless communications channel or elsewhere
@@ -645,6 +676,8 @@ How is it differenet then me using section?
             applications or system software on the device. These attacks also include malicious web
             pages or email attachments, which are usually delivered to devices over the
             network.</description>
+          
+          <!--
           <objective-refer ref="O.PROTECTED_COMMS">
             <rationale>The threat T.NETWORK_ATTACK is countered by O.PROTECTED_COMMS as this provides the
               capability to communicate using one (or more) standard protocols as a means to
@@ -660,6 +693,7 @@ How is it differenet then me using section?
             <rationale>The threat T.NETWORK_ATTACK is countered by O.AUTH as this provides
               authentication of the endpoints of a trusted communication path.</rationale>
           </objective-refer>
+          -->
         </threat>
         <threat name="T.PHYSICAL_ACCESS">
           <description> An attacker, with physical access, may attempt to access user data on the
@@ -668,6 +702,8 @@ How is it differenet then me using section?
             authentication mechanisms, through its user interface, and also through direct and
             possibly destructive access to its storage media. Note: Defending against device re-use
             after physical compromise is out of scope for this Protection Profile.</description>
+          
+          <!--
           <objective-refer ref="O.STORAGE">
             <rationale>The threat T.PHYSICAL_ACCESS is countered by O.STORAGE as this provides the
               capability to encrypt all user and enterprise data and authentication keys to ensure
@@ -678,6 +714,7 @@ How is it differenet then me using section?
               capability to authenticate the user prior to accessing protected functionality and
               data. </rationale>
           </objective-refer>
+          -->
         </threat>
         <threat name="T.MALICIOUS_APP">
           <description> Applications loaded onto the Mobile Device may include malicious or
@@ -690,6 +727,8 @@ How is it differenet then me using section?
             user's surroundings even when those activities do not involve data resident or
             transmitted from the device. Flawed applications may give an attacker access to perform
             network-based or physical attacks that otherwise would have been prevented</description>
+          
+          <!--
           <objective-refer ref="O.PROTECTED_COMMS">
             <rationale>The threat T.MALICIOUS_APP is countered by O.PROTECTED_COMMS as this provides the
               capability to communicate using one (or more) standard protocols as a means to
@@ -715,6 +754,7 @@ How is it differenet then me using section?
             <rationale>The threat T.MALICIOUS_APP is countered by O.PRIVACY as this provides
               separation and privacy between user activities.</rationale>
           </objective-refer>
+          -->
         </threat>
         <threat name="T.PERSISTENT_PRESENCE">
           <description> Persistent presence on a device by an attacker implies that the device has
@@ -722,6 +762,8 @@ How is it differenet then me using section?
             some other threat vector, yet the continued access by an attacker constitutes an
             on-going threat in itself. In this case, the device and its data may be controlled by an
             adversary as well as by its legitimate owner.</description>
+          
+          <!--
           <objective-refer ref="O.INTEGRITY">
             <rationale>The threat T.PERSISTENT_PRESENCE is countered by O.INTEGRITY as this provides
               the capability to perform self-tests to ensure the integrity of critical
@@ -731,6 +773,7 @@ How is it differenet then me using section?
             <rationale>The threat T.PERSISTENT_PRESENCE is countered by O.PRIVACY as this provides
               separation and privacy between user activities.</rationale>
           </objective-refer>
+          -->
         </threat>
       </threats>
     </sec:Threats>
@@ -780,6 +823,8 @@ How is it differenet then me using section?
     </section> 
   </sec:Security_Problem_Definition>
   <section title="Security Objectives" id="sobj">
+    
+    <!--
     <section title="Security Objectives for the TOE" id="sot"> 
       <SOs>
         <SO name="O.PROTECTED_COMMS">
@@ -1349,6 +1394,8 @@ How is it differenet then me using section?
       </SO>
       </SOs>
     </section>
+    -->
+    
     <section title="Security Objectives for the Operational Environment" id="sooe"> 
       The following
       security objectives for the operational environment assist the OS in correctly providing its
@@ -10301,6 +10348,7 @@ If "all applications" is selected, the evaluator shall disable each selected
   
 <!--  <appendix id="biblio" title="References">  -->
     <bibliography>
+<!--      
       <entry id="CEM">
         <tag>CEM</tag>
         <description>
@@ -10309,6 +10357,7 @@ If "all applications" is selected, the evaluator shall disable each selected
             Methodology</h:a>, CCMB-2012-09-004, Version 3.1, Revision 5, April 2017.
         </description>
       </entry>
+-->      
       <entry id="NFIQ1.0">
         <tag>NFIQ 1.0</tag>
         <description>
