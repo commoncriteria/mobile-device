@@ -207,7 +207,6 @@
   </sec:Conformance_Claims>
   <!-- 3.0 Security Problem Definition-->
   <sec:Security_Problem_Definition >
-    <htm:br/>
     <!-- 3.1 Threats -->
     <sec:Threats>
       <htm:p>Mobile devices are subject to the threats of traditional computer systems along with those entailed by their mobile nature. The threats considered in this PP are those of network eavesdropping, network attacks, physical access, malicious or flawed applications, persistent presence, and backup as detailed in the following sections.</htm:p>
@@ -743,7 +742,13 @@
       </section>
       <!--5.1.2 Class: Cryptographic Support (FCS)-->
       <section id="fcs" title="Class: Cryptographic Support (FCS)">
-        <htm:p>This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: DEKs and KEKs. (A REK is considered a KEK.) DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications. The following diagram shows an example key hierarchy to illustrate the concepts of this profile. This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. Please note if <xref to="uau_biometric"></xref> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"></xref> shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If <xref to="uau_hybr"></xref> is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:p/><figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"></figure></htm:p>
+         
+        This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: DEKs and KEKs. (A REK is considered a KEK.)
+         DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications.
+         The following diagram shows an example key hierarchy to illustrate the concepts of this profile. 
+         This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. 
+         Please note if  <xref to="uau_biometric"></xref> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the  <xref to="mod-biometrics"></xref> shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys.
+	 If  <xref to="uau_hybr"></xref> is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:br/> <figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"></figure>
         <!--FCS_CKM.1 Cryptographic Key Generation-->
         <f-component cc-id="fcs_ckm.1" id="fcs-ckm-1" name="Cryptographic Key Generation">
           <f-element id="fel-asym-key-gen">
@@ -1119,19 +1124,153 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         </f-component>
         <!--FCS_CKM_EXT.2 Cryptographic Key Random Generation-->
         <f-component cc-id="fcs_ckm_ext.2" id="fcs-ckm-ext-2" name="Cryptographic Key Random Generation">
-          <comp-lev><htm:p>requires the TSF to specify the mechanism it uses to generate Data Encryption Keys (DEKs).</htm:p></comp-lev>
-          <management><htm:p>There are no management activities foreseen.</htm:p></management>
-          <audit><htm:p>There are no auditable events foreseen.</htm:p></audit>
-          <dependencies><htm:p>FCS_RBG_EXT.1 Random Bit Generation</htm:p></dependencies>
+          <comp-lev> requires the TSF to specify the mechanism it uses to generate Data Encryption Keys (DEKs).</comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_RBG_EXT.1 Random Bit Generation</dependencies>
           <f-element id="fel-dek-gen">
             <title>All DEKs shall be<selectables ><selectable id="fcs_ckm_ext.2.1_1" >randomly generated</selectable><selectable id="fcs_ckm_ext.2.1_2"> from the combination of a randomly generated DEK with another DEK or salt in a way that preserves the effective entropy of each factor by <selectables><selectable id="fcs_ckm_ext.2.1_3" >using an XOR operation</selectable><selectable id="fcs_ckm_ext.2.1_4" > concatenating the keys and using a KDF (as described in SP
                       800-108)</selectable><selectable id="s-dek-800-56" >concatenating the keys and using a KDF (as described in SP
                       800-56C)</selectable></selectables></selectable></selectables>with entropy corresponding to the security strength of AES key sizes of<selectables ><selectable id="fcs_ckm_ext.2.1_5" >128</selectable><selectable id="s-dek-256" >256</selectable></selectables>bits.</title>
-            <note role="application"><htm:p>The intent of this requirement is to ensure that the DEK cannot be recovered with less work than a full exhaust of the key space for AES. The key generation capability of the TOE uses an RBG implemented on the TOE device (FCS_RBG_EXT.1). Either 128-bit or 256-bit (or both) are allowed; the ST author makes the selection appropriate for the device. A DEK is used in addition to the KEK so that authentication factors can be changed without having to re-encrypt all of the user data on the device.<htm:p/><htm:br/><htm:p/>The ST author selects all applicable DEK generation types implemented by the TOE.<htm:p/><htm:br/><htm:p/>SP 800-56C specifies a two-step key derivation procedure that employs an extraction-then-expansion technique for deriving keying material from a shared secret generated during a key establishment scheme. The Randomness Extraction step as described in Section 5 of SP 800-56C is followed by Key Expansion using the key derivation functions defined in SP 800-108 (as described in Section 6 of SP 800-56C).</htm:p></note>
+            <note role="application"> The intent of this requirement is to ensure that the DEK
+              cannot be recovered with less work than a full exhaust of the key space for AES. The
+              key generation capability of the TOE uses an RBG implemented on the TOE device
+              (FCS_RBG_EXT.1). Either 128-bit or 256-bit (or both) are allowed; the ST author makes
+              the selection appropriate for the device. A DEK is used in addition to the KEK so that
+              authentication factors can be changed without having to re-encrypt all of the user
+              data on the device.<htm:br/><htm:br/> The ST author selects all applicable DEK
+              generation types implemented by the TOE.<htm:br/><htm:br/> SP 800-56C specifies a two-step key derivation
+              procedure that employs an extraction-then-expansion technique for deriving keying
+              material from a shared secret generated during a key establishment scheme. The
+              Randomness Extraction step as described in Section 5 of SP 800-56C is followed by Key
+              Expansion using the key derivation functions defined in SP 800-108 (as described in
+              Section 6 of SP 800-56C).
+            </note>
             <aactivity level="element">
-              <TSS><htm:p>The evaluator shall ensure that the documentation of the product's encryption key management is detailed enough that, after reading, the product's key management hierarchy is clear and that it meets the requirements to ensure the keys are adequately protected. The evaluator shall ensure that the documentation includes both an essay and one or more diagrams. Note that this may also be documented as separate proprietary evidence rather than being included in the TSS.<htm:p/><htm:br/><htm:p/> The evaluator shall also examine the key hierarchy section of the TSS to ensure that the formation of all DEKs is described and that the key sizes match that described by the ST author. The evaluator shall examine the key hierarchy section of the TSS to ensure that each DEK is generated or combined from keys of equal or greater security strength using one of the selected methods.</htm:p><htm:ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>If the symmetric DEK is generated by an RBG, the evaluator shall review the TSS to determine that it describes how the functionality described by FCS_RBG_EXT.1 is invoked. The evaluator uses the description of the RBG functionality in FCS_RBG_EXT.1 or documentation available for the operational environment to determine that the key size being requested is greater than or equal to the key size and mode to be used for the encryption/decryption of the data.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>If the DEK is formed from a combination, the evaluator shall verify that the TSS describes the method of combination and that this method is either an XOR or a KDF to justify that the effective entropy of each factor is preserved. The evaluator shall also verify that each combined value was originally generated from an Approved DRBG described in FCS_RBG_EXT.1.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>If <xref to="s-dek-800-56"></xref> is selected, the evaluator shall ensure the TSS includes a description of the randomness extraction step.</htm:li></htm:ol><htm:p>The description must include how an approved untruncated MAC function is being used for the randomness extraction step and the evaluator must verify the TSS describes that the output length (in bits) of the MAC function is at least as large as the targeted security strength (in bits) of the parameter set employed by the key establishment scheme (see Tables 1-3 of SP 800-56C).<htm:p/><htm:br/><htm:p/> The description must include how the MAC function being used for the randomness extraction step is related to the PRF used in the key expansion and verify the TSS description includes the correct MAC function:</htm:p><htm:ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>If an HMAC-hash is used in the randomness extraction step, then the same HMAC-hash (with the same hash function hash) is used as the PRF in the key expansion step.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>If an AES-CMAC (with key length 128, 192, or 256 bits) is used in the randomness extraction step, then AES-CMAC with a 128-bit key is used as the PRF in the key expansion step.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>The description must include the lengths of the salt values being used in the randomness extraction step and the evaluator shall verify the TSS description includes correct salt lengths:</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>If an HMAC-hash is being used as the MAC, the salt length can be any value up to the maximum bit length permitted for input to the hash function hash.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>If an AES-CMAC is being used as the MAC, the salt length shall be the same length as the AES key (i.e. 128, 192, or 256 bits).</htm:li></htm:ol><htm:p>(conditional) If a KDF is used, the evaluator shall ensure that the TSS includes a description of the key derivation function and shall verify the key derivation uses an approved derivation mode and key expansion algorithm according to SP 800-108 or SP 800-56C.</htm:p></TSS>
-              <Guidance><htm:p>The evaluator uses the description of the RBG functionality in FCS_RBG_EXT.1 or documentation available for the operational environment to determine that the key size being generated or combined is identical to the key size and mode to be used for the encryption/decryption of the data.</htm:p></Guidance>
-              <Tests><htm:p>If a KDF is used, the evaluator shall perform one or more of the following tests to verify the correctness of the key derivation function, depending on the modes that are supported. <xref to="notations"></xref> maps the data fields to the notations used in SP 800-108 and SP 800-56C.<htm:p/><htm:br/><htm:p/><htm:b/> <ctr ctr-type="Table" id="notations">: Notations used in SP 800-108 and SP 800-56C</ctr><htm:b/></htm:p><htm:table><htm:tr class="header"><htm:td>Data Fields</htm:td><htm:td>Notations</htm:td><htm:td/></htm:tr><htm:tr><htm:td/><htm:td>SP 800-108</htm:td><htm:td>SP 800-56C</htm:td></htm:tr><htm:tr><htm:td>Pseudorandom function</htm:td><htm:td>PRF</htm:td><htm:td>PRF</htm:td></htm:tr><htm:tr><htm:td>Counter length</htm:td><htm:td>r</htm:td><htm:td>r</htm:td></htm:tr><htm:tr><htm:td>Length of output of PRF</htm:td><htm:td>h</htm:td><htm:td>h</htm:td></htm:tr><htm:tr><htm:td>Length of derived keying material</htm:td><htm:td>L</htm:td><htm:td>L</htm:td></htm:tr><htm:tr><htm:td>Length of input values</htm:td><htm:td>l length</htm:td><htm:td>l length</htm:td></htm:tr><htm:tr><htm:td>Pseudorandom input values I</htm:td><htm:td>K1 (key derivation key)</htm:td><htm:td>Z (shared secret)</htm:td></htm:tr><htm:tr><htm:td>Pseudorandom salt values</htm:td><htm:td>n/a</htm:td><htm:td>s</htm:td></htm:tr><htm:tr><htm:td>Randomness extraction MAC</htm:td><htm:td>n/a</htm:td><htm:td>MAC</htm:td></htm:tr></htm:table><htm:p><htm:br/><htm:p/><htm:br/><htm:p/><htm:b/>Counter Mode Tests:<htm:b/><htm:p/><htm:br/><htm:p/> The evaluator shall determine the following characteristics of the key derivation function:</htm:p><htm:ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>One or more pseudorandom functions that are supported by the implementation (PRF).</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>One or more of the values {8, 16, 24, 32} that equal the length of the binary representation of the counter (r).</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>The length (in bits) of the output of the PRF (h).</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Minimum and maximum values for the length (in bits) of the derived keying material (L). These values can be equal if only one value of L is supported. These must be evenly divisible by h.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Up to two values of L that are NOT evenly divisible by h.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Location of the counter relative to fixed input data: before, after, or in the middle.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>The length (I_length) of the input values I.</htm:li></htm:ol><htm:p>For each supported combination of I_length, MAC, salt, PRF, counter location, value of r, and value of L, the evaluator shall generate 10 test vectors that include pseudorandom input values I, and pseudorandom salt values. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 test vectors for it. For each test vector, the evaluator shall supply this data to the TOE in order to produce the keying material output. <htm:p/><htm:br/><htm:p/> The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation. <htm:p/><htm:br/><htm:p/><htm:b/> Feedback Mode Tests:<htm:b/><htm:p/><htm:br/><htm:p/> The evaluator shall determine the following characteristics of the key derivation function:</htm:p><htm:ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>One or more pseudorandom functions that are supported by the implementation (PRF).</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>The length (in bits) of the output of the PRF (h).</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Minimum and maximum values for the length (in bits) of the derived keying material (L). These values can be equal if only one value of L is supported. These must be evenly divisible by h.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Up to two values of L that are NOT evenly divisible by h.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Whether or not zero-length IVs are supported.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Whether or not a counter is used, and if so:</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>One or more of the values {8, 16, 24, 32} that equal the length of the binary representation of the counter (r).</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Location of the counter relative to fixed input data: before, after, or in the middle.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>The length (I_length) of the input values I.</htm:li></htm:ol><htm:p>For each supported combination of I_length, MAC, salt, PRF, counter location (if a counter is used), value of r (if a counter is used), and value of L, the evaluator shall generate 10 test vectors that include pseudorandom input values I and pseudorandom salt values. If the KDF supports zero-length IVs, five of these test vectors will be accompanied by pseudorandom IVs and the other five will use zero-length IVs. If zero-length IVs are not supported, each test vector will be accompanied by an pseudorandom IV. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 test vectors for it.<htm:p/><htm:br/><htm:p/> For each test vector, the evaluator shall supply this data to the TOE in order to produce the keying material output. The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation.<htm:p/><htm:br/><htm:p/><htm:b/> Double Pipeline Iteration Mode Tests:<htm:b/><htm:p/><htm:br/><htm:p/> The evaluator shall determine the following characteristics of the key derivation function:</htm:p><htm:ol><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>One or more pseudorandom functions that are supported by the implementation (PRF).</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>The length (in bits) of the output of the PRF (h).</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Minimum and maximum values for the length (in bits) of the derived keying material (L). These values can be equal if only one value of L is supported. These must be evenly divisible by h.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Up to two values of L that are NOT evenly divisible by h.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Whether or not a counter is used, and if so:</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>One or more of the values {8, 16, 24, 32} that equal the length of the binary representation of the counter (r).</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Location of the counter relative to fixed input data: before, after, or in the middle.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Counter before fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Counter after fixed input data: fixed input data string length (in bytes), fixed input data string value.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>Counter in the middle of fixed input data: length of data before counter (in bytes), length of data after counter (in bytes), value of string input before counter, value of string input after counter.</htm:li><li data-list="bullet"><span class="ql-ui" contenteditable="false"></span>The length (I_length) of the input values I.</htm:li></htm:ol><htm:p>For each supported combination of I_length, MAC, salt, PRF, counter location (if a counter is used), value of r (if a counter is used), and value of L, the evaluator shall generate 10 test vectors that include pseudorandom input values I, and pseudorandom salt values. If there is only one value of L that is evenly divisible by h, the evaluator shall generate 20 test vectors for it.<htm:p/><htm:br/><htm:p/> For each test vector, the evaluator shall supply this data to the TOE in order to produce the keying material output. The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation.</htm:p></Tests>
+              <TSS>The evaluator shall ensure that the documentation of the product's encryption key
+                management is detailed enough that, after reading, the product's key management hierarchy is clear 
+                and that it meets the requirements to ensure the keys are adequately protected. The evaluator shall ensure
+                that the documentation includes both an essay and one or more diagrams. Note that this may also be documented as 
+                separate proprietary evidence rather than being included in the TSS.<htm:br/><htm:br/> 
+                The evaluator shall also examine the key hierarchy section of the TSS to ensure that
+                the formation of all DEKs is described and that the key sizes match that described
+                by the ST author. The evaluator shall examine the key hierarchy section of the TSS
+                to ensure that each DEK is generated or combined from keys of equal or greater
+                security strength using one of the selected methods.<htm:br/><htm:ul><htm:li>If the symmetric DEK is generated by an RBG, the evaluator shall review
+                    the TSS to determine that it describes how the functionality described by
+                    FCS_RBG_EXT.1 is invoked. The evaluator uses the description of the RBG
+                    functionality in FCS_RBG_EXT.1 or documentation available for the operational
+                    environment to determine that the key size being requested is greater than or
+                    equal to the key size and mode to be used for the encryption/decryption of the
+                    data.</htm:li><htm:li>If the DEK is formed from a combination, the evaluator shall verify that
+                    the TSS describes the method of combination and that this method is either an
+                    XOR or a KDF to justify that the effective entropy of each factor is preserved. 
+                    The evaluator shall also verify that each combined value was originally generated 
+                  from an Approved DRBG described in FCS_RBG_EXT.1.</htm:li><htm:li>If  <xref to="s-dek-800-56"></xref> is selected,
+		  the evaluator shall ensure the TSS includes a description of the
+                    randomness extraction step.</htm:li></htm:ul> The description must include how an approved untruncated MAC function is
+                being used for the randomness extraction step and the evaluator must verify the TSS
+                describes that the output length (in bits) of the MAC function is at least as large
+                as the targeted security strength (in bits) of the parameter set employed by the key
+                establishment scheme (see Tables 1-3 of SP 800-56C).<htm:br/><htm:br/> The
+                description must include how the MAC function being used for the randomness
+                extraction step is related to the PRF used in the key expansion and verify the TSS
+                description includes the correct MAC function:<htm:ul><htm:li>If an HMAC-hash is used in the randomness extraction step, then the same
+                    HMAC-hash (with the same hash function hash) is used as the PRF in the key
+                    expansion step.</htm:li><htm:li>If an AES-CMAC (with key length 128, 192, or 256 bits) is used in the
+                    randomness extraction step, then AES-CMAC with a 128-bit key is used as the PRF
+                    in the key expansion step.</htm:li><htm:li>The description must include the lengths of the salt values being used in
+                    the randomness extraction step and the evaluator shall verify the TSS
+                    description includes correct salt lengths:</htm:li><htm:li>If an HMAC-hash is being used as the MAC, the salt length can be any value
+                    up to the maximum bit length permitted for input to the hash function
+                    hash.</htm:li><htm:li>If an AES-CMAC is being used as the MAC, the salt length shall be the same
+                    length as the AES key (i.e. 128, 192, or 256 bits).</htm:li></htm:ul> (conditional) If a KDF is used, the evaluator shall ensure that the TSS
+                includes a description of the key derivation function and shall verify the key
+                derivation uses an approved derivation mode and key expansion algorithm according to
+                SP 800-108 or SP 800-56C.<htm:br/><htm:br/></TSS>
+              <Guidance> The evaluator uses the description of the RBG functionality in
+                FCS_RBG_EXT.1 or documentation available for the operational environment to
+                determine that the key size being generated or combined is identical to the key size
+                and mode to be used for the encryption/decryption of the
+                data.<htm:br/><htm:br/></Guidance>
+              <Tests> If a KDF is used, the evaluator shall perform one or more of the following
+                tests to verify the correctness of the key derivation function, depending on the
+                modes that are supported.  <xref to="notations"></xref> maps the data fields to the
+                notations used in SP 800-108 and SP 800-56C.<htm:br/><htm:br/><htm:b> <ctr ctr-type="Table" id="notations">: Notations used in SP 800-108 and SP
+                    800-56C</ctr></htm:b><htm:br/><htm:table><htm:tr class="header"><htm:td >Data Fields</htm:td><htm:td >Notations
+                    </htm:td><htm:td ></htm:td></htm:tr><htm:tr class="header"><htm:td ></htm:td><htm:td >SP 800-108</htm:td><htm:td >SP
+                      800-56C</htm:td></htm:tr><htm:tr ><htm:td >Pseudorandom
+                      function</htm:td><htm:td >PRF</htm:td><htm:td >PRF</htm:td></htm:tr><htm:tr ><htm:td >Counter
+                    length</htm:td><htm:td >r</htm:td><htm:td >r</htm:td></htm:tr><htm:tr ><htm:td >Length of output of
+                      PRF</htm:td><htm:td >h</htm:td><htm:td >h</htm:td></htm:tr><htm:tr ><htm:td >Length of derived keying
+                      material</htm:td><htm:td >L</htm:td><htm:td >L</htm:td></htm:tr><htm:tr ><htm:td >Length of input values</htm:td><htm:td >l length</htm:td><htm:td >l
+                      length</htm:td></htm:tr><htm:tr ><htm:td >Pseudorandom input values I</htm:td><htm:td >K1 (key derivation
+                      key)</htm:td><htm:td >Z (shared secret)</htm:td></htm:tr><htm:tr ><htm:td >Pseudorandom salt
+                      values</htm:td><htm:td >n/a</htm:td><htm:td >s</htm:td></htm:tr><htm:tr ><htm:td >Randomness extraction
+                      MAC</htm:td><htm:td >n/a</htm:td><htm:td >MAC</htm:td></htm:tr></htm:table><htm:br/><htm:br/><htm:b>Counter Mode Tests:</htm:b><htm:br/><htm:br/> The evaluator shall determine
+                the following characteristics of the key derivation function:<htm:ul><htm:li>One or more pseudorandom functions that are supported by the
+                    implementation (PRF).</htm:li><htm:li>One or more of the values {8, 16, 24, 32} that equal the length of the
+                    binary representation of the counter (r).</htm:li><htm:li>The length (in bits) of the output of the PRF (h).</htm:li><htm:li>Minimum and maximum values for the length (in bits) of the derived keying
+                    material (L). These values can be equal if only one value of L is supported.
+                    These must be evenly divisible by h.</htm:li><htm:li>Up to two values of L that are NOT evenly divisible by h.</htm:li><htm:li>Location of the counter relative to fixed input data: before, after, or in
+                    the middle.</htm:li><htm:ul><htm:li>Counter before fixed input data: fixed input data string length (in
+                      bytes), fixed input data string value.</htm:li><htm:li>Counter after fixed input data: fixed input data string length (in
+                      bytes), fixed input data string value.</htm:li><htm:li> Counter in the middle of fixed input data: length of data before
+                      counter (in bytes), length of data after counter (in bytes), value of string
+                      input before counter, value of string input after counter.</htm:li></htm:ul><htm:li>The length (I_length) of the input values I.</htm:li></htm:ul> For each supported combination of I_length, MAC, salt, PRF, counter
+                location, value of r, and value of L, the evaluator shall generate 10 test vectors
+                that include pseudorandom input values I, and pseudorandom salt values. If there is
+                only one value of L that is evenly divisible by h, the evaluator shall generate 20
+                test vectors for it. For each test vector, the evaluator shall supply this data to
+                the TOE in order to produce the keying material output. <htm:br/><htm:br/> The
+                results from each test may either be obtained by the evaluator directly or by
+                supplying the inputs to the implementer and receiving the results in response. To
+                determine correctness, the evaluator shall compare the resulting values to those
+                obtained by submitting the same inputs to a known good implementation. <htm:br/><htm:br/><htm:b> Feedback Mode Tests:</htm:b><htm:br/><htm:br/> The evaluator shall determine
+                the following characteristics of the key derivation function: <htm:ul><htm:li>One or more pseudorandom functions that are supported by the
+                    implementation (PRF).</htm:li><htm:li>The length (in bits) of the output of the PRF (h).</htm:li><htm:li>Minimum and maximum values for the length (in bits) of the derived keying
+                    material (L). These values can be equal if only one value of L is supported.
+                    These must be evenly divisible by h.</htm:li><htm:li>Up to two values of L that are NOT evenly divisible by h.</htm:li><htm:li>Whether or not zero-length IVs are supported.</htm:li><htm:li>Whether or not a counter is used, and if so:</htm:li><htm:ul><htm:li>One or more of the values {8, 16, 24, 32} that equal the length of the
+                      binary representation of the counter (r).</htm:li><htm:li> Location of the counter relative to fixed input data: before, after, or
+                      in the middle.</htm:li><htm:ul><htm:li>Counter before fixed input data: fixed input data string length (in
+                        bytes), fixed input data string value.</htm:li><htm:li>Counter after fixed input data: fixed input data string length (in
+                        bytes), fixed input data string value.</htm:li><htm:li>Counter in the middle of fixed input data: length of data before
+                        counter (in bytes), length of data after counter (in bytes), value of string
+                        input before counter, value of string input after counter.</htm:li></htm:ul></htm:ul><htm:li>The length (I_length) of the input values I.</htm:li></htm:ul> For each supported combination of I_length, MAC, salt, PRF, counter
+                location (if a counter is used), value of r (if a counter is used), and value of L,
+                the evaluator shall generate 10 test vectors that include pseudorandom input values
+                I and pseudorandom salt values. If the KDF supports zero-length IVs, five of these
+                test vectors will be accompanied by pseudorandom IVs and the other five will use
+                zero-length IVs. If zero-length IVs are not supported, each test vector will be
+                accompanied by an pseudorandom IV. If there is only one value of L that is evenly
+                divisible by h, the evaluator shall generate 20 test vectors for
+                it.<htm:br/><htm:br/> For each test vector, the evaluator shall supply this data to
+                the TOE in order to produce the keying material output. The results from each test
+                may either be obtained by the evaluator directly or by supplying the inputs to the
+                implementer and receiving the results in response. To determine correctness, the
+                evaluator shall compare the resulting values to those obtained by submitting the
+                same inputs to a known good implementation.<htm:br/><htm:br/><htm:b> Double Pipeline Iteration Mode Tests:</htm:b><htm:br/><htm:br/> The
+                evaluator shall determine the following characteristics of the key derivation
+                function: <htm:ul><htm:li>One or more pseudorandom functions that are supported by the
+                    implementation (PRF).</htm:li><htm:li>The length (in bits) of the output of the PRF (h).</htm:li><htm:li>Minimum and maximum values for the length (in bits) of the derived keying
+                    material (L). These values can be equal if only one value of L is supported.
+                    These must be evenly divisible by h.</htm:li><htm:li>Up to two values of L that are NOT evenly divisible by h.</htm:li><htm:li>Whether or not a counter is used, and if so:</htm:li><htm:ul><htm:li>One or more of the values {8, 16, 24, 32} that equal the length of the
+                      binary representation of the counter (r).</htm:li><htm:li>Location of the counter relative to fixed input data: before, after, or
+                      in the middle.</htm:li><htm:ul><htm:li> Counter before fixed input data: fixed input data string length (in
+                        bytes), fixed input data string value.</htm:li><htm:li> Counter after fixed input data: fixed input data string length (in
+                        bytes), fixed input data string value.</htm:li><htm:li> Counter in the middle of fixed input data: length of data before
+                        counter (in bytes), length of data after counter (in bytes), value of string
+                        input before counter, value of string input after counter.</htm:li></htm:ul></htm:ul><htm:li>The length (I_length) of the input values I.</htm:li></htm:ul> For each supported combination of I_length, MAC, salt, PRF, counter
+                location (if a counter is used), value of r (if a counter is used), and value of L,
+                the evaluator shall generate 10 test vectors that include pseudorandom input values
+                I, and pseudorandom salt values. If there is only one value of L that is evenly
+                divisible by h, the evaluator shall generate 20 test vectors for
+                it.<htm:br/><htm:br/> For each test vector, the evaluator shall supply this data to
+                the TOE in order to produce the keying material output. The results from each test
+                may either be obtained by the evaluator directly or by supplying the inputs to the
+                implementer and receiving the results in response. To determine correctness, the
+                evaluator shall compare the resulting values to those obtained by submitting the
+                same inputs to a known good implementation.<htm:br/><htm:br/></Tests>
             </aactivity>
           </f-element>
           <audit-event/>
@@ -1226,16 +1365,16 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests> If a KDF is used, the evaluator shall perform one or more of the following
                 tests to verify the correctness of the key derivation function, depending on the
                 modes that are supported.  <xref to="KDF"></xref> maps the data fields to the
-                notations used in SP 800-108 and SP 800-56C. <htm:br/><htm:br/><htm:b> <ctr ctr-type="Table" id="KDF">: Notations used in SP 800-108 and SP 800-56C</ctr></htm:b><htm:br/><htm:table><tr class="header"><td >Data Fields</htm:td><td colspan="2">Notations</htm:td></htm:tr><tr class="header"><td ></htm:td><td >SP 800-108</htm:td><td >SP
-                      800-56C</htm:td></htm:tr><tr ><td >Pseudorandom
-                      function</htm:td><td >PRF</htm:td><td >PRF</htm:td></htm:tr><tr ><td >Counter
-                    length</htm:td><td >r</htm:td><td >r</htm:td></htm:tr><tr ><td >Length of output of
-                      PRF</htm:td><td >h</htm:td><td >h</htm:td></htm:tr><tr ><td >Length of derived keying
-                      material</htm:td><td >L</htm:td><td >L</htm:td></htm:tr><tr ><td >Length of input
-                      values</htm:td><td >I_length</htm:td><td >I_length</htm:td></htm:tr><tr ><td >Pseudorandom input values I</htm:td><td >K
-                      (key derivation key)</htm:td><td >Z (shared secret)</htm:td></htm:tr><tr ><td >Pseudorandom salt
-                      values</htm:td><td >n/a</htm:td><td >s</htm:td></htm:tr><tr ><td >Randomness extraction
-                      MAC</htm:td><td >n/a</htm:td><td >MAC</htm:td></htm:tr></htm:table><htm:br/><htm:br/><htm:b>Counter Mode Tests:</htm:b><htm:br/><htm:br/> The evaluator shall determine the following characteristics of
+                notations used in SP 800-108 and SP 800-56C. <htm:br/><htm:br/><htm:b> <ctr ctr-type="Table" id="KDF">: Notations used in SP 800-108 and SP 800-56C</ctr></htm:b><htm:br/><htm:table><htm:tr class="header"><htm:td >Data Fields</htm:td><htm:td colspan="2">Notations</htm:td></htm:tr><htm:tr class="header"><htm:td ></htm:td><htm:td >SP 800-108</htm:td><htm:td >SP
+                      800-56C</htm:td></htm:tr><htm:tr ><htm:td >Pseudorandom
+                      function</htm:td><htm:td >PRF</htm:td><htm:td >PRF</htm:td></htm:tr><htm:tr ><htm:td >Counter
+                    length</htm:td><htm:td >r</htm:td><htm:td >r</htm:td></htm:tr><htm:tr ><htm:td >Length of output of
+                      PRF</htm:td><htm:td >h</htm:td><htm:td >h</htm:td></htm:tr><htm:tr ><htm:td >Length of derived keying
+                      material</htm:td><htm:td >L</htm:td><htm:td >L</htm:td></htm:tr><htm:tr ><htm:td >Length of input
+                      values</htm:td><htm:td >I_length</htm:td><htm:td >I_length</htm:td></htm:tr><htm:tr ><htm:td >Pseudorandom input values I</htm:td><htm:td >K
+                      (key derivation key)</htm:td><htm:td >Z (shared secret)</htm:td></htm:tr><htm:tr ><htm:td >Pseudorandom salt
+                      values</htm:td><htm:td >n/a</htm:td><htm:td >s</htm:td></htm:tr><htm:tr ><htm:td >Randomness extraction
+                      MAC</htm:td><htm:td >n/a</htm:td><htm:td >MAC</htm:td></htm:tr></htm:table><htm:br/><htm:br/><htm:b>Counter Mode Tests:</htm:b><htm:br/><htm:br/> The evaluator shall determine the following characteristics of
                 the key derivation function:<htm:ul><htm:li>One or more pseudorandom functions that are supported by the
                     implementation (PRF).</htm:li><htm:li>One or more of the values {8, 16, 24, 32} that equal the length of the
                     binary representation of the counter (r).</htm:li><htm:li>The length (in bits) of the output of the PRF (h).</htm:li><htm:li>Minimum and maximum values for the length (in bits) of the derived keying
@@ -2340,7 +2479,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
 	    A subset of the User Data Protection focuses on protecting Data-At-Rest, namely FDP_DAR_EXT.1 and FDP_DAR_EXT.2.
             Three levels of data-at-rest protection are addressed: TSF data, Protected Data (and keys), and sensitive data.
 	     <xref to="datalevels"></xref> addresses the level of protection required for each level of data-at-rest.
-	  </htm:p><htm:b> <ctr id="datalevels" ctr-type="Table">: Protection of Data Levels</ctr></htm:b><htm:br/><htm:br/><htm:table><tr class="header"><td >Data Level</htm:td><td >Protection Required</htm:td></htm:tr><tr ><td >TSF Data</htm:td><td >TSF data does not require confidentiality, but does require integrity protection. (FPT_TST_EXT.2/PREKERNEL)</htm:td></htm:tr><tr ><td >Protected Data</htm:td><td >Protected data is encrypted while powered off. (FDP_DAR_EXT.1)</htm:td></htm:tr><tr ><td >Sensitive Data</htm:td><td >Sensitive data is encrypted while in the locked state, in addition to while powered off. (FDP_DAR_EXT.2)</htm:td></htm:tr></htm:table><htm:br/> 
+	  </htm:p><htm:b> <ctr id="datalevels" ctr-type="Table">: Protection of Data Levels</ctr></htm:b><htm:br/><htm:br/><htm:table><htm:tr class="header"><htm:td >Data Level</htm:td><htm:td >Protection Required</htm:td></htm:tr><htm:tr ><htm:td >TSF Data</htm:td><htm:td >TSF data does not require confidentiality, but does require integrity protection. (FPT_TST_EXT.2/PREKERNEL)</htm:td></htm:tr><htm:tr ><htm:td >Protected Data</htm:td><htm:td >Protected data is encrypted while powered off. (FDP_DAR_EXT.1)</htm:td></htm:tr><htm:tr ><htm:td >Sensitive Data</htm:td><htm:td >Sensitive data is encrypted while in the locked state, in addition to while powered off. (FDP_DAR_EXT.2)</htm:td></htm:tr></htm:table><htm:br/> 
           All keys, protected data, and sensitive data must ultimately be protected by the REK. Sensitive data must be protected by the password in addition to the REK. In particular,  <xref to="Keys"></xref> has KEKs protected according to these requirements: DEK_1 would be appropriate for sensitive data, DEK_2 would not be appropriate for sensitive data, K_1 is not considered a sensitive key, and K_2 is considered a sensitive key. <htm:br/><htm:br/> 
           These requirements include a capability for encrypting sensitive data received while in the locked state, which may be considered a separate sub-category of sensitive data. This capability may be met by a key transport scheme (RSA) by using a public key to encrypt the DEK while protecting the corresponding private key with a password-derived or biometric-unlocked KEK. <htm:br/><htm:br/> 
           This capability may also be met by a key agreement scheme. To do so, the device generates a device-wide sensitive data asymmetric pair (the private key of which is protected by a password-derived or biometric-unlocked KEK) and an asymmetric pair for the received sensitive data to be stored. In order to store the sensitive data, the device-wide public key and data private key are used to generate a shared secret, which can be used as a KEK or a DEK. The data private key and shared secret are cleared after the data is encrypted and the data public key stored. Thus, no key material is available in the locked state to decrypt the newly stored data. Upon unlock, the device-wide private key is decrypted and is used with each data public key to regenerate the shared secret and decrypt the stored data.
@@ -4802,13 +4941,16 @@ The evaluator shall exercise the TSF configuration as the administrator and
         </f-component>
         <!--FPT_AEX_EXT.3 Stack Overflow Protection-->
         <f-component cc-id="fpt_aex_ext.3" id="fpt-aex-ext-3" name="Stack Overflow Protection">
-          <comp-lev><htm:p>requires the TSF to implement stack overflow protection.</htm:p></comp-lev>
-          <management><htm:p>There are no management activities foreseen.</htm:p></management>
-          <audit><htm:p>There are no auditable events foreseen.</htm:p></audit>
-          <dependencies><htm:p>No dependencies.</htm:p></dependencies>
+          <comp-lev> requires the TSF to implement stack overflow protection.</comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>No dependencies.</dependencies>
           <f-element id="fel-stack-protect">
             <title>TSF processes that execute in a non-privileged execution domain on the application processor shall implement stack-based buffer overflow protection.</title>
-            <note role="application"><htm:p>A "non-privileged execution domain" refers to the user mode (as opposed to kernel mode, for instance) of the processor. While not all TSF processes must implement such protection, it is expected that most of the processes (to include libraries used by TSF processes) do implement buffer overflow protections.</htm:p></note>
+            <note role="application">A "non-privileged execution domain" refers to the user mode (as
+              opposed to kernel mode, for instance) of the processor. While not all TSF processes
+              must implement such protection, it is expected that most of the processes (to include
+              libraries used by TSF processes) do implement buffer overflow protections.</note>
             <aactivity level="element">
               <TSS>The evaluator shall determine that the TSS contains a description of stack-based
                 buffer overflow protections implemented in the TSF software which runs in the
