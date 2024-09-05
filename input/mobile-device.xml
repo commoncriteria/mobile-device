@@ -3915,6 +3915,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               The TSF shall use a <selectables>
                 <selectable id="internal-seed">TSF noise source <assignable>name of noise source</assignable></selectable>
                 <selectable id="internal-seeds"><h:b>multiple TSF noise sources <assignable>names of noise sources</assignable></h:b></selectable>
+                <selectable id="external-seed">TSF interface for seeding</selectable>
               </selectables>
               for initialized seeding.
             </title>
@@ -3931,6 +3932,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </h:p>
               <h:p>
                 If "multiple TSF noise sources" is selected, FCS_RBG.4 and FCS_RBG.5 must be claimed.
+              </h:p>
+              <h:p>
+                If "TSF interface for seeding" is selected, FCS_RBG.2 must be claimed. 
               </h:p>
             </note>
             <aactivity level="element">
@@ -3974,7 +3978,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
         </f-component>        
         
-        <!--
+        
         <f-component cc-id="fcs_rbg.2" name="Random Bit Generation (External Seeding)" status="sel-based">
           <depends on="internal-seed"/>
           <f-element id="fel-rbg-seed-purpose">
@@ -3993,10 +3997,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </aactivity>
           </f-element>
         </f-component>
-        -->
+        
         
         <f-component cc-id="fcs_rbg.3" name="Random Bit Generation (Internal Seeding - Single Source)" status="sel-based">
-          <depends on="external-seed"/>
+          <depends on="internal-seed"/>
           <f-element id="fel-rbg-seed-int-sing">
             <title>
               The TSF shall be able to seed the RBG using a <selectables onlyone="yes">
@@ -4042,7 +4046,14 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <depends on="internal-seeds"/>
           <f-element id="fel-rbg-comb">
             <title>
-              The TSF shall <assignable>combining operation</assignable> [<h:i>output from TSF noise source(s)</h:i>]
+              <comment>Note right now that we only have this SFR when FCS_RBG.4 (multiple internal seeds) is claimed. But technically the SFR
+                allows combining of both internal and external sources. I don't know if that use case is something we should realistically try to account for
+                this because it may be very confusing to express in terms of defining the conditions for when this SFR applies. i.e. it would apply if at least one of the following is true:
+                - FCS_RBG.4 is claimed (with or without FCS_RBG.2)
+                - FCS_RBG.2 and FCS_RBG.3 are claimed</comment>
+              The TSF shall <assignable>combining operation</assignable> <selectables>
+                <selectable>output from TSF noise source(s)</selectable>
+                <selectable>input from TSF interface(s) for seeding</selectable></selectables>
               to create the entropy input into the derivation function as defined in <assignable>list of standards</assignable>, resulting
               in a minimum of <assignable>number of bits</assignable> bits of min-entropy.              
             </title>        
@@ -4059,7 +4070,6 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         <f-component cc-id="fcs_rbg.6" name="Random Bit Generation Service">
           <f-element id="fel-external-service">
             <title>
-              <comment>This was added as an optional requirement for the possibility where the OS can provide a seed for third-party applications.</comment>
               The TSF shall provide a <selectables>
                 <selectable>hardware</selectable>
                 <selectable>software</selectable>
