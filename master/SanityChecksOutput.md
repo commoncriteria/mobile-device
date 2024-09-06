@@ -6,7 +6,7 @@
 * Error: Detected dangling id-reference to x509_apps from attribute
         on-sel/PP[1]""/section[4]""/section[1]""/section[7]""/f-component[26]""/depends[2]""/on-sel[1]""
  Failed to find a reference to entropyappendix.
- Failed to find a reference to spd.
+ Failed to find a reference to SFRs.
  Failed to find a reference to CEM.
  Failed to find a reference to CEM.
  Failed to find a reference to bibCEM.
