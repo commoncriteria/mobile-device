@@ -10,12 +10,3 @@
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
