@@ -5058,14 +5058,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         
         
         <f-component cc-id="fcs_rbg.2" name="Random Bit Generation (External Seeding)" status="sel-based">
-          <depends on="internal-seed"/>
+          <depends on="external-seed"/>
           <f-element id="fel-rbg-seed-purpose">
             <title>
-              <comment>In reality we probably don't need this SFR because the whole device is inside the TOE boundary</comment>
               The TSF shall be able to accept a minimum input of <assignable>minimum input length greater than zero</assignable>
               from a TSF interface for the purpose of seeding.
             </title>        
-            <note role="application">This requirement is claimed when a DRBG is seeded with entropy from one or more noise source that is outside the TOE boundary. Typically the entropy produced by an environmental noise source is conditioned such that the input length has full entropy and is therefore usable as the seed. However, if this is not the case, it should be noted what the minimum entropy rate of the noise source is so that the TSF can collect a sufficiently large sample of noise data to be conditioned into a seed value.</note>
+            <note role="application">This requirement is claimed when a DRBG is seeded with entropy from one or more noise source that is outside the TOE boundary. In the case of a mobile device this would likely only occur when the entropy source is a Dedicated Security Component that is integrated with the TOE. Typically the entropy produced by an environmental noise source is conditioned such that the input length has full entropy and is therefore usable as the seed. However, if this is not the case, it should be noted what the minimum entropy rate of the noise source is so that the TSF can collect a sufficiently large sample of noise data to be conditioned into a seed value.</note>
             <aactivity>              
               <TSS>
                 The evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it identifies, for each DRBG function implemented by the TOE, the TSF external interface used to seed the TOE's DRBG. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the TSF can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the TOE estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the TSF applies to the output data to create a seed of sufficient size with full entropy.  
@@ -5106,7 +5105,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               The TSF shall be able to seed the RBG using <selectables>
                 <selectable><assignable>number</assignable> TSF software-based noise source(s)</selectable>
                 <selectable><assignable>number</assignable> TSF hardware-based noise source(s)</selectable>
-              </selectables>
+              </selectables>.
             </title>
             <note role="application">
               This requirement is claimed when a DRBG is seeded with entropy from multiple noise sources that are within the TOE boundary. 
