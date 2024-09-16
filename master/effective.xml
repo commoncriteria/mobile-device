@@ -4626,7 +4626,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     connection succeeds and that the traffic is identified as TLS or HTTPS.
                     <h:br/><h:br/> Other tests are performed in conjunction with testing in the
                     <xref to="pkg-tls"/>. <h:br/><h:br/> Certificate validity
-                    shall be tested in accordance with testing performed for FIA_X509_EXT.1 as defined in the Functional Package for X.509, and the
+                    shall be tested in accordance with testing performed for FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>, and the
                     evaluator shall perform the following test: </test><h:br/>
                   <test>The evaluator shall demonstrate that using a certificate without a valid
                     certification path results in an application notification. Using the
@@ -7892,9 +7892,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <f-element id="fel-certval-app-respond">
             <title>The TSF shall respond to the requesting application with the success or failure
               of the validation. </title>
-            <note role="application">In order to comply with all of the rules in FIA_X509_EXT.1 as defined in the Functional Package for X.509,
+            <note role="application">In order to comply with all of the rules in FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>,
               multiple API calls may be required; all of these calls should be clearly
-              documented</note>
+              documented.</note>
             <aactivity> The evaluator shall verify that the API documentation provided according to
                 <xref to="adv"/> includes the security function (certificate validation)
               described in this requirement. This documentation shall be clear as to which results
@@ -7906,7 +7906,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 verify that the results from the validation match the expected results according to
                 the API documentation. This application may be used to verify that import, removal,
                 modification, and validation are performed correctly according to the tests required
-                by FDP_STG_EXT.1, FTP_ITC_EXT.1, FMT_SMF_EXT.1, and FIA_X509_EXT.1 as defined in the Functional Package for X.509.</Tests>
+                by FDP_STG_EXT.1, FTP_ITC_EXT.1, FMT_SMF_EXT.1, and FIA_X509_EXT.1 as defined in <xref to="pkg-509"/>.</Tests>
             </aactivity>
           </f-element>
 	  <audit-event table="additional"/>
@@ -8954,7 +8954,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		                    <!-- TODO: Should this be something like for TLS do not approve any exceptions, for HTTP this is per FCS_HTTPS_EXT.1.3?? How do I force the selection of no exceptions for all (non-HTTPS) TLS connections? -->
               Function <xref to="mf-certInvalid"/> must be included in the ST if the function is configurable on the TOE for any of the trusted channels either mandated or selected in <xref to="fel-wlan"/> or <xref to="fel-tls-app"/>. The configuration can be different depending on the specific trusted channel(s) and they must be filled in for the assignment.
 		    </app-note>
-                  <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in the Functional Package for X.509,
+                  <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in <xref to="pkg-x509"/>,
                     FCS_TLSC_EXT.1.6 in the <xref to="pkg-tls"/>. </Tests></aactivity>
                 </management-function>
                 <!-- Start of the Optional to implement functions -->
@@ -9094,7 +9094,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                             application is not able to import the certificate. Failure of import
                             shall be tested by attempting to validate a certificate that chains to
                             the certificate whose import was attempted (as described in the
-                            evaluation activity for FIA_X509_EXT.1 as defined in the Functional Package for X.509). </h:li>
+                            evaluation activity for FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>). </h:li>
                           <h:li>The evaluator shall repeat the test, allowing the approval to
                             verify that the application is able to import the certificate and that
                             validation occurs. </h:li>
@@ -9109,7 +9109,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                             application is not able to remove the certificate. Failure of removal
                             shall be tested by attempting to validate a certificate that chains to
                             the certificate whose removal was attempted (as described in the
-                            evaluation activity for FIA_X509_EXT.1 as defined in the Functional Package for X.509). </h:li>
+                            evaluation activity for FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>). </h:li>
                         </h:ul>
                       </test>
                     </testlist> The evaluator shall repeat the test, allowing the approval to verify
@@ -9125,10 +9125,10 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   connection to determine the validity of a certificate</text>
 		  <app-note>
 		    Function <xref to="mf-certValidity"/> must be
-              included in the ST if "administrator-configured option" is selected in
-              FIA_X509_EXT.2.2 in the Functional Package for X.509.
+              included in the ST if "administrator is allowed to configure certificate acceptance" is selected in
+              FIA_X509_EXT.2.2 in <xref to="pkg-x509"/>
 		  </app-note>
-                  <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in the Functional Package for X.509.</Tests></aactivity>
+                  <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in <xref to="pkg-x509"/>.</Tests></aactivity>
                 </management-function>
                 <management-function id="mf-cellular">
                   <text>
@@ -11139,7 +11139,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     corrupt).</test><h:br/>
                   <test>[conditional] If the ST author indicates that the integrity verification is
                     performed using a public key, the evaluator shall verify that the update
-                    mechanism includes a certificate validation according to FIA_X509_EXT.1 as defined in the Functional Package for X.509. The
+                    mechanism includes a certificate validation according to FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>. The
                     evaluator shall digitally sign the TSF executable with a certificate that does
                     not have the Code Signing purpose in the extendedKeyUsage field and verify that
                     an integrity violation is triggered. The evaluator shall repeat the test using a
@@ -11207,8 +11207,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
             <title>The TSF shall not execute code if the code signing certificate is deemed invalid. </title>
             <note role="application">Certificates may optionally be used for code signing for
             integrity verification (FPT_TST_EXT.2.1/PREKERNEL).
-            If "code signing for software integrity
-            verification" is selected in FIA_X509_EXT.2.1 in the Functional Package for X.509, FPT_TST_EXT.3.1 must be included in the
+            If "code signing for software integrity testing" is selected in FIA_X509_EXT.2.1 in <xref to="pkg-509"/>, FPT_TST_EXT.3.1 must be included in the
             ST. <h:br/><h:br/>
 	    Validity is determined by the certificate path, the expiration
             date, and the revocation status in accordance with RFC 5280. </note>
@@ -11332,7 +11331,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               key for system software updates is limited and, if selected in FPT_TUD_EXT.2.3, must
               indicate how this signing key is protected by the hardware. <h:br/><h:br/> If
               certificates are used, certificates are validated for the purpose of software updates
-              in accordance with FIA_X509_EXT.1 in the Functional Package for X.509 and should be selected in FIA_X509_EXT.2.1 in the Functional Package for X.509.
+              in accordance with FIA_X509_EXT.1 in <xref to="pkg-x509"/> and should be selected in FIA_X509_EXT.2.1 in <xref to="pkg-x509"/>.
               Additionally, FPT_TUD_EXT.4 must be included in the ST. </note>
             <aactivity>
               <TSS>The evaluator shall verify that the TSS section of the ST describes all TSF
@@ -11451,7 +11450,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               element must be included in the ST if certificates are used for either update element.
               If "code signing for system software updates" is selected or the assignment is selected and specifies the use of 
               X.509 in code signing for mobile
-              applications in FIA_X509_EXT.2.1 in the Functional Package for X.509,
+              applications in FIA_X509_EXT.2.1 in <xref to="pkg-x509"/>,
 	      FPT_TUD_EXT.4 must be included in the
               ST. <h:br/><h:br/> Validity is determined by the certificate path, the expiration
               date, and the revocation status in accordance with RFC 5280. </note>
@@ -11505,7 +11504,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     digitally sign the application with a certificate that does not have the Code
                     Signing purpose and verify that application installation fails. This test may be
                     performed in conjunction with the Evaluation Activities for
-                    FIA_X509_EXT.1 as defined in the Functional Package for X.509.</test><h:br/>
+                    FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>.</test><h:br/>
                   <test>If necessary, the evaluator shall configure the device to limit the public
                     keys that can sign application software according to the AGD guidance. The
                     evaluator shall digitally sign the application with a certificate disallowed by
