@@ -132,9 +132,16 @@
   <release-notes><h:h3>TDs Applied</h:h3></release-notes><include-pkg id="pkg-tls">
     <git>
       <url>https://github.com/commoncriteria/tls</url>
-      <branch>release-1.1</branch>
+      <branch>master</branch>
     </git>
     <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439</url>
+  </include-pkg>
+  <include-pkg id="pkg-x509">
+    <git>
+      <url>https://github.com/commoncriteria/X509</url>
+      <branch>master</branch>
+    </git>
+    <url>https://commoncriteria.github.io/X509/master/X509-release.html</url>
   </include-pkg>
     <modules>
     <module id="mod-vpnclient">
@@ -172,6 +179,26 @@
   
   <sec:Introduction boilerplate="no">
     <sec:Objectives_of_Document>
+      
+      
+      <comment>Not sure if/how we want to communicate functional package guidance but this is our expectation for what claims can be made:
+        <h:br/>
+        TLS package:<h:br/>
+        - TLS with mutual authentication is mandatory<h:br/>
+        - DTLS with mutual authentication is optional<h:br/>
+        Any other requirements can be specified freely<h:br/>
+        FTP_ITC_EXT.1 doesn't currently specify client vs server but it's implied from context throughout the PP that only client is used
+        <h:br/><h:br/>
+        
+        X.509 package:<h:br/>
+        - FIA_XCU_EXT.2 must be claimed because the PP requires support for mutual authentication<h:br/>
+        - the old PP specified PKCS10 and EST as objective requirements for obtaining certificates - with the new FP, FIA_X509_EXT.3 is selected because of FIA_XCU_EXT.2 claims (because the TOE will not have its own internal/embedded CA) but there is nothing forcing the specific enrollment method to be used. Right now this means any of PKCS10, EST, CMC, or CMP must be used. If the idea is to only permit PKCS10/EST, some way of communicating that must be applied.<h:br/>
+        - FIA_X509_EXT.1 must be claimed (it was mandatory in the old PP). CRL or OCSP is expected as the only supported revocation methods. Specific additional guidance may be needed to limit the FIA_X509_EXT.1.3 selections to those values. SME input is needed as to whether any of the other selections in this component are mandatory or forbidden.<h:br/>
+        - FIA_X509_EXT.2 must be claimed (it was mandatory in the old PP)<h:br/>
+        
+        Also, right now we don't make an explicit statement in FAU_GEN.1 that the corresponding audit events from the claimed functional package SFRs must also be added to the audit table. Do we need that or is it sufficiently implied? 
+      </comment>      
+      
 The scope of this Protection Profile (PP) is to describe the security functionality of mobile devices in terms of [CC] and to define functional and assurance requirements for such devices.		
     </sec:Objectives_of_Document>
     <tech-terms>
@@ -453,7 +480,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
       <term abbr="XCCDF" full="eXtensible Configuration Checklist Description Format"/>
       <term abbr="XTS" full="XEX (XOR Encrypt XOR) Tweakable Block Cipher with Ciphertext Stealing"/>
     </tech-terms>
-    <section title="Scope of Document" id="scope"> The scope of the Protection Profile within the
+    <section title="Scope of Document" id="scope"> 
+      
+      
+      The scope of the Protection Profile within the
       development and evaluation process is described in the Common Criteria for Information
       Technology Security Evaluation <xref g="CC"/>. In particular, a PP defines the IT security
       requirements of a generic type of TOE and specifies the functional and assurance security
@@ -930,6 +960,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_DTLSC_EXT.6 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
+          <!--
           <addressed-by>FCS_DTLSS_EXT.1 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_DTLSS_EXT.2 (TLS Package)</addressed-by>
@@ -942,6 +973,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_DTLSS_EXT.6 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
+          -->
           <addressed-by>FCS_TLSC_EXT.1 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_TLSC_EXT.2 (TLS Package)</addressed-by>
@@ -954,6 +986,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_TLSC_EXT.6 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
+          <!--
           <addressed-by>FCS_TLSS_EXT.1 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_TLSS_EXT.2 (TLS Package)</addressed-by>
@@ -966,7 +999,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_TLSS_EXT.6 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
-          
+          -->
           <addressed-by>FIA_ESTC_EXT.1 (X.509 Package)</addressed-by>
           <rationale>FIA_ESTC_EXT.1 helps mitigate the threat of a network eavesdrop by using a secure method to obtain X.509 certificates for the TOE's own use.</rationale>
           <addressed-by>FIA_XCU_EXT.1 (X.509 Package)</addressed-by>
@@ -1100,6 +1133,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_DTLSC_EXT.6 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
+           <!--
           <addressed-by>FCS_DTLSS_EXT.1 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_DTLSS_EXT.2 (TLS Package)</addressed-by>
@@ -1112,6 +1146,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_DTLSS_EXT.6 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
+          -->
           <addressed-by>FCS_TLSC_EXT.1 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_TLSC_EXT.2 (TLS Package)</addressed-by>
@@ -1124,6 +1159,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_TLSC_EXT.6 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
+           <!--
           <addressed-by>FCS_TLSS_EXT.1 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_TLSS_EXT.2 (TLS Package)</addressed-by>
@@ -1136,7 +1172,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
           <addressed-by>FCS_TLSS_EXT.6 (TLS Package)</addressed-by>
           <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
-          
+          -->
           <addressed-by>FIA_ESTC_EXT.1 (X.509 Package)</addressed-by>
           <rationale>FIA_ESTC_EXT.1 helps mitigate the threat of a network attack by using a secure method to obtain X.509 certificates for the TOE's own use.</rationale>
           <addressed-by>FIA_XCU_EXT.1 (X.509 Package)</addressed-by>
@@ -4559,22 +4595,22 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <note role="application"> Validity is determined by the certificate path, the expiration
             date, and the revocation status in accordance with RFC 5280. <h:br/><h:br/>
 
-	    If <xref to="s-not-estab"/> is selected then "with no exceptions" must be selected
-            for FCS_TLSC_EXT.1.3 in the <xref to="pkg-tls"/>.
+	    If <xref to="s-not-estab"/> is selected then "the server certificate is invalid [with no TLS-specific exceptions]" must be selected
+            for FCS_TLSC_EXT.1.6 in the <xref to="pkg-tls"/>.
 	    <rule id="r-not-estab">
 	      <if><ref-id>s-not-estab</ref-id></if>
 	      <then><doc ref="pkg-tls"><ref-id>s-tlsc-no-excep</ref-id></doc></then>
 	    </rule>
 	    If <xref to="s-req-app-auth"/> is selected then
-	    "except when  override is authorized" must be selected
-	    for FCS_TLSC_EXT.1.3 in the Package for
+              "the server certificate is invalid [except when override is authorized in the case where valid revocation information is not available]" must be selected
+	    for FCS_TLSC_EXT.1.6 in the Package for
             Transport Layer Security.
 	    <rule id="r-override">
 	      <if><ref-id>s-req-app-auth</ref-id></if>
 	      <then><doc ref="pkg-tls"><ref-id>s-tlsc-override</ref-id></doc></then>
 	    </rule>
-	    If <xref to="s-no-other-action"/> is selected either selection can be
-            made in FCS_TLSC_EXT.1.3.<h:br/><h:br/>
+	    If <xref to="s-no-other-action"/> is selected then "the server certificate is invalid" with either selection can be
+            made in FCS_TLSC_EXT.1.6.<h:br/><h:br/>
 	    FMT_SMF_EXT.1 Function <xref to="mf-certInvalid"/> configures whether to allow or disallow the establishment of a
               trusted channel if the peer certificate is deemed invalid. </note>
             <aactivity>
@@ -6472,12 +6508,15 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 </h:ul>
                 <h:li>FCS_TLSC_EXT.1.1:</h:li>
                 <h:ul>
-                  <h:li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</h:li>
                   <h:li>Mutual authentication must be selected</h:li>
                 </h:ul>
-                <h:li>FCS_TLSC_EXT.1.3</h:li>            
+                <h:li>FCS_TLSC_EXT.1.2:</h:li>
                 <h:ul>
-                  <h:li>With no exceptions is selected.</h:li>
+                  <h:li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</h:li>
+                </h:ul>
+                <h:li>FCS_TLSC_EXT.1.6</h:li>            
+                <h:ul>
+                  <h:li>the server certificate is invalid [with no TLS-specific exceptions] is selected.</h:li>
                 </h:ul>
               </h:ul>            
               <h:br/> 
@@ -6489,12 +6528,15 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 </h:ul>
                 <h:li>FCS_DTLSC_EXT.1.1:</h:li>
                 <h:ul>
-                  <h:li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</h:li>
                   <h:li>Mutual authentication must be selected</h:li>
                 </h:ul>
-                <h:li>FCS_DTLSC_EXT.1.3</h:li>
+                <h:li>FCS_DTLSC_EXT.1.2:</h:li>
                 <h:ul>
-                  <h:li>With no exceptions is selected.</h:li>
+                  <h:li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</h:li>
+                </h:ul>
+                <h:li>FCS_DTLSC_EXT.1.6</h:li>
+                <h:ul>
+                  <h:li>With no DTLS-specific exceptions is selected.</h:li>
                 </h:ul>
               </h:ul>
               <h:br/>
@@ -8913,7 +8955,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               Function <xref to="mf-certInvalid"/> must be included in the ST if the function is configurable on the TOE for any of the trusted channels either mandated or selected in <xref to="fel-wlan"/> or <xref to="fel-tls-app"/>. The configuration can be different depending on the specific trusted channel(s) and they must be filled in for the assignment.
 		    </app-note>
                   <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in the Functional Package for X.509,
-                    FCS_TLSC_EXT.1.3 in the <xref to="pkg-tls"/>. </Tests></aactivity>
+                    FCS_TLSC_EXT.1.6 in the <xref to="pkg-tls"/>. </Tests></aactivity>
                 </management-function>
                 <!-- Start of the Optional to implement functions -->
                 <management-function id="mf-externalPorts">
@@ -11668,12 +11710,15 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 </h:ul>
                 <h:li>FCS_TLSC_EXT.1.1 or FCS_DTLSC_EXT.1.1 (as appropriate): </h:li>
                 <h:ul>
-                  <h:li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</h:li>
                   <h:li>Mutual authentication must be selected</h:li>
                 </h:ul>
-                <h:li>FCS_TLSC_EXT.1.3 or FCS_DTLSC_EXT.1.3 (as appropriate): </h:li>
+	        <h:li>FCS_TLSC_EXT.1.2 or FCS_DTLSC_EXT.1.2 (as appropriate): </h:li>
+	        <h:ul>
+	          <h:li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</h:li>
+	        </h:ul>
+                <h:li>FCS_TLSC_EXT.1.6 or FCS_DTLSC_EXT.1.6 (as appropriate): </h:li>
                 <h:ul>
-                  <h:li>With no exceptions is selected.</h:li>                  
+                  <h:li>A selection indicating there are no exceptions to rejecting a trusted channel is chosen.</h:li>                  
                 </h:ul>
               </h:ul>
               <h:br/>

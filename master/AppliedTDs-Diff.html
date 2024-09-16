@@ -48,6 +48,8 @@
             <br>
             <a href="#Comment-15-">Comment: Comment-15-</a>
             <br>
+            <a href="#Comment-16-">Comment: Comment-16-</a>
+            <br>
         </div>
         <h1 class="title" style="page-break-before:auto;">Mobile Device Fundamentals</h1>
         <h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1>
@@ -242,7 +244,30 @@
         </div>
         <h1 class="indexable" data-level="1" id="Introduction">1 Introduction</h1>
         <h2 class="indexable" data-level="2" id="Objectives_of_Document">1.1 Objectives of Document</h2>
-         The scope of this Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>) is to describe the security functionality of mobile devices in terms of [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] and to define functional and assurance requirements for such devices. 
+         <span style="" class="comment " id="Comment-1-">Not sure if/how we want to communicate functional package guidance but this is our expectation for what claims can be made: 
+            <br>
+             <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> package:
+            <br>
+             - <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> with mutual authentication is mandatory
+            <br>
+             - <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> with mutual authentication is optional
+            <br>
+             Any other requirements can be specified freely
+            <br>
+             <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a> doesn't currently specify client vs server but it's implied from context throughout the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> that only client is used 
+            <br>
+            <br>
+             X.509 package:
+            <br>
+             - FIA_XCU_EXT.2 must be claimed because the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> requires support for mutual authentication
+            <br>
+             - the old <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> specified PKCS10 and <abbr class="dyn-abbr"><a href="#abbr_EST">EST</a></abbr> as objective requirements for obtaining certificates - with the new <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>, FIA_X509_EXT.3 is selected because of FIA_XCU_EXT.2 claims (because the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will not have its own internal/embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>) but there is nothing forcing the specific enrollment method to be used. Right now this means any of PKCS10, <abbr class="dyn-abbr"><a href="#abbr_EST">EST</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_CMC">CMC</a></abbr>, or CMP must be used. If the idea is to only permit PKCS10/<abbr class="dyn-abbr"><a href="#abbr_EST">EST</a></abbr>, some way of communicating that must be applied.
+            <br>
+             - FIA_X509_EXT.1 must be claimed (it was mandatory in the old <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>). <abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> is expected as the only supported revocation methods. Specific additional guidance may be needed to limit the FIA_X509_EXT.1.3 selections to those values. SME input is needed as to whether any of the other selections in this component are mandatory or forbidden.
+            <br>
+             - FIA_X509_EXT.2 must be claimed (it was mandatory in the old <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>)
+            <br>
+             Also, right now we don't make an explicit statement in <a href="#FAU_GEN.1">FAU_GEN.1</a> that the corresponding audit events from the claimed functional package <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> must also be added to the audit table. Do we need that or is it sufficiently implied? </span> The scope of this Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>) is to describe the security functionality of mobile devices in terms of [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] and to define functional and assurance requirements for such devices. 
         <div class="no-link">
             <h2 id="glossary" class="indexable" data-level="2">1.2 Terms</h2>
              The following sections list Common Criteria and technology terms used in this document. 
@@ -604,7 +629,7 @@
             <dd>
                 <span class="description">
                     <br>
-                     An enterprise-owned device with intentionally limited network connectivity, tightly controlled configuration, and limited software inventory is appropriate for specialized, high-security use cases. For example, the device may not be permitted connectivity to any external peripherals. It may only be able to communicate via its Wi-Fi or cellular radios with the enterprise-run network, which may not even permit connectivity to the Internet. Use of the device may entail compliance with policies that are more restrictive than those in any general-purpose use case, yet may mitigate risks to highly sensitive information. As in the previous case, the enterprise will look for additional applications providing enterprise connectivity and services to have a similar level of assurance as the platform. <span style="" class="comment " id="Comment-1-"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> package currently points to 1.1, can't resolve until 2.1 is published. 2.1 will need to be checked for automation compatibility with this.</span> </span>
+                     An enterprise-owned device with intentionally limited network connectivity, tightly controlled configuration, and limited software inventory is appropriate for specialized, high-security use cases. For example, the device may not be permitted connectivity to any external peripherals. It may only be able to communicate via its Wi-Fi or cellular radios with the enterprise-run network, which may not even permit connectivity to the Internet. Use of the device may entail compliance with policies that are more restrictive than those in any general-purpose use case, yet may mitigate risks to highly sensitive information. As in the previous case, the enterprise will look for additional applications providing enterprise connectivity and services to have a similar level of assurance as the platform. <span style="" class="comment " id="Comment-2-"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> package currently points to 1.1, can't resolve until 2.1 is published. 2.1 will need to be checked for automation compatibility with this.</span> </span>
                 <p>
                      For changes to included <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>, selections, and assignments required for this use case, see <a href="#appendix-uc-secure" class="dynref">H.2 Enterprise-owned device for specialized, high security use</a>. 
                 </p>
@@ -4077,9 +4102,9 @@
                     <a href="#FCS_HTTPS_EXT.1.2" class="abbr">FCS_HTTPS_EXT.1.2</a>
                 </div>
                 <div class="reqdesc">
-                    The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> using <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as defined in [<i>the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 1.1</a></i>].
+                    The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall implement <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> using <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as defined in [<i>the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.1</a></i>].
                     <div class="appnote">
-                        <span class="note-header">Application Note: </span><span class="note"> The <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 1.1</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, with the following selections made: 
+                        <span class="note-header">Application Note: </span><span class="note"> The <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.1</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, with the following selections made: 
                             <ul>
                                 <li>FCS_TLS_EXT.1:</li>
                                 <ul>
@@ -4103,7 +4128,7 @@
                         <span class="note-header">Application Note: </span><span class="note"> Validity is determined by the certificate path, the expiration date, and the revocation status in accordance with RFC 5280. 
                             <br>
                             <br>
-                             If <a href="#s-not-estab">not establish the connection</a> is selected then "with no exceptions" must be selected for FCS_TLSC_EXT.1.3 in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 1.1</a>. If <a href="#s-req-app-auth">request application authorization to establish the connection</a> is selected then "except when override is authorized" must be selected for FCS_TLSC_EXT.1.3 in the Package for Transport Layer Security. If <a href="#s-no-other-action">no other action</a> is selected either selection can be made in FCS_TLSC_EXT.1.3.
+                             If <a href="#s-not-estab">not establish the connection</a> is selected then "the server certificate is invalid [with no <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>-specific exceptions]" must be selected for FCS_TLSC_EXT.1.6 in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.1</a>. If <a href="#s-req-app-auth">request application authorization to establish the connection</a> is selected then "the server certificate is invalid [except when override is authorized in the case where valid revocation information is not available]" must be selected for FCS_TLSC_EXT.1.6 in the Package for Transport Layer Security. If <a href="#s-no-other-action">no other action</a> is selected then "the server certificate is invalid" with either selection can be made in FCS_TLSC_EXT.1.6.
                             <br>
                             <br>
                              <a href="#FMT_SMF_EXT.1">FMT_SMF_EXT.1</a> Function <a href="#mf-certInvalid">23</a> configures whether to allow or disallow the establishment of a trusted channel if the peer certificate is deemed invalid. </span>
@@ -4150,7 +4175,7 @@
                                         <a id="_t_43" class="defined" href="#_t_43">Test FCS_HTTPS_EXT.1:1</a>: The evaluator shall attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> connection with a webserver, observe the traffic with a packet analyzer, and verify that the connection succeeds and that the traffic is identified as <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>. 
                                         <br>
                                         <br>
-                                         Other tests are performed in conjunction with testing in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 1.1</a>. 
+                                         Other tests are performed in conjunction with testing in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.1</a>. 
                                         <br>
                                         <br>
                                          Certificate validity shall be tested in accordance with testing performed for FIA_X509_EXT.1 as defined in the Functional Package for X.509, and the evaluator shall perform the following test: 
@@ -4231,7 +4256,7 @@
                             <span class="selectable-content" id="_s_128">CTR_DRBG (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>)</span>
                         </li>
                     </ul>
-                    ] in accordance with [<i><abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-90A</i>] after initialization with a seed. <span style="" class="comment " id="Comment-2-">need to refactor the rule that was previously contingent on the selectable "s-rbg-256". That used to be in FCS_RBG_EXT.1 but now it's a selection in <a href="#FCS_RBG.2">FCS_RBG.2</a>, .3, and .4 depending on what is selected.</span> 
+                    ] in accordance with [<i><abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-90A</i>] after initialization with a seed. <span style="" class="comment " id="Comment-3-">need to refactor the rule that was previously contingent on the selectable "s-rbg-256". That used to be in FCS_RBG_EXT.1 but now it's a selection in <a href="#FCS_RBG.2">FCS_RBG.2</a>, .3, and .4 depending on what is selected.</span> 
                     <div class="appnote">
                         <span class="note-header">Application Note: </span><span class="note"> <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-90A contains three different methods of generating random numbers; each of these, in turn, depends on underlying cryptographic primitives (hash functions/ciphers). The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author will select the function used and include the specific underlying cryptographic primitives used in the requirement or in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. While any of the identified hash functions (<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-224, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512) are allowed for Hash_DRBG or HMAC_DRBG, only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based implementations for CTR_DRBG are allowed. 
                             <br>
@@ -4275,7 +4300,7 @@
                     <a href="#FCS_RBG.1.3" class="abbr">FCS_RBG.1.3</a>
                 </div>
                 <div class="reqdesc">
-                     <span style="" class="comment " id="Comment-3-">do we want to require 'reseeding' for this? Or is uninstantiation still permissible?</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall update the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> state by [<b>selection</b>: <span class="selectable-content" id="_s_132">reseeding</span>, <span class="selectable-content" id="_s_133">uninstantiating and reinstantiating</span>] using a [<b>selection</b>: <span class="selectable-content" id="_s_134"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source [<b>assignment</b>: <span class="assignable-content">name of noise source</span>]</span>, <span class="selectable-content" id="_s_135"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding</span>] in the following situations: [<b>selection</b>: 
+                     <span style="" class="comment " id="Comment-4-">do we want to require 'reseeding' for this? Or is uninstantiation still permissible?</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall update the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> state by [<b>selection</b>: <span class="selectable-content" id="_s_132">reseeding</span>, <span class="selectable-content" id="_s_133">uninstantiating and reinstantiating</span>] using a [<b>selection</b>: <span class="selectable-content" id="_s_134"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source [<b>assignment</b>: <span class="assignable-content">name of noise source</span>]</span>, <span class="selectable-content" id="_s_135"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding</span>] in the following situations: [<b>selection</b>: 
                     <ul>
                         <li style="">
                             <span class="selectable-content" id="_s_136">on demand</span>
@@ -4368,7 +4393,7 @@
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
                     <div class="ea">
-                         <span style="" class="comment " id="Comment-4-">EAs needed for this</span> 
+                         <span style="" class="comment " id="Comment-5-">EAs needed for this</span> 
                     </div>
                     <div class="eacategory">Guidance</div>
                      There are no additional Guidance evaluation activities for this element.
@@ -5432,7 +5457,7 @@
                     The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a means for non-TSF applications executing on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use [<i>
                         <ul>
                             <li>
-                                Mutually authenticated <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 1.1</a>,
+                                Mutually authenticated <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.1</a>,
                             </li>
                             <li>
                                 <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>,
@@ -5441,7 +5466,7 @@
                         and [<b>selection</b>: 
                         <ul>
                             <li style="">
-                                <span class="selectable-content" id="upc_dtls">mutually authenticated <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 1.1</a></span>
+                                <span class="selectable-content" id="upc_dtls">mutually authenticated <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.1</a></span>
                             </li>
                             <li style="">
                                 <span class="selectable-content" id="s-upc-ipsec"><abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=467&amp;id=467">PP-Module for Virtual Private Network (VPN) Clients, version 2.4</a></span>
@@ -5461,7 +5486,7 @@
                              The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps.
                             <br>
                             <br>
-                             The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must be validated against requirements from the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 1.1</a>, with the following selections made: 
+                             The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must be validated against requirements from the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.1</a>, with the following selections made: 
                             <ul>
                                 <li>FCS_TLS_EXT.1:</li>
                                 <ul>
@@ -5472,16 +5497,21 @@
                                 </ul>
                                 <li>FCS_TLSC_EXT.1.1:</li>
                                 <ul>
-                                    <li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</li>
                                     <li>Mutual authentication must be selected</li>
                                 </ul>
-                                <li>FCS_TLSC_EXT.1.3</li>
+                                <li>FCS_TLSC_EXT.1.2:</li>
                                 <ul>
-                                    <li>With no exceptions is selected.</li>
+                                    <li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</li>
+                                </ul>
+                                <li>FCS_TLSC_EXT.1.6</li>
+                                <ul>
+                                    <li>
+                                        the server certificate is invalid [with no <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>-specific exceptions] is selected.
+                                    </li>
                                 </ul>
                             </ul>
                             <br>
-                             If <a href="#upc_dtls">mutually authenticated DTLS as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 1.1</a></a> is selected, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must be validated against requirements from the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 1.1</a>, with the following selections made: 
+                             If <a href="#upc_dtls">mutually authenticated DTLS as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.1</a></a> is selected, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must be validated against requirements from the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.1</a>, with the following selections made: 
                             <ul>
                                 <li>FCS_TLS_EXT.1:</li>
                                 <ul>
@@ -5492,12 +5522,17 @@
                                 </ul>
                                 <li>FCS_DTLSC_EXT.1.1:</li>
                                 <ul>
-                                    <li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</li>
                                     <li>Mutual authentication must be selected</li>
                                 </ul>
-                                <li>FCS_DTLSC_EXT.1.3</li>
+                                <li>FCS_DTLSC_EXT.1.2:</li>
                                 <ul>
-                                    <li>With no exceptions is selected.</li>
+                                    <li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</li>
+                                </ul>
+                                <li>FCS_DTLSC_EXT.1.6</li>
+                                <ul>
+                                    <li>
+                                        With no <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>-specific exceptions is selected.
+                                    </li>
                                 </ul>
                             </ul>
                             <br>
@@ -6209,7 +6244,7 @@
                     <a href="#FIA_X509_EXT.6.1" class="abbr">FIA_X509_EXT.6.1</a>
                 </div>
                 <div class="reqdesc">
-                     <span style="" class="comment " id="Comment-7-">changed to <a href="#FIA_X509_EXT.6">FIA_X509_EXT.6</a> (was .3) to avoid name collision with X.509 package.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a certificate validation service to applications. 
+                     <span style="" class="comment " id="Comment-8-">changed to <a href="#FIA_X509_EXT.6">FIA_X509_EXT.6</a> (was .3) to avoid name collision with X.509 package.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a certificate validation service to applications. 
                 </div>
             </div>
             <div class="element">
@@ -7973,7 +8008,7 @@
                             <br>
                             <div class="eacategory">Tests</div>
                             <div class="ea">
-                                The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in the Functional Package for X.509, FCS_TLSC_EXT.1.3 in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 1.1</a>. 
+                                The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in the Functional Package for X.509, FCS_TLSC_EXT.1.6 in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.1</a>. 
                             </div>
                             <br>
                         </div>
@@ -8633,7 +8668,7 @@
                     <a href="#FPT_FLS.1.1" class="abbr">FPT_FLS.1.1</a>
                 </div>
                 <div class="reqdesc">
-                     <span style="" class="comment " id="Comment-10-">This is included as a dependency on <a href="#FCS_RBG.1">FCS_RBG.1</a>. But since <a href="#FPT_NOT_EXT.1">FPT_NOT_EXT.1</a> is requiring the same behavior, it could be argued that the dependency is implicitly satisfied by an equivalent requirement.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall preserve a secure state when the following types of failures occur: [<i>DRBG failure</i>]. 
+                     <span style="" class="comment " id="Comment-11-">This is included as a dependency on <a href="#FCS_RBG.1">FCS_RBG.1</a>. But since <a href="#FPT_NOT_EXT.1">FPT_NOT_EXT.1</a> is requiring the same behavior, it could be argued that the dependency is implicitly satisfied by an equivalent requirement.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall preserve a secure state when the following types of failures occur: [<i>DRBG failure</i>]. 
                     <div class="appnote">
                         <span class="note-header">Application Note: </span><span class="note">The intent of this requirement is to ensure that cryptographic services requiring random bit generation cannot be performed if a failure of a self-test defined in <a href="#FPT_TST.1">FPT_TST.1</a> occurs.</span>
                     </div>
@@ -8652,7 +8687,7 @@
                     </div>
                     <div class="ea">
                         <div class="ea">
-                             <span style="" class="comment " id="Comment-11-">EAs needed for this.</span> 
+                             <span style="" class="comment " id="Comment-12-">EAs needed for this.</span> 
                         </div>
                     </div>
                     <div class="eacategory">Guidance</div>
@@ -9019,7 +9054,7 @@
                     <a href="#FPT_TST.1.1" class="abbr">FPT_TST.1.1</a>
                 </div>
                 <div class="reqdesc">
-                     <span style="" class="comment " id="Comment-12-">This is included as a dependency on <a href="#FCS_RBG.1">FCS_RBG.1</a>. But since <a href="#FPT_TST_EXT.1">FPT_TST_EXT.1</a> is requiring virtually the same behavior, it could be argued that the dependency is implicitly satisfied by an equivalent requirement.</span> <span style="" class="comment " id="Comment-13-">The whole <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is added for <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>:2022 dependency purposes - it (along with the EAs) should be reviewed for appropriateness.</span> <span style="" class="comment " id="Comment-14-">Do we want to mandate any specific tests to be done or specific situations the testing should be done? Generally we would assume that it be run at startup and then continuously, but not sure if that will always be true.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall run a suite of the following self-tests [<b>selection</b>: <span class="selectable-content" id="_s_380">during initial start-up</span>, <span class="selectable-content" id="_s_381">periodically during normal operation</span>, <span class="selectable-content" id="_s_382">at the request of the authorized user</span>, <span class="selectable-content" id="_s_383">at the conditions [<b>assignment</b>: <span class="assignable-content">conditions under which self-test should occur</span>]</span>] to demonstrate the correct operation of [<i><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> DRBG specified in <a href="#FCS_RBG.1">FCS_RBG.1</a></i>]. 
+                     <span style="" class="comment " id="Comment-13-">This is included as a dependency on <a href="#FCS_RBG.1">FCS_RBG.1</a>. But since <a href="#FPT_TST_EXT.1">FPT_TST_EXT.1</a> is requiring virtually the same behavior, it could be argued that the dependency is implicitly satisfied by an equivalent requirement.</span> <span style="" class="comment " id="Comment-14-">The whole <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is added for <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>:2022 dependency purposes - it (along with the EAs) should be reviewed for appropriateness.</span> <span style="" class="comment " id="Comment-15-">Do we want to mandate any specific tests to be done or specific situations the testing should be done? Generally we would assume that it be run at startup and then continuously, but not sure if that will always be true.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall run a suite of the following self-tests [<b>selection</b>: <span class="selectable-content" id="_s_380">during initial start-up</span>, <span class="selectable-content" id="_s_381">periodically during normal operation</span>, <span class="selectable-content" id="_s_382">at the request of the authorized user</span>, <span class="selectable-content" id="_s_383">at the conditions [<b>assignment</b>: <span class="assignable-content">conditions under which self-test should occur</span>]</span>] to demonstrate the correct operation of [<i><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> DRBG specified in <a href="#FCS_RBG.1">FCS_RBG.1</a></i>]. 
                 </div>
             </div>
             <div class="element">
@@ -9027,7 +9062,7 @@
                     <a href="#FPT_TST.1.2" class="abbr">FPT_TST.1.2</a>
                 </div>
                 <div class="reqdesc">
-                     <span style="" class="comment " id="Comment-15-">Not sure what we should do with this as the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> health testing doesn't actually verify the integrity of any data.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide authorized users with the capability to verify the integrity of [<b>selection</b>: <span class="selectable-content" id="_s_384">[<b>assignment</b>: <span class="assignable-content">parts of <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> data</span>]</span>, <span class="selectable-content" id="_s_385"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> data</span>] 
+                     <span style="" class="comment " id="Comment-16-">Not sure what we should do with this as the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> health testing doesn't actually verify the integrity of any data.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide authorized users with the capability to verify the integrity of [<b>selection</b>: <span class="selectable-content" id="_s_384">[<b>assignment</b>: <span class="assignable-content">parts of <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> data</span>]</span>, <span class="selectable-content" id="_s_385"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> data</span>] 
                 </div>
             </div>
             <div class="element">
@@ -9607,7 +9642,7 @@
                             <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS in accordance with the [<i><a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=386&amp;id=386">PP-Module for Wireless LAN Clients, version 1.0</a></i>],
                         </li>
                         <li>
-                            Mutually authenticated <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> in accordance with [<i>the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 1.1</a></i>]
+                            Mutually authenticated <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> in accordance with [<i>the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.1</a></i>]
                         </li>
                     </ul>
                      and [<b>selection</b>: 
@@ -9616,7 +9651,7 @@
                             <span class="selectable-content" id="s-itc-ipsec"><abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> in accordance with the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=467&amp;id=467">PP-Module for Virtual Private Network (VPN) Clients, version 2.4</a></span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="itc_dtls">mutually authenticated <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 1.1</a></span>
+                            <span class="selectable-content" id="itc_dtls">mutually authenticated <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.1</a></span>
                         </li>
                         <li style="">
                             <span class="selectable-content" id="_s_421"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>
@@ -9633,7 +9668,7 @@
                              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must be validated against the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=386&amp;id=386">PP-Module for Wireless LAN Clients, version 1.0</a> to satisfy the mandatory trusted channels of 802.11-2012, 802.1X, and <abbr class="dyn-abbr"><a href="#abbr_EAP">EAP</a></abbr>-TLS. 
                             <br>
                             <br>
-                             To satisfy the mandatory trusted channel of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> and if <a href="#itc_dtls">mutually authenticated DTLS</a> is selected, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must be validated against the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 1.1</a>, with the following selections made: 
+                             To satisfy the mandatory trusted channel of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> and if <a href="#itc_dtls">mutually authenticated DTLS</a> is selected, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must be validated against the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.1</a>, with the following selections made: 
                             <ul>
                                 <li>FCS_TLS_EXT.1:</li>
                                 <ul>
@@ -9644,12 +9679,15 @@
                                 </ul>
                                 <li>FCS_TLSC_EXT.1.1 or FCS_DTLSC_EXT.1.1 (as appropriate): </li>
                                 <ul>
-                                    <li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</li>
                                     <li>Mutual authentication must be selected</li>
                                 </ul>
-                                <li>FCS_TLSC_EXT.1.3 or FCS_DTLSC_EXT.1.3 (as appropriate): </li>
+                                <li>FCS_TLSC_EXT.1.2 or FCS_DTLSC_EXT.1.2 (as appropriate): </li>
                                 <ul>
-                                    <li>With no exceptions is selected.</li>
+                                    <li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</li>
+                                </ul>
+                                <li>FCS_TLSC_EXT.1.6 or FCS_DTLSC_EXT.1.6 (as appropriate): </li>
+                                <ul>
+                                    <li>A selection indicating there are no exceptions to rejecting a trusted channel is chosen.</li>
                                 </ul>
                             </ul>
                             <br>
@@ -9752,7 +9790,7 @@
                     <th>Threat</th><th>Addressed by</th><th>Rationale</th>
                 </tr>
                 <tr class="major-row">
-                    <td rowspan="55"><a href="#T.NETWORK_EAVESDROP">T.NETWORK_​EAVESDROP</a>
+                    <td rowspan="43"><a href="#T.NETWORK_EAVESDROP">T.NETWORK_​EAVESDROP</a>
                         <br>
                     </td><td><a href="#FCS_CKM.1">FCS_CKM.1</a></td><td><a href="#FCS_CKM.1">FCS_CKM.1</a> helps mitigate the threat of network eavesdrop by ensuring the generation of strong keys used for trusted communications.</td>
                 </tr>
@@ -9850,24 +9888,6 @@
                     <td>FCS_DTLSC_EXT.6 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
                 </tr>
                 <tr>
-                    <td>FCS_DTLSS_EXT.1 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_DTLSS_EXT.2 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_DTLSS_EXT.3 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_DTLSS_EXT.4 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_DTLSS_EXT.5 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_DTLSS_EXT.6 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
                     <td>FCS_TLSC_EXT.1 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
                 </tr>
                 <tr>
@@ -9886,24 +9906,6 @@
                     <td>FCS_TLSC_EXT.6 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
                 </tr>
                 <tr>
-                    <td>FCS_TLSS_EXT.1 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_TLSS_EXT.2 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_TLSS_EXT.3 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_TLSS_EXT.4 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_TLSS_EXT.5 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_TLSS_EXT.6 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
                     <td>FIA_ESTC_EXT.1 (X.509 Package)</td><td>FIA_ESTC_EXT.1 helps mitigate the threat of a network eavesdrop by using a secure method to obtain X.509 certificates for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s own use.</td>
                 </tr>
                 <tr>
@@ -9919,7 +9921,7 @@
                     <td>FIA_X509_EXT.3 (X.509 Package)</td><td>FIA_X509_EXT.3 helps mitigate the threat of network eavesdrop by defining a secure mechanism by which the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can acquire certificates for its own use.</td>
                 </tr>
                 <tr class="major-row">
-                    <td rowspan="67"><a href="#T.NETWORK_ATTACK">T.NETWORK_​ATTACK</a>
+                    <td rowspan="55"><a href="#T.NETWORK_ATTACK">T.NETWORK_​ATTACK</a>
                         <br>
                     </td><td><a href="#FAU_GEN.1">FAU_GEN.1</a></td><td><a href="#FAU_GEN.1">FAU_GEN.1</a> helps mitigate the threat of a network attack by maintaining an audit trail of potential malicious activity.</td>
                 </tr>
@@ -10053,24 +10055,6 @@
                     <td>FCS_DTLSC_EXT.6 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
                 </tr>
                 <tr>
-                    <td>FCS_DTLSS_EXT.1 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_DTLSS_EXT.2 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_DTLSS_EXT.3 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_DTLSS_EXT.4 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_DTLSS_EXT.5 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_DTLSS_EXT.6 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
                     <td>FCS_TLSC_EXT.1 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
                 </tr>
                 <tr>
@@ -10087,24 +10071,6 @@
                 </tr>
                 <tr>
                     <td>FCS_TLSC_EXT.6 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_TLSS_EXT.1 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_TLSS_EXT.2 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_TLSS_EXT.3 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_TLSS_EXT.4 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_TLSS_EXT.5 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
-                </tr>
-                <tr>
-                    <td>FCS_TLSS_EXT.6 (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package)</td><td>Helps mitigate the threat by defining the use of <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a trusted network communications channel.</td>
                 </tr>
                 <tr>
                     <td>FIA_ESTC_EXT.1 (X.509 Package)</td><td>FIA_ESTC_EXT.1 helps mitigate the threat of a network attack by using a secure method to obtain X.509 certificates for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s own use.</td>
@@ -11865,7 +11831,7 @@
                     <a href="#FIA_X509_EXT.4.1" class="abbr">FIA_X509_EXT.4.1</a>
                 </div>
                 <div class="reqdesc">
-                     <span style="" class="comment " id="Comment-8-">This is now defined in the X.509 package as FIA_ESTC_EXT.1. This is claimed if FIA_X509_EXT.3 is claimed in the package and RFC 7030 support is claimed. FIA_X509_EXT.3 should be claimed because FIA_XCU_EXT.2 would expect it to be claimed (the certs the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses to assert its own identity would be obtained via requesting them from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, not issuance from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> embedded within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself). FIA_XCU_EXT.2 would be claimed because FIA_XCU_EXT.1 would expect it to be claimed (the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> would have one or more certificates that it uses to assert its own identity). And FIA_XCU_EXT.1 would be claimed because it's mandatory. But it's not clear how that chain should be expressed here.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use the Enrollment over Secure Transport (<abbr class="dyn-abbr"><a href="#abbr_EST">EST</a></abbr>) protocol as specified in RFC 7030 to request certificate enrollment using the simple enrollment method described in RFC 7030 Section 4.2. 
+                     <span style="" class="comment " id="Comment-9-">This is now defined in the X.509 package as FIA_ESTC_EXT.1. This is claimed if FIA_X509_EXT.3 is claimed in the package and RFC 7030 support is claimed. FIA_X509_EXT.3 should be claimed because FIA_XCU_EXT.2 would expect it to be claimed (the certs the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses to assert its own identity would be obtained via requesting them from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, not issuance from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> embedded within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself). FIA_XCU_EXT.2 would be claimed because FIA_XCU_EXT.1 would expect it to be claimed (the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> would have one or more certificates that it uses to assert its own identity). And FIA_XCU_EXT.1 would be claimed because it's mandatory. But it's not clear how that chain should be expressed here.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use the Enrollment over Secure Transport (<abbr class="dyn-abbr"><a href="#abbr_EST">EST</a></abbr>) protocol as specified in RFC 7030 to request certificate enrollment using the simple enrollment method described in RFC 7030 Section 4.2. 
                 </div>
             </div>
             <div class="element">
@@ -12020,7 +11986,7 @@
                     <a href="#FIA_X509_EXT.5.1" class="abbr">FIA_X509_EXT.5.1</a>
                 </div>
                 <div class="reqdesc">
-                     <span style="" class="comment " id="Comment-9-">This is now defined in the X.509 package as FIA_X509_EXT.3 if FIA_X509_EXT.3.1 claims support for RFC 2986. FIA_X509_EXT.3 should be claimed because FIA_XCU_EXT.2 would expect it to be claimed (the certs the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses to assert its own identity would be obtained via requesting them from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, not issuance from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> embedded within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself). FIA_XCU_EXT.2 would be claimed because FIA_XCU_EXT.1 would expect it to be claimed (the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> would have one or more certificates that it uses to assert its own identity). And FIA_XCU_EXT.1 would be claimed because it's mandatory. But it's not clear how that chain should be expressed here.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a Certificate Request Message as specified in RFC 2986 and be able to provide the following information in the request: public key and [<b>selection</b>: <span class="selectable-content" id="_s_301">device-specific information</span>, <span class="selectable-content" id="_s_302">Common Name</span>, <span class="selectable-content" id="_s_303">Organization</span>, <span class="selectable-content" id="_s_304">Organizational Unit</span>, <span class="selectable-content" id="_s_305">Country</span>].
+                     <span style="" class="comment " id="Comment-10-">This is now defined in the X.509 package as FIA_X509_EXT.3 if FIA_X509_EXT.3.1 claims support for RFC 2986. FIA_X509_EXT.3 should be claimed because FIA_XCU_EXT.2 would expect it to be claimed (the certs the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses to assert its own identity would be obtained via requesting them from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, not issuance from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> embedded within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself). FIA_XCU_EXT.2 would be claimed because FIA_XCU_EXT.1 would expect it to be claimed (the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> would have one or more certificates that it uses to assert its own identity). And FIA_XCU_EXT.1 would be claimed because it's mandatory. But it's not clear how that chain should be expressed here.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a Certificate Request Message as specified in RFC 2986 and be able to provide the following information in the request: public key and [<b>selection</b>: <span class="selectable-content" id="_s_301">device-specific information</span>, <span class="selectable-content" id="_s_302">Common Name</span>, <span class="selectable-content" id="_s_303">Organization</span>, <span class="selectable-content" id="_s_304">Organizational Unit</span>, <span class="selectable-content" id="_s_305">Country</span>].
                     <div class="appnote">
                         <span class="note-header">Application Note: </span><span class="note">The public key referenced in <a href="#FIA_X509_EXT.5.1">FIA_X509_EXT.5.1</a> is the public key portion of the public-private key pair generated by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as specified in <a href="#FCS_CKM.1">FCS_CKM.1</a>. The trusted channel requirements do not apply to communication with the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> for the certificate request/response messages. 
                             <br>
@@ -12852,7 +12818,7 @@
                     <a href="#FCS_RBG.2.1" class="abbr">FCS_RBG.2.1</a>
                 </div>
                 <div class="reqdesc">
-                     <span style="" class="comment " id="Comment-5-">In reality we probably don't need this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> because the whole device is inside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to accept a minimum input of [<b>assignment</b>: <span class="assignable-content">minimum input length greater than zero</span>] from a <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for the purpose of seeding. 
+                     <span style="" class="comment " id="Comment-6-">In reality we probably don't need this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> because the whole device is inside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to accept a minimum input of [<b>assignment</b>: <span class="assignable-content">minimum input length greater than zero</span>] from a <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for the purpose of seeding. 
                     <div class="appnote">
                         <span class="note-header">Application Note: </span><span class="note">This requirement is claimed when a DRBG is seeded with entropy from one or more noise source that is outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary. Typically the entropy produced by an environmental noise source is conditioned such that the input length has full entropy and is therefore usable as the seed. However, if this is not the case, it should be noted what the minimum entropy rate of the noise source is so that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can collect a sufficiently large sample of noise data to be conditioned into a seed value.</span>
                     </div>
@@ -12987,7 +12953,7 @@
                     <a href="#FCS_RBG.5.1" class="abbr">FCS_RBG.5.1</a>
                 </div>
                 <div class="reqdesc">
-                     <span style="" class="comment " id="Comment-6-">Note right now that we only have this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> when <a href="#FCS_RBG.4">FCS_RBG.4</a> (multiple internal seeds) is claimed. But technically the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> allows combining of both internal and external sources. I don't know if that use case is something we should realistically try to account for this because it may be very confusing to express in terms of defining the conditions for when this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies. i.e. it would apply if at least one of the following is true: - <a href="#FCS_RBG.4">FCS_RBG.4</a> is claimed (with or without <a href="#FCS_RBG.2">FCS_RBG.2</a>) - <a href="#FCS_RBG.2">FCS_RBG.2</a> and <a href="#FCS_RBG.3">FCS_RBG.3</a> are claimed</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>assignment</b>: <span class="assignable-content">combining operation</span>] [<b>selection</b>: <span class="selectable-content" id="_s_143">output from <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source(s)</span>, <span class="selectable-content" id="_s_144">input from <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface(s) for seeding</span>] to create the entropy input into the derivation function as defined in [<b>assignment</b>: <span class="assignable-content">list of standards</span>], resulting in a minimum of [<b>assignment</b>: <span class="assignable-content">number of bits</span>] bits of min-entropy. 
+                     <span style="" class="comment " id="Comment-7-">Note right now that we only have this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> when <a href="#FCS_RBG.4">FCS_RBG.4</a> (multiple internal seeds) is claimed. But technically the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> allows combining of both internal and external sources. I don't know if that use case is something we should realistically try to account for this because it may be very confusing to express in terms of defining the conditions for when this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies. i.e. it would apply if at least one of the following is true: - <a href="#FCS_RBG.4">FCS_RBG.4</a> is claimed (with or without <a href="#FCS_RBG.2">FCS_RBG.2</a>) - <a href="#FCS_RBG.2">FCS_RBG.2</a> and <a href="#FCS_RBG.3">FCS_RBG.3</a> are claimed</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>assignment</b>: <span class="assignable-content">combining operation</span>] [<b>selection</b>: <span class="selectable-content" id="_s_143">output from <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source(s)</span>, <span class="selectable-content" id="_s_144">input from <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface(s) for seeding</span>] to create the entropy input into the derivation function as defined in [<b>assignment</b>: <span class="assignable-content">list of standards</span>], resulting in a minimum of [<b>assignment</b>: <span class="assignable-content">number of bits</span>] bits of min-entropy. 
                 </div>
             </div>
             <div class="activity_pane hide">
@@ -14178,7 +14144,7 @@
                             </tr>
                         </table>
                         <h4 id="ext-comp-FIA_X509_EXT.6.1">FIA_X509_EXT.6.1</h4>
-                         <span style="" class="comment " id="Comment-7-">changed to <a href="#FIA_X509_EXT.6">FIA_X509_EXT.6</a> (was .3) to avoid name collision with X.509 package.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a certificate validation service to applications. 
+                         <span style="" class="comment " id="Comment-8-">changed to <a href="#FIA_X509_EXT.6">FIA_X509_EXT.6</a> (was .3) to avoid name collision with X.509 package.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide a certificate validation service to applications. 
                         <h4 id="ext-comp-FIA_X509_EXT.6.2">FIA_X509_EXT.6.2</h4>
                         The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall respond to the requesting application with the success or failure of the validation. 
                     </div>
@@ -14208,7 +14174,7 @@
                             </tr>
                         </table>
                         <h4 id="ext-comp-FIA_X509_EXT.4.1">FIA_X509_EXT.4.1</h4>
-                         <span style="" class="comment " id="Comment-8-">This is now defined in the X.509 package as FIA_ESTC_EXT.1. This is claimed if FIA_X509_EXT.3 is claimed in the package and RFC 7030 support is claimed. FIA_X509_EXT.3 should be claimed because FIA_XCU_EXT.2 would expect it to be claimed (the certs the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses to assert its own identity would be obtained via requesting them from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, not issuance from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> embedded within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself). FIA_XCU_EXT.2 would be claimed because FIA_XCU_EXT.1 would expect it to be claimed (the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> would have one or more certificates that it uses to assert its own identity). And FIA_XCU_EXT.1 would be claimed because it's mandatory. But it's not clear how that chain should be expressed here.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use the Enrollment over Secure Transport (<abbr class="dyn-abbr"><a href="#abbr_EST">EST</a></abbr>) protocol as specified in RFC 7030 to request certificate enrollment using the simple enrollment method described in RFC 7030 Section 4.2. 
+                         <span style="" class="comment " id="Comment-9-">This is now defined in the X.509 package as FIA_ESTC_EXT.1. This is claimed if FIA_X509_EXT.3 is claimed in the package and RFC 7030 support is claimed. FIA_X509_EXT.3 should be claimed because FIA_XCU_EXT.2 would expect it to be claimed (the certs the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses to assert its own identity would be obtained via requesting them from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, not issuance from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> embedded within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself). FIA_XCU_EXT.2 would be claimed because FIA_XCU_EXT.1 would expect it to be claimed (the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> would have one or more certificates that it uses to assert its own identity). And FIA_XCU_EXT.1 would be claimed because it's mandatory. But it's not clear how that chain should be expressed here.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use the Enrollment over Secure Transport (<abbr class="dyn-abbr"><a href="#abbr_EST">EST</a></abbr>) protocol as specified in RFC 7030 to request certificate enrollment using the simple enrollment method described in RFC 7030 Section 4.2. 
                         <h4 id="ext-comp-FIA_X509_EXT.4.2">FIA_X509_EXT.4.2</h4>
                         The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of authenticating <abbr class="dyn-abbr"><a href="#abbr_EST">EST</a></abbr> requests using an existing certificate and corresponding private key as specified by RFC 7030 Section 3.3.2.
                         <h4 id="ext-comp-FIA_X509_EXT.4.3">FIA_X509_EXT.4.3</h4>
@@ -14241,7 +14207,7 @@
                             </tr>
                         </table>
                         <h4 id="ext-comp-FIA_X509_EXT.5.1">FIA_X509_EXT.5.1</h4>
-                         <span style="" class="comment " id="Comment-9-">This is now defined in the X.509 package as FIA_X509_EXT.3 if FIA_X509_EXT.3.1 claims support for RFC 2986. FIA_X509_EXT.3 should be claimed because FIA_XCU_EXT.2 would expect it to be claimed (the certs the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses to assert its own identity would be obtained via requesting them from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, not issuance from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> embedded within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself). FIA_XCU_EXT.2 would be claimed because FIA_XCU_EXT.1 would expect it to be claimed (the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> would have one or more certificates that it uses to assert its own identity). And FIA_XCU_EXT.1 would be claimed because it's mandatory. But it's not clear how that chain should be expressed here.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a Certificate Request Message as specified in RFC 2986 and be able to provide the following information in the request: public key and [<b>selection</b>: <span class="selectable-content" id="_s_301">device-specific information</span>, <span class="selectable-content" id="_s_302">Common Name</span>, <span class="selectable-content" id="_s_303">Organization</span>, <span class="selectable-content" id="_s_304">Organizational Unit</span>, <span class="selectable-content" id="_s_305">Country</span>].
+                         <span style="" class="comment " id="Comment-10-">This is now defined in the X.509 package as FIA_X509_EXT.3 if FIA_X509_EXT.3.1 claims support for RFC 2986. FIA_X509_EXT.3 should be claimed because FIA_XCU_EXT.2 would expect it to be claimed (the certs the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses to assert its own identity would be obtained via requesting them from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>, not issuance from a <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> embedded within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself). FIA_XCU_EXT.2 would be claimed because FIA_XCU_EXT.1 would expect it to be claimed (the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> would have one or more certificates that it uses to assert its own identity). And FIA_XCU_EXT.1 would be claimed because it's mandatory. But it's not clear how that chain should be expressed here.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate a Certificate Request Message as specified in RFC 2986 and be able to provide the following information in the request: public key and [<b>selection</b>: <span class="selectable-content" id="_s_301">device-specific information</span>, <span class="selectable-content" id="_s_302">Common Name</span>, <span class="selectable-content" id="_s_303">Organization</span>, <span class="selectable-content" id="_s_304">Organizational Unit</span>, <span class="selectable-content" id="_s_305">Country</span>].
                         <h4 id="ext-comp-FIA_X509_EXT.5.2">FIA_X509_EXT.5.2</h4>
                         The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall validate the chain of certificates from the Root <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> upon receiving the <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> Certificate Response.
                     </div>
@@ -15760,8 +15726,6 @@
                     <div class="uc_inc_pkg">
                          From the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS)</a>: 
                     </div>
-                    <div class="uc_from_fel"> From FCS_TLSC_EXT.1.3:</div>
-                    <div class="uc_sel">* select with no exceptions</div>
                 </td>
             </tr>
         </table>
@@ -15791,8 +15755,6 @@
                     <div class="uc_inc_pkg">
                          From the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS)</a>: 
                     </div>
-                    <div class="uc_from_fel"> From FCS_TLSC_EXT.1.3:</div>
-                    <div class="uc_sel">* select except when override is authorized</div>
                 </td>
             </tr>
         </table>
@@ -15903,8 +15865,6 @@
         </div>
         <div class="uc_from_fel"> From FCS_TLSC_EXT.1.1:</div>
         <div class="uc_sel">* select mutual authentication</div>
-        <div class="uc_from_fel"> From FCS_TLSC_EXT.1.3:</div>
-        <div class="uc_sel">* select with no exceptions</div>
         <h2 id="r-dtls"> Rule #11</h2>
         <div></div>
         <table class="uc_table_or" style="border: 1px solid black">
@@ -15937,8 +15897,6 @@
                     </div>
                     <div class="uc_from_fel"> From FCS_DTLSC_EXT.1.1:</div>
                     <div class="uc_sel">* select mutual authentication</div>
-                    <div class="uc_from_fel"> From FCS_DTLSC_EXT.1.3:</div>
-                    <div class="uc_sel">* select with no exceptions</div>
                 </td>
             </tr>
         </table>
@@ -16301,11 +16259,6 @@
                     <div class="uc_inc_pkg">
                          From the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS)</a>: 
                     </div>
-                    <div class="uc_from_fel"> From FCS_TLSS_EXT.1.3:</div>
-                    <div class="uc_sel">
-                        * select ECDHE parameters using elliptic curves [<b>selection</b>: <span class="selectable-content" id="_s_89">secp256r1</span>, <span class="selectable-content" id="s-tls-secp384">secp384r1</span>, <span class="selectable-content" id="_s_91">secp521r1</span>] and no other curves 
-                    </div>
-                    <div class="uc_sel">* select secp384r1</div>
                 </td>
             </tr>
         </table>
