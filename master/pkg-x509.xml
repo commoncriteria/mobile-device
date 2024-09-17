@@ -26,7 +26,7 @@
   <pp-preferences>
 <!--        <pp-pref name="display-audit-with-sfrs">0</pp-pref> -->
     <audit-events-in-sfrs/>
-    <using-cc2022/>
+   <using-cc2022/> 
   </pp-preferences>
 
 	
@@ -2076,7 +2076,7 @@
 			
 		</f-component>
 		
-		<ext-comp-def fam-id="" title="Trust Store Management">
+		<ext-comp-def fam-id="FIA_TSM_EXT" title="Trust Store Management">
 			<fam-behavior>Components in this family define requirements for the TOE on how to manage trust stores.</fam-behavior>
 		</ext-comp-def>
 		
@@ -2247,6 +2247,7 @@
 		</ext-comp-def>
 		
 		<f-component name="X.509 Certificate Validation" cc-id="fia_x509_ext.1" id="fia-x509-ext-1" status="sel-based">
+			<depends on="toe-verifies-certs"/>
 			<comp-lev> requires the TSF to check and validate certificates in accordance with the RFCs and rules specified in the component.</comp-lev>
 			<management>No specific management functions are identified.</management>
 			<audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST:
@@ -2258,7 +2259,6 @@
 				FCS_COP.1 Cryptographic Operation<h:br/>
 				FIA_XCU_EXT.1 X.509 Certificate Utilization
 			</dependencies>
-			<depends on="toe-verifies-certs"/>
 			<f-element id="fia-x509-ext-1e1">
 				<title>
 					The TSF shall  <selectables>
@@ -2721,6 +2721,7 @@
 		</f-component>
 				
 		<f-component name="X.509 Certificate Support for Functions" cc-id="fia_x509_ext.2" status="sel-based">
+			<depends on="toe-verifies-certs" also="toe-requests-certs"/>
 			
 			<comp-lev> requires the TSF to use certificates to authenticate peers in protocols that support certificates, as well as
 				for integrity verification and potentially other functions that require certificates.</comp-lev>
@@ -2731,7 +2732,6 @@
 				FIA_XCU_EXT.1 X.509 Certificate Utilization	
 			</dependencies>
 			
-			<depends on="toe-verifies-certs" also="toe-requests-certs"/>
 			<f-element id="fia-x509-ext-2e1">
 				<title>
 					The TSF shall
@@ -2745,10 +2745,12 @@
 							authenticated communications protocol</assignable></selectable>
 						</selectables>
 						</selectable>
-						<selectable> <selectables><selectable>code signing for system software updates</selectable><selectable>code 
+						<selectable> <selectables><selectable id="x509-updates">code signing for system software updates</selectable>
+							<selectable id="x509-integrity">code 
 							signing for software integrity testing</selectable><selectable>integrity verification for TSF protected 
-								data</selectable><selectable>administrator authentication</selectable><selectable>user authentication 
-								</selectable><selectable> <assignable>other uses</assignable></selectable></selectables></selectable>
+								data</selectable><selectable id="x509-admin-auth">administrator authentication</selectable>
+							<selectable id="x509-user-auth">user authentication 
+								</selectable><selectable id="x509-other-uses"> <assignable>other uses</assignable></selectable></selectables></selectable>
 						</selectables>					
 				</title>
 				<note role="Application">

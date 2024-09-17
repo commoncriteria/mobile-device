@@ -1,9 +1,9 @@
 * Warning: This document still has at least one comment.
 * Error: Detected dangling id-reference to x509_sign from attribute
         on/PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fpt[1]""/f-component[23]""/depends[1]""/on[1]""
-* Error: Detected dangling id-reference to x509_sys from attribute
+* Error: Detected dangling id-reference to x509-updates from attribute
         on/PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fpt[1]""/f-component[27]""/depends[1]""/on[1]""
-* Error: Detected dangling id-reference to x509_apps from attribute
+* Error: Detected dangling id-reference to x509-other-uses from attribute
         also/PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fpt[1]""/f-component[27]""/depends[1]""/also[1]""
 * Error: Detected dangling ref-id to 's-rbg-256'.
 	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/ref-id[2]"s-rbg-256"
