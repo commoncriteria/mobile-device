@@ -102,10 +102,8 @@
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[9]""/f-component[1]""/f-element[1]""
 * Error: f-element FTP_ITC_EXT.1.2  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[9]""/f-component[1]""/f-element[2]""
-* Error: Detected dangling ref-id to 'mf-certValidity'.
-	  /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[12]""/f-element[2]""/note[1]"The TOE m"/rule[1]""/then[1]""/ref-id[1]"mf-certVa"
-* Error: Detected dangling ref-id to 'mf-certValidity'.
-	  /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[12]""/f-element[2]""/note[1]"The TOE m"/rule[2]""/then[1]""/ref-id[1]"mf-certVa"
+* Error: Detected multiple elements with an id of 'fmt_smf'.
+* Error: Detected multiple elements with an id of 'fmt_smf'.
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[3]""
@@ -133,38 +131,16 @@
 * Rules without a 'Validation Guidelines' appendix has been detected.
  Failed to find a reference to Security_Requirements.
  Failed to find a reference to t-audit-additional.
- Failed to find a reference to fmt_smf.
  Failed to find a reference to t-audit-additional.
  Failed to find a reference to t-audit-additional.
  Failed to find a reference to t-audit-additional.
  Failed to find a reference to t-audit-additional.
  Failed to find a reference to t-audit-additional.
  Failed to find a reference to t-audit-additional.
- Failed to find a reference to mf-auditLogs.
- Failed to find a reference to mf-auditLogs.
- Failed to find a reference to mf-certInvalid.
  Failed to find a reference to ivtable.
  Failed to find a reference to ivtable.
- Failed to find a reference to mf-keyStorage.
- Failed to find a reference to mf-keyWipe.
- Failed to find a reference to mf-sharedKeys.
- Failed to find a reference to mf-sharedKeys.
- Failed to find a reference to mf-keyWipeRules.
- Failed to find a reference to mf-keyWipeRules.
- Failed to find a reference to mf-appGroups.
- Failed to find a reference to mf-appGroups.
- Failed to find a reference to mf-alwaysOnVPN.
- Failed to find a reference to mf-screenlock.
  Failed to find a reference to t-locks.
  Failed to find a reference to t-locks.
- Failed to find a reference to mf-audioVisual.
- Failed to find a reference to mf-certValidity.
- Failed to find a reference to fmt_smf.
- Failed to find a reference to fmt_smf.
- Failed to find a reference to fmt_smf.
- Failed to find a reference to mf-screenlock.
- Failed to find a reference to mf-lockState.
- Failed to find a reference to mf-unlockBanner.
  Failed to find a reference to sel-based-reqs.
  Failed to find a reference to Security_Problem_Description.
  Failed to find a reference to sfr.
@@ -175,4 +151,3 @@
  Failed to find a reference to sfr.
  Failed to find a reference to sfr.
  Failed to find a reference to sfr.
- Failed to find a reference to mf-digSign.
