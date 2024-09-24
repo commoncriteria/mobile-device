@@ -5761,7 +5761,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <b><span class="ctr" data-myid="fmt_smf" data-counter-type="ct-Table" id="fmt_smf">Table <span class="counter">7</span>: Management Functions</span></b><br/><br/> 
               Status Markers:<br/> M - Mandatory<br/> O - Optional/Objective<br/>
               
-              <table class="mfs" style="width: 100%;"><tr class="header"><td>#</td><td>Management Function</td><td>Impl.</td><td>User Only</td><td>Admin</td><td>Admin Only</td></tr>
+              <table class="mfs" style="width: 100%;"><tr class="header"><td>#</td><td>Management Function</td><td>Impl.</td><td>User Only</td><td>Admin</td><td>Admin Only</td><td>Application Notes</td></tr>
 <tr id="mf-pwd"><td>1</td><td style="text-align:left">
                      configure password policy:
                       <ul>
@@ -5784,32 +5784,106 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                       <li>Across device</li></ul>
                     <div class="indent">
 					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="s-vpn-per-app">on a per-app basis</span></li><li style=""><span class="selectable-content" id="s-vpn-per-appgroup">on a per-group of applications processes basis</span></li><li style=""><span class="selectable-content" id="_s_308">no other method</span></li></ul>]</div>
-                  </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		  Functions <a href="#mf-vpn">3</a>
+          , <a href="#mf-audioVisual">5</a>
+          , and <a href="#mf-location">21</a> must be implemented on a device-wide basis but may also be
+		  implemented on a per-app basis or on a per-group of applications basis in which the
+		  configuration includes the list of applications or groups of applications to which the
+		  enable/disable applies.</p><p>
+		  Function <a href="#mf-vpn">3</a> addresses
+		  enabling and disabling the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> only. The configuration of the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Client itself
+		  (with information such as <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Gateway, certificates, and algorithms) is addressed by
+		  the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=467&amp;id=467">PP-Module for Virtual Private Network (VPN) Clients,
+        version 
+        2.4</a>. The administrator options should only be listed if the
+		  administrator can remotely enable/disable the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> connection.
+		  <p>
+		  Function <a href="#mf-vpn">3</a> optionally allows the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> to be configured per-app or
+		  per-groups of apps. If this configuration is selected, it does not void <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a>.
+		  Instead <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a> is applied to the application or group of applications the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>
+		  is applied to. In other words, all traffic destined for the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>-enabled application or
+		  group of applications, must travel through the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>, but traffic not destined for that
+		  application or group of applications can travel outside the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>. When the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is
+		  configured across the device <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a> applies to all traffic and the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> must not
+		  split tunnel.
+		  </p>
+		  </p></td></tr>
 <tr id="mf-radios"><td>4</td><td style="text-align:left">
                      enable/disable
                       [<b>assignment</b>: 
-     <span class="assignable-content" id="a-mf-radios">list of all radios</span>]</td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+     <span class="assignable-content" id="a-mf-radios">list of all radios</span>]</td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+			The assignment in function <a href="#mf-radios">4</a>
+              consists of all radios present on the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, such as Wi-Fi, cellular, <abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr>,
+              Bluetooth <abbr class="dyn-abbr"><a href="#abbr_BR/EDR">BR/EDR</a></abbr>, and Bluetooth <abbr class="dyn-abbr"><a href="#abbr_LE">LE</a></abbr>, which can be enabled and disabled.
+	      In the future,
+              if both Bluetooth <abbr class="dyn-abbr"><a href="#abbr_BR/EDR">BR/EDR</a></abbr> and Bluetooth <abbr class="dyn-abbr"><a href="#abbr_LE">LE</a></abbr> are supported, they will be required to be
+              enabled and disabled separately. Disablement of the cellular radio does not imply that
+              the radio may not be enabled in order to place emergency phone calls; however, it is
+              not expected that a device in "airplane mode", where all radios are disabled, will
+              automatically (without authorization) turn on the cellular radio to place emergency
+              calls.</p></td></tr>
 <tr id="mf-audioVisual"><td>5</td><td style="text-align:left">
                      enable/disable
                      [<b>assignment</b>: 
      <span class="assignable-content" id="a-audiovisual-devs">list of audio or visual collection devices</span>]: <ul>
                       <li>Across device</li></ul>
                     <div class="indent">[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="s-audiovisual-per-app">on a per-app basis</span></li><li style=""><span class="selectable-content" id="s-audiovisual-per-appgroup">on a per-group of applications processes basis</span></li><li style=""><span class="selectable-content" id="_s_311">no other method</span></li></ul>]</div>
-                  </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>The assignment in function <a href="#mf-audioVisual">5</a>
+              consists of at least one audio or visual device, such as camera and microphone,
+              which can be enabled and disabled by either the user or administrator. Disablement of
+              the microphone does not imply that the microphone may not be enabled in order to place
+              emergency phone calls. If certain devices are able to be restricted to the enterprise
+              (either device-wide, per-app or per-group of applications) and others are able to be
+              restricted to users, then this function should be iterated in the table with the
+              appropriate table entries.
+	      <p>
+		Regarding functions <a href="#mf-radios">4</a> and <a href="#mf-audioVisual">5</a>,
+		disablement of a particular
+              radio or audio/visual device must be effective as soon as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has power.
+              Disablement must also apply when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is booted into auxiliary boot modes, for
+              example, associated with updates or backup. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports states in which
+              security management policy is inaccessible, for example, due to data-at-rest
+              protection, it is acceptable to meet this requirement by ensuring that these devices
+              are disabled by default while in these states. That these devices are disabled during
+              auxiliary boot modes does not imply that the device (particularly the cellular radio)
+              may not be enabled in order to perform emergency phone calls. 
+	      </p>
+		  </p></td></tr>
 <tr id="mf-lockState"><td>6</td><td style="text-align:left">
                     
                      transition to the locked
                     state </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr>
 <tr id="mf-wipe"><td>7</td><td style="text-align:left">
                     
-                     <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> wipe of protected data </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr>
+                     <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> wipe of protected data </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td style="text-align:left"><p>
+		    Wipe  of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> (function <a href="#mf-wipe">7</a>) is performed according to
+		    <a href="#FCS_CKM_EXT.5">FCS_CKM_EXT.5</a>.
+		    Protected data is all non-TSF data, including all user or enterprise data. Some or all
+		  of this data may be considered sensitive data as well.</p></td></tr>
 <tr id="mf-appInstallRules"><td>8</td><td style="text-align:left">
                     
                      configure
                     application installation policy by <div class="indent">[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="mf-appInstallRules-restrict">restricting the sources of applications</span></li><li style=""><span class="selectable-content" id="mf-appInstallRules-specify">specifying a set of allowed applications based on
                             [<b>assignment</b>: 
      <span class="assignable-content">application characteristics</span>] (an application allowlist)</span></li><li style=""><span class="selectable-content" id="mf-appInstallRules-deny">denying installation of applications</span></li></ul>]</div>
-                  </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td></tr>
+                  </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td style="text-align:left"><p>
+		    The
+		    selection in function <a href="#mf-appInstallRules">8</a> allows the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author to
+		    select which mechanisms are available to the administrator through the <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agent to
+		    restrict the applications which the user may install. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must state if
+		    application allowlist is applied device-wide or if it can be specified to apply to
+		    either the Enterprise or Personal applications. <ul>
+                    <li>If the administrator can restrict the sources from which applications can be
+                    installed, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<a href="#mf-appInstallRules-restrict">restricting the sources of applications</a>". </li>
+                    <li>If the administrator can specify a allowlist of allowed applications, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>
+                    author selects "<a href="#mf-appInstallRules-specify">application allowlist</a>". The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should list any application characteristics
+                    (e.g. name, version, or developer) based on which the allowlist can be
+                    formed.</li>
+                    <li>If the administrator can prevent the user from installing additional
+                    applications, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<a href="#mf-appInstallRules-deny">denying installation of applications</a>". </li>
+		  </ul>
+		  </p></td></tr>
 <tr id="mf-keyStorage"><td>9</td><td style="text-align:left">
                     
                      import keys or secrets into
@@ -5829,78 +5903,178 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                      remove imported X.509v3
                     certificates and [<b>selection</b>: <span class="selectable-content" id="_s_317">no other X.509v3 certificates</span>, <span class="selectable-content" id="_s_318">[<b>assignment</b>: 
      <span class="assignable-content">list of other categories of X.509v3
-                          certificates</span>]</span>] in the Trust Anchor Database </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr>
+                          certificates</span>]</span>] in the Trust Anchor Database </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td style="text-align:left"><p>
+		      In the future, function <a href="#mf-certWipe">12</a> may require
+              destruction or disabling of any default trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificates, excepting those <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>
+              certificates necessary for continued operation of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, such as the developer’s
+              certificate. At this time, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must indicate in the assignment whether
+              pre-installed or any other category of X.509v3 certificates may be removed from the
+              Trust Anchor Database.
+		    </p></td></tr>
 <tr id="mf-enroll"><td>13</td><td style="text-align:left">
                     
-                     enroll the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in management </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                     enroll the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in management </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		      For function <a href="#mf-enroll">13</a>, the
+		      enrollment function may be installing an <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> agent and includes the policies to be
+		      applied to the device. It is acceptable for the user approval notice to require the
+		      user to intentionally opt to view the policies (for example, by "tapping" on a "View"
+		      icon) rather than listing the policies in full in the notice.
+		    </p></td></tr>
 <tr id="mf-appRemove"><td>14</td><td style="text-align:left">
                     
                      remove applications </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
 <tr id="mf-update"><td>15</td><td style="text-align:left">
                     
-                     update system software </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                     update system software </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		      For function <a href="#mf-update">15</a>, the administrator capability to update the system
+		      software may be limited to causing a prompt to the user to update rather than the
+		      ability to initiate the update itself. As the administrator is likely to be acting
+		      remotely, he/she would be unaware of inopportune situations, such as low power, which
+		      may cause the update to fail and the device to become inoperable. The user can refuse
+		      to accept the update in such situations. It is expected that system architects will be
+		      cognizant of this limitation and will enforce network access controls in order to
+		      enforce enterprise-critical updates.
+		    </p></td></tr>
 <tr id="mf-appInstall"><td>16</td><td style="text-align:left">
                     
-                     install applications </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                     install applications </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		      Function <a href="#mf-appInstall">16</a> addresses both installation and update. This protection profile
+              does not distinguish between installation and update of applications because mobile
+              devices typically completely overwrite the previous installation with a new
+              installation during an application update.
+		    </p></td></tr>
 <tr id="mf-entAppRemove"><td>17</td><td style="text-align:left">
                     
                      remove Enterprise
-                  applications </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr>
+                  applications </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td style="text-align:left"><p>
+		    For function <a href="#mf-entAppRemove">17</a>, "Enterprise applications" are those applications that belong
+              to the Enterprise application group. Applications installed by the enterprise
+              administrator (including automatic installation by the administrator after being
+              requested by the user from a catalog of enterprise applications) are by default placed
+              in the Enterprise application group unless an exception has been made in function
+              <a href="#mf-appGroups">43</a> of <a href="#FMT_SMF_EXT.1.1">FMT_SMF_EXT.1.1</a>.
+		  </p></td></tr>
 <tr id="mf-notifications"><td>18</td><td style="text-align:left">
                     
                      enable/disable
                     display notification in the locked state of: [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_319">email notifications</span></li><li style=""><span class="selectable-content" id="_s_320">calendar appointments</span></li><li style=""><span class="selectable-content" id="_s_321">contact associated with phone call notification</span></li><li style=""><span class="selectable-content" id="_s_322">text message notification</span></li><li style=""><span class="selectable-content" id="_s_323">[<b>assignment</b>: 
      <span class="assignable-content">other application-based notifications</span>]</span></li><li style=""><span class="selectable-content" id="_s_324">all notifications</span></li></ul>]
-                  </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    If the display
+              of notifications in the locked state is supported, the configuration of these
+              notifications (function <a href="#mf-notifications">18</a>) must be included in the
+              selection.
+		  </p></td></tr>
 <tr id="mf-dar"><td>19</td><td style="text-align:left">
                     
-                     enable data-at rest protection </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                     enable data-at rest protection </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		      Function <a href="#mf-dar">19</a> must be included in the
+		      selection if data-at-rest protection is not natively enabled.
+		    </p></td></tr>
 <tr id="mf-rmediaDar"><td>20</td><td style="text-align:left">
                     
                      enable removable media’s
-                    data-at-rest protection </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                    data-at-rest protection </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		      Function <a href="#mf-rmediaDar">20</a> is implicitly met if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not support
+		      removable media.
+		    </p></td></tr>
 <tr id="mf-location"><td>21</td><td style="text-align:left">
                     
                      enable/disable location
                     services: <ul>
                       <li>Across device</li></ul>
                     <div class="indent">[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="mf-location-per_app">on a per-app basis</span></li><li style=""><span class="selectable-content" id="_s_326">on a per-group of applications processes basis</span></li><li style=""><span class="selectable-content" id="_s_327">no other method</span></li></ul>]</div>
-                  </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		                  For function <a href="#mf-location">21</a>, location
+              services include location information gathered from <abbr class="dyn-abbr"><a href="#abbr_GPS">GPS</a></abbr>, cellular, and Wi-Fi.
+
+		  </p></td></tr>
 <tr id="mf-authFactors"><td>22</td><td style="text-align:left">
                      enable/disable the use
                     of [<b>selection</b>: <span class="selectable-content" id="_s_328">Biometric Authentication Factor</span>, <span class="selectable-content" id="_s_329">Hybrid Authentication Factor</span>]
-                  </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    Function <a href="#mf-authFactors">22</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> contains a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>. This selection must correspond with the selection made in
+              <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>. If <a href="#uau_biometric"> biometric in accordance with the <a href="https://github.com/biometricITC/cPP-biometrics/blob/master/Protection%20Profile/BiocPP.adoc">Biometric Enrollment and Verification, version 1.1</a></a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, "Biometric Authentication Factor"
+              must be selected and the user or admin must have the option to disable the use of
+              it. If multiple <abbr class="dyn-abbr"><a href="#abbr_BAF">BAFs</a></abbr> are claimed in FIA_MBV_EXT.1.1 in the <a href="https://github.com/biometricITC/cPP-biometrics/blob/master/Protection%20Profile/BiocPP.adoc">Biometric Enrollment and Verification, version 1.1</a>, this applies to all different
+              modalities. If <a href="#uau_hybr"> hybrid</a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a> it must be selected and the user
+              or admin must have the option to disable the use of it.
+		  </p></td></tr>
 <tr id="mf-certInvalid"><td>23</td><td style="text-align:left">
                      configure whether to
                     allow or disallow establishment of [<b>assignment</b>: 
      <span class="assignable-content">configurable trusted channel in <a href="#FTP_ITC_EXT.1.1">FTP_ITC_EXT.1.1</a> or <a href="#FDP_UPC_EXT.1.1/APPS">FDP_UPC_EXT.1.1/APPS</a></span>] if the peer or server certificate
-                    is deemed invalid.</td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                    is deemed invalid.</td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		                    
+              Function <a href="#mf-certInvalid">23</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if the function is configurable on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> for any of the trusted channels either mandated or selected in <a href="#FTP_ITC_EXT.1.1">FTP_ITC_EXT.1.1</a> or <a href="#FDP_UPC_EXT.1.1/APPS">FDP_UPC_EXT.1.1/APPS</a>. The configuration can be different depending on the specific trusted channel(s) and they must be filled in for the assignment.
+		    </p></td></tr>
 <tr id="mf-externalPorts"><td>24</td><td style="text-align:left">
                      enable/disable all
                     data signaling over [<b>assignment</b>: 
      <span class="assignable-content">list of externally accessible hardware
                       ports</span>]
-                  </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		                   The assignment in function
+                <a href="#mf-externalPorts">24</a> consists of all externally accessible hardware
+              ports, such as <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr>, the SD card, and <abbr class="dyn-abbr"><a href="#abbr_HDMI">HDMI</a></abbr>, whose data transfer capabilities can be
+              enabled and disabled by either the user or administrator. Disablement of data transfer
+              over an external port must be effective during and after boot into the normal
+              operative mode of the device. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports states in which configured security
+              management policy is inaccessible, for example, due to data-at-rest protection, it is
+              acceptable to meet this requirement by ensuring that data transfer is disabled by
+              default while in these states. Each of the ports may be enabled or disabled
+              separately. The configuration policy need not disable all ports together. In the case
+              of <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr>, charging is still allowed if data transfer capabilities have been disabled.
+
+		  </p></td></tr>
 <tr id="mf-serverProtocols"><td>25</td><td style="text-align:left">
                      enable/disable
                       [<b>assignment</b>: 
      <span class="assignable-content" id="a-server">list of protocols where the device acts as a server</span>]
-                  </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    The assignment in function <a href="#mf-serverProtocols">25</a>
+              consists of all protocols where the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> acts as a server, which can be enabled and
+              disabled by either the user or administrator.
+		  </p></td></tr>
 <tr id="mf-devModes"><td>26</td><td style="text-align:left">
                      enable/disable developer
-                  modes </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  modes </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    Function <a href="#mf-devModes">26</a> must be included in the selection if developer modes are
+		    supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
+		  </p></td></tr>
 <tr id="mf-authBypass"><td>27</td><td style="text-align:left">
                      enable/disable bypass of
-                  local user authentication </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  local user authentication </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    Function <a href="#mf-authBypass">27</a> must
+              be included in the selection if bypass of local user authentication, such as a "Forgot
+              Password", password hint, or remote authentication feature, is supported.
+
+		  </p></td></tr>
 <tr id="mf-wipeEntData"><td>28</td><td style="text-align:left">
                      wipe Enterprise data </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr>
 <tr id="mf-appCert"><td>29</td><td style="text-align:left">
                      approve [<b>selection</b>: <span class="selectable-content" id="_s_330">import</span>, <span class="selectable-content" id="_s_331">removal</span>] by applications of X.509v3 certificates in the Trust Anchor
-                  Database </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  Database </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    Function <a href="#mf-appCert">29</a> must be included in the
+              selection if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> allows applications, other than the <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agents, to import or
+              remove X.509v3 certificates from the Trust Anchor Database. The <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agent is
+              considered the administrator. This function does not apply to applications trusting a
+              certificate for its own validations. The function only applies to situations where the
+              application modifies the device-wide Trust Anchor Database, affecting the validations
+              performed by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> for other applications. The user or administrator may be provided
+              the ability to globally allow or deny any application requests in order to meet this
+              requirement.
+		  </p></td></tr>
 <tr id="mf-certValidity"><td>30</td><td style="text-align:left">
                      configure whether to
                     allow or disallow establishment of a trusted channel if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> cannot establish a
-                  connection to determine the validity of a certificate</td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  connection to determine the validity of a certificate</td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    Function <a href="#mf-certValidity">30</a> must be
+              included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if "administrator is allowed to configure certificate acceptance" is selected in
+              FIA_X509_EXT.2.2 in <a href="https://commoncriteria.github.io/X509/master/X509-release.html">Functional Package for X.509,
+        version 
+        1.0</a>
+		  </p></td></tr>
 <tr id="mf-cellular"><td>31</td><td style="text-align:left">
                      enable/disable the
                   cellular protocols used to connect to cellular network base stations </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
@@ -5908,20 +6082,44 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                      read audit logs kept by
                     the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td></tr>
 <tr id="mf-digSign"><td>33</td><td style="text-align:left">
-                     configure [<b>selection</b>: <span class="selectable-content" id="_s_332">certificate</span>, <span class="selectable-content" id="_s_333">public-key</span>] used to validate digital signature on applications </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                     configure [<b>selection</b>: <span class="selectable-content" id="_s_332">certificate</span>, <span class="selectable-content" id="_s_333">public-key</span>] used to validate digital signature on applications </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    Function <a href="#mf-digSign">33</a> should be
+              included in the selection if <a href="#FPT_TUD_EXT.5.1">FPT_TUD_EXT.5.1</a> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> and the
+              configurable option is selected.
+		  </p></td></tr>
 <tr id="mf-sharedKeys"><td>34</td><td style="text-align:left">
                      approve exceptions for
-                  shared use of keys or secrets by multiple applications </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  shared use of keys or secrets by multiple applications </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    Function <a href="#mf-sharedKeys">34</a> should be included in the selection if user or administrator is
+		    selected in <a href="#FCS_STG_EXT.1.4">FCS_STG_EXT.1.4</a>.
+		  </p></td></tr>
 <tr id="mf-keyWipeRules"><td>35</td><td style="text-align:left">
                      approve exceptions for
                     destruction of keys or secrets by applications that did not import the key or secret
-                  </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    Function <a href="#mf-keyWipeRules">35</a> should be included in the selection if
+		    <a href="#s-killkey-user">the user</a> or <a href="#s-killkey-admin">the administrator</a>
+		    is selected in <a href="#FCS_STG_EXT.1.5">FCS_STG_EXT.1.5</a>.
+		    
+		      
+		      
+		    
+		    
+		      
+		      
+		    
+		  </p></td></tr>
 <tr id="mf-unlockBanner"><td>36</td><td style="text-align:left">
                      configure the unlock
-                    banner </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                    banner </td><td><div class="tooltipped">M<span class="tooltiptext">Mandatory</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		      
+		    </p></td></tr>
 <tr id="mf-auditItems"><td>37</td><td style="text-align:left">
                      configure the auditable
-                    items </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                    items </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">-<span class="tooltiptext">N/A</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		                    Function <a href="#mf-auditItems">37</a> must be included in the selection if <a href="#FAU_SEL.1">FAU_SEL.1</a>
+				    is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
+		    </p></td></tr>
 <tr id="mf-integ"><td>38</td><td style="text-align:left">
                      retrieve <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>-software
                   integrity verification values </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
@@ -5935,10 +6133,17 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
 <tr id="mf-hotspot"><td>41</td><td style="text-align:left">
                      enable/disable [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_343">Hotspot functionality authenticated by [<b>selection</b>: <span class="selectable-content" id="_s_344">pre-shared key</span>, <span class="selectable-content" id="_s_345">passcode</span>, <span class="selectable-content" id="_s_346">no authentication</span>]</span></li><li style=""><span class="selectable-content" id="s-tether"><abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr> tethering authenticated by [<b>selection</b>: <span class="selectable-content" id="_s_348">pre-shared key</span>, <span class="selectable-content" id="_s_349">passcode</span>, <span class="selectable-content" id="_s_350">no authentication</span>]
                       </span></li></ul>]
-                  </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    For function <a href="#mf-hotspot">41</a>,
+              hotspot functionality refers to the condition in which the mobile device is serving as
+              an access point to other devices, not the connection of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to external hotspots.
+
+		  </p></td></tr>
 <tr id="mf-dataSharing"><td>42</td><td style="text-align:left">
                      approve exceptions for
-                    sharing data between [<b>selection</b>: <span class="selectable-content" id="_s_351">applications</span>, <span class="selectable-content" id="_s_352">groups of applications</span>]</td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                    sharing data between [<b>selection</b>: <span class="selectable-content" id="_s_351">applications</span>, <span class="selectable-content" id="_s_352">groups of applications</span>]</td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    Functions <a href="#mf-dataSharing">42</a> and <a href="#mf-appGroups">43</a> correspond to <a href="#FDP_ACF_EXT.1.2">FDP_ACF_EXT.1.2</a>.
+		  </p></td></tr>
 <tr id="mf-appGroups"><td>43</td><td style="text-align:left">
                      place applications into
                     application groups based on [<b>assignment</b>: 
@@ -5946,14 +6151,28 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   settings</span>]</td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
 <tr id="mf-unenroll"><td>44</td><td style="text-align:left">
                      unenroll the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from
-                  management </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  management </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    For function
+                <a href="#mf-unenroll">44</a>, <a href="#FMT_SMF_EXT.2.1">FMT_SMF_EXT.2.1</a> specifies actions to be performed when
+		the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is unenrolled from management.
+		  </p></td></tr>
 <tr id="mf-alwaysOnVPN"><td>45</td><td style="text-align:left">
                      enable/disable the
                     Always On <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> protection:
                     <ul>
                       <li>Across device</li></ul>
                     <div class="indent">[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_353">on a per-app basis</span></li><li style=""><span class="selectable-content" id="_s_354">on a per-group of applications processes basis</span></li><li style=""><span class="selectable-content" id="_s_355">no other method</span></li></ul>]</div>                
-                  </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
+                  </td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td style="text-align:left"><p>
+		    Function <a href="#mf-alwaysOnVPN">45</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> is selected in
+              <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a> and the native <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> client can be configured to be Always-On.
+              Always-On is defined as when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has a network connection the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> attempts to
+              connect, all data leaving the device uses the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> when the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is connected and no
+              data leaves that device when the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is disconnected. The configuration of the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>
+              Client itself (with information such as <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Gateway, certificates, and algorithms) is
+              addressed by the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=467&amp;id=467">PP-Module for Virtual Private Network (VPN) Clients,
+        version 
+        2.4</a>.
+		  </p></td></tr>
 <tr id="mf-bioRevoke"><td>46</td><td style="text-align:left">
                      revoke Biometric
                   template</td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td><td><div class="tooltipped">O<span class="tooltiptext">Optional/Conditional</span></div></td></tr>
@@ -6017,226 +6236,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               
               
               
-	    <br/><br/><b>Function-specific Application Notes:</b><br/><br/><p>
-		  Functions <a href="#mf-vpn">3</a>
-          , <a href="#mf-audioVisual">5</a>
-          , and <a href="#mf-location">21</a> must be implemented on a device-wide basis but may also be
-		  implemented on a per-app basis or on a per-group of applications basis in which the
-		  configuration includes the list of applications or groups of applications to which the
-		  enable/disable applies.</p><p>
-		  Function <a href="#mf-vpn">3</a> addresses
-		  enabling and disabling the <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> only. The configuration of the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Client itself
-		  (with information such as <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Gateway, certificates, and algorithms) is addressed by
-		  the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=467&amp;id=467">PP-Module for Virtual Private Network (VPN) Clients,
-        version 
-        2.4</a>. The administrator options should only be listed if the
-		  administrator can remotely enable/disable the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> connection.
-		  <p>
-		  Function <a href="#mf-vpn">3</a> optionally allows the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> to be configured per-app or
-		  per-groups of apps. If this configuration is selected, it does not void <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a>.
-		  Instead <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a> is applied to the application or group of applications the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>
-		  is applied to. In other words, all traffic destined for the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>-enabled application or
-		  group of applications, must travel through the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>, but traffic not destined for that
-		  application or group of applications can travel outside the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>. When the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is
-		  configured across the device <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a> applies to all traffic and the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> must not
-		  split tunnel.
-		  </p>
-		  </p><p>
-			The assignment in function <a href="#mf-radios">4</a>
-              consists of all radios present on the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, such as Wi-Fi, cellular, <abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr>,
-              Bluetooth <abbr class="dyn-abbr"><a href="#abbr_BR/EDR">BR/EDR</a></abbr>, and Bluetooth <abbr class="dyn-abbr"><a href="#abbr_LE">LE</a></abbr>, which can be enabled and disabled.
-	      In the future,
-              if both Bluetooth <abbr class="dyn-abbr"><a href="#abbr_BR/EDR">BR/EDR</a></abbr> and Bluetooth <abbr class="dyn-abbr"><a href="#abbr_LE">LE</a></abbr> are supported, they will be required to be
-              enabled and disabled separately. Disablement of the cellular radio does not imply that
-              the radio may not be enabled in order to place emergency phone calls; however, it is
-              not expected that a device in "airplane mode", where all radios are disabled, will
-              automatically (without authorization) turn on the cellular radio to place emergency
-              calls.</p><p>The assignment in function <a href="#mf-audioVisual">5</a>
-              consists of at least one audio or visual device, such as camera and microphone,
-              which can be enabled and disabled by either the user or administrator. Disablement of
-              the microphone does not imply that the microphone may not be enabled in order to place
-              emergency phone calls. If certain devices are able to be restricted to the enterprise
-              (either device-wide, per-app or per-group of applications) and others are able to be
-              restricted to users, then this function should be iterated in the table with the
-              appropriate table entries.
-	      <p>
-		Regarding functions <a href="#mf-radios">4</a> and <a href="#mf-audioVisual">5</a>,
-		disablement of a particular
-              radio or audio/visual device must be effective as soon as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has power.
-              Disablement must also apply when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is booted into auxiliary boot modes, for
-              example, associated with updates or backup. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports states in which
-              security management policy is inaccessible, for example, due to data-at-rest
-              protection, it is acceptable to meet this requirement by ensuring that these devices
-              are disabled by default while in these states. That these devices are disabled during
-              auxiliary boot modes does not imply that the device (particularly the cellular radio)
-              may not be enabled in order to perform emergency phone calls. 
-	      </p>
-		  </p><p>
-		    Wipe  of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> (function <a href="#mf-wipe">7</a>) is performed according to
-		    <a href="#FCS_CKM_EXT.5">FCS_CKM_EXT.5</a>.
-		    Protected data is all non-TSF data, including all user or enterprise data. Some or all
-		  of this data may be considered sensitive data as well.</p><p>
-		    The
-		    selection in function <a href="#mf-appInstallRules">8</a> allows the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author to
-		    select which mechanisms are available to the administrator through the <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agent to
-		    restrict the applications which the user may install. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must state if
-		    application allowlist is applied device-wide or if it can be specified to apply to
-		    either the Enterprise or Personal applications. <ul>
-                    <li>If the administrator can restrict the sources from which applications can be
-                    installed, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<a href="#mf-appInstallRules-restrict">restricting the sources of applications</a>". </li>
-                    <li>If the administrator can specify a allowlist of allowed applications, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>
-                    author selects "<a href="#mf-appInstallRules-specify">application allowlist</a>". The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should list any application characteristics
-                    (e.g. name, version, or developer) based on which the allowlist can be
-                    formed.</li>
-                    <li>If the administrator can prevent the user from installing additional
-                    applications, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<a href="#mf-appInstallRules-deny">denying installation of applications</a>". </li>
-		  </ul>
-		  </p><p>
-		      In the future, function <a href="#mf-certWipe">12</a> may require
-              destruction or disabling of any default trusted <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr> certificates, excepting those <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>
-              certificates necessary for continued operation of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, such as the developer’s
-              certificate. At this time, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author must indicate in the assignment whether
-              pre-installed or any other category of X.509v3 certificates may be removed from the
-              Trust Anchor Database.
-		    </p><p>
-		      For function <a href="#mf-enroll">13</a>, the
-		      enrollment function may be installing an <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> agent and includes the policies to be
-		      applied to the device. It is acceptable for the user approval notice to require the
-		      user to intentionally opt to view the policies (for example, by "tapping" on a "View"
-		      icon) rather than listing the policies in full in the notice.
-		    </p><p>
-		      For function <a href="#mf-update">15</a>, the administrator capability to update the system
-		      software may be limited to causing a prompt to the user to update rather than the
-		      ability to initiate the update itself. As the administrator is likely to be acting
-		      remotely, he/she would be unaware of inopportune situations, such as low power, which
-		      may cause the update to fail and the device to become inoperable. The user can refuse
-		      to accept the update in such situations. It is expected that system architects will be
-		      cognizant of this limitation and will enforce network access controls in order to
-		      enforce enterprise-critical updates.
-		    </p><p>
-		      Function <a href="#mf-appInstall">16</a> addresses both installation and update. This protection profile
-              does not distinguish between installation and update of applications because mobile
-              devices typically completely overwrite the previous installation with a new
-              installation during an application update.
-		    </p><p>
-		    For function <a href="#mf-entAppRemove">17</a>, "Enterprise applications" are those applications that belong
-              to the Enterprise application group. Applications installed by the enterprise
-              administrator (including automatic installation by the administrator after being
-              requested by the user from a catalog of enterprise applications) are by default placed
-              in the Enterprise application group unless an exception has been made in function
-              <a href="#mf-appGroups">43</a> of <a href="#FMT_SMF_EXT.1.1">FMT_SMF_EXT.1.1</a>.
-		  </p><p>
-		    If the display
-              of notifications in the locked state is supported, the configuration of these
-              notifications (function <a href="#mf-notifications">18</a>) must be included in the
-              selection.
-		  </p><p>
-		      Function <a href="#mf-dar">19</a> must be included in the
-		      selection if data-at-rest protection is not natively enabled.
-		    </p><p>
-		      Function <a href="#mf-rmediaDar">20</a> is implicitly met if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not support
-		      removable media.
-		    </p><p>
-		                  For function <a href="#mf-location">21</a>, location
-              services include location information gathered from <abbr class="dyn-abbr"><a href="#abbr_GPS">GPS</a></abbr>, cellular, and Wi-Fi.
-
-		  </p><p>
-		    Function <a href="#mf-authFactors">22</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> contains a <abbr class="dyn-abbr"><a href="#abbr_BAF">BAF</a></abbr>. This selection must correspond with the selection made in
-              <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>. If <a href="#uau_biometric"> biometric in accordance with the <a href="https://github.com/biometricITC/cPP-biometrics/blob/master/Protection%20Profile/BiocPP.adoc">Biometric Enrollment and Verification, version 1.1</a></a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a>, "Biometric Authentication Factor"
-              must be selected and the user or admin must have the option to disable the use of
-              it. If multiple <abbr class="dyn-abbr"><a href="#abbr_BAF">BAFs</a></abbr> are claimed in FIA_MBV_EXT.1.1 in the <a href="https://github.com/biometricITC/cPP-biometrics/blob/master/Protection%20Profile/BiocPP.adoc">Biometric Enrollment and Verification, version 1.1</a>, this applies to all different
-              modalities. If <a href="#uau_hybr"> hybrid</a> is selected in <a href="#FIA_UAU.5.1">FIA_UAU.5.1</a> it must be selected and the user
-              or admin must have the option to disable the use of it.
-		  </p><p>
-		                    
-              Function <a href="#mf-certInvalid">23</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if the function is configurable on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> for any of the trusted channels either mandated or selected in <a href="#FTP_ITC_EXT.1.1">FTP_ITC_EXT.1.1</a> or <a href="#FDP_UPC_EXT.1.1/APPS">FDP_UPC_EXT.1.1/APPS</a>. The configuration can be different depending on the specific trusted channel(s) and they must be filled in for the assignment.
-		    </p><p>
-		                   The assignment in function
-                <a href="#mf-externalPorts">24</a> consists of all externally accessible hardware
-              ports, such as <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr>, the SD card, and <abbr class="dyn-abbr"><a href="#abbr_HDMI">HDMI</a></abbr>, whose data transfer capabilities can be
-              enabled and disabled by either the user or administrator. Disablement of data transfer
-              over an external port must be effective during and after boot into the normal
-              operative mode of the device. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports states in which configured security
-              management policy is inaccessible, for example, due to data-at-rest protection, it is
-              acceptable to meet this requirement by ensuring that data transfer is disabled by
-              default while in these states. Each of the ports may be enabled or disabled
-              separately. The configuration policy need not disable all ports together. In the case
-              of <abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr>, charging is still allowed if data transfer capabilities have been disabled.
-
-		  </p><p>
-		    The assignment in function <a href="#mf-serverProtocols">25</a>
-              consists of all protocols where the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> acts as a server, which can be enabled and
-              disabled by either the user or administrator.
-		  </p><p>
-		    Function <a href="#mf-devModes">26</a> must be included in the selection if developer modes are
-		    supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.
-		  </p><p>
-		    Function <a href="#mf-authBypass">27</a> must
-              be included in the selection if bypass of local user authentication, such as a "Forgot
-              Password", password hint, or remote authentication feature, is supported.
-
-		  </p><p>
-		    Function <a href="#mf-appCert">29</a> must be included in the
-              selection if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> allows applications, other than the <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agents, to import or
-              remove X.509v3 certificates from the Trust Anchor Database. The <abbr class="dyn-abbr"><a href="#abbr_MDM">MDM</a></abbr> Agent is
-              considered the administrator. This function does not apply to applications trusting a
-              certificate for its own validations. The function only applies to situations where the
-              application modifies the device-wide Trust Anchor Database, affecting the validations
-              performed by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> for other applications. The user or administrator may be provided
-              the ability to globally allow or deny any application requests in order to meet this
-              requirement.
-		  </p><p>
-		    Function <a href="#mf-certValidity">30</a> must be
-              included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if "administrator is allowed to configure certificate acceptance" is selected in
-              FIA_X509_EXT.2.2 in <a href="https://commoncriteria.github.io/X509/master/X509-release.html">Functional Package for X.509,
-        version 
-        1.0</a>
-		  </p><p>
-		    Function <a href="#mf-digSign">33</a> should be
-              included in the selection if <a href="#FPT_TUD_EXT.5.1">FPT_TUD_EXT.5.1</a> is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> and the
-              configurable option is selected.
-		  </p><p>
-		    Function <a href="#mf-sharedKeys">34</a> should be included in the selection if user or administrator is
-		    selected in <a href="#FCS_STG_EXT.1.4">FCS_STG_EXT.1.4</a>.
-		  </p><p>
-		    Function <a href="#mf-keyWipeRules">35</a> should be included in the selection if
-		    <a href="#s-killkey-user">the user</a> or <a href="#s-killkey-admin">the administrator</a>
-		    is selected in <a href="#FCS_STG_EXT.1.5">FCS_STG_EXT.1.5</a>.
-		    
-		      
-		      
-		    
-		    
-		      
-		      
-		    
-		  </p><p>
-		      
-		    </p><p>
-		                    Function <a href="#mf-auditItems">37</a> must be included in the selection if <a href="#FAU_SEL.1">FAU_SEL.1</a>
-				    is included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
-		    </p><p>
-		    For function <a href="#mf-hotspot">41</a>,
-              hotspot functionality refers to the condition in which the mobile device is serving as
-              an access point to other devices, not the connection of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to external hotspots.
-
-		  </p><p>
-		    Functions <a href="#mf-dataSharing">42</a> and <a href="#mf-appGroups">43</a> correspond to <a href="#FDP_ACF_EXT.1.2">FDP_ACF_EXT.1.2</a>.
-		  </p><p>
-		    For function
-                <a href="#mf-unenroll">44</a>, <a href="#FMT_SMF_EXT.2.1">FMT_SMF_EXT.2.1</a> specifies actions to be performed when
-		the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is unenrolled from management.
-		  </p><p>
-		    Function <a href="#mf-alwaysOnVPN">45</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> is selected in
-              <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a> and the native <abbr class="dyn-abbr"><a href="#abbr_IPsec">IPsec</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> client can be configured to be Always-On.
-              Always-On is defined as when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has a network connection the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> attempts to
-              connect, all data leaving the device uses the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> when the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is connected and no
-              data leaves that device when the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> is disconnected. The configuration of the <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr>
-              Client itself (with information such as <abbr class="dyn-abbr"><a href="#abbr_VPN">VPN</a></abbr> Gateway, certificates, and algorithms) is
-              addressed by the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=467&amp;id=467">PP-Module for Virtual Private Network (VPN) Clients,
-        version 
-        2.4</a>.
-		  </p></span></div><div class="validationguidelines_label">Validation Guidelines:</div><p></p><b><a href="#r-killkey-user-mf">Rule #8</a></b><p></p><b><a href="#r-killkey-admin-mf">Rule #9</a></b></div></div>
+	    </span></div><div class="validationguidelines_label">Validation Guidelines:</div><p></p><b><a href="#r-killkey-user-mf">Rule #8</a></b><p></p><b><a href="#r-killkey-admin-mf">Rule #9</a></b></div></div>
 	  
 	  
 	  
