@@ -4104,26 +4104,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     The evaluator shall perform positive and negative tests, with at least two
                     values set for each variable setting, for each of the following: <htm:br/><htm:ul><htm:li>Screen-lock enabled/disabled</htm:li><htm:li>Screen lock timeout</htm:li><htm:li>Number of authentication failures (may be combined with test for
                         FIA_AFL_EXT.1)</htm:li></htm:ul></Tests></aactivity></management-function><management-function id="mf-vpn"><text> enable/disable the VPN
-                    protection:   <htm:ul><htm:li>Across device  </htm:li>  </htm:ul><selectables><selectable id="s-vpn-per-app">on a per-app basis</selectable><selectable id="s-vpn-per-appgroup">on a per-group of applications processes basis</selectable><selectable id="fmt_smf.1.1_1" exclusive="yes">no other method</selectable></selectables></text><M ref="I"/><O ref="U"/><O ref="A"/><O ref="AO"/><aactivity><TSS/><Tests/></aactivity><app-note>
-		  Functions  must be implemented on a device-wide basis but may also be
-		  implemented on a per-app basis or on a per-group of applications basis in which the
-		  configuration includes the list of applications or groups of applications to which the
-		  enable/disable applies.
-		  Function  addresses
-		  enabling and disabling the IPsec VPN only. The configuration of the VPN Client itself
-		  (with information such as VPN Gateway, certificates, and algorithms) is addressed by
-		  the  <xref to="mod-vpnclient"/>. The administrator options should only be listed if the
-		  administrator can remotely enable/disable the VPN connection.
-		  <htm:p>
-		  Function  <xref to="mf-vpn"/> optionally allows the VPN to be configured per-app or
-		  per-groups of apps. If this configuration is selected, it does not void FDP_IFC_EXT.1.
-		  Instead FDP_IFC_EXT.1 is applied to the application or group of applications the VPN
-		  is applied to. In other words, all traffic destined for the VPN-enabled application or
-		  group of applications, must travel through the VPN, but traffic not destined for that
-		  application or group of applications can travel outside the VPN. When the VPN is
-		  configured across the device FDP_IFC_EXT.1 applies to all traffic and the VPN must not
-		  split tunnel.
-		  </htm:p></app-note></management-function><management-function id="mf-radios"><text> enable/disable
+                    protection:   <htm:ul><htm:li>Across device  </htm:li>  </htm:ul><selectables><selectable id="s-vpn-per-app">on a per-app basis</selectable><selectable id="s-vpn-per-appgroup">on a per-group of applications processes basis</selectable><selectable id="fmt_smf.1.1_1" exclusive="yes">no other method</selectable></selectables></text><M ref="I"/><O ref="U"/><O ref="A"/><O ref="AO"/></management-function><management-function id="mf-radios"><text> enable/disable
                       <assignable>list of all radios</assignable></text><M ref="I"/><O ref="U"/><O ref="A"/><O ref="AO"/><aactivity><TSS>The evaluator shall
                   verify that the TSS includes a description of each radio and an indication of if
                   the radio can be enabled/disabled along with what role can do so. In addition the
@@ -4243,7 +4224,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     key storage.</TSS><Tests>
 		      The test of these functions is performed in association with FCS_STG_EXT.1.
 		    </Tests></aactivity></management-function><management-function id="mf-keyWipe"><text> destroy imported
-                    keys or secrets and <selectables><selectable id="fmt_smf.1.1_4" exclusive="yes">no other keys or secrets</selectable><selectable id="fmt_smf.1.1_6"><assignable>list of other categories of keys or secrets</assignable></selectable></selectables> in the secure key storage </text><M ref="I"/><O ref="U"/><O ref="A"/><NA ref="AO"/><aactivity><TSS/><Tests/></aactivity></management-function><management-function id="mf-certImport"><text> import X.509v3
+                    keys or secrets and <selectables><selectable id="fmt_smf.1.1_4" exclusive="yes">no other keys or secrets</selectable><selectable id="fmt_smf.1.1_6"><assignable>list of other categories of keys or secrets</assignable></selectable></selectables> in the secure key storage </text><M ref="I"/><O ref="U"/><O ref="A"/><NA ref="AO"/></management-function><management-function id="mf-certImport"><text> import X.509v3
                     certificates into the Trust Anchor Database </text><M ref="I"/><NA ref="U"/><M ref="A"/><O ref="AO"/><aactivity><TSS/><Tests>
 			The evaluator shall import certificates according to the AGD guidance as the
 			user or as the administrator, as determined by the administrative guidance.
@@ -4350,19 +4331,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		      Function  <xref to="mf-rmediaDar"/> is implicitly met if the TSF does not support
 		      removable media.
 		    </app-note></management-function><management-function id="mf-location"><text> enable/disable location
-                    services:   <htm:ul><htm:li>Across device  </htm:li>  </htm:ul><selectables><selectable id="mf-location-per_app">on a per-app basis</selectable><selectable id="fmt_smf.1.1_17">on a per-group of applications processes basis</selectable><selectable id="fmt_smf.1.1_18" exclusive="yes">no other method</selectable></selectables></text><M ref="I"/><O ref="U"/><O ref="A"/><O ref="AO"/><aactivity><TSS/><Tests/></aactivity><app-note>
-		                  For function  <xref to="mf-location"/>, location
-              services include location information gathered from GPS, cellular, and Wi-Fi.
-
-		  </app-note></management-function><management-function id="mf-authFactors"><text> enable/disable the use
-                    of <selectables><selectable id="fmt_smf.1.1_19">Biometric Authentication Factor</selectable><selectable id="fmt_smf.1.1_20">Hybrid Authentication Factor</selectable></selectables></text><O ref="I"/><O ref="U"/><O ref="A"/><O ref="AO"/><aactivity><TSS/><Tests/></aactivity><app-note>
-		    Function  <xref to="mf-authFactors"/> must be included in the ST if the TOE contains a BAF. This selection must correspond with the selection made in
-              FIA_UAU.5.1. If  <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, "Biometric Authentication Factor"
-              must be selected and the user or admin must have the option to disable the use of
-              it. If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the  <xref to="mod-biometrics"/>, this applies to all different
-              modalities. If  <xref to="uau_hybr"/> is selected in FIA_UAU.5.1 it must be selected and the user
-              or admin must have the option to disable the use of it.
-		  </app-note></management-function><management-function id="mf-certInvalid"><text> configure whether to
+                    services:   <htm:ul><htm:li>Across device  </htm:li>  </htm:ul><selectables><selectable id="mf-location-per_app">on a per-app basis</selectable><selectable id="fmt_smf.1.1_17">on a per-group of applications processes basis</selectable><selectable id="fmt_smf.1.1_18" exclusive="yes">no other method</selectable></selectables></text><M ref="I"/><O ref="U"/><O ref="A"/><O ref="AO"/></management-function><management-function id="mf-authFactors"><text> enable/disable the use
+                    of <selectables><selectable id="fmt_smf.1.1_19">Biometric Authentication Factor</selectable><selectable id="fmt_smf.1.1_20">Hybrid Authentication Factor</selectable></selectables></text><O ref="I"/><O ref="U"/><O ref="A"/><O ref="AO"/></management-function><management-function id="mf-certInvalid"><text> configure whether to
                     allow or disallow establishment of <assignable>configurable trusted channel in FTP_ITC_EXT.1.1 or FDP_UPC_EXT.1.1/APPS</assignable> if the peer or server certificate
                     is deemed invalid.</text><O ref="I"/><O ref="U"/><O ref="A"/><O ref="AO"/><aactivity><TSS/><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2,
                     FCS_TLSC_EXT.1.3 in the  <xref to="pkg-tls"/>. </Tests></aactivity><app-note>
