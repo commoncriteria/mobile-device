@@ -102,8 +102,6 @@
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[9]""/f-component[1]""/f-element[1]""
 * Error: f-element FTP_ITC_EXT.1.2  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[9]""/f-component[1]""/f-element[2]""
-* Error: Detected multiple elements with an id of 'fmt_smf'.
-* Error: Detected multiple elements with an id of 'fmt_smf'.
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[3]""
