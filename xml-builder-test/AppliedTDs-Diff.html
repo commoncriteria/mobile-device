@@ -5654,7 +5654,10 @@
                     <br>
                      Status Markers:
                     <br>
-                     M - Mandatory O - Optional/Objective
+                     M - Mandatory
+                    <br>
+                    O - Optional/Objective
+                    <br>
                     <br>
                     <table class="mfs" style="width: 100%;">
                         <tr class="header">
@@ -6719,18 +6722,22 @@
                             <b>Function-specific Application Notes:</b>
                             <br>
                             <br>
-                            <p> Functions must be implemented on a device-wide basis but may also be implemented on a per-app basis or on a per-group of applications basis in which the configuration includes the list of applications or groups of applications to which the enable/disable applies.</p>
                             <p>
-                                 Function addresses enabling and disabling the IPsec VPN only. The configuration of the VPN Client itself (with information such as VPN Gateway, certificates, and algorithms) is addressed by the <a href="">PP-Module for Virtual Private Network (VPN) Clients, version 2.4</a>. The administrator options should only be listed if the administrator can remotely enable/disable the VPN connection. 
+                                 Functions <a href="#mf-vpn">3</a> , <a href="#mf-audioVisual">5</a> , and <a href="#mf-location">21</a> must be implemented on a device-wide basis but may also be implemented on a per-app basis or on a per-group of applications basis in which the configuration includes the list of applications or groups of applications to which the enable/disable applies.
+                            </p>
+                            <p>
+                                 Function <a href="#mf-vpn">3</a> addresses enabling and disabling the IPsec VPN only. The configuration of the VPN Client itself (with information such as VPN Gateway, certificates, and algorithms) is addressed by the <a href="">PP-Module for Virtual Private Network (VPN) Clients, version 2.4</a>. The administrator options should only be listed if the administrator can remotely enable/disable the VPN connection. 
                             </p>
                             <p>
                                  Function <a href="#mf-vpn">3</a> optionally allows the VPN to be configured per-app or per-groups of apps. If this configuration is selected, it does not void <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a>. Instead <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a> is applied to the application or group of applications the VPN is applied to. In other words, all traffic destined for the VPN-enabled application or group of applications, must travel through the VPN, but traffic not destined for that application or group of applications can travel outside the VPN. When the VPN is configured across the device <a href="#FDP_IFC_EXT.1">FDP_IFC_EXT.1</a> applies to all traffic and the VPN must not split tunnel. 
                             </p>
                             <p></p>
                             <p>
-                                 The assignment in function consists of all radios present on the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, such as Wi-Fi, cellular, NFC, Bluetooth BR/EDR, and Bluetooth LE, which can be enabled and disabled. In the future, if both Bluetooth BR/EDR and Bluetooth LE are supported, they will be required to be enabled and disabled separately. Disablement of the cellular radio does not imply that the radio may not be enabled in order to place emergency phone calls; however, it is not expected that a device in "airplane mode", where all radios are disabled, will automatically (without authorization) turn on the cellular radio to place emergency calls.
+                                 The assignment in function <a href="#mf-radios">4</a> consists of all radios present on the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, such as Wi-Fi, cellular, NFC, Bluetooth BR/EDR, and Bluetooth LE, which can be enabled and disabled. In the future, if both Bluetooth BR/EDR and Bluetooth LE are supported, they will be required to be enabled and disabled separately. Disablement of the cellular radio does not imply that the radio may not be enabled in order to place emergency phone calls; however, it is not expected that a device in "airplane mode", where all radios are disabled, will automatically (without authorization) turn on the cellular radio to place emergency calls.
                             </p>
-                            <p>The assignment in function consists of at least one audio or visual device, such as camera and microphone, which can be enabled and disabled by either the user or administrator. Disablement of the microphone does not imply that the microphone may not be enabled in order to place emergency phone calls. If certain devices are able to be restricted to the enterprise (either device-wide, per-app or per-group of applications) and others are able to be restricted to users, then this function should be iterated in the table with the appropriate table entries. </p>
+                            <p>
+                                The assignment in function <a href="#mf-audioVisual">5</a> consists of at least one audio or visual device, such as camera and microphone, which can be enabled and disabled by either the user or administrator. Disablement of the microphone does not imply that the microphone may not be enabled in order to place emergency phone calls. If certain devices are able to be restricted to the enterprise (either device-wide, per-app or per-group of applications) and others are able to be restricted to users, then this function should be iterated in the table with the appropriate table entries. 
+                            </p>
                             <p>
                                  Regarding functions <a href="#mf-radios">4</a> and <a href="#mf-audioVisual">5</a>, disablement of a particular radio or audio/visual device must be effective as soon as the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has power. Disablement must also apply when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is booted into auxiliary boot modes, for example, associated with updates or backup. If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports states in which security management policy is inaccessible, for example, due to data-at-rest protection, it is acceptable to meet this requirement by ensuring that these devices are disabled by default while in these states. That these devices are disabled during auxiliary boot modes does not imply that the device (particularly the cellular radio) may not be enabled in order to perform emergency phone calls. 
                             </p>
@@ -6826,7 +6833,7 @@
                                  For function <a href="#mf-unenroll">44</a>, <a href="#FMT_SMF_EXT.2.1">FMT_SMF_EXT.2.1</a> specifies actions to be performed when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is unenrolled from management. 
                             </p>
                             <p>
-                                 Function must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if IPsec is selected in <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a> and the native IPsec VPN client can be configured to be Always-On. Always-On is defined as when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has a network connection the VPN attempts to connect, all data leaving the device uses the VPN when the VPN is connected and no data leaves that device when the VPN is disconnected. The configuration of the VPN Client itself (with information such as VPN Gateway, certificates, and algorithms) is addressed by the <a href="">PP-Module for Virtual Private Network (VPN) Clients, version 2.4</a>. 
+                                 Function <a href="#mf-alwaysOnVPN">45</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> if IPsec is selected in <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a> and the native IPsec VPN client can be configured to be Always-On. Always-On is defined as when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> has a network connection the VPN attempts to connect, all data leaving the device uses the VPN when the VPN is connected and no data leaves that device when the VPN is disconnected. The configuration of the VPN Client itself (with information such as VPN Gateway, certificates, and algorithms) is addressed by the <a href="">PP-Module for Virtual Private Network (VPN) Clients, version 2.4</a>. 
                             </p>
                         </span>
                     </div>
