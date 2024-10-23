@@ -9,7 +9,7 @@
       <PPTitle>Functional Package for X.509</PPTitle>
       <PPVersion>1.0</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
-      <PPPubDate>2024-07-26</PPPubDate>
+      <PPPubDate>2024-10-21</PPPubDate>
       <Keywords>X.509; certificates; PKI</Keywords>
     </ReferenceTable>
   </PPReference>
@@ -17,8 +17,8 @@
   <RevisionHistory>
   	<entry>
       <version>1.0</version>
-      <date>2024-07-26</date>
-      <subject>Initial draft.</subject>
+      <date>2024-10-21</date>
+      <subject>Initial version.</subject>
   	</entry>
   </RevisionHistory>
 	
@@ -173,16 +173,28 @@
 					the PP or PP-Module must include FCS_RBG.1 or an extended SFR that defines comparable functionality.</notes>
 			</componentneeded>
 			<componentneeded>
-			<componentid>FPT_STM.1</componentid>
-				<notes>To support validating whether a presented X.509 certificate is expired, 
-					the PP or PP-Module must include FPT_STM.1 or some other requirement that ensures reliable system time.  
-					</notes>
-			</componentneeded>
-			<componentneeded>
 				<componentid>FCS_TLSC_EXT.1</componentid>
 				<notes>To support EST when claimed, the PP or PP-Module must include 
 					an SFR for TLS client communications. Note that support for EST is not mandatory.
 				</notes>
+			</componentneeded>
+			
+			<componentneeded>
+				<componentid>FPT_KST_EXT.1</componentid>
+				<notes>To support CA signing keys, whether the CA is using a certificate or the corresponding public key is loaded into the relying party’s trust store, the PP or PP-Module must include FPT_KST_EXT.1 to protect the private keys used.
+				</notes>
+			</componentneeded>
+			<componentneeded>
+				<componentid>FPT_KST_EXT.2</componentid>
+				<notes>To support CA signing keys, whether the CA is using a certificate or the corresponding public key is loaded into the relying party’s trust store, the PP or PP-Module must include FPT_KST_EXT.2 to protect the private keys used.
+				</notes>
+			</componentneeded>
+			
+			<componentneeded>
+			<componentid>FPT_STM.1</componentid>
+				<notes>To support validating whether a presented X.509 certificate is expired, 
+					the PP or PP-Module must include FPT_STM.1 or some other requirement that ensures reliable system time.  
+					</notes>
 			</componentneeded>
 			<componentneeded>
 				<componentid>FTP_ITC.1</componentid>
@@ -930,7 +942,7 @@
 					<h:p>
 						The ST author is expected to refine the <no-link>FCS_COP.1</no-link> reference to include an iteration name that is appropriate for the digital signature
 						requirement of the PP or PP-Module that conforms to this package. For example, a name like "<no-link>FCS_COP.1</no-link>/SigGen" is typical.
-					It is expected that the supported signatures are limited to 2048-bit RSA or higher, or ECDSA using NIST P-256, P-384, or P-521,
+					It is expected that the supported signatures are limited to 3072-bit RSA or higher, or ECDSA using NIST P-384 or P-521,
 					based on the signature requirements in the PPs and PP-Modules with which this FP is intended for use.
 					</h:p>
 					<h:p>
@@ -1172,14 +1184,16 @@
 						<h:li>
 							The signatureAlgorithm field shall contain the object identifier (OID) for a digital signature algorithm in 
 							accordance with <selectables linebreak="yes">
-								<selectable>sha256WithRSAEncryption in accordance with RFC 6960 with key size of 2048 bits or greater</selectable>
-								<selectable> <selectables linebreak="yes">
-									<selectable>sha384WithRSAEncryption with key size of 3072 bits or greater</selectable>
-									<selectable>ecdsa-with-SHA384 using
-										<selectables>
-										<selectable>secp384r1</selectable>
-										<selectable>secp521r1</selectable>
-									</selectables></selectable>
+								<selectable>sha384WithRSAEncryption with key size of 3072 bits or greater</selectable>
+								<selectable>ecdsa-with-SHA384 using
+									<selectables>
+									<selectable>secp384r1</selectable>
+									<selectable>secp521r1</selectable>
+								</selectables></selectable>
+								<selectable>ecdsa-with-SHA512 using
+									<selectables>
+									<selectable>secp384r1</selectable>
+									<selectable>secp521r1</selectable>
 								</selectables></selectable>															
 							</selectables>
 						</h:li>
@@ -2287,7 +2301,7 @@
 								<selectable>
 									OCSP responses are signed using 
 									<selectables linebreak="yes">
-												<selectable>sha256WithRSAEncryption in accordance with RFC 6960 with key size of 2048 bits or greater,</selectable>
+												<selectable>sha384WithRSAEncryption with key size of 3072 bits or greater,</selectable>
 												<selectable>ecdsa-with-SHA384 using 
 													<selectables><selectable>secp384r1</selectable><selectable>secp521r1</selectable></selectables>,</selectable>
 												<selectable>ecdsa-with-SHA512 using 
@@ -2514,7 +2528,7 @@
 				</h:p><h:p>
 					The ST author claims "extendedKeyUsage field..." if context depends on the value of the EKU in leaf certificates. This selection is required if the TSF supports the listed functions (Code integrity, OCSP, TLS, DTLS, SMIME), as claimed in 
 					FIA_X509_EXT.2.1 or as required in other SFRs in this package. For example, RA purpose is required if FDP_CER_EXT.1/OLTleaf is claimed and a supported certificate request protocol (EST, CMC, or v3 CMP) uses the RA EKU purpose to determine RA privileges associated with a supported function. It is preferred, but not required that each function using certificates indicated in 
-					FIA_X509_EXT.2.1 is associated with an EKU. While RFC 5280 generally allows the use of ‘anyPurpose’ it indicates that 
+					FIA_X509_EXT.2.1 include context information that distinguishes certificates intended for use by the function. While RFC 5280 generally allows the use of ‘anyPurpose’ it indicates that 
 					applications may require explicit values. This element clarifies the requirement that certificates without an EKU field or with the ‘anyPurpose’ OID in lieu of 
 					the required explicit value are considered invalid if used for applications for which an explicit EKU value is 
 					required.
@@ -2535,7 +2549,7 @@
 				<note role="application">
 					The ST author claims ‘manage trust stores’ if the TSF provides a management capability for trust stores that 
 					terminate the certification paths used by TOE functions, regardless of whether or not the TSF uses platform 
-					functionality to perform the management. .1 is included in this case. If all management of trust stores 
+					functionality to perform the management. FIA_TSM_EXT.1 is included in this case. If all management of trust stores 
 					is performed by the platform, the ST author claims ‘use platform-managed trust stores.’ 
 				</note>	
 			<aactivity>
@@ -2617,7 +2631,8 @@
 								<h:p>[conditional]: If the TSF supports certificate policies, the evaluator configures the TSF to 
 								require a specific policy OID, and demonstrates that a valid certificate path asserting the policy 
 								OID results in the function succeeding, and a valid certification path not asserting that policy (or 
-								a policy that maps to it) results in the function failing.</h:p>								
+								a policy that maps to it) results in the function failing.</h:p>
+								<h:p><h:b>Note:</h:b> The policy OID used in the test need not be associated with specific practices of any CA - only the processing and matching of the OIDs is required.</h:p>
 							</test>
 							<test>
 								<h:p>[conditional]: If the TSF supports certificate policies and policy mapping, the evaluator configures 
@@ -2625,6 +2640,7 @@
 								demonstrates that a valid certification path that asserts the policy OID and includes the mapping to 
 								the expected policy results in the function succeeding, and that a certification path that asserts 
 								the policy OID, but not the proper mapping results in the function failing.</h:p>
+								<h:p><h:b>Note:</h:b> The policy OID used in the test need not be associated with specific practices of any CA - only the processing and matching of the OIDs is required.</h:p>
 							</test>
 							<test>
 								<h:p>[conditional]: If the TSF supports other extensions, for each supported extension, the evaluator 
