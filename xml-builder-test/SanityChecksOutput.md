@@ -34,10 +34,6 @@
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]"The follo"/f-component[3]""/f-element[1]""
 * Error: f-element FDP_DAR_EXT.1.1  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[6]""/f-element[1]""
-* Error: f-element FDP_UPC_EXT.1.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[10]""/f-element[1]""
-* Error: f-element FDP_UPC_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[10]""/f-element[2]""
 * Error: f-element FDP_UPC_EXT.1.1/APPS  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[11]""/f-element[1]""
 * Error: f-element FDP_UPC_EXT.1.1/BLUETOOTH  appears not to have an associated evaluation activity.:
@@ -84,8 +80,6 @@
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[7]""/f-component[4]""/f-element[1]""
 * Error: f-element FPT_AEX_EXT.5.1  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[7]""/f-component[5]""/f-element[1]""
-* Error: f-element FPT_TST_EXT.2.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[7]""/f-component[18]""/f-element[1]""
 * Error: f-element FPT_TUD_EXT.1.1  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[7]""/f-component[22]""/f-element[1]""
 * Error: f-element FPT_TUD_EXT.1.2  appears not to have an associated evaluation activity.:
