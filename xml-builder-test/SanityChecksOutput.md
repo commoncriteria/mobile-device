@@ -5,33 +5,33 @@
 * Error: f-element FAU_STG.1.1  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[4]""/f-element[1]""
 * Error: f-element FCS_CKM_EXT.1.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[4]""/f-element[1]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[4]""/f-element[1]""
 * Error: f-element FCS_CKM_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[4]""/f-element[2]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[4]""/f-element[2]""
 * Error: f-element FCS_CKM_EXT.3.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[6]""/f-element[1]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[6]""/f-element[1]""
 * Error: f-element FCS_CKM_EXT.4.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[7]""/f-element[1]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[7]""/f-element[1]""
 * Error: f-element FCS_CKM_EXT.5.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[8]""/f-element[1]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[8]""/f-element[1]""
 * Error: f-element FCS_HTTPS_EXT.1.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[16]""/f-element[1]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[16]""/f-element[1]""
 * Error: f-element FCS_HTTPS_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[16]""/f-element[2]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[16]""/f-element[2]""
 * Error: f-element FCS_RBG_EXT.1.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[18]""/f-element[1]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[18]""/f-element[1]""
 * Error: f-element FCS_RBG_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[18]""/f-element[2]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[18]""/f-element[2]""
 * Error: f-element FCS_STG_EXT.1.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]"The follo"/f-component[1]""/f-element[1]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[1]""/f-element[1]""
 * Error: f-element FCS_STG_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]"The follo"/f-component[1]""/f-element[2]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[1]""/f-element[2]""
 * Error: f-element FCS_STG_EXT.1.3  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]"The follo"/f-component[1]""/f-element[3]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[1]""/f-element[3]""
 * Error: f-element FCS_STG_EXT.1.4  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]"The follo"/f-component[1]""/f-element[4]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[1]""/f-element[4]""
 * Error: f-element FCS_STG_EXT.3.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]"The follo"/f-component[3]""/f-element[1]""
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[3]""/f-element[1]""
 * Error: f-element FDP_DAR_EXT.1.1  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[6]""/f-element[1]""
 * Error: f-element FDP_UPC_EXT.1.1/APPS  appears not to have an associated evaluation activity.:
@@ -110,6 +110,20 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"This assu"/htm:p[12]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/sec:Use_Cases[1]"The Mobil"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/sec:Use_Cases[1]"The Mobil"/htm:p[2]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/htm:p[1]"This sect"/htm:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/htm:p[1]"A subset "/htm:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/htm:p[1]"A subset "/htm:p[2]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/htm:p[2]"All keys,"/htm:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/htm:p[2]"All keys,"/htm:p[2]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/htm:p[2]"All keys,"/htm:p[3]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/htm:p[2]"All keys,"/htm:p[4]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/htm:p[2]"All keys,"/htm:p[5]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/htm:p[2]"All keys,"/htm:p[6]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/htm:p[2]"All keys,"/htm:p[7]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/htm:p[1]"Both the "/htm:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/htm:p[1]"Both the "/htm:p[2]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/htm:p[1]"Both the "/htm:p[3]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/htm:p[1]"Both the "/htm:p[4]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/htm:p[1]"The Secur"/htm:p[3]""
@@ -136,3 +150,98 @@
  Failed to find a reference to sfr.
  Failed to find a reference to sfr.
  Failed to find a reference to sfr.
+* Warning: Since FCS_CKM_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_CKM_EXT.2.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_CKM_EXT.3.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_CKM_EXT.3.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_CKM_EXT.4.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_CKM_EXT.5.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_HTTPS_EXT.1.3 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+ Failed to find a reference to ivtable.
+* Warning: Since FCS_RBG_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_RBG_EXT.1.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_SRV_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_STG_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_STG_EXT.1.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_STG_EXT.1.3 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_STG_EXT.1.4 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_STG_EXT.1.5 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_STG_EXT.2.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_STG_EXT.2.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_STG_EXT.3.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_STG_EXT.3.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FDP_ACF_EXT.1.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FDP_ACF_EXT.2.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FDP_ACF_EXT.3.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FDP_BCK_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FDP_DAR_EXT.1.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FDP_IFC_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FIA_AFL_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FIA_AFL_EXT.1.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FIA_PMG_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FIA_TRT_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FIA_UAU_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FIA_UAU_EXT.2.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FIA_X509_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FIA_X509_EXT.2.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FIA_X509_EXT.2.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FIA_X509_EXT.4.7 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FIA_X509_EXT.5.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FMT_SMF_EXT.2.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FPT_AEX_EXT.6.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FPT_JTA_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FPT_NOT_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FPT_NOT_EXT.2.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FPT_TUD_EXT.2.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FPT_TUD_EXT.2.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FPT_TUD_EXT.2.3 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FPT_TUD_EXT.5.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FTP_ITC_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FTP_ITC_EXT.1.3 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
