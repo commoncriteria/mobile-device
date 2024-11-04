@@ -761,13 +761,25 @@
       </section>
       <!--5.1.2 Class: Cryptographic Support (FCS)-->
       <section id="fcs" title="Class: Cryptographic Support (FCS)">
-
-        This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: DEKs and KEKs. (A REK is considered a KEK.)
-        DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications.
-        The following diagram shows an example key hierarchy to illustrate the concepts of this profile.
-        This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile.
-        Please note if  <xref to="uau_biometric"></xref> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the  <xref to="mod-biometrics"></xref> shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys.
-        If  <xref to="uau_hybr"></xref> is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:br/> <figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"></figure>
+        <htm:p>This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: DEKs and KEKs. (A REK is considered a KEK.) DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications. The following diagram shows an example key hierarchy to illustrate the concepts of this profile. This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. Please note if <xref to="uau_biometric"></xref> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"></xref> shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If <xref to="uau_hybr"></xref> is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:p/><figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"></figure></htm:p>
+        <ext-comp-def title="Cryptographic Key Management" fam-id="FCS_CKM_EXT">
+          <fam-behavior>This family defines requirements for management of cryptographic keys that are not addressed by FCS_CKM in CC Part 2.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="HTTPS Protocol" fam-id="FCS_HTTPS_EXT">
+          <fam-behavior>This family defines requirements for implementation of the HTTPS protocol.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Initialization Vector Generation" fam-id="FCS_IV_EXT">
+          <fam-behavior>This family defines requirements for initialization vector generation in support of key generation.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Random Bit Generation" fam-id="FCS_RBG_EXT">
+          <fam-behavior>This family defines requirements for the generation of random bits.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Cryptographic Algorithm Services" fam-id="FCS_SRV_EXT">
+          <fam-behavior>This family defines requirements for the ability of the TOE to make its cryptographic operations available to non-TSF components.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Cryptographic Key Storage" fam-id="FCS_STG_EXT">
+          <fam-behavior>This family defines requirements for the implementation of secure key storage with access control, confidentiality, and integrity protections.</fam-behavior>
+        </ext-comp-def>
         <!--FCS_CKM.1 Cryptographic Key Generation-->
         <f-component cc-id="fcs_ckm.1" id="fcs-ckm-1" name="Cryptographic Key Generation">
           <f-element id="fel-asym-key-gen">
@@ -2217,14 +2229,7 @@
       </section>
       <!--5.1.3 Class: Cryptographic Storage (FCS_STG_EXT)-->
       <section id="fcs_stg_ext" title="Class: Cryptographic Storage (FCS_STG_EXT)">
-
-        The following requirements describe how keys are protected. All keys
-        must ultimately be protected by a REK, and may optionally be protected by the user’s
-        authentication factor. Each key’s confidentiality and integrity must be protected. This
-        section also describes the secure key storage services to be provided by the Mobile
-        Device for use by applications and users, applying the same level of protection for
-        these keys as keys internal to the OS.
-
+        <htm:p>The following requirements describe how keys are protected. All keys must ultimately be protected by a REK, and may optionally be protected by the user’s authentication factor. Each key’s confidentiality and integrity must be protected. This section also describes the secure key storage services to be provided by the Mobile Device for use by applications and users, applying the same level of protection for these keys as keys internal to the OS.</htm:p>
         <!--FCS_STG_EXT.1 Cryptographic Key Storage-->
         <f-component cc-id="fcs_stg_ext.1" id="fcs-stg-ext-1" name="Cryptographic Key Storage">
           <comp-lev> requires the TSF to implement a secure key storage and defines the access restrictions to be enforced on this. </comp-lev>
@@ -2459,15 +2464,28 @@
       </section>
       <!--5.1.4 Class: User Data Protection (FDP)-->
       <section id="fdp" title="Class: User Data Protection (FDP)">
-        <htm:p>
-          A subset of the User Data Protection focuses on protecting Data-At-Rest, namely FDP_DAR_EXT.1 and FDP_DAR_EXT.2.
-          Three levels of data-at-rest protection are addressed: TSF data, Protected Data (and keys), and sensitive data.
-          <xref to="datalevels"></xref> addresses the level of protection required for each level of data-at-rest.
-        </htm:p><htm:b> <ctr id="datalevels" ctr-type="Table">: Protection of Data Levels</ctr></htm:b><htm:br/><htm:br/><htm:table><htm:tr class="header"><htm:td >Data Level</htm:td><htm:td >Protection Required</htm:td></htm:tr><htm:tr ><htm:td >TSF Data</htm:td><htm:td >TSF data does not require confidentiality, but does require integrity protection. (FPT_TST_EXT.2/PREKERNEL)</htm:td></htm:tr><htm:tr ><htm:td >Protected Data</htm:td><htm:td >Protected data is encrypted while powered off. (FDP_DAR_EXT.1)</htm:td></htm:tr><htm:tr ><htm:td >Sensitive Data</htm:td><htm:td >Sensitive data is encrypted while in the locked state, in addition to while powered off. (FDP_DAR_EXT.2)</htm:td></htm:tr></htm:table><htm:br/>
-        All keys, protected data, and sensitive data must ultimately be protected by the REK. Sensitive data must be protected by the password in addition to the REK. In particular,  <xref to="Keys"></xref> has KEKs protected according to these requirements: DEK_1 would be appropriate for sensitive data, DEK_2 would not be appropriate for sensitive data, K_1 is not considered a sensitive key, and K_2 is considered a sensitive key. <htm:br/><htm:br/>
-        These requirements include a capability for encrypting sensitive data received while in the locked state, which may be considered a separate sub-category of sensitive data. This capability may be met by a key transport scheme (RSA) by using a public key to encrypt the DEK while protecting the corresponding private key with a password-derived or biometric-unlocked KEK. <htm:br/><htm:br/>
-        This capability may also be met by a key agreement scheme. To do so, the device generates a device-wide sensitive data asymmetric pair (the private key of which is protected by a password-derived or biometric-unlocked KEK) and an asymmetric pair for the received sensitive data to be stored. In order to store the sensitive data, the device-wide public key and data private key are used to generate a shared secret, which can be used as a KEK or a DEK. The data private key and shared secret are cleared after the data is encrypted and the data public key stored. Thus, no key material is available in the locked state to decrypt the newly stored data. Upon unlock, the device-wide private key is decrypted and is used with each data public key to regenerate the shared secret and decrypt the stored data.
-        <xref to="KeysLocked"></xref>, below, illustrates this scheme. <htm:br/><htm:br/> <figure id="KeysLocked" entity="images/figure4.jpg" title="Key Agreement Scheme for Encrypting Received Sensitive Data in the Locked State"></figure><htm:br/><htm:br/>
+        <htm:p>A subset of the User Data Protection focuses on protecting Data-At-Rest, namely FDP_DAR_EXT.1 and FDP_DAR_EXT.2. Three levels of data-at-rest protection are addressed: TSF data, Protected Data (and keys), and sensitive data. <xref to="datalevels"></xref> addresses the level of protection required for each level of data-at-rest.<htm:p/><htm:b> <ctr id="datalevels" ctr-type="Table">: Protection of Data Levels</ctr></htm:b><htm:p/><htm:br/></htm:p><htm:table><htm:tr class="header"><htm:td>Data Level</htm:td><htm:td>Protection Required</htm:td></htm:tr><htm:tr><htm:td>TSF Data</htm:td><htm:td>TSF data does not require confidentiality, but does require integrity protection. (FPT_TST_EXT.2/PREKERNEL)</htm:td></htm:tr><htm:tr><htm:td>Protected Data</htm:td><htm:td>Protected data is encrypted while powered off. (FDP_DAR_EXT.1)</htm:td></htm:tr><htm:tr><htm:td>Sensitive Data</htm:td><htm:td>Sensitive data is encrypted while in the locked state, in addition to while powered off. (FDP_DAR_EXT.2)</htm:td></htm:tr></htm:table><htm:p><htm:br/><htm:p/>All keys, protected data, and sensitive data must ultimately be protected by the REK. Sensitive data must be protected by the password in addition to the REK. In particular, <xref to="Keys"></xref> has KEKs protected according to these requirements: DEK_1 would be appropriate for sensitive data, DEK_2 would not be appropriate for sensitive data, K_1 is not considered a sensitive key, and K_2 is considered a sensitive key.<htm:p/><htm:br/><htm:p/>These requirements include a capability for encrypting sensitive data received while in the locked state, which may be considered a separate sub-category of sensitive data. This capability may be met by a key transport scheme (RSA) by using a public key to encrypt the DEK while protecting the corresponding private key with a password-derived or biometric-unlocked KEK.<htm:p/><htm:br/><htm:p/>This capability may also be met by a key agreement scheme. To do so, the device generates a device-wide sensitive data asymmetric pair (the private key of which is protected by a password-derived or biometric-unlocked KEK) and an asymmetric pair for the received sensitive data to be stored. In order to store the sensitive data, the device-wide public key and data private key are used to generate a shared secret, which can be used as a KEK or a DEK. The data private key and shared secret are cleared after the data is encrypted and the data public key stored. Thus, no key material is available in the locked state to decrypt the newly stored data. Upon unlock, the device-wide private key is decrypted and is used with each data public key to regenerate the shared secret and decrypt the stored data. <xref to="KeysLocked"></xref>, below, illustrates this scheme.<htm:p/><htm:br/><htm:p/><figure id="KeysLocked" entity="images/figure4.jpg" title="Key Agreement Scheme for Encrypting Received Sensitive Data in the Locked State"></figure></htm:p>
+        <ext-comp-def title="Access Control Functions" fam-id="FDP_ACF_EXT">
+          <fam-behavior>This family defines the rules for access control functions that are not addressed by the FDP_ACF family in CC Part 2.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Application Backup" fam-id="FDP_BCK_EXT">
+          <fam-behavior>This family defines requirements for managing device backups.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Limitation of Bluetooth Device Access" fam-id="FDP_BLT_EXT">
+          <fam-behavior>This family defines requirements for managing Bluetooth devices.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Data-at-Rest Encryption" fam-id="FDP_DAR_EXT">
+          <fam-behavior>This family defines requirements for implementation of data-at-rest protection.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Subset Information Flow Control" fam-id="FDP_IFC_EXT">
+          <fam-behavior>This family defines requirements for handling of information flows that are not addressed by FDP_IFC in CC Part 2.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="User Data Storage" fam-id="FDP_STG_EXT">
+          <fam-behavior>This family defines requirements for managing data storage.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Inter-TSF User Data Transfer Protection" fam-id="FDP_UPC_EXT">
+          <fam-behavior>This family defines requirements for the use of trusted channel protocols to protect user data.</fam-behavior>
+        </ext-comp-def>
         <!--FDP_ACF_EXT.1 Access Control for System Services-->
         <f-component cc-id="fdp_acf_ext.1" id="fdp-acf-ext-1" name="Access Control for System Services">
           <comp-lev> requires the TSF to be able to control access to its own services.</comp-lev>
@@ -3085,6 +3103,21 @@
       </section>
       <!--5.1.5 Class: Identification and Authentication (FIA)-->
       <section id="fia" title="Class: Identification and Authentication (FIA)">
+        <ext-comp-def title="Authentication Failures" fam-id="FIA_AFL_EXT">
+          <fam-behavior>This family defines requirements for authentication failure handling that are not addressed by the FIA_AFL family in CC Part 2.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Password Management" fam-id="FIA_PMG_EXT">
+          <fam-behavior>This family defines requirements for the composition of password credentials.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Authentication Throttling" fam-id="FIA_TRT_EXT">
+          <fam-behavior>This family defines requirements for prevention of brute-force authentication attempts.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="User Authentication" fam-id="FIA_UAU_EXT">
+          <fam-behavior>This family defines requirements for user authentication that are not addressed by FIA_UAU in CC Part 2.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="X.509 Certificates" fam-id="FIA_X509_EXT">
+          <fam-behavior>This family defines requirements for the management and use of X.509 certificates.</fam-behavior>
+        </ext-comp-def>
         <!--FIA_AFL_EXT.1 Authentication Failure Handling-->
         <f-component cc-id="fia_afl_ext.1" id="fia-afl-ext-1" name="Authentication Failure Handling">
           <comp-lev> requires the TSF be able to manage unsuccessful authentication attempts and limit the number of attempts for each method.</comp-lev>
@@ -3957,11 +3990,13 @@
       </section>
       <!--5.1.6 Class: Security Management (FMT)-->
       <section id="fmt" title="Class: Security Management (FMT)">
-
-        Both the user and the administrator may manage the TOE. This administrator is likely to be acting remotely and could be the Mobile Device Management (MDM) Administrator acting through an MDM Agent. <htm:br/><htm:br/>
-        The Administrator is responsible for management activities, including setting the policy that is applied by the enterprise on the Mobile Device. These management functions are likely to be a different set than those management functions provided to the user. Management functions that are provided to the user and not the administrator are listed in FMT_MOF_EXT.1.1. Management functions for which the administrator may adopt a policy that restricts the user from performing that function are listed in FMT_MOF_EXT.1.2. <htm:br/><htm:br/> <xref to="fmt_smf"></xref> compares the management functions required by this Protection Profile in the following three requirements (FMT_MOF_EXT.1.1, FMT_MOF_EXT.1.2, and FMT_SMF.1).
-
-
+        <htm:p>Both the user and the administrator may manage the TOE. This administrator is likely to be acting remotely and could be the Mobile Device Management (MDM) Administrator acting through an MDM Agent.<htm:p/><htm:br/><htm:p/>The Administrator is responsible for management activities, including setting the policy that is applied by the enterprise on the Mobile Device. These management functions are likely to be a different set than those management functions provided to the user. Management functions that are provided to the user and not the administrator are listed in FMT_MOF_EXT.1.1. Management functions for which the administrator may adopt a policy that restricts the user from performing that function are listed in FMT_MOF_EXT.1.2.<htm:p/><htm:br/><htm:p/><xref to="fmt_smf"></xref> compares the management functions required by this Protection Profile in the following three requirements (FMT_MOF_EXT.1.1, FMT_MOF_EXT.1.2, and FMT_SMF.1).</htm:p>
+        <ext-comp-def title="Management of Functions in TSF" fam-id="FMT_MOF_EXT">
+          <fam-behavior>This family defines requirements for authorization to manage the behavior of the TSF that are not addressed by FMT_MOF in CC Part 2.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Specification of Management Functions" fam-id="FMT_SMF_EXT">
+          <fam-behavior>This family defines requirements for security-relevant management functions that are not addressed by FMT_SMF in CC Part 2.</fam-behavior>
+        </ext-comp-def>
         <!--FMT_MOF_EXT.1 Management of Security Functions Behavior-->
         <f-component cc-id="fmt_mof_ext.1" id="fmt-mof-ext-1" name="Management of Security Functions Behavior">
           <comp-lev> requires the TSF to apply restrictions to access its management functions to the authorized roles.</comp-lev>
@@ -5314,6 +5349,30 @@
       </section>
       <!--5.1.7 Class: Protection of the TSF (FPT)-->
       <section id="fpt" title="Class: Protection of the TSF (FPT)">
+        <ext-comp-def title="Anti-Exploitation Capabilities" fam-id="FPT_AEX_EXT">
+          <fam-behavior>This family defines requirements for protecting against common types of software exploitation techniques.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Baseband Processing" fam-id="FPT_BBD_EXT">
+          <fam-behavior>This family defines requirements for separation of baseband and application processor execution.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Limitation of Bluetooth Profile Support" fam-id="FPT_BLT_EXT">
+          <fam-behavior>This family defines requirements for limiting Bluetooth capabilities without user action.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="JTAG Disablement" fam-id="FPT_JTA_EXT">
+          <fam-behavior>This family defines requirements for JTAG interface access limitations.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Key Storage" fam-id="FPT_KST_EXT">
+          <fam-behavior>This family defines requirements for protecting plaintext keys.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Self-Test Notification" fam-id="FPT_NOT_EXT">
+          <fam-behavior>This family defines requirements for generation of notifications in response to completed self-tests.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="TSF Self Test" fam-id="FPT_TST_EXT">
+          <fam-behavior>This family defines requirements for execution of self-tests that are not addressed by FPT_TST in CC Part 2.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="TSF Updates" fam-id="FPT_TUD_EXT">
+          <fam-behavior>This family defines requirements for trusted updates.</fam-behavior>
+        </ext-comp-def>
         <!--FPT_AEX_EXT.1 Application Address Space Layout Randomization-->
         <f-component cc-id="fpt_aex_ext.1" id="fpt-aex-ext-1" name="Application Address Space Layout Randomization">
           <comp-lev> requires the TSF to support address space layout randomization (ASLR).</comp-lev>
@@ -6368,6 +6427,9 @@
       </section>
       <!--5.1.8 Class: TOE Access (FTA)-->
       <section id="fta" title="Class: TOE Access (FTA)">
+        <ext-comp-def title="Session Locking and Termination" fam-id="FTA_SSL_EXT">
+          <fam-behavior>This family defines requirements for session locking capabilities that are not addressed by FTA_SSL in CC Part 2.</fam-behavior>
+        </ext-comp-def>
         <!--FTA_SSL_EXT.1 TSF- and User-initiated Locked State -->
         <f-component cc-id="fta_ssl_ext.1" id="fta-ssl-ext-1" name="TSF- and User-initiated Locked State ">
           <comp-lev> requires the TSF to manage the transition to a locked state and what operations can be performed. </comp-lev>
@@ -6437,6 +6499,9 @@
       </section>
       <!--5.1.9 Class: Trusted Path/Channels (FTP)-->
       <section id="ftp" title="Class: Trusted Path/Channels (FTP)">
+        <ext-comp-def title="Inter-TSF Trusted Channel" fam-id="FTP_ITC_EXT">
+          <fam-behavior>This family defines requirements for trusted channels that are not addressed by FTP_ITC in CC Part 2 because they apply specifically to channels required by a mobile device.</fam-behavior>
+        </ext-comp-def>
         <!--FTP_ITC_EXT.1 Trusted Channel Communication-->
         <f-component cc-id="ftp_itc_ext.1" id="ftp-itc-ext-1" name="Trusted Channel Communication">
           <comp-lev> requires the TSF to manage the communication channel between itself and other trusted products. </comp-lev>
