@@ -761,7 +761,13 @@
       </section>
       <!--5.1.2 Class: Cryptographic Support (FCS)-->
       <section id="fcs" title="Class: Cryptographic Support (FCS)">
-        <htm:p>This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: DEKs and KEKs. (A REK is considered a KEK.) DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications. The following diagram shows an example key hierarchy to illustrate the concepts of this profile. This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. Please note if <xref to="uau_biometric"></xref> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"></xref> shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys. If <xref to="uau_hybr"></xref> is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:p/><figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"></figure></htm:p>
+
+        This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: DEKs and KEKs. (A REK is considered a KEK.)
+        DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications.
+        The following diagram shows an example key hierarchy to illustrate the concepts of this profile.
+        This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile.
+        Please note if  <xref to="uau_biometric"></xref> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the  <xref to="mod-biometrics"></xref> shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys.
+        If  <xref to="uau_hybr"></xref> is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<htm:br/> <figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"></figure>
         <ext-comp-def title="Cryptographic Key Management" fam-id="FCS_CKM_EXT">
           <fam-behavior>This family defines requirements for management of cryptographic keys that are not addressed by FCS_CKM in CC Part 2.</fam-behavior>
         </ext-comp-def>
@@ -2229,7 +2235,14 @@
       </section>
       <!--5.1.3 Class: Cryptographic Storage (FCS_STG_EXT)-->
       <section id="fcs_stg_ext" title="Class: Cryptographic Storage (FCS_STG_EXT)">
-        <htm:p>The following requirements describe how keys are protected. All keys must ultimately be protected by a REK, and may optionally be protected by the user’s authentication factor. Each key’s confidentiality and integrity must be protected. This section also describes the secure key storage services to be provided by the Mobile Device for use by applications and users, applying the same level of protection for these keys as keys internal to the OS.</htm:p>
+
+        The following requirements describe how keys are protected. All keys
+        must ultimately be protected by a REK, and may optionally be protected by the user’s
+        authentication factor. Each key’s confidentiality and integrity must be protected. This
+        section also describes the secure key storage services to be provided by the Mobile
+        Device for use by applications and users, applying the same level of protection for
+        these keys as keys internal to the OS.
+
         <!--FCS_STG_EXT.1 Cryptographic Key Storage-->
         <f-component cc-id="fcs_stg_ext.1" id="fcs-stg-ext-1" name="Cryptographic Key Storage">
           <comp-lev> requires the TSF to implement a secure key storage and defines the access restrictions to be enforced on this. </comp-lev>
@@ -2464,7 +2477,15 @@
       </section>
       <!--5.1.4 Class: User Data Protection (FDP)-->
       <section id="fdp" title="Class: User Data Protection (FDP)">
-        <htm:p>A subset of the User Data Protection focuses on protecting Data-At-Rest, namely FDP_DAR_EXT.1 and FDP_DAR_EXT.2. Three levels of data-at-rest protection are addressed: TSF data, Protected Data (and keys), and sensitive data. <xref to="datalevels"></xref> addresses the level of protection required for each level of data-at-rest.<htm:p/><htm:b> <ctr id="datalevels" ctr-type="Table">: Protection of Data Levels</ctr></htm:b><htm:p/><htm:br/></htm:p><htm:table><htm:tr class="header"><htm:td>Data Level</htm:td><htm:td>Protection Required</htm:td></htm:tr><htm:tr><htm:td>TSF Data</htm:td><htm:td>TSF data does not require confidentiality, but does require integrity protection. (FPT_TST_EXT.2/PREKERNEL)</htm:td></htm:tr><htm:tr><htm:td>Protected Data</htm:td><htm:td>Protected data is encrypted while powered off. (FDP_DAR_EXT.1)</htm:td></htm:tr><htm:tr><htm:td>Sensitive Data</htm:td><htm:td>Sensitive data is encrypted while in the locked state, in addition to while powered off. (FDP_DAR_EXT.2)</htm:td></htm:tr></htm:table><htm:p><htm:br/><htm:p/>All keys, protected data, and sensitive data must ultimately be protected by the REK. Sensitive data must be protected by the password in addition to the REK. In particular, <xref to="Keys"></xref> has KEKs protected according to these requirements: DEK_1 would be appropriate for sensitive data, DEK_2 would not be appropriate for sensitive data, K_1 is not considered a sensitive key, and K_2 is considered a sensitive key.<htm:p/><htm:br/><htm:p/>These requirements include a capability for encrypting sensitive data received while in the locked state, which may be considered a separate sub-category of sensitive data. This capability may be met by a key transport scheme (RSA) by using a public key to encrypt the DEK while protecting the corresponding private key with a password-derived or biometric-unlocked KEK.<htm:p/><htm:br/><htm:p/>This capability may also be met by a key agreement scheme. To do so, the device generates a device-wide sensitive data asymmetric pair (the private key of which is protected by a password-derived or biometric-unlocked KEK) and an asymmetric pair for the received sensitive data to be stored. In order to store the sensitive data, the device-wide public key and data private key are used to generate a shared secret, which can be used as a KEK or a DEK. The data private key and shared secret are cleared after the data is encrypted and the data public key stored. Thus, no key material is available in the locked state to decrypt the newly stored data. Upon unlock, the device-wide private key is decrypted and is used with each data public key to regenerate the shared secret and decrypt the stored data. <xref to="KeysLocked"></xref>, below, illustrates this scheme.<htm:p/><htm:br/><htm:p/><figure id="KeysLocked" entity="images/figure4.jpg" title="Key Agreement Scheme for Encrypting Received Sensitive Data in the Locked State"></figure></htm:p>
+        <htm:p>
+          A subset of the User Data Protection focuses on protecting Data-At-Rest, namely FDP_DAR_EXT.1 and FDP_DAR_EXT.2.
+          Three levels of data-at-rest protection are addressed: TSF data, Protected Data (and keys), and sensitive data.
+          <xref to="datalevels"></xref> addresses the level of protection required for each level of data-at-rest.
+        </htm:p><htm:b> <ctr id="datalevels" ctr-type="Table">: Protection of Data Levels</ctr></htm:b><htm:br/><htm:br/><htm:table><htm:tr class="header"><htm:td >Data Level</htm:td><htm:td >Protection Required</htm:td></htm:tr><htm:tr ><htm:td >TSF Data</htm:td><htm:td >TSF data does not require confidentiality, but does require integrity protection. (FPT_TST_EXT.2/PREKERNEL)</htm:td></htm:tr><htm:tr ><htm:td >Protected Data</htm:td><htm:td >Protected data is encrypted while powered off. (FDP_DAR_EXT.1)</htm:td></htm:tr><htm:tr ><htm:td >Sensitive Data</htm:td><htm:td >Sensitive data is encrypted while in the locked state, in addition to while powered off. (FDP_DAR_EXT.2)</htm:td></htm:tr></htm:table><htm:br/>
+        All keys, protected data, and sensitive data must ultimately be protected by the REK. Sensitive data must be protected by the password in addition to the REK. In particular,  <xref to="Keys"></xref> has KEKs protected according to these requirements: DEK_1 would be appropriate for sensitive data, DEK_2 would not be appropriate for sensitive data, K_1 is not considered a sensitive key, and K_2 is considered a sensitive key. <htm:br/><htm:br/>
+        These requirements include a capability for encrypting sensitive data received while in the locked state, which may be considered a separate sub-category of sensitive data. This capability may be met by a key transport scheme (RSA) by using a public key to encrypt the DEK while protecting the corresponding private key with a password-derived or biometric-unlocked KEK. <htm:br/><htm:br/>
+        This capability may also be met by a key agreement scheme. To do so, the device generates a device-wide sensitive data asymmetric pair (the private key of which is protected by a password-derived or biometric-unlocked KEK) and an asymmetric pair for the received sensitive data to be stored. In order to store the sensitive data, the device-wide public key and data private key are used to generate a shared secret, which can be used as a KEK or a DEK. The data private key and shared secret are cleared after the data is encrypted and the data public key stored. Thus, no key material is available in the locked state to decrypt the newly stored data. Upon unlock, the device-wide private key is decrypted and is used with each data public key to regenerate the shared secret and decrypt the stored data.
+        <xref to="KeysLocked"></xref>, below, illustrates this scheme. <htm:br/><htm:br/> <figure id="KeysLocked" entity="images/figure4.jpg" title="Key Agreement Scheme for Encrypting Received Sensitive Data in the Locked State"></figure><htm:br/><htm:br/>
         <ext-comp-def title="Access Control Functions" fam-id="FDP_ACF_EXT">
           <fam-behavior>This family defines the rules for access control functions that are not addressed by the FDP_ACF family in CC Part 2.</fam-behavior>
         </ext-comp-def>
@@ -3046,7 +3067,8 @@
           </audit-event>
         </f-component>
         <!--FDP_UPC_EXT.1/BLUETOOTH Inter-TSF User Data Transfer Protection (Bluetooth)-->
-        <f-component cc-id="fdp_upc_ext.1" id="fdp-upc-ext-1-bluetooth" name="Inter-TSF User Data Transfer Protection (Bluetooth)" iteration="BLUETOOTH">
+        <f-component cc-id="fdp_upc_ext.1" id="fdp-upc-ext-1-bluetooth" name="Inter-TSF User Data Transfer Protection (Bluetooth)" iteration="BLUETOOTH" status="feat-based">
+          <depends on="bluetooth"/>
           <f-element id="fel-bluetooth">
             <title>The TSF shall provide a means for non-TSF applications executing on the TOE to use [  <htm:i><htm:ul><htm:li>Bluetooth BR/EDR in accordance with the  <xref to="mod-bluetooth"></xref>,</htm:li></htm:ul>and <selectables  linebreak="yes"><selectable id="fdp_upc_ext.1.1_BLUETOOTH_1" >Bluetooth LE in accordance with the  <xref to="mod-bluetooth"></xref></selectable><selectable id="fdp_upc_ext.1.1_BLUETOOTH_2" exclusive="yes">no other protocol</selectable> </selectables></htm:i>  ] to provide a protected communication channel between the non-TSF application and another IT product that is logically distinct from other communication channels, provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.</title>
             <note role="application"> If the TOE includes Bluetooth hardware,
@@ -3990,7 +4012,11 @@
       </section>
       <!--5.1.6 Class: Security Management (FMT)-->
       <section id="fmt" title="Class: Security Management (FMT)">
-        <htm:p>Both the user and the administrator may manage the TOE. This administrator is likely to be acting remotely and could be the Mobile Device Management (MDM) Administrator acting through an MDM Agent.<htm:p/><htm:br/><htm:p/>The Administrator is responsible for management activities, including setting the policy that is applied by the enterprise on the Mobile Device. These management functions are likely to be a different set than those management functions provided to the user. Management functions that are provided to the user and not the administrator are listed in FMT_MOF_EXT.1.1. Management functions for which the administrator may adopt a policy that restricts the user from performing that function are listed in FMT_MOF_EXT.1.2.<htm:p/><htm:br/><htm:p/><xref to="fmt_smf"></xref> compares the management functions required by this Protection Profile in the following three requirements (FMT_MOF_EXT.1.1, FMT_MOF_EXT.1.2, and FMT_SMF.1).</htm:p>
+
+        Both the user and the administrator may manage the TOE. This administrator is likely to be acting remotely and could be the Mobile Device Management (MDM) Administrator acting through an MDM Agent. <htm:br/><htm:br/>
+        The Administrator is responsible for management activities, including setting the policy that is applied by the enterprise on the Mobile Device. These management functions are likely to be a different set than those management functions provided to the user. Management functions that are provided to the user and not the administrator are listed in FMT_MOF_EXT.1.1. Management functions for which the administrator may adopt a policy that restricts the user from performing that function are listed in FMT_MOF_EXT.1.2. <htm:br/><htm:br/> <xref to="fmt_smf"></xref> compares the management functions required by this Protection Profile in the following three requirements (FMT_MOF_EXT.1.1, FMT_MOF_EXT.1.2, and FMT_SMF.1).
+
+
         <ext-comp-def title="Management of Functions in TSF" fam-id="FMT_MOF_EXT">
           <fam-behavior>This family defines requirements for authorization to manage the behavior of the TSF that are not addressed by FMT_MOF in CC Part 2.</fam-behavior>
         </ext-comp-def>
@@ -7170,4 +7196,9 @@
       </description>
     </entry>
   </bibliography>
+  <implements>
+    <features id="bluetooth" title="Bluetooth">
+      <description>If the TOE includes Bluetooth hardware, the following SFRs must be claimed:</description>
+    </features>
+  </implements>
 </PP>
