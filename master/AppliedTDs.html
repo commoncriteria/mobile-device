@@ -3397,7 +3397,129 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         
      
         
-            
+        <div class="comp" id="FCS_RBG.1"><h4>FCS_RBG.1 Random Bit Generation (RBG)</h4>
+          <div class="element"><div class="reqid" id="FCS_RBG.1.1"><a href="#FCS_RBG.1.1" class="abbr">FCS_RBG.1.1</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform deterministic random bit generation services using 
+              [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_126">Hash_DRBG (any)</span></li><li style=""><span class="selectable-content" id="_s_127">HMAC_DRBG (any)</span></li><li style=""><span class="selectable-content" id="_s_128">CTR_DRBG (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>)</span></li></ul>]
+              in accordance
+              with [<i><abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-90A</i>] after initialization with a seed.              
+            <div class="appnote"><span class="note-header">Application
+      Note:
+    </span><span class="note">
+              <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-90A contains three different methods of generating random numbers;
+              each of these, in turn, depends on underlying cryptographic primitives (hash functions/ciphers).
+              The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author will select the function used and include the specific underlying cryptographic primitives used in the requirement or in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.
+              While any of the identified hash functions (<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-224, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512) are allowed for Hash_DRBG or HMAC_DRBG,
+              only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based implementations for CTR_DRBG are allowed.
+            </span></div></div></div>
+          <div class="element"><div class="reqid" id="FCS_RBG.1.2"><a href="#FCS_RBG.1.2" class="abbr">FCS_RBG.1.2</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use a [<b>selection</b>: <span class="selectable-content" id="internal-seed"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source [<b>assignment</b>: 
+     <span class="assignable-content">name of noise source</span>]</span>, <span class="selectable-content" id="internal-seeds"><b>multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources [<b>assignment</b>: 
+     <span class="assignable-content">names of noise sources</span>]</b></span>, <span class="selectable-content" id="external-seed"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding</span>]
+              for initialized seeding.
+            <div class="appnote"><span class="note-header">Application
+      Note:
+    </span><span class="note">
+              <p>
+                For the 
+                selection in this requirement, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source" if
+                a single noise source is used as input to the DRBG. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources" if a seed is formed from a combination of two or more noise sources within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary. If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements two or more separate DRBGs that are seeded in separate manners, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> should be iterated for each DRBG. It multiple distinct noise sources exist such that each DRBG only uses one of them, then each iteration would select "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source"; "multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources" is only selected if a single DRBG uses multiple noise sources for its seed. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding" if noise source data is generated outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary.
+              </p>
+              <p>
+                If "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source" is selected, <a href="#FCS_RBG.3">FCS_RBG.3</a> must be claimed.
+              </p>
+              <p>
+                If "multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources" is selected, <a href="#FCS_RBG.4">FCS_RBG.4</a> and <a href="#FCS_RBG.5">FCS_RBG.5</a> must be claimed. 
+              </p>
+              <p>
+                If "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding" is selected, <a href="#FCS_RBG.2">FCS_RBG.2</a> must be claimed. 
+              </p>
+            </span></div></div></div>
+          
+          <div class="element"><div class="reqid" id="FCS_RBG.1.3"><a href="#FCS_RBG.1.3" class="abbr">FCS_RBG.1.3</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall update the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> state by [<b>selection</b>: <span class="selectable-content" id="_s_132">reseeding</span>, <span class="selectable-content" id="_s_133">uninstantiating and reinstantiating</span>] using a [<b>selection</b>: <span class="selectable-content" id="_s_134"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source [<b>assignment</b>: 
+     <span class="assignable-content">name of noise source</span>]</span>, <span class="selectable-content" id="_s_135"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding</span>]
+              in the following situations: [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_136">on demand</span></li><li style=""><span class="selectable-content" id="_s_137">on the condition: [<b>assignment</b>: 
+     <span class="assignable-content">condition</span>]</span></li><li style=""><span class="selectable-content" id="_s_138">after [<b>assignment</b>: 
+     <span class="assignable-content">time</span>]</span></li></ul>]
+              in accordance with [<b>assignment</b>: 
+     <span class="assignable-content">list of standards</span>].
+            </div></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_RBG.1.1">FCS_RBG.1.1</a></div>
+              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies the DRBGs used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</div>
+              <div class="eacategory">Guidance</div><div class="ea">If the DRBG functionality is configurable, the evaluator shall verify that the operational guidance includes instructions on how to configure this behavior.</div>
+              <div class="eacategory">Tests</div><div class="ea">
+                <p>
+                  The evaluator shall perform the following tests:
+                </p><p>
+                  The evaluator shall perform 15 trials for the RNG implementation. If the RNG
+                  is configurable, the evaluator shall perform 15 trials for each configuration. The
+                  evaluator shall also confirm that the operational guidance contains appropriate
+                  instructions for configuring the RNG functionality.
+                </p><p>
+                  If the RNG has  prediction resistance enabled, each trial consists of (1) instantiate DRBG, (2)
+                  generate the first block of random bits (3) generate a second block of random bits
+                  (4) uninstantiate. The evaluator verifies that the second block of random bits is
+                  the expected value. The evaluator shall generate eight input values for each
+                  trial. The first is a count (0 – 14). The next three are entropy input, nonce, and
+                  personalization string for the instantiate operation. The next two are additional
+                  input and entropy input for the first call to generate. The final two are
+                  additional input and entropy input for the second call to generate. These values
+                  are randomly generated. "generate one block of random bits" means to generate
+                  random bits with number of returned bits equal to the Output Block Length (as
+                  defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-90A).
+                </p><p>
+                  If the RNG does not have prediction resistance,
+                  each trial consists of (1) instantiate DRBG, (2) generate the first block of
+                  random bits (3) reseed, (4) generate a second block of random bits (5)
+                  uninstantiate. The evaluator verifies that the second block of random bits is the
+                  expected value. The evaluator shall generate eight input values for each trial.
+                  The first is a count (0 – 14). The next three are entropy input, nonce, and
+                  personalization string for the instantiate operation. The fifth value is
+                  additional input to the first call to generate. The sixth and seventh are
+                  additional input and entropy input to the call to reseed. The final value is
+                  additional input to the second generate call.
+                </p><p>
+                  The following list contains more information on some of the input values to be generated/selected by the evaluator.
+                  <ul>
+                    <li> <b>Entropy input:</b> The length of the entropy input value must equal the seed
+                      length.</li>
+                    
+                    <li><b>Nonce:</b> If a nonce is supported (CTR_DRBG with no Derivation Function does
+                      not use a nonce), the nonce bit length is one-half the seed length. </li>
+                    <li><b>Personalization string:</b> The length of the personalization string must be
+                      less than or equal to seed length. If the implementation only supports one
+                      personalization string length, then the same length can be used for both values.
+                      If more than one string length is support, the evaluator shall use personalization
+                      strings of two different lengths. If the implementation does not use a
+                      personalization string, no value needs to be supplied. </li>
+                    <li><b>Additional input:</b> The additional input bit lengths have the same defaults
+                      and restrictions as the personalization string lengths.</li>
+                  </ul>
+                </p>
+              </div>
+            <div class="element-activity-header"><a href="#FCS_RBG.1.2">FCS_RBG.1.2</a></div>
+              
+                Documentation will be produced - and the evaluator shall perform the
+                activities - in accordance with  and
+                the
+                Clarification to the Entropy Documentation and Assessment Annex.
+              
+              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+			There are no additional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element.<br/><br/>
+              <div class="eacategory">Guidance</div>
+			There are no additional Guidance evaluation activities for this element.<br/><br/>
+              <div class="eacategory">Tests</div>
+			There are no test activities for this element.<br/><br/>
+              
+            <div class="element-activity-header"><a href="#FCS_RBG.1.3">FCS_RBG.1.3</a></div>              
+              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
+                The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies how the DRBG state is updated, and the situations under which this may occur.
+              </div>
+              <div class="eacategory">Guidance</div><div class="ea">If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> claims that the DRBG state can be updated on demand, the evaluator shall verify that the operational guidance has instructions for how to perform this operation.</div>
+              <div class="eacategory">Tests</div>
+			There are no test activities for this element.<br/><br/>
+            </div></div></div>    
         
         
         
@@ -6840,7 +6962,22 @@ The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF<
         
         
         
-        	     
+        <div class="comp" id="FPT_FLS.1"><h4>FPT_FLS.1 Failure with Preservation of Secure State</h4>
+          <div class="element"><div class="reqid" id="FPT_FLS.1.1"><a href="#FPT_FLS.1.1" class="abbr">FPT_FLS.1.1</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall preserve a secure state when the following types of failures occur: [<i>DRBG self-test failure</i>].              
+            <div class="appnote"><span class="note-header">Application
+      Note:
+    </span><span class="note">The intent of this requirement is to ensure that cryptographic services requiring random bit generation cannot be performed if a failure of a self-test defined in <a href="#FPT_TST.1">FPT_TST.1</a> occurs.</span></div></div></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FPT_FLS.1">FPT_FLS.1</a></div>              
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea">
+                The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> enters an error state in the event of a DRBG self-test failure.
+              </div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea">
+                The evaluator shall verify that the guidance documentation describes the error state that results from a DRBG self-test failure and the actions that a user or administrator should take in response to attempt to resolve the error state.
+              </div></div><div class="eacategory">Tests</div><div class="ea">
+			There are no test activities for this component.<br/></div></div></div></div>	     
         
         
         
@@ -7044,7 +7181,43 @@ The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF<
         
         
         
-        
+        <div class="comp" id="FPT_TST.1"><h4>FPT_TST.1 TSF Self-Testing</h4>
+          <div class="element"><div class="reqid" id="FPT_TST.1.1"><a href="#FPT_TST.1.1" class="abbr">FPT_TST.1.1</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall run a suite of the following self-tests [<b>selection</b>: <span class="selectable-content" id="_s_370">during initial start-up</span>, <span class="selectable-content" id="_s_371">periodically during normal operation</span>, <span class="selectable-content" id="_s_372">at the request of the authorized user</span>, <span class="selectable-content" id="_s_373">at the conditions [<b>assignment</b>: 
+     <span class="assignable-content">conditions under which self-test should occur</span>]</span>]
+              to demonstrate the correct operation of [<i><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> DRBG specified in <a href="#FCS_RBG.1">FCS_RBG.1</a></i>].              
+            </div></div>
+          
+          <div class="element"><div class="reqid" id="FPT_TST.1.2"><a href="#FPT_TST.1.2" class="abbr">FPT_TST.1.2</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide authorized users with the capability to verify the integrity of [<i>[DRBG seed/output data]</i>].
+            </div></div>
+          
+          <div class="element"><div class="reqid" id="FPT_TST.1.3"><a href="#FPT_TST.1.3" class="abbr">FPT_TST.1.3</a></div><div class="reqdesc">
+              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide authorized users with the capability to verify the integrity of [<i>[<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> DRBG specified in <a href="#FCS_RBG.1">FCS_RBG.1</a>]</i>].
+            <div class="appnote"><span class="note-header">Application
+      Note:
+    </span><span class="note">This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is a required dependency of <a href="#FCS_RBG.1">FCS_RBG.1</a>. It is intended to require that any DRBG implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> undergo health testing to ensure that the random bit generation functionality has not been degraded. If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports multiple DRBGs, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> should be iterated to describe the self-test behavior for each.</span></div></div></div>    		
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FPT_TST.1">FPT_TST.1</a></div>
+              
+              
+              
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea">
+                <p>
+                  The	evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it details the self-tests that are run by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> along with how they are run. This description should include an outline of what the tests are actually doing. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> makes an argument that the tests are sufficient to demonstrate that the DRBG is operating correctly.
+                </p><p>
+                  Note that this information may also be placed in the entropy documentation specified by <a href="#entropyappendix" class="dynref" data-format=""></a>. 
+                </p>
+              </div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea">
+                <p>
+                  If a self-test can be executed at the request of an authorized user, the evaluator shall verify that the operational guidance provides instructions on how to execute that self-test.
+                </p>
+              </div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
+                <p>
+                  For each self-test, the evaluator shall verify that evidence is produced that the self-test is executed when specified by <a href="#FPT_TST.1.1">FPT_TST.1.1</a>.
+                </p><p>
+                  If a self-test can be executed at the request of an authorized user, the evaluator shall verify that following the steps documented in the operational guidance to perform the self-test will result in execution of the self-test.
+                </p>
+              </div></div></div></div></div>
         
         
         
@@ -9078,130 +9251,7 @@ The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF<
               
               
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea">The evaluation activity for this component is performed in conjunction with the
-                evaluation activity for <a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a>.<br/><br/></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea">There are no guidance evaluation activities for this component.<br/><br/></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">There are no test evaluation activities for this component.</div></div></div></div></div><div class="comp" id="FCS_RBG.1"><h4>FCS_RBG.1 Random Bit Generation (RBG)</h4><div class="statustag"></div>
-          
-          <div class="element"><div class="reqid" id="FCS_RBG.1.1"><a href="#FCS_RBG.1.1" class="abbr">FCS_RBG.1.1</a></div><div class="reqdesc">
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform deterministic random bit generation services using 
-              [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_126">Hash_DRBG (any)</span></li><li style=""><span class="selectable-content" id="_s_127">HMAC_DRBG (any)</span></li><li style=""><span class="selectable-content" id="_s_128">CTR_DRBG (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>)</span></li></ul>]
-              in accordance
-              with [<i><abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-90A</i>] after initialization with a seed.              
-            <div class="appnote"><span class="note-header">Application
-      Note:
-    </span><span class="note">
-              <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-90A contains three different methods of generating random numbers;
-              each of these, in turn, depends on underlying cryptographic primitives (hash functions/ciphers).
-              The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author will select the function used and include the specific underlying cryptographic primitives used in the requirement or in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.
-              While any of the identified hash functions (<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-224, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512) are allowed for Hash_DRBG or HMAC_DRBG,
-              only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based implementations for CTR_DRBG are allowed.
-            </span></div></div></div>
-          <div class="element"><div class="reqid" id="FCS_RBG.1.2"><a href="#FCS_RBG.1.2" class="abbr">FCS_RBG.1.2</a></div><div class="reqdesc">
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use a [<b>selection</b>: <span class="selectable-content" id="internal-seed"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source [<b>assignment</b>: 
-     <span class="assignable-content">name of noise source</span>]</span>, <span class="selectable-content" id="internal-seeds"><b>multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources [<b>assignment</b>: 
-     <span class="assignable-content">names of noise sources</span>]</b></span>, <span class="selectable-content" id="external-seed"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding</span>]
-              for initialized seeding.
-            <div class="appnote"><span class="note-header">Application
-      Note:
-    </span><span class="note">
-              <p>
-                For the 
-                selection in this requirement, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source" if
-                a single noise source is used as input to the DRBG. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources" if a seed is formed from a combination of two or more noise sources within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary. If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements two or more separate DRBGs that are seeded in separate manners, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> should be iterated for each DRBG. It multiple distinct noise sources exist such that each DRBG only uses one of them, then each iteration would select "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source"; "multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources" is only selected if a single DRBG uses multiple noise sources for its seed. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding" if noise source data is generated outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary.
-              </p>
-              <p>
-                If "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source" is selected, <a href="#FCS_RBG.3">FCS_RBG.3</a> must be claimed.
-              </p>
-              <p>
-                If "multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources" is selected, <a href="#FCS_RBG.4">FCS_RBG.4</a> and <a href="#FCS_RBG.5">FCS_RBG.5</a> must be claimed. 
-              </p>
-              <p>
-                If "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding" is selected, <a href="#FCS_RBG.2">FCS_RBG.2</a> must be claimed. 
-              </p>
-            </span></div></div></div>
-          
-          <div class="element"><div class="reqid" id="FCS_RBG.1.3"><a href="#FCS_RBG.1.3" class="abbr">FCS_RBG.1.3</a></div><div class="reqdesc">
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall update the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> state by [<b>selection</b>: <span class="selectable-content" id="_s_132">reseeding</span>, <span class="selectable-content" id="_s_133">uninstantiating and reinstantiating</span>] using a [<b>selection</b>: <span class="selectable-content" id="_s_134"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source [<b>assignment</b>: 
-     <span class="assignable-content">name of noise source</span>]</span>, <span class="selectable-content" id="_s_135"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding</span>]
-              in the following situations: [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_136">on demand</span></li><li style=""><span class="selectable-content" id="_s_137">on the condition: [<b>assignment</b>: 
-     <span class="assignable-content">condition</span>]</span></li><li style=""><span class="selectable-content" id="_s_138">after [<b>assignment</b>: 
-     <span class="assignable-content">time</span>]</span></li></ul>]
-              in accordance with [<b>assignment</b>: 
-     <span class="assignable-content">list of standards</span>].
-            </div></div>
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_RBG.1.1">FCS_RBG.1.1</a></div>
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies the DRBGs used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</div>
-              <div class="eacategory">Guidance</div><div class="ea">If the DRBG functionality is configurable, the evaluator shall verify that the operational guidance includes instructions on how to configure this behavior.</div>
-              <div class="eacategory">Tests</div><div class="ea">
-                <p>
-                  The evaluator shall perform the following tests:
-                </p><p>
-                  The evaluator shall perform 15 trials for the RNG implementation. If the RNG
-                  is configurable, the evaluator shall perform 15 trials for each configuration. The
-                  evaluator shall also confirm that the operational guidance contains appropriate
-                  instructions for configuring the RNG functionality.
-                </p><p>
-                  If the RNG has  prediction resistance enabled, each trial consists of (1) instantiate DRBG, (2)
-                  generate the first block of random bits (3) generate a second block of random bits
-                  (4) uninstantiate. The evaluator verifies that the second block of random bits is
-                  the expected value. The evaluator shall generate eight input values for each
-                  trial. The first is a count (0 – 14). The next three are entropy input, nonce, and
-                  personalization string for the instantiate operation. The next two are additional
-                  input and entropy input for the first call to generate. The final two are
-                  additional input and entropy input for the second call to generate. These values
-                  are randomly generated. "generate one block of random bits" means to generate
-                  random bits with number of returned bits equal to the Output Block Length (as
-                  defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-90A).
-                </p><p>
-                  If the RNG does not have prediction resistance,
-                  each trial consists of (1) instantiate DRBG, (2) generate the first block of
-                  random bits (3) reseed, (4) generate a second block of random bits (5)
-                  uninstantiate. The evaluator verifies that the second block of random bits is the
-                  expected value. The evaluator shall generate eight input values for each trial.
-                  The first is a count (0 – 14). The next three are entropy input, nonce, and
-                  personalization string for the instantiate operation. The fifth value is
-                  additional input to the first call to generate. The sixth and seventh are
-                  additional input and entropy input to the call to reseed. The final value is
-                  additional input to the second generate call.
-                </p><p>
-                  The following list contains more information on some of the input values to be generated/selected by the evaluator.
-                  <ul>
-                    <li> <b>Entropy input:</b> The length of the entropy input value must equal the seed
-                      length.</li>
-                    
-                    <li><b>Nonce:</b> If a nonce is supported (CTR_DRBG with no Derivation Function does
-                      not use a nonce), the nonce bit length is one-half the seed length. </li>
-                    <li><b>Personalization string:</b> The length of the personalization string must be
-                      less than or equal to seed length. If the implementation only supports one
-                      personalization string length, then the same length can be used for both values.
-                      If more than one string length is support, the evaluator shall use personalization
-                      strings of two different lengths. If the implementation does not use a
-                      personalization string, no value needs to be supplied. </li>
-                    <li><b>Additional input:</b> The additional input bit lengths have the same defaults
-                      and restrictions as the personalization string lengths.</li>
-                  </ul>
-                </p>
-              </div>
-            <div class="element-activity-header"><a href="#FCS_RBG.1.2">FCS_RBG.1.2</a></div>
-              
-                Documentation will be produced - and the evaluator shall perform the
-                activities - in accordance with  and
-                the
-                Clarification to the Entropy Documentation and Assessment Annex.
-              
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-			There are no additional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element.<br/><br/>
-              <div class="eacategory">Guidance</div>
-			There are no additional Guidance evaluation activities for this element.<br/><br/>
-              <div class="eacategory">Tests</div>
-			There are no test activities for this element.<br/><br/>
-              
-            <div class="element-activity-header"><a href="#FCS_RBG.1.3">FCS_RBG.1.3</a></div>              
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
-                The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies how the DRBG state is updated, and the situations under which this may occur.
-              </div>
-              <div class="eacategory">Guidance</div><div class="ea">If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> claims that the DRBG state can be updated on demand, the evaluator shall verify that the operational guidance has instructions for how to perform this operation.</div>
-              <div class="eacategory">Tests</div>
-			There are no test activities for this element.<br/><br/>
-            </div></div></div><div class="comp" id="FCS_RBG.2"><h4>FCS_RBG.2 Random Bit Generation (External Seeding)</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
+                evaluation activity for <a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a>.<br/><br/></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea">There are no guidance evaluation activities for this component.<br/><br/></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">There are no test evaluation activities for this component.</div></div></div></div></div><div class="comp" id="FCS_RBG.2"><h4>FCS_RBG.2 Random Bit Generation (External Seeding)</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
            <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a>.
            </i></b></div>
           
@@ -9319,60 +9369,7 @@ The evaluator shall exercise the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF<
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea">There are no <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this component.<br/><br/></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea">There are no guidance evaluation activities for this component.<br/><br/></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">For each selected resource, the evaluator shall cause data to be placed into
                 the Enterprise group’s instance of that shared resource. The evaluator shall install
                 an application into the Personal group that attempts to access the shared resource
-                information and verify that it cannot access the information. </div></div></div></div></div><h2 id="-sel-based" class="indexable" data-level="2">B.3 Class: Protection of the TSF (FPT)</h2><div class="comp" id="FPT_FLS.1"><h4>FPT_FLS.1 Failure with Preservation of Secure State</h4><div class="statustag"></div>
-          
-          <div class="element"><div class="reqid" id="FPT_FLS.1.1"><a href="#FPT_FLS.1.1" class="abbr">FPT_FLS.1.1</a></div><div class="reqdesc">
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall preserve a secure state when the following types of failures occur: [<i>DRBG self-test failure</i>].              
-            <div class="appnote"><span class="note-header">Application
-      Note:
-    </span><span class="note">The intent of this requirement is to ensure that cryptographic services requiring random bit generation cannot be performed if a failure of a self-test defined in <a href="#FPT_TST.1">FPT_TST.1</a> occurs.</span></div></div></div>
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FPT_FLS.1">FPT_FLS.1</a></div>              
-              
-              
-              
-            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea">
-                The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> enters an error state in the event of a DRBG self-test failure.
-              </div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea">
-                The evaluator shall verify that the guidance documentation describes the error state that results from a DRBG self-test failure and the actions that a user or administrator should take in response to attempt to resolve the error state.
-              </div></div><div class="eacategory">Tests</div><div class="ea">
-			There are no test activities for this component.<br/></div></div></div></div><div class="comp" id="FPT_TST.1"><h4>FPT_TST.1 TSF Self-Testing</h4><div class="statustag"></div>
-          
-          <div class="element"><div class="reqid" id="FPT_TST.1.1"><a href="#FPT_TST.1.1" class="abbr">FPT_TST.1.1</a></div><div class="reqdesc">
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall run a suite of the following self-tests [<b>selection</b>: <span class="selectable-content" id="_s_370">during initial start-up</span>, <span class="selectable-content" id="_s_371">periodically during normal operation</span>, <span class="selectable-content" id="_s_372">at the request of the authorized user</span>, <span class="selectable-content" id="_s_373">at the conditions [<b>assignment</b>: 
-     <span class="assignable-content">conditions under which self-test should occur</span>]</span>]
-              to demonstrate the correct operation of [<i><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> DRBG specified in <a href="#FCS_RBG.1">FCS_RBG.1</a></i>].              
-            </div></div>
-          
-          <div class="element"><div class="reqid" id="FPT_TST.1.2"><a href="#FPT_TST.1.2" class="abbr">FPT_TST.1.2</a></div><div class="reqdesc">
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide authorized users with the capability to verify the integrity of [<i>[DRBG seed/output data]</i>].
-            </div></div>
-          
-          <div class="element"><div class="reqid" id="FPT_TST.1.3"><a href="#FPT_TST.1.3" class="abbr">FPT_TST.1.3</a></div><div class="reqdesc">
-              The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide authorized users with the capability to verify the integrity of [<i>[<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> DRBG specified in <a href="#FCS_RBG.1">FCS_RBG.1</a>]</i>].
-            <div class="appnote"><span class="note-header">Application
-      Note:
-    </span><span class="note">This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is a required dependency of <a href="#FCS_RBG.1">FCS_RBG.1</a>. It is intended to require that any DRBG implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> undergo health testing to ensure that the random bit generation functionality has not been degraded. If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports multiple DRBGs, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> should be iterated to describe the self-test behavior for each.</span></div></div></div>    		
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FPT_TST.1">FPT_TST.1</a></div>
-              
-              
-              
-            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea">
-                <p>
-                  The	evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it details the self-tests that are run by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> along with how they are run. This description should include an outline of what the tests are actually doing. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> makes an argument that the tests are sufficient to demonstrate that the DRBG is operating correctly.
-                </p><p>
-                  Note that this information may also be placed in the entropy documentation specified by <a href="#entropyappendix" class="dynref" data-format=""></a>. 
-                </p>
-              </div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea">
-                <p>
-                  If a self-test can be executed at the request of an authorized user, the evaluator shall verify that the operational guidance provides instructions on how to execute that self-test.
-                </p>
-              </div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
-                <p>
-                  For each self-test, the evaluator shall verify that evidence is produced that the self-test is executed when specified by <a href="#FPT_TST.1.1">FPT_TST.1.1</a>.
-                </p><p>
-                  If a self-test can be executed at the request of an authorized user, the evaluator shall verify that following the steps documented in the operational guidance to perform the self-test will result in execution of the self-test.
-                </p>
-              </div></div></div></div></div><div class="comp" id="FPT_TST_EXT.3"><h4>FPT_TST_EXT.3 TSF Integrity Testing</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
+                information and verify that it cannot access the information. </div></div></div></div></div><h2 id="-sel-based" class="indexable" data-level="2">B.3 Class: Protection of the TSF (FPT)</h2><div class="comp" id="FPT_TST_EXT.3"><h4>FPT_TST_EXT.3 TSF Integrity Testing</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
            FIA_X509_EXT.2.1
              from <a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509,
         version 
