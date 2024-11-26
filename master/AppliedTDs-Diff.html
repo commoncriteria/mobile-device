@@ -221,7 +221,30 @@
         </div>
         <h1 class="indexable" data-level="1" id="Introduction">1 Introduction</h1>
         <h2 class="indexable" data-level="2" id="Objectives_of_Document">1.1 Objectives of Document</h2>
-         <span style="" class="comment " id="Comment-1-"> Review comments in XML for commentary here (schema is not parsing HTML formatting inside comment tag) </span> The scope of this Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>) is to describe the security functionality of mobile devices in terms of [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] and to define functional and assurance requirements for such devices. 
+         <span style="" class="comment " id="Comment-1-"> Review comments in XML for commentary here (schema is not parsing HTML formatting inside comment tag) Not sure if/how we want to communicate functional package guidance but this is our expectation for what claims can be made: 
+            <br>
+             <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> package:
+            <br>
+             - <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> with mutual authentication is mandatory
+            <br>
+             - <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> with mutual authentication is optional
+            <br>
+             Any other requirements can be specified freely
+            <br>
+             <a href="#FTP_ITC_EXT.1">FTP_ITC_EXT.1</a> doesn't currently specify client vs server but it's implied from context throughout the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> that only client is used 
+            <br>
+            <br>
+             X.509 package:
+            <br>
+             - FIA_XCU_EXT.2 must be claimed because the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> requires support for mutual authentication
+            <br>
+             - the old <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> specified PKCS10 and <abbr class="dyn-abbr"><a href="#abbr_EST">EST</a></abbr> as objective requirements for obtaining certificates - with the new <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>, FIA_X509_EXT.3 is selected because of FIA_XCU_EXT.2 claims (because the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> will not have its own internal/embedded <abbr class="dyn-abbr"><a href="#abbr_CA">CA</a></abbr>) but there is nothing forcing the specific enrollment method to be used. Right now this means any of PKCS10, <abbr class="dyn-abbr"><a href="#abbr_EST">EST</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_CMC">CMC</a></abbr>, or CMP must be used. If the idea is to only permit PKCS10/<abbr class="dyn-abbr"><a href="#abbr_EST">EST</a></abbr>, some way of communicating that must be applied.
+            <br>
+             - FIA_X509_EXT.1 must be claimed (it was mandatory in the old <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>). <abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> is expected as the only supported revocation methods. Specific additional guidance may be needed to limit the FIA_X509_EXT.1.3 selections to those values. SME input is needed as to whether any of the other selections in this component are mandatory or forbidden.
+            <br>
+             - FIA_X509_EXT.2 must be claimed (it was mandatory in the old <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>)
+            <br>
+             Also, right now we don't make an explicit statement in <a href="#FAU_GEN.1">FAU_GEN.1</a> that the corresponding audit events from the claimed functional package <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> must also be added to the audit table. Do we need that or is it sufficiently implied? </span> The scope of this Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>) is to describe the security functionality of mobile devices in terms of [<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>] and to define functional and assurance requirements for such devices. 
         <div class="no-link">
             <h2 id="glossary" class="indexable" data-level="2">1.2 Terms</h2>
              The following sections list Common Criteria and technology terms used in this document. 
@@ -6427,15 +6450,15 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -6446,15 +6469,15 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -6484,15 +6507,15 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -6576,11 +6599,11 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
@@ -6595,11 +6618,11 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
@@ -6622,7 +6645,7 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -6633,11 +6656,11 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
@@ -6652,15 +6675,15 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -6679,7 +6702,7 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -6698,7 +6721,7 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -6717,7 +6740,7 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -6768,15 +6791,15 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -6787,15 +6810,15 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -6806,15 +6829,15 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -6844,144 +6867,144 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-authFactors">
                             <td>22</td><td style="text-align:left"> enable/disable the use of [<b>selection</b>: <span class="selectable-content" id="_s_318">Biometric Authentication Factor</span>, <span class="selectable-content" id="_s_319">Hybrid Authentication Factor</span>] </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-certInvalid">
                             <td>23</td><td style="text-align:left"> configure whether to allow or disallow establishment of [<b>assignment</b>: <span class="assignable-content">configurable trusted channel in <a href="#FTP_ITC_EXT.1.1">FTP_ITC_EXT.1.1</a> or <a href="#FDP_UPC_EXT.1.1/APPS">FDP_UPC_EXT.1.1/APPS</a></span>] if the peer or server certificate is deemed invalid.</td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-externalPorts">
                             <td>24</td><td style="text-align:left"> enable/disable all data signaling over [<b>assignment</b>: <span class="assignable-content">list of externally accessible hardware ports</span>] </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-serverProtocols">
                             <td>25</td><td style="text-align:left"> enable/disable [<b>assignment</b>: <span class="assignable-content" id="a-server">list of protocols where the device acts as a server</span>] </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-devModes">
                             <td>26</td><td style="text-align:left"> enable/disable developer modes </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-authBypass">
                             <td>27</td><td style="text-align:left"> enable/disable bypass of local user authentication </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-wipeEntData">
                             <td>28</td><td style="text-align:left"> wipe Enterprise data </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
@@ -6992,72 +7015,72 @@
                         <tr id="mf-appCert">
                             <td>29</td><td style="text-align:left"> approve [<b>selection</b>: <span class="selectable-content" id="_s_320">import</span>, <span class="selectable-content" id="_s_321">removal</span>] by applications of X.509v3 certificates in the Trust Anchor Database </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-certValidity">
                             <td>30</td><td style="text-align:left"> configure whether to allow or disallow establishment of a trusted channel if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> cannot establish a connection to determine the validity of a certificate</td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-cellular">
                             <td>31</td><td style="text-align:left"> enable/disable the cellular protocols used to connect to cellular network base stations </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-auditLogs">
                             <td>32</td><td style="text-align:left"> read audit logs kept by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
@@ -7068,57 +7091,57 @@
                         <tr id="mf-digSign">
                             <td>33</td><td style="text-align:left"> configure [<b>selection</b>: <span class="selectable-content" id="_s_322">certificate</span>, <span class="selectable-content" id="_s_323">public-key</span>] used to validate digital signature on applications </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-sharedKeys">
                             <td>34</td><td style="text-align:left"> approve exceptions for shared use of keys or secrets by multiple applications </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-keyWipeRules">
                             <td>35</td><td style="text-align:left"> approve exceptions for destruction of keys or secrets by applications that did not import the key or secret </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -7133,18 +7156,18 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-auditItems">
                             <td>37</td><td style="text-align:left"> configure the auditable items </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
@@ -7152,30 +7175,30 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-integ">
                             <td>38</td><td style="text-align:left"> retrieve <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>-software integrity verification values </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -7194,38 +7217,38 @@
                                 </ul>
                                 ] </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-backup">
                             <td>40</td><td style="text-align:left"> enable/disable backup of [<b>selection</b>: <span class="selectable-content" id="s-backup-all-apps">all applications</span>, <span class="selectable-content" id="s-backup-sel-apps">selected applications</span>, <span class="selectable-content" id="s-backup-sel-grps">selected groups of applications</span>, <span class="selectable-content" id="s-backup-cfg">configuration data</span>] to [<b>selection</b>: <span class="selectable-content" id="_s_331">locally connected system</span>, <span class="selectable-content" id="_s_332">remote system</span>] </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -7241,76 +7264,76 @@
                                 </ul>
                                 ] </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-dataSharing">
                             <td>42</td><td style="text-align:left"> approve exceptions for sharing data between [<b>selection</b>: <span class="selectable-content" id="_s_341">applications</span>, <span class="selectable-content" id="_s_342">groups of applications</span>]</td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-appGroups">
                             <td>43</td><td style="text-align:left"> place applications into application groups based on [<b>assignment</b>: <span class="assignable-content">enterprise configuration settings</span>]</td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-unenroll">
                             <td>44</td><td style="text-align:left"> unenroll the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> from management </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
@@ -7336,57 +7359,57 @@
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-bioRevoke">
                             <td>46</td><td style="text-align:left"> revoke Biometric template</td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
                         <tr id="mf-other">
                             <td>47</td><td style="text-align:left"> [<b>assignment</b>: <span class="assignable-content">list of other management functions to be provided by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span>]</td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td><td>
                                 <div class="tooltipped">
-                                    O<span class="tooltiptext">Optional</span>
+                                    O<span class="tooltiptext">Optional/Conditional</span>
                                 </div>
                             </td>
                         </tr>
