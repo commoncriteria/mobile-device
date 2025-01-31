@@ -5,7 +5,7 @@
       <PPTitle>Mobile Device Fundamentals</PPTitle>
       <PPVersion>3.4</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
-      <PPPubDate>2024-09-20</PPPubDate>
+      <PPPubDate>2025-01-31</PPPubDate>
       <Keywords>??</Keywords>
     </ReferenceTable>
   </PPReference>
@@ -126,6 +126,7 @@
           <h:li>Updated TLS package references.</h:li>
           <h:li>Incorporated X.509 package.</h:li>
           <h:li>Incorporated applicable technical decisions.</h:li>
+          <h:li>Updated cryptographic algorithm strengths to conform to CNSA.</h:li>
         </h:ul>
       </subject>
     </entry>
@@ -621,12 +622,11 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	   <and>
 	     <guidance><ref-id>a-keygen-rsa-size</ref-id>Set to 3072</guidance>
 	     <or>
-	       <and><ref-id>s-rek-sym</ref-id><ref-id>s-rek-256</ref-id></and>
-	       <and><ref-id>s-rek-asym</ref-id><ref-id>s-rek-128</ref-id></and>
+	       <ref-id>s-rek-sym</ref-id><ref-id>s-rek-256</ref-id>
 	     </or>	
 	     <or>
 	       <ref-id>s-kek-sym-256</ref-id>
-	       <guidance><ref-id>a-kek-asym-size</ref-id>128</guidance>
+	       <guidance><ref-id>a-kek-asym-size</ref-id>256</guidance>
 	     </or>
 	   </and>
 	   <and>
@@ -637,7 +637,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	     </or>	
 	     <or>
 	       <ref-id>s-kek-sym-256</ref-id>
-	       <guidance><ref-id>a-kek-asym-size</ref-id>128</guidance>
+	       <guidance><ref-id>a-kek-asym-size</ref-id>256</guidance>
 	     </or>
              <doc ref="pkg-tls"><ref-id>s-tls-secp384</ref-id></doc>
 	   </and>
@@ -2616,7 +2616,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               accordance with a specified cryptographic key generation algorithm 
               <selectables linebreak="yes">
                 <selectable><readable>RSA schemes</readable><refinement>RSA schemes using</refinement> cryptographic key sizes of
-                  <assignable id="a-keygen-rsa-size">2048-bit or greater</assignable> that meet [<h:i>FIPS PUB
+                  <assignable id="a-keygen-rsa-size">3072-bit or greater</assignable> that meet [<h:i>FIPS PUB
                     186-5, "Digital Signature Standard (DSS)", Appendix
                     B.3</h:i>]</selectable>
                 <selectable id="s-keygen-ecc"><readable>ECC schemes</readable><refinement>ECC schemes using: </refinement><selectables linebreak="yes">
@@ -2700,14 +2700,14 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <h:br/>
                 <h:i><h:b>Key Generation for FIPS 186-5 Elliptic Curve Cryptography
                     (ECC)</h:b></h:i><h:br/>
-                <h:i>FIPS 186-5 ECC Key Generation Test</h:i><h:br/><h:br/> For each
-                supported NIST curve, i.e. P-256, P-384 and P-521, the evaluator shall require the
+                <h:i>FIPS 186-5 ECC Key Generation Test</h:i><h:br/><h:br/> For the
+                supported NIST curve P-384, the evaluator shall require the
                 implementation under test (IUT) to generate 10 private/public key pairs. The private
                 key shall be generated using an approved random bit generator (RBG). To determine
                 correctness, the evaluator shall submit the generated key pairs to the public key
                 verification (PKV) function of a known good implementation. <h:br/><h:br/>
-                <h:i>FIPS 186-5 Public Key Verification (PKV) Test</h:i><h:br/><h:br/> For
-                each supported NIST curve, i.e. P-256, P-384 and P-521, the evaluator shall generate
+                <h:i>FIPS 186-5 Public Key Verification (PKV) Test</h:i><h:br/><h:br/> For the
+                supported NIST curve, P-384, the evaluator shall generate
                 10 private/public key pairs using the key generation function of a known good
                 implementation and modify five of the public key values so that they are incorrect,
                 leaving five values unchanged (i.e. correct). The evaluator shall obtain in response
@@ -3223,8 +3223,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable id="mutable_hardware">mutable hardware</selectable></selectables> REKs with a <selectables>
                 <selectable id="s-rek-sym">symmetric</selectable>
                 <selectable id="s-rek-asym">asymmetric</selectable></selectables> key of strength <selectables>
-                <selectable>112 bits</selectable>
-                <selectable id="s-rek-128">128 bits</selectable>
+
                 <selectable id="s-rek-192">192 bits</selectable>
                 <selectable id="s-rek-256">256 bits</selectable></selectables>. </title>
 	        <ext-comp-def-title><title>The TSF shall support <assignable>description of REKs</assignable></title>
@@ -3236,7 +3235,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <f-element id="fel-rek-gen">
             <title>Each REK shall be generated by an RBG in accordance with FCS_RBG.1. </title>
             <note role="application"> Either asymmetric or symmetric keys are allowed; the ST author
-              makes the selection appropriate for the device. Symmetric keys must be of size 128 or
+              makes the selection appropriate for the device. Symmetric keys must be of size 
               256 bits in order to correspond with FCS_COP.1/ENCRYPT. Asymmetric keys may be of any
               strength corresponding to FCS_CKM.1. <h:br/><h:br/>
 
@@ -3314,18 +3313,16 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                       800-108)</selectable>
                     <selectable id="s-dek-800-56">concatenating the keys and using a KDF (as described in SP
                       800-56C)</selectable></selectables></selectable>
-              </selectables> with entropy corresponding to the security strength of AES key sizes of <selectables>
-                <selectable>128</selectable>
-            <selectable id="s-dek-256">256</selectable></selectables> bits. </title>
+              </selectables> with entropy corresponding to the security strength of AES key sizes of
+                256 bits. </title>
 	    <ext-comp-def-title><title>
 		All DEKs shall be <assignable>generation mechanism</assignable> with entropy corresponding
-		to the security strength of AES key sizes of <assignable>number greater than 128 </assignable> bits.
+		to the security strength of AES key sizes of 256 bits.
 	    </title></ext-comp-def-title>
             <note role="application"> The intent of this requirement is to ensure that the DEK
               cannot be recovered with less work than a full exhaust of the key space for AES. The
               key generation capability of the TOE uses an RBG implemented on the TOE device
-              (FCS_RBG.1). Either 128-bit or 256-bit (or both) are allowed; the ST author makes
-              the selection appropriate for the device. A DEK is used in addition to the KEK so that
+              (FCS_RBG.1). A DEK is used in addition to the KEK so that
               authentication factors can be changed without having to re-encrypt all of the user
               data on the device.<h:br/><h:br/> The ST author selects all applicable DEK
               generation types implemented by the TOE.<h:br/><h:br/> SP 800-56C specifies a two-step key derivation
@@ -3375,7 +3372,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <h:li>If an HMAC-hash is used in the randomness extraction step, then the same
                     HMAC-hash (with the same hash function hash) is used as the PRF in the key
                     expansion step.</h:li>
-                  <h:li>If an AES-CMAC (with key length 128, 192, or 256 bits) is used in the
+                  <h:li>If an AES-CMAC is used in the
                     randomness extraction step, then AES-CMAC with a 128-bit key is used as the PRF
                     in the key expansion step.</h:li>
                   <h:li>The description must include the lengths of the salt values being used in
@@ -3385,7 +3382,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     up to the maximum bit length permitted for input to the hash function
                     hash.</h:li>
                   <h:li>If an AES-CMAC is being used as the MAC, the salt length shall be the same
-                    length as the AES key (i.e. 128, 192, or 256 bits).</h:li>
+                    length as the AES key (i.e., 256 bits).</h:li>
                 </h:ul> (conditional) If a KDF is used, the evaluator shall ensure that the TSS
                 includes a description of the key derivation function and shall verify the key
                 derivation uses an approved derivation mode and key expansion algorithm according to
@@ -3558,10 +3555,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <f-element id="fel-kek-asym">
             <title>The TSF shall use <selectables>
                 <selectable id="s-kek-asym"><snip>asymmetric KEKs</snip> of <assignable id="a-kek-asym-size">security strength greater than or equal
-                    to 112 bits</assignable> security strength</selectable>
-                <selectable id="s-kek-sym"><snip>symmetric KEKs</snip> of <selectables>
-                    <selectable>128-bit</selectable>
-                    <selectable id="s-kek-sym-256">256-bit</selectable></selectables> security strength corresponding to at least the security strength
+                    to 192 bits</assignable> security strength</selectable>
+                <selectable id="s-kek-sym"><snip>symmetric KEKs</snip> of 256-bit security strength corresponding to at least the security strength
                   of the keys encrypted by the KEK</selectable>
             </selectables>. </title>
 	    <ext-comp-def-title>
@@ -3680,7 +3675,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                       value up to the maximum bit length permitted for input to the hash function
                       hash.</h:li>
                     <h:li>If an AES-CMAC is being used as the MAC, the salt length shall be the
-                      same length as the AES key (i.e. 128, 192, or 256 bits). </h:li>
+                      same length as the AES key (i.e., 256 bits). </h:li>
                   </h:ul>
                 </h:ul><h:br/>
                 The evaluator shall also ensure that the documentation of the product's encryption key
@@ -3982,10 +3977,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                   <selectable>PBKDF2 with <assignable>number of iterations</assignable>
                     iterations</selectable>
                   <selectable><assignable>key stretching function</assignable></selectable>
-                  <selectable exclusive="yes">no other function</selectable></selectables> and output</refinement> cryptographic key sizes<refinement>
-                    <selectables>
-                      <selectable>128</selectable>
-                      <selectable>256</selectable></selectables></refinement> that meet the following: <refinement><selectables>
+                  <selectable exclusive="yes">no other function</selectable></selectables> and output</refinement> cryptographic key sizes<refinement>256 bits
+                    </refinement> that meet the following: <refinement><selectables>
                         <selectable>NIST SP 800-132</selectable>
                         <selectable exclusive="yes">no standard</selectable></selectables>.</refinement>
             </title>
@@ -4292,16 +4285,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="HASH">
           <f-element id="fel-hash-how">
             <title>The TSF shall perform [<h:i>cryptographic hashing</h:i>] in
-              accordance with a specified cryptographic algorithm [<h:i>SHA-1 and <selectables>
-                <selectable id="s-sha-256">SHA-256</selectable>
-                <selectable id="s-sha-384">SHA-384</selectable>
-                <selectable id="s-sha-512">SHA-512</selectable>
-                <selectable exclusive="yes">no other algorithms</selectable></selectables></h:i>] and <refinement>message digest</refinement> sizes
-              [<h:i>160 and <selectables>
-                <selectable id="s-hash-size-256">256 bits</selectable>
-                <selectable id="s-hash-size-384">384 bits</selectable>
-                <selectable id="s-hash-size-512">512 bits</selectable>
-                <selectable exclusive="yes">no other message digest sizes</selectable></selectables></h:i>] that meet the following: [<h:i>FIPS Pub
+              accordance with a specified cryptographic algorithm [<h:i>SHA-384</h:i>] and <refinement>message digest</refinement> sizes
+              [<h:i>384 bits</h:i>] that meet the following: [<h:i>FIPS Pub
                 180-4</h:i>].
 		<rule id="r-sha256">
 		  <or>
@@ -4341,14 +4326,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               is no longer allowed, and SHA-1 for verification of digital signatures is strongly
               discouraged as there may be risk in accepting these signatures. It is expected that
               vendors will implement SHA-2 algorithms in accordance with SP
-              800-131A.<h:br/><h:br/> SHA-1 is currently required in order to comply with the
-              <xref to="mod-wlanclient"/>. Vendors are strongly encouraged to implement updated
-              protocols that support the SHA-2 family; until updated protocols are supported, this
-              PP allows support for SHA-1 implementations in compliance with SP
-              800-131A.<h:br/><h:br/> The intent of this requirement is to specify the hashing
+              800-131A.<h:br/><h:br/>The intent of this requirement is to specify the hashing
               function. The hash selection must support the message digest size selection. The hash
               selection should be consistent with the overall strength of the algorithm used (for
-              example, SHA 256 for 128-bit keys). <h:br/><h:br/> The TSF hashing functions can
+              example, SHA-384 for 256-bit keys). <h:br/><h:br/> The TSF hashing functions can
               be implemented in one of two modes. The first mode is the byte­oriented mode. In this
               mode the TSF only hashes messages that are an integral number of bytes in length; i.e.
               the length (in bits) of the message to be hashed is divisible by 8. The second mode is
@@ -4419,16 +4400,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="KEYHMAC">
           <f-element id="fel-keyed-hash-how">
             <title>The TSF shall perform [<h:i>keyed-hash message authentication</h:i>]
-              in accordance with a specified cryptographic algorithm [<h:i>HMAC-SHA-1 and <selectables>
-                <selectable>HMAC-SHA-256</selectable>
-                <selectable>HMAC-SHA-384</selectable>
-                <selectable>HMAC-SHA-512</selectable>
-                <selectable exclusive="yes">no other algorithms</selectable></selectables></h:i>] and cryptographic key sizes <assignable>key size (in
-                  bits) used in HMAC</assignable><refinement> and message digest sizes 160 and <selectables>
-                    <selectable>256</selectable>
-                    <selectable>384</selectable>
-                    <selectable>512</selectable>
-                    <selectable exclusive="yes">no other</selectable></selectables> bits</refinement> that meet the following: [<h:i>FIPS Pub
+              in accordance with a specified cryptographic algorithm [<h:i>HMAC-SHA-384</h:i>] and cryptographic key sizes <assignable>key size (in
+                  bits) used in HMAC</assignable><refinement> and message digest sizes 384 bits</refinement> that meet the following: [<h:i>FIPS Pub
                       198-1, "The Keyed-Hash Message Authentication Code", and FIPS Pub 180-4, "Secure
                       Hash Standard"</h:i>]. </title>
             <note role="application"> The selection in this requirement must be consistent with the
@@ -4459,14 +4432,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <title>The TSF shall perform [<h:i>cryptographic signature services (generation
               and verification)</h:i>] in accordance with a specified cryptographic
               algorithm <selectables linebreak="yes">
-                <selectable id="s-sign-rsa"><readable>RSA schemes</readable>[<h:i><snip>RSA schemes</snip></h:i>] <refinement>using</refinement> cryptographic key sizes of [<h:i>2048-bit or
+                <selectable id="s-sign-rsa"><readable>RSA schemes</readable>[<h:i><snip>RSA schemes</snip></h:i>] <refinement>using</refinement> cryptographic key sizes of [<h:i>3072-bit or
                   greater</h:i>] that meet the following: [<h:i>FIPS PUB 186-5, "Digital Signature Standard
                     (DSS)", Section 4</h:i>]</selectable>
-                <selectable id="s-sign-ecdsa"><readable>ECDSA schemes</readable>[<h:i>ECDSA schemes</h:i>] <refinement>using</refinement> [<h:i>"NIST curves" P-384 and <selectables>
-                  <selectable>P-256</selectable>
-                  <selectable>P-521</selectable>
-                  <selectable exclusive="yes">no other curves</selectable></selectables></h:i>] that meet the following: [<h:i>FIPS PUB 186-5, "Digital Signature
-                  Standard (DSS)", Section 5</h:i>]</selectable>
+                <selectable id="s-sign-ecdsa"><readable>ECDSA schemes</readable>[<h:i>ECDSA schemes</h:i>] <refinement>using</refinement> [<h:i>"NIST curve" P-384 and no other curves</h:i>]</selectable>
                 <!--            <selectable exclusive="yes">No other algorithms</selectable> -->
               </selectables>. </title>
             <note role="application">The ST author should choose the algorithm implemented to
@@ -4484,14 +4453,14 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <testlist>
                   <test><h:b>[conditional] If <xref to="s-sign-ecdsa"/> is selected in FCS_COP.1.1/SIGN</h:b><h:br/>
                     <testlist>
-                      <test><h:b>ECDSA FIPS 186-5 Signature Generation Test </h:b><h:br/> For
-                        each supported NIST curve (i.e. P-256, P-384 and P-521) and SHA function
+                      <test><h:b>ECDSA FIPS 186-5 Signature Generation Test </h:b><h:br/> For the
+                        supported NIST curve P-384 and SHA function
                         pair, the evaluator shall generate 10 1024-bit long messages and obtain for
                         each message a public key and the resulting signature values R and S. To
                         determine correctness, the evaluator shall use the signature verification
                         function of a known good implementation. </test><h:br/>
-                      <test><h:b>ECDSA FIPS 186-5 Signature Verification Test</h:b><h:br/> For
-                        each supported NIST curve (i.e. P-256, P-384 and P-521) and SHA function
+                      <test><h:b>ECDSA FIPS 186-5 Signature Verification Test</h:b><h:br/> For the
+                        each supported NIST curve P-384 and SHA function
                         pair, the evaluator shall generate a set of 10 1024-bit message, public key
                         and signature tuples and modify one of the values (message, public key or
                         signature) in five of the 10 tuples. The evaluator shall obtain in response
@@ -4833,7 +4802,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               NIST SP 800-90A contains three different methods of generating random numbers;
               each of these, in turn, depends on underlying cryptographic primitives (hash functions/ciphers).
               The ST author will select the function used and include the specific underlying cryptographic primitives used in the requirement or in the TSS.
-              While any of the identified hash functions (SHA-224, SHA-256, SHA-384, SHA-512) are allowed for Hash_DRBG or HMAC_DRBG,
+              Only the hash function SHA-384 is allowed for Hash_DRBG or HMAC_DRBG,
               only AES-based implementations for CTR_DRBG are allowed.
             </note>
             <aactivity level="element">
@@ -5190,7 +5159,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </title>
             </ext-comp-def-title>
             <note role="application"> 
-              For each of the listed FCS components in the bulleted list, the intent is that the TOE will make available all algorithms specified for that component in the ST. For example, if for FCS_COP.1/HASH the ST author selects SHA-256, then the TOE would have to make available an interface to perform SHA-1 (the "mandatory" portion of FCS_COP.1/HASH) and SHA-256 (the "selected" portion of FCS_COP.1/HASH).<h:br/><h:br/> 
+              For each of the listed FCS components in the bulleted list, the intent is that the TOE will make available all algorithms specified for that component in the ST.<h:br/><h:br/> 
               The exception is for FCS_COP.1/ENCRYPT. The TOE is not required to make available AES_CCMP, AES_XTS, AES_GCMP-256, or AES_CCMP_256 even though they may be implemented to perform TSF-related functions. It is acceptable for the platform to not provide AES Key Wrap (KW) and AES Key Wrap with Padding (KWP) to applications even if selected in FCS_COP.1/ENCRYPT. <!-- NIAP: I do not want to remove Key Wrap from selection, but I am basically negating the SFR in the app note.  --> However, the ST author is expected to select AES-GCM or AES-CCM if it is selected in the ST for the FCS_COP.1/ENCRYPT component. 
             </note>
             <aactivity> The evaluator shall verify that the API documentation provided according to
@@ -6082,10 +6051,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable>XTS</selectable>
                 <selectable>CBC</selectable>
                 <selectable>GCM</selectable>
-              </selectables> mode with key size <selectables>
-                <selectable>128</selectable>
-                <selectable id="s-dar-256">256</selectable>
-            </selectables> bits. </title>
+            </selectables> mode with key size [<h:i>256</h:i>] bits. </title>
 	    <ext-comp-def-title>
 	      <title>Encryption shall be performed using DEKs with AES in the
 	      <assignable>list of AES modes</assignable> mode with key size
