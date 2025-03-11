@@ -97,7 +97,7 @@
     <entry>
       <version>3.2</version>
       <date>2021-04-15</date>
-      <subject>Removed TLS SFRs and utilized TLS Functional Package<h:br/> Removed Bluetooth SFRs
+      <subject>Removed TLS SFRs and used TLS Functional Package<h:br/> Removed Bluetooth SFRs
         and utilized Bluetooth Module. Bluetooth SFR moved to Implementation Dependent.<h:br/>
         FPT_TUD_EXT.4.2 renumbered to <xref to="fel-app-verify-how"/><h:br/>
       </subject>
@@ -197,7 +197,8 @@
         
         X.509 package:<h:br/>
         - FIA_XCU_EXT.2 must be claimed because the PP requires support for mutual authentication<h:br/>
-        - the old PP specified PKCS10 and EST as objective requirements for obtaining certificates - with the new FP, FIA_X509_EXT.3 is selected because of FIA_XCU_EXT.2 claims (because the TOE will not have its own internal/embedded CA) but there is nothing forcing the specific enrollment method to be used. Right now this means any of PKCS10, EST, CMC, or CMP must be used. If the idea is to only permit PKCS10/EST, some way of communicating that must be applied.<h:br/>
+        - the old PP specified PKCS10 and EST as objective requirements for obtaining certificates -
+        with the new FP, FIA_X509_EXT.6 is selected because of FIA_XCU_EXT.2 claims (because the TOE will not have its own internal/embedded CA) but there is nothing forcing the specific enrollment method to be used. Right now this means any of PKCS10, EST, CMC, or CMP must be used. If the idea is to only permit PKCS10/EST, some way of communicating that must be applied.<h:br/>
         - FIA_X509_EXT.1 must be claimed (it was mandatory in the old PP). CRL or OCSP is expected as the only supported revocation methods. Specific additional guidance may be needed to limit the FIA_X509_EXT.1.3 selections to those values. SME input is needed as to whether any of the other selections in this component are mandatory or forbidden.<h:br/>
         - FIA_X509_EXT.2 must be claimed (it was mandatory in the old PP)<h:br/>
         
@@ -892,7 +893,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
         <threat name="T.NETWORK_EAVESDROP">
           <description> An attacker is positioned on a wireless communications channel or elsewhere
             on the network infrastructure. Attackers may monitor and gain access to data exchanged
-            between the Mobile Device and other endpoints. </description>
+            between the Mobile Device and other endpoints, resulting in
+            modification or disclosure of sensitive communications. </description>
           
           <addressed-by>FCS_CKM.1</addressed-by>
           <rationale>FCS_CKM.1 helps mitigate the threat of network eavesdrop by ensuring the generation of strong keys used for trusted communications.</rationale>
@@ -921,6 +923,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <addressed-by>FDP_UPC_EXT.1/APPS</addressed-by>
           <rationale>FDP_UPC_EXT.1/APPS helps mitigate the threat of network eavesdrop by implementing a means for applications to communicate securely via a trusted channel.</rationale> 
           
+          <addressed-by>FIA_X509_EXT.6</addressed-by>
+          <rationale>FIA_X509_EXT.5 helps mitigate the threat of network eavesdrop by defining a secure mechanism by which the TSF can acquire certificates for its own use.</rationale>
           
           <addressed-by>FPT_FLS.1</addressed-by>
           <rationale>FPT_FLS.1 helps mitigate the threat of network eavesdrop by ensuring that a malfunctioning DRBG function cannot be used to generate potentially insecure keys.</rationale>      
@@ -1091,17 +1095,18 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>FMT_SMF_EXT.2 helps mitigate the threat of a network attack by specifying the remediation actions allowed upon enrollment.</rationale>
           <addressed-by>FPT_FLS.1</addressed-by>
           <rationale>FPT_FLS.1 helps mitigate the threat of a network attack by ensuring that a malfunctioning DRBG function cannot be used to generate potentially insecure keys.</rationale>
-          <addressed-by>FPT_TST.1</addressed-by>
+          <addressed-by>FPT_STM.1</addressed-by>
+          <rationale>FPT_STM.1 helps mitigate the threat of a malicious app by providing reliable time stamps for the audit trail.</rationale>
+           <addressed-by>FPT_TST.1</addressed-by>
           <rationale>FPT_TST.1 helps mitigate the threat of a network attack by implementing a mechanism to detect when the DRBG may be failing to generate secure cryptographic keys.</rationale>
           <addressed-by>FTA_SSL_EXT.1</addressed-by>
           <rationale>FTA_SSL_EXT.1 helps mitigate the threat of a network attack by managing the transition to a locked state after a set time or operation.</rationale>      
-          <addressed-by>FPT_STM.1</addressed-by>
-          <rationale>FPT_STM.1 helps mitigate the threat of a malicious app by providing reliable time stamps for the audit trail.</rationale>
+          
           <addressed-by>FTP_ITC_EXT.1</addressed-by>
           <rationale>FTP_ITC_EXT.1 helps mitigate the threat of a network attack by requiring the TSF to implement trusted protocols for network communication.</rationale>
           
 
-          <addressed-by>FAU_SAR.1 (objective)</addressed-by>
+          <addressed-by>FAU_SAR.1</addressed-by>
           <rationale>FAU_SAR.1 helps mitigate the threat of a network attack by providing a mechanism to read the audit trail.</rationale>
           <addressed-by>FAU_SEL.1 (objective)</addressed-by>
           <rationale>FAU_SEL.1 helps mitigate the threat of a network attack by allowing the TSF to determine the behavior that indicates potential malicious activity in the audit trail.</rationale>
@@ -1187,6 +1192,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
 
           <addressed-by>FCS_CKM.2/LOCKED</addressed-by>
           <rationale>FCS_CKM.2/LOCKED helps mitigate the threat of physical access by implementing a method of protecting data at rest while the TOE is in a locked state.</rationale>
+          <addressed-by>FCS_CKM_EXT.6</addressed-by>
+          <rationale>FCS_CKM_EXT.6 helps mitigate the threat of physical access by generating salts using RBG.</rationale>
           <addressed-by>FCS_CKM_EXT.1</addressed-by>
           <rationale>FCS_CKM_EXT.1 helps mitigate the threat of physical access by implementing a method of protecting data at rest while the TOE is in a locked state.</rationale>
           <addressed-by>FCS_CKM_EXT.2</addressed-by>
@@ -1197,8 +1204,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>FCS_CKM.6 helps mitigate the threat of physical access by ensuring that keys used for trusted communications are destroyed in a secure manner.</rationale>
           <addressed-by>FCS_CKM_EXT.5</addressed-by>
           <rationale>FCS_CKM_EXT.5 helps mitigate the threat of physical access by implementing a secure mechanism to erase protected data from the TOE.</rationale>
-          <addressed-by>FCS_CKM_EXT.6</addressed-by>
-          <rationale>FCS_CKM_EXT.6 helps mitigate the threat of physical access by generating salts using RBG.</rationale>
+          
           <addressed-by>FCS_COP.1/CONDITION</addressed-by>
           <rationale>FCS_COP.1/CONDITION helps mitigate the threat of physical access by performing password conditioning to increase the difficulty of deriving a key from a password.</rationale>
           <addressed-by>FCS_COP.1/ENCRYPT</addressed-by>
@@ -1231,8 +1237,12 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>FIA_AFL_EXT.1 helps mitigate the threat of physical access by limiting the extent to which brute force authentication attempts to the TOE can be made.</rationale>      
           <addressed-by>FIA_UAU.5</addressed-by>
           <rationale>FIA_UAU.5 helps mitigate the threat of physical access by defining the supported authentication mechanisms.</rationale>
-          <addressed-by>FIA_UAU.6</addressed-by>
-          <rationale>FIA_UAU.6 helps mitigate the threat of physical access by implementing functionality to require re-authentication in certain situations.</rationale>      
+          <addressed-by>FIA_UAU.6/LOCKED</addressed-by>
+          <rationale>FIA_UAU.6/LOCKED helps mitigate the threat of physical access by implementing functionality to require re-authentication in certain situations.</rationale>
+          <addressed-by> FIA_UAU.6/CREDENTIAL</addressed-by>
+          <rationale>FIA_UAU.6/CREDENTIAL supports the objective by requiring the TSF to re-authenticate users with their password prior to allowing them to change any other authentication data.</rationale>
+          <addressed-by> FIA_UAU.6/LOCKED</addressed-by>
+          <rationale>FIA_UAU.6/LOCKED supports the objective by requiring the TSF to re-authenticate users with a valid credential prior to allowing a locked device to be unlocked.</rationale>
           <addressed-by>FIA_UAU.7</addressed-by>
           <rationale>FIA_UAU.7 helps mitigate the threat of physical access by providing only limited information during authentication.</rationale>      
           <addressed-by>FIA_UAU_EXT.1</addressed-by>
@@ -1347,7 +1357,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <addressed-by>FPT_TUD_EXT.3</addressed-by>
           <rationale>FPT_TUD_EXT.3 helps mitigate the threat of a malicious app by enforcing mechanisms that allow for maintaining the authenticity and integrity of installed apps.</rationale>
 
-          <addressed-by>FAU_SAR.1 (objective)</addressed-by>
+          <addressed-by>FAU_SAR.1</addressed-by>
           <rationale>FAU_SAR.1 helps mitigate the threat of a malicious app by providing a mechanism to read the audit trail.</rationale>
           <addressed-by>FAU_SEL.1 (objective)</addressed-by>
           <rationale>FAU_SEL.1 helps mitigate the threat of a network attack by allowing the TSF to determine the behavior that indicates potential malicious activity in the audit trail.</rationale>
@@ -2159,14 +2169,15 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <h:li><h:i>Start-up and shutdown of the OS</h:i></h:li>
                 <h:li><h:i>Insertion or removal of removable media</h:i></h:li>
                 <h:li><h:i>Specifically defined auditable events in <xref g="t-audit-mandatory"/></h:i></h:li>
-                <h:li><h:i>Auditable events for the Functional Package SFR claims as specified in the respective Functional Packages</h:i></h:li>
+                <h:li>Auditable events as defined in the <xref to="pkg-tls"/>;</h:li>
+                <h:li>Auditable events as defined in the <xref to="pkg-x509"/>;</h:li>                
                 <h:li><h:i><selectables>
                   <selectable>Audit data reaching <assignable>integer value less than 100</assignable> percent of audit capacity</selectable>
                   <selectable>specifically defined auditable events in <xref to="t-audit-additional"/></selectable>
                   <selectable><assignable>other auditable events derived from this Protection Profile</assignable></selectable>
                   <selectable exclusive="yes" id="s-audit-gen-no-add-audit">no additional auditable
                     events</selectable>
-                    </selectables></h:i></h:li>
+                    </selectables>]</h:i></h:li>
               </h:ol>
 
               <!-- <h:table> -->
@@ -2517,10 +2528,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <f-element id="fel-audit-select">
             <title>The TSF shall be able to select the set of events to be audited from the set of
               all auditable events based on the following attributes <selectables linebreak="yes">
-                <selectable>event type</selectable>
-                <selectable>success of auditable security events</selectable>
+                <selectable>[event type]</selectable>
+                <selectable>[success of auditable security events</selectable>
                 <selectable>failure of auditable security events</selectable>
-                <selectable><assignable>other attributes</assignable></selectable>
+                <selectable><assignable>other attributes</assignable>]</selectable>
               </selectables>. </title>
             <note role="application"> The intent of this requirement is to identify all criteria
               that can be selected to trigger an audit event. This can be configured through an
@@ -2553,7 +2564,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               </Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional">
+	  <audit-event table="objective">
 	    <audit-event-descr>All modifications to the audit configuration that
 	    occur while the audit collection functions are operating</audit-event-descr>
 	  </audit-event>
@@ -2615,14 +2626,14 @@ The scope of this Protection Profile (PP) is to describe the security functional
             <title> The TSF shall generate <refinement>asymmetric</refinement> cryptographic keys in
               accordance with a specified cryptographic key generation algorithm 
               <selectables linebreak="yes">
-                <selectable><readable>RSA schemes</readable><refinement>RSA schemes using</refinement> cryptographic key sizes of
+                <selectable><readable>RSA schemes</readable> <h:b>RSA schemes using</h:b> cryptographic key sizes of
                   <assignable id="a-keygen-rsa-size">3072-bit or greater</assignable> that meet [<h:i>FIPS PUB
                     186-5, "Digital Signature Standard (DSS)", Appendix
                     A.1</h:i>]</selectable>
-                <selectable id="s-keygen-ecc"><readable>ECC schemes</readable><refinement>ECC schemes using: </refinement><selectables linebreak="yes">
-                  <selectable><refinement>"NIST curves" P-384</refinement> that meet the following: [<h:i>FIPS PUB 186-5, "Digital
+                <selectable id="s-keygen-ecc"><readable>ECC schemes</readable> <h:b>ECC schemes using:</h:b> <selectables linebreak="yes">
+                  <selectable><h:b>"NIST curves" P-384</h:b> that meet the following: [<h:i>FIPS PUB 186-5, "Digital
                     Signature Standard (DSS)", Appendix A.2</h:i>]</selectable>
-                  <selectable><refinement>Curve25519 schemes</refinement> that meet the following: [<h:i>RFC
+                  <selectable><h:b>Curve25519 schemes that meet the following:</h:b> [<h:i>RFC
                     7748</h:i>]</selectable></selectables></selectable>
                 <selectable>FFC schemes using "safe-prime" groups that meet the following: 'NIST Special Publication 800-56A Revision 3, 
                   "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography"', and <selectables>
@@ -2904,7 +2915,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 typically not found on factory products.<h:br/><h:br/>
                 The evaluator shall verify the implementation of the key
                 establishment schemes supported by the TOE using the applicable tests below. <h:br/><h:br/>
-                <h:h3>SP800-56A Revision 3 Key Establishment Schemes</h:h3>
+                <h:b>SP800-56A Revision 3 Key Establishment Schemes</h:b><h:br/>
                 The evaluator shall verify a TOE's implementation of SP800-56A
                 Revision 3 key establishment schemes using the following Function and Validity
                 tests. These validation tests for each key agreement scheme verify that a TOE has
@@ -2960,7 +2971,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 corresponding parameters. The evaluator shall compare the TOE’s results with the
                 results using a known good implementation verifying that the TOE detects these
                 errors. <h:br/><h:br/>
-                <h:h3>SP800-56B Key Establishment Schemes</h:h3> The evaluator shall verify that
+                <h:b>SP800-56B Key Establishment Schemes</h:b><h:br/>
+                The evaluator shall verify that
                 the TSS describes whether the TOE acts as a sender, a recipient, or both for
                 RSA-based key establishment schemes. <h:br/><h:br/> If the TOE acts as a sender,
                 the following evaluation activity shall be performed to ensure the proper operation
@@ -3008,7 +3020,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 in NIST Special Publication 800-56B section 7.2.3.3, ensure that each decryption
                 attempt results in an error, and ensure that any outputted or logged error message
                 is identical for each.<h:br/><h:br/>
-                <h:h3>RSAES-PKCS1-v1_5 Key Establishment Schemes</h:h3> The evaluator shall
+                <h:b>RSAES-PKCS1-v1_5 Key Establishment Schemes</h:b><h:br/>
+                The evaluator shall
                 verify the correctness of the TSF's implementation of RSAES-PKCS1-v1_5 by using a
                 known good implementation for each protocol selected in FTP_ITC_EXT.1 that uses
                 RSAES-PKCS1-v1_5. 
@@ -3016,7 +3029,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 verify the correctness of the TSF's implementation of Diffie-Hellman group 14 by
                 using a known good implementation for each protocol selected in FTP_ITC_EXT.1 that
                 uses Diffie-Hellman Group 14. -->
-                <h:h3>FFC Schemes using "safe-prime" groups</h:h3>
+                <h:b>FFC Schemes using "safe-prime" groups</h:b><h:br/>
                 The evaluator shall verify the correctness of the TSF's implementation of
                 "safe-prime" groups by using a known good implementation for each protocol selected
                 in FTP_ITC_EXT.1 that uses "safe-prime" groups. This test must be performed for each
@@ -3156,33 +3169,33 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <f-element id="fel-key-kill-how">
             <title>The TSF shall destroy cryptographic keys <h:s>and keying material specified by
               FCS_CKM.6.1</h:s> in accordance with a specified cryptographic key destruction method:<h:br/>
-              <h:ul>
-                <h:li>By clearing the KEK encrypting the target key.</h:li>
-                <h:li>In accordance with the following rules: 
-                  <h:ul><h:li>For volatile memory, the destruction shall be executed by a single direct overwrite <selectables>
+              <selectables>
+                <selectable>By clearing the KEK encrypting the target key.</selectable>
+                <selectable>In accordance with the following rules:<selectables>
+                  <selectable>For volatile memory, the destruction shall be executed by a single direct overwrite <selectables>
                     <selectable>consisting of a pseudorandom pattern using the TSF’s RBG.</selectable>
                     <selectable>consisting of zeros</selectable>
-                  </selectables>.</h:li>
-                    <h:li>For non-volatile EEPROM, the destruction shall be executed by a single
+                  </selectables>.</selectable>
+                  <selectable>For non-volatile EEPROM, the destruction shall be executed by a single
                       direct overwrite consisting of a pseudorandom pattern using the TSF’s RBG (as
-                      specified in FCS_RBG.1), followed by a read-verify.</h:li>
-                    <h:li>For non-volatile flash memory, that is not wear-leveled, the destruction
+                      specified in FCS_RBG.1), followed by a read-verify.</selectable>
+                  <selectable>For non-volatile flash memory, that is not wear-leveled, the destruction
                       shall be executed <selectables>
                         <selectable>by a single direct overwrite consisting of zeros followed by a
                           read-verify</selectable>
                         <selectable>by a block erase that erases the reference to memory that stores
                           data as well as the data itself </selectable>
-                      </selectables>.</h:li>
-                    <h:li>For non-volatile flash memory, that is wear-leveled, the destruction
+                      </selectables>.</selectable>
+                  <selectable>For non-volatile flash memory, that is wear-leveled, the destruction
                       shall be executed <selectables>
                         <selectable>by a single direct overwrite consisting of zeros</selectable>
-                        <selectable>by a block erase</selectable></selectables>.</h:li>
-                    <h:li>For non-volatile memory other than EEPROM and flash, the destruction
+                        <selectable>by a block erase</selectable></selectables>.</selectable>
+                  <selectable>For non-volatile memory other than EEPROM and flash, the destruction
                       shall be executed by a single direct overwrite with a random pattern that is
-                      changed before each write.</h:li>
-                  </h:ul>
-                </h:li>
-              </h:ul>
+                      changed before each write.</selectable></selectables>
+                  
+                </selectable>
+              </selectables>
             </title>
             <note role="application"> The clearing indicated above applies to each intermediate
               storage area for plaintext key or cryptographic critical security parameter (i.e. any
@@ -3841,7 +3854,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <h:ul>
             <h:li>Failure of the wipe.</h:li>
           </h:ul></audit>
-          <dependencies>FCS_RBG.1 Random Bit Generation</dependencies>
+          <dependencies>
+            FCS_CKM.6 Timing and Event of Cryptographic Key Destruction<h:br/>
+            FCS_RBG.1 Random Bit Generation
+          </dependencies>
           
           <f-element id="fel-wipe-how">
             <title>The TSF shall wipe all protected data by <selectables linebreak="yes">
@@ -3946,7 +3962,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <dependencies>FCS_CKM_EXT.1 Cryptographic Key Support</dependencies>
           
           <f-element id="fel-rek-stay-hardware">
-            <title>A REK shall not be able to be read from or exported from the hardware. </title>
+            <title>An REK shall not be able to be read from or exported from the hardware. </title>
             <note role="application">If <xref to="mutable_hardware"/> is selected in FCS_CKM_EXT.1.1,
               FCS_CKM_EXT.7 must be included in the ST. Note that if <xref to="s-immutable-hardware"/> is
               selected in FCS_CKM_EXT.1.1 it implicitly meets FCS_CKM_EXT.7. <h:br/><h:br/>
@@ -3960,12 +3976,12 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+	  <audit-event table="sel-based"/>
         </f-component>
         
         <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="CONDITION">
           <f-element id="fel-cond-how">
-            <title>The TSF shall perform <refinement>conditioning</refinement> in accordance with the
+            <title>The TSF shall perform [<h:li>conditioning</h:li>] in accordance with the
               specified cryptographic algorithm <refinement>HMAC-SHA-384 using a salt, and <selectables>
                   <selectable>PBKDF2 with <assignable>number of iterations</assignable>
                     iterations</selectable>
@@ -4510,7 +4526,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <h:ul>
             <h:li>Failure of the certificate validity check.</h:li>
           </h:ul></audit>
-          <dependencies>FIA_X509_EXT.1 X.509 Validation of Certificates
+          <dependencies>
+            FCS_TLS_EXT.1 TLS Protocol<h:br/>
+            FIA_X509_EXT.1 X.509 Validation of Certificates
           </dependencies>
           
           
@@ -4904,6 +4922,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 <selectable>TSF noise source <assignable>name of noise source</assignable></selectable>
                 <selectable>TSF interface for seeding</selectable></selectables>
               in the following situations: <selectables linebreak="yes">
+                <selectable>never</selectable>
                 <selectable>on demand</selectable>
                 <selectable>on the condition: <assignable>condition</assignable></selectable>
                 <selectable>after <assignable>time</assignable></selectable>
@@ -4943,7 +4962,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests/>
             </aactivity>
           </f-element>
-          <audit-event table="additional"/>
+          <audit-event table="sel-based"/>
         </f-component>
         
         <f-component cc-id="fcs_rbg.3" name="Random Bit Generation (Internal Seeding - Single Source)" status="sel-based">
@@ -4966,7 +4985,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests/>
             </aactivity>
           </f-element>
-          <audit-event table="additional"/>
+          <audit-event table="sel-based"/>
         </f-component>
         
         <f-component cc-id="fcs_rbg.4" name="Random Bit Generation (Internal Seeding - Multiple Sources)" status="sel-based">
@@ -4991,7 +5010,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests/>
             </aactivity>
           </f-element>
-          <audit-event table="additional"/>
+          <audit-event table="sel-based"/>
         </f-component>
         
         <f-component cc-id="fcs_rbg.5" name="Random Bit Generation (Combining Noise Sources)" status="sel-based">
@@ -5013,7 +5032,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests/>
             </aactivity>
           </f-element>
-          <audit-event table="additional"/>
+          <audit-event table="sel-based"/>
         </f-component>  
         
         <f-component cc-id="fcs_rbg.6" name="Random Bit Generation Service">
@@ -5066,7 +5085,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+          <audit-event table="objective"/>
         </f-component>
         <f-component cc-id="fcs_rbg_ext.3" name="Support for Personalization String" status="objective">
           
@@ -5097,7 +5116,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+          <audit-event table="objective"/>
         </f-component>
         
         
@@ -5186,7 +5205,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               the following cryptographic operations: [<h:i><h:ul>
                 <h:li>Algorithms in FCS_COP.1/ENCRYPT</h:li>
                 <h:li>Algorithms in FCS_COP.1/SIGN</h:li>
-              </h:ul></h:i>] by keys stored in the secure key storage. </title>
+              </h:ul></h:i>] <h:b>by keys stored in the secure key storage.</h:b></title>
             <ext-comp-def-title>
               <title>The TSF shall provide a mechanism for applications to request the TSF to perform
                 the following cryptographic operations: 
@@ -5208,7 +5227,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 Activities in FCS_STG_EXT.1. </Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+	  <audit-event table="objective"/>
         </f-component>
         
         <ext-comp-def fam-id="FCS_STG_EXT" title="Cryptographic Key Storage">
@@ -5248,6 +5267,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               [FCS_CKM.1 Cryptographic Key Generation, or<h:br/>
               FDP_ITC.1 Import of User Data without Security Attributes, or<h:br/>
               FDP_ITC.2 Import of User Data with Security Attributes]<h:br/>
+              FMT_SMF.1 Specification of Management Functions<h:br/>
               FMT_SMR.1 Security Roles
             </dependencies>
             
@@ -5433,6 +5453,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             <audit>There are no auditable events foreseen.
             </audit>
             <dependencies>
+              FCS_CKM_EXT.3 Cryptographic Key Generation<h:br/>
               FCS_COP.1 Cryptographic Operation<h:br/>
               FCS_STG_EXT.1 Cryptographic Key Storage
             </dependencies>
@@ -5862,7 +5883,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
 	  <audit-event/>
-	  <audit-event table="additional"/>
+          <audit-event table="sel-based"/>
         </f-component>
         <f-component cc-id="fdp_acf_ext.3" name="Security Attribute Based Access Control" status="objective">
           
@@ -5901,7 +5922,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
 	  <audit-event/>
-	  <audit-event table="additional"/>
+          <audit-event table="objective"/>
         </f-component>
 	  
 	  <ext-comp-def fam-id="FDP_BCK_EXT" title="Application Backup">
@@ -5954,7 +5975,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </aactivity>
           </f-element>
 	  <audit-event/>
-	  <audit-event table="additional"/>
+          <audit-event table="objective"/>
         </f-component>
 	  
 	  <ext-comp-def fam-id="FDP_BLT_EXT" title="Limitation of Bluetooth Device Access">
@@ -5984,7 +6005,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
 	            <Tests>The evaluator shall establish a Bluetooth connection with any peripheral. The evaluator shall verify that an application that is allowed to communicate with the Bluetooth peripheral is able to and that an application that is not allowed to communicate with that Bluetooth peripheral is unable to communicate with the peripheral. </Tests>
 	          </aactivity>
 	        </f-element>
-          <audit-event table="additional"/>
+          <audit-event table="objective"/>
 	      </f-component>
 		
         <!-- <f-component cc-id="fdp_pba_ext.1" name="Storage of Critical Biometric Parameters" status="sel-based">
@@ -6358,7 +6379,6 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <h:li>Failure to encrypt/decrypt data.</h:li>
             </h:ul></audit>
           <dependencies>FCS_COP.1 Cryptographic Operation<h:br/>
-            FCS_CKM.2 Cryptographic Key Establishment<h:br/>
             FCS_STG_EXT.2 Encrypted Cryptographic Key Storage
           </dependencies>
           
@@ -6586,7 +6606,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               </Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional">
+	  <audit-event table="feat-based">
 	    <audit-event-descr>Application initiation of trusted channel</audit-event-descr>
 	    <audit-event-info>Name of application. Trusted channel protocol. Non-TOE endpoint of connection</audit-event-info>
 	  </audit-event>
@@ -6616,6 +6636,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </audit>
           <dependencies>FCS_CKM_EXT.5 TSF Wipe<h:br/>
             FIA_UAU.1 Timing of Authentication
+            FIA_UAU.5 Multiple Authentication Mechanisms
           </dependencies>
           
           
@@ -7114,7 +7135,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </h:ul>
           </management>
           <audit>There are no auditable events foreseen.</audit>
-          <dependencies>FIA_UAU.1 Timing of Authentication</dependencies>
+          <dependencies>FIA_UAU.5 Multiple Authentication Mechanisms</dependencies>
           
           
           <f-element id="fel-password-manage">
@@ -7246,8 +7267,8 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
           <f-element id="fel-auth-claim">
             <title>The TSF shall authenticate any user's claimed identity according to the
-                <assignable>rules describing how each authentication mechanism selected in FIA_UAU.5.1 provides
-                authentication</assignable>.</title>
+                <assignable>rules describing how the multiple authentication mechanisms provide
+                  authentication</assignable>.</title>
             <note role="application">Rules regarding how the authentication
               factors interact in terms of unsuccessful authentication are covered in
               FIA_AFL_EXT.1.</note>
@@ -7584,7 +7605,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               <Tests>There are no test evaluation activities for this element.<h:br/><h:br/></Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+	  <audit-event table="optional"/>
         </f-component>
         
         <ext-comp-def fam-id="FIA_X509_EXT" title="X.509 Certificates">
@@ -8093,7 +8114,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             </h:ul>
           </management>
           <audit>There are no auditable events foreseen.</audit>
-          <dependencies>FMT_SMF.1 Specification of Management Functions</dependencies>
+          <dependencies>FMT_SMF.1 Specification of Management Functions<h:br/>
+          FMT_SMR.1 Security Roles
+          </dependencies>
           
           
           <f-element id="fel-mof-est">
@@ -8191,19 +8214,19 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         </ext-comp-def>
         
         <f-component cc-id="fmt_smf_ext.1" name="Specification of Management Functions">
-          <!-- 
+          <consistency-rationale/> 
           <comp-lev> requires the TSF to define the management functions that it implements.</comp-lev>
           <management>There are no management activities foreseen.</management>
           <audit>
             The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST: <h:ul>
               <h:li>Initiation of policy update.</h:li>
-              <h:li>Change of setting.</h:li>
+              <h:li>Change of settings.</h:li>
+              <h:li>Success or failure of function</h:li>
               <h:li>Initiation of software update.</h:li>
               <h:li>Initiation of application installation or update.</h:li>
             </h:ul>
           </audit>
-          <dependencies>No dependencies.</dependencies>
-          -->
+          <dependencies>No dependencies.</dependencies>         
           
           <f-element id="fel-smf-ext">
             <title>The TSF shall be capable of performing the following management functions: <h:br/><h:br/>
@@ -10121,7 +10144,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 is authorized to perform.</Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+          <audit-event table="objective"/>
         </f-component>
       </sec:fmt>
       <sec:fpt title="Class: Protection of the TSF (FPT)">
@@ -10323,7 +10346,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
           <comp-lev> requires the TSF to provide ASLR to the kernel.</comp-lev>
           <management>There are no management activities foreseen.</management>
           <audit>There are no auditable events foreseen.</audit>
-          <dependencies>No dependencies.</dependencies>
+          <dependencies>FCS_RBG.1 Random Bit Generation (RBG)</dependencies>
           
           
           <f-element id="fel-kaslr">
@@ -10356,7 +10379,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+          <audit-event table="objective"/>
         </f-component>
         <f-component cc-id="fpt_aex_ext.6" name="Write or Execute Memory Page Permissions" status="objective">
           
@@ -10390,7 +10413,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+          <audit-event table="objective"/>
         </f-component>
         <f-component cc-id="fpt_aex_ext.7" name="Heap Overflow Protection" status="objective">
           
@@ -10426,7 +10449,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 allowed. </Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+          <audit-event table="objective"/>
         </f-component>
         
         <ext-comp-def fam-id="FPT_BBD_EXT" title="Baseband Processing">
@@ -10484,7 +10507,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               <Tests>There are no test evaluation activities for this component.</Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+          <audit-event table="objective"/>
         </f-component>
         
         <ext-comp-def fam-id="FPT_BLT_EXT" title="Limitation of Bluetooth Profile Support">
@@ -10539,7 +10562,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+          <audit-event table="objective"/>
         </f-component>
         
         
@@ -10879,7 +10902,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+          <audit-event table="objective"/>
         </f-component>
         <f-component cc-id="fpt_stm.1" name="Reliable Time Stamps">
           <f-element id="fel-timestamp">
@@ -11014,6 +11037,21 @@ The evaluator shall exercise the TSF configuration as the administrator and
         
         
         <f-component cc-id="fpt_tst_ext.2" name="TSF Integrity Checking" status="invisible">
+          <consistency-rationale/>
+          <comp-lev> requires the TSF to verify code and bootchain integrity is stored prior to execution by a
+            designated key or hash.</comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>
+            The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST:<h:ul>
+              <h:li>Start-up of TOE.</h:li>
+              <h:li><selectables>
+                <selectable>Detected integrity violation</selectable>
+                <selectable>None</selectable>
+              </selectables></h:li>
+            </h:ul>
+          </audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation</dependencies>
+          
           <f-element id="fel-bootchain-stub">
             <title>The TSF shall verify the integrity of <assignable>TSF data</assignable> stored in mutable media 
               prior to its execution through the use of <assignable>cryptographic or immutable hardware mechanism</assignable>. </title>
@@ -11021,9 +11059,13 @@ The evaluator shall exercise the TSF configuration as the administrator and
               <no-tests/>
             </aactivity>
           </f-element>
-        </f-component>
-        
+        </f-component>      
+               
         <f-component cc-id="fpt_tst_ext.2" name="TSF Integrity Checking (Pre-Kernel)" iteration="PREKERNEL">
+          
+          
+          
+          
           <f-element id="fel-bootchain">
             <title>The TSF shall verify the integrity of [<h:i>the bootchain up through the Application
               Processor OS kernel</h:i>] stored in mutable media prior to its execution through the use of <selectables>
@@ -11095,11 +11137,14 @@ The evaluator shall exercise the TSF configuration as the administrator and
           </f-element>
 	  <audit-event><audit-event-descr>Start-up of TOE</audit-event-descr></audit-event>
 	  <audit-event>
-	    <audit-event-descr><selectables onlyone="yes"><selectable>Detected integrity violation</selectable><selectable>none</selectable></selectables></audit-event-descr>
+	    <audit-event-descr><selectables onlyone="yes"><selectable>Detected integrity
+	      violation</selectable><selectable>None</selectable></selectables></audit-event-descr>
 	    <audit-event-info><selectables onlyone="yes"><selectable>The TSF code file that caused the integrity violation</selectable><selectable>No additional information</selectable></selectables></audit-event-info>
 	  </audit-event>
         </f-component>
+        
         <f-component cc-id="fpt_tst_ext.2" name="TSF Integrity Checking (Post-Kernel)" status="objective" iteration="POSTKERNEL">
+          
           <f-element id="fel-integrity-what">
             <title>The TSF shall verify the integrity of <selectables>
                 <selectable id="s-all-exe">all executable code</selectable>
@@ -11129,7 +11174,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 for all executable code specified. </Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional">
+          <audit-event table="objective">
 	    <audit-event-descr><selectables onlyone="yes"><selectable>Detected integrity violation</selectable><selectable>None</selectable></selectables></audit-event-descr>
 	    <audit-event-info><selectables onlyone="yes"><selectable>The TSF code file that cause the integrity violation</selectable><selectable>No additional information</selectable></selectables></audit-event-info>
 	    </audit-event>
@@ -11163,7 +11208,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 Activities for FPT_TST_EXT.2.1/PREKERNEL. </Tests>
             </aactivity>
           </f-element>
-          <audit-event table="additional"/>
+          <audit-event table="sel-based"/>
 	</f-component>
         
         <ext-comp-def fam-id="FPT_TUD_EXT" title="TSF Updates">
@@ -11177,7 +11222,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
           <comp-lev> requires the TSF to provide authorized users the ability to query the version of the TOE hardware, TOE software, and installed applications.</comp-lev>
           <management>There are no management activities foreseen.</management>
           <audit>There are no auditable events foreseen.</audit>
-          <dependencies>No dependencies.</dependencies>
+          <dependencies>FMT_SMR.1 Security Roles</dependencies>
           
           
           <f-element id="fel-get-software-version">
@@ -11409,7 +11454,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 Activities for FPT_TUD_EXT.2 and FPT_TUD_EXT.5. </Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+          <audit-event table="sel-based"/>
         </f-component>
         <f-component id="fc-crypt-veri" cc-id="fpt_tud_ext.5" name="Application Verification" status="objective">
           
@@ -11463,7 +11508,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+          <audit-event table="objective"/>
         </f-component>
         <f-component cc-id="fpt_tud_ext.6" name="Trusted Update Verification" status="objective">
           
@@ -11500,7 +11545,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </Tests>
             </aactivity>
           </f-element>
-	  <audit-event table="additional"/>
+          <audit-event table="objective"/>
         </f-component>
       </sec:fpt>
       <sec:fta title="Class: TOE Access (FTA)">
@@ -11521,7 +11566,9 @@ The evaluator shall exercise the TSF configuration as the administrator and
             </h:ul>
           </management>
           <audit>There are no auditable events foreseen.</audit>
-          <dependencies>No dependencies.</dependencies>
+          <dependencies>FMT_SMR.1 Security Roles<h:br/>
+          FPT_STM.1 Reliable Time Stamps
+          </dependencies>
           
           <f-element id="fel-time-lock">
             <title>The TSF shall transition to a locked state after a time interval of inactivity.
@@ -11568,8 +11615,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
         </f-component>
         <f-component id="fc-banner" cc-id="fta_tab.1" name="Default TOE Access Banners">
           <f-element id="fel-banner">
-            <title>Before establishing a user session, the TSF shall display an advisory warning
-              message regarding unauthorized use of the TOE.</title>
+            <title>Before establishing a user session, the [<h:i>TSF</h:i>] shall display an <h:b>advisory warning</h:b>
+              message <h:b>regarding unauthorized use of the TOE</h:b>.</title>
             <note role="application">This requirement may be met with the configuration of either
               text or an image containing the text of the desired message. The TSF must minimally
               display this information at startup, but may also display the information at every
@@ -11689,7 +11736,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </h:p><h:p>
                 The TSF is mandated to support mutually authenticated TLS, which means that it implements a protocol that requires the validation of a certificate presented by an external entity. Therefore, FIA_X509_EXT.1 and FIA_X509_EXT.2 will be claimed, as will FIA_TSM_EXT.1 for management of the trust store.
               </h:p><h:p>
-                The requirement to implement mutually authenticated TLS also means that it implements a protocol that requires the presentation of any certificates to an external entity. Therefore, FIA_XCU_EXT.2 will be claimed. FIA_X509_EXT.3 will also be claimed, along with any applicable dependencies, depending on how the certificates presented by the TOE are obtained.  
+                The requirement to implement mutually authenticated TLS also means that it
+                implements a protocol that requires the presentation of any certificates to an external entity. Therefore, FIA_XCU_EXT.2 will be claimed. FIA_X509_EXT.6 will also be claimed, along with any applicable dependencies, depending on how the certificates presented by the TOE are obtained.  
               </h:p>
             
             </note>
