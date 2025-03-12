@@ -468,7 +468,7 @@
         </h:p>
         <h:p>
           In addition to the supported ciphersuites, the ST author indicates the order of ciphersuites included in the ClientHello, 
-          indicating the preferred ciphersuites for server negotiation. To eliminate the need to produce duplicate lists, it is recommended to complete the selected list of ciphersuites in the order that they are presented and then complete the following assignment by saying that the presentation order is the same as in the previous list. It is recommended, but not required, that the TLS 1.3 ciphersuites
+          indicating the preferred ciphersuites for server negotiation. To eliminate the need to produce duplicate lists, it is recommended to complete the selected list of ciphersuites in the order that they are presented and then complete the following assignment by saying that the presentation order is the same as in the previous list. If more than one ordering is possible (e.g., the order is constructed dynamically based on some property of the system on which the TOE is running) the ST uses the assignment to specify a dynamic ordering and the describes in the TSS the conditions for presenting the ordering. It is recommended, but not required, that the TLS 1.3 ciphersuites
           claimed are listed before TLS 1.2 ciphersuites, and that any other ciphersuites are listed last among the TLS 1.3 ciphersuites.
         </h:p>
       </note>
@@ -597,7 +597,9 @@
         </h:p><h:p>
           If DTLS 1.2 is supported and if ECDHE or DHE ciphersuites are claimed in FCS_DTLSC_EXT.1.2, the supported_groups extension is claimed here with appropriate secp and ffdhe groups claimed.
         </h:p>
-        
+        <h:p>
+          For compatibility purposes, DTLS clients may offer additional supported_groups values beyond what is specified in the selection.
+        </h:p>
         <h:p>
           Other extensions may be supported; certain extensions and values may need to be claimed for SFRs defined outside of this package related to the calling applications.
         </h:p>
@@ -1333,12 +1335,12 @@
                           <testlist>
                             <test>The reference identifier contains a DNS portion with two labels, and the certificate includes a name whose DNS portion includes 
                               a matching rightmost label and a wildcard in the leftmost label (e.g., *.com).</test>
+                            <test>The reference identifier contains a DNS portion with two labels, 
+                              and the certificate includes a name whose DNS portion includes two rightmost labels matching the reference identifier, 
+                              and a wildcard in a third (leftmost) label (e.g., *.example.com, which does not match "example.com").</test>
                             <test>The reference identifier contains a DNS portion with four labels, 
                               and the certificate includes a name whose DNS portion includes two rightmost labels matching the reference identifier, 
                               and a wildcard in the third label, and a matching identifier in the fourth (leftmost) label (e.g., foo.*.example.com).</test>
-                            <test>The reference identifier contains a DNS portion with three labels, 
-                              and the certificate includes a name whose DNS portion includes two rightmost labels matching the reference identifier, 
-                              and a wildcard in the third (leftmost) label (e.g., *.example.com).</test>
                             <h:p>
                               <h:b>Note:</h:b> For negative sub-tests, if the TSF terminates the session, the test is successful. If the TSF
                               silently drops the message, the evaluator shall continue sending the server finished until the TSF times out.
@@ -3263,7 +3265,7 @@
               </h:p>
               <h:p>
               In addition to the supported ciphersuites, the ST author indicates the order of ciphersuites included in the ClientHello,
-              indicating the preferred ciphersuites for server negotiation.  To eliminate the need to produce duplicate lists, it is recommended to complete the selected list of ciphersuites in the order that they are presented and then complete the following assignment by saying that the presentation order is the same as in the previous list. It is recommended, but not required, that the TLS 1.3 ciphersuites
+              indicating the preferred ciphersuites for server negotiation.  To eliminate the need to produce duplicate lists, it is recommended to complete the selected list of ciphersuites in the order that they are presented and then complete the following assignment by saying that the presentation order is the same as in the previous list. If more than one ordering is possible (e.g., the order is constructed dynamically based on some property of the system on which the TOE is running) the ST uses the assignment to specify a dynamic ordering and the describes in the TSS the conditions for presenting the ordering. It is recommended, but not required, that the TLS 1.3 ciphersuites
               claimed are listed before TLS 1.2 ciphersuites, and that any other ciphersuites are listed last among the TLS 1.3 ciphersuites.
               </h:p>
             </note>
@@ -3969,12 +3971,12 @@
                           <testlist>
                             <test>The reference identifier contains a DNS portion with two labels, and the certificate includes a name whose DNS portion includes 
                               a matching rightmost label and a wildcard in the leftmost label (e.g., *.com).</test>
+                            <test>The reference identifier contains a DNS portion with two labels, 
+                              and the certificate includes a name whose DNS portion includes two rightmost labels matching the reference identifier, 
+                              and a wildcard in a third (leftmost) label (e.g., *.example.com, which does not match "example.com").</test>
                             <test>The reference identifier contains a DNS portion with four labels, 
                               and the certificate includes a name whose DNS portion includes two rightmost labels matching the reference identifier, 
                               and a wildcard in the third label, and a matching identifier in the fourth (leftmost) label (e.g., foo.*.example.com).</test>
-                            <test>The reference identifier contains a DNS portion with three labels, 
-                              and the certificate includes a name whose DNS portion includes two rightmost labels matching the reference identifier, 
-                              and a wildcard in the third (leftmost) label (e.g., *.example.com).</test>
                           </testlist>
                         </test>
                         <test>[conditional] If the TSF supports wildcards and supports embedded DNS, URI, or SVR name types in the CN, 
@@ -4694,6 +4696,9 @@
               <h:p>
             If TLS 1.2 is supported and DHE or ECDHE ciphersuites are claimed in FCS_TLSS_EXT.1.2, the entry for supported_groups is claimed. Support for additional extensions is acceptable.
             For signature_algorithms and signature_algorithms_certs (if supported), at least one of the signature schemes presented in the first sub-selection is claimed.
+              </h:p>
+              <h:p>
+                For compatibility purposes, TLS clients may offer additional supported_groups values beyond what is specified in the selection.
               </h:p>
           </note>
           </f-element>
