@@ -7,6 +7,8 @@
  Failed to find a reference to t-locks.
  Failed to find a reference to t-locks.
  Failed to find a reference to sel-based-reqs.
+ Failed to find a reference to sfr.
+ Failed to find a reference to sfr.
  Failed to find a reference to bibCEM.
 * Warning: Since FCS_CKM_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
