@@ -4,8 +4,6 @@
  Failed to find a reference to Security_Requirements.
  Failed to find a reference to ivtable.
  Failed to find a reference to ivtable.
- Failed to find a reference to t-locks.
- Failed to find a reference to t-locks.
  Failed to find a reference to sel-based-reqs.
  Failed to find a reference to Security_Problem_Description.
  Failed to find a reference to sfr.
