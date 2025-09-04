@@ -3,6 +3,8 @@
 	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[1]""/or[2]""/ref-id[1]"s-kek-sym"
 * Error: Detected dangling ref-id to 's-kek-sym-256'.
 	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[2]""/or[2]""/ref-id[1]"s-kek-sym"
+* Error: Detected dangling ref-id to 's-encrypt-256'.
+	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/ref-id[1]"s-encrypt"
 * Error: Detected dangling ref-id to 's-rbg-256'.
 	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/ref-id[2]"s-rbg-256"
 * Error: Detected dangling ref-id to 's-dar-256'.
@@ -39,10 +41,6 @@ warning: failed to load external entity "output/mod-wlanclient.xml"
 warning: failed to load external entity "output/mod-wlanclient.xml"
 warning: failed to load external entity "output/mod-bluetooth.xml"
 warning: failed to load external entity "output/mod-bluetooth.xml"
-warning: failed to load external entity "output/mod-wlanclient.xml"
-warning: failed to load external entity "output/mod-wlanclient.xml"
-warning: failed to load external entity "output/mod-wlanclient.xml"
-warning: failed to load external entity "output/mod-wlanclient.xml"
 warning: failed to load external entity "output/mod-wlanclient.xml"
 warning: failed to load external entity "output/mod-wlanclient.xml"
 warning: failed to load external entity "output/mod-vpnclient.xml"
@@ -97,6 +95,7 @@ warning: failed to load external entity "output/mod-vpnclient.xml"
  Failed to find s-kek-sym-256 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[1]""/or[2]""/ref-id[1]"s-kek-sym" (use case or rule)
  Failed to find s-kek-sym-256 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[2]""/or[2]""/ref-id[1]"s-kek-sym" (use case or rule)
  Failed to find s-tls-secp384 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[2]""/doc[1]""/ref-id[1]"s-tls-sec"
+ Failed to find s-encrypt-256 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/ref-id[1]"s-encrypt" (use case or rule)
  Failed to find s-rbg-256 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/ref-id[2]"s-rbg-256" (use case or rule)
  Failed to find s-dar-256 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/ref-id[3]"s-dar-256" (use case or rule)
  Failed to find s-revoke-admin in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[3]""/ref-id[1]"s-revoke-" (use case or rule)
