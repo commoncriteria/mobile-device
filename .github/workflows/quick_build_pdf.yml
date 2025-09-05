@@ -1,10 +1,7 @@
-name: QuickBuild v4.6 20250905
+name: QuickBuild v4.6pdf 20250905
+# Run only on demand to do quick build with both pdf and html output
 
 on:
-  push:
-    branches:
-    - '*'
-    - '!gh-pages'
   workflow_dispatch:
     inputs:
       environment:
@@ -50,7 +47,6 @@ jobs:
         
       # PDFify
     - name: PDFify
-      if: ${{ env.action_is_release == 'YES' }}
       run: |
         wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb
         sudo apt install -y ./wkhtmltox_0.12.6.1-3.jammy_amd64.deb && rm wkhtmltox_0.12.6.1-3.jammy_amd64.deb
@@ -80,19 +76,19 @@ jobs:
 #      run: echo "action_tdate=2002222" >> $GITHUB_ENV
       run: echo "action_tdate=$(cd transforms && git log -1 --format=%cs; cd ->/dev/null)" >> $GITHUB_ENV
        
-    - name: Get DaisyDiff
-      run: |
-        wget -O- https://github.com/AndroidKitKat/ExecuteDaisy/archive/master.zip | jar -x
-        [ -d "output/images" ] || mkdir "output/images";
-        cp -u -r ExecuteDaisy-master/js ExecuteDaisy-master/css output;
-        cp -u ExecuteDaisy-master/images/* output/images;
+#    - name: Get DaisyDiff
+#      run: |
+#        wget -O- https://github.com/AndroidKitKat/ExecuteDaisy/archive/master.zip | jar -x
+#        [ -d "output/images" ] || mkdir "output/images";
+#        cp -u -r ExecuteDaisy-master/js ExecuteDaisy-master/css output;
+#        cp -u ExecuteDaisy-master/images/* output/images;
 
       
     - name: Make tmp dir
       run: mkdir tmp
       
-    - name: diff
-      run: TMP=tmp make diff || true; 
+#    - name: diff
+#      run: TMP=tmp make diff || true; 
     # Little diff depends on having a git history. 
     # The current checkout has  depth=1 and has no history
     #- name: little diff
