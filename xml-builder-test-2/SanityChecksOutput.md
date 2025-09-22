@@ -1,83 +1,3 @@
-* Error: f-element FAU_GEN.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[1]""/f-element[2]""
-* Error: f-element FAU_SAR.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[2]""/f-element[2]""
-* Error: f-element FAU_STG.2.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[4]""/f-element[2]""
-* Error: f-element FCS_CKM.6.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[4]""/f-element[2]""
-* Error: f-element FCS_CKM_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[5]""/f-element[2]""
-* Error: f-element FCS_CKM_EXT.1.3  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[5]""/f-element[3]""
-* Error: f-element FCS_CKM_EXT.3.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[7]""/f-element[2]""
-* Error: f-element FCS_CKM_EXT.5.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[8]""/f-element[2]""
-* Error: f-element FCS_HTTPS_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[16]""/f-element[2]""
-* Error: f-element FCS_HTTPS_EXT.1.3  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[16]""/f-element[3]""
-* Error: f-element FCS_STG_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[28]""/f-element[2]""
-* Error: f-element FCS_STG_EXT.1.3  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[28]""/f-element[3]""
-* Error: f-element FCS_STG_EXT.1.4  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[28]""/f-element[4]""
-* Error: f-element FCS_STG_EXT.1.5  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[28]""/f-element[5]""
-* Error: f-element FCS_STG_EXT.2.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[29]""/f-element[2]""
-* Error: f-element FCS_STG_EXT.3.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]"This sect"/f-component[30]""/f-element[2]""
-* Error: f-element FDP_DAR_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[6]""/f-element[2]""
-* Error: f-element FDP_UPC_EXT.1.2/APPS  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[11]""/f-element[2]""
-* Error: f-element FDP_UPC_EXT.1.2/BLUETOOTH  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[12]""/f-element[2]""
-* Error: f-element FIA_AFL_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[1]""/f-element[2]""
-* Error: f-element FIA_AFL_EXT.1.3  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[1]""/f-element[3]""
-* Error: f-element FIA_AFL_EXT.1.4  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[1]""/f-element[4]""
-* Error: f-element FIA_AFL_EXT.1.5  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[1]""/f-element[5]""
-* Error: f-element FIA_AFL_EXT.1.6  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[1]""/f-element[6]""
-* Error: f-element FIA_UAU.5.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[4]""/f-element[2]""
-* Error: f-element FIA_UAU_EXT.2.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[9]""/f-element[2]""
-* Error: f-element FIA_X509_EXT.6.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[11]""/f-element[2]""
-* Error: f-element FPT_AEX_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/f-component[1]""/f-element[2]""
-* Error: f-element FPT_AEX_EXT.4.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/f-component[4]""/f-element[2]""
-* Error: f-element FPT_AEX_EXT.5.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/f-component[5]""/f-element[2]""
-* Error: f-element FPT_TST.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/f-component[18]""/f-element[2]""
-* Error: f-element FPT_TST.1.3  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/f-component[18]""/f-element[3]""
-* Error: f-element FPT_TUD_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/f-component[24]""/f-element[2]""
-* Error: f-element FPT_TUD_EXT.1.3  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/f-component[24]""/f-element[3]""
-* Error: f-element FPT_TUD_EXT.2.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/f-component[25]""/f-element[2]""
-* Error: f-element FPT_TUD_EXT.2.3  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/f-component[25]""/f-element[3]""
-* Error: f-element FTA_SSL_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[7]""/f-component[1]""/f-element[2]""
-* Error: f-element FTA_SSL_EXT.1.3  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[7]""/f-component[1]""/f-element[3]""
-* Error: f-element FTP_ITC_EXT.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[8]""/f-component[1]""/f-element[2]""
-* Error: f-element FTP_ITC_EXT.1.3  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[8]""/f-component[1]""/f-element[3]""
 * Warning: This document still has at least one comment.
 * Error: Detected dangling id-reference to x509-integrity from attribute
         on-sel/PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/f-component[23]""/depends[1]""/on-sel[1]""
@@ -173,6 +93,7 @@ warning: failed to load external entity "output/mod-vpnclient.xml"
  Failed to find a reference to sfr.
  Failed to find a reference to CEM.
  Failed to find a reference to CEM.
+ Failed to find a reference to entropy.
  Failed to find a reference to entropy.
 * Warning: Since FCS_CKM_EXT.5.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
