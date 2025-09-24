@@ -374,8 +374,7 @@
       connectivity shall be evaluated against the
       <xref to="mod-bluetooth"/>.
 	  As illustrated in
-      <xref to="TOE"/>
-      , it is expected that a typical deployment would also include either
+      <xref to="TOE"/>, it is expected that a typical deployment would also include either
       third-party or bundled components. Whether these components are bundled as part of the Mobile
       Device by the manufacturer or developed by a third-party, they must be separately validated
       against the related assurance standards such as the PP-Module for MDM Agent, PP-Module for VPN
@@ -1806,8 +1805,7 @@
               <xref to="Keys"/>
               has KEKs of each type: KEK_3 is generated, KEK_1 is derived
               from a Password Authentication Factor, and KEK_2 is combined from two KEKs. In
-              <xref to="Keys"/>
-              , KEK_3 may either be a symmetric key generated from an RBG or an
+              <xref to="Keys"/>, KEK_3 may either be a symmetric key generated from an RBG or an
               asymmetric key generated using a key generation scheme according to FCS_CKM.1.
               <h:br/>
               <h:br/>
@@ -2187,7 +2185,7 @@
                 <h:br/>
                 <h:ul>
                   <h:li>AES-CBC (as defined in FIPS PUB 197, and NIST SP 800-38A) mode</h:li>
-                  <h:li>AES-CCMP (as defined in FIPS PUB 197, NIST SP 800-38C and IEEE 802.11-2012), and</h:li>
+                  <h:li>AES-CCMP-256 (as defined in NIST SP 800-38C and IEEE 802.11-2013ac), and</h:li>
                   <h:li>
                     <selectables linebreak="yes">
                       <selectable id="fcs_cop.1.1_ENCRYPT_1">AES Key Wrap (KW) (as defined in NIST SP 800-38F)</selectable>
@@ -2195,23 +2193,14 @@
                       <selectable id="fcs_cop.1.1_ENCRYPT_3">AES-GCM (as defined in NIST SP 800-38D)</selectable>
                       <selectable id="fcs_cop.1.1_ENCRYPT_4">AES-CCM (as defined in NIST SP 800-38C)</selectable>
                       <selectable id="fcs_cop.1.1_ENCRYPT_5">AES-XTS (as defined in NIST SP 800-38E) mode</selectable>
-                      <selectable id="fcs_cop.1.1_ENCRYPT_6">AES-CCMP-256 (as defined in NIST SP800-38C and IEEE 802.11ac-2013)</selectable>
-                      <selectable id="fcs_cop.1.1_ENCRYPT_7">AES-GCMP-256 (as defined in NIST SP800-38D and IEEE 802.11ac-2013)</selectable>
-                      <selectable id="fcs_cop.1.1_ENCRYPT_8" exclusive="yes">no other modes</selectable>
+                      <selectable id="fcs_cop.1.1_ENCRYPT_6">AES-GCMP-256 (as defined in NIST SP800-38D and IEEE 802.11ac-2013)</selectable>
+                      <selectable id="fcs_cop.1.1_ENCRYPT_7" exclusive="yes">no other modes</selectable>
                     </selectables>
                   </h:li>
                 </h:ul>
-              </h:i>] and cryptographic key sizes [<h:i>128-bit key sizes and  <selectables><selectable id="s-encrypt-256">256-bit key sizes</selectable><selectable id="fcs_cop.1.1_ENCRYPT_9" exclusive="yes">no other key sizes</selectable></selectables></h:i>].
+              </h:i>] and cryptographic key sizes [<h:i>256 bits</h:i>].
             </title>
-            <note role="application">
-              For the first selection, the ST author should choose the mode or modes in which AES operates. For the second selection, the ST author should choose the key sizes that are supported by this functionality. 128-bit CBC and CCMP are required in order to comply with the
-              <xref to="mod-wlanclient"/>.
-              <h:br/>
-              <h:br/>
-              Note that to comply with the
-              <xref to="mod-wlanclient"/>
-              , AES CCMP (which uses AES in CCM as specified in SP 800-38C) with cryptographic key size of 128 bits must be implemented. If CCM is only implemented to support CCMP for WLAN, AES-CCM does not need be selected. Optionally, AES-CCMP-256 or AES-GCMP-256 with cryptographic key size of 256 bits may be implemented.
-            </note>
+            <note role="application">For the first selection, the ST author should choose the mode or modes in which AES operates. AES-CCMP-256 is required for wireless LAN purposes.</note>
             <aactivity>
               <TSS>There are no TSS evaluation activities for this component.<h:br/><h:br/></TSS>
               <Guidance>There are no guidance evaluation activities for this component.<h:br/><h:br/></Guidance>
@@ -2717,7 +2706,7 @@
                 <testlist>
                   <h:br/>
                   <h:br/>
-                  <test>The evaluator shall attempt to establish an HTTPS connection with a webserver, observe the traffic with a packet analyzer, and verify that the connection succeeds and that the traffic is identified as TLS or HTTPS. <h:br/><h:br/>  <h:br/><h:br/> Other tests are performed in conjunction with testing in the <xref to="pkg-tls"/>. <h:br/><h:br/>  <h:br/><h:br/> Certificate validity shall be tested in accordance with testing performed for FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/> , and the evaluator shall perform the following test:</test>
+                  <test>The evaluator shall attempt to establish an HTTPS connection with a webserver, observe the traffic with a packet analyzer, and verify that the connection succeeds and that the traffic is identified as TLS or HTTPS. <h:br/><h:br/>  <h:br/><h:br/> Other tests are performed in conjunction with testing in the <xref to="pkg-tls"/>. <h:br/><h:br/>  <h:br/><h:br/> Certificate validity shall be tested in accordance with testing performed for FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>, and the evaluator shall perform the following test:</test>
                   <test>The evaluator shall demonstrate that using a certificate without a valid certification path results in an application notification. Using the administrative guidance, the evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function, and demonstrate that the function succeeds. The evaluator then shall delete one of the certificates, and show that the application is notified of the validation failure.</test>
                 </testlist>
               </Tests>
@@ -2989,8 +2978,7 @@
                 <selectable id="fcs_rbg.5.1_3">input from TSF interface(s) for seeding</selectable>
               </selectables>
               to create the entropy input into the derivation function as defined in
-              <assignable>list of standards</assignable>
-              , resulting
+              <assignable>list of standards</assignable>, resulting
               in a minimum of
               <assignable>number of bits</assignable>
               bits of min-entropy.
@@ -3314,14 +3302,12 @@
               If the ST selects
               <xref to="import-user"/>
               or
-              <xref to="s-import-admin"/>
-              ,
+              <xref to="s-import-admin"/>,
 				the ST author must also select
               <xref to="mf-sharedKeys"/>
               in FMT_SMF_EXT.1.1.
 				If the ST selects
-              <xref to="import-user"/>
-              , the ST author must select function
+              <xref to="import-user"/>, the ST author must select function
               <xref to="mf-sharedKeys"/>
               in FMT_MOF_EXT.1.1.
             </note>
@@ -3347,14 +3333,12 @@
               If the ST selects
               <xref to="s-killkey-user"/>
               or
-              <xref to="s-killkey-admin"/>
-              ,
+              <xref to="s-killkey-admin"/>,
 				the ST author must also select function
               <xref to="mf-keyWipeRules"/>
               in FMT_SMF_EXT.1.1.
 				If the ST selects only
-              <xref to="s-killkey-user"/>
-              , 
+              <xref to="s-killkey-user"/>, 
 				the ST author must select function
               <xref to="mf-keyWipeRules"/>
               in FMT_MOF_EXT.1.1.
@@ -3650,8 +3634,7 @@
         <h:br/>
         <h:br/>
         This capability may also be met by a key agreement scheme. To do so, the device generates a device-wide sensitive data asymmetric pair (the private key of which is protected by a password-derived or biometric-unlocked KEK) and an asymmetric pair for the received sensitive data to be stored. In order to store the sensitive data, the device-wide public key and data private key are used to generate a shared secret, which can be used as a KEK or a DEK. The data private key and shared secret are cleared after the data is encrypted and the data public key stored. Thus, no key material is available in the locked state to decrypt the newly stored data. Upon unlock, the device-wide private key is decrypted and is used with each data public key to regenerate the shared secret and decrypt the stored data.
-        <xref to="KeysLocked"/>
-        , below, illustrates this scheme.
+        <xref to="KeysLocked"/>, below, illustrates this scheme.
         <h:br/>
         <h:br/>
         <figure id="KeysLocked" entity="images/figure4.jpg" title="Key Agreement Scheme for Encrypting Received Sensitive Data in the Locked State"/>
@@ -4223,8 +4206,7 @@
                   <assignable>traffic needed for correct functioning of the TOE</assignable>
                 </selectable>
                 <selectable id="fdp_ifc_ext.1.1_5">no other traffic</selectable>
-              </selectables>
-              , when the VPN is enabled.
+              </selectables>, when the VPN is enabled.
             </title>
             <note role="application">
               Typically, the traffic needed to manage the VPN connection
@@ -4379,8 +4361,7 @@
               <h:br/>
               <h:br/>
               The TSF must be validated against requirements from the
-              <xref to="pkg-tls"/>
-              , with the following selections made:
+              <xref to="pkg-tls"/>, with the following selections made:
               <h:ul>
                 <h:li>FCS_TLS_EXT.1:</h:li>
                 <h:ul>
@@ -4404,8 +4385,7 @@
               If
               <xref to="upc_dtls"/>
               is selected, the TSF must be validated against requirements from the
-              <xref to="pkg-tls"/>
-              , with the following selections made:
+              <xref to="pkg-tls"/>, with the following selections made:
               <h:ul>
                 <h:li>FCS_TLS_EXT.1:</h:li>
                 <h:ul>
@@ -4427,8 +4407,7 @@
               </h:ul>
               <h:br/>
               If the ST author selects
-              <xref to="s-upc-ipsec"/>
-              , the TSF must be validated against the PP-Module for Virtual Private Network (VPN) Clients.
+              <xref to="s-upc-ipsec"/>, the TSF must be validated against the PP-Module for Virtual Private Network (VPN) Clients.
             </note>
           </f-element>
           <f-element id="fel-tls-app-init">
@@ -4930,8 +4909,7 @@
                 which authentication mechanism can be used at which authentication factor interfaces
                 (i.e. if there are times, for example, after a reboot, that only specific
                 authentication mechanisms can be used). If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the
-                <xref to="mod-biometrics"/>
-                , the interaction between the BAFs must be described. For example, whether the
+                <xref to="mod-biometrics"/>, the interaction between the BAFs must be described. For example, whether the
                 multiple BAFs can be enabled at the same time.
                 <h:br/>
                 <h:br/>
@@ -5237,8 +5215,7 @@
               of the validation.</title>
             <note role="application">
               In order to comply with all of the rules in FIA_X509_EXT.1 as defined in
-              <xref to="pkg-x509"/>
-              ,
+              <xref to="pkg-x509"/>,
               multiple API calls may be required; all of these calls should be clearly
               documented.
             </note>
@@ -5542,8 +5519,7 @@
                       Regarding functions
                       <xref to="mf-radios"/>
                       and
-                      <xref to="mf-audioVisual"/>
-                      ,
+                      <xref to="mf-audioVisual"/>,
 		disablement of a particular
               radio or audio/visual device must be effective as soon as the TOE has power.
               Disablement must also apply when the TOE is booted into auxiliary boot modes, for
@@ -5656,8 +5632,7 @@
                   <O ref="AO"/>
                   <app-note>
                     For function
-                    <xref to="mf-enroll"/>
-                    , the
+                    <xref to="mf-enroll"/>, the
 		      enrollment function may be installing an MDM agent and includes the policies to be
 		      applied to the device. It is acceptable for the user approval notice to require the
 		      user to intentionally opt to view the policies (for example, by "tapping" on a "View"
@@ -5679,8 +5654,7 @@
                   <O ref="AO"/>
                   <app-note>
                     For function
-                    <xref to="mf-update"/>
-                    , the administrator capability to update the system
+                    <xref to="mf-update"/>, the administrator capability to update the system
 		      software may be limited to causing a prompt to the user to update rather than the
 		      ability to initiate the update itself. As the administrator is likely to be acting
 		      remotely, he/she would be unaware of inopportune situations, such as low power, which
@@ -5713,8 +5687,7 @@
                   <NA ref="AO"/>
                   <app-note>
                     For function
-                    <xref to="mf-entAppRemove"/>
-                    , "Enterprise applications" are those applications that belong
+                    <xref to="mf-entAppRemove"/>, "Enterprise applications" are those applications that belong
               to the Enterprise application group. Applications installed by the enterprise
               administrator (including automatic installation by the administrator after being
               requested by the user from a catalog of enterprise applications) are by default placed
@@ -5771,8 +5744,7 @@
                   <O ref="AO"/>
                   <app-note>
                     For function
-                    <xref to="mf-location"/>
-                    , location
+                    <xref to="mf-location"/>, location
               services include location information gathered from GPS, cellular, and Wi-Fi.
                   </app-note>
                 </management-function>
@@ -5791,8 +5763,7 @@
                     is selected in FIA_UAU.5.1, "Biometric Authentication Factor"
               must be selected and the user or admin must have the option to disable the use of
               it. If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the
-                    <xref to="mod-biometrics"/>
-                    , this applies to all different
+                    <xref to="mod-biometrics"/>, this applies to all different
               modalities. If
                     <xref to="uau_hybr"/>
                     is selected in FIA_UAU.5.1 it must be selected and the user
@@ -6040,8 +6011,7 @@
                   <O ref="AO"/>
                   <app-note>
                     For function
-                    <xref to="mf-hotspot"/>
-                    ,
+                    <xref to="mf-hotspot"/>,
               hotspot functionality refers to the condition in which the mobile device is serving as
               an access point to other devices, not the connection of the TOE to external hotspots.
                   </app-note>
@@ -6075,8 +6045,7 @@
                   <O ref="AO"/>
                   <app-note>
                     For function
-                    <xref to="mf-unenroll"/>
-                    , FMT_SMF_EXT.2.1 specifies actions to be performed when
+                    <xref to="mf-unenroll"/>, FMT_SMF_EXT.2.1 specifies actions to be performed when
 		the TOE is unenrolled from management.
                   </app-note>
                 </management-function>
@@ -7420,8 +7389,7 @@
               Certificates may optionally be used for code signing for
             integrity verification (FPT_TST_EXT.2.1/PREKERNEL).
             If "code signing for software integrity testing" is selected in FIA_X509_EXT.2.1 in
-              <xref to="pkg-x509"/>
-              , FPT_TST_EXT.3.1 must be included in the
+              <xref to="pkg-x509"/>, FPT_TST_EXT.3.1 must be included in the
             ST.
               <h:br/>
               <h:br/>
@@ -7672,8 +7640,7 @@
               If "code signing for system software updates" is selected or the assignment is selected and specifies the use of 
               X.509 in code signing for mobile
               applications in FIA_X509_EXT.2.1 in
-              <xref to="pkg-x509"/>
-              ,
+              <xref to="pkg-x509"/>,
 	      FPT_TUD_EXT.4 must be included in the
               ST.
               <h:br/>
@@ -7941,8 +7908,7 @@
 	      if
               <xref to="itc_dtls"/>
               is selected, the TSF must be validated against the
-              <xref to="pkg-tls"/>
-              , with the following selections made:
+              <xref to="pkg-tls"/>, with the following selections made:
               <rule id="r-tls">
                 <doc ref="pkg-tls">
                   <ref-id>tlsc_impl</ref-id>
@@ -7991,8 +7957,7 @@
                 </then>
               </rule>
               If the ST author selects
-              <xref to="s-itc-ipsec"/>
-              , the TSF must be validated against the
+              <xref to="s-itc-ipsec"/>, the TSF must be validated against the
               <xref to="mod-vpnclient"/>.
               <h:br/>
               <h:br/>
@@ -8112,8 +8077,7 @@
       TOE, supporting environmental IT, and the administrative/user guides for the TOE. The ITSEF is
       expected to perform actions mandated by the Common Evaluation Methodology (CEM) for the ASE
       and ALC SARs. The ITSEF also performs the Evaluation Activities contained within
-      <xref to="sfr"/>
-      , which are intended to be an interpretation of the other CEM evaluation
+      <xref to="sfr"/>, which are intended to be an interpretation of the other CEM evaluation
       requirements as they apply to the specific technology instantiated in the TOE. The Evaluation
       Activities that are captured in
       <xref to="sfr"/>
@@ -8257,8 +8221,7 @@
               There are no specific evaluation activities associated with these SARs, except
               ensuring the information is provided. The functional specification documentation is
               provided to support the evaluation activities described in
-              <xref to="sfr"/>
-              ,
+              <xref to="sfr"/>,
               and other activities described for AGD, ATE, and AVA SARs. The requirements on the
               content of the functional specification information is implicitly assessed by virtue
               of the other evaluation activities being performed; if the evaluator is unable to
