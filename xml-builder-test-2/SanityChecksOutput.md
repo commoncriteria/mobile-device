@@ -38,10 +38,6 @@ warning: failed to load external entity "output/mod-bluetooth.xml"
  Failed to find a reference to Security_Requirements.
 warning: failed to load external entity "output/mod-wlanclient.xml"
 warning: failed to load external entity "output/mod-wlanclient.xml"
-warning: failed to load external entity "output/mod-wlanclient.xml"
-warning: failed to load external entity "output/mod-wlanclient.xml"
-warning: failed to load external entity "output/mod-wlanclient.xml"
-warning: failed to load external entity "output/mod-wlanclient.xml"
  Failed to find a reference to ivtable.
  Failed to find a reference to ivtable.
 warning: failed to load external entity "output/mod-vpnclient.xml"
