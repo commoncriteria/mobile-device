@@ -2387,17 +2387,17 @@
 			<f-element id="fia-x509-ext-1e3">
 				<title>
 					The TSF shall  <selectables>
-						<selectable>invoke platform-provided functionality</selectable>
-						<selectable>implement functionality</selectable></selectables>
+						<selectable id="sel-fia-x509-1e3-platfunc">invoke platform-provided functionality</selectable>
+						<selectable id="sel-fia-x509-1e3-implfunc">implement functionality</selectable></selectables>
 					to validate revocation status of the certificate using <selectables linebreak="yes">
-							<selectable>The Online Certificate Status Protocol (OCSP) as specified in RFC 6960</selectable>
-							<selectable>Certificate Revocation Lists (CRL) as specified in RFC 5280 and refined by RFC 8603</selectable>
-							<selectable>Certificate Revocation Lists as specified in RFC 5280</selectable>
-							<selectable>Based on validity period: Certificates expiring within <assignable>time less than 24 hours</assignable> of the current 
+							<selectable id="sel-fia-x509-1e3-ocsp">The Online Certificate Status Protocol (OCSP) as specified in RFC 6960</selectable>
+							<selectable id="sel-fia-x509-1e3-crl8603">Certificate Revocation Lists (CRL) as specified in RFC 5280 and refined by RFC 8603</selectable>
+							<selectable id="sel-fia-x509-1e3-cr5280">Certificate Revocation Lists as specified in RFC 5280</selectable>
+							<selectable id="sel-fia-x509-1e3-valperiod">Based on validity period: Certificates expiring within <assignable>time less than 24 hours</assignable> of the current 
 								time are considered valid when no other valid revocation status information is available</selectable>
-							<selectable>Administrative notification of revocation: <assignable>administrative action upon notification</assignable> using <assignable>
+							<selectable id="sel-fia-x509-1e3-adminnotity">Administrative notification of revocation: <assignable>administrative action upon notification</assignable> using <assignable>
 								method to invalidate use of certificates in supported functions</assignable> when the certificate is revoked.</selectable>
-							<selectable>Direct association with Certification Authority: <assignable>direct revocation status information 
+							<selectable id="sel-fia-x509-1e3-directassoc">Direct association with Certification Authority: <assignable>direct revocation status information 
 								implementations</assignable></selectable>
 						</selectables>.
 				</title>
@@ -2435,23 +2435,20 @@
 			<f-element id="fia-x509-ext-1e4">
 				<title>
 					The TSF shall  <selectables>
-						<selectable>not obtain revocation status information by the TSF due to <selectables>
+						<selectable id="sel-fia-x509-1e4-notobtain">not obtain revocation status information by the TSF due to <selectables>
 							<selectable>determining that the certificate expires within <assignable>time less than 24 hours</assignable></selectable>
 							<selectable>determining that the <assignable>supported function</assignable> validates revocation status using <assignable>methods supported by the function</assignable></selectable>
 						</selectables> 
 						
 						</selectable>
 						
-						
-						
-						
-						<selectable>invoke platform-provided functionality</selectable>
-						<selectable>implement functionality</selectable></selectables> to obtain supported revocation status information
+						<selectable id="sel-fia-x509-1e4-platfunc">invoke platform-provided functionality</selectable>
+						<selectable id="sel-fia-x509-1e4-implfunc">implement functionality</selectable></selectables> to obtain supported revocation status information
 							via <selectables linebreak="yes">
 								<selectable>Network connection to <selectables><selectable>CA</selectable><selectable>CRL distribution 
-									point</selectable><selectable>OCSP responder</selectable><selectable> <assignable>alternate sources
+									point</selectable><selectable>OCSP responder</selectable><selectable id="sel-fia-x509-1e4-altsrc"> <assignable>alternate sources
 									</assignable></selectable></selectables></selectable>
-								<selectable>Local revocation status information from <selectables><selectable>cached CRL</selectable>
+								<selectable id="sel-fia-x509-1e4-localrevinfo">Local revocation status information from <selectables><selectable>cached CRL</selectable>
 									<selectable id="toe-uses-embedded-ca">embedded CA repository</selectable><selectable>local OCSP responder</selectable>
 									<selectable>administrator configuration</selectable></selectables></selectable>
 								<selectable>An OCSP TLS Status Request Extension (OCSP stapling) as specified in RFC 6066,</selectable>
@@ -3022,20 +3019,32 @@
 			<f-element id="fia-xcu-ext-2e1">
 				<title>The TSF shall
 					 <selectables>
-						<selectable id="toe-requests-certs">request certificates from an <selectables><selectable>external</selectable>
+						<selectable id="toe-requests-certs">request certificates from an <selectables>
+							<selectable id="toe-requests-certs-from-external-ca">external</selectable>
 							<selectable id="toe-requests-certs-from-embedded-ca">embedded
 						</selectable></selectables> CA,</selectable>
 						<selectable id="toe-obtains-certs">obtain certificates from an embedded CA</selectable></selectables> to represent <assignable>TOE functions 
 						</assignable> for
 					 <selectables linebreak="yes">
-						<selectable> <selectables><selectable>TLS</selectable><selectable>DTLS</selectable><selectable>IPsec or IKE
-							</selectable><selectable>SMIME</selectable><selectable>SSH</selectable><selectable> <assignable>other 
-								authenticated communications protocol</assignable></selectable></selectables>
+						<selectable> <selectables>
+							<selectable id="sel-fia-xcu-2e1-tls">TLS</selectable>
+							<selectable id="sel-fia-xcu-2e1-dtls">DTLS</selectable>
+							<selectable id="sel-fia-xcu-2e1-ipsec">IPsec or IKE</selectable>
+							<selectable id="sel-fia-xcu-2e1-smime">SMIME</selectable>
+							<selectable id="sel-fia-xcu-2e1-ssh">SSH</selectable>
+							<selectable id="sel-fia-xcu-2e1-other"> 
+								<assignable id="asn-fia-xcu-2e1-other">other authenticated communications protocol</assignable>
 							</selectable>
-						<selectable> <selectables><selectable>code signing for system software updates</selectable><selectable>code 
-								signing for software integrity testing</selectable><selectable>integrity verification for TSF protected 
-									data</selectable><selectable>administrator authentication</selectable><selectable>user authentication</selectable>
-							<selectable> <assignable>other uses</assignable></selectable></selectables> </selectable>
+						</selectables>
+					</selectable>
+						<selectable> <selectables>
+						<selectable>code signing for system software updates</selectable>
+						<selectable>code signing for software integrity testing</selectable>
+						<selectable>integrity verification for TSF protected data</selectable>
+						<selectable id="sel-fia-xcu-2e1-adminauth">administrator authentication</selectable>
+						<selectable id="sel-fia-xcu-2e1-userauth">user authentication</selectable>
+							<selectable id="sel-fia-xcu-2e1-otheruses"> 
+								<assignable id="asn-fia-xcu-2e1-otheruses">other uses</assignable></selectable></selectables> </selectable>
 						</selectables>.								
 				</title>
 				<note role="application">
