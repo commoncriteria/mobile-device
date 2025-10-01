@@ -14,11 +14,11 @@
 * Error: Detected dangling ref-id to 's-revoke-deny'.
 	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[3]""/ref-id[2]"s-revoke-"
 * Error: Detected dangling ref-id to 'dummy-ref-id'.
-	  /PP[1]""/sec:Introduction[1]""/section[4]""/package-usage-list[1]"This sect"/package-usage[1]""/usage[1]""/config[1]""/ref-id[1]"dummy-ref"
+	  /PP[1]""/sec:Introduction[1]""/section[4]"This sect"/package-usage-list[1]""/package-usage[1]""/usage[1]""/config[1]""/ref-id[1]"dummy-ref"
 * Error: Detected dangling ref-id to 'dummy-ref-id'.
-	  /PP[1]""/sec:Introduction[1]""/section[4]""/package-usage-list[1]"This sect"/package-usage[1]""/usage[2]""/config[1]""/ref-id[1]"dummy-ref"
+	  /PP[1]""/sec:Introduction[1]""/section[4]"This sect"/package-usage-list[1]""/package-usage[1]""/usage[2]""/config[1]""/ref-id[1]"dummy-ref"
 * Error: Detected dangling ref-id to 'dummy-ref-id'.
-	  /PP[1]""/sec:Introduction[1]""/section[4]""/package-usage-list[1]"This sect"/package-usage[1]""/usage[3]""/config[1]""/ref-id[1]"dummy-ref"
+	  /PP[1]""/sec:Introduction[1]""/section[4]"This sect"/package-usage-list[1]""/package-usage[1]""/usage[3]""/config[1]""/ref-id[1]"dummy-ref"
 * Error: Detected dangling ref-id to 's-sha-256'.
 	  /PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[13]""/f-element[1]""/title[1]"The TSF s"/rule[1]""/or[1]""/and[1]""/ref-id[1]"s-sha-256"
 * Error: Detected dangling ref-id to 's-hash-size-256'.
