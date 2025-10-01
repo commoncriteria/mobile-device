@@ -3,10 +3,10 @@
 
 
 
-<?xml-model href="https://github.com/commoncriteria/transforms/raw/master/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<!-- 
+<!-- <?xml-model href="https://github.com/commoncriteria/transforms/raw/master/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?> -->
+
 <?xml-model href="../transforms/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
--->
+
 <!-- Kevin:
 what is this: <h:div class="comp">
 How is it differenet then me using subsection?
@@ -819,6 +819,46 @@ The scope of this Protection Profile (PP) is to describe the security functional
         </usecase>
       </usecases>
     </sec:TOE_Usage>
+
+    <section title="Package Usage">
+      <package-usage-list>
+        This section contains selections and assignments that are required when the listed Functional Packages are claimed by this PP. 
+        <package-usage ref="X509">
+          <usage id="usage-x509-validation" title="Certificate Validation and Assertion Required in FIA_XCU.1.1">
+            <description>
+              The TOE must validate and assert peer certificates because the TOE is required to implement cryptographic protocols that validate peer certificates, and because it is required to support TLS mutual auth as a client, therefore it must also be able to assert its identity to a peer. 
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>   
+            </config>
+          </usage>
+          <usage id="usage-x509-noplatform" title="No Platform-Provided Functionality Claims Permitted">
+            <description>Because the TOE is the entire mobile device and encompasses the platform, the TOE shall not claim platform-provided functionality are permitted. In other words, any applicable SFRs 
+              shall select the option to implement or provide the functionality, rather than rely on a platform. These may include one or more of the following, depending on the TOE, but apply to all package requirements that have such a selection:
+              <h:ul>
+                <h:li>FIA_CMCC_EXT.1</h:li>
+                <h:li>FIA_CMPC_EXT.1</h:li>
+                <h:li>FIA_ESTC_EXT.1</h:li>
+                <h:li>FIA_X509_EXT.1</h:li>
+                <h:li>FIA_X509_EXT.2</h:li>
+                <h:li>FIA_X509_EXT.3</h:li>
+              </h:ul>
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>   
+            </config>
+          </usage>
+          <usage id="usage-x509-notca" title="Limits on Certificate Acquisitions in in FIA_XCU_EXT.2">
+            <description>
+              The TOE will not be a certificate authority because the PP does not provide for the operation of a mobile device as a CA. Thus, the ST shall select the option to request a certificate from an external CA in FIA_XCU_EXT.2.1 and must not select any options that claim the ability to be a CA. 
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+        </package-usage>
+      </package-usage-list>
+    </section>
     <!--
 	  <section title="TOE Usage" id="toeus"> The Mobile Device may be operated in a number of use
       cases. <xref to="use"/> provides use case templates that list those selections,
