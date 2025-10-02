@@ -209,7 +209,7 @@ How is it differenet then me using subsection?
     </git>
     <url>https://www.niap-ccevs.org/static_html/protection-profile/439/-439-/index.html</url>
   </include-pkg>
-  <include-pkg id="pkg-x509">
+  <include-pkg id="X509">
     <git>
       <url>https://github.com/commoncriteria/X509</url>
       <branch>release-1.0</branch>
@@ -833,7 +833,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
             </config>
           </usage>
           <usage id="usage-x509-noplatform" title="No Platform-Provided Functionality Claims Permitted">
-            <description>Because the TOE is the entire mobile device and encompasses the platform, the TOE shall not claim platform-provided functionality are permitted. In other words, any applicable SFRs 
+            <description>Because the TOE is the entire mobile device and encompasses the platform, the TOE shall not claim platform-provided functionality. In other words, any applicable SFRs 
               shall select the option to implement or provide the functionality, rather than rely on a platform. These may include one or more of the following, depending on the TOE, but apply to all package requirements that have such a selection:
               <h:ul>
                 <h:li>FIA_CMCC_EXT.1</h:li>
@@ -850,12 +850,74 @@ The scope of this Protection Profile (PP) is to describe the security functional
           </usage>
           <usage id="usage-x509-notca" title="Limits on Certificate Acquisitions in in FIA_XCU_EXT.2">
             <description>
-              The TOE will not be a certificate authority because the PP does not provide for the operation of a mobile device as a CA. Thus, the ST shall select the option to request a certificate from an external CA in FIA_XCU_EXT.2.1 and must not select any options that claim the ability to be a CA. 
+              The TOE will not be a certificate authority because the PP does not provide for the operation of a mobile device as a CA. Thus, the ST shall select the option to request a certificate from an external CA in FIA_XCU_EXT.2.1 and shall not select any options that claim the ability to be a CA. 
             </description>
             <config>
               <ref-id>dummy-ref-id</ref-id>
             </config>
           </usage>
+          <usage id="usage-x509-revocation-sigalgs" title="Limitations on Signature Algorithms for CRL Revocation in FIA_X509_EXT.1.1">
+            <description>
+              The TOE must utilize appropriate cryptographic algorithms that conform to CNSA standards. Thus, the TOE shall utilize no other algorithms outside of those specified in RFC 8603 for certificate or CRL signatures. 
+              Additionally, the TOE shall use ECDSA with SHA-512 signatures for OCSP responses, and shall utilize no other algorithms for OCSP responses.
+            </description>
+            <config>
+            <ref-id>dummy-ref-id</ref-id>
+          </config>
+          </usage>
+          <usage id="usage-x509-extensions" title="Required Extension Processing for FIA_X509_EXT.1.2">
+            <description>
+              The TOE shall select the options to process the basicConstraints extension. Other extensions may be selected as appropriate without restriction.
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-revocation-methods" title="CRL or OCSP-based Revocation Required for FIA_X509_EXT.1.3 ">
+            <description>
+              The TOE must use revocation involving CRL or OCSP. Accordingly, the TOE shall select only from options involving CRL or OCSP in FIA_X509_EXT.1.3.
+            </description> 
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-revocation-connections" title="Connections to CRL or OCSP Servers Required for FIA_X509_EXT.1.4">
+            <description>
+              The TOE is required to utilize CRL or OCSP, thus it shall not select to not obtain revocation status information. 
+              Additionally, the TOE shall not utilize local revocation information or utilize a network connection to the CA to obtain its revocation information. 
+              In other words, the TOE shall utilize a network connection to a CRL distribution point, OCSP responder, OCSP stapling, or OCSP multi-stapling. 
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-eku-values" title="Restrictions on Acceptable Key Usage Values for FIA_X509_EXT.1.5">
+            <description>
+              The TOE will always utilize X.509 extended key usage values to verify the proper usage of certificates for TOE functions. Accordingly, the TOE 
+              shall not pass certificate information to supported functions and shall verify certificates by evaluating the extendedKeyUsage field in the leaf certificate. <h:br/>
+              Additionally, the PP does not define SMIME functionality for X.509, therefore the TOE shall not validate certificates against any rules for SMIME certificates.
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-functions" title="Restrictions on Acceptable Functions for FIA_X509_EXT.2.1">
+            <description>
+              The PP does not define SMIME or SSH functionality, therefore the TOE shall not select options that utilize these protocols.
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-acquisition-purposes" title="Restrictions on Acceptable Purposes for Certificate Acquisition for FIA_XCU_EXT.2.1">
+            <description>
+              The PP does not define SMIME or SSH functionality, therefore the TOE shall not acquire a certificate to represent the TOE for these protocols.
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+
         </package-usage>
       </package-usage-list>
     </section>
@@ -2283,7 +2345,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <h:li><h:i>Insertion or removal of removable media</h:i></h:li>
                 <h:li><h:i>Specifically defined auditable events in <xref g="t-audit-mandatory"/></h:i></h:li>
                 <h:li>Auditable events as defined in the <xref to="pkg-tls"/>;</h:li>
-                <h:li>Auditable events as defined in the <xref to="pkg-x509"/>;</h:li>                
+                <h:li>Auditable events as defined in the <xref to="X509"/>;</h:li>                
                 <h:li><h:i><selectables>
                   <selectable>Audit data reaching <assignable>integer value less than 100</assignable> percent of audit capacity</selectable>
                   <selectable>specifically defined auditable events in <xref to="t-audit-additional"/></selectable>
@@ -4710,7 +4772,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     connection succeeds and that the traffic is identified as TLS or HTTPS.
                     <h:br/><h:br/> Other tests are performed in conjunction with testing in the
                     <xref to="pkg-tls"/>. <h:br/><h:br/> Certificate validity
-                    shall be tested in accordance with testing performed for FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>, and the
+                    shall be tested in accordance with testing performed for FIA_X509_EXT.1 as defined in <xref to="X509"/>, and the
                     evaluator shall perform the following test: </test><h:br/>
                   <test>The evaluator shall demonstrate that using a certificate without a valid
                     certification path results in an application notification. Using the
@@ -7974,7 +8036,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           <f-element id="fel-certval-app-respond">
             <title>The TSF shall respond to the requesting application with the success or failure
               of the validation. </title>
-            <note role="application">In order to comply with all of the rules in FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>,
+            <note role="application">In order to comply with all of the rules in FIA_X509_EXT.1 as defined in <xref to="X509"/>,
               multiple API calls may be required; all of these calls should be clearly
               documented.</note>
             <aactivity> The evaluator shall verify that the API documentation provided according to
@@ -7988,7 +8050,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 verify that the results from the validation match the expected results according to
                 the API documentation. This application may be used to verify that import, removal,
                 modification, and validation are performed correctly according to the tests required
-                by FDP_STG_EXT.1, FTP_ITC_EXT.1, FMT_SMF_EXT.1, and FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>.</Tests>
+                by FDP_STG_EXT.1, FTP_ITC_EXT.1, FMT_SMF_EXT.1, and FIA_X509_EXT.1 as defined in <xref to="X509"/>.</Tests>
             </aactivity>
           </f-element>
 	  <audit-event/>
@@ -9047,7 +9109,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		                    <!-- TODO: Should this be something like for TLS do not approve any exceptions, for HTTP this is per FCS_HTTPS_EXT.1.3?? How do I force the selection of no exceptions for all (non-HTTPS) TLS connections? -->
               Function <xref to="mf-certInvalid"/> must be included in the ST if the function is configurable on the TOE for any of the trusted channels either mandated or selected in <xref to="fel-wlan"/> or <xref to="fel-tls-app"/>. The configuration can be different depending on the specific trusted channel(s) and they must be filled in for the assignment.
 		    </app-note>
-                  <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in <xref to="pkg-x509"/>,
+                  <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in <xref to="X509"/>,
                     FCS_TLSC_EXT.1.6 in the <xref to="pkg-tls"/>. </Tests></aactivity>
                 </management-function>
                 <!-- Start of the Optional to implement functions -->
@@ -9188,7 +9250,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                             application is not able to import the certificate. Failure of import
                             shall be tested by attempting to validate a certificate that chains to
                             the certificate whose import was attempted (as described in the
-                            evaluation activity for FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>). </h:li>
+                            evaluation activity for FIA_X509_EXT.1 as defined in <xref to="X509"/>). </h:li>
                           <h:li>The evaluator shall repeat the test, allowing the approval to
                             verify that the application is able to import the certificate and that
                             validation occurs. </h:li>
@@ -9203,7 +9265,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                             application is not able to remove the certificate. Failure of removal
                             shall be tested by attempting to validate a certificate that chains to
                             the certificate whose removal was attempted (as described in the
-                            evaluation activity for FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>). </h:li>
+                            evaluation activity for FIA_X509_EXT.1 as defined in <xref to="X509"/>). </h:li>
                         </h:ul>
                       </test>
                     </testlist> The evaluator shall repeat the test, allowing the approval to verify
@@ -9220,9 +9282,9 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		  <app-note>
 		    Function <xref to="mf-certValidity"/> must be
               included in the ST if "administrator is allowed to configure certificate acceptance" is selected in
-              FIA_X509_EXT.2.2 in <xref to="pkg-x509"/>
+              FIA_X509_EXT.2.2 in <xref to="X509"/>
 		  </app-note>
-                  <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in <xref to="pkg-x509"/>.</Tests></aactivity>
+                  <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in <xref to="X509"/>.</Tests></aactivity>
                 </management-function>
                 <management-function id="mf-cellular">
                   <text>
@@ -11254,7 +11316,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     corrupt).</test><h:br/>
                   <test>[conditional] If the ST author indicates that the integrity verification is
                     performed using a public key, the evaluator shall verify that the update
-                    mechanism includes a certificate validation according to FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>. The
+                    mechanism includes a certificate validation according to FIA_X509_EXT.1 as defined in <xref to="X509"/>. The
                     evaluator shall digitally sign the TSF executable with a certificate that does
                     not have the Code Signing purpose in the extendedKeyUsage field and verify that
                     an integrity violation is triggered. The evaluator shall repeat the test using a
@@ -11311,7 +11373,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
         </f-component>
         <f-component cc-id="fpt_tst_ext.3" name="TSF Integrity Testing" status="sel-based">
           <depends on="x509-integrity">
-            <external-doc ref="pkg-x509"/>
+            <external-doc ref="X509"/>
           </depends>
           
           <comp-lev> requires the TSF to validate a code signing certificate before the associated code is executed.</comp-lev>
@@ -11327,7 +11389,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
             <title>The TSF shall not execute code if the code signing certificate is deemed invalid. </title>
             <note role="application">Certificates may optionally be used for code signing for
             integrity verification (FPT_TST_EXT.2.1/PREKERNEL).
-            If "code signing for software integrity testing" is selected in FIA_X509_EXT.2.1 in <xref to="pkg-x509"/>, FPT_TST_EXT.3.1 must be included in the
+            If "code signing for software integrity testing" is selected in FIA_X509_EXT.2.1 in <xref to="X509"/>, FPT_TST_EXT.3.1 must be included in the
             ST. <h:br/><h:br/>
 	    Validity is determined by the certificate path, the expiration
             date, and the revocation status in accordance with RFC 5280. </note>
@@ -11451,7 +11513,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               key for system software updates is limited and, if selected in FPT_TUD_EXT.2.3, must
               indicate how this signing key is protected by the hardware. <h:br/><h:br/> If
               certificates are used, certificates are validated for the purpose of software updates
-              in accordance with FIA_X509_EXT.1 in <xref to="pkg-x509"/> and should be selected in FIA_X509_EXT.2.1 in <xref to="pkg-x509"/>.
+              in accordance with FIA_X509_EXT.1 in <xref to="X509"/> and should be selected in FIA_X509_EXT.2.1 in <xref to="X509"/>.
               Additionally, FPT_TUD_EXT.4 must be included in the ST. </note>
             <aactivity>
               <TSS>The evaluator shall verify that the TSS section of the ST describes all TSF
@@ -11554,7 +11616,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
         </f-component>
         <f-component cc-id="fpt_tud_ext.4" name="Trusted Update Verification" status="sel-based">
           <depends on="x509-updates" also="x509-other-uses">
-            <external-doc ref="pkg-x509"/>
+            <external-doc ref="X509"/>
           </depends>
           
           
@@ -11573,7 +11635,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               element must be included in the ST if certificates are used for either update element.
               If "code signing for system software updates" is selected or the assignment is selected and specifies the use of 
               X.509 in code signing for mobile
-              applications in FIA_X509_EXT.2.1 in <xref to="pkg-x509"/>,
+              applications in FIA_X509_EXT.2.1 in <xref to="X509"/>,
 	      FPT_TUD_EXT.4 must be included in the
               ST. <h:br/><h:br/> Validity is determined by the certificate path, the expiration
               date, and the revocation status in accordance with RFC 5280. </note>
@@ -11627,7 +11689,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     digitally sign the application with a certificate that does not have the Code
                     Signing purpose and verify that application installation fails. This test may be
                     performed in conjunction with the Evaluation Activities for
-                    FIA_X509_EXT.1 as defined in <xref to="pkg-x509"/>.</test><h:br/>
+                    FIA_X509_EXT.1 as defined in <xref to="X509"/>.</test><h:br/>
                   <test>If necessary, the evaluator shall configure the device to limit the public
                     keys that can sign application software according to the AGD guidance. The
                     evaluator shall digitally sign the application with a certificate disallowed by
@@ -11800,7 +11862,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 <selectable id="s-itc-ipsec"><snip>IPsec</snip> in accordance with the <xref to="mod-vpnclient"/></selectable>
                 <selectable id="itc_dtls"><snip>mutually authenticated DTLS</snip> as defined in the <xref to="pkg-tls"/></selectable>
                 <selectable>HTTPS</selectable>
-              </selectables> protocols to provide a communication channel between itself and another trusted IT product using certificates as defined in [<h:i><xref to="pkg-x509"/></h:i>] that is logically distinct from other communication channels, 
+              </selectables> protocols to provide a communication channel between itself and another trusted IT product using certificates as defined in [<h:i><xref to="X509"/></h:i>] that is logically distinct from other communication channels, 
               provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data. </title>
             <ext-comp-def-title>
               <title>The TSF shall use <h:ul>
@@ -11863,7 +11925,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               according to the authentication mechanisms used by the listed trusted channel
               protocols. <h:br/><h:br/> 
               <h:p>
-                Claims from the <xref to="pkg-x509"/> are only required to the extent that they are needed to support the functionality required by the trusted protocols that are claimed.
+                Claims from the <xref to="X509"/> are only required to the extent that they are needed to support the functionality required by the trusted protocols that are claimed.
               </h:p><h:p>
                 The TSF is mandated to support mutually authenticated TLS, which means that it implements a protocol that requires the validation of a certificate presented by an external entity. Therefore, FIA_X509_EXT.1 and FIA_X509_EXT.2 will be claimed, as will FIA_TSM_EXT.1 for management of the trust store.
               </h:p><h:p>
