@@ -74,8 +74,6 @@
 	  /PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[13]""/f-element[1]""/title[1]"The TSF s"/rule[3]""/or[1]""/and[2]""/not[1]""/ref-id[1]"s-sha-512"
 * Error: Detected dangling ref-id to 's-hash-size-512'.
 	  /PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[13]""/f-element[1]""/title[1]"The TSF s"/rule[3]""/or[1]""/and[2]""/not[2]""/ref-id[1]"s-hash-si"
-warning: failed to load external entity "output/.xml"
-warning: failed to load external entity "output/.xml"
  Failed to find a reference to sel-based-reqs.
  Failed to find a reference to Security_Problem_Description.
  Failed to find a reference to CEM.
