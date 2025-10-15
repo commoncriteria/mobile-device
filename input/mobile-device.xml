@@ -800,13 +800,13 @@ The scope of this Protection Profile (PP) is to describe the security functional
 
         <package-usage ref="tls">
           <usage id="usage-tls-protocols" title="TLS Protocol Claims required in FCS_TLS_EXT.1">
-            <description>To support FTP_ITC_EXT.1, the ST author shall claim support for TLS as a client. If DTLS is claimed in FTP_ITC_EXT.1, the ST author shall also claim support for DTLS as a client. Support for TLS as a server or DTLS as a server shall not be claimed.</description>
+            <description>To support FTP_ITC_EXT.1 and FDP_UPC_EXT.1/APPS, the ST author shall claim support for TLS as a client. If DTLS is claimed in FTP_ITC_EXT.1, the ST author shall also claim support for DTLS as a client. Support for TLS as a server or DTLS as a server shall not be claimed.</description>
           <config>
             <ref-id>dummy-ref-id</ref-id>
           </config>
           </usage>
           <usage id="usage-tls-support-mutual-auth" title="TLS Client Claims required in FCS_TLSC_EXT.1">
-            <description>To support FTP_ITC_EXT.1, the ST author shall claim support for mutual authentication in FCS_TLSC_EXT.1.1.</description>
+            <description>To support FTP_ITC_EXT.1 and FDP_UPC_EXT.1/APPS, the ST author shall claim support for mutual authentication in FCS_TLSC_EXT.1.1. To support FCS_HTTPS_EXT.1.3, the ST author shall claim how the TOE handles invalid certificates in a manner that is consistent with the claims made in FCS_HTTPS_EXT.1.3. Regardless of the claims made for FCS_HTTPS_EXT.1.3, to support FDP_UPC_EXT.1/Apps, the ST author shall claim in FCS_TLSC_EXT.1.6 that invalid certificates are rejected with no exceptions in this specific case.</description>
             <config>
               <ref-id>dummy-ref-id</ref-id>
             </config>
@@ -818,13 +818,13 @@ The scope of this Protection Profile (PP) is to describe the security functional
             </config>
           </usage>
           <usage id="usage-tls-support-mutual-auth" title="DTLS Client Claims required in FCS_DTLSC_EXT.1">
-            <description>To support FTP_ITC_EXT.1 specifically in the case where DTLS is claimed in FTP_ITC_EXT.1.1, the ST author shall claim support for mutual authentication in FCS_DTLSC_EXT.1.1.</description>
+            <description>To support FTP_ITC_EXT.1 and FDP_UPC_EXT.1/APPS specifically in the case where DTLS is claimed in FTP_ITC_EXT.1.1, the ST author shall claim support for mutual authentication in FCS_DTLSC_EXT.1.1.</description>
             <config>
               <ref-id>dummy-ref-id</ref-id>
             </config>
           </usage>
           <usage id="usage-tls-mutual-auth" title="Necessiity of claiming FCS_DTLSC_EXT.2 if DTLS is Supported">
-            <description>DTLS support is not mandatory. However, if DTLS is claimed in FTP_ITC_EXT.1, it is necessary for the TOE to support mutual authentication as a DTLS client. In this case, FCS_DTLS_EXT.2 shall be claimed as a result of the selections made in FCS_DTLSC_EXT.1.1.</description>
+            <description>DTLS support is not mandatory. However, if DTLS is claimed in FTP_ITC_EXT.1 or FDP_UPC_EXT.1/APPS, it is necessary for the TOE to support mutual authentication as a DTLS client. In this case, FCS_DTLS_EXT.2 shall be claimed as a result of the selections made in FCS_DTLSC_EXT.1.1.</description>
             <config>
               <ref-id>dummy-ref-id</ref-id>
             </config>
@@ -6664,7 +6664,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 </h:ul>
                 <h:li>FCS_TLSC_EXT.1.6</h:li>            
                 <h:ul>
-                  <h:li>the server certificate is invalid [with no TLS-specific exceptions] is selected.</h:li>
+                  <h:li>Choose the selection that rejects the invalid certificate with no exceptions.</h:li>
                 </h:ul>
               </h:ul>            
               <h:br/> 
@@ -6684,7 +6684,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 </h:ul>
                 <h:li>FCS_DTLSC_EXT.1.6</h:li>
                 <h:ul>
-                  <h:li>With no DTLS-specific exceptions is selected.</h:li>
+                  <h:li>Choose the selection that rejects the invalid certificate with no exceptions.</h:li>
                 </h:ul>
               </h:ul>
               <h:br/>
@@ -11898,7 +11898,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 	      <h:ul>
                 <h:li>FCS_TLS_EXT.1:</h:li>
                 <h:ul>
-                  <h:li>Either TLS or DTLS is selected as appropriate</h:li>
+                  <h:li>TLS is selected; DTLS may also be selected but is only required if claimed in FTP_ITC_EXT.1.1</h:li>
                   <h:li>Client is selected</h:li>
                 </h:ul>
                 <h:li>FCS_TLSC_EXT.1.1 or FCS_DTLSC_EXT.1.1 (as appropriate): </h:li>
