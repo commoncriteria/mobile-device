@@ -202,12 +202,12 @@ How is it differenet then me using subsection?
       </subject>
     </entry>
   </RevisionHistory>
-  <include-pkg id="pkg-tls">
+  <include-pkg id="tls">
     <git>
       <url>https://github.com/commoncriteria/tls</url>
-      <branch>master</branch>
+      <branch>release-2.1</branch>
     </git>
-    <url>https://www.niap-ccevs.org/static_html/protection-profile/439/-439-/index.html</url>
+    <url><![CDATA[https://www.niap-ccevs.org/static_html/protection-profile/519]]></url>
   </include-pkg>
   <include-pkg id="X509">
     <git>
@@ -686,7 +686,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	       <ref-id>s-kek-sym-256</ref-id>
 	       <guidance><ref-id>a-kek-asym-size</ref-id>256</guidance>
 	     </or>
-             <doc ref="pkg-tls"><ref-id>s-tls-secp384</ref-id></doc>
+             <doc ref="tls"><ref-id>s-tls-secp384</ref-id></doc>
 	   </and>
 	 </or>
 	 <or><ref-id>s-locked-ecc-800-56A</ref-id><ref-id>s-locked-rsa</ref-id></or>
@@ -797,6 +797,11 @@ The scope of this Protection Profile (PP) is to describe the security functional
     <section title="Package Usage">
       This section contains selections and assignments that are required when the listed Functional Packages are claimed by this PP. 
       <package-usage-list>
+          <usage id="" title="">
+            <description></description>
+            <config></config>
+          </usage>
+        
         <package-usage ref="tls">
           <usage id="usage-tls-protocols" title="TLS Protocol Claims required in FCS_TLS_EXT.1">
             <description>To support FTP_ITC_EXT.1, the ST author shall claim support for TLS as a client. If DTLS is claimed in FTP_ITC_EXT.1, the ST author shall also claim support for DTLS as a client. Support for TLS as a server or DTLS as a server shall not be claimed.</description>
@@ -1066,7 +1071,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
   <!--     <cclaim name="Package Claim"> -->
   <!--       <description>This PP is conformant to the following packages: -->
   <!--         <h:ul> -->
-  <!--           <h:li id="pkg-tls">Functional Package for TLS, Version 1.1</h:li>             -->
+  <!--           <h:li id="tls">Functional Package for TLS, Version 1.1</h:li>             -->
   <!--         </h:ul> -->
   <!--       </description> -->
   <!--     </cclaim> -->
@@ -2329,7 +2334,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 		     title="Additional Audit Events"/>
 
 <!--
-	<external-doc ref="pkg-tls">
+	<external-doc ref="tls">
 	  <audit-event table="additional" ref-cc-id="FCS_DTLS_EXT.1">
 	    <audit-event-descr>Failure of the certificate validity check</audit-event-descr>
 	    <audit-event-info>Issuer Name and Subject Name of certificate</audit-event-info>
@@ -2360,7 +2365,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <h:li><h:i>Start-up and shutdown of the OS</h:i></h:li>
                 <h:li><h:i>Insertion or removal of removable media</h:i></h:li>
                 <h:li><h:i>Specifically defined auditable events in <xref g="t-audit-mandatory"/></h:i></h:li>
-                <h:li>Auditable events as defined in the <xref to="pkg-tls"/>;</h:li>
+                <h:li>Auditable events as defined in the <xref to="tls"/>;</h:li>
                 <h:li>Auditable events as defined in the <xref to="X509"/>;</h:li>                
                 <h:li><h:i><selectables>
                   <selectable>Audit data reaching <assignable>integer value less than 100</assignable> percent of audit capacity</selectable>
@@ -4732,13 +4737,13 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           </f-element>
 
           <f-element id="fel-https-tls">
-            <title>The TSF shall implement HTTPS using TLS as defined in [<h:i>the <xref to="pkg-tls"/></h:i>].</title>
+            <title>The TSF shall implement HTTPS using TLS as defined in [<h:i>the <xref to="tls"/></h:i>].</title>
             <ext-comp-def-title>
               <title>The TSF shall implement HTTPS using TLS as defined in 
                 <assignable>specification that defines TLS implementation requirements</assignable>. </title>
             </ext-comp-def-title>
             <note role="application"> 
-              The <xref to="pkg-tls"/> must be included in the ST, with the following selections made: <h:ul>
+              The <xref to="tls"/> must be included in the ST, with the following selections made: <h:ul>
                 <h:li>FCS_TLS_EXT.1:</h:li>
                 <h:ul>
                   <h:li>TLS must be selected</h:li>
@@ -4759,10 +4764,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             date, and the revocation status in accordance with RFC 5280. <h:br/><h:br/>
 
 	    If <xref to="s-not-estab"/> is selected then "the server certificate is invalid [with no TLS-specific exceptions]" must be selected
-            for FCS_TLSC_EXT.1.6 in the <xref to="pkg-tls"/>.
+            for FCS_TLSC_EXT.1.6 in the <xref to="tls"/>.
 	    <rule id="r-not-estab">
 	      <if><ref-id>s-not-estab</ref-id></if>
-	      <then><doc ref="pkg-tls"><ref-id>s-tlsc-no-excep</ref-id></doc></then>
+	      <then><doc ref="tls"><ref-id>s-tlsc-no-excep</ref-id></doc></then>
 	    </rule>
 	    If <xref to="s-req-app-auth"/> is selected then
               "the server certificate is invalid [except when override is authorized in the case where valid revocation information is not available]" must be selected
@@ -4770,7 +4775,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
             Transport Layer Security.
 	    <rule id="r-override">
 	      <if><ref-id>s-req-app-auth</ref-id></if>
-	      <then><doc ref="pkg-tls"><ref-id>s-tlsc-override</ref-id></doc></then>
+	      <then><doc ref="tls"><ref-id>s-tlsc-override</ref-id></doc></then>
 	    </rule>
 	    If <xref to="s-no-other-action"/> is selected then "the server certificate is invalid" with either selection can be
             made in FCS_TLSC_EXT.1.6.<h:br/><h:br/>
@@ -4787,7 +4792,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                     webserver, observe the traffic with a packet analyzer, and verify that the
                     connection succeeds and that the traffic is identified as TLS or HTTPS.
                     <h:br/><h:br/> Other tests are performed in conjunction with testing in the
-                    <xref to="pkg-tls"/>. <h:br/><h:br/> Certificate validity
+                    <xref to="tls"/>. <h:br/><h:br/> Certificate validity
                     shall be tested in accordance with testing performed for FIA_X509_EXT.1 as defined in <xref to="X509"/>, and the
                     evaluator shall perform the following test: </test><h:br/>
                   <test>The evaluator shall demonstrate that using a certificate without a valid
@@ -6644,10 +6649,10 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
         <f-component cc-id="fdp_upc_ext.1" iteration="APPS" name="Inter-TSF User Data Transfer Protection (Applications)">
           <f-element id="fel-tls-app">
             <title>The TSF shall provide a means for non-TSF applications executing on the TOE to use [<h:i><h:ul>
-                <h:li>Mutually authenticated TLS as defined in the <xref to="pkg-tls"/>,</h:li>
+                <h:li>Mutually authenticated TLS as defined in the <xref to="tls"/>,</h:li>
                 <h:li>HTTPS,</h:li>
               </h:ul>and <selectables linebreak="yes">
-                <selectable id="upc_dtls">mutually authenticated DTLS as defined in the <xref to="pkg-tls"/></selectable>
+                <selectable id="upc_dtls">mutually authenticated DTLS as defined in the <xref to="tls"/></selectable>
                 <selectable id="s-upc-ipsec">IPsec as defined in the <xref to="mod-vpnclient"/></selectable>
                 <selectable exclusive="yes">no other protocol</selectable>
               </selectables> </h:i>] to provide a protected communication channel between the non-TSF
@@ -6658,7 +6663,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
               The intent of this requirement is that one of the selected protocols is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. It should be noted that the FTP_ITC_EXT.1 requires that all TSF communications be protected using the protocols indicated in that requirement, so the protocols required by this component ride "on top of" those listed in FTP_ITC_EXT.1.<h:br/><h:br/> 
               It should also be noted that some applications are part of the TSF, and FTP_ITC_EXT.1 requires that TSF applications be protected by at least one of the protocols in first selection in FTP_ITC_EXT.1. It is not required to have two different implementations of a protocol, or two different protocols, to satisfy both this requirement (for non-TSF apps) and FTP_ITC_EXT.1 (for TSF apps), as long as the services specified are provided. <h:br/><h:br/> 
               The ST author must list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps.<h:br/><h:br/> 
-              The TSF must be validated against requirements from the <xref to="pkg-tls"/>, with the following selections made: <h:ul>
+              The TSF must be validated against requirements from the <xref to="tls"/>, with the following selections made: <h:ul>
                 <h:li>FCS_TLS_EXT.1:</h:li>
                 <h:ul>
                   <h:li>TLS is selected</h:li>
@@ -6678,7 +6683,7 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
                 </h:ul>
               </h:ul>            
               <h:br/> 
-              If <xref to="upc_dtls"/> is selected, the TSF must be validated against requirements from the <xref to="pkg-tls"/>, with the following selections made: <h:ul>
+              If <xref to="upc_dtls"/> is selected, the TSF must be validated against requirements from the <xref to="tls"/>, with the following selections made: <h:ul>
                 <h:li>FCS_TLS_EXT.1:</h:li>
                 <h:ul>
                   <h:li>DTLS is selected</h:li>
@@ -7925,9 +7930,9 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           
           <f-element id="fel-cert-auth">
             <title>The TSF shall use X.509v3 certificates as defined by RFC 5280 to support
-              authentication for [<h:i>mutually authenticated TLS as defined in the <xref to="pkg-tls"/>, HTTPS, <selectables>
+              authentication for [<h:i>mutually authenticated TLS as defined in the <xref to="tls"/>, HTTPS, <selectables>
                 <selectable>IPsec in accordance with the <xref to="mod-vpnclient"/></selectable>
-                <selectable id="x509_dtls">mutually authenticated DTLS as defined in the <xref to="pkg-tls"/></selectable>
+                <selectable id="x509_dtls">mutually authenticated DTLS as defined in the <xref to="tls"/></selectable>
                 <selectable exclusive="yes">no other protocol</selectable>  
               </selectables></h:i>] and <selectables>
                 <selectable id="x509_sys">code signing for system software updates</selectable>
@@ -9125,7 +9130,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               Function <xref to="mf-certInvalid"/> must be included in the ST if the function is configurable on the TOE for any of the trusted channels either mandated or selected in <xref to="fel-wlan"/> or <xref to="fel-tls-app"/>. The configuration can be different depending on the specific trusted channel(s) and they must be filled in for the assignment.
 		    </app-note>
                   <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in <xref to="X509"/>,
-                    FCS_TLSC_EXT.1.6 in the <xref to="pkg-tls"/>. </Tests></aactivity>
+                    FCS_TLSC_EXT.1.6 in the <xref to="tls"/>. </Tests></aactivity>
                 </management-function>
                 <!-- Start of the Optional to implement functions -->
                 <management-function id="mf-externalPorts">
@@ -11872,10 +11877,10 @@ The evaluator shall exercise the TSF configuration as the administrator and
               <h:li>802.11-2012 in accordance with the [<h:i><xref to="mod-wlanclient"/></h:i>],</h:li>
               <h:li>802.1X in accordance with the [<h:i><xref to="mod-wlanclient"/></h:i>],</h:li>
               <h:li>EAP-TLS in accordance with the [<h:i><xref to="mod-wlanclient"/></h:i>],</h:li>
-              <h:li>Mutually authenticated TLS in accordance with the [<h:i><xref to="pkg-tls"/></h:i>]</h:li>
+              <h:li>Mutually authenticated TLS in accordance with the [<h:i><xref to="tls"/></h:i>]</h:li>
               </h:ul> and <selectables linebreak="yes">
                 <selectable id="s-itc-ipsec"><snip>IPsec</snip> in accordance with the <xref to="mod-vpnclient"/></selectable>
-                <selectable id="itc_dtls"><snip>mutually authenticated DTLS</snip> as defined in the <xref to="pkg-tls"/></selectable>
+                <selectable id="itc_dtls"><snip>mutually authenticated DTLS</snip> as defined in the <xref to="tls"/></selectable>
                 <selectable>HTTPS</selectable>
               </selectables> protocols to provide a communication channel between itself and another trusted IT product using certificates as defined in [<h:i><xref to="X509"/></h:i>] that is logically distinct from other communication channels, 
               provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data. </title>
@@ -11896,13 +11901,13 @@ The evaluator shall exercise the TSF configuration as the administrator and
               The TSF must be validated against the <xref to="mod-wlanclient"/> to satisfy the mandatory trusted channels of 802.11-2012, 802.1X, and EAP-TLS. <h:br/><h:br/>
 				
               To satisfy the mandatory trusted channel of TLS and 
-	      if <xref to="itc_dtls"/> is selected, the TSF must be validated against the <xref to="pkg-tls"/>, with the following selections made:
+	      if <xref to="itc_dtls"/> is selected, the TSF must be validated against the <xref to="tls"/>, with the following selections made:
 	      <rule id="r-tls">
-		  <doc ref="pkg-tls"><ref-id>tlsc_impl</ref-id><ref-id>tlsc_mutual_auth</ref-id><ref-id>s-tlsc-no-excep</ref-id></doc>
+		  <doc ref="tls"><ref-id>tlsc_impl</ref-id><ref-id>tlsc_mutual_auth</ref-id><ref-id>s-tlsc-no-excep</ref-id></doc>
 	      </rule>
 	      <rule id="r-dtls">
 		<if><ref-id>itc_dtls</ref-id></if>
-		<then><doc ref="pkg-tls"><ref-id>dtlsc_impl</ref-id><ref-id>dtlsc_mutual_auth</ref-id><ref-id>s-dtlsc-no-excep</ref-id></doc></then>
+		<then><doc ref="tls"><ref-id>dtlsc_impl</ref-id><ref-id>dtlsc_mutual_auth</ref-id><ref-id>s-dtlsc-no-excep</ref-id></doc></then>
 	      </rule>
 <!-- TODO: Can these be expressed as rules? -->	      
 	      <h:ul>
