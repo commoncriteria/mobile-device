@@ -220,28 +220,28 @@ How is it differenet then me using subsection?
     <module id="mod-vpnclient">
       <git>
 	<url>https://github.com/commoncriteria/vpnclient</url>
-	<branch>release-3.0</branch>
+	<branch>master</branch>
       </git>
       <url><![CDATA[https://www.niap-ccevs.org/protectionprofiles/487]]></url>
     </module>
       <module id="mod-bluetooth">
         <git>
           <url>https://github.com/commoncriteria/bluetooth</url>
-          <branch>v2.0</branch>
+          <branch>master</branch>
         </git>
         <url><![CDATA[https://www.niap-ccevs.org/protectionprofiles/425]]></url>
       </module>
       <module id="mod-mdmagent">
         <git>
           <url>https://github.com/commoncriteria/mdmagent</url>
-          <branch>Release-2.0</branch>
+          <branch>master</branch>
         </git>
         <url><![CDATA[https://www.niap-ccevs.org/protectionprofiles/441]]></url>
       </module>
       <module id="mod-wlanclient">
         <git>
           <url>https://github.com/commoncriteria/wlanclient</url>
-          <branch>release-2.0</branch>
+          <branch>master</branch>
         </git>
         <url><![CDATA[https://www.niap-ccevs.org/protectionprofiles/463]]></url>
       </module>
@@ -252,31 +252,6 @@ How is it differenet then me using subsection?
   
   <sec:Introduction boilerplate="no">
     <sec:Objectives_of_Document>
-      
-      
-      <comment> Review comments in XML for commentary here (schema is not parsing HTML formatting inside comment tag) 
-        
-        
-        Not sure if/how we want to communicate functional package guidance but this is our expectation for what claims can be made:
-        <h:br/>
-        TLS package:<h:br/>
-        - TLS with mutual authentication is mandatory<h:br/>
-        - DTLS with mutual authentication is optional<h:br/>
-        Any other requirements can be specified freely<h:br/>
-        FTP_ITC_EXT.1 doesn't currently specify client vs server but it's implied from context throughout the PP that only client is used
-        <h:br/><h:br/>
-        
-        X.509 package:<h:br/>
-        - FIA_XCU_EXT.2 must be claimed because the PP requires support for mutual authentication<h:br/>
-        - the old PP specified PKCS10 and EST as objective requirements for obtaining certificates -
-        with the new FP, FIA_X509_EXT.6 is selected because of FIA_XCU_EXT.2 claims (because the TOE will not have its own internal/embedded CA) but there is nothing forcing the specific enrollment method to be used. Right now this means any of PKCS10, EST, CMC, or CMP must be used. If the idea is to only permit PKCS10/EST, some way of communicating that must be applied.<h:br/>
-        - FIA_X509_EXT.1 must be claimed (it was mandatory in the old PP). CRL or OCSP is expected as the only supported revocation methods. Specific additional guidance may be needed to limit the FIA_X509_EXT.1.3 selections to those values. SME input is needed as to whether any of the other selections in this component are mandatory or forbidden.<h:br/>
-        - FIA_X509_EXT.2 must be claimed (it was mandatory in the old PP)<h:br/>
-        
-        Also, right now we don't make an explicit statement in FAU_GEN.1 that the corresponding audit events from the claimed functional package SFRs must also be added to the audit table. Do we need that or is it sufficiently implied? 
-        
-      </comment>      
-      
 The scope of this Protection Profile (PP) is to describe the security functionality of mobile devices in terms of [CC] and to define functional and assurance requirements for such devices.		
     </sec:Objectives_of_Document>
     <tech-terms>
@@ -687,8 +662,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
        <description>
        <h:br/>
      An enterprise-owned device with intentionally limited network connectivity, tightly controlled configuration, and limited software inventory is appropriate for specialized, high-security use cases. For example, the device may not be permitted connectivity to any external peripherals. It may only be able to communicate via its Wi-Fi or cellular radios with the enterprise-run network, which may not even permit connectivity to the Internet. Use of the device may entail compliance with policies that are more restrictive than those in any general-purpose use case, yet may mitigate risks to highly sensitive information. As in the previous case, the enterprise will look for additional applications providing enterprise connectivity and services to have a similar level of assurance as the platform.
-     
-     <comment>TLS package currently points to 1.1, can't resolve until 2.1 is published. 2.1 will need to be checked for automation compatibility with this.</comment>
+ 
        </description>
        <config>
 	 <or>
@@ -823,6 +797,50 @@ The scope of this Protection Profile (PP) is to describe the security functional
     <section title="Package Usage">
       This section contains selections and assignments that are required when the listed Functional Packages are claimed by this PP. 
       <package-usage-list>
+        <package-usage ref="tls">
+          <usage id="usage-tls-protocols" title="TLS Protocol Claims required in FCS_TLS_EXT.1">
+            <description>To support FTP_ITC_EXT.1, the ST author shall claim support for TLS as a client. If DTLS is claimed in FTP_ITC_EXT.1, the ST author shall also claim support for DTLS as a client. Support for TLS as a server or DTLS as a server shall not be claimed.</description>
+          <config>
+            <ref-id>dummy-ref-id</ref-id>
+          </config>
+          </usage>
+          <usage id="usage-tls-support-mutual-auth" title="TLS Client Claims required in FCS_TLSC_EXT.1">
+            <description>To support FTP_ITC_EXT.1, the ST author shall claim support for mutual authentication in FCS_TLSC_EXT.1.1.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-tls-mutual-auth" title="TLS Client Claims required in FCS_TLSC_EXT.1">
+            <description>Because support for TLS client mutual authentication is required, the ST author shall claim FCS_TLSC_EXT.2.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-tls-support-mutual-auth" title="TLS Client Claims required in FCS_TLSC_EXT.1">
+            <description>To support FTP_ITC_EXT.1, the ST author shall claim support for mutual authentication in FCS_TLSC_EXT.1.1.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-tls-mutual-auth" title="TLS Client Claims required in FCS_TLSC_EXT.1">
+            <description>Because support for TLS client mutual authentication is required, the ST author shall claim FCS_TLSC_EXT.2.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-dtls-support-mutual-auth" title="TLS Client Claims required in FCS_TLSC_EXT.1">
+            <description>To support FTP_ITC_EXT.1, the ST author shall claim support for mutual authentication in FCS_DTLSC_EXT.1.1 if support for DTLS is claimed in FTP_ITC_EXT.1.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-dtls-mutual-auth" title="TLS Client Claims required in FCS_TLSC_EXT.1">
+            <description>Because support for DTLS client mutual authentication is required when DTLS support is claimed, the ST author shall claim FCS_DTLSC_EXT.2 if support for DTLS is claimed in FTP_ITC_EXT.1.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+        </package-usage>
         <package-usage ref="X509">
           <usage id="usage-x509-validation" title="Certificate Validation and Assertion Required in FIA_XCU.1.1">
             <description>
@@ -8028,7 +8046,6 @@ The evaluator shall generate 10 private/public key pairs using the key generatio
           
           <f-element id="fel-certval-app-service">
             <title>
-              <comment>changed to FIA_X509_EXT.6 (was .3) to avoid name collision with X.509 package.</comment>
               The TSF shall provide a certificate validation service to applications. </title>
           </f-element>
           <f-element id="fel-certval-app-respond">
