@@ -1,4 +1,4 @@
-name: QuickBuild v4.6pdf 20250905
+name: QuickBuild v4.6pdf 20251010
 # Run only on demand to do quick build with both pdf and html output
 
 on:
@@ -21,7 +21,7 @@ jobs:
 
     - name: Install Build Packages
 #      run: "sudo apt-get update && sudo apt-get install -y xsltproc hunspell pandoc"
-      run: "sudo apt-get update && sudo apt-get install -y xsltproc hunspell python3-lxml"
+      run: "sudo apt-get update && sudo apt-get install -y hunspell python3-lxml xsltproc"
 
     - name: Install Jing
       run: wget -O - https://github.com/relaxng/jing-trang/releases/download/V20181222/jing-20181222.zip | jar -x
@@ -48,14 +48,12 @@ jobs:
       # PDFify
     - name: PDFify
       run: |
-        wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb
-        sudo apt install -y ./wkhtmltox_0.12.6.1-3.jammy_amd64.deb && rm wkhtmltox_0.12.6.1-3.jammy_amd64.deb
-        sudo apt install -y xvfb
+        sudo apt install -y chromium
         cd output
         for aa in *.html; do
-          xvfb-run --auto-servernum --server-args='-screen 0, 1024x768x16' $(which wkhtmltopdf) \
-            --enable-local-file-access --javascript-delay 15000 --footer-right '[page]' \
-            file://${PWD}/${aa}?expand=on ${aa}.pdf
+          chromium --no-sandbox --headless --disable-gpu --no-pdf-header-footer --timeout=10000 \
+            --print-to-pdf=${aa}.pdf \
+            file://${PWD}/${aa}
         done
 
     - id: validate
