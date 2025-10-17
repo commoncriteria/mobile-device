@@ -36,14 +36,14 @@
     
   </RevisionHistory>
   
-  <release-notes><h:h3>TDs Applied</h:h3></release-notes><include-pkg id="pkg-tls">
+  <release-notes><h:h3>TDs Applied</h:h3></release-notes><include-pkg id="tls">
     <git>
       <url>https://github.com/commoncriteria/tls</url>
       <branch>master</branch>
     </git>
     <url>https://www.niap-ccevs.org/static_html/protection-profile/439/-439-/index.html</url>
   </include-pkg>
-  <include-pkg id="pkg-x509">
+  <include-pkg id="X509">
     <git>
       <url>https://github.com/commoncriteria/X509</url>
       <branch>master</branch>
@@ -260,9 +260,16 @@
       </usecases>
     </sec:Use-Cases>
     <section title="Package Usage">
-      This section contains selections and assignments that are required when the listed Functional Packages are claimed by this PP. 
+      This section contains selections and assignments that are required when the listed Functional Packages are claimed by this PP-Module. <h:br/>
+      Package Usage guidance defined in the TOE's relevant Base-PP applies to the usage of the packages for this module, unless explicitly stated otherwise in this section.
       <package-usage-list>
-        <package-usage ref="X509">
+        <package-usage ref="X509">         
+          <usage id="usage-x509-iterations" title="Required Iterations for WLAN Client X.509 functionality">
+            <description>The ST author shall include an iteration of X.509 package requirements in the ST with the suffix "WLAN". For instance, FCS_X509_EXT.1 shall be included as FCS_X509_EXT.1/WLAN.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+          </config>
+          </usage>
           <usage id="usage-x509-validate" title="Certificate Validation Required in FIA_XCU_EXT.1.1">
             <description>
               The ST author shall select the option to verify certificate identities.
@@ -271,26 +278,10 @@
               <ref-id>dummy-ref-id</ref-id>
             </config>
           </usage>
-          <usage id="usage-x509-revocation-sigalgs" title="Limitations on Signature Algorithms in FIA_X509_EXT.1.1">
+          
+          <usage id="usage-x509-revocation-methods" title="Restrictions on Revocation Functionality for FIA_X509_EXT.1.3">
             <description>
-              The TOE must utilize appropriate cryptographic algorithms that conform to CNSA standards. Thus, the ST author shall select to utilize no other algorithms outside of those specified in RFC 8603 for certificate or CRL signatures. 
-              Additionally, the ST author shall not select to use ECDSA with SHA-512 signatures for OCSP responses, and shall select to utilize no other algorithms for OCSP responses.
-            </description>
-            <config>
-            <ref-id>dummy-ref-id</ref-id>
-          </config>
-          </usage>
-          <usage id="usage-x509-extensions" title="Required Extension Processing for FIA_X509_EXT.1.2">
-            <description>
-              The ST author shall select the options to process the basicConstraints and extendedKeyUsage extensions. Other extensions may be selected as appropriate without restriction.
-            </description>
-            <config>
-              <ref-id>dummy-ref-id</ref-id>
-            </config>
-          </usage>
-          <usage id="usage-x509-revocation-methods" title="Restrictions on Revocation Functionality for FIA_X509_EXT.1.3 ">
-            <description>
-              The ST author shall not select the option to validate certificate revocation status by validity period. Other selections may be selected without restriction.
+              The ST author shall not select the option to validate certificate revocation status by validity period. CRL and/or OCSP are not required to be selected for this PP-Module. Any other options may be selected without restriction.
             </description> 
             <config>
               <ref-id>dummy-ref-id</ref-id>
@@ -298,7 +289,7 @@
           </usage>
           <usage id="usage-x509-revocation-connections" title="Restrictions on Revocation Information Retrieval for FIA_X509_EXT.1.4">
             <description>
-              The ST author shall not select the option to determine that the certificate expires within a certain period.
+              The ST author shall not select the option to determine that the certificate expires within a certain period. CRL and/or OCSP are not required to be selected for this PP-Module. Any other options may be selected without restriction.
             </description>
             <config>
               <ref-id>dummy-ref-id</ref-id>
@@ -306,8 +297,7 @@
           </usage>
           <usage id="usage-x509-eku-values" title="Restrictions on Acceptable Key Usage Values for FIA_X509_EXT.1.5">
             <description>
-              The ST author shall select the option to verify certificates by evaluating the extendedKeyUsage field in the leaf certificate. The ST author shall select the options requiring that certificates presented for TLS clients and 
-              TLS servers have appropriate values for the extendedKeyUsage field.
+              The ST author shall select options requiring that certificates presented for TLS clients and TLS servers have appropriate values for the extendedKeyUsage field as defined in the available selections for processing the extendedKeyUsage extension.
             </description>
             <config>
               <ref-id>dummy-ref-id</ref-id>
@@ -318,6 +308,26 @@
               The ST author shall specify in the assignment for supported functions that the TOE will utilize certificates to support authentication for EAP-TLS exchanges. The ST author shall additionally specify in the assignment for other 
               authenticated communications protocols that the TOE will utilize EAP-TLS. 
             </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+        </package-usage>
+        <package-usage ref="tls">
+          <usage id="usage-tls-iterations" title="Required Iterations for WLAN Client TLS functionality">
+            <description>The ST author shall include an iteration of TLS package requirements in the ST with the suffix "WLAN". For instance, FCS_TLS_EXT.1 shall be included as FCS_TLS_EXT.1/WLAN.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-tls-client" title="TLS Client Functionality Required in FCS_TLS_EXT.1">
+            <description>The ST author shall claim support for TLS as a client.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-tls-client-versions" title="Required Version Claims in FCS_TLSC_EXT.1">
+            <description>The ST author shall ensure that the claims for supported versions in FCS_TLSC_EXT.1 match those in FCS_WLAN_EXT.1.1.</description>
             <config>
               <ref-id>dummy-ref-id</ref-id>
             </config>
@@ -415,16 +425,16 @@
           
           <addressed-by>	FCS_CKM.1/WPA	</addressed-by>	<rationale>	Mitigates the threat by performing secure key generation in support of protected wireless communications.	</rationale>
           <addressed-by>	FCS_CKM.2/WLAN	</addressed-by>	<rationale>	Mitigates the threat by performing secure key distribution in support of protected wireless communications.	</rationale>
-          <addressed-by>	FCS_TLSC_EXT.1/WLAN	</addressed-by>	<rationale>	Mitigates the threat by implementing EAP-TLS for secure authentication of wireless communications.	</rationale>
+          <!-- <addressed-by>	FCS_TLSC_EXT.1/WLAN	</addressed-by>	<rationale>	Mitigates the threat by implementing EAP-TLS for secure authentication of wireless communications.	</rationale> -->
           <addressed-by>	FCS_WPA_EXT.1	</addressed-by>	<rationale>	Mitigates the threat by requiring the use of WPA for security.</rationale>
           <addressed-by>	FIA_PAE_EXT.1	</addressed-by>	<rationale>	Mitigates the threat by implementing 802.1X for secure authentication of wireless communications.	</rationale>
-          <addressed-by>	FIA_X509_EXT.1/WLAN	</addressed-by>	<rationale>	Mitigates the threat by using X.509 for secure connectivity and non-repudiation of external IT entities.	</rationale>
-          <addressed-by>	FIA_X509_EXT.2/WLAN	</addressed-by>	<rationale>	Mitigates the threat by using X.509 for secure connectivity and non-repudiation of external IT entities.	</rationale>
+          <!-- <addressed-by>	FIA_X509_EXT.1/WLAN	</addressed-by>	<rationale>	Mitigates the threat by using X.509 for secure connectivity and non-repudiation of external IT entities.	</rationale>
+          <addressed-by>	FIA_X509_EXT.2/WLAN	</addressed-by>	<rationale>	Mitigates the threat by using X.509 for secure connectivity and non-repudiation of external IT entities.	</rationale> -->
           <addressed-by>	FIA_X509_EXT.6	</addressed-by>	<rationale>	Mitigates the threat by implementing a mechanism to establish a root of trust for X.509 certificates presented to the TOE.	</rationale>
           <addressed-by>	FMT_SMF.1/WLAN	</addressed-by>	<rationale>	Mitigates the threat by defining the authorization that is required to access the management functions of the TOE.	</rationale>
           <addressed-by>	FTA_WSE_EXT.1	</addressed-by>	<rationale>	Mitigates the threat by operating in a default-deny posture for wireless networks so that the TOE will not communicate with unknown entities.	</rationale>
           <addressed-by>	FTP_ITC.1/WLAN	</addressed-by>	<rationale>	Mitigates the threat by defining the trusted communications protocols the TSF implements to communicate with external entities.	</rationale>
-          <addressed-by>	FCS_TLSC_EXT.2/WLAN (selection-based)	</addressed-by>	<rationale>	Mitigates the threat by defining secure connection parameters for EAP-TLS.	</rationale>
+          <!-- <addressed-by>	FCS_TLSC_EXT.2/WLAN (selection-based)	</addressed-by>	<rationale>	Mitigates the threat by defining secure connection parameters for EAP-TLS.	</rationale> -->
           
        
         </threat>
@@ -675,7 +685,7 @@
                 <h:li>Startup and shutdown of the audit functions;</h:li>
                 <h:li>All auditable events for [<h:i>not specified</h:i>] level of audit;</h:li>
                 <h:li>[<h:i>all auditable events for mandatory SFRs specified in <xref to="a-mandatory-events"/>, 
-                  selected SFRs in <xref to="a-sel-based-events"/>, applicable audit events specified in <xref to="pkg-tls"/>, and applicable audit events specified in <xref to="pkg-x509"/></h:i>].</h:li>
+                  selected SFRs in <xref to="a-sel-based-events"/>, applicable audit events specified in <xref to="tls"/>, and applicable audit events specified in <xref to="X509"/></h:i>].</h:li>
               </h:ol>
             </title>
             <note role="application">
@@ -801,7 +811,7 @@
                   and the outcome (success or failure) of the event;</h:li>         
                 <h:li>For each audit event type, based on the auditable event definitions of the functional components 
                   included in the PP, PP-Module, functional package or ST, [<h:i>Additional Audit Record Contents as specified in 
-                    <xref to="a-mandatory-events"/>, <xref to="a-sel-based-events"/>, applicable audit events specified in <xref to="pkg-tls"/>, and applicable audit events specified in <xref to="pkg-x509"/></h:i>].</h:li>
+                    <xref to="a-mandatory-events"/>, <xref to="a-sel-based-events"/>, applicable audit events specified in <xref to="tls"/>, and applicable audit events specified in <xref to="X509"/></h:i>].</h:li>
               </h:ol>
             </title>
             <aactivity>
@@ -1031,213 +1041,41 @@ The cryptographic key derivation algorithm required by IEEE 802.11-2020
           </f-element>
   		  <audit-event/>
         </f-component>
-        
-        <!-- SME: we were asked to cite the TLS Functional Package instead of defining 'new' TLS requirements in this Module. However, these EAP-TLS requirements are somewhat different from those in the TLS Package. 
-          It is unclear what the preferred method of resolving these discrepancies is. -->
-		  
-		<!-- FCS_TLSC_EXT.1/WLAN -->
-        <f-component id="fco-tlsc-wlan" cc-id="fcs_tlsc_ext.1" name="TLS Client Protocol (EAP-TLS for WLAN)" iteration="WLAN">
+      
+		
+
+        <ext-comp-def fam-id="FCS_WLAN_EXT" title="EAP-TLS for WLAN">
+          <fam-behavior>Components in this family define requirements for the support of EAP-TLS.</fam-behavior>
+        </ext-comp-def>
+
+        <!-- FCS_WLAN_EXT.1 -->
+         <f-component cc-id="fcs_wlan_ext.1" name="EAP-TLS for WLAN">
           <consistency-rationale/>
-          
+          <comp-lev>requires the TSF to support EAP-TLS with specified versions.</comp-lev>
+          <management>There are no management functions foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_TLSC_EXT.1 TLS Client Protocol</dependencies>
+
           <f-element>
-            <title>
-              <comment>This SFR defines EAP-TLS behavior specific for this PP-Module. The expectation is that this can now be inherited from the TLS FP rather than be defined here. However, we do not currently have a mechanism to tell ST authors what to do here. Specifically, we don't want to reproduce the SFR elements from the FP with whatever modifications are needed for the package because that causes the same problem that the FP was created to solve (having multiple sets of the same SFR that then get out of sync as documents don't all get updated at the same time). But at the same time, we need a way to communicate to the ST author how they should identify the SFR iteration (i.e. we would want it called "FCS_TLSC_EXT.1/WLAN" consistently in any ST that claims this module) as well as guidance on any required or forbidden selections in the context of the desired behavior (e.g. are there any ciphersuites we would want to ban ST authors from selecting).
-                <h:br/><h:br/>
-                Note that it may end up being the case that EAP-TLS also requires us to define behavior that is not part of the TLS FP. In this case we would still need to have guidance on what the ST author is expected to do with the TLS FP but then we would also need to keep an SFR here to cover the delta between the FP and the desired EAP-TLS functions. For the sake of avoiding confusion this would then be given a unique name (e.g. FCS_EAP_EXT.1). 
-              </comment>
-            </title>
-          </f-element>
-          
-          <!-- 
-          <comp-lev> describes the ability of the TOE to implement the EAP-TLS protocol as a client.</comp-lev>
-          <management>There are no specific management functions identified.</management>
-          <audit>The following actions should be auditable if FAU_GEN Security audit data
-            generation is included in the PP/ST:<h:ul>
-              <h:li>Basic: All attempts to establish a trusted channel.</h:li>
-              <h:li>Basic: Detection of modification of channel data.</h:li>
-            </h:ul>
-          </audit>
-          <dependencies><no-link>FCS_CKM.1</no-link> Cryptographic Key Generation<h:br/>
-            <no-link>FCS_CKM.1</no-link> Cryptographic Key Generation<h:br/>
-            <no-link>FCS_CKM.2</no-link> Cryptographic Key Distribution<h:br/>
-            <no-link>FCS_COP.1</no-link> Cryptographic Operation<h:br/>
-            <no-link>FCS_RBG_EXT.1</no-link> Random Bit Generation<h:br/>
-            <no-link>FIA_X509_EXT.1</no-link> X.509 Certificate Validation<h:br/>
-            <no-link>FMT_SMR.1</no-link> Security Roles
-          </dependencies>
-          
-          <f-element id="fel-tlsc1_2">
-            <title>The TSF shall implement TLS 1.2 (RFC 5246) and               
+            <title>The TSF shall implement EAP-TLS 
             <selectables>
-              <selectable>TLS 1.1 (RFC 4346)</selectable>
-              <selectable exclusive="yes">no other TLS version</selectable>
-            </selectables> in support of the EAP-TLS protocol as specified in RFC 5216 supporting the following cipher suites:
-            <selectables linebreak="yes">
-              <selectable>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable> 
-              <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
-              <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable> 
-              <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable> 
-              <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable> 
-              <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable> 
-              <selectable>TLS_DHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable> 
-              <selectable id="ecdhe_ECDSA_WITH_AES_128_CBC_SHA256">TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable> 
-              <selectable id="ecdhe_ECDSA_WITH_AES_128_GCM_SHA256">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable> 
-              <selectable id="ecdhe_ECDSA_WITH_AES_256_CBC_SHA384">TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable> 
-              <selectable id="ecdhe_ECDSA_WITH_AES_256_GCM_SHA384">TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable> 
-              <selectable id="ecdhe_RSA_WITH_AES_128_CBC_SHA256">TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable> 
-              <selectable id="ecdhe_RSA_WITH_AES_128_GCM_SHA256">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable> 
-              <selectable id="ecdhe_RSA_WITH_AES_256_CBC_SHA384">TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable> 
-              <selectable id="ecdhe_RSA_WITH_AES_256_GCM_SHA384">TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
-            </selectables>.   
-            </title>
+              <selectable> 1.2 (RFC 5216)</selectable>
+              <selectable>1.3 (RFC 9190)</selectable>
+            </selectables> in accordance with FCS_TLSC_EXT.1 <h:b>as defined in <xref to="tls"/></h:b>.</title>
             <ext-comp-def-title>
-              <title>The TSF shall implement TLS 1.2 (RFC 5246) and               
-                <selectables>
-                  <selectable>TLS 1.1 (RFC 4346)</selectable>
-                  <selectable>no other TLS version</selectable>
-                </selectables> in support of the EAP-TLS protocol as specified in RFC 5216 supporting the following cipher suites: <assignable>list of supported cipher suites</assignable>.</title>
+              <title>The TSF shall implement EAP-TLS 
+              <selectables>
+                <selectable>1.2 (RFC 5216)</selectable>
+                <selectable>1.3 (RFC 9190)</selectable>
+            </selectables> in accordance with FCS_TLSC_EXT.1.</title>
             </ext-comp-def-title>
-            <note role="application">If any of the ECDHE cipher suites are selected by the ST author, it is necessary
-              to claim the selection-based requirement FCS_TLSC_EXT.2/WLAN.
-            </note>            
+            <aactivity>
+              <TSS/>
+              <Guidance/>
+              <Tests/>
+            </aactivity>
           </f-element>
-          <f-element><title>The TSF shall generate random values used in the EAP-TLS exchange
-            using the RBG specified in FCS_RBG_EXT.1.</title>
-          </f-element>  
-          <f-element><title>The TSF shall use X509 v3 certificates as specified in FIA_X509_EXT.1<h:b>/WLAN</h:b>.</title>
-            <ext-comp-def-title>
-              <title>The TSF shall use X509 v3 certificates as specified in FIA_X509_EXT.1.</title>
-            </ext-comp-def-title>
-          </f-element>    
-          <f-element><title>The TSF shall verify that the server certificate presented includes the
-            Server Authentication purpose (id-kp 1 with OID 1.3.6.1.5.5.7.3.1) in the extendedKeyUsage
-            field.</title>
-          </f-element> 
-          <f-element><title>The TSF shall allow an authorized administrator to configure the list
-            of CAs that are allowed to sign authentication server certificates that are accepted by the TOE.</title>
-            
-          -->
-            <!-- </f-element>
-              
-              FCS_TLSC_EXT.1.6 Removed by TD0492
-          <f-element><title>The TSF shall allow an authorized administrator to configure the list
-            of algorithm suites that may be proposed and accepted during the EAP-TLS exchanges.</title> -->
-   <!--        
-            <note role="application">
-	      <h:p>
-	      The cipher suites to be tested in the evaluated configuration are limited by this
-            requirement. The ST author should select the optional cipher suites that are supported.
-            It is necessary to limit the cipher suites that can be used in an evaluated configuration
-            administratively on the server in the test environment.
-            </h:p><h:p>
-            While FCS_TLSC_EXT.1.4/WLAN requires that the TOE perform certain checks on the certificate
-            presented by the authentication server, there are corresponding checks that the authentication
-            server will have to perform on the certificate presented by the client; namely that the
-            extendedKeyUsage field of the client certificate includes "Client Authentication" and that the
-            digital signature bit (for the Diffie-Hellman cipher suites) or the key encipherment bit (for RSA
-            cipher suites) be set. Certificates obtained for use by the TOE will have to conform to these
-            requirements in order to be used in the enterprise.
-            </h:p><h:p>
-            The FIA_X509_EXT.1 requirements defined in each of the possible Base-PPs define requirements that
-            the underlying platform is expected to implement.
-	    </h:p>
-          </note> 
-          <aactivity>
-            <TSS>
-              The evaluator shall check the description of the implementation of this protocol in the TSS to
-              ensure that the cipher suites supported are specified. The evaluator shall check the TSS to ensure
-              that the cipher suites specified include those listed for this component.<h:br/><h:br/> 
-            </TSS>
-            <Guidance>
-              The evaluator shall check the operational guidance to ensure that it contains instructions on
-              configuring the TOE so that TLS conforms to the description in the TSS (for instance, the set of
-              cipher suites advertised by the TOE may have to be restricted to meet the requirements).
-              <h:br/><h:br/>  
-              The evaluator shall check that the guidance contains instructions for the administrator to
-              configure the list of Certificate Authorities that are allowed to sign certificates used by the
-              authentication server that will be accepted by the TOE in the EAP-TLS exchange, and instructions
-              on how to specify the algorithm suites that will be proposed and accepted by the TOE during the
-              EAP-TLS exchange.
-              <h:br/><h:br/> 
-            </Guidance>
-            <Tests>
-              The evaluator shall write, or the TOE developer shall provide, an application for the purposes of
-              testing TLS.<h:br/><h:br/> 
-              The evaluator shall perform the following tests:
-              <testlist>
-                <test>The evaluator shall establish a TLS connection using each of the cipher suites
-                  specified by the requirement. This connection may be established as part of the
-                  establishment of a higher-level protocol, e.g., as part of an EAP session. It is sufficient to
-                  observe the successful negotiation of a cipher suite to satisfy the intent of the test; it is
-                  not necessary to examine the characteristics of the encrypted traffic in an attempt to
-                  discern the cipher suite being used (for example, that the cryptographic algorithm is 128-bit
-                  AES and not 256-bit AES).
-                </test>
-                <test>
-                  The evaluator shall attempt to establish the connection using a server with a
-                  server certificate that contains the Server Authentication purpose in the
-                  extendedKeyUsage field and verify that a connection is established. The evaluator will
-                  then verify that the client rejects an otherwise valid server certificate that lacks the
-                  Server Authentication purpose in the extendedKeyUsage field and a connection is not
-                  established. Ideally, the two certificates should be identical except for the
-                  extendedKeyUsage field.
-                </test>
-                <test>
-                  The evaluator shall send a server certificate in the TLS connection that does not
-                  match the server-selected cipher suite.
-		  For example, send a ECDSA certificate while using
-                  the TLS_RSA_WITH_AES_128_CBC_SHA cipher suite or send a RSA certificate while using
-                  one of the ECDSA cipher suites.
-		  The evaluator shall verify that the TOE disconnects after
-                  receiving the server’s Certificate handshake message.
-                </test>
-                <test>
-                  The evaluator shall configure the server to select the
-                  TLS_NULL_WITH_NULL_NULL cipher suite and verify that the client denies the
-                  connection.
-                </test>
-                <test>
-                  The evaluator shall perform the following modifications to the traffic:
-                  <h:ul>
-                    <h:li>Change the TLS version selected by the server in the Server Hello to a unsupported TLS version (for example 1.5 represented by the two bytes 03 06) and
-                      verify that the client rejects the connection.</h:li>
-                    <h:li>Modify at least one byte in the server’s nonce in the Server Hello handshake
-                      message, and verify that the client rejects the Server Key Exchange handshake
-                      message (if using a DHE or ECDHE cipher suite) or that the server denies the
-                      client’s Finished handshake message.</h:li>
-                    <h:li>Modify the server’s selected cipher suite in the Server Hello handshake message
-                      to be a cipher suite not presented in the Client Hello handshake message. The
-                      evaluator shall verify that the client rejects the connection after receiving the
-                      Server Hello.</h:li>
-                    <h:li>[conditional: if the TOE supports at least one cipher suite that uses DHE or ECDHE for key exchange]  
-                      Modify the signature block in the Server’s Key
-                      Exchange handshake message, and verify that the client rejects the
-                      connection after receiving the Server Key Exchange message. This test
-                      does not apply to cipher suites using RSA key exchange.</h:li>
-                    <h:li>Modify a byte in the Server Finished handshake message, and verify
-                      that the client sends an Encrypted Message followed by a FIN and
-                      ACK message. This is sufficient to deduce that the TOE responded
-                      with a Fatal Alert and no further data would be sent.</h:li>
-                    <h:li>Send a garbled message from the server after the server has issued the
-                      ChangeCipherSpec message and verify that the client denies the connection.</h:li>
-                  </h:ul>
-                </test>
-              </testlist>
-            </Tests>
-          </aactivity>
-          </f-element>
-  		  <audit-event>
-			<audit-event-descr>Failure to establish an EAP-TLS session.</audit-event-descr>
-			<audit-event-info>Reason for failure.</audit-event-info>
-			<audit-event-info>Non-TOE endpoint of connection.</audit-event-info>
-		  </audit-event>
-  		  <audit-event>
-			<audit-event-descr>Establishment/termination of an EAP-TLS session.</audit-event-descr>
-			<audit-event-info>Non-TOE endpoint of connection.</audit-event-info>
-		  </audit-event>	
-		  
-		  -->          
-        </f-component>
+         </f-component>
         
         <ext-comp-def fam-id="FCS_WPA_EXT" title="Supported WPA Versions">
           <fam-behavior>Components in this family define requirements for supporting Wi-Fi Protected Access (WPA).
@@ -1394,7 +1232,7 @@ The cryptographic key derivation algorithm required by IEEE 802.11-2020
         <!-- SME: added to address TD0439. Component not included in ECD because both Base-PPs define it. -->
 		
 		<!-- FIA-X509_EXT.1/WLAN -->
-        <f-component id="fco-certval-wlan" cc-id="fia_x509_ext.1" name="X.509 Certificate Validation" iteration="WLAN">
+        <!-- <f-component id="fco-certval-wlan" cc-id="fia_x509_ext.1" name="X.509 Certificate Validation" iteration="WLAN">
       <consistency-rationale/>
           <f-element>
           <title>
@@ -1407,7 +1245,7 @@ The cryptographic key derivation algorithm required by IEEE 802.11-2020
           </title>
           </f-element>
           <audit-event/>
-<!-- 
+
           <f-element>
             <title>The TSF shall validate certificates for <h:b>EAP-TLS</h:b> in accordance with the following rules:
               <h:ul>
@@ -1480,12 +1318,12 @@ The cryptographic key derivation algorithm required by IEEE 802.11-2020
 			<audit-event-info>Reason for failure of validation.</audit-event-info>
   		  </audit-event>
   		  
-  		  -->
+
         
-        </f-component>
+        </f-component> -->
         
 		<!-- FIA_X509_EXT.2/WLAN -->
-        <f-component id="fco-certauth" cc-id="fia_x509_ext.2" name="X.509 Certificate Authentication (EAP-TLS for WLAN)" iteration="WLAN">
+        <!-- <f-component id="fco-certauth" cc-id="fia_x509_ext.2" name="X.509 Certificate Authentication (EAP-TLS for WLAN)" iteration="WLAN">
           <consistency-rationale/>
           <f-element>
             <title>
@@ -1493,7 +1331,7 @@ The cryptographic key derivation algorithm required by IEEE 802.11-2020
             </title>
           </f-element>
           <audit-event/>
-          <!-- 
+          
           <f-element>
             <title>The TSF shall use X.509v3 certificates as defined by RFC 5280 to
               support [<h:i>[authentication for EAP-TLS exchanges]</h:i>].
@@ -1504,8 +1342,8 @@ The cryptographic key derivation algorithm required by IEEE 802.11-2020
               in each of the supported Base-PPs define requirements that the underlying platform is expected to
               implement in order to support compliance with this RFC.
             </note>      
-            -->
-  <!--         </f-element>
+          
+          </f-element>
           <f-element>
             <title>When the TSF cannot establish a connection to determine the validity of a
               certificate, the TSF shall 
@@ -1515,8 +1353,8 @@ The cryptographic key derivation algorithm required by IEEE 802.11-2020
                 <selectable>accept the certificate</selectable> 
                 <selectable>not accept the certificate</selectable>
               </selectables>.
-            </title>  -->        
-                      <!--
+            </title>          
+                      
           <aactivity>
             <TSS>
               The evaluator shall check the TSS to ensure that it describes how the TOE chooses which
@@ -1534,8 +1372,8 @@ The cryptographic key derivation algorithm required by IEEE 802.11-2020
           </aactivity>
           </f-element>
 		  <audit-event/> 
-		  -->
-        </f-component>
+		  
+        </f-component> -->
         
         
         
@@ -1718,7 +1556,7 @@ The cryptographic key derivation algorithm required by IEEE 802.11-2020
               TOE and performing the management activities associated with each function claimed in the SFR. 
               <h:br/><h:br/>  
               Note that this may be accomplished in conjunction with the testing of other
-              requirements, such as the FCS_TLSC_EXT requirements from the <xref to="pkg-tls"/> and FTA_WSE_EXT.1.
+              requirements, such as the FCS_TLSC_EXT requirements from the <xref to="tls"/> and FTA_WSE_EXT.1.
             </Tests>
           </aactivity>
           </f-element>
@@ -2045,15 +1883,15 @@ The cryptographic key derivation algorithm required by IEEE 802.11-2020
       selections in the body of the PP-Module: if certain selections are made, then additional requirements
       below will need to be included.  --> 
 	  
-	    <section id="sb-audit-table" title="Auditable Events for Selection-based SFRs">
+	    <!-- <section id="sb-audit-table" title="Auditable Events for Selection-based SFRs">
         	<audit-table table="sel-based" id="a-sel-based-events"/>
-<!--  	     		<h:br/><h:b><ctr ctr-type="Table" pre="Table " id="atref-sel-based">: Auditable Events for Selection-based SFRs</ctr></h:b>
-	  	</audit-table>   -->
-	    </section>	  
+ 	     		<h:br/><h:b><ctr ctr-type="Table" pre="Table " id="atref-sel-based">: Auditable Events for Selection-based SFRs</ctr></h:b>
+	  	</audit-table>  
+	    </section>	   -->
 	  
 	  
 	  
-      <sec:fel_fcs title="Cryptographic Support (FCS)">
+      <!-- <sec:fel_fcs title="Cryptographic Support (FCS)"> -->
         
         <!-- SME: references to 802.11-2012 and 802.11ac-2014 in this app note need to be updated along with the section references. We do not have a copy of the standard so we could not update the section references. -->
       <!--  
@@ -2167,9 +2005,16 @@ The cryptographic key derivation algorithm required by IEEE 802.11-2020
         <!-- FCS_TLSC_EXT.2/WLAN --> 
 		  
 		<!-- FCS_TLSC_EXT.2/WLAN -->
-        <f-component id="fco-tls-client-support-wlan" cc-id="fcs_tlsc_ext.2" name="TLS Client Support for Supported Groups Extension (EAP-TLS for WLAN)" iteration="WLAN">
+        <!-- <f-component id="fco-tls-client-support-wlan" cc-id="fcs_tlsc_ext.2" name="TLS Client Support for Supported Groups Extension (EAP-TLS for WLAN)" iteration="WLAN">
           
-	  <depends on1="ecdhe_ECDSA_WITH_AES_128_CBC_SHA256" on2="ecdhe_ECDSA_WITH_AES_128_GCM_SHA256" on3="ecdhe_ECDSA_WITH_AES_256_CBC_SHA384" on4="ecdhe_ECDSA_WITH_AES_256_GCM_SHA384" on5="ecdhe_RSA_WITH_AES_128_CBC_SHA256" on6="ecdhe_RSA_WITH_AES_128_GCM_SHA256" on7="ecdhe_RSA_WITH_AES_256_CBC_SHA384" on8="ecdhe_RSA_WITH_AES_256_GCM_SHA384"/>
+	  <depends on1="ecdhe_ECDSA_WITH_AES_128_CBC_SHA256"
+		   on2="ecdhe_ECDSA_WITH_AES_128_GCM_SHA256"
+		   on3="ecdhe_ECDSA_WITH_AES_256_CBC_SHA384"
+		   on4="ecdhe_ECDSA_WITH_AES_256_GCM_SHA384"
+		   on5="ecdhe_RSA_WITH_AES_128_CBC_SHA256"
+		   on6="ecdhe_RSA_WITH_AES_128_GCM_SHA256"
+		   on7="ecdhe_RSA_WITH_AES_256_CBC_SHA384"
+		   on8="ecdhe_RSA_WITH_AES_256_GCM_SHA384"/>
           <consistency-rationale/>
           
           <f-element>
@@ -2178,7 +2023,7 @@ The cryptographic key derivation algorithm required by IEEE 802.11-2020
             </title>
           </f-element>
           
-          <!--
+          
           <comp-lev> describes the ability of the TOE to present certain values in the Supported Groups extension when attempting to establish a TLS connection as a client.</comp-lev>
           <management>There are no specific management functions identified.</management>
           <audit>There are no auditable events foreseen.</audit>
@@ -2228,9 +2073,9 @@ The cryptographic key derivation algorithm required by IEEE 802.11-2020
           </aactivity>
           </f-element>
 		<audit-event/>
-		-->
-          </f-component>
-      </sec:fel_fcs>
+		
+          </f-component> -->
+      <!-- </sec:fel_fcs> -->
       
     </sel-sfrs>
     <obj-sfrs/>
