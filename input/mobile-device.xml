@@ -717,7 +717,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
         <h:tr><h:td>FCS_COP.1.1/ENCRYPT</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_COP.1.1/HASH</h:td><h:td>Select SHA-384.</h:td></h:tr>
         <h:tr><h:td>FCS_COP.1.1/SIGN</h:td><h:td>Assign a key size of 3072 for RSA or select ECDSA schemes.</h:td></h:tr>
-        <h:tr><h:td>FCS_COP.1.1/CONDITION</h:td><h:td>Select 256 bits.</h:td></h:tr>
+        <h:tr><h:td>FCS_CKM_EXT.8</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_RBG_EXT.1.2</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_TLSC_EXT.1.1 (TLS Package)</h:td><h:td>Select TLS_RSA_WITH_AES_256_GCM_SHA384 or TLS_ECDHE_ECDSA_WITH AES_256_GCM_SHA384.</h:td></h:tr>
        <h:tr><h:td>FCS_TLSC_EXT.2.1 (TLS Package)</h:td><h:td>Select secp384r1, if included in ST (if ECC schemes are selected in FCS_CKM.1.1). </h:td></h:tr>
@@ -1076,8 +1076,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
             between the Mobile Device and other endpoints, resulting in
             modification or disclosure of sensitive communications. </description>
           
-          <addressed-by>FCS_CKM.1</addressed-by>
-          <rationale>FCS_CKM.1 helps mitigate the threat of network eavesdrop by ensuring the generation of strong keys used for trusted communications.</rationale>
+          <addressed-by>FCS_CKM.1/AKG</addressed-by>
+          <rationale>FCS_CKM.1/AKG helps mitigate the threat of network eavesdrop by ensuring the generation of strong keys used for trusted communications.</rationale>
+          <addressed-by>FCS_CKM.1/SKG</addressed-by>
+          <rationale>FCS_CKM.1/SKG helps mitigate the threat of network eavesdrop by ensuring the generation of strong keys used for trusted communications.</rationale>
           <addressed-by>FCS_CKM.2/UNLOCKED</addressed-by>
           <rationale>FCS_CKM.2/UNLOCKED helps mitigate the threat of network eavesdrop by performing key establishment for trusted communications.</rationale>
           <addressed-by>FCS_CKM_EXT.6</addressed-by>
@@ -1240,8 +1242,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <addressed-by>FAU_STG.5</addressed-by>
           <rationale>FAU_STG.5 helps mitigate the threat of a network attack by maintaining the availability of the audit trail.</rationale>
           
-          <addressed-by>FCS_CKM.1</addressed-by>
-          <rationale>FCS_CKM.1 helps mitigate the threat of a network attack by ensuring the generation of strong keys used for trusted communications.</rationale>
+           <addressed-by>FCS_CKM.1/AKG</addressed-by>
+           <rationale>FCS_CKM.1/AKG helps mitigate the threat of a network attack by ensuring the generation of strong keys used for trusted communications.</rationale>
+           <addressed-by>FCS_CKM.1/SKG</addressed-by>
+           <rationale>FCS_CKM.1/SKG helps mitigate the threat of a network attack by ensuring the generation of strong keys used for trusted communications.</rationale>
           <addressed-by>FCS_CKM.2/UNLOCKED</addressed-by>
           <rationale>FCS_CKM.2/UNLOCKED helps mitigate the threat of a network attack by performing key establishment for trusted communications.</rationale>
           <addressed-by>FCS_CKM_EXT.6</addressed-by>
@@ -1386,8 +1390,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <addressed-by>FCS_CKM_EXT.6</addressed-by>
           <rationale>FCS_CKM_EXT.6 helps mitigate the threat of physical access by generating salts using RBG.</rationale>
                             
-          <addressed-by>FCS_COP.1/CONDITION</addressed-by>
-          <rationale>FCS_COP.1/CONDITION helps mitigate the threat of physical access by performing password conditioning to increase the difficulty of deriving a key from a password.</rationale>
+          <addressed-by>FCS_CKM_EXT.8</addressed-by>
+          <rationale>FCS_CKM_EXT.8 helps mitigate the threat of physical access by performing password conditioning to increase the difficulty of deriving a key from a password.</rationale>
           <addressed-by>FCS_COP.1/ENCRYPT</addressed-by>
           <rationale>FCS_COP.1/ENCRYPT helps mitigate the threat of physical access by using symmetric encryption to protect data at rest.</rationale>
           <addressed-by>FCS_COP.1/HASH</addressed-by>
@@ -1937,9 +1941,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	  <rationale>
 	    FCS_COP.1/KEYHMAC supports the objective by defining an HMAC function that can be used to protect data at rest.
 	  </rationale>
-	  <addressed-by>FCS_COP.1/CONDITION</addressed-by>
+	  <addressed-by>FCS_CKM_EXT.8</addressed-by>
 	  <rationale>
-	    FCS_COP.1/CONDITION supports the objective by defining a key derivation function that can be used to protect data at rest.
+	    FCS_CKM_EXT.8 supports the objective by defining a key derivation function that can be used to protect data at rest.
 	  </rationale>
 	  <addressed-by>FCS_IV_EXT.1</addressed-by>
 	  <rationale>
@@ -2389,7 +2393,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               <!--   <h:tr><h:td>FCS_COP.1/HASH</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_COP.1/SIGN</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_COP.1/KEYHMAC</h:td><h:td>None.</h:td><h:td/></h:tr> -->
-              <!--   <h:tr><h:td>FCS_COP.1/CONDITION</h:td><h:td>None.</h:td><h:td/></h:tr> -->
+              <!--   <h:tr><h:td>FCS_CKM_EXT.8</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_IV_EXT.1</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_SRV_EXT.1</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td rowspan="2">FCS_STG_EXT.1</h:td><h:td>Import or destruction of key.</h:td><h:td rowspan="2">Identity of key. Role and identity of requester.</h:td></h:tr> <h:tr><h:td><selectables> -->
@@ -2814,7 +2818,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
             <title>
               The TSF shall generate <h:b>asymmetric</h:b> cryptographic keys in accordance with
               a specified cryptographic key generation algorithm<selectables>
-                <tabularize id="fcs-ckm-1-ak-sels" title="Allowable choices for FCS_CKM.1/AKG">
+                <tabularize id="fcs-ckm-1-ak-sels" title="Allowable Choices for FCS_CKM.1/AKG">
                   <textcol>Identifier</textcol>
                   <selectcol>Cryptographic Key Generation Algorithm</selectcol>
                   <reqtext>and specified cryptographic <h:b>algorithm parameters</h:b> <h:s>key sizes</h:s></reqtext>
@@ -3460,263 +3464,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <audit-event/>
         </f-component>
         
-        <f-component cc-id="fcs_ckm.2" iteration="LOCKED" name="Cryptographic Key Establishment (When Locked)">
-          <f-element id="fel-key-locked">
-            <title>The TSF shall <refinement>perform</refinement> cryptographic <refinement>key
-              establishment</refinement> in accordance with a specified cryptographic key
-              <refinement>establishment</refinement> method: <selectables linebreak="yes">
-                <selectable id="s-locked-rsa"><readable>RSA-based key establishment schemes</readable>[<h:i>RSA-based key establishment schemes</h:i>] that meet the following: [<h:i>NIST Special Publication 800-56B, “Recommendation for Pair-Wise Key
-                  Establishment Schemes Using Integer Factorization
-                  Cryptography”</h:i>]</selectable>
-                <selectable><readable>Elliptic curve-based key establishment schemes</readable>[<h:i>Elliptic curve-based key establishment schemes</h:i>]
-                  that meet the following: <selectables linebreak="yes">
-                    <selectable id="s-locked-ecc-800-56A"><readable>Pair-Wise Key Establishment Schemes Using Discrete
-                      Logarithm Cryptography</readable><refinement>NIST Special Publication 800-56A Revision 3,
-                        "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete
-                        Logarithm Cryptography"</refinement></selectable>
-                    <selectable><refinement>RFC 7748, "Elliptic Curves for
-                      Security"</refinement></selectable>
-                  </selectables>
-                </selectable>
-                <selectable>[<h:i>Finite field-based key establishment schemes</h:i>]
-                  that meet the following: [<h:i>NIST Special Publication 800-56A Revision 3,
-                    "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm
-                    Cryptography"</h:i>]</selectable>
-              </selectables>
-              <refinement>for the purposes of encrypting sensitive data received while the device is
-                locked.</refinement>
-            </title>
-            <note role="application"> The RSA-based key establishment schemes are described in
-              Section 9 of NIST SP 800-56B; however, Section 9 relies on implementation of other
-              sections in SP 800-56B. If the TOE acts as a receiver in the RSA key establishment
-              scheme, the TOE does not need to implement RSA key generation. <h:br/><h:br/> The
-              elliptic curves used for the key establishment scheme must correlate with the curves
-              specified in FCS_CKM.1.1. <h:br/><h:br/> The domain parameters used for the finite
-              field-based key establishment scheme are specified by the key generation according to
-              FCS_CKM.1.1. </note>
-            <aactivity>
-              <TSS>There are no TSS evaluation activities for this component.<h:br/><h:br/></TSS>
-              <Guidance>There are no guidance evaluation activities for this component.<h:br/><h:br/></Guidance>
-              <Tests> The test for SP800-56A Revision 3 and SP800-56B key establishment schemes is
-                performed in association with FCS_CKM.2/UNLOCKED. <h:br/><h:br/>
-                <h:b>Curve25519 Key Establishment Schemes</h:b><h:br/><h:br/> The evaluator
-                shall verify a TOE's implementation of the key agreement scheme using the following
-                Function and Validity tests. These validation tests for each key agreement scheme
-                verify that a TOE has implemented the components of the key agreement scheme
-                according to the specification. These components include the calculation of the
-                shared secret K and the hash of K. <h:br/><h:br/>
-                <h:b>Function Test</h:b><h:br/><h:br/> The Function test verifies the
-                ability of the TOE to implement the key agreement schemes correctly. To conduct this
-                test the evaluator shall generate or obtain test vectors from a known good
-                implementation of the TOE supported schemes. For each supported key agreement role
-                and hash function combination, the tester shall generate 10 sets of public keys.
-                These keys are static, ephemeral or both depending on the scheme being tested.
-                <h:br/><h:br/> The evaluator shall obtain the shared secret value K, and the
-                hash of K.<h:br/><h:br/> The evaluator shall verify the correctness of the TSF’s
-                implementation of a given scheme by using a known good implementation to calculate
-                the shared secret value K and compare the hash generated from this value. <h:br/><h:br/>
-                <h:b> Validity Test</h:b><h:br/><h:br/> The Validity test verifies the
-                ability of the TOE to recognize another party’s valid and invalid key agreement
-                results. To conduct this test, the evaluator generates a set of 30 test vectors
-                consisting of data sets including the evaluator’s public keys and the TOE’s
-                public/private key pairs. <h:br/><h:br/> The evaluator shall inject an error in
-                some of the test vectors to test that the TOE recognizes invalid key agreement
-                results caused by the following fields being incorrect: the shared secret value K or
-                the hash of K. At least two of the test vectors shall remain unmodified and
-                therefore should result in valid key agreement results (they should pass).
-                <h:br/><h:br/> The TOE shall use these modified test vectors to emulate the key
-                agreement scheme using the corresponding parameters. The evaluator shall compare the
-                TOE’s results with the results using a known good implementation verifying that the
-                TOE detects these errors. <h:br/><h:br/>
-              </Tests>
-            </aactivity>
-          </f-element>
-          <audit-event/>	  
-        </f-component>
         
-        <f-component cc-id="fcs_ckm.2" iteration="UNLOCKED" name="Cryptographic Key Establishment (When Unlocked)">
-          <f-element id="fel-unlocked-key">
-            <title>The TSF shall <refinement>perform</refinement> cryptographic <refinement>key
-              establishment</refinement> in accordance with a specified cryptographic key
-              <refinement>establishment</refinement> method <selectables linebreak="yes">
-                <selectable><readable>RSA-based key establishment schemes</readable>[<h:i>RSA-based key establishment schemes</h:i>] that meet the following
-                  <selectables linebreak="yes">
-                    <selectable>NIST Special Publication 800-56B, “Recommendation for Pair-Wise
-                      Key Establishment Schemes Using Integer Factorization
-                      Cryptography”</selectable>
-                    <selectable>RSAES-PKCS1-v1_5 as specified in Section 7.2 of RFC 8017,
-                      "Public-Key Cryptography Standards (PKCS) #1:RSA Cryptography Specifications
-                      Version 2.2"</selectable>
-                  </selectables></selectable>
-                <selectable><readable>Elliptic curve-based key establishment schemes</readable>[<h:i>Elliptic curve-based key establishment schemes</h:i>]
-                  that meet the following: [<h:i>NIST Special Publication 800-56A Revision 3,
-                    "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm
-                    Cryptography"</h:i>]</selectable>
-                <selectable>[<h:i>Finite field-based key establishment schemes</h:i>]
-                  that meet the following: [<h:i>NIST Special Publication 800-56A Revision 3,
-                    "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm
-                    Cryptography"</h:i>]</selectable>
-                <!-- <selectable>[<h:i>Key establishment schemes using Diffie-Hellman group 14</h:i>] that
-                  meets the following: [<h:i>RFC 3526</h:i>]</selectable> -->
-                <!-- TD 502 - removed the below, however, I have a question into Dianne about this -->
-                <!--  <selectable><refinement>FFC schemes using "safe-prime" groups that meet the
-                    following: 'NIST Special Publication 800-56A Revision 3, "Recommendation for
-                    Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography"', and <selectables>
-                      <selectable>RFC 3526</selectable>
-                      <selectable>RFC 7919</selectable>
-                    </selectables></refinement></selectable>-->
-              </selectables>. </title>
-            <note role="application">  
-            The ST author must select all key establishment schemes used for the selected cryptographic protocols and any RSA-based key establishment schemes that may be used to satisfy FDP_DAR or FCS_STG. Also, FCS_TLSC_EXT.1 requires ciphersuites that use RSA-based key establishment schemes.<h:br/><h:br/>
-            The RSA-based key establishment schemes are described in Section 9 of NIST SP 800-56B; however, Section 9 relies on implementation of other sections in SP 800-56B. If the TOE only acts as a receiver in the RSA key establishment scheme, the TOE does not need to implement RSA key generation.<h:br/><h:br/>
-            The elliptic curves used for the key establishment scheme must correlate with the curves specified in FCS_CKM.1.1.<h:br/><h:br/>
-            The domain parameters used for the finite field-based key establishment scheme are specified by the key generation according to FCS_CKM.1.1. The finite field-based key establishment schemes that conform to NIST SP 800-56A Revision 3 correspond to the "safe-prime" groups selection in FCS_CKM.1.1.
-            </note>
-            
-            <aactivity>
-              <TSS> The evaluator shall ensure that the supported key establishment schemes
-                correspond to the key generation schemes identified in FCS_CKM.1.1. If the ST
-                specifies more than one scheme, the evaluator shall examine the TSS to verify that
-                it identifies the usage for each scheme.
-		<!-- There is no more DH group 14 in FCS_CKM.2"-->
-		<!-- <h:br/><h:br/> -->
-		<!-- If Diffie-Hellman group 14 is selected from FCS_CKM.2/UNLOCKED, -->
-		<!-- the TSS shall describe how the implementation -->
-                <!-- meets RFC 3526 Section 3.<h:br/><h:br/> -->
-              </TSS>
-              <Guidance> The evaluator shall verify that the AGD guidance instructs the
-                administrator how to configure the TOE to use the selected key establishment
-                schemes.<h:br/><h:br/>
-              </Guidance>
-              <Tests>
-                <h:b>Evaluation Activity Note:</h:b> The following tests require the developer to
-                provide access to a test platform that provides the evaluator with tools that are
-                typically not found on factory products.<h:br/><h:br/>
-                The evaluator shall verify the implementation of the key
-                establishment schemes supported by the TOE using the applicable tests below. <h:br/><h:br/>
-                <h:b>SP800-56A Revision 3 Key Establishment Schemes</h:b><h:br/>
-                The evaluator shall verify a TOE's implementation of SP800-56A
-                Revision 3 key establishment schemes using the following Function and Validity
-                tests. These validation tests for each key agreement scheme verify that a TOE has
-                implemented the components of the key agreement scheme according to the
-                specifications in the Recommendation. These components include the calculation of
-                the DLC primitives (the shared secret value Z) and the calculation of the derived
-                keying material (DKM) via the Key Derivation Function (KDF). If key confirmation is
-                supported, the evaluator shall also verify that the components of key confirmation
-                have been implemented correctly, using the test procedures described below. This
-                includes the parsing of the DKM, the generation of MACdata and the calculation of
-                MacTag. <h:br/><h:br/>
-                <h:i><h:b>Function Test</h:b></h:i>
-                <h:br/><h:br/> The Function test verifies the ability of the TOE to implement
-                the key agreement schemes correctly. To conduct this test the evaluator shall
-                generate or obtain test vectors from a known good implementation of the TOE
-                supported schemes. For each supported key agreement scheme-key agreement role
-                combination, KDF type, and, if supported, key confirmation role- key confirmation
-                type combination, the tester shall generate 10 sets of test vectors. The data set
-                consists of one set of domain parameter values (FFC) or the NIST approved curve
-                (ECC) per 10 sets of public keys. These keys are static, ephemeral or both depending
-                on the scheme being tested. <h:br/><h:br/> The evaluator shall obtain the DKM,
-                the corresponding TOE’s public keys (static or ephemeral), the MAC tags, and
-                any inputs used in the KDF, such as the Other Information field OI and TOE id
-                fields. <h:br/><h:br/> If the TOE does not use a KDF defined in SP 800-56A
-                Revision 3, the evaluator shall obtain only the public keys and the hashed value of
-                the shared secret. <h:br/><h:br/> The evaluator shall verify the correctness of
-                the TSF’s implementation of a given scheme by using a known good implementation to
-                calculate the shared secret value, derive the keying material DKM, and compare
-                hashes or MAC tags generated from these values.<h:br/><h:br/> If key
-                confirmation is supported, the TSF shall perform the above for each implemented
-                approved MAC algorithm. <h:br/><h:br/>
-                <h:i><h:b>Validity Test</h:b></h:i>
-                <h:br/><h:br/> The Validity test verifies the ability of the TOE to recognize
-                another party’s valid and invalid key agreement results with or without key
-                confirmation. To conduct this test, the evaluator shall obtain a list of the
-                supporting cryptographic functions included in the SP800-56A Revision 3 key
-                agreement implementation to determine which errors the TOE should be able to
-                recognize. The evaluator generates a set of 24 (FFC) or 30 (ECC) test vectors
-                consisting of data sets including domain parameter values or NIST approved curves,
-                the evaluator’s public keys, the TOE’s public/private key pairs, MacTag, and any
-                inputs used in the KDF, such as the other info and TOE id fields. <h:br/><h:br/>
-                The evaluator shall inject an error in some of the test vectors to test that the TOE
-                recognizes invalid key agreement results caused by the following fields being
-                incorrect: the shared secret value Z, the DKM, the other information field OI, the
-                data to be MACed, or the generated MacTag. If the TOE contains the full or partial
-                (only ECC) public key validation, the evaluator will also individually inject errors
-                in both parties’ static public keys, both parties’ ephemeral public keys and the
-                TOE’s static private key to assure the TOE detects errors in the public key
-                validation function or the partial key validation function (in ECC only). At
-                least two of the test vectors shall remain unmodified and therefore should result in
-                valid key agreement results (they should pass). <h:br/><h:br/> The TOE shall use
-                these modified test vectors to emulate the key agreement scheme using the
-                corresponding parameters. The evaluator shall compare the TOE’s results with the
-                results using a known good implementation verifying that the TOE detects these
-                errors. <h:br/><h:br/>
-                <h:b>SP800-56B Key Establishment Schemes</h:b><h:br/>
-                The evaluator shall verify that
-                the TSS describes whether the TOE acts as a sender, a recipient, or both for
-                RSA-based key establishment schemes. <h:br/><h:br/> If the TOE acts as a sender,
-                the following evaluation activity shall be performed to ensure the proper operation
-                of every TOE supported combination of RSA-based key establishment scheme: <h:br/>
-                To conduct this test the evaluator shall generate or obtain test vectors from a
-                known good implementation of the TOE supported schemes. For each combination of
-                supported key establishment scheme and its options (with or without key confirmation
-                if supported, for each supported key confirmation MAC function if key confirmation
-                is supported, and for each supported mask generation function if KTS-OAEP is
-                supported), the tester shall generate 10 sets of test vectors. Each test vector
-                shall include the RSA public key, the plaintext keying material, any additional
-                input parameters if applicable, the MacKey and MacTag if key confirmation is
-                incorporated, and the outputted ciphertext. For each test vector, the evaluator
-                shall perform a key establishment encryption operation on the TOE with the same
-                inputs (in cases where key confirmation is incorporated, the test shall use the
-                MacKey from the test vector instead of the randomly generated MacKey used in normal
-                operation) and ensure that the outputted ciphertext is equivalent to the ciphertext
-                in the test vector. <h:br/><h:br/> If the TOE acts as a receiver, the following
-                evaluation activities shall be performed to ensure the proper operation of every TOE
-                supported combination of RSA-based key establishment scheme: <h:br/> To conduct
-                this test the evaluator shall generate or obtain test vectors FCS_CKM.2.1/LOCKED from a
-                known good implementation of the TOE supported schemes. For each combination of
-                supported key establishment scheme and its options (with our without key
-                confirmation if supported, for each supported key confirmation MAC function if key
-                confirmation is supported, and for each supported mask generation function if
-                KTS-OAEP is supported), the tester shall generate 10 sets of test vectors. Each test
-                vector shall include the RSA private key, the plaintext keying material (KeyData),
-                any additional input parameters if applicable, the MacTag in cases where key
-                confirmation is incorporated, and the outputted ciphertext. For each test vector,
-                the evaluator shall perform the key establishment decryption operation on the TOE
-                and ensure that the outputted plaintext keying material (KeyData) is equivalent to
-                the plaintext keying material in the test vector. In cases where key confirmation is
-                incorporated, the evaluator shall perform the key confirmation steps and ensure that
-                the outputted MacTag is equivalent to the MacTag in the test vector.
-                <h:br/><h:br/> The evaluator shall ensure that the TSS describes how the TOE
-                handles decryption errors. In accordance with NIST Special Publication 800-56B, the
-                TOE must not reveal the particular error that occurred, either through the contents
-                of any outputted or logged error message or through timing variations. If KTS-OAEP
-                is supported, the evaluator shall create separate contrived ciphertext values that
-                trigger each of the three decryption error checks described in NIST Special
-                Publication 800-56B section 7.2.2.3, ensure that each decryption attempt results in
-                an error, and ensure that any outputted or logged error message is identical for
-                each. <!-- If KTS-KEM-KWS is supported, the evaluator shall create separate contrived
-                ciphertext values that trigger each of the three decryption error checks described
-                in NIST Special Publication 800-56B section 7.2.3.3, ensure that each decryption
-                attempt results in an error, and ensure that any outputted or logged error message
-                is identical for each. --><h:br/><h:br/>
-                <h:b>RSAES-PKCS1-v1_5 Key Establishment Schemes</h:b><h:br/>
-                The evaluator shall
-                verify the correctness of the TSF's implementation of RSAES-PKCS1-v1_5 by using a
-                known good implementation for each protocol selected in FTP_ITC_EXT.1 that uses
-                RSAES-PKCS1-v1_5. 
-                <!--<h:h3>Diffie-Hellman Group 14</h:h3> The evaluator shall
-                verify the correctness of the TSF's implementation of Diffie-Hellman group 14 by
-                using a known good implementation for each protocol selected in FTP_ITC_EXT.1 that
-                uses Diffie-Hellman Group 14. -->
-                <h:b>FFC Schemes using "safe-prime" groups</h:b><h:br/>
-                The evaluator shall verify the correctness of the TSF's implementation of
-                "safe-prime" groups by using a known good implementation for each protocol selected
-                in FTP_ITC_EXT.1 that uses "safe-prime" groups. This test must be performed for each
-                "safe-prime" group that each protocol uses. </Tests>
-            </aactivity>
-          </f-element>
-	  <audit-event/>
-        </f-component>
        
         <f-component cc-id="fcs_ckm.6" name="Timing and Event of Cryptographic Key Destruction">
           <f-element id="fel-key-kill-when">
@@ -3924,8 +3672,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
             <title>Each REK shall be generated by an RBG in accordance with FCS_RBG.1. </title>
             <note role="application"> Either asymmetric or symmetric keys are allowed; the ST author
               makes the selection appropriate for the device. Symmetric keys must be of size 
-              256 bits in order to correspond with FCS_COP.1/ENCRYPT. Asymmetric keys may be of any
-              strength corresponding to FCS_CKM.1. <h:br/><h:br/>
+              256 bits in order to correspond with FCS_COP.1/SKC. Asymmetric keys may be of any
+              strength corresponding to FCS_CKM.1/AKG. <h:br/><h:br/>
 
 	      The raw key material of
               "immutable hardware" REKs is computationally processed by hardware and software
@@ -4256,12 +4004,12 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <f-element id="fel-kek-gen">
             <title>The TSF shall generate all KEKs using one of the following methods:
                   <h:ul><h:li>Derive the KEK from a Password Authentication Factor according to
-                  FCS_COP.1.1<h:b>/CONDITION</h:b> and </h:li></h:ul>
+                    FCS_CKM_EXT.8 and </h:li></h:ul>
               <selectables linebreak="yes">
                 <selectable>Generate the KEK using an RBG that meets this profile (as specified in
                   FCS_RBG.1)</selectable>
                 <selectable>Generate the KEK using a key generation scheme that meets this profile
-                  (as specified in FCS_CKM.1)</selectable>
+                  (as specified in FCS_CKM.1/AKG or FCS_CKM.1/SKG)</selectable>
                 <selectable>Combine the KEK from other KEKs in a way that preserves the effective
                   entropy of each factor by <selectables>
                     <selectable>using an XOR operation</selectable>
@@ -4280,7 +4028,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <selectable>Generate the KEK using an RBG that meets this profile (as specified in
                     FCS_RBG.1)</selectable>
                   <selectable>Generate the KEK using a key generation scheme that meets this profile
-                    (as specified in FCS_CKM.1)</selectable>
+                    (as specified in FCS_CKM.1/AKG or FCS_CKM.1/SKG)</selectable>
                   <selectable>Combine the KEK from other KEKs in a way that preserves the effective
                     entropy of each factor by <selectables>
                       <selectable>using an XOR operation</selectable>
@@ -4294,13 +4042,13 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 </selectables>. </title>
             </ext-comp-def-title>
             <note role="application"> The conditioning of passwords is performed in accordance with
-              FCS_COP.1/CONDITION. <h:br/><h:br/> It is expected that key generation derived
+              FCS_CKM_EXT.8. <h:br/><h:br/> It is expected that key generation derived
               from conditioning, using an RBG or generation scheme, and through combination, will
               each be necessary to meet the requirements set out in this document. In particular,
                 <xref to="Keys"/> has KEKs of each type: KEK_3 is generated, KEK_1 is derived
               from a Password Authentication Factor, and KEK_2 is combined from two KEKs. In <xref
                 to="Keys"/>, KEK_3 may either be a symmetric key generated from an RBG or an
-              asymmetric key generated using a key generation scheme according to FCS_CKM.1.
+              asymmetric key generated using a key generation scheme according to FCS_CKM.1/AKG.
               <h:br/><h:br/> If combined, the ST author should describe which method of
               combination is used in order to justify that the effective entropy of each factor is
               preserved. <h:br/><h:br/>SP 800-56C specifies a two-step key derivation procedure that
@@ -4318,7 +4066,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 methods.<h:br/><h:br/> The evaluator shall review the TSS to verify that it
                 contains a description of the conditioning used to derive KEKs. This description must
                 include the size and storage location of salts. This activity may be performed in
-                combination with that for FCS_COP.1/CONDITION.<h:br/><h:br/> (conditional) If
+                combination with that for FCS_CKM_EXT.8.<h:br/><h:br/> (conditional) If
                 the symmetric KEK is generated by an RBG, the evaluator shall review the TSS to
                 determine that it describes how the functionality described by FCS_RBG.1 is
                 invoked. The evaluator uses the description of the RBG functionality in
@@ -4327,8 +4075,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 and mode to be used for the encryption/decryption of the data.<h:br/><h:br/>
                 (conditional) If the KEK is generated according to an asymmetric key scheme, the
                 evaluator shall review the TSS to determine that it describes how the functionality
-                described by FCS_CKM.1 is invoked. The evaluator uses the description of the key
-                generation functionality in FCS_CKM.1 or documentation available for the operational
+                described by FCS_CKM.1/AKG is invoked. The evaluator uses the description of the key
+                generation functionality in FCS_CKM.1/AKG or documentation available for the operational
                 environment to determine that the key strength being requested is greater than or
                 equal to 112 bits.<h:br/><h:br/> (conditional) If the KEK is formed from a
                 combination, the evaluator shall verify that the TSS describes the method of
@@ -4635,11 +4383,233 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	  <audit-event/>
         </f-component>
         
-        <ext-comp-def title="Cryptographic Key Management" fam-id="FCS_CKM_EXT">
-          <fam-behavior>This family defines requirements for management of cryptographic keys using mechanisms beyond what are specified in CC Part 2.
-          </fam-behavior>
-        </ext-comp-def>
-        <f-component id="sfr-fcs-ckm-ext-7" cc-id="fcs_ckm_ext.7" name="Cryptographic Key Agreement" status="feat-based">
+        <f-component cc-id="fcs_ckm_ext.7" iteration="LOCKED" name="Cryptographic Key Establishment (When Locked)">
+          <comp-lev> requires the TSF to perform key establishment regardless of whether the device is locked or
+            unlocked.</comp-lev>
+          <management>There are no management activities foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_CKM.1 Cryptographic Key Generation</dependencies>
+          
+          <f-element id="fel-key-locked">
+            <title>
+              The TSF shall derive shared cryptographic keys with input from multiple parties in accordance 
+              with specified cryptographic key agreement algorithms <h:b>for the purposes of
+                encrypting sensitive data received while the device is locked</h:b>
+              <selectables>
+                <tabularize id="fcs-ckm-ext-7-sels" 
+                  title="Allowable choices for FCS_CKM_EXT.7">
+                  <textcol>Identifier</textcol>
+                  <selectcol>Cryptographic Algorithm</selectcol>
+                  <reqtext>and specified cryptographic parameters</reqtext>
+                  <selectcol>Cryptographic Parameters</selectcol>
+                  <reqtext>that meet the following:</reqtext>
+                  <selectcol>List of Standards</selectcol>
+                  <reqtext><h:p/><h:p/>The following table provides the allowable choices for
+                    completion of the selection operations of FCS_CKM_EXT.7/LOCKED.</reqtext>
+                </tabularize>
+                
+                <selectable id="sel-fcs-ckm-kat-kas2">
+                  <col>KAS2</col>
+                  <col>RSA</col>
+                  <col>Modulus size <selectables>
+                    <selectable>3072</selectable>
+                    <selectable>4096</selectable>
+                    <selectable>6144</selectable>
+                    <selectable>8192</selectable>
+                  </selectables> bits</col>
+                  <col>NIST SP 800-56B Revision 2 (Section 8.3) [KAS2]</col>
+                </selectable>
+                
+                <selectable id="sel-fcs-ckm-kat-dh">
+                  <col>DH</col>
+                  <col>Finite Field Cryptography Diffie-Hellman</col>
+                  <col>Static domain parameters approved for <selectables>
+                    <selectable>IKE Groups <selectables>
+                      <selectable id="sel-kat-ffc-modp3072">MODP-3072</selectable>
+                      <selectable id="sel-kat-ffc-modp4096">MODP-4096</selectable>
+                      <selectable id="sel-kat-ffc-modp6144">MODP-6144</selectable>
+                      <selectable id="sel-kat-ffc-modp8192">MODP-8192</selectable>
+                    </selectables></selectable>
+                    <selectable>TLS Groups <selectables>
+                      <selectable id="sel-kat-ffc-ffdhe3072">ffdhe3072</selectable>
+                      <selectable id="sel-kat-ffc-ffdhe4096">ffdhe4096</selectable>
+                      <selectable id="sel-kat-ffc-ffdhe6144">ffdhe6144</selectable>
+                      <selectable id="sel-kat-ffc-ffdhe8192">ffdhe8192</selectable>
+                    </selectables></selectable></selectables>
+                  </col>
+                  <col>
+                    NIST SP 800-56A Revision 3 (Section 5.7.1.1) [DH]<h:p/>
+                    <selectables>
+                      <selectable>RFC 3526 [IKE groups]</selectable>
+                      <selectable>RFC 7919 [TLS groups]</selectable></selectables>
+                  </col>
+                </selectable>
+                
+                <selectable id="sel-fcs-ckm-kat-ecdh">
+                  <col>ECDH</col>
+                  <col>Elliptic Curve Diffie-Hellman</col>
+                  <col>Elliptic Curve <selectables>
+                    <selectable id="sel-exp-kat-ecdh-P384">P-384</selectable>
+                    <selectable id="sel-exp-kat-ecdh-P521">P-521</selectable></selectables>
+                  </col>
+                  <col>
+                    NIST SP 800-56A Revision 3 (Section 5.7.1.2) [ECDH]<h:p/>
+                    NIST SP 800-186 (Section 3.2.1) [NIST Curves]
+                  </col>
+                </selectable>
+              </selectables>
+            </title>
+            <note role="application"> This SFR is claimed if the TSF supports key agreement schemes as a method of key establishment for trusted channels. This will generally apply to all conformant TOEs, except in the rare (but possible) case where only key encapsulation is used.<h:p/>
+              All of the above algorithms with the selectable parameters are CNSA 1.0 compliant.<h:p/>
+              This SFR must be included in the ST if key agreement or transport is a service provided by the TOE to 
+              tenant software, or if they are used by the TOE itself to support or implement PP-specified security 
+              functionality. </note>
+            <aactivity>
+              <TSS>The evaluator shall ensure that the TSS documents that the security strength of the
+                material contributed by the TOE is sufficient for the security strength of the key and the
+                agreement method.</TSS>
+              <Guidance>There are no additional guidance evaluation activities for this component.<h:br/><h:br/></Guidance>
+              <Tests> The following tests are conditional based upon the selections made in the SFR.
+                The evaluator shall perform the following test or witness respective tests
+                executed by the developer. The tests must be executed on a platform that is as 
+                close as practically possible to the operational platform (but which may be 
+                instrumented in terms of, for example, use of a debug mode). Where the test is 
+                not carried out on the TOE itself, the test platform shall be identified and the 
+                differences between test environment and TOE execution environment shall be 
+                described.<h:p/>
+                
+                <!-- KAS2 -->
+                <h:br/><h:b>KAS2</h:b><h:p/>
+                <h:table border="1">
+                  <h:tr class="header" bgcolor="#cccccc">
+                    <h:td valign="top">Identifier</h:td>
+                    <h:td valign="top">Cryptographic Algorithm</h:td>
+                    <h:td valign="top">Cryptographic Parameters</h:td>
+                    <h:td valign="top">List of Standards</h:td>
+                  </h:tr>
+                  <h:tr>
+                    <h:td valign="top">KAS2</h:td>
+                    <h:td valign="top">RSA</h:td>
+                    <h:td valign="top">Modulus Size [<h:b>selection:</h:b> 3072, 4096,
+                      6144, 8192] bits</h:td>
+                    <h:td valign="top">NIST SP 800-56B Revision 2 (Section 8.3) [KAS2]</h:td>
+                  </h:tr>
+                </h:table><h:p/>						
+                To test the TOE’s implementation of the of the KAS2 RSA Key Agreement scheme, the evaluator
+                shall perform the Algorithm Functional Test and Validation Test using the 
+                following input parameters:<h:ul>
+                  <h:li>RSA Private key format [Basic, Prime Factor, Chinese Remainder Theorem]</h:li>
+                  <h:li>Modulo value [3072, 4096, 6144, 8192]</h:li>
+                  <h:li>Role [initiator, responder]</h:li></h:ul><h:p/>
+                The evaluator shall generate a test group (i.e. set of tests) for each parameter
+                value of the above parameter type with the largest number of supported values.
+                For example, if the TOE supports all five Modulo values, then the evaluator 
+                shall generate five test groups. Each of the above supported parameter values
+                must be included in at least one test group.<h:p/>
+                Regardless of how many parameter values are supported, there must be at least two 
+                test groups.<h:p/>
+                Half of the test groups are designated as Algorithm Functional Tests (AFT) and the 
+                remainder are designated as Validation Tests (VAT). If there is an odd number of 
+                groups, then the extra group is designated randomly as either AFT or VAT.<h:p/>
+                <h:br/><h:i><h:b>Algorithm Functional Test</h:b></h:i><h:br/>
+                For each test group designated as AFT, the evaluator shall generate 10 test 
+                cases using random data (except for a fixed public exponent, if supported). 
+                The resulting shared secrets shall be compared with those generated by a 
+                known-good implementation using the same inputs.<h:p/>
+                <h:br/><h:i><h:b>Validation Test</h:b></h:i><h:br/>
+                For each test group designated as VAT, the evaluator shall generate 25 test cases are
+                using random data (except for a fixed public exponent, if supported). Of the 25
+                test cases:<h:ul>
+                  <h:li>Two test cases must have a shared secret with a leading nibble of 0s,</h:li>
+                  <h:li>Two test cases have modified derived key material,</h:li>
+                  <h:li>Two test cases have modified tags, if key confirmation is supported,</h:li>
+                  <h:li>Two test cases have modified MACs, if key confirmation is supported, and</h:li>
+                  <h:li>The remaining test cases are not modified.</h:li></h:ul><h:p/>
+                To determine correctness, the evaluator shall confirm that the resulting 25 shared 
+                secrets correspond as expected for both the modified and unmodified values.<h:p/>
+                
+                <!-- FFC Diffie-Hellman Key Agreement -->
+                <h:br/><h:b>FFC Diffie-Hellman Key Agreement</h:b><h:p/>
+                <h:table border="1">
+                  <h:tr class="header" bgcolor="#cccccc">
+                    <h:td valign="top">Identifier</h:td>
+                    <h:td valign="top">Cryptographic Algorithm</h:td>
+                    <h:td valign="top">Cryptographic Parameters</h:td>
+                    <h:td valign="top">List of Standards</h:td>
+                  </h:tr>
+                  <h:tr>
+                    <h:td valign="top">DH</h:td>
+                    <h:td valign="top">Finite Field Cryptography Diffie-Hellman</h:td>
+                    <h:td valign="top">Static domain parameters approved for [<h:b>selection:</h:b>
+                      IKE groups [<h:b>selection:</h:b> MODP-3072, MODP-4096,
+                      MODP-6144, MODP-8192], TLS groups [<h:b>selection:</h:b> 
+                      ffdhe3072, ffdhe4096, ffdhe6144, ffdhe8192]]]</h:td>
+                    <h:td valign="top">NIST SP 800-56A Revision 3 (Section 5.7.1.1) [DH]<h:p/>
+                      [<h:b>selection:</h:b> RFC 3526 [IKE Groups], RFC 7919 [TLS Groups]]</h:td>
+                  </h:tr>
+                </h:table><h:p/>						
+                To test the TOE’s implementation of FFC Diffie-Hellman Key Agreement, the evaluator shall
+                perform the Algorithm Functional Test and Validation Test using the following 
+                input parameters:<h:ul>
+                  <h:li>Domain Parameter Group [MODP-3072, MODP-4096, MODP-6144, MODP-8192, 
+                    ffdhe3072, ffdhe4096, ffdhe6144, ffdhe8192]</h:li></h:ul><h:p/>
+                <h:br/><h:i><h:b>Algorithm Functional Test</h:b></h:i><h:br/>
+                For each supported domain parameter group, the evaluator shall generate 10 test
+                cases by generating the initiator and responder secret keys using random data,
+                calculating the responder public key, and creating the shared secret. The 
+                resulting shared secrets shall be compared with those generated by a known-good 
+                implementation using the same inputs.<h:p/>
+                <h:br/><h:i><h:b>Validation Test</h:b></h:i><h:br/>
+                For each supported combination of the above parameters the evaluator shall
+                generate 15 Diffie Hellman initiator/responder key pairs using the key generation
+                function of a known-good implementation. For each set of key pairs, the 
+                evaluator shall modify five initiator private key values. The remaining key
+                values are left unchanged (i.e., correct). To determine correctness, the 
+                evaluator shall confirm that the 15 shared secrets correspond as expected for 
+                both the modified and unmodified inputs.<h:p/>
+                
+                <!-- Elliptic Curve Diffie-Hellman Key Agreement -->
+                <h:br/><h:b>Elliptic Curve Diffie-Hellman Key Agreement</h:b><h:p/>
+                <h:table border="1">
+                  <h:tr class="header" bgcolor="#cccccc">
+                    <h:td valign="top">Identifier</h:td>
+                    <h:td valign="top">Cryptographic Algorithm</h:td>
+                    <h:td valign="top">Cryptographic Parameters</h:td>
+                    <h:td valign="top">List of Standards</h:td>
+                  </h:tr>
+                  <h:tr>
+                    <h:td valign="top">ECDH</h:td>
+                    <h:td valign="top">Elliptic Curve Diffie-Hellman</h:td>
+                    <h:td valign="top">Elliptic Curve [<h:b>selection:</h:b> P-384, P-521</h:td>
+                    <h:td valign="top">NIST SP 800-56A Revision 3 (Section 5.7.1.2) [ECDH]<h:p/>
+                      NIST SP 800-186 (Section 3.2.1) [NIST Curves]</h:td>
+                  </h:tr>
+                </h:table><h:p/>						
+                To test the TOE’s implementation of Elliptic Curve Diffie-Hellman Key Agreement,
+                the evaluator shall perform the Algorithm Functional Test and Validation Test 
+                using the following input parameters:<h:ul>
+                  <h:li>Elliptic Curve [P-384, P-521]</h:li></h:ul><h:p/>
+                <h:br/><h:i><h:b>Algorithm Functional Test</h:b></h:i><h:br/>
+                For each supported Elliptic Curve the evaluator shall generate 10 test cases by
+                generating the initiator and responder secret keys using random data, calculating 
+                the responder public key, and creating the shared secret. The resulting shared 
+                secrets shall be compared with those generated by a known-good implementation using
+                the same inputs.<h:p/>
+                <h:br/><h:i><h:b>Validation Test</h:b></h:i><h:br/>
+                For each supported Elliptic Curve the evaluator shall generate 15 Diffie Hellman
+                initiator/responder key pairs using the key generation function of a known-good 
+                implementation. For each set of key pairs, the evaluator shall modify five 
+                initiator private key values. The remaining key values are left unchanged (i.e.,
+                correct). To determine correctness, the evaluator shall confirm that the 15 
+                shared secrets correspond as expected for the modified and unmodified values.
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event/>	  
+        </f-component>
+        
+        <f-component cc-id="fcs_ckm_ext.7" iteration="UNLOCKED" name="Cryptographic Key
+          Establishment (When Unlocked)" status="feat-based">
           <depends on="key-agreement-support"/>
           
           <consistency-rationale/>
@@ -4663,7 +4633,6 @@ The scope of this Protection Profile (PP) is to describe the security functional
             <h:br/>FCS_CKM.6 Timing and event of cryptographic key destruction
             <h:br/>FCS_COP.1 Cryptographic operation 
           </dependencies>
-          
           
           <f-element id="fcs-ckm-ext-7e1">
             <title>
@@ -4887,6 +4856,97 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <audit-event/>
         </f-component>
         
+        <f-component id="sfr-fcs-ckm-ext-8" cc-id="fcs_ckm_ext.8" name="Password-Based Key Derivation">          
+          <consistency-rationale/>
+          <comp-lev>requires that password-based key derivation be performed in accordance with specified standards.</comp-lev>
+          <management/>
+          <audit>
+            The following actions should be auditable if FAU_GEN Security audit data generation is
+            included in the PP, PP-Module, functional package or ST:<h:br/><h:ul>
+              <h:li>minimal: Success and failure of the activity;</h:li>
+              <h:li>basic: The object attribute(s), and object value(s) excluding any sensitive information.</h:li>
+            </h:ul>
+          </audit>
+          <dependencies><h:br/>
+            <h:br/>[FCS_CKM.2 Cryptographic Key Distribution, or
+            <h:br/>FCS_COP.1 Cryptographic Operation]
+            <h:br/>FCS_CKM_EXT.7 Cryptographic Key Agreement],
+            <h:br/>FCS_CKM.6 Timing and Event of Cryptographic Key Destruction
+          </dependencies>
+          
+          <f-element id="fcs-ckm-ext-8-1">
+            <title>
+              The TSF shall perform password-based key derivation functions in accordance with a specified 
+              cryptographic algorithm [HMAC-<selectables>
+                <selectable>SHA-384</selectable>
+                <selectable>SHA-512</selectable>
+              </selectables>, with iteration count of 
+              <assignable>number of iterations</assignable>
+              using a randomly generated salt of length
+              <assignable>equal to or greater than 128</assignable>
+              and output cryptographic key sizes <selectables>
+                <selectable>256</selectable>
+                <selectable>384</selectable>
+                <selectable>512</selectable></selectables>
+              bits that meet the following standard: [NIST SP 800-132 (Section 5.3) [PBKDF2]].
+            </title>
+            <note role="application">
+              NIST recommends a minimum “number of iterations” of 1000 but prefers the largest number feasible
+              given performance constraints.<h:p/>
+              NIST recommends that the randomly generated portion of the salt have length of at least 128 bits 
+              and must be derived from Random Bit Generation.<h:p/>
+              If this SFR is claimed, then FCS_COP.1/KeyedHash and FCS_RBG.1 must also be claimed.<h:p/>
+              For CNSA 1.0 and 2.0 compliance, only SHA-384 or SHA-512 may be used.
+            </note>
+            <aactivity>
+              <TSS>
+                The evaluator must verify that the TSS documents that the selection of the keyed hash
+                algorithm, iteration count, length of salt, and other mitigations are sufficient for the
+                security strength of the key derived.<h:p/>
+                The evaluator shall examine the TSS to verify that the salt is generated in accordance with the
+                relevant specification.<h:p/>
+                The evaluator shall examine the TSS to determine whether the TOE implements other 
+                mitigations against password-exhaustion attacks. Examples include the use of 
+                interface-based mitigations and secret salts.
+              </TSS>
+              <Guidance/>
+              <Tests>
+                The following tests are conditional based upon the selections made in the SFR.
+                The evaluator shall perform the following test or witness respective tests
+                executed by the developer. The tests must be executed on a platform that is as 
+                close as practically possible to the operational platform (but which may be 
+                instrumented in terms of, for example, use of a debug mode). Where the test is 
+                not carried out on the TOE itself, the test platform shall be identified and the 
+                differences between test environment and TOE execution environment shall be 
+                described.<h:p/>
+                
+                To test the TOE’s ability to derive cryptographic keys from a password using PBKDF2 the
+                evaluator shall perform the Algorithm Functional Test using the following input 
+                parameters:<h:ul>
+                  <h:li>HMAC algorithms [SHA-384, SHA-512]</h:li>
+                  <h:li>Iteration count [1-10000000]</h:li>
+                  <h:li>Derived Key size [256, 384, 512] bits</h:li>
+                  <h:li>Password length [8-128] bytes</h:li>
+                  <h:li>Salt length [128-4096] bits in multiples of 8.</h:li></h:ul><h:p/>
+                
+                <h:br/><h:b>Algorithm Functional Test</h:b><h:p/>
+                For each supported HMAC algorithm, the evaluator shall generate 50 test cases using 
+                supported values for the above parameters such that<h:ul>
+                  <h:li>All supported derived key sizes are tested at least 10 times, </h:li>
+                  <h:li>Iteration counts are random values between the supported minimum and maximum
+                    values, with the supported minimum and maximum tested at least once each, </h:li>
+                  <h:li>Passwords are random byte strings representing upper- and lower-case letters of random
+                    supported lengths such that the minimum and maximum lengths are tested at least once, and </h:li>
+                  <h:li>Salts are random values between the supported minimum and maximum lengths such that
+                    the supported minimum and maximum lengths are both tested at least once. </h:li></h:ul><h:p/>
+                The evaluator shall compare the resulting keys from each test case with keys derived using a
+                known-good implementation with the same input parameters.
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event/>
+        </f-component>
+        
         <f-component id="sfr-fcs-cop-1-aead" cc-id="fcs_cop.1" iteration="AEAD" name="Cryptographic Operation – Authenticated Encryption with Associated Data">          
           <f-element id="fcs-cop-1e1-aead">
             <title>
@@ -5076,317 +5136,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           </f-element>
           <audit-event/>
         </f-component>
-        
-        <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="CONDITION">
-          <f-element id="fel-cond-how">
-            <title>The TSF shall perform [<h:li>conditioning</h:li>] in accordance with the
-              specified cryptographic algorithm <refinement>HMAC-SHA-384 using a salt, and <selectables>
-                  <selectable>PBKDF2 with <assignable>number of iterations</assignable>
-                    iterations</selectable>
-                  <selectable><assignable>key stretching function</assignable></selectable>
-                  <selectable  exclusive="yes">no other function</selectable></selectables> and
-                output</refinement> cryptographic key sizes<refinement> 256 bits
-                    </refinement> that meet the following: <refinement><selectables>
-                        <selectable>NIST SP 800-132</selectable>
-                        <selectable  exclusive="yes">no standard</selectable></selectables>.</refinement>
-            </title>
-            <note role="application">The key cryptographic key sizes in the third selection should
-              be made to correspond to the KEK key sizes selected in FCS_CKM_EXT.3.
-              <h:br/><h:br/> This password must be conditioned into a string of bits that forms
-              the submask to be used as input into the KEK. Conditioning can be performed using one
-              of the identified hash functions and may include a key stretching function; the method
-              used is selected by the ST author. If selected, NIST SP 800-132 requires the use of a
-              pseudorandom function (PRF) consisting of HMAC with an approved hash function. The ST
-              author selects the hash function used, also includes the appropriate requirements for
-              HMAC and the hash function. <h:br/><h:br/> Appendix A of NIST SP 800-132
-              recommends setting the iteration count in order to increase the computation needed to
-              derive a key from a password and, therefore, increase the workload of performing a
-              dictionary attack. </note>
-            <aactivity>
-              <TSS>The evaluator shall check that the TSS describes the method by which the password
-                is first encoded and then fed to the SHA algorithm and verify the SHA algorithm
-                matches the first selection.<h:br/><h:br/> If a key stretching function, such as
-                PBKDF2, is selected the settings for the algorithm (padding, blocking, etc.) shall
-                be described. The evaluator shall verify that the TSS contains a description of how
-                the output of the hash function or key stretching function is used to form the
-                submask that will be input into the function and is the same length as the KEK as
-                specified in FCS_CKM_EXT.3. <h:br/><h:br/> If any manipulation of the key is
-                performed in forming the submask that will be used to form the KEK, that process
-                shall be described in the TSS.<h:br/><h:br/></TSS>
-              <Guidance>There are no guidance evaluation activities for this component.<h:br/><h:br/></Guidance>
-              <Tests>There are no test evaluation activities for this component. No explicit testing of the
-                formation of the submask from the input password is required.</Tests>
-            </aactivity>
-          </f-element>
-          <audit-event/>
-        </f-component>
-        
-        <f-component cc-id="fcs_cop.1" name="Cryptographic Operation" iteration="ENCRYPT">
-          <f-element id="fel-crypt-how">
-            <title>The TSF shall perform [<h:i>encryption/decryption</h:i>] in accordance with a specified
-              cryptographic algorithm: [<h:i> <h:br/>
-                <h:ul>
-                  <h:li>AES-CBC (as defined in FIPS PUB 197, and NIST SP 800-38A) mode</h:li> 
-                  <h:li>AES-CCMP-256 (as defined in NIST SP 800-38C and IEEE 802.11-2013ac), and</h:li> 
-                  <h:li><selectables linebreak="yes"> 
-                    <selectable>AES Key Wrap (KW) (as defined in NIST SP 800-38F)</selectable> 
-                    <selectable>AES Key Wrap with Padding (KWP) (as defined in NIST SP 800-38F)</selectable> 
-                    <selectable>AES-GCM (as defined in NIST SP 800-38D)</selectable> 
-                    <selectable>AES-CCM (as defined in NIST SP 800-38C)</selectable> 
-                    <selectable>AES-XTS (as defined in NIST SP 800-38E) mode</selectable> 
-                    <selectable>AES-GCMP-256 (as defined in NIST SP800-38D and IEEE 802.11ac-2013)</selectable> 
-                    <selectable exclusive="yes">no other modes</selectable></selectables></h:li>
-                </h:ul> </h:i>] and cryptographic key sizes [<h:i>256 bits</h:i>]. </title>
-            <note role="application">
-              For the first selection, the ST author should choose the mode or modes in which AES operates. AES-CCMP-256 is required for wireless LAN purposes.
-            </note>
-            <aactivity>
-            <TSS>There are no TSS evaluation activities for this component.<h:br/><h:br/></TSS>  
-            <Guidance>There are no guidance evaluation activities for this component.<h:br/><h:br/></Guidance>
-              
-              <Tests>
-                <h:b>Evaluation Activity Note:</h:b> The following tests require the developer to
-                provide access to a test platform that provides the evaluator with tools that are
-                typically not found on factory products. <h:br/><h:br/>
-                <testlist><h:b><h:u>AES-CBC Tests</h:u></h:b>
-                  <test>AES-CBC Known Answer Tests <h:br/><h:br/> There are four Known Answer
-                    Tests (KATs), described below. In all KATs, the plaintext, ciphertext, and IV
-                    values shall be 128-bit blocks. The results from each test may either be
-                    obtained by the evaluator directly or by supplying the inputs to the implementer
-                    and receiving the results in response. To determine correctness, the evaluator
-                    shall compare the resulting values to those obtained by submitting the same
-                    inputs to a known good implementation. <testlist>
-                      <h:br/>
-                      <test>KAT-1. To test the encrypt functionality of AES-CBC, the evaluator shall
-                        supply a set of 10 plaintext values and obtain the ciphertext value that
-                        results from AES-CBC encryption of the given plaintext using a key value of
-                        all zeros and an IV of all zeros. Five plaintext values shall be encrypted
-                        with a 128-bit all-zeros key, and the other five shall be encrypted with a
-                        256-bit all-zeros key. <h:br/><h:br/> To test the decrypt functionality
-                        of AES-CBC, the evaluator shall perform the same test as for encrypt, using
-                        10 ciphertext values as input and AES-CBC decryption. </test>
-                      <h:br/>
-                      <test>KAT-2. To test the encrypt functionality of AES-CBC, the evaluator shall
-                        supply a set of 10 key values and obtain the ciphertext value that results
-                        from AES-CBC encryption of an all-zeros plaintext using the given key value
-                        and an IV of all zeros. Five of the keys shall be 128-bit keys, and the
-                        other five shall be 256-bit keys. <h:br/><h:br/> To test the decrypt
-                        functionality of AES-CBC, the evaluator shall perform the same test as for
-                        encrypt, using an all-zero ciphertext value as input and AES-CBC decryption. </test>
-                      <h:br/>
-                      <test>KAT-3. To test the encrypt functionality of AES-CBC, the evaluator shall
-                        supply the two sets of key values described below and obtain the ciphertext
-                        value that results from AES encryption of an all-zeros plaintext using the
-                        given key value and an IV of all zeros. The first set of keys shall have 128
-                        128-bit keys, and the second set shall have 256 256-bit keys. Key i in each
-                        set shall have the leftmost i bits be ones and the rightmost N-i bits be
-                        zeros, for i in [1,N]. <h:br/><h:br/> To test the decrypt functionality
-                        of AES-CBC, the evaluator shall supply the two sets of key and ciphertext
-                        value pairs described below and obtain the plaintext value that results from
-                        AES-CBC decryption of the given ciphertext using the given key and an IV of
-                        all zeros. The first set of key or ciphertext pairs shall have 128 128-bit
-                        key or ciphertext pairs, and the second set of key or ciphertext pairs shall have
-                        256 256-bit key or ciphertext pairs. Key i in each set shall have the leftmost
-                        i bits be ones and the rightmost N-i bits be zeros, for i in [1,N]. The
-                        ciphertext value in each pair shall be the value that results in an
-                        all-zeros plaintext when decrypted with its corresponding key. </test>
-                      <h:br/>
-                      <test>KAT-4. To test the encrypt functionality of AES-CBC, the evaluator shall
-                        supply the set of 128 plaintext values described below and obtain the two
-                        ciphertext values that result from AES-CBC encryption of the given plaintext
-                        using a 128-bit key value of all zeros with an IV of all zeros and using a
-                        256-bit key value of all zeros with an IV of all zeros, respectively.
-                        Plaintext value i in each set shall have the leftmost i bits be ones and the
-                        rightmost 128-i bits be zeros, for i in [1,128]. <h:br/><h:br/> To test
-                        the decrypt functionality of AES-CBC, the evaluator shall perform the same
-                        test as for encrypt, using ciphertext values of the same form as the
-                        plaintext in the encrypt test as input and AES-CBC decryption. </test>
-                    </testlist>
-                  </test>
-                  <h:br/>
-                  <test>AES-CBC Multi-Block Message Test<h:br/><h:br/> The evaluator shall test
-                    the encrypt functionality by encrypting an i-block message where 1 &lt; i &lt;=
-                    10. The evaluator shall choose a key, an IV and plaintext message of length i
-                    blocks and encrypt the message, using the mode to be tested, with the chosen key
-                    and IV. The ciphertext shall be compared to the result of encrypting the same
-                    plaintext message with the same key and IV using a known good implementation.
-                    <h:br/><h:br/> The evaluator shall also test the decrypt functionality for
-                    each mode by decrypting an i-block message where 1 &lt; i &lt;= 10. The
-                    evaluator shall choose a key, an IV and a ciphertext message of length i blocks
-                    and decrypt the message, using the mode to be tested, with the chosen key and
-                    IV. The plaintext shall be compared to the result of decrypting the same
-                    ciphertext message with the same key and IV using a known good implementation. </test>
-                  <h:br/>
-                  <test>AES-CBC Monte Carlo Tests<h:br/><h:br/> The evaluator shall test the
-                    encrypt functionality using a set of 200 plaintext, IV, and key 3-tuples. 100 of
-                    these shall use 128 bit keys, and 100 shall use 256 bit keys. The plaintext and
-                    IV values shall be 128-bit blocks. For each 3-tuple, 1000 iterations shall be
-                    run as follows: <h:br/><h:br/>
-                    <h:pre> # Input: PT, IV, Key for i = 1 to 1000: if i == 1: CT[1] =
-                      AES-CBC-Encrypt(Key, IV, PT) PT = IV else: CT[i] = AES-CBC-Encrypt(Key, PT) PT
-                      = CT[i-1] </h:pre>
-                    <h:br/> The ciphertext computed in the 1000<h:sup>th</h:sup> iteration
-                    (i.e. CT[1000]) is the result for that trial. This result shall be compared to
-                    the result of running 1000 iterations with the same values using a known good
-                    implementation. <h:br/><h:br/> The evaluator shall test the decrypt
-                    functionality using the same test as for encrypt, exchanging CT and PT and
-                    replacing AES-CBC-Encrypt with AES-CBC-Decrypt. </test>
-                </testlist>
-                <h:br/>
-                <testlist><h:b><h:u>AES-CCM Tests</h:u></h:b>
-                  <test> The evaluator shall test the generation-encryption and
-                    decryption-verification functionality of AES-CCM for the following input
-                    parameter and tag lengths: <h:br/><h:br/>
-                    <h:ul style="list-style-type:none">
-                      <h:li><h:b>128 bit and 256 bit keys</h:b></h:li>
-                      <h:br/>
-                      <h:li><h:b>Two payload lengths.</h:b> One payload length shall be the
-                        shortest supported payload length, greater than or equal to zero bytes. The
-                        other payload length shall be the longest supported payload length, less
-                        than or equal to 32 bytes (256 bits). </h:li>
-                      <h:br/>
-                      <h:li><h:b>Two or three associated data lengths.</h:b> One associated
-                        data length shall be 0, if supported. One associated data length shall be
-                        the shortest supported payload length, greater than or equal to zero bytes.
-                        One associated data length shall be the longest supported payload length,
-                        less than or equal to 32 bytes (256 bits). If the implementation supports an
-                        associated data length of 2<h:sup>16</h:sup> bytes, an associated data
-                        length of 2<h:sup>16</h:sup> bytes shall be tested. </h:li>
-                      <h:br/>
-                      <h:li><h:b>Nonce lengths.</h:b> All supported nonce lengths between 7
-                        and 13 bytes, inclusive, shall be tested. </h:li>
-                      <h:br/>
-                      <h:li><h:b>Tag lengths.</h:b> All supported tag lengths of 4, 6, 8, 10,
-                        12, 14 and 16 bytes shall be tested.</h:li>
-                    </h:ul> To test the generation-encryption functionality of AES-CCM, the
-                    evaluator shall perform the following four tests: <h:br/>
-                    <testlist>
-                      <test>For EACH supported key and associated data length and ANY supported
-                        payload, nonce and tag length, the evaluator shall supply one key value, one
-                        nonce value and 10 pairs of associated data and payload values and obtain
-                        the resulting ciphertext.</test>
-                      <h:br/>
-                      <test>For EACH supported key and payload length and ANY supported associated
-                        data, nonce and tag length, the evaluator shall supply one key value, one
-                        nonce value and 10 pairs of associated data and payload values and obtain
-                        the resulting ciphertext.</test>
-                      <h:br/>
-                      <test>For EACH supported key and nonce length and ANY supported associated
-                        data, payload and tag length, the evaluator shall supply one key value and
-                        10 associated data, payload and nonce value 3-tuples and obtain the
-                        resulting ciphertext.</test>
-                      <h:br/>
-                      <test>For EACH supported key and tag length and ANY supported associated data,
-                        payload and nonce length, the evaluator shall supply one key value, one
-                        nonce value and 10 pairs of associated data and payload values and obtain
-                        the resulting ciphertext.</test>
-                    </testlist> To determine correctness in each of the above tests, the evaluator
-                    shall compare the ciphertext with the result of generation-encryption of the
-                    same inputs with a known good implementation. <h:br/><h:br/> To test the
-                    decryption-verification functionality of AES-CCM, for EACH combination of
-                    supported associated data length, payload length, nonce length and tag length,
-                    the evaluator shall supply a key value and 15 nonce, associated data and
-                    ciphertext 3-tuples and obtain either a FAIL result or a PASS result with the
-                    decrypted payload. The evaluator shall supply 10 tuples that should FAIL and 5
-                    that should PASS per set of 15. </test>
-                </testlist>
-                <h:br/>
-                <testlist><h:b><h:u>AES-GCM Test</h:u></h:b><h:br/> The evaluator shall
-                  test the authenticated encrypt functionality of AES-GCM for each combination of
-                  the following input parameter lengths: <h:br/><h:br/>
-                  <h:ul style="list-style-type:none">
-                    <h:li><h:b>128 bit and 256 bit keys</h:b></h:li>
-                    <h:br/>
-                    <h:li><h:b>Two plaintext lengths.</h:b> One of the plaintext lengths shall
-                      be a non-zero integer multiple of 128 bits, if supported. The other plaintext
-                      length shall not be an integer multiple of 128 bits, if supported. </h:li>
-                    <h:br/>
-                    <h:li><h:b>Three AAD lengths.</h:b> One AAD length shall be 0, if
-                      supported. One AAD length shall be a non-zero integer multiple of 128 bits, if
-                      supported. One AAD length shall not be an integer multiple of 128 bits, if
-                      supported. </h:li>
-                    <h:br/>
-                    <h:li><h:b>Two IV lengths.</h:b> If 96 bit IV is supported, 96 bits shall
-                      be one of the two IV lengths tested. </h:li>
-                  </h:ul>
-                  <test>The evaluator shall test the encrypt functionality using a set of 10 key,
-                    plaintext, AAD, and IV tuples for each combination of parameter lengths above
-                    and obtain the ciphertext value and tag that results from AES-GCM authenticated
-                    encrypt. Each supported tag length shall be tested at least once per set of 10.
-                    The IV value may be supplied by the evaluator or the implementation being
-                    tested, as long as it is known. </test>
-                  <h:br/>
-                  <test>The evaluator shall test the decrypt functionality using a set of 10 key,
-                    ciphertext, tag, AAD, and IV 5-tuples for each combination of parameter lengths
-                    above and obtain a Pass/Fail result on authentication and the decrypted
-                    plaintext if Pass. The set shall include five tuples that Pass and five that
-                    Fail. </test>
-                  <h:br/> The results from each test may either be obtained by the evaluator
-                  directly or by supplying the inputs to the implementer and receiving the results
-                  in response. To determine correctness, the evaluator shall compare the resulting
-                  values to those obtained by submitting the same inputs to a known good
-                  implementation. </testlist><h:br/>
-                <testlist><h:b><h:u>XTS-AES Test</h:u></h:b><h:br/>
-                  <test>The evaluator shall test the encrypt functionality of XTS-AES for each
-                    combination of the following input parameter lengths: <h:br/><h:br/>
-                    <h:ul style="list-style-type:none">
-                      <h:li><h:b>256 bit (for AES-128) and 512 bit (for AES-256)
-                        keys</h:b></h:li><h:br/>
-                      <h:li><h:b>Three data unit (i.e. plaintext) lengths.</h:b> One of the
-                        data unit lengths shall be a non-zero integer multiple of 128 bits, if
-                        supported. One of the data unit lengths shall be an integer multiple of 128
-                        bits, if supported. The third data unit length shall be either the longest
-                        supported data unit length or 216 bits, whichever is smaller.
-                      </h:li><h:br/>
-                    </h:ul> using a set of 100 (key, plaintext and 128-bit random tweak value)
-                    3-tuples and obtain the ciphertext that results from XTS-AES encrypt.
-                    <h:br/><h:br/> The evaluator may supply a data unit sequence number instead
-                    of the tweak value if the implementation supports it. The data unit sequence
-                    number is a base-10 number ranging between 0 and 255 that implementations
-                    convert to a tweak value internally. </test><h:br/>
-                  <test>The evaluator shall test the decrypt functionality of XTS-AES using the same
-                    test as for encrypt, replacing plaintext values with ciphertext values and
-                    XTS-AES encrypt with XTS-AES decrypt. </test>
-                </testlist><h:br/>
-                <testlist><h:b><h:u>AES Key Wrap (AES-KW) and Key Wrap with Padding (AES-KWP)
-                      Test</h:u></h:b>
-                  <test>The evaluator shall test the authenticated encryption functionality of
-                    AES-KW for EACH combination of the following input parameter lengths: <h:br/><h:br/>
-                    <h:ul style="list-style-type:none">
-                      <h:li><h:b>128 and 256 bit key encryption keys (KEKs)</h:b></h:li><h:br/>
-                      <h:li><h:b>Three plaintext lengths.</h:b> One of the plaintext lengths
-                        shall be two semi-blocks (128 bits). One of the plaintext lengths shall be
-                        three semi-blocks (192 bits). The third data unit length shall be the
-                        longest supported plaintext length less than or equal to 64 semi-blocks
-                        (4096 bits).</h:li>
-                    </h:ul> using a set of 100 key and plaintext pairs and obtain the ciphertext
-                    that results from AES-KW authenticated encryption. To determine correctness, the
-                    evaluator shall use the AES-KW authenticated-encryption function of a known good
-                    implementation. </test><h:br/>
-                  <test>The evaluator shall test the authenticated-decryption functionality of
-                    AES-KW using the same test as for authenticated-encryption, replacing plaintext
-                    values with ciphertext values and AES-KW authenticated-encryption with AES-KW
-                    authenticated-decryption. </test><h:br/>
-                  <test>The evaluator shall test the authenticated-encryption functionality of
-                    AES-KWP using the same test as for AES-KW authenticated-encryption with the
-                    following change in the three plaintext lengths: <h:ul>
-                      <h:li>One plaintext length shall be one octet. One plaintext length shall be
-                        20 octets (160 bits).</h:li><h:br/>
-                      <h:li>One plaintext length shall be the longest supported plaintext length
-                        less than or equal to 512 octets (4096 bits).</h:li>
-                    </h:ul>
-                  </test>
-                  <test>The evaluator shall test the authenticated-decryption functionality of
-                    AES-KWP using the same test as for AES-KWP authenticated-encryption, replacing
-                    plaintext values with ciphertext values and AES-KWP authenticated-encryption
-                    with AES-KWP authenticated-decryption. </test>
-                </testlist>
-              </Tests>
-            </aactivity>
-          </f-element>
-	  <audit-event/>
-        </f-component>
-        
+                
         <f-component cc-id="fcs_cop.1" iteration="Hash" name="Cryptographic Operation - Hashing">
           <f-element id="fel-hash-how">
             <title>
@@ -7879,8 +7629,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
                     <selectable>All mandatory and <selectables>
                         <selectable>selected algorithms</selectable>
                         <selectable>selected algorithms with the exception of ECC over curve
-                          25519-based algorithms</selectable></selectables> in FCS_CKM.1</selectable>
-                    <selectable>The selected algorithms in FCS_COP.1<h:b>/CONDITION</h:b></selectable>
+                          25519-based algorithms</selectable></selectables> in FCS_CKM.1/AKG or FCS_CKM.1/SKG</selectable>
+                    <selectable>The selected algorithms in FCS_CKM_EXT.8</selectable>
                     <selectable exclusive="yes">No other cryptographic operations</selectable>
                   </selectables>
                 </h:li>
@@ -15430,7 +15180,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
         <h:tr><h:td>FCS_COP.1.1/ENCRYPT</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_COP.1.1/HASH</h:td><h:td>Select SHA-384.</h:td></h:tr>
         <h:tr><h:td>FCS_COP.1.1/SIGN</h:td><h:td>Assign a key size of 3072 for RSA or select ECDSA schemes.</h:td></h:tr>
-        <h:tr><h:td>FCS_COP.1.1/CONDITION</h:td><h:td>Select 256 bits.</h:td></h:tr>
+        <h:tr><h:td>FCS_CKM_EXT.8</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_RBG_EXT.1.2</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_TLSC_EXT.1.1 (TLS Package)</h:td><h:td>Select TLS_RSA_WITH_AES_256_GCM_SHA384 or TLS_ECDHE_ECDSA_WITH AES_256_GCM_SHA384.</h:td></h:tr>
        <h:tr><h:td>FCS_TLSC_EXT.2.1 (TLS Package)</h:td><h:td>Select secp384r1, if included in ST (if ECC schemes are selected in FCS_CKM.1.1). </h:td></h:tr>
