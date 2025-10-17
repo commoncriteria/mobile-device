@@ -717,7 +717,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
         <h:tr><h:td>FCS_COP.1.1/ENCRYPT</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_COP.1.1/HASH</h:td><h:td>Select SHA-384.</h:td></h:tr>
         <h:tr><h:td>FCS_COP.1.1/SIGN</h:td><h:td>Assign a key size of 3072 for RSA or select ECDSA schemes.</h:td></h:tr>
-        <h:tr><h:td>FCS_COP.1.1/CONDITION</h:td><h:td>Select 256 bits.</h:td></h:tr>
+        <h:tr><h:td>FCS_CKM_EXT.8</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_RBG_EXT.1.2</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_TLSC_EXT.1.1 (TLS Package)</h:td><h:td>Select TLS_RSA_WITH_AES_256_GCM_SHA384 or TLS_ECDHE_ECDSA_WITH AES_256_GCM_SHA384.</h:td></h:tr>
        <h:tr><h:td>FCS_TLSC_EXT.2.1 (TLS Package)</h:td><h:td>Select secp384r1, if included in ST (if ECC schemes are selected in FCS_CKM.1.1). </h:td></h:tr>
@@ -1386,8 +1386,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <addressed-by>FCS_CKM_EXT.6</addressed-by>
           <rationale>FCS_CKM_EXT.6 helps mitigate the threat of physical access by generating salts using RBG.</rationale>
                             
-          <addressed-by>FCS_COP.1/CONDITION</addressed-by>
-          <rationale>FCS_COP.1/CONDITION helps mitigate the threat of physical access by performing password conditioning to increase the difficulty of deriving a key from a password.</rationale>
+          <addressed-by>FCS_CKM_EXT.8</addressed-by>
+          <rationale>FCS_CKM_EXT.8 helps mitigate the threat of physical access by performing password conditioning to increase the difficulty of deriving a key from a password.</rationale>
           <addressed-by>FCS_COP.1/ENCRYPT</addressed-by>
           <rationale>FCS_COP.1/ENCRYPT helps mitigate the threat of physical access by using symmetric encryption to protect data at rest.</rationale>
           <addressed-by>FCS_COP.1/HASH</addressed-by>
@@ -1937,9 +1937,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	  <rationale>
 	    FCS_COP.1/KEYHMAC supports the objective by defining an HMAC function that can be used to protect data at rest.
 	  </rationale>
-	  <addressed-by>FCS_COP.1/CONDITION</addressed-by>
+	  <addressed-by>FCS_CKM_EXT.8</addressed-by>
 	  <rationale>
-	    FCS_COP.1/CONDITION supports the objective by defining a key derivation function that can be used to protect data at rest.
+	    FCS_CKM_EXT.8 supports the objective by defining a key derivation function that can be used to protect data at rest.
 	  </rationale>
 	  <addressed-by>FCS_IV_EXT.1</addressed-by>
 	  <rationale>
@@ -2389,7 +2389,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               <!--   <h:tr><h:td>FCS_COP.1/HASH</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_COP.1/SIGN</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_COP.1/KEYHMAC</h:td><h:td>None.</h:td><h:td/></h:tr> -->
-              <!--   <h:tr><h:td>FCS_COP.1/CONDITION</h:td><h:td>None.</h:td><h:td/></h:tr> -->
+              <!--   <h:tr><h:td>FCS_CKM_EXT.8</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_IV_EXT.1</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_SRV_EXT.1</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td rowspan="2">FCS_STG_EXT.1</h:td><h:td>Import or destruction of key.</h:td><h:td rowspan="2">Identity of key. Role and identity of requester.</h:td></h:tr> <h:tr><h:td><selectables> -->
@@ -4256,7 +4256,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <f-element id="fel-kek-gen">
             <title>The TSF shall generate all KEKs using one of the following methods:
                   <h:ul><h:li>Derive the KEK from a Password Authentication Factor according to
-                  FCS_COP.1.1<h:b>/CONDITION</h:b> and </h:li></h:ul>
+                    FCS_CKM_EXT.8 and </h:li></h:ul>
               <selectables linebreak="yes">
                 <selectable>Generate the KEK using an RBG that meets this profile (as specified in
                   FCS_RBG.1)</selectable>
@@ -4294,7 +4294,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 </selectables>. </title>
             </ext-comp-def-title>
             <note role="application"> The conditioning of passwords is performed in accordance with
-              FCS_COP.1/CONDITION. <h:br/><h:br/> It is expected that key generation derived
+              FCS_CKM_EXT.8. <h:br/><h:br/> It is expected that key generation derived
               from conditioning, using an RBG or generation scheme, and through combination, will
               each be necessary to meet the requirements set out in this document. In particular,
                 <xref to="Keys"/> has KEKs of each type: KEK_3 is generated, KEK_1 is derived
@@ -4318,7 +4318,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 methods.<h:br/><h:br/> The evaluator shall review the TSS to verify that it
                 contains a description of the conditioning used to derive KEKs. This description must
                 include the size and storage location of salts. This activity may be performed in
-                combination with that for FCS_COP.1/CONDITION.<h:br/><h:br/> (conditional) If
+                combination with that for FCS_CKM_EXT.8.<h:br/><h:br/> (conditional) If
                 the symmetric KEK is generated by an RBG, the evaluator shall review the TSS to
                 determine that it describes how the functionality described by FCS_RBG.1 is
                 invoked. The evaluator uses the description of the RBG functionality in
@@ -4881,6 +4881,100 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 initiator private key values. The remaining key values are left unchanged (i.e.,
                 correct). To determine correctness, the evaluator shall confirm that the 15 
                 shared secrets correspond as expected for the modified and unmodified values.<h:p/>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event/>
+        </f-component>
+        
+        
+        
+        <f-component id="sfr-fcs-ckm-ext-8" cc-id="fcs_ckm_ext.8" name="Password-Based Key Derivation" status="optional">
+          
+          <consistency-rationale/>
+          <comp-lev>requires that password-based key derivation be performed in accordance with specified standards.</comp-lev>
+          <management/>
+          <audit>
+            The following actions should be auditable if FAU_GEN Security audit data generation is
+            included in the PP, PP-Module, functional package or ST:<h:br/><h:ul>
+              <h:li>minimal: Success and failure of the activity;</h:li>
+              <h:li>basic: The object attribute(s), and object value(s) excluding any sensitive information.</h:li>
+            </h:ul>
+          </audit>
+          <dependencies><h:br/>
+            <h:br/>[FCS_CKM.2 Cryptographic key distribution, or
+            <h:br/>FCS_COP.1 Cryptographic operation]
+            <h:br/>FCS_CKM_EXT.7 Cryptographic Key Agreement],
+            <h:br/>FCS_CKM.6 Timing and event of cryptographic key destruction
+          </dependencies>
+          
+          <f-element id="fcs-ckm-ext-8-1">
+            <title>
+              The TSF shall perform password-based key derivation functions in accordance with a specified 
+              cryptographic algorithm [HMAC-<selectables>
+                <selectable>SHA-384</selectable>
+                <selectable>SHA-512</selectable>
+              </selectables>, with iteration count of 
+              <assignable>number of iterations</assignable>
+              using a randomly generated salt of length
+              <assignable>equal to or greater than 128</assignable>
+              and output cryptographic key sizes <selectables>
+                <selectable>256</selectable>
+                <selectable>384</selectable>
+                <selectable>512</selectable></selectables>
+              bits that meet the following standard: [NIST SP 800-132 (Section 5.3) [PBKDF2]].
+            </title>
+            <note role="application">
+              NIST recommends a minimum “number of iterations” of 1000 but prefers the largest number feasible
+              given performance constraints.<h:p/>
+              NIST recommends that the randomly generated portion of the salt have length of at least 128 bits 
+              and must be derived from Random Bit Generation.<h:p/>
+              If this SFR is claimed, then FCS_COP.1/KeyedHash and FCS_RBG.1 must also be claimed.<h:p/>
+              For CNSA 1.0 and 2.0 compliance, only SHA-384 or SHA-512 may be used.
+            </note>
+            <aactivity>
+              <TSS>
+                The evaluator must verify that the TSS documents that the selection of the keyed hash
+                algorithm, iteration count, length of salt, and other mitigations are sufficient for the
+                security strength of the key derived.<h:p/>
+                The evaluator shall examine the TSS to verify that the salt is generated in accordance with the
+                relevant specification.<h:p/>
+                The evaluator shall examine the TSS to determine whether the TOE implements other 
+                mitigations against password-exhaustion attacks. Examples include the use of 
+                interface-based mitigations and secret salts.
+              </TSS>
+              <Guidance/>
+              <Tests>
+                The following tests are conditional based upon the selections made in the SFR.
+                The evaluator shall perform the following test or witness respective tests
+                executed by the developer. The tests must be executed on a platform that is as 
+                close as practically possible to the operational platform (but which may be 
+                instrumented in terms of, for example, use of a debug mode). Where the test is 
+                not carried out on the TOE itself, the test platform shall be identified and the 
+                differences between test environment and TOE execution environment shall be 
+                described.<h:p/>
+                
+                To test the TOE’s ability to derive cryptographic keys from a password using PBKDF2 the
+                evaluator shall perform the Algorithm Functional Test using the following input 
+                parameters:<h:ul>
+                  <h:li>HMAC algorithms [SHA-384, SHA-512]</h:li>
+                  <h:li>Iteration count [1-10000000]</h:li>
+                  <h:li>Derived Key size [256, 384, 512] bits</h:li>
+                  <h:li>Password length [8-128] bytes</h:li>
+                  <h:li>Salt length [128-4096] bits in multiples of 8.</h:li></h:ul><h:p/>
+                
+                <h:br/><h:b>Algorithm Functional Test</h:b><h:p/>
+                For each supported HMAC algorithm, the evaluator shall generate 50 test cases using 
+                supported values for the above parameters such that<h:ul>
+                  <h:li>All supported derived key sizes are tested at least 10 times, </h:li>
+                  <h:li>Iteration counts are random values between the supported minimum and maximum
+                    values, with the supported minimum and maximum tested at least once each, </h:li>
+                  <h:li>Passwords are random byte strings representing upper- and lower-case letters of random
+                    supported lengths such that the minimum and maximum lengths are tested at least once, and </h:li>
+                  <h:li>Salts are random values between the supported minimum and maximum lengths such that
+                    the supported minimum and maximum lengths are both tested at least once. </h:li></h:ul><h:p/>
+                The evaluator shall compare the resulting keys from each test case with keys derived using a
+                known-good implementation with the same input parameters.
               </Tests>
             </aactivity>
           </f-element>
@@ -7864,7 +7958,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                     <selectable>selected algorithms</selectable>
                     <selectable> selected algorithms with the exception of ECC over curve
                       25519-based algorithms</selectable></selectables> in FCS_CKM.2/LOCKED</h:li>
-                <h:li>The following algorithms in FCS_COP.1/ENCRYPT: AES-CBC, <selectables>
+                <h:li>The following algorithms in FCS_COP.1/SKC: AES-CBC, <selectables>
                     <selectable>AES Key Wrap</selectable>
                     <selectable>AES Key Wrap with Padding</selectable>
                     <selectable>AES-GCM</selectable>
@@ -7880,7 +7974,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                         <selectable>selected algorithms</selectable>
                         <selectable>selected algorithms with the exception of ECC over curve
                           25519-based algorithms</selectable></selectables> in FCS_CKM.1</selectable>
-                    <selectable>The selected algorithms in FCS_COP.1<h:b>/CONDITION</h:b></selectable>
+                    <selectable>The selected algorithms in FCS_CKM_EXT.8</selectable>
                     <selectable exclusive="yes">No other cryptographic operations</selectable>
                   </selectables>
                 </h:li>
@@ -15430,7 +15524,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
         <h:tr><h:td>FCS_COP.1.1/ENCRYPT</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_COP.1.1/HASH</h:td><h:td>Select SHA-384.</h:td></h:tr>
         <h:tr><h:td>FCS_COP.1.1/SIGN</h:td><h:td>Assign a key size of 3072 for RSA or select ECDSA schemes.</h:td></h:tr>
-        <h:tr><h:td>FCS_COP.1.1/CONDITION</h:td><h:td>Select 256 bits.</h:td></h:tr>
+        <h:tr><h:td>FCS_CKM_EXT.8</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_RBG_EXT.1.2</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_TLSC_EXT.1.1 (TLS Package)</h:td><h:td>Select TLS_RSA_WITH_AES_256_GCM_SHA384 or TLS_ECDHE_ECDSA_WITH AES_256_GCM_SHA384.</h:td></h:tr>
        <h:tr><h:td>FCS_TLSC_EXT.2.1 (TLS Package)</h:td><h:td>Select secp384r1, if included in ST (if ECC schemes are selected in FCS_CKM.1.1). </h:td></h:tr>
