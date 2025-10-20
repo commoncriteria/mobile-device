@@ -3454,7 +3454,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 the differences between test environment and TOE execution environment shall be
                 described.<h:p/>
                 To test the TOE’s ability to generate symmetric cryptographic keys using a 
-                random bit generator, the evaluator shall configure the asymmetric cryptographic 
+                random bit generator, the evaluator shall configure the symmetric cryptographic 
                 key generation capability for each claimed key size. The evaluator shall use the
                 description of the RBG interface to verify that the TOE requests and receives an
                 amount of RBG output greater than or equal to the requested key size.
@@ -4383,18 +4383,35 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	  <audit-event/>
         </f-component>
         
-        <f-component cc-id="fcs_ckm_ext.7" iteration="LOCKED" name="Cryptographic Key Establishment (When Locked)">
-          <comp-lev> requires the TSF to perform key establishment regardless of whether the device is locked or
+        <f-component name="Cryptographic Key Establishment" cc-id="fcs_ckm_ext.7" status="invisible">
+            <comp-lev> requires the TSF to perform key establishment regardless of whether the device is locked or
             unlocked.</comp-lev>
-          <management>There are no management activities foreseen.</management>
-          <audit>There are no auditable events foreseen.</audit>
-          <dependencies>FCS_CKM.1 Cryptographic Key Generation</dependencies>
-          
+          <management/>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data generation is
+            included in the PP, PP-Module, functional package or ST:<h:br/><h:ul>
+              <h:li>minimal: Success and failure of the activity;</h:li>
+              <h:li>basic: The object attribute(s), and object value(s) excluding any sensitive information.</h:li>
+            </h:ul>
+          </audit>
+          <dependencies><h:br/>
+            <h:br/>[FDP_ITC.1 Import of User Data without Security Attributes, or
+            <h:br/>FDP_ITC.2 Import of User Data with Security Attributes, or 
+            <h:br/>FCS_CKM.1 Cryptographic Key Generation, or
+            <h:br/>FCS_CKM.5 Cryptographic Key Derivation, or
+            <h:br/>FCS_CKM_EXT.8 Password-Based Key Derivation],
+            <h:br/>[FCS_CKM.2 Cryptographic Key Distribution, or
+            <h:br/>FCS_COP.1 Cryptographic Operation]
+            <h:br/>FCS_CKM.6 Timing and Event of Cryptographic Key Destruction
+            <h:br/>FCS_COP.1 Cryptographic Operation 
+          </dependencies>
+               </f-component>
+        
+        <f-component cc-id="fcs_ckm_ext.7" iteration="LOCKED" name="Cryptographic Key Establishment (When Locked)">
           <f-element id="fel-key-locked">
             <title>
               The TSF shall derive shared cryptographic keys with input from multiple parties in accordance 
               with specified cryptographic key agreement algorithms <h:b>for the purposes of
-                encrypting sensitive data received while the device is locked</h:b>
+                encrypting sensitive data received while the device is locked</h:b>.
               <selectables>
                 <tabularize id="fcs-ckm-ext-7-sels" 
                   title="Allowable choices for FCS_CKM_EXT.7">
@@ -4443,7 +4460,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                       <selectable>RFC 3526 [IKE groups]</selectable>
                       <selectable>RFC 7919 [TLS groups]</selectable></selectables>
                   </col>
-                </selectable>
+                </selectable>                
                 
                 <selectable id="sel-fcs-ckm-kat-ecdh">
                   <col>ECDH</col>
@@ -4457,13 +4474,20 @@ The scope of this Protection Profile (PP) is to describe the security functional
                     NIST SP 800-186 (Section 3.2.1) [NIST Curves]
                   </col>
                 </selectable>
+                <selectable id="sel-fcs-ckm-kat-ecdhed">
+                  <col>ECDH-Ed</col>
+                  <col>ECDH with Montgomery Curves</col>
+                  <col>Domain parameters approved for elliptic curves [<h:i>curve25519</h:i>]
+                  </col>
+                  <col>
+                    RFC 7748 (Section 5) [ECDH-Ed]<h:p/>
+                    NIST SP 800-186 (Section 3.2.2) [Montgomery Curves]
+                  </col>
+                </selectable>
               </selectables>
             </title>
-            <note role="application"> This SFR is claimed if the TSF supports key agreement schemes as a method of key establishment for trusted channels. This will generally apply to all conformant TOEs, except in the rare (but possible) case where only key encapsulation is used.<h:p/>
-              All of the above algorithms with the selectable parameters are CNSA 1.0 compliant.<h:p/>
-              This SFR must be included in the ST if key agreement or transport is a service provided by the TOE to 
-              tenant software, or if they are used by the TOE itself to support or implement PP-specified security 
-              functionality. </note>
+            <note role="application"> This SFR defines the asymmetric key scheme used to protect data
+              at rest as defined by FDP_DAR_EXT.2.2.</note>
             <aactivity>
               <TSS>The evaluator shall ensure that the TSS documents that the security strength of the
                 material contributed by the TOE is sufficient for the security strength of the key and the
@@ -4602,37 +4626,59 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 initiator private key values. The remaining key values are left unchanged (i.e.,
                 correct). To determine correctness, the evaluator shall confirm that the 15 
                 shared secrets correspond as expected for the modified and unmodified values.
+                
+                <!-- Curve25519 Key Establishment Schemes -->
+                <h:br/><h:b>Curve25519 Key Establishment Schemes</h:b><h:p/>
+                <h:table border="1">
+                  <h:tr class="header" bgcolor="#cccccc">
+                    <h:td valign="top">Identifier</h:td>
+                    <h:td valign="top">Cryptographic Algorithm</h:td>
+                    <h:td valign="top">Cryptographic Parameters</h:td>
+                    <h:td valign="top">List of Standards</h:td>
+                  </h:tr>
+                  <h:tr>
+                    <h:td valign="top">ECDH-Ed</h:td>
+                    <h:td valign="top">ECDH with Montgomery Curves</h:td>
+                    <h:td valign="top">Domain parameters approved for elliptic curves [<h:i>curve25519</h:i>]</h:td>
+                    <h:td valign="top">RFC 7748 (Section 5) [ECDH-Ed]<h:p/>
+                      NIST SP 800-186 (Section 3.2.2) [Montgomery Curves]</h:td>
+                  </h:tr>
+                </h:table><h:p/>						
+                
+                <h:br/><h:i><h:b>Curve25519 Key Establishment Schemes</h:b></h:i><h:br/>
+                The evaluator shall verify a TOE's implementation of the key agreement scheme using the following Function and Validity tests.
+                These validation tests for each key agreement scheme verify that a TOE has implemented the components of the key agreement scheme
+                according to the specification. These components include the calculation of the shared secret K and the hash of K.
+                <h:p/>
+                <h:br/><h:i><h:b>Function Test</h:b></h:i><h:br/>
+                The Function test verifies the ability of the TOE to implement the key agreement schemes correctly. To conduct this test the 
+                evaluator shall generate or obtain test vectors from a known good implementation of the TOE supported schemes. For each supported
+                key agreement role and hash function combination, the tester shall generate 10 sets of public keys. These keys are static, ephemeral
+                or both depending on the scheme being tested.<h:p/>
+                
+                The evaluator shall obtain the shared secret value K, and the hash of K.<h:p/>
+                
+                The evaluator shall verify the correctness of the TSF’s implementation of a given scheme by using a known good implementation to 
+                calculate the shared secret value K and compare the hash generated from this value.<h:p/>
+                <h:br/><h:i><h:b>Validation Test</h:b></h:i><h:br/>
+                The Validity test verifies the ability of the TOE to recognize another party’s valid and invalid key agreement results. To conduct 
+                this test, the evaluator generates a set of 30 test vectors consisting of data sets including the evaluator’s public keys and the 
+                TOE’s public/private key pairs.<h:p/>
+                
+                The evaluator shall inject an error in some of the test vectors to test that the TOE recognizes invalid key agreement results caused
+                by the following fields being incorrect: the shared secret value K or the hash of K. At least two of the test vectors shall remain 
+                unmodified and therefore should result in valid key agreement results (they should pass).<h:p/>
+                
+                The TOE shall use these modified test vectors to emulate the key agreement scheme using the corresponding parameters. The evaluator 
+                shall compare the TOE’s results with the results using a known good implementation verifying that the TOE detects these errors.                
               </Tests>
             </aactivity>
           </f-element>
           <audit-event/>	  
         </f-component>
         
-        <f-component cc-id="fcs_ckm_ext.7" iteration="UNLOCKED" name="Cryptographic Key
-          Establishment (When Unlocked)" status="feat-based">
+        <f-component cc-id="fcs_ckm_ext.7" iteration="UNLOCKED" name="Cryptographic Key Establishment (When Unlocked)" status="feat-based">
           <depends on="key-agreement-support"/>
-          
-          <consistency-rationale/>
-          <comp-lev>requires that cryptographic key agreement be performed in accordance with specified standards.</comp-lev>
-          <management/>
-          <audit>
-            The following actions should be auditable if FAU_GEN Security audit data generation is
-            included in the PP, PP-Module, functional package or ST:<h:br/><h:ul>
-              <h:li>minimal: Success and failure of the activity;</h:li>
-              <h:li>basic: The object attribute(s), and object value(s) excluding any sensitive information.</h:li>
-            </h:ul>
-          </audit>
-          <dependencies><h:br/>
-            <h:br/>[FDP_ITC.1 Import of user data without security attributes, or
-            <h:br/>FDP_ITC.2 Import of user data with security attributes, or 
-            <h:br/>FCS_CKM.1 Cryptographic key generation, or
-            <h:br/>FCS_CKM.5 Cryptographic key derivation, or
-            <h:br/>FCS_CKM_EXT.8 Password-based key derivation],
-            <h:br/>[FCS_CKM.2 Cryptographic key distribution, or
-            <h:br/>FCS_COP.1 Cryptographic operation]
-            <h:br/>FCS_CKM.6 Timing and event of cryptographic key destruction
-            <h:br/>FCS_COP.1 Cryptographic operation 
-          </dependencies>
           
           <f-element id="fcs-ckm-ext-7e1">
             <title>
@@ -5432,15 +5478,12 @@ The scope of this Protection Profile (PP) is to describe the security functional
 							<reqtext><h:p/><h:p/>The following table provides the allowable choices for
 										completion of the selection operations of FCS_COP.1/KeyEncap.</reqtext>
 						</tabularize>
-						
-						
 						<selectable id="sel-fcs-cop-keyencap-mlkem">
 							<col>ML-KEM</col>
 							<col>ML-KEM</col>
 							<col>Parameter set = ML-KEM-1024</col>
 							<col>NIST FIPS 203</col>
-						</selectable>			
-						
+						</selectable>
 					</selectables>
 				</title>
 				<note role="application">
@@ -5454,7 +5497,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 					</TSS>
 					<Guidance/>
 					<Tests>
-						The following tests may require the developer to provide access to a test platform that
+						The following test may require the developer to provide access to a test platform that
 						provides the evaluator with tools that are typically not found on factory products.<h:p/>
 						The following tests are conditional based upon the selections made in the SFR. The
 						evaluator shall perform the following test or witness respective tests executed by
