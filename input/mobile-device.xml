@@ -185,7 +185,7 @@ How is it differenet then me using subsection?
       <h:li>Moved FAU_SAR.1 to mandatory</h:li>
       <h:li>Added ECD</h:li>
       <h:li>Updated WLAN Client reference from Extended Package to Module</h:li>
-      <h:li>Removed Diffie-Hellman group 14 selection from FCS_CKM.1.1 and FCS_CKM.2.1/UNLOCKED</h:li>
+        <h:li>Removed Diffie-Hellman group 14 selection from FCS_CKM.1.1 and FCS_CKM_EXT.7.1/UNLOCKED</h:li>
       </subject>
     </entry>
     <entry>
@@ -715,7 +715,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
         <h:tr><h:td>FCS_CKM_EXT.2.1</h:td><h:td>Select 256 bits.</h:td></h:tr>
        <h:tr><h:td>FCS_CKM_EXT.3.1</h:td><h:td>If asymmetric KEKs is selected and RSA scheme is selected in FCS_CKM.1.1 then assign 128 bits security strength. If asymmetric KEKs is selected and ECC scheme is selected in FCS_CKM.1.1 then assign 192 bits security strength. If symmetric KEKs is selected, select 256 bit security strength.</h:td></h:tr>
         <h:tr><h:td>FCS_COP.1.1/ENCRYPT</h:td><h:td>Select 256 bits.</h:td></h:tr>
-        <h:tr><h:td>FCS_COP.1.1/HASH</h:td><h:td>Select SHA-384.</h:td></h:tr>
+        <h:tr><h:td>FCS_COP.1.1/Hash</h:td><h:td>Select SHA-384.</h:td></h:tr>
         <h:tr><h:td>FCS_COP.1.1/SIGN</h:td><h:td>Assign a key size of 3072 for RSA or select ECDSA schemes.</h:td></h:tr>
         <h:tr><h:td>FCS_CKM_EXT.8</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_RBG_EXT.1.2</h:td><h:td>Select 256 bits.</h:td></h:tr>
@@ -1070,6 +1070,272 @@ The scope of this Protection Profile (PP) is to describe the security functional
       <!--  biometric impersonation, revocation of biometric credentials, and revocation of biometric template  -->as
       detailed in the following sections. 
       <threats>
+        
+        <threat name="T.MALICIOUS_APP">
+          <description> Applications loaded onto the Mobile Device may include malicious or
+            exploitable code. This code could be included intentionally or unknowingly by the
+            developer, perhaps as part of a software library. Malicious apps may attempt to
+            exfiltrate data to which they have access. They may also conduct attacks against the
+            platform’s system software, which will provide them with additional privileges and the
+            ability to conduct further malicious activities. Malicious applications may be able to
+            control the device's sensors (GPS, camera, microphone) to gather intelligence about the
+            user's surroundings even when those activities do not involve data resident or
+            transmitted from the device. Flawed applications may give an attacker access to perform
+            network-based or physical attacks that otherwise would have been prevented.</description>
+          
+          <addressed-by>FAU_GEN.1</addressed-by>
+          <rationale>FAU_GEN.1 helps mitigate the threat of a malicious app by logging evidence of potential malicious activity.</rationale>
+          <addressed-by>FAU_SAR.1</addressed-by>
+          <rationale>FAU_SAR.1 helps mitigate the threat of a malicious app by providing a mechanism to read the audit trail.</rationale>          
+          <addressed-by>FAU_STG.2</addressed-by>
+          <rationale>FAU_STG.2 helps mitigate the threat of a malicious app by maintaining the availability of the audit trail.</rationale>
+          <addressed-by>FAU_STG.5</addressed-by>
+          <rationale>FAU_STG.5 helps mitigate the threat of a malicious app by maintaining the availability of the audit trail.</rationale>
+          <addressed-by>FCS_RBG.6</addressed-by>
+          <rationale>FCS_RBG.6 helps mitigate the threat of a malicious app by providing a secure and legitimate interface that can be invoked by apps to perform DRBG functionality.</rationale>
+          <addressed-by>FCS_SRV_EXT.1</addressed-by>
+          <rationale>FCS_SRV_EXT.1 helps mitigate the threat of a malicious app by providing a secure and legitimate interface that can be invoked by apps to perform cryptographic functionality.</rationale>
+          <addressed-by>FDP_ACF_EXT.1</addressed-by>
+          <rationale>FDP_ACF_EXT.1 helps mitigate the threat of a malicious app by restricting the system services that are accessible to applications.</rationale>
+          <addressed-by>FMT_MOF_EXT.1</addressed-by>
+          <rationale>FMT_MOF_EXT.1 helps mitigate the threat of a malicious app by limiting the management functions that are available to a given user.</rationale>
+          <addressed-by>FMT_SMF_EXT.1</addressed-by>
+          <rationale>FMT_SMF_EXT.1 helps mitigate the threat of a malicious app by defining the management functions that are provided by the TOE.</rationale>
+          <addressed-by>FMT_SMF_EXT.2</addressed-by>
+          <rationale>FMT_SMF_EXT.2 helps mitigate the threat of a malicious app by ensuring that sensitive data is purged from the TOE when it is no longer enrolled in mobile device management.</rationale>
+          <addressed-by>FPT_AEX_EXT.1</addressed-by>
+          <rationale>FPT_AEX_EXT.1 helps mitigate the threat of a malicious app by using address space layout randomization for all applications.</rationale>
+          <addressed-by>FPT_AEX_EXT.2</addressed-by>
+          <rationale>FPT_AEX_EXT.2 helps mitigate the threat of a malicious app by enforcing memory access permissions.</rationale>
+          <addressed-by>FPT_AEX_EXT.3</addressed-by>
+          <rationale>FPT_AEX_EXT.3 helps mitigate the threat of a malicious app by implementing stack-based buffer overflow protection running on non-privileged domains.</rationale>
+          <addressed-by>FPT_AEX_EXT.4</addressed-by>
+          <rationale>FPT_AEX_EXT.4 helps mitigate the threat of a malicious app by enforcing address space isolation.</rationale>
+          <addressed-by>FPT_NOT_EXT.1</addressed-by>
+          <rationale>FPT_NOT_EXT.1 helps mitigate the threat of a malicious app by failing to a secure state when self-test failures occur.</rationale>
+          <addressed-by>FPT_STM.1</addressed-by>
+          <rationale>FPT_STM.1 helps mitigate the threat of a malicious app by providing reliable time stamps for the audit trail.</rationale>
+          <addressed-by>FPT_TST_EXT.1</addressed-by>
+          <rationale>FPT_TST_EXT.1 helps mitigate the threat of a malicious app by performing self-tests that may detect a compromise of the TSF.</rationale>
+          <addressed-by>FPT_TST_EXT.2/PREKERNEL</addressed-by>
+          <rationale>FPT_TST_EXT.2/PREKERNEL helps mitigate the threat of a malicious app by performing self-tests that may detect a compromise of the TSF.</rationale>
+          <addressed-by>FPT_TUD_EXT.1</addressed-by>
+          <rationale>FPT_TUD_EXT.1 helps mitigate the threat of a malicious app by enforcing mechanisms that allow for the identification of the TSF and of applications running on it.</rationale>
+          <addressed-by>FPT_TUD_EXT.2</addressed-by>
+          <rationale>FPT_TUD_EXT.2 helps mitigate the threat of a malicious app by enforcing mechanisms that allow for maintaining the authenticity and integrity of the TSF.</rationale>
+          <addressed-by>FPT_TUD_EXT.3</addressed-by>
+          <rationale>FPT_TUD_EXT.3 helps mitigate the threat of a malicious app by enforcing mechanisms that allow for maintaining the authenticity and integrity of installed apps.</rationale>
+          
+          <addressed-by>FAU_SEL.1 (objective)</addressed-by>
+          <rationale>FAU_SEL.1 helps mitigate the threat of a network attack by allowing the TSF to determine the behavior that indicates potential malicious activity in the audit trail.</rationale>       
+          <addressed-by>FCS_SRV_EXT.2 (objective)</addressed-by>
+          <rationale>FCS_SRV_EXT.1 helps mitigate the threat of a malicious app by providing a secure and legitimate interface that can be invoked by apps to interact with protected storage.</rationale>
+          <addressed-by>FDP_ACF_EXT.3 (objective)</addressed-by>
+          <rationale>FDP_ACF_EXT.3 helps mitigate the threat of a malicious app by enforcing policies on applications that prohibit write and execute permissions from being granted simultaneously.</rationale>
+          <addressed-by>FDP_BCK_EXT.1 (objective)</addressed-by>
+          <rationale>FDP_BCK_EXT.1 helps mitigate the threat of a malicious app by determining which data to include in backup operations.</rationale>
+          <addressed-by>FDP_BLT_EXT.1 (objective)</addressed-by>
+          <rationale>FDP_BLT_EXT.1 helps mitigate the threat of a malicious app by managing which applications communicate with Bluetooth devices.</rationale>
+          <addressed-by>FMT_SMF_EXT.3 (objective)</addressed-by>
+          <rationale>FMT_SMF_EXT.3 helps mitigate the threat of a malicious app by providing a current list of authorized administrators and their authorized management functions.</rationale>
+          <addressed-by>FPT_AEX_EXT.5 (objective)</addressed-by>
+          <rationale>FPT_AEX_EXT.5 helps mitigate the threat of a malicious app by enforcing kernel level ASLR.</rationale>
+          <addressed-by>FPT_AEX_EXT.6 (objective)</addressed-by>
+          <rationale>FPT_AEX_EXT.6 helps mitigate the threat of a malicious app by preventing non-privileged execution domains from being writable and executable.</rationale>
+          <addressed-by>FPT_AEX_EXT.7 (objective)</addressed-by>
+          <rationale>FPT_AEX_EXT.7 helps mitigate the threat of a malicious app by enforcing heap-based buffer overflow protections.</rationale>
+          <addressed-by>FPT_BBD_EXT.1 (objective)</addressed-by>
+          <rationale>FPT_BBD_EXT.1 helps mitigate the threat of a malicious app by preventing the application processor's executable memory from being modified by the baseband processor.</rationale>
+          <addressed-by>FPT_BLT_EXT.1 (objective)</addressed-by>
+          <rationale>FPT_BLT_EXT.1 helps mitigate the threat of a malicious app by enforcing least functionality of the TOE's Bluetooth interface.</rationale>
+          <addressed-by>FPT_NOT_EXT.2 (objective)</addressed-by>
+          <rationale>FPT_NOT_EXT.2 helps mitigate the threat of a malicious app by enforcing remote attestation to ensure that the TSF has not been compromised.</rationale>
+          <addressed-by>FPT_TST_EXT.2/POSTKERNEL (objective)</addressed-by>
+          <rationale>FPT_TST_EXT.2/POSTKERNEL helps mitigate the threat of a malicious app by verifying the integrity of executable code after the kernel is loaded.</rationale>
+          <addressed-by>FPT_TUD_EXT.5 (objective)</addressed-by>
+          <rationale>FPT_TUD_EXT.5 helps mitigate the threat of a malicious app by enforcing installation of only trusted mobile application software.</rationale>
+          <addressed-by> FPT_TUD_EXT.6 (objective)</addressed-by>
+          <rationale>FPT_TUD_EXT.6 helps mitigate the threat of a malicious app by preventing intentional rollback of software updates.</rationale>
+          
+          <addressed-by>FDP_ACF_EXT.2 (selection-based)</addressed-by>
+          <rationale>FDP_ACF_EXT.2 helps mitigate the threat of a malicious app by providing separate copies of system resources for different application groups.</rationale>
+          <addressed-by>FPT_TST_EXT.3 (selection-based)</addressed-by>
+          <rationale>FPT_TST_EXT.3 helps mitigate the threat of a malicious app by preventing the execution of untrusted application code.</rationale>
+          <addressed-by>FPT_TUD_EXT.4 (selection-based)</addressed-by>
+          <rationale>FPT_TUD_EXT.4 helps mitigate the threat of a malicious app by preventing the execution of untrusted updates.</rationale>
+          
+          <!--
+          <objective-refer ref="O.PROTECTED_COMMS">
+            <rationale>The threat T.MALICIOUS_APP is countered by O.PROTECTED_COMMS as this provides the
+              capability to communicate using one (or more) standard protocols as a means to
+              maintain the confidentiality of data that are transmitted outside of the
+              TOE.</rationale>
+          </objective-refer>
+          <objective-refer ref="O.CONFIG">
+            <rationale>The threat T.MALICIOUS_APP is countered by O.CONFIG as this provides the
+              capability to configure and apply security policies to ensure the Mobile Device can
+              protect user and enterprise data that it may store or process.</rationale>
+          </objective-refer>
+          <objective-refer ref="O.AUTH">
+            <rationale>The threat T.MALICIOUS_APP is countered by O.AUTH as this provides the
+              capability to authenticate the user and endpoints of a trusted path to ensure they are
+              communicating with an authorized entity with appropriate privileges.</rationale>
+          </objective-refer>
+          <objective-refer ref="O.INTEGRITY">
+            <rationale>The threat T.MALICIOUS_APP is countered by O.INTEGRITY as this provides the
+              capability to perform self-tests to ensure the integrity of critical functionality,
+              software/firmware and data has been maintained.</rationale>
+          </objective-refer>
+          <objective-refer ref="O.PRIVACY">
+            <rationale>The threat T.MALICIOUS_APP is countered by O.PRIVACY as this provides
+              separation and privacy between user activities.</rationale>
+          </objective-refer>
+          -->
+        </threat>
+        
+        <threat name="T.NETWORK_ATTACK">
+          <description> An attacker is positioned on a wireless communications channel or elsewhere
+            on the network infrastructure. Attackers may initiate communications with the Mobile
+            Device or alter communications between the Mobile Device and other endpoints in order to
+            compromise the Mobile Device. These attacks include malicious software update of any
+            applications or system software on the device. These attacks also include malicious web
+            pages or email attachments, which are usually delivered to devices over the
+            network.</description>
+          
+          <addressed-by>FAU_GEN.1</addressed-by>
+          <rationale>FAU_GEN.1 helps mitigate the threat of a network attack by maintaining an audit trail of potential malicious activity.</rationale>
+          <addressed-by>FAU_SAR.1</addressed-by>
+          <rationale>FAU_SAR.1 helps mitigate the threat of a network attack by providing a mechanism to read the audit trail.</rationale>
+          <addressed-by>FAU_STG.2</addressed-by>
+          <rationale>FAU_STG.2 helps mitigate the threat of a network attack by maintaining the availability of the audit trail.</rationale>
+          <addressed-by>FAU_STG.5</addressed-by>
+          <rationale>FAU_STG.5 helps mitigate the threat of a network attack by maintaining the availability of the audit trail.</rationale>          
+          <addressed-by>FCS_CKM.1/AKG</addressed-by>
+          <rationale>FCS_CKM.1/AKG helps mitigate the threat of a network attack by ensuring the generation of strong keys used for trusted communications.</rationale>
+          <addressed-by>FCS_CKM.1/SKG</addressed-by>
+          <rationale>FCS_CKM.1/SKG helps mitigate the threat of a network attack by ensuring the generation of strong keys used for trusted communications.</rationale>          
+          <addressed-by>FCS_CKM_EXT.6</addressed-by>
+          <rationale>FCS_CKM_EXT.6 helps mitigate the threat of network eavesdrop by using salts using where appropriate for cryptographic functions.</rationale>
+          <addressed-by>FCS_COP.1/Hash</addressed-by>
+          <rationale>FCS_COP.1/Hash helps mitigate the threat of a network attack by ensuring that secure hash algorithms are used for trusted communications.</rationale>
+          <addressed-by>FCS_COP.1/KeyedHash</addressed-by>
+          <rationale>FCS_COP.1/KeyedHash helps mitigate the threat of a network attack by ensuring that secure HMAC algorithms are used for trusted communications.</rationale>
+          <addressed-by>FCS_COP.1/SigGen</addressed-by>
+          <rationale>FCS_COP.1/SigGen helps mitigate the threat of a network attack by ensuring that secure digital signature algorithms are used for trusted communications.</rationale>
+          <addressed-by>FCS_COP.1/SigVer</addressed-by>
+          <rationale>FCS_COP.1/SigVer helps mitigate the threat of a network attack by ensuring that secure digital signature algorithms are used for trusted communications.</rationale>
+          <addressed-by>FCS_COP.1/SKC</addressed-by>
+          <rationale>FCS_COP.1/SKC helps mitigate the threat of a network attack by ensuring that secure symmetric algorithms are used for trusted communications.</rationale>
+          <addressed-by>FCS_HTTPS_EXT.1</addressed-by>
+          <rationale>FCS_HTTPS_EXT.1 helps mitigate the threat of a network attack by implementing a secure protocol (HTTPS) for trusted communications.</rationale>
+          <addressed-by>FCS_RBG.1</addressed-by>
+          <rationale>FCS_RBG.1 helps mitigate the threat of a network attack by ensuring that keys used for trusted communications are generated using a secure DRBG.</rationale>
+          <addressed-by>FCS_RBG.6</addressed-by>
+          <rationale>FCS_RBG.6 helps mitigate the threat of a network attack by providing a secure DRBG service for third-party applications running on the TOE which may use this service to generate their own cryptographic keys for trusted communications.</rationale>
+          <addressed-by>FCS_SRV_EXT.1</addressed-by>
+          <rationale>FCS_SRV_EXT.1 helps mitigate the threat of a network attack by ensuring applications have the proper mechanism to perform cryptographic operations.</rationale>
+          <addressed-by>FDP_IFC_EXT.1</addressed-by>
+          <rationale>FDP_IFC_EXT.1 helps mitigate the threat of a network attack by ensuring that the TOE has the ability to enforce the use of an IPsec VPN for all network traffic.</rationale> 
+          <addressed-by>FDP_STG_EXT.1</addressed-by>
+          <rationale>FDP_STG_EXT.1 helps mitigate the threat of network eavesdrop by protecting the X.509 certificates used for trusted communications.</rationale>  
+          <addressed-by>FDP_UPC_EXT.1/APPS</addressed-by>
+          <rationale>FDP_UPC_EXT.1/APPS helps mitigate the threat of network eavesdrop by implementing a means for applications to communicate securely via a trusted channel.</rationale> 
+          <addressed-by>FMT_MOF_EXT.1</addressed-by>
+          <rationale>FMT_MOF_EXT.1 helps mitigate the threat of a network attack by limiting the management functions that are available to a given user.</rationale>
+          <addressed-by>FMT_SMF_EXT.1</addressed-by>
+          <rationale>FMT_SMF_EXT.1 helps mitigate the threat of a network attack by providing a list of specific management functions.</rationale>
+          <addressed-by>FMT_SMF_EXT.2</addressed-by>
+          <rationale>FMT_SMF_EXT.2 helps mitigate the threat of a network attack by specifying the remediation actions allowed upon enrollment.</rationale>
+          <addressed-by>FPT_FLS.1</addressed-by>
+          <rationale>FPT_FLS.1 helps mitigate the threat of a network attack by ensuring that a malfunctioning DRBG function cannot be used to generate potentially insecure keys.</rationale>
+          <addressed-by>FPT_STM.1</addressed-by>
+          <rationale>FPT_STM.1 helps mitigate the threat of a malicious app by providing reliable time stamps for the audit trail.</rationale>
+          <addressed-by>FPT_TST.1</addressed-by>
+          <rationale>FPT_TST.1 helps mitigate the threat of a network attack by implementing a mechanism to detect when the DRBG may be failing to generate secure cryptographic keys.</rationale>
+          <addressed-by>FTA_SSL_EXT.1</addressed-by>
+          <rationale>FTA_SSL_EXT.1 helps mitigate the threat of a network attack by managing the transition to a locked state after a set time or operation.</rationale>      
+          <addressed-by>FTP_ITC_EXT.1</addressed-by>
+          <rationale>FTP_ITC_EXT.1 helps mitigate the threat of a network attack by requiring the TSF to implement trusted protocols for network communication.</rationale>
+          
+          <addressed-by>FAU_SEL.1 (objective)</addressed-by>
+          <rationale>FAU_SEL.1 helps mitigate the threat of a network attack by allowing the TSF to determine the behavior that indicates potential malicious activity in the audit trail.</rationale>
+          <addressed-by>FCS_RBG_EXT.2 (objective)</addressed-by>
+          <rationale>FCS_RBG_EXT.2 helps mitigate the threat of a network attack by ensuring the DRBG state at power-off and startup remains the same.</rationale>
+          <addressed-by>FCS_SRV_EXT.2 (objective)</addressed-by>
+          <rationale>FCS_SRV_EXT.2 helps mitigate the threat of a network attack by ensuring applications have the proper mechanism to perform cryptographic operations with keys in secure storage.</rationale>
+          <addressed-by>FDP_BLT_EXT.1 (objective)</addressed-by>
+          <rationale>FDP_BLT_EXT.1 helps mitigate the threat of a network attack by managing which applications communicate with Bluetooth devices.</rationale>
+          <addressed-by>FPT_BLT_EXT.1 (objective)</addressed-by>
+          <rationale>FPT_BLT_EXT.1 helps mitigate the threat of a network attack by enforcing least functionality of the TOE's Bluetooth interface.</rationale>
+          <addressed-by>FTA_TAB.1 (objective)</addressed-by>
+          <rationale>FTA_TAB.1 helps mitigate the threat of a network attack by providing actionable consequences for misuse of the TSF.</rationale>
+          
+          <addressed-by>FCS_CKM_EXT.7/UNLOCKED (implementation-dependent)</addressed-by>
+          <rationale>FCS_CKM_EXT.7/UNLOCKED helps mitigate the threat of a network attack by performing key establishment for trusted communications.</rationale>
+          <addressed-by>FCS_COP.1/AEAD (implementation-dependent)</addressed-by>
+          <rationale>FCS_COP.1/AEAD mitigates the threat of network attack by enforcing the use of secure authenticated encryption algorithms when wireless functionality is implemented by the TOE.</rationale>
+          <addressed-by>FDP_UPC_EXT.1/BLUETOOTH (implementation-dependent)</addressed-by>
+          <rationale>FDP_UPC_EXT.1/BLUETOOTH helps mitigate the threat of a network attack by protecting communication channels using Bluetooth functionality via a trusted channel.</rationale>   
+          
+          <addressed-by>FCS_RBG.2 (selection-based)</addressed-by>      
+          <rationale>FCS_RBG.2 helps mitigate the threat of network eavesdrop by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
+          <addressed-by>FCS_RBG.3 (selection-based)</addressed-by>
+          <rationale>FCS_RBG.3 helps mitigate the threat of a network attack by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
+          <addressed-by>FCS_RBG.4 (selection-based)</addressed-by>
+          <rationale>FCS_RBG.4 helps mitigate the threat of a network attack by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
+          <addressed-by>FCS_RBG.5 (selection-based)</addressed-by>
+          <rationale>FCS_RBG.5 helps mitigate the threat of a network attack by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>          
+          
+          <!--
+          <addressed-by>FCS_DTLSS_EXT.1 (TLS Package)</addressed-by>
+          <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
+          <addressed-by>FCS_DTLSS_EXT.2 (TLS Package)</addressed-by>
+          <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
+          <addressed-by>FCS_DTLSS_EXT.3 (TLS Package)</addressed-by>
+          <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
+          <addressed-by>FCS_DTLSS_EXT.4 (TLS Package)</addressed-by>
+          <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
+          <addressed-by>FCS_DTLSS_EXT.5 (TLS Package)</addressed-by>
+          <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
+          <addressed-by>FCS_DTLSS_EXT.6 (TLS Package)</addressed-by>
+          <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
+          -->
+          
+          <!--
+          <addressed-by>FCS_TLSS_EXT.1 (TLS Package)</addressed-by>
+          <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
+          <addressed-by>FCS_TLSS_EXT.2 (TLS Package)</addressed-by>
+          <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
+          <addressed-by>FCS_TLSS_EXT.3 (TLS Package)</addressed-by>
+          <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
+          <addressed-by>FCS_TLSS_EXT.4 (TLS Package)</addressed-by>
+          <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
+          <addressed-by>FCS_TLSS_EXT.5 (TLS Package)</addressed-by>
+          <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
+          <addressed-by>FCS_TLSS_EXT.6 (TLS Package)</addressed-by>
+          <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
+          -->
+          
+          
+          <!--
+          <objective-refer ref="O.PROTECTED_COMMS">
+            <rationale>The threat T.NETWORK_ATTACK is countered by O.PROTECTED_COMMS as this provides the
+              capability to communicate using one (or more) standard protocols as a means to
+              maintain the confidentiality of data that are transmitted outside of the
+              TOE.</rationale>
+          </objective-refer>
+          <objective-refer ref="O.CONFIG">
+            <rationale>The threat T.NETWORK_ATTACK is countered by O.CONFIG as this provides a
+              secure configuration of the mobile device to protect data that it
+              processes.</rationale>
+          </objective-refer>
+          <objective-refer ref="O.AUTH">
+            <rationale>The threat T.NETWORK_ATTACK is countered by O.AUTH as this provides
+              authentication of the endpoints of a trusted communication path.</rationale>
+          </objective-refer>
+          -->
+        </threat>
+        
         <threat name="T.NETWORK_EAVESDROP">
           <description> An attacker is positioned on a wireless communications channel or elsewhere
             on the network infrastructure. Attackers may monitor and gain access to data exchanged
@@ -1079,19 +1345,19 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <addressed-by>FCS_CKM.1/AKG</addressed-by>
           <rationale>FCS_CKM.1/AKG helps mitigate the threat of network eavesdrop by ensuring the generation of strong keys used for trusted communications.</rationale>
           <addressed-by>FCS_CKM.1/SKG</addressed-by>
-          <rationale>FCS_CKM.1/SKG helps mitigate the threat of network eavesdrop by ensuring the generation of strong keys used for trusted communications.</rationale>
-          <addressed-by>FCS_CKM.2/UNLOCKED</addressed-by>
-          <rationale>FCS_CKM.2/UNLOCKED helps mitigate the threat of network eavesdrop by performing key establishment for trusted communications.</rationale>
+          <rationale>FCS_CKM.1/SKG helps mitigate the threat of network eavesdrop by ensuring the generation of strong keys used for trusted communications.</rationale>          
           <addressed-by>FCS_CKM_EXT.6</addressed-by>
           <rationale>FCS_CKM_EXT.6 helps mitigate the threat of network eavesdrop by using salts using where appropriate for cryptographic functions.</rationale>
-          <addressed-by>FCS_COP.1/ENCRYPT</addressed-by>
-          <rationale>FCS_COP.1/ENCRYPT helps mitigate the threat of network eavesdrop by ensuring that secure symmetric algorithms are used for trusted communications.</rationale>
-          <addressed-by>FCS_COP.1/HASH</addressed-by>
-          <rationale>FCS_COP.1/HASH helps mitigate the threat of network eavesdrop by ensuring that secure hash algorithms are used for trusted communications.</rationale>
-          <addressed-by>FCS_COP.1/KEYHMAC</addressed-by>
-          <rationale>FCS_COP.1/KEYHMAC helps mitigate the threat of a network eavesdrop by ensuring that secure HMAC algorithms are used for trusted communications.</rationale>
-          <addressed-by>FCS_COP.1/SIGN</addressed-by>
-          <rationale>FCS_COP.1/SIGN helps mitigate the threat of network eavesdrop by ensuring that secure digital signature algorithms are used for trusted communications.</rationale>
+          <addressed-by>FCS_COP.1/Hash</addressed-by>
+          <rationale>FCS_COP.1/Hash helps mitigate the threat of network eavesdrop by ensuring that secure hash algorithms are used for trusted communications.</rationale>
+          <addressed-by>FCS_COP.1/KeyedHash</addressed-by>
+          <rationale>FCS_COP.1/KeyedHash helps mitigate the threat of a network eavesdrop by ensuring that secure HMAC algorithms are used for trusted communications.</rationale>
+          <addressed-by>FCS_COP.1/SigGen</addressed-by>
+          <rationale>FCS_COP.1/SigGen helps mitigate the threat of network eavesdrop by ensuring that secure digital signature algorithms are used for trusted communications.</rationale>
+          <addressed-by>FCS_COP.1/SigVer</addressed-by>
+          <rationale>FCS_COP.1/SigVer helps mitigate the threat of network eavesdrop by ensuring that secure digital signature algorithms are used for trusted communications.</rationale>
+          <addressed-by>FCS_COP.1/SKC</addressed-by>
+          <rationale>FCS_COP.1/SKC helps mitigate the threat of network eavesdrop by ensuring that secure symmetric algorithms are used for trusted communications.</rationale>
           <addressed-by>FCS_HTTPS_EXT.1</addressed-by>
           <rationale>FCS_HTTPS_EXT.1 helps mitigate the threat of network eavesdrop by implementing a secure protocol (HTTPS) for trusted communications.</rationale>
           <addressed-by>FCS_RBG.6</addressed-by>
@@ -1104,18 +1370,14 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>FDP_STG_EXT.1 helps mitigate the threat of network eavesdrop by protecting the X.509 certificates used for trusted communications.</rationale>  
           <addressed-by>FDP_UPC_EXT.1/APPS</addressed-by>
           <rationale>FDP_UPC_EXT.1/APPS helps mitigate the threat of network eavesdrop by implementing a means for applications to communicate securely via a trusted channel.</rationale> 
-          
           <addressed-by>FIA_X509_EXT.6</addressed-by>
           <rationale>FIA_X509_EXT.6 helps mitigate the threat of network eavesdrop by defining a secure mechanism by which the TSF can acquire certificates for its own use.</rationale>
-          
           <addressed-by>FPT_FLS.1</addressed-by>
           <rationale>FPT_FLS.1 helps mitigate the threat of network eavesdrop by ensuring that a malfunctioning DRBG function cannot be used to generate potentially insecure keys.</rationale>      
           <addressed-by>FPT_TST.1</addressed-by>
           <rationale>FPT_TST.1 helps mitigate the threat of network eavesdrop by implementing a mechanism to detect when the DRBG may be failing to generate secure cryptographic keys.</rationale>          
           <addressed-by>FTP_ITC_EXT.1</addressed-by>
           <rationale>FTP_ITC_EXT.1 helps mitigate the threat of network eavesdrop by requiring the TSF to implement trusted protocols for network communication.</rationale>  
-          
-          
           
           <addressed-by>FCS_RBG_EXT.2 (Objective)</addressed-by>      
           <rationale>FCS_RBG_EXT.2 helps mitigate the threat of network eavesdrop by defining requirements for secure DRBG implementation.</rationale>
@@ -1126,6 +1388,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <addressed-by>FPT_BLT_EXT.1 (Objective)</addressed-by>      
           <rationale>FPT_BLT_EXT.1 helps mitigate the threat of network eavesdrop by enforcing least functionality of the TOE's Bluetooth interface.</rationale>
           
+          <addressed-by>FCS_CKM_EXT.7/UNLOCKED (implementation-dependent)</addressed-by>
+          <rationale>FCS_CKM_EXT.7/UNLOCKED helps mitigate the threat of network eavesdrop by performing key establishment for trusted communications.</rationale>
+          <addressed-by>FCS_COP.1/AEAD (implementation-dependent)</addressed-by>
+          <rationale>FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of a cryptographic algorithm to protect data in transit that includes assurance of both authenticity and confidentiality.</rationale>
           <addressed-by>FDP_UPC_EXT.1/BLUETOOTH (implementation-dependent)</addressed-by>
           <rationale>FDP_UPC_EXT.1/BLUETOOTH helps mitigate the threat of network eavesdrop by protecting communication channels using Bluetooth functionality via a trusted channel.</rationale>   
           
@@ -1224,149 +1490,55 @@ The scope of this Protection Profile (PP) is to describe the security functional
           </objective-refer>
           -->
         </threat>
-         <threat name="T.NETWORK_ATTACK">
-          <description> An attacker is positioned on a wireless communications channel or elsewhere
-            on the network infrastructure. Attackers may initiate communications with the Mobile
-            Device or alter communications between the Mobile Device and other endpoints in order to
-            compromise the Mobile Device. These attacks include malicious software update of any
-            applications or system software on the device. These attacks also include malicious web
-            pages or email attachments, which are usually delivered to devices over the
-            network.</description>
+        
+        <threat name="T.PERSISTENT_PRESENCE">
+          <description> Persistent presence on a device by an attacker implies that the device has
+            lost integrity and cannot regain it. The device has likely lost this integrity due to
+            some other threat vector, yet the continued access by an attacker constitutes an
+            on-going threat in itself. In this case, the device and its data may be controlled by an
+            adversary as well as by its legitimate owner.</description>
           
-          <addressed-by>FAU_GEN.1</addressed-by>
-          <rationale>FAU_GEN.1 helps mitigate the threat of a network attack by maintaining an audit trail of potential malicious activity.</rationale>
-          <addressed-by>FAU_SAR.1</addressed-by>
-          <rationale>FAU_SAR.1 helps mitigate the threat of a network attack by providing a mechanism to read the audit trail.</rationale>
-          <addressed-by>FAU_STG.2</addressed-by>
-          <rationale>FAU_STG.2 helps mitigate the threat of a network attack by maintaining the availability of the audit trail.</rationale>
-          <addressed-by>FAU_STG.5</addressed-by>
-          <rationale>FAU_STG.5 helps mitigate the threat of a network attack by maintaining the availability of the audit trail.</rationale>
           
-           <addressed-by>FCS_CKM.1/AKG</addressed-by>
-           <rationale>FCS_CKM.1/AKG helps mitigate the threat of a network attack by ensuring the generation of strong keys used for trusted communications.</rationale>
-           <addressed-by>FCS_CKM.1/SKG</addressed-by>
-           <rationale>FCS_CKM.1/SKG helps mitigate the threat of a network attack by ensuring the generation of strong keys used for trusted communications.</rationale>
-          <addressed-by>FCS_CKM.2/UNLOCKED</addressed-by>
-          <rationale>FCS_CKM.2/UNLOCKED helps mitigate the threat of a network attack by performing key establishment for trusted communications.</rationale>
-          <addressed-by>FCS_CKM_EXT.6</addressed-by>
-          <rationale>FCS_CKM_EXT.6 helps mitigate the threat of network eavesdrop by using salts using where appropriate for cryptographic functions.</rationale>
-          <addressed-by>FCS_COP.1/ENCRYPT</addressed-by>
-          <rationale>FCS_COP.1/ENCRYPT helps mitigate the threat of a network attack by ensuring that secure symmetric algorithms are used for trusted communications.</rationale>
-          <addressed-by>FCS_COP.1/HASH</addressed-by>
-          <rationale>FCS_COP.1/HASH helps mitigate the threat of a network attack by ensuring that secure hash algorithms are used for trusted communications.</rationale>
-          <addressed-by>FCS_COP.1/KEYHMAC</addressed-by>
-          <rationale>FCS_COP.1/KEYHMAC helps mitigate the threat of a network attack by ensuring that secure HMAC algorithms are used for trusted communications.</rationale>
-          <addressed-by>FCS_COP.1/SIGN</addressed-by>
-          <rationale>FCS_COP.1/SIGN helps mitigate the threat of a network attack by ensuring that secure digital signature algorithms are used for trusted communications.</rationale>
-          <addressed-by>FCS_HTTPS_EXT.1</addressed-by>
-          <rationale>FCS_HTTPS_EXT.1 helps mitigate the threat of a network attack by implementing a secure protocol (HTTPS) for trusted communications.</rationale>
-          <addressed-by>FCS_RBG.1</addressed-by>
-          <rationale>FCS_RBG.1 helps mitigate the threat of a network attack by ensuring that keys used for trusted communications are generated using a secure DRBG.</rationale>
-          <addressed-by>FCS_RBG.6</addressed-by>
-          <rationale>FCS_RBG.6 helps mitigate the threat of a network attack by providing a secure DRBG service for third-party applications running on the TOE which may use this service to generate their own cryptographic keys for trusted communications.</rationale>
-          <addressed-by>FCS_SRV_EXT.1</addressed-by>
-          <rationale>FCS_SRV_EXT.1 helps mitigate the threat of a network attack by ensuring applications have the proper mechanism to perform cryptographic operations.</rationale>
-          <addressed-by>FDP_IFC_EXT.1</addressed-by>
-          <rationale>FDP_IFC_EXT.1 helps mitigate the threat of a network attack by ensuring that the TOE has the ability to enforce the use of an IPsec VPN for all network traffic.</rationale> 
-          <addressed-by>FDP_STG_EXT.1</addressed-by>
-          <rationale>FDP_STG_EXT.1 helps mitigate the threat of network eavesdrop by protecting the X.509 certificates used for trusted communications.</rationale>  
-          <addressed-by>FDP_UPC_EXT.1/APPS</addressed-by>
-          <rationale>FDP_UPC_EXT.1/APPS helps mitigate the threat of network eavesdrop by implementing a means for applications to communicate securely via a trusted channel.</rationale> 
- 
           <addressed-by>FMT_MOF_EXT.1</addressed-by>
-          <rationale>FMT_MOF_EXT.1 helps mitigate the threat of a network attack by limiting the management functions that are available to a given user.</rationale>
+          <rationale>FMT_MOF_EXT.1 helps mitigate the threat of persistent presence by enforcing limitations on TSF usage when it is enrolled in mobile device management.</rationale>
           <addressed-by>FMT_SMF_EXT.1</addressed-by>
-          <rationale>FMT_SMF_EXT.1 helps mitigate the threat of a network attack by providing a list of specific management functions.</rationale>
+          <rationale>FMT_SMF_EXT.1 helps mitigate the threat of persistent presence by defining the management functions that are supported by the TOE.</rationale>
           <addressed-by>FMT_SMF_EXT.2</addressed-by>
-          <rationale>FMT_SMF_EXT.2 helps mitigate the threat of a network attack by specifying the remediation actions allowed upon enrollment.</rationale>
-          <addressed-by>FPT_FLS.1</addressed-by>
-          <rationale>FPT_FLS.1 helps mitigate the threat of a network attack by ensuring that a malfunctioning DRBG function cannot be used to generate potentially insecure keys.</rationale>
-          <addressed-by>FPT_STM.1</addressed-by>
-          <rationale>FPT_STM.1 helps mitigate the threat of a malicious app by providing reliable time stamps for the audit trail.</rationale>
-           <addressed-by>FPT_TST.1</addressed-by>
-          <rationale>FPT_TST.1 helps mitigate the threat of a network attack by implementing a mechanism to detect when the DRBG may be failing to generate secure cryptographic keys.</rationale>
-          <addressed-by>FTA_SSL_EXT.1</addressed-by>
-          <rationale>FTA_SSL_EXT.1 helps mitigate the threat of a network attack by managing the transition to a locked state after a set time or operation.</rationale>      
+          <rationale>FMT_SMF_EXT.2 helps mitigate the threat of persistent presence by maintaining a secure state of the TOE if it is unenrolled from mobile device management.</rationale>
+          <addressed-by>FPT_NOT_EXT.1</addressed-by>
+          <rationale>FPT_NOT_EXT.1 helps mitigate the threat of persistent presence by having the TOE enter a secure failure state when self-test integrity failures occur.</rationale>
+          <addressed-by>FPT_TST_EXT.1</addressed-by>
+          <rationale>FPT_TST_EXT.1 helps mitigate the threat of a persistent presence by performing self-tests to verify the integrity of the TSF.</rationale>
+          <addressed-by>FPT_TST_EXT.2/PREKERNEL</addressed-by>
+          <rationale>FPT_TST_EXT.2/PREKERNEL  helps mitigate the threat of a persistent presence by performing self-tests to verify the integrity of the TSF.</rationale>
+          <addressed-by>FPT_TUD_EXT.2</addressed-by>
+          <rationale>FPT_TUD_EXT.2 helps mitigate the threat of a persistent presence by ensuring that only legitimate updates are applied to the TOE.</rationale>
+          <addressed-by>FPT_TUD_EXT.3</addressed-by>
+          <rationale>FPT_TUD_EXT.3 helps mitigate the threat of a persistent presence by ensuring mobile application software updates are digitally signed prior to installation.</rationale>
           
-          <addressed-by>FTP_ITC_EXT.1</addressed-by>
-          <rationale>FTP_ITC_EXT.1 helps mitigate the threat of a network attack by requiring the TSF to implement trusted protocols for network communication.</rationale>
+          <addressed-by>FPT_TUD_EXT.5 (objective)</addressed-by>
+          <rationale>FPT_TUD_EXT.5 helps mitigate the threat of a persistent presence by enforcing mobile application software verification by X.509v3 prior to installation.</rationale>
+          <addressed-by> FPT_TUD_EXT.6 (objective)</addressed-by>
+          <rationale>FPT_TUD_EXT.6 helps mitigate the threat of a persistent presence by preventing intentional rollback of software updates.</rationale>
           
-
-          
-          <addressed-by>FAU_SEL.1 (objective)</addressed-by>
-          <rationale>FAU_SEL.1 helps mitigate the threat of a network attack by allowing the TSF to determine the behavior that indicates potential malicious activity in the audit trail.</rationale>
-          <addressed-by>FCS_RBG_EXT.2 (objective)</addressed-by>
-          <rationale>FCS_RBG_EXT.2 helps mitigate the threat of a network attack by ensuring the DRBG state at power-off and startup remains the same.</rationale>
-          <addressed-by>FCS_SRV_EXT.2 (objective)</addressed-by>
-          <rationale>FCS_SRV_EXT.2 helps mitigate the threat of a network attack by ensuring applications have the proper mechanism to perform cryptographic operations with keys in secure storage.</rationale>
-          <addressed-by>FDP_BLT_EXT.1 (objective)</addressed-by>
-          <rationale>FDP_BLT_EXT.1 helps mitigate the threat of a network attack by managing which applications communicate with Bluetooth devices.</rationale>
-          <addressed-by>FPT_BLT_EXT.1 (objective)</addressed-by>
-          <rationale>FPT_BLT_EXT.1 helps mitigate the threat of a network attack by enforcing least functionality of the TOE's Bluetooth interface.</rationale>
-          <addressed-by>FTA_TAB.1 (objective)</addressed-by>
-          <rationale>FTA_TAB.1 helps mitigate the threat of a network attack by providing actionable consequences for misuse of the TSF.</rationale>
-          
-          <addressed-by>FDP_UPC_EXT.1/BLUETOOTH (implementation-dependent)</addressed-by>
-          <rationale>FDP_UPC_EXT.1/BLUETOOTH helps mitigate the threat of a network attack by protecting communication channels using Bluetooth functionality via a trusted channel.</rationale>   
-          
-          <addressed-by>FCS_RBG.2 (selection-based)</addressed-by>      
-          <rationale>FCS_RBG.2 helps mitigate the threat of network eavesdrop by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
-          <addressed-by>FCS_RBG.3 (selection-based)</addressed-by>
-          <rationale>FCS_RBG.3 helps mitigate the threat of a network attack by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
-          <addressed-by>FCS_RBG.4 (selection-based)</addressed-by>
-          <rationale>FCS_RBG.4 helps mitigate the threat of a network attack by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
-          <addressed-by>FCS_RBG.5 (selection-based)</addressed-by>
-          <rationale>FCS_RBG.5 helps mitigate the threat of a network attack by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>          
-          
-           <!--
-          <addressed-by>FCS_DTLSS_EXT.1 (TLS Package)</addressed-by>
-          <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
-          <addressed-by>FCS_DTLSS_EXT.2 (TLS Package)</addressed-by>
-          <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
-          <addressed-by>FCS_DTLSS_EXT.3 (TLS Package)</addressed-by>
-          <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
-          <addressed-by>FCS_DTLSS_EXT.4 (TLS Package)</addressed-by>
-          <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
-          <addressed-by>FCS_DTLSS_EXT.5 (TLS Package)</addressed-by>
-          <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
-          <addressed-by>FCS_DTLSS_EXT.6 (TLS Package)</addressed-by>
-          <rationale>Helps mitigate the threat by defining the use of DTLS as a trusted network communications channel.</rationale>
-          -->
-
-           <!--
-          <addressed-by>FCS_TLSS_EXT.1 (TLS Package)</addressed-by>
-          <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
-          <addressed-by>FCS_TLSS_EXT.2 (TLS Package)</addressed-by>
-          <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
-          <addressed-by>FCS_TLSS_EXT.3 (TLS Package)</addressed-by>
-          <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
-          <addressed-by>FCS_TLSS_EXT.4 (TLS Package)</addressed-by>
-          <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
-          <addressed-by>FCS_TLSS_EXT.5 (TLS Package)</addressed-by>
-          <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
-          <addressed-by>FCS_TLSS_EXT.6 (TLS Package)</addressed-by>
-          <rationale>Helps mitigate the threat by defining the use of TLS as a trusted network communications channel.</rationale>
-          -->
-
+          <addressed-by>FPT_TST_EXT.3 (selection-based)</addressed-by>
+          <rationale>FPT_TST_EXT.3 helps mitigate the threat of a persistent presence by preventing the execution of untrusted application code.</rationale>
+          <addressed-by>FPT_TUD_EXT.4 (selection-based)</addressed-by>
+          <rationale>FPT_TUD_EXT.4 helps mitigate the threat of a persistent presence by preventing the execution of untrusted updates.</rationale>
           
           <!--
-          <objective-refer ref="O.PROTECTED_COMMS">
-            <rationale>The threat T.NETWORK_ATTACK is countered by O.PROTECTED_COMMS as this provides the
-              capability to communicate using one (or more) standard protocols as a means to
-              maintain the confidentiality of data that are transmitted outside of the
-              TOE.</rationale>
+          <objective-refer ref="O.INTEGRITY">
+            <rationale>The threat T.PERSISTENT_PRESENCE is countered by O.INTEGRITY as this provides
+              the capability to perform self-tests to ensure the integrity of critical
+              functionality, software/firmware and data has been maintained.</rationale>
           </objective-refer>
-          <objective-refer ref="O.CONFIG">
-            <rationale>The threat T.NETWORK_ATTACK is countered by O.CONFIG as this provides a
-              secure configuration of the mobile device to protect data that it
-              processes.</rationale>
-          </objective-refer>
-          <objective-refer ref="O.AUTH">
-            <rationale>The threat T.NETWORK_ATTACK is countered by O.AUTH as this provides
-              authentication of the endpoints of a trusted communication path.</rationale>
+          <objective-refer ref="O.PRIVACY">
+            <rationale>The threat T.PERSISTENT_PRESENCE is countered by O.PRIVACY as this provides
+              separation and privacy between user activities.</rationale>
           </objective-refer>
           -->
         </threat>
+         
         <threat name="T.PHYSICAL_ACCESS">
           <description> An attacker, with physical access, may attempt to access user data on the
             Mobile Device including credentials. These physical access threats may involve attacks,
@@ -1374,30 +1546,27 @@ The scope of this Protection Profile (PP) is to describe the security functional
             authentication mechanisms, through its user interface, and also through direct and
             possibly destructive access to its storage media. Note: Defending against device re-use
             after physical compromise is out of scope for this Protection Profile.</description>
-
-          <addressed-by>FCS_CKM.2/LOCKED</addressed-by>
-          <rationale>FCS_CKM.2/LOCKED helps mitigate the threat of physical access by implementing a method of protecting data at rest while the TOE is in a locked state.</rationale>
+          
           <addressed-by>FCS_CKM.6</addressed-by>
           <rationale>FCS_CKM.6 helps mitigate the threat of physical access by ensuring that keys used for trusted communications are destroyed in a secure manner.</rationale>
           <addressed-by>FCS_CKM_EXT.1</addressed-by>
           <rationale>FCS_CKM_EXT.1 helps mitigate the threat of physical access by implementing a method of protecting data at rest while the TOE is in a locked state.</rationale>
-          <addressed-by>FCS_CKM_EXT.2</addressed-by>
-          <rationale>FCS_CKM_EXT.2 helps mitigate the threat of physical access by implementing a method of protecting data at rest while the TOE is in a locked state.</rationale>
+          <addressed-by>FCS_CKM_EXT.7/LOCKED</addressed-by>
+          <rationale>FCS_CKM_EXT.7/LOCKED helps mitigate the threat of physical access by implementing a method of protecting data at rest while the TOE is in a locked state.</rationale>
           <addressed-by>FCS_CKM_EXT.3</addressed-by>
           <rationale>FCS_CKM_EXT.3 helps mitigate the threat of physical access by implementing a method of protecting data at rest while the TOE is in a locked state.</rationale>
           <addressed-by>FCS_CKM_EXT.5</addressed-by>
           <rationale>FCS_CKM_EXT.5 helps mitigate the threat of physical access by implementing a secure mechanism to erase protected data from the TOE.</rationale>
           <addressed-by>FCS_CKM_EXT.6</addressed-by>
-          <rationale>FCS_CKM_EXT.6 helps mitigate the threat of physical access by generating salts using RBG.</rationale>
-                            
+          <rationale>FCS_CKM_EXT.6 helps mitigate the threat of physical access by generating salts using RBG.</rationale>                            
           <addressed-by>FCS_CKM_EXT.8</addressed-by>
           <rationale>FCS_CKM_EXT.8 helps mitigate the threat of physical access by performing password conditioning to increase the difficulty of deriving a key from a password.</rationale>
           <addressed-by>FCS_COP.1/ENCRYPT</addressed-by>
           <rationale>FCS_COP.1/ENCRYPT helps mitigate the threat of physical access by using symmetric encryption to protect data at rest.</rationale>
-          <addressed-by>FCS_COP.1/HASH</addressed-by>
-          <rationale>FCS_COP.1/HASH helps mitigate the threat of physical access by implementing an integrity mechanism used to verify stored keys.</rationale>
-          <addressed-by>FCS_COP.1/KEYHMAC</addressed-by>
-          <rationale>FCS_COP.1/KEYHMAC helps mitigate the threat of physical access by implementing an integrity mechanism used to verify stored keys.</rationale>
+          <addressed-by>FCS_COP.1/Hash</addressed-by>
+          <rationale>FCS_COP.1/Hash helps mitigate the threat of physical access by implementing an integrity mechanism used to verify stored keys.</rationale>
+          <addressed-by>FCS_COP.1/KeyedHash</addressed-by>
+          <rationale>FCS_COP.1/KeyedHash helps mitigate the threat of physical access by implementing an integrity mechanism used to verify stored keys.</rationale>
           <addressed-by>FCS_COP.1/SIGN</addressed-by>
           <rationale>FCS_COP.1/SIGN helps mitigate the threat of physical access by implementing an authenticity and integrity mechanism used to verify stored keys.</rationale>
           <addressed-by>FCS_IV_EXT.1</addressed-by>
@@ -1447,11 +1616,12 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>FPT_TST.1 helps mitigate the threat of physical access by implementing a mechanism to detect when the DRBG may be failing to generate secure cryptographic keys.</rationale>
           <addressed-by>FTA_SSL_EXT.1</addressed-by>
           <rationale>FTA_SSL_EXT.1 helps mitigate the threat of physical access by managing the transition to a locked state after a set time or operation.</rationale>      
-                    
 
           <addressed-by>FIA_UAU_EXT.4 (optional)</addressed-by>
           <rationale>FIA_UAU_EXT.4 helps mitigate the threat of physical access by enforcing a secondary authentication mechanism for accessing enterprise resources.</rationale>
           
+          <addressed-by>FCS_CKM_EXT.7/UNLOCKED (implementation-dependent)</addressed-by>
+          <rationale>FCS_CKM_EXT.7/UNLOCKED helps mitigate the threat of physical access by implementing a method of protecting data at rest while the TOE is in a locked state.</rationale>
         <!--  
           <addressed-by>FIA_BMG_EXT.2 (objective)</addressed-by>
           <rationale>FIA_BMG_EXT.2 helps mitigate the threat of physical access by ensuring that biometric authentication cannot be exploited by an improper user.</rationale>
@@ -1485,175 +1655,6 @@ The scope of this Protection Profile (PP) is to describe the security functional
             <rationale>The threat T.PHYSICAL_ACCESS is countered by O.AUTH as this provides the
               capability to authenticate the user prior to accessing protected functionality and
               data. </rationale>
-          </objective-refer>
-          -->
-        </threat>
-        <threat name="T.MALICIOUS_APP">
-          <description> Applications loaded onto the Mobile Device may include malicious or
-            exploitable code. This code could be included intentionally or unknowingly by the
-            developer, perhaps as part of a software library. Malicious apps may attempt to
-            exfiltrate data to which they have access. They may also conduct attacks against the
-            platform’s system software, which will provide them with additional privileges and the
-            ability to conduct further malicious activities. Malicious applications may be able to
-            control the device's sensors (GPS, camera, microphone) to gather intelligence about the
-            user's surroundings even when those activities do not involve data resident or
-            transmitted from the device. Flawed applications may give an attacker access to perform
-            network-based or physical attacks that otherwise would have been prevented.</description>
-          
-          <addressed-by>FAU_GEN.1</addressed-by>
-          <rationale>FAU_GEN.1 helps mitigate the threat of a malicious app by logging evidence of potential malicious activity.</rationale>
-          <addressed-by>FAU_SAR.1</addressed-by>
-          <rationale>FAU_SAR.1 helps mitigate the threat of a malicious app by providing a mechanism to read the audit trail.</rationale>          
-          <addressed-by>FAU_STG.2</addressed-by>
-          <rationale>FAU_STG.2 helps mitigate the threat of a malicious app by maintaining the availability of the audit trail.</rationale>
-          <addressed-by>FAU_STG.5</addressed-by>
-          <rationale>FAU_STG.5 helps mitigate the threat of a malicious app by maintaining the availability of the audit trail.</rationale>
-          <addressed-by>FCS_RBG.6</addressed-by>
-          <rationale>FCS_RBG.6 helps mitigate the threat of a malicious app by providing a secure and legitimate interface that can be invoked by apps to perform DRBG functionality.</rationale>
-          <addressed-by>FCS_SRV_EXT.1</addressed-by>
-          <rationale>FCS_SRV_EXT.1 helps mitigate the threat of a malicious app by providing a secure and legitimate interface that can be invoked by apps to perform cryptographic functionality.</rationale>
-          <addressed-by>FDP_ACF_EXT.1</addressed-by>
-          <rationale>FDP_ACF_EXT.1 helps mitigate the threat of a malicious app by restricting the system services that are accessible to applications.</rationale>
-          <addressed-by>FMT_MOF_EXT.1</addressed-by>
-          <rationale>FMT_MOF_EXT.1 helps mitigate the threat of a malicious app by limiting the management functions that are available to a given user.</rationale>
-          <addressed-by>FMT_SMF_EXT.1</addressed-by>
-          <rationale>FMT_SMF_EXT.1 helps mitigate the threat of a malicious app by defining the management functions that are provided by the TOE.</rationale>
-          <addressed-by>FMT_SMF_EXT.2</addressed-by>
-          <rationale>FMT_SMF_EXT.2 helps mitigate the threat of a malicious app by ensuring that sensitive data is purged from the TOE when it is no longer enrolled in mobile device management.</rationale>
-          <addressed-by>FPT_AEX_EXT.1</addressed-by>
-          <rationale>FPT_AEX_EXT.1 helps mitigate the threat of a malicious app by using address space layout randomization for all applications.</rationale>
-          <addressed-by>FPT_AEX_EXT.2</addressed-by>
-          <rationale>FPT_AEX_EXT.2 helps mitigate the threat of a malicious app by enforcing memory access permissions.</rationale>
-          <addressed-by>FPT_AEX_EXT.3</addressed-by>
-          <rationale>FPT_AEX_EXT.3 helps mitigate the threat of a malicious app by implementing stack-based buffer overflow protection running on non-privileged domains.</rationale>
-          <addressed-by>FPT_AEX_EXT.4</addressed-by>
-          <rationale>FPT_AEX_EXT.4 helps mitigate the threat of a malicious app by enforcing address space isolation.</rationale>
-          <addressed-by>FPT_NOT_EXT.1</addressed-by>
-          <rationale>FPT_NOT_EXT.1 helps mitigate the threat of a malicious app by failing to a secure state when self-test failures occur.</rationale>
-          <addressed-by>FPT_STM.1</addressed-by>
-          <rationale>FPT_STM.1 helps mitigate the threat of a malicious app by providing reliable time stamps for the audit trail.</rationale>
-          <addressed-by>FPT_TST_EXT.1</addressed-by>
-          <rationale>FPT_TST_EXT.1 helps mitigate the threat of a malicious app by performing self-tests that may detect a compromise of the TSF.</rationale>
-          <addressed-by>FPT_TST_EXT.2/PREKERNEL</addressed-by>
-          <rationale>FPT_TST_EXT.2/PREKERNEL helps mitigate the threat of a malicious app by performing self-tests that may detect a compromise of the TSF.</rationale>
-          <addressed-by>FPT_TUD_EXT.1</addressed-by>
-          <rationale>FPT_TUD_EXT.1 helps mitigate the threat of a malicious app by enforcing mechanisms that allow for the identification of the TSF and of applications running on it.</rationale>
-          <addressed-by>FPT_TUD_EXT.2</addressed-by>
-          <rationale>FPT_TUD_EXT.2 helps mitigate the threat of a malicious app by enforcing mechanisms that allow for maintaining the authenticity and integrity of the TSF.</rationale>
-          <addressed-by>FPT_TUD_EXT.3</addressed-by>
-          <rationale>FPT_TUD_EXT.3 helps mitigate the threat of a malicious app by enforcing mechanisms that allow for maintaining the authenticity and integrity of installed apps.</rationale>
-          
-          <addressed-by>FAU_SEL.1 (objective)</addressed-by>
-          <rationale>FAU_SEL.1 helps mitigate the threat of a network attack by allowing the TSF to determine the behavior that indicates potential malicious activity in the audit trail.</rationale>
-       
-          <addressed-by>FCS_SRV_EXT.2 (objective)</addressed-by>
-          <rationale>FCS_SRV_EXT.1 helps mitigate the threat of a malicious app by providing a secure and legitimate interface that can be invoked by apps to interact with protected storage.</rationale>
-          <addressed-by>FDP_ACF_EXT.3 (objective)</addressed-by>
-          <rationale>FDP_ACF_EXT.3 helps mitigate the threat of a malicious app by enforcing policies on applications that prohibit write and execute permissions from being granted simultaneously.</rationale>
-          <addressed-by>FDP_BCK_EXT.1 (objective)</addressed-by>
-          <rationale>FDP_BCK_EXT.1 helps mitigate the threat of a malicious app by determining which data to include in backup operations.</rationale>
-          <addressed-by>FDP_BLT_EXT.1 (objective)</addressed-by>
-          <rationale>FDP_BLT_EXT.1 helps mitigate the threat of a malicious app by managing which applications communicate with Bluetooth devices.</rationale>
-          <addressed-by>FMT_SMF_EXT.3 (objective)</addressed-by>
-          <rationale>FMT_SMF_EXT.3 helps mitigate the threat of a malicious app by providing a current list of authorized administrators and their authorized management functions.</rationale>
-          <addressed-by>FPT_AEX_EXT.5 (objective)</addressed-by>
-          <rationale>FPT_AEX_EXT.5 helps mitigate the threat of a malicious app by enforcing kernel level ASLR.</rationale>
-          <addressed-by>FPT_AEX_EXT.6 (objective)</addressed-by>
-          <rationale>FPT_AEX_EXT.6 helps mitigate the threat of a malicious app by preventing non-privileged execution domains from being writable and executable.</rationale>
-          <addressed-by>FPT_AEX_EXT.7 (objective)</addressed-by>
-          <rationale>FPT_AEX_EXT.7 helps mitigate the threat of a malicious app by enforcing heap-based buffer overflow protections.</rationale>
-          <addressed-by>FPT_BBD_EXT.1 (objective)</addressed-by>
-          <rationale>FPT_BBD_EXT.1 helps mitigate the threat of a malicious app by preventing the application processor's executable memory from being modified by the baseband processor.</rationale>
-          <addressed-by>FPT_BLT_EXT.1 (objective)</addressed-by>
-          <rationale>FPT_BLT_EXT.1 helps mitigate the threat of a malicious app by enforcing least functionality of the TOE's Bluetooth interface.</rationale>
-          <addressed-by>FPT_NOT_EXT.2 (objective)</addressed-by>
-          <rationale>FPT_NOT_EXT.2 helps mitigate the threat of a malicious app by enforcing remote attestation to ensure that the TSF has not been compromised.</rationale>
-          <addressed-by>FPT_TST_EXT.2/POSTKERNEL (objective)</addressed-by>
-          <rationale>FPT_TST_EXT.2/POSTKERNEL helps mitigate the threat of a malicious app by verifying the integrity of executable code after the kernel is loaded.</rationale>
-          <addressed-by>FPT_TUD_EXT.5 (objective)</addressed-by>
-          <rationale>FPT_TUD_EXT.5 helps mitigate the threat of a malicious app by enforcing installation of only trusted mobile application software.</rationale>
-          <addressed-by> FPT_TUD_EXT.6 (objective)</addressed-by>
-          <rationale>FPT_TUD_EXT.6 helps mitigate the threat of a malicious app by preventing intentional rollback of software updates.</rationale>
-          
-          <addressed-by>FDP_ACF_EXT.2 (selection-based)</addressed-by>
-          <rationale>FDP_ACF_EXT.2 helps mitigate the threat of a malicious app by providing separate copies of system resources for different application groups.</rationale>
-          <addressed-by>FPT_TST_EXT.3 (selection-based)</addressed-by>
-          <rationale>FPT_TST_EXT.3 helps mitigate the threat of a malicious app by preventing the execution of untrusted application code.</rationale>
-          <addressed-by>FPT_TUD_EXT.4 (selection-based)</addressed-by>
-          <rationale>FPT_TUD_EXT.4 helps mitigate the threat of a malicious app by preventing the execution of untrusted updates.</rationale>
-          
-          <!--
-          <objective-refer ref="O.PROTECTED_COMMS">
-            <rationale>The threat T.MALICIOUS_APP is countered by O.PROTECTED_COMMS as this provides the
-              capability to communicate using one (or more) standard protocols as a means to
-              maintain the confidentiality of data that are transmitted outside of the
-              TOE.</rationale>
-          </objective-refer>
-          <objective-refer ref="O.CONFIG">
-            <rationale>The threat T.MALICIOUS_APP is countered by O.CONFIG as this provides the
-              capability to configure and apply security policies to ensure the Mobile Device can
-              protect user and enterprise data that it may store or process.</rationale>
-          </objective-refer>
-          <objective-refer ref="O.AUTH">
-            <rationale>The threat T.MALICIOUS_APP is countered by O.AUTH as this provides the
-              capability to authenticate the user and endpoints of a trusted path to ensure they are
-              communicating with an authorized entity with appropriate privileges.</rationale>
-          </objective-refer>
-          <objective-refer ref="O.INTEGRITY">
-            <rationale>The threat T.MALICIOUS_APP is countered by O.INTEGRITY as this provides the
-              capability to perform self-tests to ensure the integrity of critical functionality,
-              software/firmware and data has been maintained.</rationale>
-          </objective-refer>
-          <objective-refer ref="O.PRIVACY">
-            <rationale>The threat T.MALICIOUS_APP is countered by O.PRIVACY as this provides
-              separation and privacy between user activities.</rationale>
-          </objective-refer>
-          -->
-        </threat>
-        <threat name="T.PERSISTENT_PRESENCE">
-          <description> Persistent presence on a device by an attacker implies that the device has
-            lost integrity and cannot regain it. The device has likely lost this integrity due to
-            some other threat vector, yet the continued access by an attacker constitutes an
-            on-going threat in itself. In this case, the device and its data may be controlled by an
-            adversary as well as by its legitimate owner.</description>
-          
-          
-          <addressed-by>FMT_MOF_EXT.1</addressed-by>
-          <rationale>FMT_MOF_EXT.1 helps mitigate the threat of persistent presence by enforcing limitations on TSF usage when it is enrolled in mobile device management.</rationale>
-          <addressed-by>FMT_SMF_EXT.1</addressed-by>
-          <rationale>FMT_SMF_EXT.1 helps mitigate the threat of persistent presence by defining the management functions that are supported by the TOE.</rationale>
-          <addressed-by>FMT_SMF_EXT.2</addressed-by>
-          <rationale>FMT_SMF_EXT.2 helps mitigate the threat of persistent presence by maintaining a secure state of the TOE if it is unenrolled from mobile device management.</rationale>
-          <addressed-by>FPT_NOT_EXT.1</addressed-by>
-          <rationale>FPT_NOT_EXT.1 helps mitigate the threat of persistent presence by having the TOE enter a secure failure state when self-test integrity failures occur.</rationale>
-          <addressed-by>FPT_TST_EXT.1</addressed-by>
-          <rationale>FPT_TST_EXT.1 helps mitigate the threat of a persistent presence by performing self-tests to verify the integrity of the TSF.</rationale>
-          <addressed-by>FPT_TST_EXT.2/PREKERNEL</addressed-by>
-          <rationale>FPT_TST_EXT.2/PREKERNEL  helps mitigate the threat of a persistent presence by performing self-tests to verify the integrity of the TSF.</rationale>
-          <addressed-by>FPT_TUD_EXT.2</addressed-by>
-          <rationale>FPT_TUD_EXT.2 helps mitigate the threat of a persistent presence by ensuring that only legitimate updates are applied to the TOE.</rationale>
-          <addressed-by>FPT_TUD_EXT.3</addressed-by>
-          <rationale>FPT_TUD_EXT.3 helps mitigate the threat of a persistent presence by ensuring mobile application software updates are digitally signed prior to installation.</rationale>
-
-          <addressed-by>FPT_TUD_EXT.5 (objective)</addressed-by>
-          <rationale>FPT_TUD_EXT.5 helps mitigate the threat of a persistent presence by enforcing mobile application software verification by X.509v3 prior to installation.</rationale>
-          <addressed-by> FPT_TUD_EXT.6 (objective)</addressed-by>
-          <rationale>FPT_TUD_EXT.6 helps mitigate the threat of a persistent presence by preventing intentional rollback of software updates.</rationale>
-         
-          <addressed-by>FPT_TST_EXT.3 (selection-based)</addressed-by>
-          <rationale>FPT_TST_EXT.3 helps mitigate the threat of a persistent presence by preventing the execution of untrusted application code.</rationale>
-          <addressed-by>FPT_TUD_EXT.4 (selection-based)</addressed-by>
-          <rationale>FPT_TUD_EXT.4 helps mitigate the threat of a persistent presence by preventing the execution of untrusted updates.</rationale>
-          
-          <!--
-          <objective-refer ref="O.INTEGRITY">
-            <rationale>The threat T.PERSISTENT_PRESENCE is countered by O.INTEGRITY as this provides
-              the capability to perform self-tests to ensure the integrity of critical
-              functionality, software/firmware and data has been maintained.</rationale>
-          </objective-refer>
-          <objective-refer ref="O.PRIVACY">
-            <rationale>The threat T.PERSISTENT_PRESENCE is countered by O.PRIVACY as this provides
-              separation and privacy between user activities.</rationale>
           </objective-refer>
           -->
         </threat>
@@ -1734,17 +1735,17 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	    <rationale>
 	      FCS_COP.1/ENCRYPT supports the objective by requiring the TSF to implement symmetric encryption algorithms that are used in support of protected communications.	      
 	    </rationale>
-	    <addressed-by> FCS_COP.1/HASH</addressed-by>
+	    <addressed-by> FCS_COP.1/Hash</addressed-by>
 	    <rationale>
-	      FCS_COP.1/HASH supports the objective by requiring the TSF to implement hash algorithms that are used in support of protected communications.
+	      FCS_COP.1/Hash supports the objective by requiring the TSF to implement hash algorithms that are used in support of protected communications.
 	    </rationale>
 	    <addressed-by> FCS_COP.1/SIGN</addressed-by>
 	    <rationale>
 	      FCS_COP.1/SIGN supports the objective by requiring the TSF to implement digital signature algorithms that are used in support of protected communications.
 	    </rationale>
-	    <addressed-by> FCS_COP.1/KEYHMAC</addressed-by>
+	    <addressed-by> FCS_COP.1/KeyedHash</addressed-by>
 	    <rationale>
-	      FCS_COP.1/KEYHMAC supports the objective by requiring the TSF to implement HMAC algorithms that are used in support of protected communications.
+	      FCS_COP.1/KeyedHash supports the objective by requiring the TSF to implement HMAC algorithms that are used in support of protected communications.
 	    </rationale>
 	    <addressed-by> FCS_DTLSC_EXT.1 (TLS Package)</addressed-by>
 	    <rationale>
@@ -1929,17 +1930,17 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	  <rationale>
 	    FCS_COP.1/ENCRYPT supports the objective by defining a symmetric encryption/decryption function that can be used to protect data at rest.
 	  </rationale>
-	  <addressed-by>FCS_COP.1/HASH</addressed-by>
+	  <addressed-by>FCS_COP.1/Hash</addressed-by>
 	  <rationale>
-	    FCS_COP.1/HASH supports the objective by defining a hash function that can be used to protect data at rest.
+	    FCS_COP.1/Hash supports the objective by defining a hash function that can be used to protect data at rest.
 	  </rationale>
 	  <addressed-by>FCS_COP.1/SIGN</addressed-by>
 	  <rationale>
 	    FCS_COP.1/SIGN supports the objective by defining a digital signature function that can be used to protect data at rest.
 	  </rationale>
-	  <addressed-by>FCS_COP.1/KEYHMAC</addressed-by>
+	  <addressed-by>FCS_COP.1/KeyedHash</addressed-by>
 	  <rationale>
-	    FCS_COP.1/KEYHMAC supports the objective by defining an HMAC function that can be used to protect data at rest.
+	    FCS_COP.1/KeyedHash supports the objective by defining an HMAC function that can be used to protect data at rest.
 	  </rationale>
 	  <addressed-by>FCS_CKM_EXT.8</addressed-by>
 	  <rationale>
@@ -2156,9 +2157,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	  <rationale>
 	    FAU_STG.5 supports the objective by ensuring the availability of audit data.
 	  </rationale>
-	  <addressed-by> FCS_COP.1/HASH</addressed-by>
+	  <addressed-by> FCS_COP.1/Hash</addressed-by>
 	  <rationale>
-	    FCS_COP.1/HASH supports the objective by requiring the TSF to implement hash algorithms that can be used to assert and verify integrity.
+	    FCS_COP.1/Hash supports the objective by requiring the TSF to implement hash algorithms that can be used to assert and verify integrity.
 	  </rationale>
 	  <addressed-by> FCS_COP.1/SIGN</addressed-by>
 	  <rationale>
@@ -2390,9 +2391,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
               <!--   <h:tr><h:td>FCS_CKM.2/UNLOCKED</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_CKM.2/LOCKED</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_COP.1/ENCRYPT</h:td><h:td>None.</h:td><h:td/></h:tr> -->
-              <!--   <h:tr><h:td>FCS_COP.1/HASH</h:td><h:td>None.</h:td><h:td/></h:tr> -->
+              <!--   <h:tr><h:td>FCS_COP.1/Hash</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_COP.1/SIGN</h:td><h:td>None.</h:td><h:td/></h:tr> -->
-              <!--   <h:tr><h:td>FCS_COP.1/KEYHMAC</h:td><h:td>None.</h:td><h:td/></h:tr> -->
+              <!--   <h:tr><h:td>FCS_COP.1/KeyedHash</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_CKM_EXT.8</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_IV_EXT.1</h:td><h:td>None.</h:td><h:td/></h:tr> -->
               <!--   <h:tr><h:td>FCS_SRV_EXT.1</h:td><h:td>None.</h:td><h:td/></h:tr> -->
@@ -4399,7 +4400,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
             <h:br/>FCS_CKM.1 Cryptographic Key Generation, or
             <h:br/>FCS_CKM.5 Cryptographic Key Derivation, or
             <h:br/>FCS_CKM_EXT.8 Password-Based Key Derivation],
-            <h:br/>[FCS_CKM.2 Cryptographic Key Distribution, or
+            <h:br/>[FCS_CKM_EXT.7 Cryptographic Key Distribution, or
             <h:br/>FCS_COP.1 Cryptographic Operation]
             <h:br/>FCS_CKM.6 Timing and Event of Cryptographic Key Destruction
             <h:br/>FCS_COP.1 Cryptographic Operation 
@@ -4914,7 +4915,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
             </h:ul>
           </audit>
           <dependencies><h:br/>
-            <h:br/>[FCS_CKM.2 Cryptographic Key Distribution, or
+            <h:br/>[FCS_CKM_EXT.7 Cryptographic Key Distribution, or
             <h:br/>FCS_COP.1 Cryptographic Operation]
             <h:br/>FCS_CKM_EXT.7 Cryptographic Key Agreement],
             <h:br/>FCS_CKM.6 Timing and Event of Cryptographic Key Destruction
@@ -5047,8 +5048,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   </col></selectable>
               </selectables>
             </title>
-            <note role="application">
-              This SFR is claimed when the TOE has wireless LAN client functionality so that the TSF can provide AEAD algorithms in support of wireless communications.<h:p/>
+            <note role="application">              
+              <h:p/>
               The use of 256-bit keys for AES encryption is required by CNSA 1.0 and 2.0.
             </note>
             <aactivity>
@@ -5470,11 +5471,11 @@ The scope of this Protection Profile (PP) is to describe the security functional
 						<tabularize id="tab-fcs-cop-keyencap-sels" title="Allowable choices for FCS_COP.1/KeyEncap">
 							<textcol>Identifier</textcol>
 							<reqtext></reqtext>
-							<selectcol>Cryptographic algorithm</selectcol>
+							<selectcol>Cryptographic Algorithm</selectcol>
 							<reqtext>and cryptographic key sizes</reqtext>
-							<selectcol>Cryptographic key sizes</selectcol>
+							<selectcol>Cryptographic Key Sizes</selectcol>
 							<reqtext>that meet the following:</reqtext>
-							<selectcol>List of standards</selectcol>
+							<selectcol>List of Standards</selectcol>
 							<reqtext><h:p/><h:p/>The following table provides the allowable choices for
 										completion of the selection operations of FCS_COP.1/KeyEncap.</reqtext>
 						</tabularize>
@@ -5577,16 +5578,16 @@ The scope of this Protection Profile (PP) is to describe the security functional
 		  <depends on-sel="sel-ckm-2-wrap"/>
 		  <f-element id="fcs-cop-1e1-kw">
 				<title>
-					The TSF shall perform [key wrapping] in accordance with a specified cryptographic algorithm 
+					The TSF shall perform [<h:i>key wrapping</h:i>] in accordance with a specified cryptographic algorithm 
 					<selectables>
 						<tabularize id="fcs-cop-kw-sels" title="Allowable choices for FCS_COP.1/KeyWrap">
 							<textcol>Identifier</textcol>
 							<reqtext></reqtext>
-							<selectcol>Cryptographic algorithm</selectcol>
+							<selectcol>Cryptographic Algorithm</selectcol>
 							<reqtext>and cryptographic key sizes</reqtext>
-							<selectcol>Cryptographic key sizes</selectcol>
+							<selectcol>Cryptographic Key Sizes</selectcol>
 							<reqtext>that meet the following:</reqtext>
-							<selectcol>List of standards</selectcol>
+							<selectcol>List of Standards</selectcol>
 							<reqtext><h:p/><h:p/>The following table provides the allowable choices for
 								completion of the selection operations of FCS_COP.1/KeyWrap.</reqtext>
 						</tabularize>
@@ -6636,7 +6637,67 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <audit-event/>
         </f-component>
         
-        <f-component cc-id="fcs_cop.1" iteration="SKC" name="Cryptographic Operation - Encryption/Decryption">
+        <f-component cc-id="fcs_cop.1" iteration="SKC" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
+          <depends on="fel-dar-how-cbc">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on-sel="fel-dar-how-xts">          
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_tlsc_ext.1.2_7">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_tlsc_ext.1.2_8">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_tlsc_ext.1.2_14">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_tlsc_ext.1.2_15">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_tlsc_ext.1.2_18">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_tlsc_ext.1.2_19">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_tlsc_ext.1.2_20">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_tlsc_ext.1.2_21">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_tlsc_ext.1.2_22">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_dtlsc_ext.1.2_7">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_dtlsc_ext.1.2_8">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_dtlsc_ext.1.2_14">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_dtlsc_ext.1.2_15">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_dtlsc_ext.1.2_18">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_dtlsc_ext.1.2_19">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_dtlsc_ext.1.2_20">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_dtlsc_ext.1.2_21">
+            <external-doc ref="tls"/>
+          </depends>
+          <depends on="fcs_dtlsc_ext.1.2_22">
+            <external-doc ref="tls"/>
+          </depends>          
           <f-element id="fel-encrypt-how">
             <title>
               The TSF shall perform [<h:i>symmetric-key encryption and decryption</h:i>] in accordance with a 
@@ -6680,21 +6741,6 @@ The scope of this Protection Profile (PP) is to describe the security functional
                       <selectable>NIST SP 800-38E</selectable></selectables> [XTS]
                   </col>
                 </selectable>
-                
-                <!-- AES-CTR -->
-                <selectable id="sel-fcs-cop-skc-aes-ctr">
-                  <col>AES-CTR</col>
-                  <col>AES in Counter Mode with a non-repeating initial counter and with no repeated
-                    use of counter values across multiple messages with the same secret key</col>
-                  <col>256 bits</col>
-                  <col><selectables>
-                    <selectable>ISO/IEC 18033-3:2010 (Subclause 5.2)</selectable> 
-                    <selectable>FIPS PUB 197</selectable></selectables> [AES]<h:p/><selectables>
-                      <selectable>ISO/IEC 10116:2017 (Clause 10)</selectable> 
-                      <selectable>NIST SP 800-38A</selectable></selectables> [CBC]
-                  </col>
-                </selectable>
-        
               </selectables>
             </title>
             <aactivity>
@@ -7656,7 +7702,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <h:li>All mandatory and <selectables>
                     <selectable>selected algorithms</selectable>
                     <selectable> selected algorithms with the exception of ECC over curve
-                      25519-based algorithms</selectable></selectables> in FCS_CKM.2/LOCKED</h:li>
+                      25519-based algorithms</selectable></selectables> in FCS_CKM_EXT.7/LOCKED</h:li>
                 <h:li>The following algorithms in FCS_COP.1/ENCRYPT: AES-CBC, <selectables>
                     <selectable>AES Key Wrap</selectable>
                     <selectable>AES Key Wrap with Padding</selectable>
@@ -7665,8 +7711,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
                     <selectable exclusive="yes">no other modes</selectable></selectables>
                 </h:li>
                 <h:li>All selected algorithms in FCS_COP.1/SIGN</h:li>
-                <h:li>All mandatory and selected algorithms in FCS_COP.1/HASH</h:li>
-                <h:li>All mandatory and selected algorithms in FCS_COP.1/KEYHMAC</h:li>
+                <h:li>All mandatory and selected algorithms in FCS_COP.1/Hash</h:li>
+                <h:li>All mandatory and selected algorithms in FCS_COP.1/KeyedHash</h:li>
                 <h:li>
                   <selectables linebreak="yes">
                     <selectable>All mandatory and <selectables>
@@ -8099,9 +8145,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <selectable>Key Wrap</selectable>
                   <selectable>Key Wrap with Padding</selectable>
                 </selectables> cipher mode for encryption according to FCS_STG_EXT.2</selectable>
-                <selectable>a hash (FCS_COP.1<h:b>/HASH</h:b>) of the stored key that is encrypted by a key
+                <selectable>a hash (FCS_COP.1<h:b>/Hash</h:b>) of the stored key that is encrypted by a key
                   protected by FCS_STG_EXT.2</selectable>
-                <selectable>a keyed hash (FCS_COP.1<h:b>/KEYHMAC</h:b>) using a key protected by a key
+                <selectable>a keyed hash (FCS_COP.1<h:b>/KeyedHash</h:b>) using a key protected by a key
                   protected by FCS_STG_EXT.2</selectable>
                 <selectable>a digital signature of the stored key using an asymmetric key protected
                   according to FCS_STG_EXT.2</selectable>
@@ -8148,7 +8194,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 multiple of these methods; however, a product may use one integrity-protection method
                 for one type of key and a different method for other types of keys. The explicit
                 Evaluation Activities for each of the options will be addressed in each of the
-                requirements (FCS_COP.1.1/HASH, FCS_COP.1.1/KEYHMAC). <h:br/><h:br/> Key Wrapping
+                requirements (FCS_COP.1.1/Hash, FCS_COP.1.1/KeyedHash). <h:br/><h:br/> Key Wrapping
                 must be implemented per SP800-38F.</note>
               <aactivity>
                 <TSS>The evaluator shall examine the key hierarchy description in the TSS section to
@@ -8579,9 +8625,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
           </f-element>
           <f-element id="fel-dar-how">
             <title>Encryption shall be performed using DEKs with AES in the <selectables>
-                <selectable>XTS</selectable>
-                <selectable>CBC</selectable>
-                <selectable>GCM</selectable>
+                <selectable id="fel-dar-how-xts">XTS</selectable>
+              <selectable id="fel-dar-how-cbc">CBC</selectable>
+                <selectable id="fel-dar-how-gcm">GCM</selectable>
             </selectables> mode with key size [<h:i>256</h:i>] bits. </title>
 	    <ext-comp-def-title>
 	      <title>Encryption shall be performed using DEKs with AES in the
@@ -8635,7 +8681,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               <h:li>Addition or removal of certificate from Trust Anchor Database</h:li>
             </h:ul></audit>
           <dependencies>FCS_COP.1 Cryptographic Operation<h:br/>
-            FCS_CKM.2 Cryptographic Key Establishment<h:br/>
+            FCS_CKM_EXT.7 Cryptographic Key Establishment<h:br/>
             FCS_STG_EXT.2 Encrypted Cryptographic Key Storage
           </dependencies>
           
@@ -8674,7 +8720,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
             <title>The TSF shall use an asymmetric key scheme to encrypt and store sensitive data
               received while the product is locked. </title>
             <note role="application">Sensitive data is encrypted according to FDP_DAR_EXT.1.2. The
-              asymmetric key scheme must be performed in accordance with FCS_CKM.2/LOCKED.
+              asymmetric key scheme must be performed in accordance with FCS_CKM_EXT.7/LOCKED.
               <h:br/><h:br/> The intent of this requirement is to allow the device to receive
               sensitive data while locked and to store the received data in such a way as to prevent
               unauthorized parties from decrypting it while in the locked state. If only a subset of
@@ -15221,7 +15267,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
         <h:tr><h:td>FCS_CKM_EXT.2.1</h:td><h:td>Select 256 bits.</h:td></h:tr>
        <h:tr><h:td>FCS_CKM_EXT.3.1</h:td><h:td>If asymmetric KEKs is selected and RSA scheme is selected in FCS_CKM.1.1 then assign 128 bits security strength. If asymmetric KEKs is selected and ECC scheme is selected in FCS_CKM.1.1 then assign 192 bits security strength. If symmetric KEKs is selected, select 256 bit security strength.</h:td></h:tr>
         <h:tr><h:td>FCS_COP.1.1/ENCRYPT</h:td><h:td>Select 256 bits.</h:td></h:tr>
-        <h:tr><h:td>FCS_COP.1.1/HASH</h:td><h:td>Select SHA-384.</h:td></h:tr>
+        <h:tr><h:td>FCS_COP.1.1/Hash</h:td><h:td>Select SHA-384.</h:td></h:tr>
         <h:tr><h:td>FCS_COP.1.1/SIGN</h:td><h:td>Assign a key size of 3072 for RSA or select ECDSA schemes.</h:td></h:tr>
         <h:tr><h:td>FCS_CKM_EXT.8</h:td><h:td>Select 256 bits.</h:td></h:tr>
         <h:tr><h:td>FCS_RBG_EXT.1.2</h:td><h:td>Select 256 bits.</h:td></h:tr>
@@ -15846,9 +15892,9 @@ DTLS -> TLS Package
 FCS_CKM.2(1) — UNLOCKED
 FCS_CKM.2(2) — LOCKED
 FCS_COP.1(1) - ENCRYPT
-FCS_COP.1(2) - HASH
+FCS_COP.1(2) - Hash
 FCS_COP.1(3) - SIGN
-FCS_COP.1(4) - KEYHMAC
+FCS_COP.1(4) - KeyedHash
 FCS_COP.1(5) - CONDITION
 FDP_UPC_EXT.1(1) - NORMAL
 FDP_UPC_EXT.1(2) - BLUETOOTH
