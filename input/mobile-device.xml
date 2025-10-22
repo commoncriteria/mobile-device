@@ -3465,7 +3465,54 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <audit-event/>
         </f-component>
         
-        
+        <f-component cc-id="fcs_ckm.2" name="Cryptographic Key Distribution">          
+          <f-element id="fel-crypt-key-estab">
+            <title>The TSF shall distribute cryptographic keys in accordance with the specified cryptographic 
+              key distribution method <h:b>key wrapping</h:b> and <selectables>
+                <selectable id="sel-ckm-2-encap">key encapsulation</selectable>
+                <selectable id="sel-ckm-2-no-other"><h:b>no other methods</h:b></selectable>
+              </selectables> that meets the following: [none].
+            </title>
+            <note role="application">
+              <h:p>
+                Key wrapping is used in support of wireless LAN communications. Key encapsulation is used in support of TLS when ML-KEM is used as the method of key establishment. 
+              </h:p>
+            </note>
+            <aactivity>
+              <TSS>
+                The evaluator shall ensure that the TSS documents that the security strength supported by
+                the selected key distribution methods is sufficient for the security strength of the keys
+                distributed through those methods.<h:p/>
+                It is not necessary to identify the services that use each key distribution method here. That
+                information should be documented in the requirements for the individual services and
+                protocols that invoke key distribution.
+              </TSS>
+              <Guidance>
+                The evaluator shall verify that the AGD guidance instructs the administrator
+                how to configure the TOE to use the selected key distribution methods.
+              </Guidance>
+              <Tests>
+                Specific testing for this component is covered by testing for the claimed components in
+                FCS_COP.1/KeyEncap or FCS_COP.1/KeyWrap, depending on selections made.
+              </Tests>
+            </aactivity>
+            <!--
+            <rule id="r-key-rsa">
+              <if><ref-id>s-keyestab-rsa</ref-id></if>
+              <then><ref-id>s-keygen-rsa</ref-id></then>
+            </rule>
+            <rule id="r-key-ecc">
+              <if><ref-id>s-keyestab-ecc</ref-id></if>
+              <then><ref-id>s-keygen-ecc</ref-id></then>
+            </rule>
+            <rule id="r-key-ffc">
+              <if><ref-id>s-keyestab-ffc</ref-id></if>
+              <then><ref-id>s-keygen-ffc</ref-id></then>
+            </rule>
+            -->
+          </f-element>
+          <audit-event/>
+        </f-component>
        
         <f-component cc-id="fcs_ckm.6" name="Timing and Event of Cryptographic Key Destruction">
           <f-element id="fel-key-kill-when">
@@ -5574,8 +5621,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 
 		<!-- FCS_COP.1/KeyWrap Cryptographic Operation - Key Wrapping -->
 		<f-component id="sfr-fcs-cop-1-kw" cc-id="fcs_cop.1" iteration="KeyWrap" 
-			name="Cryptographic Operation - Key Wrapping" status="sel-based">
-		  <depends on-sel="sel-ckm-2-wrap"/>
+			name="Cryptographic Operation - Key Wrapping">		  
 		  <f-element id="fcs-cop-1e1-kw">
 				<title>
 					The TSF shall perform [<h:i>key wrapping</h:i>] in accordance with a specified cryptographic algorithm 
