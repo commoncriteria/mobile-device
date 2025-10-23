@@ -1214,6 +1214,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>FCS_CKM.1/AKG helps mitigate the threat of a network attack by ensuring the generation of strong keys used for trusted communications.</rationale>
           <addressed-by>FCS_CKM.1/SKG</addressed-by>
           <rationale>FCS_CKM.1/SKG helps mitigate the threat of a network attack by ensuring the generation of strong keys used for trusted communications.</rationale>          
+          <addressed-by>FCS_CKM.2</addressed-by>
+          <rationale>FCS_CKM.2 helps mitigate the threat of a network attack by implementing secure methods to perform key distribution for trusted communications.</rationale>
           <addressed-by>FCS_CKM_EXT.6</addressed-by>
           <rationale>FCS_CKM_EXT.6 helps mitigate the threat of network eavesdrop by using salts using where appropriate for cryptographic functions.</rationale>
           <addressed-by>FCS_COP.1/Hash</addressed-by>
@@ -1346,6 +1348,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>FCS_CKM.1/AKG helps mitigate the threat of network eavesdrop by ensuring the generation of strong keys used for trusted communications.</rationale>
           <addressed-by>FCS_CKM.1/SKG</addressed-by>
           <rationale>FCS_CKM.1/SKG helps mitigate the threat of network eavesdrop by ensuring the generation of strong keys used for trusted communications.</rationale>          
+          <addressed-by>FCS_CKM.2</addressed-by>
+          <rationale>FCS_CKM.2 helps mitigate the threat of a network eavesdrop by implementing secure methods to perform key distribution for trusted communications.</rationale>
           <addressed-by>FCS_CKM_EXT.6</addressed-by>
           <rationale>FCS_CKM_EXT.6 helps mitigate the threat of network eavesdrop by using salts using where appropriate for cryptographic functions.</rationale>
           <addressed-by>FCS_COP.1/Hash</addressed-by>
@@ -1547,6 +1551,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
             possibly destructive access to its storage media. Note: Defending against device re-use
             after physical compromise is out of scope for this Protection Profile.</description>
           
+          <addressed-by>FCS_CKM.2</addressed-by>
+          <rationale>FCS_CKM.2 helps mitigate the threat of physical access by implementing secure methods to perform key distribution for trusted communications.</rationale>
           <addressed-by>FCS_CKM.6</addressed-by>
           <rationale>FCS_CKM.6 helps mitigate the threat of physical access by ensuring that keys used for trusted communications are destroyed in a secure manner.</rationale>
           <addressed-by>FCS_CKM_EXT.1</addressed-by>
@@ -1634,8 +1640,6 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <addressed-by>FIA_BMG_EXT.6 (objective)</addressed-by>
           <rationale>FIA_BMG_EXT.6 helps mitigate the threat of physical access by ensuring that biometric authentication cannot be exploited by an improper user.</rationale>
 -->
-          <addressed-by>FCS_CKM_EXT.7 (selection-based)</addressed-by>          
-          <rationale>FCS_CKM_EXT.7 helps mitigate the threat of physical access by preventing REKs from being read or exported.</rationale>
           <addressed-by>FCS_RBG.2 (selection-based)</addressed-by>      
           <rationale>FCS_RBG.2 helps mitigate the threat of network eavesdrop by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
           <addressed-by>FCS_RBG.3 (selection-based)</addressed-by>
@@ -3001,9 +3005,13 @@ The scope of this Protection Profile (PP) is to describe the security functional
 <h:p>
               For RSA the choice of the modulus implies the resulting key sizes of the public and private keys generated using the specified standard methods. RSA key generation with modulus size 2048 bits is no longer permitted by CNSA.
 	      </h:p><h:p>
-              For Finite Field Cryptography (FFC) DSA, ST authors should consult schemes for guidelines on use. FIPS PUB 186-5 does not approve DSA for digital signature generation but allows DSA for digital signature verification for legacy purposes. “FFC-ERB” or “FFC–RS” may be claimed only for generating private and public keys when “DH” is claimed in FCS_CKM_EXT.7.
+              For Finite Field Cryptography (FFC) DSA, ST authors should consult schemes for
+              guidelines on use. FIPS PUB 186-5 does not approve DSA for digital signature
+              generation but allows DSA for digital signature verification for legacy purposes.
+              “FFC-ERB” or “FFC–RS” may be claimed only for generating private and public keys when
+              “DH” is claimed in FCS_CKM_EXT.7/LOCKED or FCS_CKM_EXT.7/UNLOCKED.
 	      </h:p><h:p>
-              When generating ECC keys pairs for key agreement and if “ECDH” is claimed in FCS_CKM_EXT.7, then “ECC–ERB” or “ECC–RS” must be claimed. The sizes of the private key, which is a scalar, and the public key, which is a point on the elliptic curve, are determined by the choice of the curve.
+	        When generating ECC keys pairs for key agreement and if “ECDH” is claimed in FCS_CKM_EXT.7/LOCKED or FCS_CKM_EXT.7/UNLOCKED, then “ECC–ERB” or “ECC–RS” must be claimed. The sizes of the private key, which is a scalar, and the public key, which is a point on the elliptic curve, are determined by the choice of the curve.
 	      </h:p><h:p>
               When generating ECC key pairs for digital signature generation and if “ECDSA” is claimed in FCS_COP.1/SigGen, then “ECC–ERB” or “ECC–RS” must be claimed. The sizes of the private key, which is a scalar, and the public key, which is a point on the elliptic curve, are determined by the choice of the curve.
               </h:p><h:p>
@@ -3727,9 +3735,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
               "immutable hardware" REKs is computationally processed by hardware and software
               cannot access the raw key material. Thus if <xref to="s-immutable-hardware"/>
 	      is selected in
-              FCS_CKM_EXT.1.1 it implicitly meets FCS_CKM_EXT.7.
+	      FCS_CKM_EXT.1.1 it implicitly meets FCS_CKM_EXT.7/LOCKED or FCS_CKM_EXT.7/UNLOCKED.
 	      If <xref to="mutable_hardware"/> is selected
-              in FCS_CKM_EXT.1.1, FCS_CKM_EXT.7 must be included in the ST. <h:br/><h:br/>
+              in FCS_CKM_EXT.1.1, FCS_CKM_EXT.7/LOCKED or FCS_CKM_EXT.7/UNLOCKED must be included in the ST. <h:br/><h:br/>
 
 	      The
               lack of a public/documented API for importing or exporting the REK, when a
@@ -4742,7 +4750,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <reqtext>that meet the following:</reqtext>
                   <selectcol>List of standards</selectcol>
                   <reqtext><h:p/><h:p/>The following table provides the allowable choices for
-                    completion of the selection operations of FCS_CKM_EXT.7.</reqtext>
+                    completion of the selection operations of FCS_CKM_EXT.7/UNLOCKED.</reqtext>
                 </tabularize>
                 
                 <selectable id="sel-fcs-ckm-kat-kas2">
@@ -4962,9 +4970,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
             </h:ul>
           </audit>
           <dependencies><h:br/>
-            <h:br/>[FCS_CKM_EXT.7 Cryptographic Key Distribution, or
+            <h:br/>[FCS_CKM.2 Cryptographic Key Distribution, or
             <h:br/>FCS_COP.1 Cryptographic Operation]
-            <h:br/>FCS_CKM_EXT.7 Cryptographic Key Agreement],
+            <h:br/>FCS_CKM_EXT.7 Cryptographic Key Establishment],
             <h:br/>FCS_CKM.6 Timing and Event of Cryptographic Key Destruction
           </dependencies>
           
