@@ -3650,35 +3650,25 @@ The scope of this Protection Profile (PP) is to describe the security functional
             </aactivity>
           </f-element>
           <f-element id="fel-key-kill-how">
-            <title>The TSF shall destroy cryptographic keys <h:s>and keying material specified by
-              FCS_CKM.6.1</h:s> in accordance with a specified cryptographic key destruction method:<h:br/>
-              <selectables>
-                <selectable>By clearing the KEK encrypting the target key.</selectable>
-                <selectable>In accordance with the following rules:<selectables>
-                  <selectable>For volatile memory, the destruction shall be executed by a single direct overwrite <selectables>
-                    <selectable>consisting of a pseudorandom pattern using the TSF’s RBG.</selectable>
-                    <selectable>consisting of zeros</selectable>
-                  </selectables>.</selectable>
-                  <selectable>For non-volatile EEPROM, the destruction shall be executed by a single
-                      direct overwrite consisting of a pseudorandom pattern using the TSF’s RBG (as
-                      specified in FCS_RBG.1), followed by a read-verify.</selectable>
-                  <selectable>For non-volatile flash memory, that is not wear-leveled, the destruction
-                      shall be executed <selectables>
-                        <selectable>by a single direct overwrite consisting of zeros followed by a
-                          read-verify</selectable>
-                        <selectable>by a block erase that erases the reference to memory that stores
-                          data as well as the data itself </selectable>
-                      </selectables>.</selectable>
-                  <selectable>For non-volatile flash memory, that is wear-leveled, the destruction
-                      shall be executed <selectables>
-                        <selectable>by a single direct overwrite consisting of zeros</selectable>
-                        <selectable>by a block erase</selectable></selectables>.</selectable>
-                  <selectable>For non-volatile memory other than EEPROM and flash, the destruction
-                      shall be executed by a single direct overwrite with a random pattern that is
-                      changed before each write.</selectable></selectables>
-                  
-                </selectable>
-              </selectables>
+            <title> The TSF shall destroy <h:b>plaintext</h:b> keying material <h:b>and critical security parameters</h:b> by 
+              implementing key destruction in accordance with the following rules: <h:ul>
+                <h:li>For volatile memory, the destruction shall be executed by a single direct overwrite <selectables>
+                  <selectable>consisting of a pseudo-random pattern using the TSF or platform RBG (as specified in FCS_RBG.1)</selectable>
+                  <selectable>consisting of zeroes</selectable>
+                </selectables></h:li>
+                <h:li>For non-volatile EEPROM, the destruction shall be executed by a single direct overwrite consisting of a pseudo-random pattern using the 
+                  TSF or platform RBG (as specified in FCS_RBG.1), followed by a read-verify.</h:li>
+                <h:li>For non-volatile flash memory, that is not wear-leveled, the destruction shall be executed <selectables>
+                  <selectable>by a single direct overwrite consisting of zeros followed by a read-verify</selectable>
+                  <selectable>by a block erase that erases the reference to memory that stores data as well as the data itself</selectable>
+                </selectables>
+                </h:li>
+                <h:li>For non-volatile flash memory, that is wear-leveled, the destruction shall be executed <selectables>
+                  <selectable>by a single direct overwrite consisting of zeros</selectable>
+                  <selectable>by a block erase</selectable>
+                </selectables></h:li>
+                <h:li>For non-volatile memory other than EEPROM and flash, the destruction shall be executed by a single direct overwrite with a random pattern that 
+                  is changed before each write</h:li></h:ul>.
             </title>
             <note role="application"> The clearing indicated above applies to each intermediate
               storage area for plaintext key or cryptographic critical security parameter (i.e. any
