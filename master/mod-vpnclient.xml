@@ -54,7 +54,7 @@
   </RevisionHistory>
 
 
-  <release-notes><h:h3>TDs Applied</h:h3></release-notes><include-pkg id="pkg-ssh">
+  <release-notes><h:h3>TDs Applied</h:h3></release-notes><include-pkg id="ssh">
     <git>
       <url>https://github.com/commoncriteria/ssh</url>
       <branch>master</branch>
@@ -62,7 +62,7 @@
     <url>https://www.niap-ccevs.org/protectionprofiles/515</url>
     
   </include-pkg>
-  <include-pkg id="pkg-tls">
+  <include-pkg id="tls">
     <git>
       <url>https://github.com/commoncriteria/tls</url>
       <branch>release-2.1</branch>
@@ -70,7 +70,7 @@
     <url>https://www.niap-ccevs.org/protectionprofiles/465</url>
     <depends on="fcs-eap-ext-1"/>
   </include-pkg>
-  <include-pkg id="pkg-x509">
+  <include-pkg id="X509">
     <git>
       <url>https://github.com/commoncriteria/X509</url>
       <branch>master</branch>
@@ -82,7 +82,6 @@
     
     <!-- 1.1 Overview --> <!-- change -->
     <sec:Overview>
-      <comment>FIA_X509_EXT references to the Base-PPs are now removed and where appropriate the X.509 package is referenced instead. However, it's unclear whether there is still sufficient mechanism to actually 'force' the X.509 SFRs to be included. That is to say, there is nothing in here that says "because IPsec functionality is dependent on X.509 validation, and because the Base-PPs conform to the X.509 FP, the ST shall make the relevant X.509 FP claims." </comment>
       
       The scope of this Protection Profile Module (PP-Module) is to describe the security functionality of a virtual private network (VPN)
       client in terms of  <xref g="CC"/> and to define functional and assurance requirements for such
@@ -359,6 +358,50 @@ requirements defined by the PP-Module, expressed as Evaluation Activities (EAs).
       </usecases>
 
   </sec:Use_Cases> 
+  <section title="Package Usage">
+    This section contains selections and assignments that are required when the listed Functional Packages are claimed by this PP-Module. <h:br/>
+    Package Usage guidance defined in the TOE's relevant Base-PP applies to the usage of the packages for this module, unless explicitly stated otherwise in this section.
+    <package-usage-list>
+      <package-usage ref="X509">
+        <usage id="usage-x509-roles" title="Certificate Verification and Assertion Required in FIA_XCU_EXT.1.1">
+            <description>
+              Because this PP-Module mandates support for mutual authentication for TLS, the ST author shall select the options to verify and assert certificate identities in FIA_XCU_EXT.1.1.
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+        </usage>
+        <usage id="usage-x509-usage" title="Required Selections for FIA_X509_EXT.2.1">
+          <description>
+            The ST author shall ensure that the assignment and selections in FIA_X509_EXT.2.1 reflect the usage of X.509 certificates for IPsec exchanges. If the TOE supports EAP-TLS and claims FCS_EAP_EXT.1, the 
+            ST author shall ensure that the assignment and selections within FIA_X509_EXT.2.1 reflect the usage of X.509 for EAP-TLS. Other selections and assignments may be made as appropriate for other TOE functionality.
+          </description> 
+          <config>
+              <ref-id>dummy-ref-id</ref-id>
+          </config>
+        </usage>
+
+      </package-usage>
+      <package-usage ref="tls">
+        <usage id="usage-tls-clientreq" title="TLS or DTLS Client Functionality Required in FCS_TLS_EXT.1.1 for EAP-TLS">
+            <description>
+              This usage requirement applies only if the TOE supports EAP-TLS. The ST author shall select the option to support client functionality for TLS or DTLS in FCS_TLS_EXT.1.1. The selection shall correspond with other protocol selections made in FCS_EAP_EXT.1.
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-tls-mutualauth" title="Mutual Authentication Required in FCS_TLSC_EXT.1.1 or FCS_DTLSC_EXT.1.1 for EAP-TLS">
+            <description>
+              This usage requirement applies only if the TOE supports EAP-TLS. The ST author shall select the option to support mutual authentication for TLS or DTLS, according with the protocol support selected in FCS_TLS_EXT.1.1.
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+      </package-usage>
+    </package-usage-list>
+  </section>
 
   <section title="Requirements Focus" id="rfocus">   <!-- Section added for schema validation -->
       Regardless of the specific usage of the TOE, the focus of the Security Functional Requirements (SFRs) in this PP-Module
@@ -1092,10 +1135,10 @@ expected to enforce.<h:br/><h:br/>
                     The selection is used to describe the behavior in the event that such a connection
                     cannot be established (for example, due to a network error). The behavior of the
                     TOE in these cases is described by the second selection. If the TOE has
-                    determined the certificate is valid according to all other rules in FIA_X509_EXT.1 in <xref to="pkg-x509"/>,
+                    determined the certificate is valid according to all other rules in FIA_X509_EXT.1 in <xref to="X509"/>,
                     the behavior indicated in the second selection will determine the validity. The
                     TOE must not accept the certificate if it fails any of the other validation rules in
-                    FIA_X509_EXT.1 in <xref to="pkg-x509"/>. If the administrator-configured option is selected by the ST
+                    FIA_X509_EXT.1 in <xref to="X509"/>. If the administrator-configured option is selected by the ST
                     Author, the ST author must also make the appropriate selection in
                     FMT_SMF.1/VPN.
                 </note>
@@ -1717,13 +1760,13 @@ expected to enforce.<h:br/><h:br/>
                   <h:li>802.11-2012 in accordance with the [<h:i><xref to="mod-wlanclient"/></h:i>],</h:li>
                   <h:li>802.1X in accordance with the [<h:i><xref to="mod-wlanclient"/></h:i>],</h:li>
                   <h:li>EAP-TLS in accordance with the [<h:i><xref to="mod-wlanclient"/></h:i>],</h:li>
-                  <h:li>Mutually authenticated TLS in accordance with [<h:i>the <xref to="pkg-tls"/></h:i>]</h:li>
+                  <h:li>Mutually authenticated TLS in accordance with [<h:i>the <xref to="tls"/></h:i>]</h:li>
                   <h:li>IPsec in accordance with the [<h:i><xref to="mod-vpnclient"/></h:i>],</h:li>
                 </h:ul> and <selectables linebreak="yes">
-                  <selectable id="itc_dtls"><snip>mutually authenticated DTLS</snip> as defined in the <xref to="pkg-tls"/></selectable>
+                  <selectable id="itc_dtls"><snip>mutually authenticated DTLS</snip> as defined in the <xref to="tls"/></selectable>
                   <selectable>HTTPS</selectable>
                   <selectable><h:b>no other</h:b></selectable>
-                </selectables> protocols to provide a communication channel between itself and another trusted IT product using certificates as defined in [<h:i><xref to="pkg-x509"/></h:i>] that is logically distinct from other communication channels, 
+                </selectables> protocols to provide a communication channel between itself and another trusted IT product using certificates as defined in [<h:i><xref to="X509"/></h:i>] that is logically distinct from other communication channels, 
                   provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data. </title>
               </xpath-specified>
             </replace>
@@ -4002,7 +4045,7 @@ that is logically distinct from other communication channels and provides assure
               the ST author to reflect what is implemented. The ST author also ensures that
               appropriate FCS requirements reflecting the algorithms used (and key
               generation capabilities, if provided) are listed to support those methods. Note
-              that the TSS will elaborate on the way in which these algorithms are to be used. X.509 certificates will be validated against FIA_X509_EXT.1 from <xref to="pkg-x509"/>, which is referenced in each supported Base-PP.
+              that the TSS will elaborate on the way in which these algorithms are to be used. X.509 certificates will be validated against FIA_X509_EXT.1 from <xref to="X509"/>, which is referenced in each supported Base-PP.
               <h:br/><h:br/>
               If a selection with “EAP-TLS” or “EAP-TTLS” is chosen, the selection-based requirement FCS_EAP_EXT.1 must be claimed. 
               When an EAP method is used, verification occurs via an external authentication server. 
@@ -4033,7 +4076,7 @@ that is logically distinct from other communication channels and provides assure
 		The evaluator shall also ensure that the operational guidance includes the configuration of the reference
 		identifiers for the peer.<h:br/><h:br/></Guidance>
               <Tests>For efficiency’s sake, the testing that is performed here has been combined with the testing for
-                <no-link>FIA_X509_EXT.2</no-link> in <xref to="pkg-x509"/> and <no-link>FIA_X509_EXT.4</no-link> (for IPsec connections and depending on the Base-PP),
+                <no-link>FIA_X509_EXT.2</no-link> in <xref to="X509"/> and <no-link>FIA_X509_EXT.4</no-link> (for IPsec connections and depending on the Base-PP),
                 <no-link>FCS_IPSEC_EXT.1.12</no-link>, and <no-link>FCS_IPSEC_EXT.1.13</no-link>. The following tests shall be repeated for each peer
                 authentication protocol selected in the <no-link>FCS_IPSEC_EXT.1.11</no-link> selection above:
               <testlist>
