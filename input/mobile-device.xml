@@ -794,7 +794,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
       </usecases>
     </sec:TOE_Usage>
 
-    <section title="Package Usage">
+    <section title="Package Usage" id="package-usage">
       This section contains selections and assignments that are required when the listed Functional Packages are claimed by this PP. 
       <package-usage-list>
 
@@ -7106,22 +7106,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
             <note role="application"> Validity is determined by the certificate path, the expiration
             date, and the revocation status in accordance with RFC 5280. <h:br/><h:br/>
 
-	    If <xref to="s-not-estab"/> is selected then "the server certificate is invalid [with no TLS-specific exceptions]" must be selected
-            for FCS_TLSC_EXT.1.6 in the <xref to="tls"/>.
-	    <rule id="r-not-estab">
-	      <if><ref-id>s-not-estab</ref-id></if>
-	      <then><doc ref="tls"><ref-id>s-tlsc-no-excep</ref-id></doc></then>
-	    </rule>
-	    If <xref to="s-req-app-auth"/> is selected then
-              "the server certificate is invalid [except when override is authorized in the case where valid revocation information is not available]" must be selected
-	    for FCS_TLSC_EXT.1.6 in the Package for
-            Transport Layer Security.
-	    <rule id="r-override">
-	      <if><ref-id>s-req-app-auth</ref-id></if>
-	      <then><doc ref="tls"><ref-id>s-tlsc-override</ref-id></doc></then>
-	    </rule>
-	    If <xref to="s-no-other-action"/> is selected then "the server certificate is invalid" with either selection can be
-            made in FCS_TLSC_EXT.1.6.<h:br/><h:br/>
+	    The selection made for FCS_HTTPS_EXT.1.3 must be consistent with the claims made in FCS_TLSC_EXT.1.6 of <xref to="tls"/>, e.g. if the TLS rejects all invalid certificates with no exceptions, then "not establish the connection" will be selected here.
+              
 	    FMT_SMF_EXT.1 Function <xref to="mf-certInvalid"/> configures whether to allow or disallow the establishment of a
               trusted channel if the peer certificate is deemed invalid. </note>
             <aactivity>
@@ -9006,45 +8992,11 @@ The scope of this Protection Profile (PP) is to describe the security functional
               The intent of this requirement is that one of the selected protocols is available for use by user applications running on the device for use in connecting to distant-end services that are not necessarily part of the enterprise infrastructure. It should be noted that the FTP_ITC_EXT.1 requires that all TSF communications be protected using the protocols indicated in that requirement, so the protocols required by this component ride "on top of" those listed in FTP_ITC_EXT.1.<h:br/><h:br/> 
               It should also be noted that some applications are part of the TSF, and FTP_ITC_EXT.1 requires that TSF applications be protected by at least one of the protocols in first selection in FTP_ITC_EXT.1. It is not required to have two different implementations of a protocol, or two different protocols, to satisfy both this requirement (for non-TSF apps) and FTP_ITC_EXT.1 (for TSF apps), as long as the services specified are provided. <h:br/><h:br/> 
               The ST author must list which trusted channel protocols are implemented by the Mobile Device for use by non-TSF apps.<h:br/><h:br/> 
-              The TSF must be validated against requirements from the <xref to="tls"/>, with the following selections made: <h:ul>
-                <h:li>FCS_TLS_EXT.1:</h:li>
-                <h:ul>
-                  <h:li>TLS is selected</h:li>
-                  <h:li>Client is selected</h:li>
-                </h:ul>
-                <h:li>FCS_TLSC_EXT.1.1:</h:li>
-                <h:ul>
-                  <h:li>Mutual authentication must be selected</h:li>
-                </h:ul>
-                <h:li>FCS_TLSC_EXT.1.2:</h:li>
-                <h:ul>
-                  <h:li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</h:li>
-                </h:ul>
-                <h:li>FCS_TLSC_EXT.1.6</h:li>            
-                <h:ul>
-                  <h:li>Choose the selection that rejects the invalid certificate with no exceptions.</h:li>
-                </h:ul>
-              </h:ul>            
+              
+              The TSF must be validated against FCS_TLSC_EXT requirements from the <xref to="tls"/>, with the claims from that package made for those requirements as specified in <xref to="package-ussage"/>.          
               <h:br/> 
-              If <xref to="upc_dtls"/> is selected, the TSF must be validated against requirements from the <xref to="tls"/>, with the following selections made: <h:ul>
-                <h:li>FCS_TLS_EXT.1:</h:li>
-                <h:ul>
-                  <h:li>DTLS is selected</h:li>
-                  <h:li>Client is selected</h:li>
-                </h:ul>
-                <h:li>FCS_DTLSC_EXT.1.1:</h:li>
-                <h:ul>
-                  <h:li>Mutual authentication must be selected</h:li>
-                </h:ul>
-                <h:li>FCS_DTLSC_EXT.1.2:</h:li>
-                <h:ul>
-                  <h:li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</h:li>
-                </h:ul>
-                <h:li>FCS_DTLSC_EXT.1.6</h:li>
-                <h:ul>
-                  <h:li>Choose the selection that rejects the invalid certificate with no exceptions.</h:li>
-                </h:ul>
-              </h:ul>
+              If <xref to="upc_dtls"/> is selected, the TSF must be validated against FCS_DTLS_EXT requirements from the <xref to="tls"/>, with the claims from that package made for those requirements as specified in <xref to="package-ussage"/>.
+             
               <h:br/>
 			  If the ST author selects <xref to="s-upc-ipsec"/>, the TSF must be validated against the PP-Module for Virtual Private Network (VPN) Clients. 
             </note>
