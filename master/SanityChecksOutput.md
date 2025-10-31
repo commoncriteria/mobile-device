@@ -508,6 +508,8 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[22]""/f-element[1]""/aactivity[1]""/Tests[1]"The follo"/h:p[12]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[22]""/f-element[1]""/aactivity[1]""/Tests[1]"The follo"/h:p[13]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[22]""/f-element[1]""/aactivity[1]""/Tests[1]"The follo"/h:p[14]""
+ Failed to find a reference to package-ussage.
+ Failed to find a reference to package-ussage.
  Failed to find a reference to sel-based-reqs.
  Failed to find a reference to Security_Problem_Description.
  Failed to find a reference to CEM.
@@ -517,7 +519,6 @@
  Failed to find a reference to bibCEM.
  Failed to find a reference to entropy.
  Failed to find a reference to entropy.
- Failed to find s-tlsc-override in /PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[23]""/f-element[3]""/note[1]"Validity "/rule[2]""/then[1]""/doc[1]""/ref-id[1]"s-tlsc-ov"
 Can't find assignable with ID of  a-keygen-rsa-size
  Failed to find s-kek-sym-256 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[1]""/or[2]""/ref-id[1]"s-kek-sym" (use case or rule)
  Failed to find s-keygen-ecc in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[2]""/ref-id[1]"s-keygen-" (use case or rule)
