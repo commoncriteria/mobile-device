@@ -88,10 +88,6 @@
 	  /PP[1]""/sec:Introduction[1]""/section[4]"This sect"/package-usage-list[1]""/package-usage[2]""/usage[9]""/config[1]""/ref-id[1]"dummy-ref"
 * Error: Detected dangling ref-id to 'dummy-ref-id'.
 	  /PP[1]""/sec:Introduction[1]""/section[4]"This sect"/package-usage-list[1]""/package-usage[2]""/usage[10]""/config[1]""/ref-id[1]"dummy-ref"
-* Error: Detected dangling ref-id to 's-audit-gen-no-add-audit'.
-	  /PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fau[1]""/f-component[1]""/f-element[2]""/note[1]"The subje"/rule[1]""/if[1]""/ref-id[1]"s-audit-g"
-* Error: Detected dangling ref-id to 's-audit-no-add-info'.
-	  /PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fau[1]""/f-component[1]""/f-element[2]""/note[1]"The subje"/rule[1]""/then[1]""/ref-id[1]"s-audit-n"
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[1]""/f-element[1]""/title[1]"The TSF s"/selectables[1]""/tabularize[1]""/reqtext[3]"The follo"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[1]""/f-element[1]""/title[1]"The TSF s"/selectables[1]""/tabularize[1]""/reqtext[3]"The follo"/h:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[1]""/f-element[1]""/title[1]"The TSF s"/selectables[1]""/selectable[2]""/col[4]"FIPS PUB "/h:p[1]""
@@ -512,8 +508,6 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[22]""/f-element[1]""/aactivity[1]""/Tests[1]"The follo"/h:p[12]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[22]""/f-element[1]""/aactivity[1]""/Tests[1]"The follo"/h:p[13]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[22]""/f-element[1]""/aactivity[1]""/Tests[1]"The follo"/h:p[14]""
- Failed to find a reference to s-audit-gen-no-add-audit.
- Failed to find a reference to s-audit-no-add-info.
  Failed to find a reference to package-ussage.
  Failed to find a reference to package-ussage.
  Failed to find a reference to sel-based-reqs.
@@ -525,8 +519,6 @@
  Failed to find a reference to bibCEM.
  Failed to find a reference to entropy.
  Failed to find a reference to entropy.
- Failed to find s-audit-gen-no-add-audit in /PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fau[1]""/f-component[1]""/f-element[2]""/note[1]"The subje"/rule[1]""/if[1]""/ref-id[1]"s-audit-g" (use case or rule)
- Failed to find s-audit-no-add-info in /PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fau[1]""/f-component[1]""/f-element[2]""/note[1]"The subje"/rule[1]""/then[1]""/ref-id[1]"s-audit-n" (use case or rule)
 Can't find assignable with ID of  a-keygen-rsa-size
  Failed to find s-kek-sym-256 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[1]""/or[2]""/ref-id[1]"s-kek-sym" (use case or rule)
  Failed to find s-keygen-ecc in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[2]""/ref-id[1]"s-keygen-" (use case or rule)
