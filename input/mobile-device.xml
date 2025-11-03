@@ -811,7 +811,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               <ref-id>dummy-ref-id</ref-id>
             </config>
           </usage>
-          <usage id="usage-tls-mutual-auth" title="Necessiity of claiming FCS_TLSC_EXT.2">
+          <usage id="usage-tls-mutual-auth" title="Necessity of claiming FCS_TLSC_EXT.2">
             <description>Because support for TLS client mutual authentication is required, the ST author shall claim FCS_TLSC_EXT.2.</description>
             <config>
               <ref-id>dummy-ref-id</ref-id>
@@ -3524,67 +3524,68 @@ The scope of this Protection Profile (PP) is to describe the security functional
         <f-component cc-id="fcs_ckm.6" name="Timing and Event of Cryptographic Key Destruction">
           <f-element id="fel-key-kill-when">
             <title>The TSF shall destroy [<h:i>all plaintext keying material and critical security
-              parameters (CSPs)</h:i>] when [<h:i>no longer needed</h:i>].</title>
-            <note role="application"> For the purposes of this requirement, plaintext keying
-              material refers to authentication data, passwords, secret/private symmetric keys,
-              private asymmetric keys, data used to derive keys, values derived from passwords, etc.
-              <!-- ToDo: Remove per bio cPP module: If a BAF is selected in FIA_UAU.5.1 the enrollment or authentication templates are not
-              subject to this requirement, since templates are not suitable for deriving keying
-              material. However, source biometric data (i.e. fingerprint image or friction ridge
-              pattern), the features an algorithm uses to perform biometric authentication for
-              enrollment or verification (e.g. location of minutia), threshold values used in making
-              the match adjudication, intermediate values calculated while building an enrollment or
-              authentication template (i.e. direction maps, minutia counts, binarized and
-              skeletonized representations of friction ridge patterns, etc.), and final match scores
-              are examples of critical security parameters that must be destroyed when no longer
-              needed. -->
-              <!-- ToDo: Remove per bio cPP module: Might need a comment supplementing the above removed, something along the lines of "If a BAF is selected in FIA_UAU.5.1 then biometric info should be handled/destroyed in accordance with bio PP-MODULE -->
-              <h:br/><h:br/> Key destruction procedures are performed in accordance with
-              FCS_CKM_EXT.6.2. <h:br/><h:br/> There are multiple situations in which plaintext
-              keying material is no longer necessary, including when the TOE is powered off, when
-              the wipe function is performed, when trusted channels are disconnected, when keying
-              material is no longer needed by the trusted channel per the protocol, and when
-              transitioning to the locked state (for those values derived from the Password
-              Authentication Factor or that key material which is protected by the password-derived
-              or biometric-unlocked KEK according to FCS_STG_EXT.2 – see <xref to="Keys"/>).
-              For keys (or key material used to derive those keys) protecting sensitive data
-              received in the locked state, "no longer needed" includes "while in the locked state."
-              <h:br/><h:br/> Trusted channels may include TLS, HTTPS, DTLS, IPsec VPNs,
-              Bluetooth BR/EDR, and Bluetooth LE. The plaintext keying material for these channels
-              includes (but is not limited to) master secrets, and Security Associations (SAs).
-              <h:br/><h:br/> If REKs are processed in a separate execution environment on the
-              same Application Processor as the OS, REK key material must be cleared from RAM
-              immediately after use, and at least, must be wiped when the device is locked, as the
-              REK is part of the key hierarchy protecting sensitive data. </note>
+              parameters (CSPs)</h:i>] when 
+              <selectables>
+                <selectable>no longer needed</selectable>
+                <selectable><assignable>other cricumstances for destruction</assignable></selectable>
+              </selectables>.
+            </title>
+          </f-element>
+            <f-element id="fel-key-kill-how">
+              <title> The TSF shall destroy <h:b>plaintext</h:b> keying material <h:b>and critical security parameters</h:b> by 
+                implementing key destruction in accordance with the following rules: <h:ul>
+                  <h:li>For volatile memory, the destruction shall be executed by a single direct overwrite consisting of <selectables>
+                    <selectable>a pseudo-random pattern using a TSF DRBG (as specified in FCS_RBG.1)</selectable>
+                    <selectable>zeroes</selectable>
+                  </selectables></h:li>
+                  <h:li>For non-volatile EEPROM, the destruction shall be executed by a single direct overwrite consisting of a pseudo-random pattern using a 
+                    TSF DRBG (as specified in FCS_RBG.1), followed by a read-verify.</h:li>
+                  <h:li>For non-volatile flash memory, that is not wear-leveled, the destruction shall be executed by<selectables>
+                    <selectable>a single direct overwrite consisting of zeros followed by a read-verify</selectable>
+                    <selectable>a block erase that erases the reference to memory that stores data as well as the data itself</selectable>
+                  </selectables>
+                  </h:li>
+                  <h:li>For non-volatile flash memory that is wear-leveled, the destruction shall be executed by<selectables>
+                    <selectable>a single direct overwrite consisting of zeros</selectable>
+                    <selectable>a block erase</selectable>
+                  </selectables></h:li>
+                  <h:li>For non-volatile memory other than EEPROM and flash, the destruction shall be executed by a single direct overwrite with a random pattern that 
+                    is changed before each write.</h:li></h:ul>
+              </title>
+              <note role="application">
+                <h:p>
+                For the purposes of this requirement, keying material refers to authentication data, passwords, secret/private symmetric keys, private asymmetric keys, data used to derive keys, values derived from passwords, etc. “Plaintext keying material” may refer to a KEK that is used to encrypt other keying material. Destruction of encrypted keying material may be accomplished by destroying the KEK used to encrypt it. If different mechanisms are used for destroying different keying material, all relevant claims should be selected and the TSS should identify which keying material is destroyed by which mechanism. 
+                </h:p><h:p>
+                  There are multiple situations in which plaintext keying material is no longer necessary, including when the TOE is powered off, when the wipe function is performed, when trusted channels are disconnected, when keying material is no longer needed by the trusted channel per the protocol, and when transitioning to the locked state (for those values derived from the Password Authentication Factor or that key material which is protected by the password-derived or biometric-unlocked KEK according to FCS_STG_EXT.2 – see Figure 3). For keys (or key material used to derive those keys) protecting sensitive data received in the locked state, "no longer needed" includes "while in the locked state."
+                </h:p><h:p>
+                  Key storage areas in non-volatile storage can be overwritten with any value that renders the keys unrecoverable. The value used can be all zeroes, all ones, or any other pattern or combination of values significantly different than the value of the key itself. When ‘a value that does not contain any CSP’ is chosen, it means that the TOE uses some other specified data not drawn from a source that may contain keying material or reveal information about it or any other TSF-protected data. In other words, the data used for overwriting is carefully selected and not taken from a general ‘pool’ that might contain current or residual data that itself requires confidentiality protection. If multiple copies exist, all copies must be destroyed. 
+                </h:p>
+              </note>
+
             <aactivity>
-              <TSS> The evaluator shall check to ensure the TSS lists each type of plaintext key
-                material (DEKs, software-based key storage, KEKs, trusted channel keys, passwords,
-                etc.) and its generation and storage location. <h:br/><h:br/> The evaluator
-                shall verify that the TSS describes when each type of key material is cleared (for
-                example, on system power off, on wipe function, on disconnection of trusted
-                channels, when no longer needed by the trusted channel per the protocol, when
-                transitioning to the locked state, and possibly including immediately after use,
-                while in the locked state, etc.). <h:br/><h:br/> The evaluator shall also verify
-                that, for each type of key, the type of clearing procedure that is performed
-                (cryptographic erase, overwrite with zeros, overwrite with random pattern, or block
-                erase) is listed. If different types of memory are used to store the materials to be
-                protected, the evaluator shall check to ensure that the TSS describes the clearing
-                procedure in terms of the memory in which the data are stored. <h:br/><h:br/>
+              <TSS><h:p>
+                The evaluator shall verify that the TSS identifies all plaintext keying material and CSPs stored by the TOE, the type of memory in which it is stored, and when and how the keying material is erased. If the TOE uses one or more KEKs to protect stored keying material, the evaluator shall verify that the TSS describes the destruction of that keying material, either directly or by destruction of the KEK used to encrypt it.</h:p><h:p>
+                If different types of memory are used to store the materials to be protected, the evaluator shall check to ensure that the TSS describes the clearing procedure in terms of the memory in which the data are stored (for example, "secret keys stored on flash are cleared by overwriting once with zeros, while secret keys stored on the internal persistent storage device are cleared by overwriting one time with a random pattern that is changed before each write"). For block erases, the evaluator shall also ensure that the TSS identifies the block erase command that is used and shall verify that the command used also addresses any copies of the plaintext key material that may be created, e.g. in order to optimize the use of Flash memory.
+                </h:p>
               </TSS>
-              <Guidance>There are no guidance evaluation activities for this component.<h:br/><h:br/></Guidance>
+              <Guidance/>
               <Tests>
-                <h:b>Evaluation Activity Note:</h:b> The following tests require the developer to
+                <h:p><h:b>Evaluation Activity Note:</h:b> The following tests likely require the TOE developer to
                 provide access to a test platform that provides the evaluator with tools that are
-                typically not found on factory products. <h:br/><h:br/> For each software and
+                typically not found on the end consumer version of the TOE.</h:p>
+                <h:p>
+                 For each software and
                 firmware key clearing situation (including on system power off, on wipe function, on
                 disconnection of trusted channels, when no longer needed by the trusted channel per
                 the protocol, when transitioning to the locked state, and possibly including
-                immediately after use, while in the locked state) the evaluator shall repeat the
-                following tests. <h:br/><h:br/> For these tests the evaluator shall utilize
-                appropriate development environment (e.g. a Virtual Machine) and development tools
+                immediately after use, and while in the locked state) the evaluator shall repeat the
+                following tests.
+                </h:p><h:p>
+                For these tests,the evaluator shall utilize an
+                appropriate development environment (e.g., a virtual machine) and development tools
                 (debuggers, simulators, etc.) to test that keys are cleared, including all copies of
                 the key that may have been created internally by the TOE during normal cryptographic
-                processing with that key. <h:br/><h:br/>
+                processing with that key.</h:p>
                 <testlist>
                   <test> Applied to each key held as plaintext in volatile memory and subject to
                     destruction by overwrite by the TOE (whether or not the plaintext value is
@@ -3647,38 +3648,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 </testlist>
               </Tests>
             </aactivity>
-          </f-element>
-          <f-element id="fel-key-kill-how">
-            <title> The TSF shall destroy <h:b>plaintext</h:b> keying material <h:b>and critical security parameters</h:b> by 
-              implementing key destruction in accordance with the following rules: <h:ul>
-                <h:li>For volatile memory, the destruction shall be executed by a single direct overwrite <selectables>
-                  <selectable>consisting of a pseudo-random pattern using the TSF or platform RBG (as specified in FCS_RBG.1)</selectable>
-                  <selectable>consisting of zeroes</selectable>
-                </selectables></h:li>
-                <h:li>For non-volatile EEPROM, the destruction shall be executed by a single direct overwrite consisting of a pseudo-random pattern using the 
-                  TSF or platform RBG (as specified in FCS_RBG.1), followed by a read-verify.</h:li>
-                <h:li>For non-volatile flash memory, that is not wear-leveled, the destruction shall be executed <selectables>
-                  <selectable>by a single direct overwrite consisting of zeros followed by a read-verify</selectable>
-                  <selectable>by a block erase that erases the reference to memory that stores data as well as the data itself</selectable>
-                </selectables>
-                </h:li>
-                <h:li>For non-volatile flash memory, that is wear-leveled, the destruction shall be executed <selectables>
-                  <selectable>by a single direct overwrite consisting of zeros</selectable>
-                  <selectable>by a block erase</selectable>
-                </selectables></h:li>
-                <h:li>For non-volatile memory other than EEPROM and flash, the destruction shall be executed by a single direct overwrite with a random pattern that 
-                  is changed before each write.</h:li></h:ul>
-            </title>
-            <note role="application"> The clearing indicated above applies to each intermediate
-              storage area for plaintext key or cryptographic critical security parameter (i.e. any
-              storage, such as memory buffers, that is included in the path of such data) upon the
-              transfer of the key or cryptographic critical security parameter to another location.
-              <h:br/><h:br/> Because plaintext key material is not allowed to be written to
-              non-volatile memory (FPT_KST_EXT.1), the second selection only applies to key material
-              written to volatile memory. </note>
-          </f-element>
-          
-          <audit-event/>
+            </f-element>
+            <audit-event/>
         </f-component>
         
         <ext-comp-def fam-id="FCS_CKM_EXT" title="Cryptographic Key Management">
