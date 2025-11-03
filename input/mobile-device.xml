@@ -2373,10 +2373,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               mandatory for FMT_MOF_EXT.1.2 (i.e. ‘M-MM’ in <xref to="fmt_smf"/>). If the TSF
               does not support removable media, number 4 is implicitly met. <h:br/><h:br/> The
               TSF must generate audit data for all events contained in <xref
-                g="t-audit-mandatory"/>. Generating audit data for events in <xref to="t-audit-additional"
-              /> is currently objective. It is acceptable to include individual SFRs from <xref
-                to="t-audit-additional"/> in the ST, without including the entirety of <xref
-                to="t-audit-additional"/>. <h:br/><h:br/>
+                g="t-audit-mandatory"/>. For all other audit tables (i.e., tables for non-mandatory SFRs and references to functional packages), the ST author includes the audit events (if any) for the SFRs that are claimed in the ST. <h:br/><h:br/>
               <h:b><xref g="t-audit-mandatory"/> Application Note:</h:b><h:br/> FPT_TST_EXT.1 –
               Audit of self-tests is required only at initial start-up. Since the TOE "transitions
               to non-operational mode" upon failure of a self-test, per FPT_NOT_EXT.1, this is
@@ -2387,20 +2384,21 @@ The scope of this Protection Profile (PP) is to describe the security functional
               data and audits when this encryption/decryption fails, then that auditable event should
               be selected.<h:br/><h:br/>
 
-              <h:b><xref to="t-audit-additional"/> Application Note:</h:b>
-              <h:br/> If the audit event for FMT_SMF_EXT.1 is included in the ST, it is acceptable
+              For FMT_SMF_EXT.1, it is acceptable
               for the initiation of the software update to be audited without indicating the outcome
               (success or failure) of the update.<h:br/>
             </note>
           </f-element>
           <f-element id="fel-audit-what">
-            <title>The TSF shall record within the audit data at least the following information: <h:ol>
+            <title>The TSF shall record within the audit data at least the following information: <h:ul>
 
                 <h:li>Date and time of the event</h:li>
                 <h:li>Type of event</h:li>
                 <h:li>Subject identity</h:li>
                 <h:li>The outcome (success or failure) of the event</h:li>
                 <refinement><h:li>Additional information in <xref g="t-audit-mandatory"/></h:li>
+                  <h:li>Additional information defined in the <xref to="tls"/>;</h:li>
+                  <h:li>Additional information defined in the <xref to="X509"/>;</h:li>   
                 <h:li>
                   <selectables>
                     <selectable>Additional information defined in <xref g="t-audit-objective"/> for Objective SFRs</selectable>
@@ -2408,18 +2406,18 @@ The scope of this Protection Profile (PP) is to describe the security functional
                     <selectable>Additional information defined in <xref g="t-audit-sel-based"/> for Selection-Based SFRs</selectable>
                     <selectable exclusive="yes">no additional information</selectable>
                   </selectables></h:li></refinement>
-            </h:ol>
+            </h:ul>
             </title>
             <note role="application"> The subject identity is usually the process name/ID. The event
               type is often indicated by a severity level, for example, ‘info’, ‘warning’, or
               ‘error’. <h:br/><h:br/>
-	      
-	      If <xref to="s-audit-gen-no-add-audit"/> is selected in the
-              second selection of FAU_GEN.1.1, then <xref to="s-audit-no-add-info"/> must be selected.
+	    
+	    <!--
 	      <rule id="r-no-add-audit">
 		<if><ref-id>s-audit-gen-no-add-audit</ref-id></if>
 		<then><ref-id>s-audit-no-add-info</ref-id></then>
 	      </rule>
+	      -->
               <h:br/><h:br/>
 	      
 	      For each audit event selected from <xref to="t-audit-additional"/> in
@@ -11408,6 +11406,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		    Function <xref to="mf-keyWipeRules"/> should be included in the selection if
 		    <xref to="s-killkey-user"/> or <xref to="s-killkey-admin"/>
 		    is selected in FCS_STG_EXT.1.5.
+		    
+		    <!-- 
 		    <rule id="r-killkey-user-mf">
 		      <if><ref-id>s-killkey-user</ref-id></if>
 		      <then><ref-id>mf-keyWipeRules</ref-id></then>
@@ -11416,6 +11416,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		      <if><ref-id>s-killkey-admin</ref-id></if>
 		      <then><ref-id>mf-keyWipeRules</ref-id></then>
 		    </rule>
+		    -->
 		  </app-note>
 		<aactivity><TSS>The
                   evaluator shall verify that the TSS describes how the approval for exceptions for
@@ -13934,10 +13935,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
             </ext-comp-def-title>
             <note role="application"> 
               The intent of the mandatory portion of the above requirement is to use the cryptographic protocols identified in the requirement to establish and maintain a trusted channel between the TOE and an access point, VPN Gateway, or other trusted IT product.<h:br/><h:br/> 
-              The ST author must list which trusted channel protocols are implemented by the Mobile Device. <h:br/><h:br/> 
-				
-              The TSF must be validated against the <xref to="mod-wlanclient"/> to satisfy the mandatory trusted channels of 802.11-2012, 802.1X, and EAP-TLS. <h:br/><h:br/>
-				
+              
+				<!-- 
               To satisfy the mandatory trusted channel of TLS and 
 	      if <xref to="itc_dtls"/> is selected, the TSF must be validated against the <xref to="tls"/>, with the following selections made:
 	      <rule id="r-tls">
@@ -13947,32 +13946,17 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		<if><ref-id>itc_dtls</ref-id></if>
 		<then><doc ref="tls"><ref-id>dtlsc_impl</ref-id><ref-id>dtlsc_mutual_auth</ref-id><ref-id>s-dtlsc-no-excep</ref-id></doc></then>
 	      </rule>
+	      -->
 <!-- TODO: Can these be expressed as rules? -->	      
-	      <h:ul>
-                <h:li>FCS_TLS_EXT.1:</h:li>
-                <h:ul>
-                  <h:li>TLS is selected; DTLS may also be selected but is only required if claimed in FTP_ITC_EXT.1.1</h:li>
-                  <h:li>Client is selected</h:li>
-                </h:ul>
-                <h:li>FCS_TLSC_EXT.1.1 or FCS_DTLSC_EXT.1.1 (as appropriate): </h:li>
-                <h:ul>
-                  <h:li>Mutual authentication must be selected</h:li>
-                </h:ul>
-	        <h:li>FCS_TLSC_EXT.1.2 or FCS_DTLSC_EXT.1.2 (as appropriate): </h:li>
-	        <h:ul>
-	          <h:li>The cipher suites selected must correspond with the algorithms and hash functions allowed in FCS_COP.1.</h:li>
-	        </h:ul>
-                <h:li>FCS_TLSC_EXT.1.6 or FCS_DTLSC_EXT.1.6 (as appropriate): </h:li>
-                <h:ul>
-                  <h:li>A selection indicating there are no exceptions to rejecting a trusted channel is chosen.</h:li>                  
-                </h:ul>
-              </h:ul>
+	      
               <h:br/>
+              <!-- 
 	      <rule id="r-ipsec">
 		<if><ref-id>s-itc-ipsec</ref-id></if>
 		<then><ref-id>mod-vpnclient</ref-id></then>
 	      </rule>
-              If the ST author selects <xref to="s-itc-ipsec"/>, the TSF must be validated against the <xref to="mod-vpnclient"/>. <h:br/><h:br/>                    
+	      -->
+                            
               <if-opt-app>
                 <!-- TODO: Looks like appref is broken -->
 		<xref to="sel-based-reqs"/>
