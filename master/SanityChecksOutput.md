@@ -486,6 +486,7 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[22]""/f-element[1]""/aactivity[1]""/Tests[1]"The follo"/h:p[12]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[22]""/f-element[1]""/aactivity[1]""/Tests[1]"The follo"/h:p[13]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[22]""/f-element[1]""/aactivity[1]""/Tests[1]"The follo"/h:p[14]""
+ Failed to find a reference to t-audit-additional.
  Failed to find a reference to package-ussage.
  Failed to find a reference to package-ussage.
  Failed to find a reference to sel-based-reqs.
