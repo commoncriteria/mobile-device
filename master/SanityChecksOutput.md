@@ -36,28 +36,6 @@
 * Error: Detected multiple elements with an id of 'sel-exp-kat-ecdh-P521'.
 * Error: Detected multiple elements with an id of 'fel-sign-how'.
 * Error: Detected multiple elements with an id of 'fel-sign-how'.
-* Error: Detected dangling ref-id to 'a-keygen-rsa-size'.
-	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[1]""/guidance[1]"Set to 30"/ref-id[1]"a-keygen-"
-* Error: Detected dangling ref-id to 's-kek-sym-256'.
-	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[1]""/or[2]""/ref-id[1]"s-kek-sym"
-* Error: Detected dangling ref-id to 's-keygen-ecc'.
-	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[2]""/ref-id[1]"s-keygen-"
-* Error: Detected dangling ref-id to 's-kek-sym-256'.
-	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[2]""/or[2]""/ref-id[1]"s-kek-sym"
-* Error: Detected dangling ref-id to 's-locked-ecc-800-56A'.
-	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[2]""/ref-id[1]"s-locked-"
-* Error: Detected dangling ref-id to 's-locked-rsa'.
-	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[2]""/ref-id[2]"s-locked-"
-* Error: Detected dangling ref-id to 's-encrypt-256'.
-	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/ref-id[1]"s-encrypt"
-* Error: Detected dangling ref-id to 's-rbg-256'.
-	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/ref-id[2]"s-rbg-256"
-* Error: Detected dangling ref-id to 's-dar-256'.
-	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/ref-id[3]"s-dar-256"
-* Error: Detected dangling ref-id to 's-revoke-admin'.
-	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[3]""/ref-id[1]"s-revoke-"
-* Error: Detected dangling ref-id to 's-revoke-deny'.
-	  /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[3]""/ref-id[2]"s-revoke-"
 * Error: Detected dangling ref-id to 'dummy-ref-id'.
 	  /PP[1]""/sec:Introduction[1]""/section[4]"This sect"/package-usage-list[1]""/package-usage[1]""/usage[1]""/config[1]""/ref-id[1]"dummy-ref"
 * Error: Detected dangling ref-id to 'dummy-ref-id'.
@@ -519,15 +497,3 @@
  Failed to find a reference to bibCEM.
  Failed to find a reference to entropy.
  Failed to find a reference to entropy.
-Can't find assignable with ID of  a-keygen-rsa-size
- Failed to find s-kek-sym-256 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[1]""/or[2]""/ref-id[1]"s-kek-sym" (use case or rule)
- Failed to find s-keygen-ecc in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[2]""/ref-id[1]"s-keygen-" (use case or rule)
- Failed to find s-kek-sym-256 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[2]""/or[2]""/ref-id[1]"s-kek-sym" (use case or rule)
- Failed to find s-tls-secp384 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[1]""/and[2]""/doc[1]""/ref-id[1]"s-tls-sec"
- Failed to find s-locked-ecc-800-56A in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[2]""/ref-id[1]"s-locked-" (use case or rule)
- Failed to find s-locked-rsa in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[2]""/ref-id[2]"s-locked-" (use case or rule)
- Failed to find s-encrypt-256 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/ref-id[1]"s-encrypt" (use case or rule)
- Failed to find s-rbg-256 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/ref-id[2]"s-rbg-256" (use case or rule)
- Failed to find s-dar-256 in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/ref-id[3]"s-dar-256" (use case or rule)
- Failed to find s-revoke-admin in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[3]""/ref-id[1]"s-revoke-" (use case or rule)
- Failed to find s-revoke-deny in /PP[1]""/sec:Introduction[1]""/sec:TOE_Usage[1]""/usecases[1]""/usecase[2]""/config[1]""/or[3]""/ref-id[2]"s-revoke-" (use case or rule)
