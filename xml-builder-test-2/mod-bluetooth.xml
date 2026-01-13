@@ -1,0 +1,1542 @@
+<Module xmlns="https://niap-ccevs.org/cc/v1" xmlns:sec="https://niap-ccevs.org/cc/v1/section" xmlns:h="http://www.w3.org/1999/xhtml" target-product="Bluetooth" target-products="Bluetooth" name="PP-Module for Bluetooth">
+
+  <PPReference>
+   
+    <ReferenceTable>
+      <PPVersion>2.0</PPVersion>
+      <PPAuthor>National Information Assurance Partnership</PPAuthor>
+      <PPPubDate>2025-01-31</PPPubDate>
+      <Keywords>Bluetooth; NFC</Keywords>
+    </ReferenceTable>
+  </PPReference>
+
+  <RevisionHistory>
+    <entry>
+      <version>1.0</version>
+      <date>2021-04-15</date>
+      <subject>Initial Release</subject>
+    </entry>
+    <entry>
+      <version>2.0</version>
+      <date>2025-01-31</date>
+      <subject>Updates based on CC:2022</subject>
+    </entry>
+  </RevisionHistory>
+
+  <release-notes><h:h3>TDs Applied</h:h3></release-notes><sec:Introduction>
+    <sec:Overview>
+    <h:p>
+      The scope of the Bluetooth PP-Module is to describe the security functionality of Bluetooth technology in terms of [CC] 
+      and to define functional and assurance requirements for the Bluetooth capability of mobile devices and operating systems.
+      Bluetooth is a communications standard for short-range wireless transmissions. 
+      Bluetooth is implemented in many commercial devices as a method for wirelessly connecting devices or accessories.
+      This PP-Module is intended for use with the following Base-PPs: <h:ul>
+        <h:li>General Purpose Operating System (GPOS) Protection Profile, Version 5.0<comment> Update reference link later(in bib)</comment></h:li>
+        <h:li>Mobile Device Fundamentals (MDF) Protection Profile, Version 4.0<comment> Update reference link later(in bib)</comment></h:li>
+      </h:ul>
+    </h:p>
+    <h:p> These Base-PPs are valid because consumer-grade desktop and mobile devices may both have Bluetooth hardware radios and so both desktop and mobile operating systems have the 
+    software/firmware capability to allow products to use them.
+    </h:p>
+    </sec:Overview>
+<tech-terms>
+  <term abbr="AFH" full="Adaptive Frequency Hopping"/>
+  <term abbr="ACL" full="Asynchronous Connection-Less"/>
+  <term abbr="AES" full="Advanced Encryption Standard"/>
+  <term abbr="AES-CCM" full="AES Counter with CBC-MAC Mode"/>
+  <term abbr="API" full="Application Programming Interface"/>
+  <term full="Authentication">Verifying the identity of communicating devices based on their Bluetooth address. Bluetooth does not provide native user authentication.</term>
+  <term full="Authorization">Allowing the control of resources by ensuring that a device is authorized to use a service before permitting it to do so.</term>
+  <term full="BD_ADDR">The Bluetooth device Address, which is used to identify a Bluetooth device.</term>
+  <term full="Bluetooth">A wireless communication link operating in the unlicensed ISM band at 2.4 GHz using a frequency hopping transceiver. It allows real-time AV and data communications between Bluetooth Hosts. The link protocol is based on time slots.</term>
+  <term full="Bluetooth Baseband">The part of the Bluetooth system that specifies or implements the medium access and physical layer procedures to support the exchange of real-time voice, data information streams, and ad hoc networking between Bluetooth devices.</term>
+  <term full="Bluetooth Controller">A generic term referring to a Primary Controller with or without a Secondary Controller.</term>
+  <term full="Bluetooth Device">A device that is capable of short-range wireless communications using the Bluetooth system.</term>
+  <term full="Bluetooth Device Address">A 48 bit address used to identify each Bluetooth device.</term>
+  <term abbr="BR" full="Basic Rate"/>
+  <term full="BR/EDR">Bluetooth basic rate (BR) and enhanced data rate (EDR).</term>
+  <term full="BR/EDR Controller">A term referring to the Bluetooth Radio, Baseband, Link Manager, and HCI layers.</term>
+  <term full="BR/EDR Piconet Physical Channel">A Channel that is divided into time slots in which each slot is related to an RF hop frequency. 
+    Consecutive hops normally correspond to different RF hop frequencies and occur at a standard hop rate of 1600 hops per second. 
+    These consecutive hops follow a pseudo-random hopping sequence, hopping through a 79 RF channel set, or optionally fewer channels when Adaptive Frequency Hopping (AFH) is in use. 
+    BR/EDR/LE Bluetooth basic rate (BR), enhanced data rate (EDR) and low energy (LE).</term>
+  <term full="Connect (to service)">The establishment of a connection to a service. If not already done, this also includes establishment of a physical link, logical transport, logical link and L2CAP channel.</term>
+  <term full="Connectable device">A BR/EDR device in range that periodically listens on its page scan physical channel and will respond to a page on that channel.  An LE device that is advertising using a connectable advertising event.</term>
+  <term full="Connected devices">Two BR/EDR devices and with a physical link between them. 
+    Connecting A phase in the communication between devices when a connection between the devices is being established. The connecting phase follows after the link establishment phase is completed.</term>
+  <term full="Connection">An interaction between two peer applications or higher layer protocols mapped onto an L2CAP channel.</term>
+  <term full="Connection establishment">A procedure for creating a connection mapped onto a channel.</term>
+  <term full="Connection event">A series of one or more pairs of interleaving data packets sent between a master and a slave on the same physical channel.</term>
+  <term full="Creation of a secure connection">A procedure of establishing a connection, including authentication and encryption.</term>
+  <term full="Creation of a trusted relationship">A procedure where the remote device is marked as a trusted device. This includes storing a common link key for future authentication, or pairing, when a link key is not available.</term>
+  <term full="Device discovery">A procedure for retrieving the Bluetooth device address, clock, class-of-device field and used page scan mode from discoverable devices.</term>
+  <term full="Discoverable device">A BR/EDR device in range that periodically listens on an inquiry scan physical channel and will respond to an inquiry on that channel. 
+    An LE device in range that is advertising with a connectable or scannable advertising event with a discoverable flag set in the advertising data. This device is in the discoverable mode.</term>
+  <term full="Discoverable Mode">A Bluetooth device that is performing inquiry scans in BR/EDR or advertising with a discoverable or connectable advertising event with a discoverable flag set in LE.</term>
+  <term full="Discovery procedure">A Bluetooth device that is carrying out the inquiry procedure in BR/EDR or scanning for advertisers using a discoverable or connectable advertising event with a discoverable flag set in LE.</term>
+  <term abbr="ECDH" full="Elliptic Curve Diffie-Hellman"/>
+  <term abbr="EDR" full="Enhanced Data Rate"/>
+  <term abbr="FTP" full="File Transfer Protocol"/>
+  <term abbr="HCI" full="Host Controller Interface"/>
+  <term full="Host">A logical entity defined as all of the layers below the non-core profiles and above the Host Controller interface (HCI); i.e.  Bluetooth Host attached to a Bluetooth Controller may communicate with other Bluetooth Hosts attached to their Controllers as well.</term>
+  <term abbr="L2CAP" full="Logical Link Control and Adaptation Protocol">A data link protocol used in the Bluetooth protocol stack.</term>
+  <term full="L2CAP Channel">A logical connection on L2CAP level between two devices serving a single application or higher layer protocol.</term>
+  <term full="L2CAP Channel establishment">A procedure for establishing a logical connection on L2CAP level.</term>
+  <term abbr="LE" full="Low Energy"/>
+  <term full="Link">Shorthand for a logical link.</term>
+  <term full="Link establishment">A procedure for establishing the default ACL link and hierarchy of links and channels between devices.</term>
+  <term full="Link key">A secret that is known by two devices and is used to authenticate the link.</term>
+  <term abbr="LMP" full="Link Manager Protocol"/>
+  <term full="LMP authentication">An LMP level procedure for verifying the identity of a remote device.</term>
+  <term full="LMP pairing">A procedure that authenticates two devices and creates a common link key that can be used as a basis for a trusted relationship or a (single) secure connection.</term>
+  <term full="Logical link">The lowest architectural level used to offer independent data transport services to clients of the Bluetooth system.</term>
+  <term abbr="MDF" full="Mobile Device Fundamentals"/>
+  <term full="Name discovery">A procedure for retrieving the user-friendly name (the Bluetooth device name) of a connectable device.</term>
+  <term abbr="OBEX" full="Object Exchange"/>
+  <term full="OBEX Push">A method of Bluetooth one-way file transfer that is initiated by the entity that is providing the file.</term>
+  <term full="Paired device">A Bluetooth device for which a link key has been created (either before connection establishment was requested or during connecting phase).</term>
+  <term full="Piconet">A collection of devices occupying a shared physical channel where one of the devices is the Piconet Master and the remaining devices are connected to it.</term>
+  <term full="Piconet Master">The BR/EDR device in a piconet whose Bluetooth Clock and Bluetooth Device Address are used to define the piconet physical channel characteristics.</term>
+  <term full="Piconet Slave">Any BR/EDR device in a piconet that is not the Piconet Master, but is connected to the Piconet Master.</term>
+  <term full="PIN">A user-friendly value that can be used to authenticate connections to a device before pairing has taken place.</term>
+  <term full="RFCOMM">A transport protocol used in the Bluetooth protocol stack that emulates RS-232 serial port connections.</term>
+  <term full="Trusted Device">A device that has a fixed relationship with another device and has full access to all services.</term>
+  <term full="Unknown device">A Bluetooth device for which no information (Bluetooth Device Address, link key or other) is stored.</term>
+  <term full="Untrusted Device">A device that does not have an established relationship with another Bluetooth device, which results in the untrusted device receiving restricted access to services.</term>
+
+
+</tech-terms>
+    <section title="Compliant Targets of Evaluation" id="TOEdescription">
+      <h:p>
+     The Target of Evaluation (TOE) in this PP-Module is a product that implements Bluetooth functionality.
+      This PP-Module describes the extended security functionality of Bluetooth in terms of CC. This PP-Module extends the Protection Profile for General Purpose Operating Systems or Mobile Device Fundamentals. 
+      A compliant TOE will meet all mandatory SFRs defined in this PP-Module in addition to the mandatory SFRs of its claimed Base-PP. For each Base-PP, this PP-Module refines several of the Base-PP's SFRs so that they can accommodate the
+      Bluetooth functionality defined by the PP-Module. A compliant TOE will claim all selection-based SFRs from this PP-Module and its Base-PP as needed based on the relevant selections in other requirements being chosen.
+      </h:p><h:p>
+      Note that <xref to="bibMDF"/> evaluation activities require certain tests to be performed against all radios present on the device. When the TOE also claims conformance to a PP-Configuration that includes 
+      this PP-Module, those tests are executed against the Bluetooth radio as well.
+      </h:p><h:p>
+      Also note that each Base-PP defines its own requirements for protection of data at rest. When the TOE also claims conformance to a PP-Configuration that includes this PP-Module, 
+      any data that is used by the TOE's Bluetooth implementation is expected to be stored using the same protection mechanisms.
+    </h:p>
+      
+      <sec:TOE_Boundary>
+        The Bluetooth implementation is a logical component executing on an end user personal computing or mobile device. As such, the TOE must rely heavily on the TOE's operational environment (host platform,
+        network stack, and operating system) for its execution domain and its proper usage. The TOE
+        will rely on the IT environment to address much of the security functionality related to
+        administrative functions. The physical boundary of the TOE includes the physical device on which it is installed, as this device will contain an internal or external Bluetooth radio that is used as the physical medium for 
+        transmitting and receiving data over the Bluetooth logical channel.
+        
+        <!-- 
+        <figure entity="images/Toe.png" title="WLAN Client Operating Environment" id="toe"/> --> 
+      </sec:TOE_Boundary>
+      <!-- 
+      <subsection title="TOE Platform" id="TOEplatform">
+      </subsection>  -->
+    </section>
+    
+    <!-- SME: the old WLAN EP did not define use cases, these have been added. Will need review. -->
+    <section title="Use Cases" id="usecases">Requirements in this PP-Module are designed to
+      address the security problems in at least the following use cases. These use cases are intentionally
+      very broad, as many specific use cases exist within these larger categories.
+      
+      <usecases>
+                <usecase title="General-Purpose Operating System" id="gpos">
+          <description>
+            This use case is for a Bluetooth TOE that is part of a general-purpose operating system. Specifically, the Bluetooth TOE is expected to be part of the operating system itself and not a standalone third-party application that 
+            is installed on top of it.
+          </description>
+        </usecase>
+        <usecase title="Mobile Device" id="md">
+          <description>
+            This use case is for a Bluetooth TOE that is part of a mobile operating system that runs on a mobile device. Specifically, the Bluetooth TOE is expected to be part of the mobile operating system itself and not 
+            a standalone third-party application that is acquired from the mobile vendor's application store.
+          </description>
+        </usecase>
+        
+        <!-- to do: add use case for administrative capabilities if one needs to exist (currently TBD) -->
+        
+      </usecases>
+    </section>
+  </sec:Introduction>
+
+    <sec:Conformance_Claims boilerplate="no">
+      
+      
+      <!-- The new CClaimsInfo construct -->
+      <CClaimsInfo cc-version="cc-2022r1" cc-approach="direct-rationale">
+        <cc-st-conf>exact</cc-st-conf>       
+        <cc-pt2-conf>extended</cc-pt2-conf>
+        <cc-pt3-conf>extended</cc-pt3-conf>
+        <cc-pp-conf/>
+        <cc-pp-config-with> 
+          <PP-cc-ref>Protection Profile for General Purpose Operating Systems, Version 5.0</PP-cc-ref>
+          <PP-cc-ref>Protection Profile for Mobile Device Fundamentals, Version 4.0</PP-cc-ref>
+          <Mod-cc-ref>PP-Module for Virtual Private Network (VPN) Clients, version 3.0</Mod-cc-ref>  
+          <Mod-cc-ref>PP-Module for Wireless LAN Clients, version 2.0</Mod-cc-ref>
+          <Mod-cc-ref>PP-Module for Mobile Device Management Agent, version 2.0</Mod-cc-ref>
+          <Mod-cc-ref>cPP-Module for Biometric Enrolment and Verification - for unlocking the device, version 1.1</Mod-cc-ref>  
+        </cc-pp-config-with>
+        <cc-pkg-claim/>
+          </CClaimsInfo>	
+  </sec:Conformance_Claims>
+
+  <sec:Security_Problem_Description title="Security Problem Definition">
+    All threats, assumptions, organizational security policies, and/or objectives that apply to this PP-Module are inherited from the Base-PP to which the TOE also conforms. 
+    This PP-Module does not add or remove any elements to the security problem definition given in the Base-PP. 
+    The SFRs defined in this PP-Module provide additional mechanisms for mitigating the threats already defined in the Base-PPs due to the fact that including a 
+    Bluetooth implementation introduces a new external interface to the underlying general-purpose OS or mobile device platform.
+    <!-- 
+    <sec:Threats>
+     
+      No threats have been identified that are specific to Bluetooth technology. However, any
+      organizational security policies defined in the Base-PPs will also apply to the portion of the TOE that implements Bluetooth.
+      <threats>
+        <threat name="T.PLACEHOLDER">
+          <description>placeholder</description>
+          <consistency-rationale>placeholder</consistency-rationale>
+          
+          <objective-refer ref="O.PLACEHOLDER">
+          <rationale>placeholder</rationale>
+        </objective-refer>  
+        </threat>
+      </threats>
+     </sec:Threats>  -->
+    
+    <sec:Threats>
+        This PP-Module defines no additional threats beyond those defined in the base PPs. Note however that the
+        SFRs defined in this PP-Module will assist in the mitigation of the following threats defined in the base PPs:	      
+        <threats>
+	      <threat name="T.NETWORK_EAVESDROP">
+		      <description>See MDF PP, Section 3.1 and GPOS PP, Section 3.1.</description>
+		      <consistency-rationale>This threat comes directly from both base PPs.</consistency-rationale>
+	        
+	        <addressed-by>FMT_SMF_EXT.1 (modified from MDF PP)</addressed-by><rationale>Mitigates the threat of network eavesdrop by allowing the TSF to be configured to implement the functionality to enforce secure behavior.</rationale>
+	        <addressed-by>FMT_SMF_EXT.1/BT (additional to MDF PP)</addressed-by><rationale>Mitigates the threat of network eavesdrop by allowing the TSF to be configured to implement the functionality to enforce secure behavior.</rationale>
+	        
+	        <addressed-by>FMT_MOF_EXT.1 (modified from GPOS PP)</addressed-by><rationale>Mitigates the threat of network eavesdrop by allowing the TSF to be configured to implement the functionality to enforce secure behavior.</rationale>
+	        <addressed-by>FMT_MOF_EXT.1/BT (additional to GPOS PP)</addressed-by><rationale>Mitigates the threat of network eavesdrop by allowing the TSF to be configured to implement the functionality to enforce secure behavior.</rationale>
+	        <addressed-by>FMT_SMF_EXT.1 (modified from GPOS PP)</addressed-by><rationale>Mitigates the threat of network eavesdrop by allowing the TSF to be configured to implement the functionality to enforce secure behavior.</rationale>
+	        <addressed-by>FMT_SMF_EXT.1/BT (additional to GPOS PP)</addressed-by><rationale>Mitigates the threat of network eavesdrop by allowing the TSF to be configured to implement the functionality to enforce secure behavior.</rationale>
+	        <addressed-by>FCS_CKM_EXT.8</addressed-by><rationale>Mitigates the threat by ensuring that key pairs are regenerated to reduce the risk of disclosure.</rationale>
+	        <addressed-by>FIA_BLT_EXT.3</addressed-by><rationale>Mitigates the threat of network eavesdrop by preventing multiple requests to connect to the same Bluetooth device address.</rationale>
+	        <addressed-by>FIA_BLT_EXT.4</addressed-by><rationale>Mitigates the threat of network eavesdrop by using Secure Simple Pairing to prevent the disclosure of Bluetooth connection parameters.</rationale>
+	        <addressed-by>FTP_BLT_EXT.1</addressed-by><rationale>Mitigates the threat of network disclosure by enforcing the use of encryption for Bluetooth data in transit.</rationale>
+	        <addressed-by>FTP_BLT_EXT.2</addressed-by><rationale>Mitigates the threat of network disclosure by ensuring that encryption is persisted for the entire duration of a Bluetooth connection.</rationale>
+	        <addressed-by>FTP_BLT_EXT.3/BR</addressed-by><rationale>Mitigates the threat of network disclosure by enforcing the use of appropriate encryption parameters for Bluetooth data in BR/EDR mode.</rationale>
+	        <addressed-by>FTP_BLT_EXT.3/LE (selection-based)</addressed-by><rationale>Mitigates the threat of network disclosure by enforcing the use of appropriate encryption parameters for Bluetooth data in LE mode.</rationale>
+	        <addressed-by>FIA_BLT_EXT.5 (objective)</addressed-by><rationale>Mitigates the threat of network disclosure by enforcing the use of Secure Connections Only mode to block insecure communications.</rationale>
+
+	      </threat>
+	      <threat name="T.NETWORK_ATTACK">
+		      <description>See MDF PP, Section 3.1 and GPOS PP, Section 3.1.</description>
+		      <consistency-rationale>This threat comes directly from both base PPs.</consistency-rationale>
+
+	        <addressed-by>FMT_SMF_EXT.1 (modified from MDF PP)</addressed-by><rationale>Mitigates the threat of network eavesdrop by allowing the TSF to be configured to implement the functionality to enforce secure behavior.</rationale>
+	        <addressed-by>FMT_SMF_EXT.1/BT (additional to MDF PP)</addressed-by><rationale>Mitigates the threat of network eavesdrop by allowing the TSF to be configured to implement the functionality to enforce secure behavior.</rationale>
+	        
+	        <addressed-by>FMT_MOF_EXT.1 (modified from GPOS PP)</addressed-by><rationale>Mitigates the threat of network eavesdrop by allowing the TSF to be configured to implement the functionality to enforce secure behavior.</rationale>
+	        <addressed-by>FMT_MOF_EXT.1/BT (additional to GPOS PP)</addressed-by><rationale>Mitigates the threat of network eavesdrop by allowing the TSF to be configured to implement the functionality to enforce secure behavior.</rationale>
+	        <addressed-by>FMT_SMF_EXT.1 (modified from GPOS PP)</addressed-by><rationale>Mitigates the threat of network eavesdrop by allowing the TSF to be configured to implement the functionality to enforce secure behavior.</rationale>
+	        <addressed-by>FMT_SMF_EXT.1/BT (additional to GPOS PP)</addressed-by><rationale>Mitigates the threat of network eavesdrop by allowing the TSF to be configured to implement the functionality to enforce secure behavior.</rationale>
+	        
+		      <addressed-by>FAU_GEN.1/BT</addressed-by><rationale>Mitigates the threat of network attack by generating audit data that could be used to determine if an attack has occurred.</rationale>
+	        <addressed-by>FIA_BLT_EXT.1</addressed-by><rationale>Mitigates the threat of network attack by blocking connections that do not have explicit authorization.</rationale>
+	        <addressed-by>FIA_BLT_EXT.2</addressed-by><rationale>Mitigates the threat of network attack by enforcing mutual authentication so that unrecognized endpoints are not authorized.</rationale>
+	        <addressed-by>FIA_BLT_EXT.3</addressed-by><rationale>Mitigates the threat of network attack by rejecting duplicate connections, which mitigates the risk of device impersonation.</rationale>
+	        <addressed-by>FIA_BLT_EXT.4</addressed-by><rationale>Mitigates the threat of network attack by using Secure Simple Pairing to prevent unauthorized connections.</rationale>
+	        <addressed-by>FIA_BLT_EXT.6</addressed-by><rationale>Mitigates the threat of network attack by preventing the TOE from establishing a connection with an unauthorized or unknown device.</rationale>
+	        <addressed-by>FIA_BLT_EXT.7</addressed-by><rationale>Mitigates the threat of network attack by requiring certain services to be accessed only through explicit user authorization.</rationale>
+	      </threat>		      
+      </threats>     
+    </sec:Threats>
+        
+    <sec:Assumptions>
+      <assumptions/>
+    </sec:Assumptions>
+    
+
+    <sec:Organizational_Security_Policies>
+      <OSPs/>
+      <!-- <OSP name="P.PLACEHOLDER">
+        <description>No organizational policies have been identified that are specific to Bluetooth technology. However, any
+          objectives defined in the Base-PPs will also apply to the portion of the TOE that implements Bluetooth.</description>
+        <consistency-rationale></consistency-rationale>
+        <objective-refer ref="O.PLACEHOLDER">
+          <rationale>aaaaa</rationale>
+        </objective-refer>
+      </OSP>
+      </OSPs> -->
+    </sec:Organizational_Security_Policies>
+  </sec:Security_Problem_Description>
+  
+
+
+  <sec:Security_Objectives>
+    
+    <sec:Security_Objectives_for_the_Operational_Environment><!-- The Operational Environment of the TOE implements technical and procedural measures 
+      to assist the TOE in correctly providing its security functionality (which is defined by the security objectives for the TOE). 
+      The security objectives for the Operational Environment consist of a set of statements describing the goals that the Operational Environment should achieve. 
+      This section defines the security objectives that are to be addressed by the IT domain or by non-technical or procedural means. 
+      The assumptions identified in Section 3 are incorporated as security objectives for the environment. -->
+      No environmental security objectives have been identified that are specific to Bluetooth technology. However, any
+      environmental security objectives defined in the Base-PPs will also apply to the portion of the TOE that implements Bluetooth.
+<!--      <SOEs>
+        <SOE name="OE.PLACEHOLDER">
+          <description>placeholder</description>
+          <consistency-rationale></consistency-rationale>
+        </SOE>
+      </SOEs> -->
+    </sec:Security_Objectives_for_the_Operational_Environment>    
+    
+    
+  </sec:Security_Objectives>
+  
+  <sec:Security_Requirements>
+    <!-- SME: the intro to this chapter appears to be getting populated with default text rather than what is specified here, which is problematic because the default text does not
+    define refinements correctly for this Module. How can we get it to use what is here instead of the default? -->
+    This chapter describes the security requirements
+    which have to be fulfilled by the <xref to="OS"/>. Those requirements comprise functional
+    components from Part 2 and assurance components from Part 3 of <xref to="bibCC"/>. 
+        
+    The following notations are used: <h:ul>
+      <h:li>
+        <h:b>Refinement</h:b> operation (denoted by <h:b>bold text</h:b>): Is used to add details to a
+        requirement, and thus further restricts a requirement.</h:li>
+      <h:li>
+        <h:b>Selection</h:b> operation (denoted by <h:i>italicized text</h:i>): Is used to select one or more options
+        provided by the [CC] in stating a requirement.</h:li>
+      <h:li>
+        <h:b>Assignment</h:b> operation (denoted by <h:span class="assignable-content">italicized text</h:span>): Is used to assign a
+        specific value to an unspecified parameter, such as the length of a password.</h:li>
+      <h:li>
+        <h:b>Iteration</h:b> operation: Identified with a slash followed by a unique text string (e.g. "/WLAN") or a number inside parentheses (e.g. "(1)")</h:li>
+    </h:ul>
+
+
+    <base-pp id="bpp-mdf" name="Mobile Device Fundamentals" product="Mobile Device" short="MDF" version="4.0">
+      <git>
+        <url>https://github.com/commoncriteria/mobile-device</url>
+        <branch>release-4.0</branch>
+      </git>
+      <url>https://www.niap-ccevs.org/static_html/protection-profile/468/MDF%203.3%20PP/index.html</url>
+ 
+      <modified-sfrs>
+ 
+        <section title="Security Management (FMT)" id="mdf-mod-fmt">
+  
+  <base-sfr-spec cc-id="fmt_smf_ext.1" title="Specification of Management Functions" id="modsfr-mdf-fmt-smf-ext-1">
+    <consistency-rationale>This SFR is unchanged from its definition in the Base-PP; the only change required by this PP-Module is how to interpret it in the context of Bluetooth capabilities.</consistency-rationale>
+    
+    <description>This PP-Module does not modify this SFR as it is defined in the MDF PP. However, note that this PP-Module
+      requires the list of radios specified in the assignment for management function 4 ("enable/disable
+      [<h:b>assignment:</h:b> <h:i>list of all radios</h:i>]") to include Bluetooth radios. Bluetooth BR/EDR and Bluetooth LE will 
+      be listed separately if the TSF provides the ability to enable/disable them separately (i.e., if management 
+      function BT-3 below is claimed). Otherwise, both interfaces will be treated as one radio for that assignment.</description>
+    
+    <no-change/>
+    
+  </base-sfr-spec>
+ 
+ 
+</section> 
+
+
+
+
+      </modified-sfrs>
+      <additional-sfrs>
+        <section id="mdf-addtl-audit-table" title="Auditable Events for Additional SFRs when MDF is           the Base-PP">
+          <audit-table table="mdf-additional" id="a-mdf-additional-events" title="Auditable Events for MDF PP Additional SFRs"/>
+        </section>
+        
+        <sec:fmt title="Security Management (FMT)">
+          <f-component cc-id="fmt_smf_ext.1" name="Specification of Management Functions" iteration="BT"> 
+            <consistency-rationale>The ST author is instructed to complete an assignment in the SFR with information related to Bluetooth, 
+              and to include additional management functions in this SFR based on the Bluetooth capability defined by the PP-Module.</consistency-rationale>
+            <f-element>
+              <title>
+                The TSF shall be capable of performing the following <h:b>Bluetooth</h:b> management functions:
+                <!-- 
+                This PP-Module prescribes the following changes to this SFR as defined in the Base-PP: <h:ul>
+                  <h:li>The list of radios specified in the assignment for management function 4 ("enable/disable [<h:b>assignment:</h:b><h:i> list of all radios</h:i>]") 
+                    will include Bluetooth radios. Bluetooth BR/EDR and Bluetooth LE will be listed separately if the TSF provides the ability to enable/disable them separately 
+                    (i.e., if management function BT-3 below is claimed). Otherwise, both interfaces will be treated as one radio for that assignment.</h:li>
+                  <h:li>The following additional management functions are defined, and should be appended to the table in the Base-PP:</h:li>
+                </h:ul>  -->
+                
+
+                <management-function-set default="O" ctr-prefix="BT-">
+                      <manager cid="I">Impl.</manager>
+                      <manager cid="UO">User Only</manager>
+                      <manager cid="A">Admin</manager>
+                      <manager cid="AO">Admin Only</manager>
+                      <management-function>
+			<text>Configure the Bluetooth trusted channel. <h:ul>
+                        <h:li>Disable/enable the Discoverable (for BR/EDR) and Advertising (for LE) modes;</h:li>
+			</h:ul></text>
+			<M ref="I"/>
+			<app-note> Management of the Discoverable and Advertising mode and management of the Bluetooth device name are mandatory. All other management functions for Bluetooth are currently objective.</app-note>
+			<aactivity>
+			  <Tests>
+			    For <_/>, the evaluator shall disable the Discoverable mode and
+			    shall verify that other Bluetooth BR/EDR devices cannot detect the TOE.
+			    The evaluator shall use the protocol analyzer to verify that the TOE does not respond to inquiries from other devices searching for Bluetooth devices.
+			    The evaluator shall enable Discoverable mode and verify that other devices can detect the TOE and that the TOE sends response packets to inquiries from searching devices.
+			  </Tests>
+			</aactivity>		
+		      </management-function>
+                    <management-function>
+		      <text>Change the Bluetooth device name (separately for BR/EDR and LE);</text>
+		      <aactivity><Tests>
+			  The evaluator shall examine Bluetooth traffic from the TOE to determine the current Bluetooth device name, change the Bluetooth device name, and verify that the Bluetooth traffic from the TOE lists the new name.
+			  The evaluator shall examine Bluetooth traffic from the TOE to determine the current Bluetooth device name for BR/EDR and LE.
+			  The evaluator shall change the Bluetooth device name for LE independently of the device name for BR/EDR. The evaluator shall verify that the Bluetooth traffic from the TOE lists the new name.
+		      </Tests></aactivity>
+                    </management-function>
+                    <management-function>
+		      <text>Provide separate controls for turning the BR/EDR and LE radios on and off;</text>
+		      <app-note> Function <_/> requires management of the Bluetooth device name separately for BR/EDR and LE radios.</app-note>
+		      <aactivity>
+			<Tests>The evaluator shall disable Bluetooth BR/EDR and enable Bluetooth LE. The evaluator shall examine Bluetooth traffic from the TOE to confirm that only Bluetooth LE traffic is present. The evaluator shall repeat the test with Bluetooth BR/EDR enabled and Bluetooth LE disabled, confirming that only Bluetooth BR/EDR is present.</Tests>		
+		      </aactivity>
+                    </management-function>
+                    <management-function>
+		      <text>Allow/disallow the following additional wireless technologies to be used with Bluetooth: 
+                        <selectables>
+                          <selectable>Wi-Fi</selectable>
+                          <selectable>NFC</selectable>
+                          <selectable><assignable>other wireless technologies</assignable></selectable>
+                        </selectables>;</text>
+			<app-note> May include disabling Wi-Fi being used as a part of Bluetooth High Speed and/or disabling NFC as an Out of Band pairing method for Bluetooth. May also include other wireless technologies beyond those already specified.</app-note>
+			<aactivity>
+			  <TSS>If function BT-4, "Allow/disallow additional wireless technologies to be used with Bluetooth," is selected, the evaluator shall verify that the TSS describes any additional wireless technologies that may be used with Bluetooth, which may include Wi-Fi with Bluetooth High Speed and/or NFC as an Out of Band pairing mechanism. </TSS>
+			  <Tests>(conditional): For each additional wireless technology that can be used with Bluetooth as claimed in the ST, the evaluator shall revoke Bluetooth permissions from that technology. If the set of supported wireless technologies includes Wi-Fi, the evaluator shall verify that Bluetooth High Speed is not able to send Bluetooth traffic over Wi-Fi when disabled. If the set of supported wireless technologies includes NFC, the evaluator shall verify that NFC cannot be used for pairing when disabled. For any other supported wireless technology, the evaluator shall verify that it cannot be used with Bluetooth in the specified manner when disabled. The evaluator shall then re-enable all supported wireless technologies and verify that all functionality that was previously unavailable has been restored.</Tests>
+			</aactivity>
+                    </management-function>
+                    <management-function>
+		      <text>Configure allowable methods of Out of Band pairing (for BR/EDR and LE);</text>
+		    <aactivity>
+
+						<TSS>If function BT-5, "Configure allowable methods of Out of Band pairing (for BR/EDR and LE)," is selected, the evaluator shall verify that the TSS describes when Out of Band pairing methods are allowed and which ones are configurable.</TSS>
+						<Tests>(conditional): The evaluator shall attempt to pair using each of the Out of Band pairing methods, verify that the pairing method works, iteratively disable each pairing method, and verify that the pairing method fails.</Tests>
+		    </aactivity>
+                    </management-function>
+                    <management-function>
+		      <text>Disable/enable the Discoverable (for BR/EDR) and Advertising (for LE) modes separately;</text>
+		    <aactivity>
+		      <TSS>If function BT-8, "Disable/enable the Bluetooth services and/or profiles available on the OS (for BR/EDR and LE)," is selected, the evaluator shall verify that all supported Bluetooth services are listed in the TSS as manageable and, if the TOE allows disabling by application rather than by service name, that a list of services for each application is also listed.</TSS>
+		      <Tests>(conditional): The evaluator shall enable Advertising for Bluetooth LE, verify that the advertisements are captured by the protocol analyzer, disable Advertising, and verify that no advertisements from the device are captured by the protocol analyzer.</Tests>
+		    </aactivity>
+                    </management-function>
+                    <management-function>
+		      <text>Disable/enable the Connectable mode (for BR/EDR and LE);</text>
+		    <aactivity>
+		      <Tests>
+			The evaluator shall enable Connectable mode and verify that other Bluetooth devices may pair with the TOE and (if the devices were bonded) re-connect after pairing and disconnection.
+			For BR/EDR devices: The evaluator shall use the protocol analyzer to verify that the TOE responds to pages from the other devices and permits pairing and re-connection.
+			The evaluator shall disable Connectable mode and verify that the TOE does not respond to pages from remote Bluetooth devices, thereby not permitting pairing or re-connection.
+			For LE: The evaluator shall use the protocol analyzer to verify that the TOE sends connectable advertising events and responds to connection requests.
+			The evaluator shall disable Connectable mode and verify that the TOE stops sending connectable advertising events and stops responding to connection requests from remote Bluetooth devices.
+		      </Tests>
+		    </aactivity>
+                    </management-function>
+                    <management-function>
+		      <text>Disable/enable the Bluetooth <assignable>list of Bluetooth service and/or profiles available on the OS (for BR/EDR and LE)</assignable>;</text>
+		      <app-note> The Bluetooth services and/or profiles that may be disabled should be listed for the user or administrator either by service and/or profile name or by the types of applications for which the service and/or profile is used.</app-note>
+		      <aactivity>
+			<Tests>
+			  For each supported Bluetooth service and/or profile listed in the TSS, the evaluator shall verify that the service or profile is manageable.
+			  If this is configurable by application rather than by 
+			  service and/or profile name, the evaluator shall verify that a list of services and/or profiles for each application is also listed.
+			</Tests>
+		      </aactivity>
+                    </management-function>
+                    <management-function>
+		      <text>Specify minimum level of security for each pairing (for BR/EDR and LE);</text>
+		      <app-note> The minimum level of security permitted may be configurable for each individual pairing or for all Bluetooth pairings.
+                      <h:ul>
+			<h:li>If the TSF supports any of the BR/EDR security modes in the following list; it should provide a mechanism for the user to choose the minimum level of security to enforce for a particular device during the pairing process: 
+			Security Mode 1 (any level); Security Mode 2; (any level); Security Mode 3; (any level); Security Mode 4; Levels 0;1;2 (aside from the services permitted to use Mode 4; 
+			Level 0 in Bluetooth Core Specification version 4.2; Vol. 3; Part C; p. 325).</h:li>
+			<h:li>If the TSF supports any of the LE security modes in the following list; 
+			it should provide a mechanism for the user to choose the minimum level of security to enforce for a particular device during the pairing process: Security Mode 1: Levels 1, 2; Security Mode 2, (any level).</h:li>
+			<h:li>Examples of levels of security are the use of legacy pairing; the use of different types of Secure Simple Pairing; a requirement for Man-in-the-Middle protection; 
+			the enforcement of Secure Connections Only mode; etc.</h:li>
+		      </h:ul>
+		      </app-note>
+		      <aactivity>
+			<TSS>If function BT-9, "Specify minimum level of security for each pairing (for BR/EDR and LE)," is selected, the evaluator shall verify that the TSS describes the method by which the level of security for pairings are managed, including whether the setting is performed for each pairing or is a global setting.</TSS>
+			<Tests>The evaluator shall allow low security modes/levels on the TOE and shall initiate pairing with the TOE from a remote device that allows only something other than Security Mode 4/Level 3 or Security Mode 4/Level 4 (for BR/EDR), or Security Mode 1/Level 3 (for LE). (For example, a remote BR/EDR device may claim Input/Output capability "NoInputNoOutput" and state that man-in-the-middle (MiTM) protection is not required. A remote LE device may not support encryption.) The evaluator shall verify that this pairing attempt succeeds due to the TOE falling back to the low security mode/level. The evaluator shall then remove the pairing of the two devices, prohibit the use of low security modes/levels on the TOE, then attempt the connection again. The evaluator shall verify that the pairing attempt fails. With the low security modes/levels disabled, the evaluator shall initiate pairing from the TOE to a remote device that supports Security Mode 4/Level 3 or Security Mode 4/Level 4 (for BR/EDR) or Security Mode 1/Level 3 (for LE). The evaluator shall verify that this pairing is successful and uses the high security mode/level.</Tests>
+		      </aactivity>
+                    </management-function>
+                </management-function-set>
+              </title>
+              <note role="Application">
+                As is the case with the [MDF PP], the first column lists the management function, 
+                the second column lists whether it is mandatory to implement the function and the remaining columns indicate whether it is mandatory, optional, or prohibited to implement the function by role as follows: <h:ul>
+                  <h:li>The third column indicates functions that are to be restricted to the user (i.e. not available to the administrator).</h:li>
+                  <h:li>The fourth column indicates functions that are available to the administrator. These functions can still be available to the user, as long as the function is not restricted to the administrator (column 5).</h:li>
+                  <h:li>The fifth column indicates whether the function is to be restricted to the administrator when the device is enrolled and the administrator applies the indicated policy (i.e., MDM administration). 
+                    This does not prevent the user from modifying a setting to make the function stricter, but the user cannot undo the configuration enforced by the administrator.</h:li>
+                </h:ul>
+		<h:p>
+                For columns 2-5, an 'M' indicates that it is mandatory, an 'O' indicates that it is optional, and a '-' indicates that it is prohibited.</h:p><h:p>
+                (BT-1.) Management of the Discoverable and Advertising mode and management of the Bluetooth device name are mandatory. All other management functions for Bluetooth are currently objective.</h:p><h:p>
+                (BT-2. optional) Requires management of the Bluetooth device name separately for BR/EDR and LE radios.</h:p><h:p>
+                (BT-4. optional) May include disabling Wi-Fi being used as a part of Bluetooth High Speed and/or disabling NFC as an Out of Band pairing method for Bluetooth. May also include other wireless technologies beyond those already specified.</h:p><h:p>
+                (BT-8. optional) The Bluetooth services and/or profiles that may be disabled should be listed for the user or administrator either by service and/or profile name or by the types of applications for which the service and/or profile is used.</h:p><h:p>
+                (BT-9. optional) The minimum level of security permitted may be configurable for each individual pairing or for all Bluetooth pairings.</h:p>
+                <h:ul>
+                  <h:li>If the TSF supports any of the BR/EDR security modes in the following list; it should provide a mechanism for the user to choose the minimum level of security to enforce for a particular device during the pairing process: 
+                    Security Mode 1 (any level); Security Mode 2; (any level); Security Mode 3; (any level); Security Mode 4; Levels 0;1;2 (aside from the services permitted to use Mode 4; 
+                    Level 0 in Bluetooth Core Specification version 4.2; Vol. 3; Part C; p. 325).</h:li>
+                  <h:li>If the TSF supports any of the LE security modes in the following list; 
+                    it should provide a mechanism for the user to choose the minimum level of security to enforce for a particular device during the pairing process: Security Mode 1: Levels 1, 2; Security Mode 2, (any level).</h:li>
+                  <h:li>Examples of levels of security are the use of legacy pairing; the use of different types of Secure Simple Pairing; a requirement for Man-in-the-Middle protection; 
+                    the enforcement of Secure Connections Only mode; etc.</h:li>
+                </h:ul>
+              </note>
+              <aactivity>
+                <TSS>
+                  The evaluator shall ensure that the TSS includes a description of the Bluetooth profiles and services supported and the Bluetooth security modes and levels supported by the TOE. 
+                </TSS>
+                <Guidance>
+                  The evaluator shall ensure that the management functions defined in the PP-Module are described in the guidance to the same extent required for the Base-PP management functions.
+                </Guidance>
+                <Tests>
+                  The evaluator shall use a Bluetooth-specific protocol analyzer to perform the following tests:
+                </Tests>
+              </aactivity>
+            </f-element>
+            <audit-event table="mdf-additional"/>
+          </f-component>
+          
+        </sec:fmt>
+        
+        
+      </additional-sfrs>
+      
+          
+       
+      <con-toe> If this PP-Module is used to extend the MDF PP, the TOE type for the overall TOE is still a mobile device. 
+        However, one of the functions of the device must be the ability for it to have Bluetooth capability. The TOE boundary is simply extended to include that functionality. </con-toe>
+      <con-sec-prob>The threats that apply to this PP-Module are inherited from the Base-PP to which the TOE also conforms. This PP-Module does not add or remove any elements to the security problem definition given in the MDF PP.</con-sec-prob>
+      <con-obj>The objectives that apply to this PP-Module are inherited from the Base-PP to which the TOE also conforms. This PP-Module does not add or remove any elements to the objectives given in the MDF PP.</con-obj>
+      <con-op-en/>
+
+      <con-mod ref="fau-gen-1-bt">This SFR extends the audit functionality already present in the Base-PP to address auditing of behavior that is specific to this PP-Module.</con-mod>    
+      <con-mod ref="fcs-ckm-ext-8">This SFR applies to the frequency of key generation activity. 
+        This does not conflict with the Base-PP because it involves a key generation mechanism defined in the Base-PP and relates exclusively to Bluetooth functionality 
+        so it does not affect any other key generation activities required by the Base-PP.</con-mod>
+      <con-mod ref="fia-blt-ext-1">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+      <con-mod ref="fia-blt-ext-2">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+      <con-mod ref="fia-blt-ext-3">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+      <con-mod ref="fia-blt-ext-4">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+      <con-mod ref="fia-blt-ext-6">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+      <con-mod ref="fia-blt-ext-7">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+      <con-mod ref="ftp-blt-ext-1">This SFR applies to encryption of Bluetooth communications. This is a trusted channel that is not discussed in the Base-PP, 
+        but it relies on the same cryptographic algorithms specified in the Base-PP to function.</con-mod>
+      <con-mod ref="ftp-blt-ext-2">This SFR applies to encryption of Bluetooth communications. This is a trusted channel that is not discussed in the Base-PP, 
+        but it relies on the same cryptographic algorithms specified in the Base-PP to function.</con-mod>
+      <con-mod ref="ftp-blt-ext-3-br">This SFR applies to encryption of Bluetooth communications. This is a trusted channel that is not discussed in the Base-PP, 
+        but it relies on the same cryptographic algorithms specified in the Base-PP to function.</con-mod>
+      <con-mod ref="ftp-blt-ext-3-le">This SFR applies to encryption of Bluetooth communications. This is a trusted channel that is not discussed in the Base-PP, 
+        but it relies on the same cryptographic algorithms specified in the Base-PP to function.</con-mod>
+      <con-mod ref="fia-blt-ext-5">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+      
+    </base-pp>
+    <base-pp id="bpp-gpos" name="General Purpose Operating System" product="Operating System" short="GPOS" version="5.0">
+      <git>
+        <url>https://github.com/commoncriteria/operatingsystem</url>
+        <branch>release-4.0</branch>
+      </git>
+      <url>https://www.niap-ccevs.org/static_html/protection-profile/469/OS%204.3%20PP/index.html</url>
+      <modified-sfrs>
+        <section title="Security Management (FMT)" id="gpos-mod-fmt">
+          
+          <base-sfr-spec cc-id="fmt_mof_ext.1" title="Management of Functions Behavior" id="modsfr-gpos-fmt-mof-ext-1">
+            <consistency-rationale>This SFR is unchanged from its definition in the Base-PP; the only change required by this PP-Module is how to interpret it in the context of Bluetooth capabilities.</consistency-rationale>
+            
+            <description>There is no change to the text of this SFR. The SFR references FMT_SMF_EXT.1 and states that the OS shall permit 
+              the administrator role to perform the relevant functions listed in FMT_SMF_EXT.1. The function "Enable/Disable
+              the Bluetooth interface" is listed as an optional management function in FMT_SMF_EXT.1 for both users and 
+              administrators. When this PP-Module is claimed, the administrator or user role must be able to enable/disable
+              the Bluetooth interface. In other words, the function itself is moved from optional to mandatory, but this
+              PP-Module does not require that it be implemented by a specific role. If the ST indicates that the
+              administrator role can perform this function, then the restrictions imposed by FMT_MOF_EXT.1 will apply
+              to it.</description>
+            
+            <no-change/>
+            
+          </base-sfr-spec>
+          
+          <base-sfr-spec cc-id="fmt_smf_ext.1" title="Specification of Management Functions" id="modsfr-gpos-fmt-smf-ext-1">
+            <consistency-rationale>This SFR is unchanged from its definition in the Base-PP; the only change required by this PP-Module is how to interpret it in the context of Bluetooth capabilities.</consistency-rationale>
+            
+            <description>This PP-Module does not modify this SFR as it is defined in the GPOS PP. However, note that this PP-Module
+              requires the function "Enable/disable Bluetooth interface" to be implemented, though this PP-Module 
+              does not mandate whether it be assigned to the Administrator or User role.  </description>
+            
+            <no-change/>
+          </base-sfr-spec>
+          
+         
+        </section>
+      </modified-sfrs>
+      <additional-sfrs>
+        <section id="gpos-addtl-audit-table" title="Auditable Events for Additional SFRs when GPOS is           the Base-PP">
+          <audit-table table="gpos-additional" id="a-gpos-additional-events" title="Auditable Events for GPOS PP Additional SFRs"/>
+        </section>
+        
+        <sec:fmt title="Security Management (FMT)">
+          <f-component cc-id="fmt_mof_ext.1" name="Management of Security Functions Behavior" iteration="BT"> 
+            <consistency-rationale>The ST author is required to associate all claimed management functions with the administrative privileges required to execute them. 
+              This PP-Module simply extends this requirement to apply to the management functions added and mandated by the PP-Module.</consistency-rationale>
+            <f-element>
+              <title>
+                The OS shall restrict the ability to perform the function indicated in the "Administrator" column in FMT_SMF_EXT.1.1<h:b>/BT</h:b> to the administrator.
+                <!-- 
+                There is no change to the text of this SFR. 
+                The SFR references FMT_SMF_EXT.1 and states that the OS shall permit the administrator role to perform the relevant functions listed in FMT_SMF_EXT.1. 
+                The function "Enable/Disable the Bluetooth interface" is listed as an optional management function in FMT_SMF_EXT.1 for both users and administrators. 
+                When this PP-Module is claimed, the administrator or user role must be able to enable/disable the Bluetooth interface. 
+                In other words, the function itself is moved from optional to mandatory, but this PP-Module does not require that it be implemented by a specific role. 
+                If the ST indicates that the administrator role can perform this function, then the restrictions imposed by FMT_MOF_EXT.1 will apply to it.  --> 
+              </title>
+              <note role="Application">
+                The management functions in FMT_SMF_EXT.1/BT require the function BT-1 to be supported by the TOE and manageable by an Administrator at minimum. All other management functions, 
+                and what roles may perform them, are optional. The ST must make it clear which of these functions are provided by the TOE and which roles are able to manage them.
+              </note>
+              <aactivity>
+                <TSS>
+                  The evaluator shall examine the TSS to ensure that it identifies the Bluetooth-related management functions that are supported by the TOE and the roles that are authorized to perform each function.
+                </TSS>
+                <Guidance>
+                  The evaluator shall examine the operational guidance to ensure that it provides sufficient guidance on each supported Bluetooth management function to describe how the function is performed and any role restrictions on 
+                  the subjects that are authorized to perform the function.
+                </Guidance>
+                <Tests>
+                  For each function that is indicated as restricted to the
+                  administrator, the evaluation shall perform the function as an
+                  administrator, as specified in the Operational Guidance, and determine
+                  that it has the expected effect as outlined by the Operational Guidance
+                  and the SFR. The evaluator will then perform the function (or otherwise
+                  attempt to access the function) as a non-administrator and observe that
+                  they are unable to invoke that functionality.
+                </Tests>
+                
+              </aactivity>
+            </f-element>
+            <audit-event table="gpos-additional"/>
+          </f-component>
+          
+          <f-component cc-id="fmt_smf_ext.1" name="Specification of Management Functions" iteration="BT"> 
+            <consistency-rationale>The ST author is required to include an optional management function defined in the Base-PP that relates to Bluetooth, 
+              and to include additional management functions in this SFR based on the Bluetooth capability defined by the PP-Module. </consistency-rationale>
+            <f-element>
+              <title>
+
+                
+                The OS shall be capable of performing the following <h:b>Bluetooth</h:b> management functions:
+                <h:table>
+                  <h:tr>
+                    <h:th>Function</h:th>
+                    <h:th>Administrator</h:th>
+                    <h:th>User</h:th>
+                  </h:tr>
+                  <h:tr>
+                    <h:td>BT-1. Configure the Bluetooth trusted channel. <h:ul>
+                      <h:li>Disable/enable the Discoverable (for BR/EDR) and Advertising (for LE) modes;</h:li>
+                    </h:ul></h:td>
+                    <h:td>X</h:td>
+                    <h:td>O</h:td>
+                  </h:tr>
+                  <h:tr>
+                    <h:td>BT-2. Change the Bluetooth device name (separately for BR/EDR and LE);</h:td>
+                    <h:td>O</h:td>
+                    <h:td>O</h:td>
+                  </h:tr>
+                  <h:tr>
+                    <h:td>BT-3. Provide separate controls for turning the BR/EDR and LE radios on and off;</h:td>
+                    <h:td>O</h:td>
+                    <h:td>O</h:td>
+                  </h:tr>
+                  <h:tr>
+                    <h:td>BT-4. Allow/disallow the following additional wireless technologies to be used with Bluetooth: 
+                      <selectables>
+                        <selectable>Wi-Fi</selectable>
+                        <selectable>NFC</selectable>
+                        <selectable><assignable>other wireless technologies</assignable></selectable>
+                      </selectables>;</h:td>
+                    <h:td>O</h:td>
+                    <h:td>O</h:td>
+                  </h:tr>
+                  <h:tr>
+                    <h:td>BT-5. Configure allowable methods of Out of Band pairing (for BR/EDR and LE);</h:td>
+                    <h:td>O</h:td>
+                    <h:td>O</h:td>
+                  </h:tr>
+                  <h:tr>
+                    <h:td>BT-6. Disable/enable the Discoverable (for BR/EDR) and Advertising (for LE) modes separately;</h:td>
+                    <h:td>O</h:td>
+                    <h:td>O</h:td>
+                  </h:tr>
+                  <h:tr>
+                    <h:td>BT-7. Disable/enable the Connectable mode (for BR/EDR and LE);</h:td>
+                    <h:td>O</h:td>
+                    <h:td>O</h:td>
+                  </h:tr>
+                  <h:tr>
+                    <h:td>BT-8. Disable/enable the Bluetooth <assignable>list of Bluetooth service and/or profiles available on the OS (for BR/EDR and LE)</assignable>;</h:td>
+                    <h:td>O</h:td>
+                    <h:td>O</h:td>
+                  </h:tr>
+                  <h:tr>
+                    <h:td>BT-9. Specify minimum level of security for each pairing (for BR/EDR and LE);</h:td>
+                    <h:td>O</h:td>
+                    <h:td>O</h:td>
+                  </h:tr>
+                </h:table>
+              </title>
+              <note role="Application">
+		<h:p>
+                The ST should indicate which of the optional management functions are implemented in the TOE. 
+                This can be done by adjusting the "Administrator" and "User" columns to "X" according to which capabilities are present or not present, and for which privilege level. 
+                </h:p><h:p>
+                (BT-1.) Management of the Discoverable and Advertising mode and management of the Bluetooth device name are mandatory. All other management functions for Bluetooth are currently objective.</h:p><h:p>
+                (BT-2. optional) Requires management of the Bluetooth device name separately for BR/EDR and LE radios.</h:p><h:p>
+                (BT-4. optional) May include disabling Wi-Fi being used as a part of Bluetooth High Speed and/or disabling NFC as an Out of Band pairing method for Bluetooth. May also include other wireless technologies beyond those already specified.</h:p><h:p>
+                (BT-8. optional) The Bluetooth services and/or profiles that may be disabled should be listed for the user or administrator either by service and/or profile name or by the types of applications for which the service and/or profile is used.</h:p><h:p>
+                (BT-9. optional) The minimum level of security permitted may be configurable for each individual pairing or for all Bluetooth pairings.
+                <h:ul>
+                  <h:li>If the TSF supports any of the BR/EDR security modes in the following list; it should provide a mechanism for the user to choose the minimum level of security to enforce for a particular device during the pairing process: 
+                    Security Mode 1 (any level); Security Mode 2; (any level); Security Mode 3; (any level); Security Mode 4; Levels 0;1;2 (aside from the services permitted to use Mode 4; 
+                    Level 0 in Bluetooth Core Specification version 4.2; Vol. 3; Part C; p. 325).</h:li>
+                  <h:li>If the TSF supports any of the LE security modes in the following list; 
+                    it should provide a mechanism for the user to choose the minimum level of security to enforce for a particular device during the pairing process: Security Mode 1: Levels 1, 2; Security Mode 2, (any level).</h:li>
+                  <h:li>Examples of levels of security are the use of legacy pairing; the use of different types of Secure Simple Pairing; a requirement for Man-in-the-Middle protection; 
+                    the enforcement of Secure Connections Only mode; etc.</h:li>
+                </h:ul>
+		</h:p>
+              </note>
+              <aactivity>
+                <TSS>
+		  <h:p>
+                  The evaluator shall ensure that the TSS includes a description of the Bluetooth profiles and services supported and the Bluetooth security modes and levels supported by the TOE. </h:p><h:p>
+                  If function BT-4, "Allow/disallow additional wireless technologies to be used with Bluetooth," is selected, the evaluator shall verify that the TSS describes any additional wireless technologies that may be used with Bluetooth, which may include Wi-Fi with Bluetooth High Speed and/or NFC as an Out of Band pairing mechanism.</h:p><h:p> 
+                  If function BT-5, "Configure allowable methods of Out of Band pairing (for BR/EDR and LE)," is selected, the evaluator shall verify that the TSS describes when Out of Band pairing methods are allowed and which ones are configurable.</h:p><h:p>
+                  If function BT-8, "Disable/enable the Bluetooth services and/or profiles available on the OS (for BR/EDR and LE)," is selected, the evaluator shall verify that all supported Bluetooth services are listed in the TSS as manageable and, if the TOE allows disabling by application rather than by service name, that a list of services for each application is also listed.</h:p><h:p> 
+                  If function BT-9, "Specify minimum level of security for each pairing (for BR/EDR and LE)," is selected, the evaluator shall verify that the TSS describes the method by which the level of security for pairings are managed, including whether the setting is performed for each pairing or is a global setting. </h:p>
+                </TSS>
+                <Guidance>
+                  The evaluator shall ensure that the management functions defined in the PP-Module are described in the guidance to the same extent required for the Base-PP management functions.
+                </Guidance>
+                <Tests>
+                  The evaluator shall use a Bluetooth-specific protocol analyzer to perform the following tests:
+                </Tests>
+              </aactivity>
+            </f-element>
+            <audit-event table="gpos-additional"/>
+          </f-component>
+          
+        </sec:fmt>
+        
+        
+      </additional-sfrs>
+      
+      
+      
+      <con-toe>If this PP-Module is used to extend the [GPOS PP], the TOE type for the overall TOE is still a generic operating system. 
+        However, one of the functions of the generic operating system must be the ability for it to have Bluetooth capability. The TOE boundary is simply extended to include that functionality.</con-toe>
+      <con-sec-prob>The threats that apply to this PP-Module are inherited from the Base-PP to which the TOE also conforms. This PP-Module does not add or remove any elements to the security problem definition given in the GPOS PP.</con-sec-prob>
+      <con-obj>The objectives that apply to this PP-Module are inherited from the Base-PP to which the TOE also conforms. This PP-Module does not add or remove any elements to the objectives given in the GPOS PP.</con-obj>
+      <con-op-en/>
+         
+      <con-mod ref="fau-gen-1-bt">This SFR extends the audit functionality already present in the Base-PP to address auditing of behavior that is specific to this PP-Module.</con-mod>   
+      <con-mod ref="fcs-ckm-ext-8">This SFR applies to the frequency of key generation activity. 
+        This does not conflict with the Base-PP because it involves a key generation mechanism defined in the Base-PP and relates exclusively to Bluetooth functionality 
+        so it does not affect any other key generation activities required by the Base-PP.</con-mod>
+      <con-mod ref="fia-blt-ext-1">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+      <con-mod ref="fia-blt-ext-2">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+      <con-mod ref="fia-blt-ext-3">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+      <con-mod ref="fia-blt-ext-4">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+      <con-mod ref="fia-blt-ext-6">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+      <con-mod ref="fia-blt-ext-7">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+      <con-mod ref="ftp-blt-ext-1">This SFR applies to encryption of Bluetooth communications. This is a trusted channel that is not discussed in the Base-PP, 
+        but it relies on the same cryptographic algorithms specified in the Base-PP to function.</con-mod>
+      <con-mod ref="ftp-blt-ext-2">This SFR applies to encryption of Bluetooth communications. This is a trusted channel that is not discussed in the Base-PP, 
+        but it relies on the same cryptographic algorithms specified in the Base-PP to function.</con-mod>
+      <con-mod ref="ftp-blt-ext-3-br">This SFR applies to encryption of Bluetooth communications. This is a trusted channel that is not discussed in the Base-PP, 
+        but it relies on the same cryptographic algorithms specified in the Base-PP to function.</con-mod>
+      <con-mod ref="ftp-blt-ext-3-le">This SFR applies to encryption of Bluetooth communications. This is a trusted channel that is not discussed in the Base-PP, 
+        but it relies on the same cryptographic algorithms specified in the Base-PP to function.</con-mod>
+      <con-mod ref="fia-blt-ext-5">This SFR applies to the establishment of Bluetooth connectivity, which is behavior not described in or prevented by the Base-PP.</con-mod>
+    </base-pp>
+      
+    <man-sfrs>
+      
+      <section id="man-audit-table" title="Auditable Events for Mandatory SFRs">
+        <audit-table table="mandatory" id="a-mandatory-events"/>
+      </section>
+      
+      <sec:fau title="Security Audit (FAU)">
+        <f-component cc-id="fau_gen.1" id="fau-gen-1-bt" name="Audit Data Generation (Bluetooth)" iteration="BT"> 
+          <consistency-rationale>The PP-Module defines auditable events for Bluetooth that extends the audit functionality defined in each Base-PP.</consistency-rationale>
+          <f-element>
+            <title>
+	      <h:p>
+              The TSF shall be able to generate audit data of the following auditable events: 
+              </h:p>
+              <h:ol type="a">
+                <h:li>Start-up and shutdown of the audit functions</h:li>
+                <h:li>All auditable events for the [<h:i>not specified</h:i>] level of audit</h:li>
+                <h:li>[<h:i>all auditable events for mandatory SFRs specified in <xref to="a-mandatory-events"/></h:i>].</h:li>
+              </h:ol>
+            </title>
+          </f-element>
+            <f-element>
+              <title>The TSF shall record within the audit data at least the following information: <h:ol type="a">
+                <h:li>Date and time of the event</h:li>
+                <h:li>Type of event</h:li>
+                <h:li>Subject identity</h:li>
+                <h:li>The outcome (success or failure) of the event</h:li>
+                <h:li>For each audit event type, based on the auditable event definitions of the
+                  functional components included in the PP, PP-Module, functional package or ST, [<h:i>all auditable events for mandatory SFRs specified in <xref to="a-mandatory-events"/></h:i>].</h:li>
+              </h:ol>
+              </title>
+            <note role="application">It is not feasible for the <no-link>FIA_BLT_EXT.3</no-link> event to be audited if the rejection is performed at the HCI layer because the Bluetooth standard does not provide a notification 
+              interface for this behavior in the HCI. This is why the event is labeled as optional. 
+              However, if the rejection is performed above the HCI layer, it is expected that a conformant TOE should implement this functionality.</note>
+            <aactivity>
+              <no-tests>
+                <h:p>There are additional auditable events that serve to extend the FAU_GEN.1 SFR found in each Base-PP. </h:p><h:p>
+                This SFR is evaluated in the same manner as defined by the Evaluation Activities for the claimed Base-PP. 
+                The only difference is that the evaluator shall also assess the auditable events required for this PP-Module in addition to those defined in the claimed Base-PP.</h:p></no-tests>
+            </aactivity>
+          </f-element>
+          <audit-event/>
+        </f-component>
+        
+      </sec:fau>
+      
+      <sec:fcs title="Cryptographic Support (FCS)">
+        
+        <ext-comp-def fam-id="FCS_CKM_EXT" title="Cryptographic Key Management">
+          <fam-behavior>Components in this family define requirements for cryptographic key management beyond those which are specified in the Part 2 family FCS_CKM.
+          </fam-behavior>
+        </ext-comp-def>
+        <f-component cc-id="fcs_ckm_ext.8" id="fcs-ckm-ext-8" name="Bluetooth Key Generation">
+          <consistency-rationale/>
+          
+          <comp-lev> requires the TSF to generate key pairs used for Bluetooth over a specified time period or in response to some observed event.</comp-lev>
+          <management>No specific management functions are identified.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_CKM.1 Cryptographic Key Generation <h:br/>
+	  FPT_STM.1 Reliable Time Stamps<h:br/>
+	  FTP_BLT_EXT.1 Bluetooth Encryption<h:br/>
+	  </dependencies>
+          <f-element>
+            <title>The TSF shall generate public/private ECDH key pairs every <assignable>frequency of and/or criteria for new key pair generation</assignable>.
+            </title>
+            <note role="application">
+	      <h:p>There are multiple acceptable ways of keeping ECDH key pairs adequately fresh, 
+              including a time-based approach such that the same key pairs will not be used for more than, for instance, 24 hours. 
+              Alternatively, the criteria might be linked to the number of passed or failed authentication attempts. 
+              As a starting point to determine reasonable authentication attempt-based replacement criteria, note that the Bluetooth specification (v4.1, Vol. 2, 5.1) 
+              suggests mitigating repeated authentication attempts by changing a device's private key after three failed authentication attempts from any BD_ADDR, 
+              after ten successful pairings from any BD_ADDR, or after a combination of these such that any three successful pairings count as one failed pairing. 
+              </h:p><h:p>
+              This requirement also applies to Bluetooth LE if the TOE supports LE Secure Connections, which was introduced in version 4.2 of the specification.
+	      </h:p>
+            </note>  
+            <aactivity>
+              <TSS>
+                The evaluator shall ensure that the TSS describes the criteria used to determine the frequency of generating new ECDH public/private key pairs. 
+                In particular, the evaluator shall ensure that the implementation does not permit the use of static ECDH key pairs.
+              </TSS>
+              <Guidance>
+                There are no guidance evaluation activities for this component.
+              </Guidance>
+              <Tests>
+		<h:p>
+                  The evaluator shall perform the following steps:
+		  <h:br/>
+                Step 1: Pair the TOE to a remote Bluetooth device and record the public key currently in use by the TOE. (This public key can be obtained using a Bluetooth protocol analyzer to inspect packets exchanged during pairing.)<h:br/>
+                Step 2: Perform necessary actions to generate new ECDH public/private key pairs. (Note that this test step depends on how the TSS describes the criteria used to determine the frequency of generating new ECDH public/private key pairs.)<h:br/>
+                Step 3: Pair the TOE to a remote Bluetooth device and again record the public key currently in use by the TOE.<h:br/>
+                Step 4: Verify that the public key in Step 1 differs from the public key in Step 3.<h:br/>
+		</h:p>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event/>
+        </f-component>
+
+        
+ 
+       </sec:fcs>
+      
+      <sec:fia title="Identification and Authentication (FIA)">
+
+        <ext-comp-def fam-id="FIA_BLT_EXT" title="Bluetooth Pairing">
+          <fam-behavior>Components in this family define Bluetooth-specific identification and authentication requirements.
+          </fam-behavior>
+        </ext-comp-def>
+        <f-component cc-id="fia_blt_ext.1" id="fia-blt-ext-1" name="Bluetooth User Authorization">
+          <consistency-rationale/>
+          <comp-lev> requires the TSF to have explicit user authorization before allowing a Bluetooth pairing.</comp-lev>
+          <management>No specific management functions are identified.
+          </management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST: <h:ul>
+            <h:li>Failed user authorization of Bluetooth device.</h:li>
+            <h:li>Failed user authorization for local Bluetooth device.</h:li>
+          </h:ul></audit>
+          <dependencies>No dependencies.</dependencies>
+          
+          <f-element>
+            <title>The TSF shall require explicit user authorization before pairing with a remote Bluetooth device.
+            </title>
+            <note role="application">
+	      <h:p>
+              User authorization includes explicit actions like affirming the remote device's name, expressing an intent to connect to the remote device, and entering relevant pairing information (e.g. PINs; numeric codes; or "yes/no" responses). 
+              The user must have to explicitly permit all pairing attempts; even when bonding is not taking place.</h:p><h:p>
+              Because explicit user action must be required to permit pairing; it must not be possible for applications to programmatically enter pairing information (e.g. PINs; numeric codes; or "yes/no" responses) during the pairing process. 
+              The absence of public APIs for programmatic authorization is not sufficient to meet this requirement; hidden or private APIs must be absent as well.
+	      </h:p>
+            </note>            
+          
+            <aactivity>
+              <TSS>
+                The evaluator shall examine the TSS to ensure that it contains a description of when user permission is required for Bluetooth pairing; 
+                and that this description mandates explicit user authorization via manual input for all Bluetooth pairing; 
+                including application use of the Bluetooth trusted channel and situations where temporary (non-bonded) connections are formed.
+                
+              </TSS>
+              <Guidance>
+		<h:p>
+                The evaluator shall examine the API documentation provided as a means of satisfying the requirements for the ADV assurance class (see section 5.2.2 in the MDF PP and GPOS PP) 
+                and verify that this API documentation does not include any API for programmatic entering of pairing information (e.g. PINs; numeric codes; or "yes/no" responses) intended to bypass manual user input during pairing.</h:p><h:p>
+                The evaluator shall examine the guidance to verify that these user authorization screens are clearly identified and instructions are given for authorizing Bluetooth pairings. </h:p>
+              </Guidance>
+              <Tests>
+                <h:p>The evaluator shall perform the following steps:<h:br/>
+                Step 1: Initiate pairing with the TOE from a remote Bluetooth device that requests no man-in-the-middle protection; no bonding; and claims to have NoInput/NoOutput (IO) capability. 
+                Such a device will attempt to evoke behavior from the TOE that represents the minimal level of user interaction that the TOE supports during pairing.<h:br/>
+                Step 2: Verify that the TOE does not permit any Bluetooth pairing without explicit authorization from the user (e.g. the user must have to minimally answer "yes" or "allow" in a prompt).<h:br/></h:p>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event>
+            <audit-event-descr>Failed user authorization of Bluetooth device.</audit-event-descr>
+            <audit-event-info>User authorization decision (e.g., user rejected connection, incorrect pin entry).</audit-event-info>
+          </audit-event>
+          <audit-event>
+            <audit-event-descr>Failed user authorization for local Bluetooth Service.</audit-event-descr>
+            <audit-event-info><selectables>
+              <selectable>complete</selectable>
+              <selectable>last <assignable>integer greater than or equal to 2</assignable> octets of the</selectable></selectables> BD_ADDR and
+              <selectables>
+                <selectable>name of device</selectable>
+                <selectable>uniquely generated nonce for each pairing</selectable>
+                <selectable>no other information</selectable></selectables>.</audit-event-info>
+            <audit-event-info>Bluetooth profile. Identity of local service with <selectables>
+              <selectable>service ID</selectable>
+              <selectable>profile name</selectable>
+            </selectables></audit-event-info>
+          </audit-event>
+        </f-component>
+        
+        
+        <f-component cc-id="fia_blt_ext.2" id="fia-blt-ext-2" name="Bluetooth Mutual Authentication">
+          <consistency-rationale/>
+          <comp-lev> requires the TSF to enforce mutual authentication for Bluetooth.</comp-lev>
+          <management>No specific management functions are identified.
+          </management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST: <h:ul>
+            <h:li>Initiation of Bluetooth connection.</h:li>
+            <h:li>Failure of Bluetooth connection.</h:li>
+          </h:ul></audit>
+          <dependencies>FIA_BLT_EXT.1 Bluetooth User Authorization</dependencies>
+          
+          <f-element>
+            <title>The TSF shall require Bluetooth mutual authentication between devices prior to any data transfer over the Bluetooth link.
+            </title>
+            <note role="application">
+              If devices are not already paired, the pairing process must be initiated. If the devices are already paired, mutual authentication based on the current link key must succeed before any data passes over the link.
+            </note>            
+            
+            <aactivity>
+              <TSS>
+                The evaluator shall ensure that the TSS describes how data transfer of any type is prevented before the Bluetooth pairing is completed.
+                The TSS shall specifically call out any supported RFCOMM and L2CAP data transfer mechanisms. 
+                The evaluator shall ensure that the data transfers are only completed after the Bluetooth devices are paired and mutually authenticated.
+              </TSS>
+              <Guidance>
+                There are no guidance evaluation activities for this component.
+              </Guidance>
+              <Tests>
+                The evaluator shall use a Bluetooth tool to attempt to access TOE files using the OBEX Object Push service (OBEX Push) and verify that pairing and mutual authentication are required by the TOE before allowing access. 
+                If the OBEX Object Push service is unsupported on the TOE; a different service that transfers data over Bluetooth L2CAP and/or RFCOMM may be used in this test.
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event>
+            <audit-event-descr>Initiation of Bluetooth connection.</audit-event-descr>
+            <audit-event-info><selectables>
+              <selectable>complete</selectable>
+              <selectable>last <assignable>integer greater than or equal to 2</assignable> octets of the</selectable></selectables> BD_ADDR and
+              <selectables>
+                <selectable>name of device</selectable>
+                <selectable>uniquely generated nonce for each pairing</selectable>
+                <selectable>no other information</selectable></selectables>.</audit-event-info>
+          </audit-event>
+          <audit-event>
+            <audit-event-descr>Failure of Bluetooth connection.</audit-event-descr>
+            <audit-event-info>Reason for failure.</audit-event-info>
+          </audit-event>
+        </f-component>
+
+
+        <f-component cc-id="fia_blt_ext.3" id="fia-blt-ext-3" name="Rejection of Duplicate Bluetooth Connections">
+          <consistency-rationale/>
+          <comp-lev> requires the TSF to reject duplicate attempts to connect to Bluetooth.</comp-lev>
+          <management>No specific management functions are identified.
+          </management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST: <h:ul>
+            <h:li>Duplicate connection attempt.</h:li>
+          </h:ul></audit>
+          <dependencies>FIA_BLT_EXT.1 Bluetooth User Authorization</dependencies>
+          
+          <f-element>
+            <title>The TSF shall discard pairing and session initialization attempts from a Bluetooth device address (BD_ADDR) to which an active session already exists.
+            </title>
+            <note role="application">
+              Session is defined as the time interval for which the TSF is actively connected to another device. 
+              Thus, the session terminates when the device disconnects from the TSF. 
+              If the TOE has an active session to a remote Bluetooth device, new session initialization and/or pairing attempts from devices claiming the same Bluetooth device address may be malicious and should be rejected/ignored. 
+              Only one session to a single remote BD_ADDR may be supported at a time.
+            </note>            
+            
+            <aactivity>
+              <TSS>
+                The evaluator shall ensure that the TSS describes how Bluetooth sessions are maintained such that at least two devices with the same Bluetooth device address 
+                are not simultaneously connected and such that the initial session is not superseded by any following session initialization attempts.
+              </TSS>
+              <Guidance>
+                There are no guidance evaluation activities for this component.
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following steps: <h:br/>
+                Step 1: Pair the TOE with a remote Bluetooth device (DEV1) with a known address BD_ADDR. Establish an active session between the TOE and DEV1 with the known address BD_ADDR.<h:br/>
+                Step 2: Attempt to pair a second remote Bluetooth device (DEV2) claiming to have a Bluetooth device address matching DEV1 BD_ADDR to the TOE. 
+                Using a Bluetooth protocol analyzer, verify that the pairing attempt by DEV2 is not completed by the TOE and that the active session to DEV1 is unaffected.<h:br/>
+                Step 3: Attempt to initialize a session to the TOE from DEV2 containing address DEV1 BD_ADDR. 
+                Using a Bluetooth protocol analyzer, verify that the session initialization attempt by DEV2 is ignored by the TOE and that the initial session to DEV1 is unaffected. <h:br/>
+                
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event>
+            <audit-event-descr>Duplicate connection attempt.</audit-event-descr>
+            <audit-event-info><selectables>
+              <selectable>complete</selectable>
+              <selectable>last <assignable>integer greater than or equal to 2</assignable> octets of the</selectable></selectables> BD_ADDR of connection attempt.</audit-event-info>
+          </audit-event>
+        </f-component>
+        
+        
+        <f-component cc-id="fia_blt_ext.4" id="fia-blt-ext-4" name="Secure Simple Pairing">
+          <consistency-rationale/>
+          <comp-lev> requires the TSF to support Secure Simple Pairing.</comp-lev>
+          <management>No specific management functions are identified.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FIA_BLT_EXT.1 Bluetooth User Authorization</dependencies>
+          
+          <f-element>
+            <title>The TOE shall support Bluetooth Secure Simple Pairing, both in the host and the controller. 
+            </title>
+          </f-element>
+          <f-element>
+            <title>The TOE shall support Secure Simple Pairing during the pairing process.</title>
+           
+          <note role="application">
+            The Bluetooth host and controller each support a particular version of the Bluetooth Core Specification and a particular set of features. 
+            Support for various features is indicated by each side during the Link Manager Protocol (LMP) Features Exchange. 
+            Refer to the Bluetooth specification [Bluetooth] for feature definitions, including the definitions of Secure Simple Pairing (Controller Support) and Secure Simple Pairing (Host Support).
+            </note>            
+            
+            <aactivity>
+              <TSS>
+                The evaluator shall verify that the TSS describes the secure simple pairing process. 
+              </TSS>
+              <Guidance>
+                There are no guidance evaluation activities for this component.
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following steps:<h:br/>
+                Step 1: Initiate pairing with the TOE from a remote Bluetooth device that supports Secure Simple Pairing.<h:br/>
+                Step 2: During the pairing process; observe the packets in a Bluetooth protocol analyzer and verify that the TOE claims support for both 
+                "Secure Simple Pairing (Host Support)" and "Secure Simple Pairing (Controller Support)" during the LMP Features Exchange.<h:br/>
+                Step 3: Verify that Secure Simple Pairing is used during the pairing process.
+                
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event/>
+        </f-component>
+        
+
+        <f-component cc-id="fia_blt_ext.6" id="fia-blt-ext-6" name="Trusted Bluetooth Device User Authorization">
+          <consistency-rationale/>
+          <comp-lev> requires the TSF to have explicit user authentication before associating trusted services with Bluetooth.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul>
+            <h:li>Ability to specify the services that require explicit user authorization before trusted devices can use them.</h:li>
+          </h:ul></management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FIA_BLT_EXT.1 Bluetooth User Authorization</dependencies>
+          
+          <f-element>
+            <title>The TSF shall require explicit user authorization before granting trusted remote devices access to services associated with the following Bluetooth profiles: <assignable>list of Bluetooth profiles</assignable>.
+            </title>
+
+            
+            <note role="application">
+	      <h:p>
+              In addition to pairing, it may be appropriate to require explicit user action to authorize a particular remote device to access certain Bluetooth services. 
+              The TSF may choose to require this additional action for all devices or only for those devices that do not have a required level of trust.</h:p><h:p>
+              It is strongly preferred that for each device, the TSF maintains a list of devices trusted to use for that particular service. 
+              However, the TSF might designate certain devices as having a trusted device relationship with the TOE and granting them "blanket" access to all services.</h:p><h:p>
+              Furthermore, it may be the case that the TSF allows movement of devices from the untrusted to the trusted category for a particular service after the user provides explicit authorization for the device to use the service. 
+              For example, it may be appropriate to require that the user provide explicit, manual authorization before a remote device may use the OBEX service for an object transfer the first time. 
+              The user might be given the option to permit future connections to that service by the particular device without requiring explicit authorization each time.
+            </h:p>  
+            </note>            
+            
+            <aactivity>
+              <TSS>
+                The evaluator shall verify that the TSS describes all Bluetooth profiles and associated services for which explicit user authorization is required before a remote device can gain access. 
+                The evaluator shall also verify that the TSS describes any difference in behavior based on whether or not the device has a trusted relationship with the TOE for that service 
+                (i.e. whether there are any services that require explicit user authorization for untrusted devices that do not require such authorization for trusted devices). 
+                The evaluator shall also verify that the TSS describes the method by which a device can become 'trusted'.
+              </TSS>
+              <Guidance>
+                There are no guidance evaluation activities for this component.
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <test>While the service is in active use by an application on the TOE, the evaluator shall attempt to gain access to a "protected" Bluetooth service 
+                    (as specified in the assignment in FIA_BLT_EXT.6.1) from a "trusted" remote device. 
+                    The evaluator shall verify that the user is explicitly asked for authorization by the TOE to allow access to the service for the particular remote device. 
+                    The evaluator shall deny the authorization on the TOE and verify that the remote attempt to access the service fails due to lack of authorization.</test>
+                  <test>The evaluator shall repeat Test 1, this time allowing the authorization and verifying that the remote device successfully accesses the service.</test>
+                </testlist>
+                
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event/>
+        </f-component>
+
+
+        <f-component cc-id="fia_blt_ext.7" id="fia-blt-ext-7" name="Untrusted Bluetooth Device User Authorization">
+          <consistency-rationale/>
+          <comp-lev> requires the TSF to have explicit user authentication before associating untrusted services with Bluetooth.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul>
+            <h:li>Ability to specify the services that require explicit user authorization before untrusted devices can use them.</h:li>
+          </h:ul></management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FIA_BLT_EXT.1 Bluetooth User Authorization</dependencies>
+          
+          <f-element>
+            <title>The TSF shall require explicit user authorization before granting untrusted remote devices access to services associated with the following Bluetooth profiles: <assignable>list of Bluetooth profiles</assignable>.
+            </title>
+            
+            
+            <note role="application">
+              FIA_BLT_EXT.7 differs from FIA_BLT_EXT.6 because a conformant TOE may distinguish between "trusted" and "untrusted" devices 
+              such that the TSF grants "untrusted" devices access to fewer services following pairing. 
+              However, this behavior is not required; if the TSF does not treat "trusted" and "untrusted" devices any differently, 
+              the ST author may complete the assignments in FIA_BLT_EXT.6.1 and FIA_BLT_EXT.7.1 with lists of Bluetooth profiles.
+              
+            </note>            
+            
+            <aactivity>
+              <TSS>
+                The TSS evaluation activities for this component are addressed by FIA_BLT_EXT.6.
+              </TSS>
+              <Guidance>
+                There are no guidance evaluation activities for this component.
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following tests if the TSF differentiates between "trusted" and "untrusted" devices for the purpose of granting access to services. 
+                If it does not, then the test evaluation activities for FIA_BLT_EXT.6 are sufficient to satisfy this component.
+                <testlist>
+                  <test>While the service is in active use by an application on the TOE, the evaluator shall attempt to gain access to a "protected" Bluetooth service (as specified in the assignment in FIA_BLT_EXT.7.1) 
+                    from an "untrusted" remote device. 
+                    The evaluator shall verify that the user is explicitly asked for authorization by the TOE to allow access to the service for the particular remote device. 
+                    The evaluator shall deny the authorization on the TOE and verify that the remote attempt to access the service fails due to lack of authorization.</test>
+                  <test>The evaluator shall repeat Test 1, this time allowing the authorization and verifying that the remote device successfully accesses the service.</test>
+                  <test>(conditional): If there exist any services that require explicit user authorization for access by untrusted devices but not by trusted devices 
+                    (i.e. a service that is listed in FIA_BLT_EXT.7.1 but not FIA_BLT_EXT.6.1), 
+                    the evaluator shall repeat Test 1 for these services and observe that the results are identical. 
+                    That is, the evaluator shall use these results to verify that explicit user approval is required for an untrusted device to access these services, 
+                    and failure to grant this approval will result in the device being unable to access them.</test>
+                  <test>(conditional): If test 3 applies, the evaluator shall repeat Test 2 using any services chosen in Test 3 and observe that the results are identical. 
+                    That is, the evaluator shall use these results to verify that explicit user approval is required for an untrusted device to access these services, 
+                    and granting this approval will result in the device being able to access them.</test>
+                  <test>(conditional): If test 3 applies, the evaluator shall repeat Test 3 except this time designating the device as "trusted" prior to attempting to access the service. 
+                    The evaluator shall verify that access to the service is granted without explicit user authorization 
+                    (because the device is now trusted and therefore FIA_BLT_EXT.7.1 no longer applies to it). 
+                    That is, the evaluator shall use these results to demonstrate that the TSF will grant a device access to different services depending on whether or not the device is trusted.</test>
+                </testlist>
+                
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event/>
+        </f-component>
+
+       </sec:fia>  
+      
+ 
+ 
+      <sec:ftp title="Trusted Path/Channels (FTP)">
+        
+        <ext-comp-def fam-id="FTP_BLT_EXT" title="Bluetooth Trusted Communications">
+          <fam-behavior>Components in this family define requirements for Bluetooth encryption.
+          </fam-behavior>
+        </ext-comp-def>
+        <f-component cc-id="ftp_blt_ext.1" id="ftp-blt-ext-1" name="Bluetooth Encryption">
+          <consistency-rationale/>
+          <comp-lev> requires the TSF to enforce encryption when transmitting over Bluetooth.</comp-lev>
+          <management>No specific management functions are identified.
+          </management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_CKM_EXT.8 Bluetooth Key Generation<h:br/>
+          FIA_BLT_EXT.1 Bluetooth User Authorization</dependencies>
+          
+          <f-element>
+            <title>The TSF shall enforce the use of encryption when transmitting data over the Bluetooth trusted channel for BR/EDR and <selectables>
+              <selectable id="s_le">LE</selectable>
+              <selectable>no other connections</selectable>
+            </selectables>. 
+            </title>
+	    <ext-comp-def-title><title>The TSF shall enforce the use of encryption when transmitting data over the Bluetooth trusted channel for BR/EDR and <assignable>list of other connection modes</assignable>.</title></ext-comp-def-title>
+
+            <note role="application">
+              LE is selectable because not all conformant TOEs include support for LE. 
+              If LE is supported, it is expected that the TSF be able to provide encryption for this interface. 
+              Selection of LE in FTP_BLT_EXT.1.1 requires the inclusion of the selection-based SFR FTP_BLT_EXT.3/LE.
+            </note>   
+          </f-element>
+          <f-element>
+            <title>The TSF shall use key pairs per FCS_CKM_EXT.8 for Bluetooth encryption. </title>
+            <aactivity>
+              <TSS>
+		<h:p>
+                The evaluator shall verify that the TSS describes the use of encryption, the specific Bluetooth protocol(s) it applies to, and whether it is enabled by default.</h:p><h:p>
+                The evaluator shall verify that the TSS includes the protocol used for encryption of the transmitted data and the key generation mechanism used.
+                </h:p>
+              </TSS>
+              <Guidance>
+                The evaluator shall verify that the operational guidance includes instructions on how to configure the TOE to require the use of encryption during data transmission (unless this behavior is enforced by default).
+              </Guidance>
+              <Tests>
+                There are no test EAs for this component. Testing for this SFR is addressed through the evaluation of FTP_BLT_EXT.3/BR and, if claimed, FTP_BLT_EXT.3/LE.
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event/>
+        </f-component>
+      
+        <f-component cc-id="ftp_blt_ext.2" id="ftp-blt-ext-2" name="Persistence of Bluetooth Encryption">
+          <consistency-rationale/>
+          <comp-lev> requires the TSF to ensure encryption for the duration of the use of the Bluetooth channel.</comp-lev>
+          <management>No specific management functions are identified.
+          </management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FTP_BLT_EXT.1 Bluetooth Encryption</dependencies>
+          
+          <f-element>
+            <title>The TSF shall <selectables>
+              <selectable>restart encryption</selectable>
+              <selectable>terminate the connection</selectable>
+            </selectables> if the remote device stops encryption while connected to the TOE.
+            </title>
+            <note role="application">
+              Permitting devices to terminate and/or restart encryption in the middle of a connection weakens user data protection. 
+              Note that an encryption pause request, which includes a request to stop encryption, stops encryption only temporarily. 
+              This requirement is not intended to address the encryption pause feature.
+            </note>   
+            <aactivity>
+              <TSS>
+                The evaluator shall verify that the TSS describes the TSF's behavior if a remote device stops encryption while connected to the TOE. 
+              </TSS>
+              <Guidance>
+                The evaluator shall verify that the operational guidance describes how to enable/disable encryption (if configurable).
+              </Guidance>
+              <Tests>
+		<h:p>
+                The evaluator shall perform the following steps using a Bluetooth protocol analyzer to observe packets pertaining to the encryption key size:<h:br/>
+                Step 1: Initiate pairing with the TOE from a remote Bluetooth device that has been configured to have a minimum encryption key size that is equal to or greater than that of the TOE.<h:br/>
+                Step 2: After pairing has successfully finished and while a connection exists between the TOE and the remote device; turn off encryption on the remote device. This can be done using commercially-available tools.<h:br/>
+                Step 3: Verify that the TOE either restarts encryption with the remote device or terminates the connection with the remote device.
+		</h:p>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event/>
+        </f-component>
+
+        <f-component cc-id="ftp_blt_ext.3" id="ftp-blt-ext-3" name="Bluetooth Encryption Parameters" status="invisible">
+          <consistency-rationale/>
+          <comp-lev> specifies the key sizes used for Bluetooth.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul>
+            <h:li>Specification of minimum encryption key size.</h:li>
+          </h:ul>
+          </management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FTP_BLT_EXT.1 Bluetooth Encryption</dependencies>
+          
+          <f-element>
+            <title>The TSF shall set the minimum encryption key size to <assignable>key size larger than or equal to 128 bits</assignable> for <assignable>Bluetooth protocol</assignable> and not negotiate encryption key sizes smaller than the minimum size.
+            </title>
+           
+          </f-element>
+        </f-component>
+        <f-component cc-id="ftp_blt_ext.3" id="ftp-blt-ext-3-br" name="Bluetooth Encryption Parameters (BR/EDR)" iteration="BR">
+          <consistency-rationale/>       
+          <f-element>
+            <title>The TSF shall set the minimum encryption key size to <assignable>key size larger than or equal to 128 bits</assignable> for [<h:i>BR/EDR</h:i>] and not negotiate encryption key sizes smaller than the minimum size.
+            </title>
+
+            <note role="application">
+              Encryption is mandatory for BR/EDR connections when both devices support Secure Simple Pairing. 
+              Minimum encryption requirements will be set and verified for each Bluetooth profile/application. However, when the TOE is in the Bluetooth Observer role, one-way devices (e.g., unconnectable Bluetooth Broadcasters) can send unencrypted communications (e.g., beacon or advertisement messages) to the TOE and the TOE can accept them because they are outside the Trusted Channel. 
+            </note>   
+
+            <aactivity>
+              <TSS>
+                The evaluator shall examine the TSS and verify that it specifies the minimum key size for BR/EDR encryption, whether this value is configurable, 
+                and the mechanism by which the TOE will not negotiate keys sizes smaller than the minimum. 
+              </TSS>
+              <Guidance>
+                The evaluator shall verify that the guidance includes instructions on how to configure the minimum encryption key size for BR/EDR encryption, if configurable.
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <test>The evaluator shall perform the following steps using a Bluetooth protocol analyzer to observe packets pertaining to the encryption key size: <h:br/>
+                    Step 1: Initiate BR/EDR pairing with the TOE from a remote Bluetooth device that has been configured to have a minimum encryption key size that is equal to or greater than that of the TOE. 
+                    This can be done using certain commercially-available tools that can send the appropriate command to certain commercially-available Bluetooth controllers.<h:br/>
+                    Step 2: Use a Bluetooth packet sniffer to verify that the encryption key size negotiated for the connection is at least as large as the minimum encryption key size defined for the TOE.
+                  </test>
+                  <test>(conditional): If the encryption key size is configurable, configure the TOE to support a different minimum key size, then repeat Test 1 and verify that the negotiated key size is at least as large as the new minimum value.</test>
+                  <test>The evaluator shall perform the following steps using a Bluetooth protocol analyzer to observe packets pertaining to the encryption key size:<h:br/>
+                    Step 1: Initiate BR/EDR pairing with the TOE from a remote Bluetooth device that has been configured to have a maximum encryption key size of 1 byte. This can be done using certain commercially-available tools that can send the appropriate command to certain commercially-available Bluetooth controllers.<h:br/>
+                    Step 2: Verify that the encryption key size suggested by the remote device is not accepted by the TOE and that the connection is not completed.
+                  </test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event/>
+        </f-component>
+ 
+      </sec:ftp>
+    </man-sfrs>
+    
+    <!-- SME: the template guidance said to use the "status" attribute in the f-component tag to specify an SFR as optional. However, when we did this, the optional SFR still stayed in the mandatory requirements section - 
+    it just added a box underneath the heading saying the SFR was optional. It also stayed listed as 'mandatory' in the consistency rationale. Putting it in the <opt-sfrs> section as we did here fixed those issues
+    but it also prevented any of the intro text to the optional SFRs appendix from being displayed. We are flagging this as an issue with the template. Note that FE and FE-EM modules were done in this manner as well so we don't believe
+    it should be an issue here, but for future use it may be beneficial to correct the template so that it behaves as intended. -->
+    <opt-sfrs>
+  
+    </opt-sfrs>
+
+    <!-- SME: the template guidance said to use the "status" attribute in the f-component tag to specify an SFR as selection-based. However, when we did this, the selection-based SFR still stayed in the mandatory requirements section - 
+    it just added a box underneath the heading saying the SFR was selection-based. It also stayed listed as 'mandatory' in the consistency rationale. Putting it in the <sel-sfrs> section as we did here fixed those issues
+    but it also prevented any of the intro text to the selection-based SFRs appendix from being displayed. We are flagging this as an issue with the template. Note that FE and FE-EM modules were done in this manner as well so we don't believe
+    it should be an issue here, but for future use it may be beneficial to correct the template so that it behaves as intended. -->
+    <sel-sfrs>
+      
+      <section id="sb-audit-table" title="Auditable Events for Selection-based SFRs">
+        <audit-table table="sel-based" id="a-sel-based-events"/>
+      </section>	
+
+      <sec:ftp title="Trusted Path/Channels">
+        <f-component cc-id="ftp_blt_ext.3" id="ftp-blt-ext-3-le" name="Bluetooth Encryption Parameters (LE)" iteration="LE">
+	  <depends on="s_le"/>
+          <consistency-rationale/>
+          <f-element>
+            <title>The TSF shall set the minimum encryption key size to <assignable>key size larger than or equal to 128 bits</assignable> for [<h:i>LE</h:i>] and not negotiate encryption key sizes smaller than the minimum size.
+            </title>
+            <note role="application">
+              The TOE must implement encryption for Bluetooth BR/EDR as required by FTP_BLT_EXT.1.1. 
+              A conformant TOE does not need to support Bluetooth LE; however, if it does, then it must also support encryption for it. 
+              FTP_BLT_EXT.3/LE must therefore be claimed if 'LE' is selected in FTP_BLT_EXT.1.1.
+            </note>   
+            
+            <aactivity>
+              <TSS>
+                The evaluator shall examine the TSS and verify that it specifies the minimum key size for LE encryption, whether this value is configurable, 
+                and the mechanism by which the TOE will not negotiate keys sizes smaller than the minimum. 
+              </TSS>
+              <Guidance>
+                The evaluator shall verify that the guidance includes instructions on how to configure the minimum encryption key size for LE encryption, if configurable.
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <test>The evaluator shall perform the following steps using a Bluetooth protocol analyzer to observe packets pertaining to the encryption key size: <h:br/>
+                    Step 1: Initiate LE pairing with the TOE from a remote Bluetooth device that has been configured to have a minimum encryption key size that is equal to or greater than that of the TOE. 
+                    This can be done using certain commercially-available tools that can send the appropriate command to certain commercially-available Bluetooth controllers.<h:br/>
+                    Step 2: Use a Bluetooth packet sniffer to verify that the encryption key size negotiated for the connection is at least as large as the minimum encryption key size defined for the TOE.
+                  </test>
+                  <test>(conditional): If the encryption key size is configurable, configure the TOE to support a different minimum key size, then repeat Test 1 and verify that the negotiated key size is at least as large as the new minimum value.</test>
+                  <test>The evaluator shall perform the following steps using a Bluetooth protocol analyzer to observe packets pertaining to the encryption key size:<h:br/>
+                    Step 1: Initiate LE pairing with the TOE from a remote Bluetooth device that has been configured to have a maximum encryption key size of 1 byte. This can be done using certain commercially-available tools that can send the appropriate command to certain commercially-available Bluetooth controllers.<h:br/>
+                    Step 2: Verify that the encryption key size suggested by the remote device is not accepted by the TOE and that the connection is not completed.<h:br/>
+                  </test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+        <audit-event/>
+        </f-component>
+      </sec:ftp>
+      
+      
+    </sel-sfrs>
+    <obj-sfrs>
+      
+      <section id="obj-audit-table" title="Auditable Events for Objective SFRs">
+        <audit-table table="objective" id="a-objective-events"/>
+      </section>
+      
+      <sec:fia title="Identification and Authentication">
+        
+        <f-component cc-id="fia_blt_ext.5" id="fia-blt-ext-5" name="Bluetooth Secure Connections">
+	  <depends><objective/></depends>
+          <consistency-rationale/>
+          <comp-lev>requires the TSF to support Secure Connections Only mode.</comp-lev>
+          <management>No specific management functions are identified.
+          </management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FIA_BLT_EXT.1 Bluetooth User Authorization</dependencies>
+          
+          <f-element>
+            <title>The TOE shall support Secure Connections Only mode for Bluetooth BR/EDR and <selectables>
+              <selectable>Bluetooth LE</selectable>
+              <selectable>no other Bluetooth protocol</selectable>
+            </selectables>.
+            </title>
+            <note role="application">
+              The specification states that Secure Connections Only Mode, also called "FIPS Mode," should be used when security is more important than backwards compatibility. 
+              From the specification, "The Host will enforce that the P-256 elliptic curve is used during pairing; the secure authentication sequences are used; and AES-CCM is used for encryption." 
+              Also, "if a BR/EDR/LE device is configured in Secure Connections Only Mode, then a transport will only be used when Secure Connections is supported by both devices." 
+            </note>   
+            
+            <aactivity>
+              <TSS>
+                The evaluator shall ensure that the TSS describes support for Secure Connections Only mode for BR/EDR and, if supported, Bluetooth LE. 
+              </TSS>
+              <Guidance>
+                The evaluator shall ensure that the guidance includes instructions on how to place the TOE into Secure Connections Only mode for BR/EDR and, if supported, Bluetooth LE. 
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following tests, once for BR/EDR and once for LE (if applicable):
+                <testlist>
+                  <test>The evaluator shall place the TOE into Secure Connections Only mode. 
+                    The evaluator shall then attempt a pairing to a remote device that does not support Secure Connections Only mode and verify that the attempt fails.
+                  </test>
+                  <test>The evaluator shall place the TOE into Secure Connections Only mode. 
+                    The evaluator shall attempt a pairing to a remote device that supports Secure Connections Only mode and has it enabled. 
+                    The evaluator shall verify that the pairing attempt succeeds. 
+                    The evaluator shall also use a Bluetooth packet sniffer to verify that the parameters of the pairing and encryption are consistent with Secure Connections.
+                  </test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+        <audit-event/>
+        </f-component>
+      </sec:fia>
+      
+    </obj-sfrs>
+    <impl-dep-sfrs/>
+  </sec:Security_Requirements>
+
+  <appendix title="Optional Requirements" id="optional"> As indicated in <xref to="ccl"/>,
+    the baseline requirements (those that must be performed by the TOE are
+    contained in the body of this PP. Additionally, there are three other types of requirements
+    specified in <xref to="optional"/>, <xref to="sel-based"/>, and <xref to="objective"/>. The first type (in this appendix) are requirements that can be included
+    in the <xref to="ST"/>, but are not required in order for a TOE to claim conformance to
+    this PP-Module. The second type (in <xref to="sel-based"/>) are requirements based on selections
+    in the body of the PP-Module: if certain selections are made, then additional requirements in that
+    appendix must be included. The third type (in <xref to="objective"/> are components that
+    are not required in order to conform to this PP-Module, but will be included in the baseline
+    requirements in future versions of this PP-Module, so adoption by vendors is encouraged. </appendix>
+
+  <!-- 
+       Do NOT put SFRs in this section. All SFR belong up above in SFR section. 
+       To make an SFR optional tag it above as status="sel-based" 
+  -->
+  <appendix title="Selection-Based Requirements" id="sel-based"> As indicated in the introduction to
+    this PP-Module, the baseline requirements are contained in the body of this PP-Module. There are additional requirements based on
+    selections in the body of the PP-Module: if certain selections are made, then additional requirements
+    below will need to be included. 
+  </appendix>
+
+  <!-- 
+       Do NOT put SFRs in this section. All SFR belong up above in SFR section. 
+       To make an SFR optional tag it above as status="objective" 
+  -->
+  <appendix title="Objective Requirements" id="objective"> This appendix includes requirements that
+    specify security functionality which also addresses threats. The requirements are not currently
+    mandated in the body of this PP-Module as they describe security functionality not yet widely available
+    in commercial technology. However, these requirements may be included in the ST such that the
+    TOE is still conformant to this PP-Module, and it is expected that they be included as soon as
+    possible. </appendix>
+
+<!-- SME: entropy appendix was removed since it was not present in the original EP. Is this appropriate or would you prefer we have a stub appendix that states the entropy source(s) used by the TOE are provided by the OS platform
+  and this will therefore be covered through evaluation of the TOE against the claimed Base-PP? -->
+  
+  
+<appendix title="Implicitly Satisfied Requirements" id="satisfiedreqs">
+  <h:p>
+    This appendix lists requirements that should be considered satisfied by products successfully evaluated against this PP-Module. 
+    However, these requirements are not featured explicitly as SFRs and should not be included in the ST. 
+    They are not included as standalone SFRs because it would increase the time, cost, and complexity of evaluation. This approach is permitted by [CC] Part 1, 8.2 Dependencies between components.</h:p><h:p>
+    This information benefits systems engineering activities which call for inclusion of particular security controls. Evaluation against the PP-Module provides evidence that these controls are present and have been evaluated.
+    </h:p>
+    <h:table>
+      <h:tr>
+        <h:th>Requirement</h:th>
+        <h:th>Rationale for Satisfaction</h:th>
+      </h:tr>
+      <h:tr>
+        <h:td>FCS_CKM.1 - Cryptographic Key Generation</h:td>
+        <h:td>FCS_CKM_EXT.8 has a dependency on FCS_CKM.1 for the generation of ECDH key pairs. This dependency is implicitly satisfied in this PP-Module because both Base-PPs the PP-Module is intended to extend
+        define this SFR and specify ECDH key generation as a required capability of the TOE. Therefore, a conformant TOE will always have this capability.</h:td>
+      </h:tr>
+      <h:tr>
+        <h:td>FPT_STM.1 - Reliable Time Stamps</h:td>
+        <h:td>FCS_CKM_EXT.8 has a dependency on FPT_STM.1 because key generation may be triggered by a given time period elapsing. When the TOE claims conformance to <xref to="bibMDF"/>,
+        this dependency is satisfied explicitly through the Base-PP's definition of FPT_STM.1. When the TOE claims conformance to <xref to="bibGPOS"/>, this dependency is satisfied implicitly through that
+        PP's A.PLATFORM assumption of a trustworthy computing platform, which can be reasonably assumed to include a hardware real-time clock.</h:td>
+      </h:tr>
+    </h:table>
+  </appendix>
+  
+
+  <appendix title="Entropy Documentation and Assessment" id="EAR">
+    The TOE does not require any additional supplementary information to describe its entropy sources beyond the requirements outlined in the Base-PPs.  
+  </appendix>
+  
+    <bibliography/>
+      
+    
+</Module>
