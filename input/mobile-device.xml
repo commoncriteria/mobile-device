@@ -6481,209 +6481,270 @@ The scope of this Protection Profile (PP) is to describe the security functional
             <external-doc ref="tls"/>
           </depends>          
           <f-element id="fel-encrypt-how">
-            <title>
-              The TSF shall perform [<h:i>symmetric-key encryption and decryption</h:i>] in accordance with a 
-              specified cryptographic algorithm   
-              <selectables>
-                <tabularize id="fcs-cop-skc-sels" title="Allowable choices for FCS_COP.1/SKC">
-                  <textcol>Identifier</textcol>
-                  <reqtext></reqtext>
-                  <selectcol>Cryptographic Algorithm</selectcol>
-                  <reqtext>and cryptographic key sizes</reqtext>
-                  <selectcol>Cryptographic Key Sizes</selectcol>
-                  <reqtext>that meet the following:</reqtext>
-                  <selectcol>List of Standards</selectcol>
-                  <reqtext><h:p/><h:p/>The following table provides the allowable choices for
-                    completion of the selection operations in FCS_COP.1/SKC.</reqtext>							
-                </tabularize>
-                
-                <!-- AES-CBC -->
-                <selectable id="sel-fcs-cop-skc-aes-cbc">
-                  <col>AES-CBC</col>
-                  <col>AES in CBC mode with non-repeating and unpredictable IVs</col>
-                  <col>256 bits</col>
-                  <col><selectables>
-                    <selectable><h:i>ISO/IEC 18033-3:2010 (Subclause 5.2)</h:i></selectable> 
-                    <selectable><h:i>FIPS PUB 197</h:i></selectable></selectables> [AES]<h:p/><selectables>
-                      <selectable><h:i>ISO/IEC 10116:2017 (Clause 7)</h:i></selectable> 
-                      <selectable><h:i>NIST SP 800-38A</h:i></selectable></selectables> [CBC]
-                  </col>
-                </selectable>
-                
-                <!-- XTS-AES -->
-                <selectable id="sel-fcs-cop-skc-aes-xts">
-                  <col>XTS-AES</col>
-                  <col>AES in XTS mode with unique tweak values that are consecutive non-negative 
-                    integers starting at an arbitrary non-negative integer</col>
-                  <col>512 bits</col>
-                  <col><selectables>
-                    <selectable><h:i>ISO/IEC 18033-3:2010 (Subclause 5.2)</h:i></selectable> 
-                    <selectable><h:i>FIPS PUB 197</h:i></selectable></selectables> [AES]<h:p/><selectables>
-                      <selectable>IEEE Std. 1619-2018</selectable> 
-                      <selectable>NIST SP 800-38E</selectable></selectables> [XTS]
-                  </col>
-                </selectable>
-              </selectables>
-            </title>
-            <aactivity>
-              <TSS>
-                The evaluator shall examine the TSS to ensure that it describes the construction of any IVs,
-                tweak values, and counters in conformance with the relevant specifications.<h:p/>
-                If XTS-AES is claimed then the evaluator shall examine the TSS to verify that the TOE creates
-                full-length keys by methods that ensure that the two key halves are different and independent.
-              </TSS>
-              <Guidance/>
-              <Tests>
-                The following tests require the developer to provide access to a test platform that
-                provides the evaluator with tools that are typically not found on factory products.<h:p/>
-                The following tests are conditional based on the selections made in the SFR. The
-                evaluator shall perform the following tests or witness respective tests executed by
-                the developer. The tests must be executed on a platform that is as close as practically
-                possible to the operational platform (but which may be instrumented in terms of,
-                for example, use of a debug mode). Where the test is not carried out on the TOE
-                itself, the test platform shall be identified and the differences between test
-                environment and TOE execution environment shall be described.
-                
-                <!-- AES-CBC -->
-                <h:br/><h:b>AES-CBC</h:b><h:p/>
-                <h:table border="1">
-                  <h:tr class="header" bgcolor="#cccccc">
-                    <h:td valign="top">Identifier</h:td>
-                    <h:td valign="top">Cryptographic Algorithm</h:td>
-                    <h:td valign="top">Cryptographic Key Sizes</h:td>
-                    <h:td valign="top">List of Standards</h:td>
-                  </h:tr>
-                  <h:tr>
-                    <h:td valign="top">AES-CBC</h:td>
-                    <h:td valign="top">AES in CBC mode with non-repeating and unpredictable IVs</h:td>
-                    <h:td valign="top">256 bits</h:td>
-                    <h:td valign="top">
-                      [<h:b>selection:</h:b> <h:i>ISO/IEC 18033-3:2010 (Subclause 5.2),
-                      FIPS PUB 197</h:i>] [AES]<h:p/>
-                      [<h:b>selection:</h:b>  <h:i>ISO/IEC 10116:2017 (Clause 7), 
-                      NIST SP 800-38A</h:i>] [CBC]</h:td>
-                  </h:tr>
-                </h:table><h:p/>	
-                
-                To test the TOE’s ability to encrypt and decrypt data using AES in CBC mode, the evaluator 
-                shall perform Algorithm Functional Tests and Monte Carlo Tests using the following
-                input parameters:<h:ul>
-                  <h:li>Key size [256] bits</h:li>
-                  <h:li>Direction [encryption, decryption]</h:li></h:ul><h:p/>
-                <h:br/><h:b>Algorithm Functional Tests</h:b><h:p/>
-                Algorithm Functional Tests are designed to verify the correct operation of the logical
-                components of the algorithm implementation under normal operation using different block sizes.
-                For AES-CBC, there are two types of AFTs:<h:p/>
-                <h:br/><h:b><h:i>Known-Answer Tests</h:i></h:b><h:p/>
-                For each combination of direction and claimed key size, the TOE must be tested using the
-                GFSBox, KeySbox, VarTxt, and VarKey test cases listed in Appendixes B through E of <h:i>The
-                  Advanced Encryption Standard Algorithm Validation Suite (AESAVS)</h:i>, NIST, 15 November 2002.<h:p/>
-                <h:br/><h:b><h:i>Multi-Block Message Tests</h:i></h:b><h:p/>
-                For each combination of direction and claimed key size, the TOE must be tested against 10 test
-                cases consisting of a random IV, random key, and random plaintext or ciphertext. The
-                plaintext or ciphertext starts with a length of 16 bytes and increases by 16 bytes for each test case
-                until reaching 160 bytes.<h:p/>
-                <h:br/><h:b><h:i>Monte Carlo Tests</h:i></h:b><h:p/>
-                Monte Carlo tests are intended to test the implementation under strenuous conditions. The TOE
-                must process the test cases according to the following algorithm once for each combination of
-                direction and key size:<h:p/>
-                <h:pre>
-                  Key[0] = Key
-                  IV[0] = IV
-                  PT[0] = PT
-                  for i = 0 to 99 {
-                  Output Key[i], IV[i], PT[0]
-                  for j = 0 to 999 {
-                  if (j == 0) {
-                  CT[j] = AES-CBC-Encrypt(Key[i], IV[i], PT[j])
-                  PT[j+1] = IV[i]
-                  } else {
-                  CT[j] = AES-CBC-Encrypt(Key[i], PT[j])
-                  PT[j+1] = CT[j-1]
-                  }
-                  }
-                  Output CT[j]
-                  AES_KEY_SHUFFLE(Key, CT)
-                  IV[i+1] = CT[j]
-                  PT[0] = CT[j-1]
-                  }
-                </h:pre><h:p/>	
-                where <h:pre>AES_KEY_SHUFFLE</h:pre> is defined as: <h:p/>
-                <h:pre>
-                  If ( keylen = 128 )
-                  Key[i+1] = Key[i] xor MSB(CT[j], 128)
-                  If ( keylen = 192 )
-                  Key[i+1] = Key[i] xor (LSB(CT[j-1], 64) || MSB(CT[j], 128))
-                  If ( keylen = 256 )
-                  Key[i+1] = Key[i] xor (MSB(CT[j-1], 128) || MSB(CT[j], 128))
-                </h:pre><h:p/>
-                The above pseudocode is for encryption. For decryption, swap all instances of CT and PT.<h:p/>
-                The initial IV, key, and plaintext or ciphertext should be random.<h:p/>
-                The evaluator shall test the decrypt functionality using the same test as above,
-                exchanging CT and PT, and replacing AES-CBC-Encrypt with AES-CBC-Decrypt.<h:p/>
-                
-                
-                <!-- XTS-AES -->
-                <h:br/><h:b>XTS-AES</h:b><h:p/>
-                <h:table border="1">
-                  <h:tr class="header" bgcolor="#cccccc">
-                    <h:td valign="top">Identifier</h:td>
-                    <h:td valign="top">Cryptographic Algorithm</h:td>
-                    <h:td valign="top">Cryptographic Key Sizes</h:td>
-                    <h:td valign="top">List of Standards</h:td>
-                  </h:tr>
-                  <h:tr>
-                    <h:td valign="top">XTS-AES</h:td>
-                    <h:td valign="top">AES in XTS mode with unique tweak values that are consecutive
-                      non-negative integers starting at an arbitrary non-negative integer</h:td>
-                    <h:td valign="top">512 bits</h:td>
-                    <h:td valign="top">
-                      [<h:b>selection:</h:b> <h:i>ISO/IEC 18033-3:2010 (Subclause 5.2),
-                      FIPS PUB 197</h:i>] [AES]<h:p/>
-                      [<h:b>selection:</h:b> <h:i>IEEE Std. 1619-2018, 
-                      NIST SP 800-38E</h:i>] [XTS]</h:td>
-                  </h:tr>
-                </h:table><h:p/>	
-                To test the TOE’s ability to encrypt and decrypt data using AES in XTS mode, the evaluator shall
-                perform the Single Data Unit Test and the Multiple Data Unit Test using the following input
-                parameters:<h:ul>
-                  <h:li>Direction [encryption, decryption]</h:li>
-                  <h:li>Key size [512] bits</h:li>
-                  <h:li>Tweak value format [128-bit hex string, data unit sequence number]</h:li></h:ul><h:p/>
-                <h:br/><h:b>Single Data Unit Test</h:b><h:p/>
-                For each combination of claimed key size, direction, and supported tweak value format, the
-                evaluator shall generate 50 test cases consisting of random payload data. The payload data size is
-                determined randomly for each test case from supported values within the range [128-65536] bits.
-                The payload size and data unit size must be equal.<h:p/>
-                <h:br/><h:b>Multiple Data Unit Test</h:b><h:p/>
-                For each combination of claimed key size, direction, and supported tweak value format, the
-                evaluator shall generate 50 test cases consisting of random payload data. The payload data size is
-                determined randomly for each test case from supported values within the range [128-65536] bits.
-                Likewise, the data unit size is determined randomly for each test case from supported values
-                within the range [128-65535] bits. The payload size and data unit size must not be equal.<h:p/>
-                The evaluator shall verify the correctness of the TSF’s implementation by comparing values
-                generated by the TSF with those generated by a known good implementation using the same
-                input parameters.
-              </Tests>
-            </aactivity>
-            <!--
-            <rule id="r-wlan-aes">
-              <or>
-                <and><not><ref-id>mod-wlanclient</ref-id></not></and>
-                <and>
-                  <ref-id>mod-wlanclient</ref-id>
-                  <or><ref-id>s-aes-ccmp</ref-id><ref-id>s-aes-gcmp</ref-id></or>
-                </and>
-              </or>
-            </rule>
-            -->
-            <!-- <rule id="r-aes-ctr-for-ssh"> -->
-            <!--   <if><ref-id>s-ftp_ssh</ref-id></if> -->
-            <!--   <then><ref-id>s-aes-ctr</ref-id></then> -->
-            <!-- <or><and><ref-id>s-aes-ctr</ref-id><ref-id>s-ftp_ssh</ref-id></and> -->
-            <!-- <not><ref-id>s-ftp_ssh</ref-id></not> -->
-            <!-- </or> -->
-            <!-- </rule> -->
+            
+              <title>
+                The TSF shall perform [symmetric-key encryption/decryption] in accordance with a 
+                specified cryptographic algorithm   
+                <selectables>
+                  <tabularize id="fcs-cop-skc-sels" title="Allowable choices for FCS_COP.1/SKC">
+                    <textcol>Identifier</textcol>
+                    <reqtext></reqtext>
+                    <selectcol>Cryptographic Algorithm</selectcol>
+                    <reqtext>and cryptographic key sizes</reqtext>
+                    <selectcol>Cryptographic Key Sizes</selectcol>
+                    <reqtext>that meet the following:</reqtext>
+                    <selectcol>List of Standards</selectcol>
+                    <reqtext><h:p/><h:p/>The following table provides the allowable choices for
+                      completion of the selection operations of FCS_COP.1/SKC.</reqtext>							
+                  </tabularize>
+                  
+                  <!-- AES-CBC -->
+                  <selectable id="sel-fcs-cop-skc-aes-cbc">
+                    <col>AES-CBC</col>
+                    <col>AES in CBC mode with non-repeating and unpredictable IVs</col>
+                    <col>256 bits</col>
+                    <col><selectables>
+                      <selectable>ISO/IEC 18033-3:2010 (Subclause 5.2)</selectable> 
+                      <selectable>FIPS PUB 197</selectable></selectables> [AES]<h:p/><selectables>
+                        <selectable>ISO/IEC 10116:2017 (Clause 7)</selectable> 
+                        <selectable>NIST SP 800-38A</selectable></selectables> [CBC]
+                    </col>
+                  </selectable>
+                  
+                  <!-- XTS-AES -->
+                  <selectable id="sel-fcs-cop-skc-aes-xts">
+                    <col>XTS-AES</col>
+                    <col>AES in XTS mode with unique tweak values that are consecutive non-negative 
+                      integers starting at an arbitrary non-negative integer</col>
+                    <col>512 bits</col>
+                    <col><selectables>
+                      <selectable>ISO/IEC 18033-3:2010 (Subclause 5.2)</selectable> 
+                      <selectable>FIPS PUB 197</selectable></selectables> [AES]<h:p/><selectables>
+                        <selectable>IEEE Std. 1619-2018</selectable> 
+                        <selectable>NIST SP 800-38E</selectable></selectables> [XTS]
+                    </col>
+                  </selectable>
+                  
+                  <!-- AES-CTR -->
+                  <selectable id="sel-fcs-cop-skc-aes-ctr">
+                    <col>AES-CTR</col>
+                    <col>AES in Counter Mode with a non-repeating initial counter and with no repeated
+                      use of counter values across multiple messages with the same secret key</col>
+                    <col>256 bits</col>
+                    <col><selectables>
+                      <selectable>ISO/IEC 18033-3:2010 (Subclause 5.2)</selectable> 
+                      <selectable>FIPS PUB 197</selectable></selectables> [AES]<h:p/><selectables>
+                        <selectable>: ISO/IEC 10116:2017 (Clause 10)</selectable> 
+                        <selectable>NIST SP 800-38A</selectable></selectables> [CBC]
+                    </col>
+                  </selectable>
+                </selectables>
+              </title>
+              <note role="application">
+                This SFR must be included in the ST if symmetric-key cryptography is a service provided by the TOE 
+                to tenant software, or if the TOE itself uses SKC to support or implement PP-specified security 
+                functionality.<h:p/> 
+                Specifically, this SFR must be included if the ST includes FCS_IPSEC_EXT.1 or FCS_STG_EXT.2, or includes
+                any of the following selections: <h:ul>
+                  <h:li>"<h:i>CTR_DRBG (AES)</h:i>" in FCS_RBG.1</h:li>
+                  <h:li>"<h:i>AES-*</h:i>" in FCS_STG_EXT.3</h:li>
+                </h:ul>	<h:p/>
+              </note>
+              <aactivity>
+                <TSS>
+                  The evaluator shall examine the TSS to ensure that it describes the construction of any IVs,
+                  tweak values, and counters in conformance with the relevant specifications.<h:p/>
+                  If XTS-AES is claimed then the evaluator shall examine the TSS to verify that the TOE creates
+                  full-length keys by methods that ensure that the two key halves are different and independent.
+                </TSS>
+                <Guidance/>
+                <Tests>
+                  The following tests require the developer to provide access to a test platform that
+                  provides the evaluator with tools that are typically not found on factory products.<h:p/>
+                  The following tests are conditional based upon the selections made in the SFR. The
+                  evaluator shall perform the following test or witness respective tests executed by
+                  the developer. The tests must be executed on a platform that is as close as practically
+                  possible to the operational platform (but which may be instrumented in terms of,
+                  for example, use of a debug mode). Where the test is not carried out on the TOE
+                  itself, the test platform shall be identified and the differences between test
+                  environment and TOE execution environment shall be described.<h:p/>
+                  
+                  <!-- AES-CBC -->
+                  <h:br/><h:b>AES-CBC</h:b><h:p/>
+                  <h:table border="1">
+                    <h:tr class="header" bgcolor="#cccccc">
+                      <h:td valign="top">Identifier</h:td>
+                      <h:td valign="top">Cryptographic Algorithm</h:td>
+                      <h:td valign="top">Cryptographic Key Sizes</h:td>
+                      <h:td valign="top">List of Standards</h:td>
+                    </h:tr>
+                    <h:tr>
+                      <h:td valign="top">AES-CBC</h:td>
+                      <h:td valign="top">AES in CBC mode with non-repeating and unpredictable IVs</h:td>
+                      <h:td valign="top">256 bits</h:td>
+                      <h:td valign="top">
+                        [<h:b>selection:</h:b> ISO/IEC 18033-3:2010 (Subclause 5.2),
+                        FIPS PUB 197] [AES]<h:p/>
+                        [<h:b>selection:</h:b>  ISO/IEC 10116:2017 (Clause 7), 
+                        NIST SP 800-38A] [CBC]</h:td>
+                    </h:tr>
+                  </h:table><h:p/>	
+                  
+                  To test the TOE’s ability to encrypt/decrypt data using AES in CBC mode, the evaluator 
+                  shall perform Algorithm Functional Tests and Monte Carlo Tests using the following
+                  input parameters:<h:ul>
+                    <h:li>Key size [256] bits</h:li>
+                    <h:li>Direction [encryption, decryption]</h:li></h:ul><h:p/>
+                  <h:br/><h:b>Algorithm Functional Tests</h:b><h:p/>
+                  Algorithm Functional Tests are designed to verify the correct operation of the logical
+                  components of the algorithm implementation under normal operation using different block sizes.
+                  For AES-CBC, there are two types of AFTs:<h:p/>
+                  <h:br/><h:b><h:i>Known-Answer Tests</h:i></h:b><h:p/>
+                  For each combination of direction and claimed key size, the TOE must be tested using the
+                  GFSBox, KeySbox, VarTxt, and VarKey test cases listed in Appendixes B through E of <h:i>The
+                    Advanced Encryption Standard Algorithm Validation Suite (AESAVS)</h:i>, NIST, 15 November 2002.<h:p/>
+                  <h:br/><h:b><h:i>Multi-Block Message Tests</h:i></h:b><h:p/>
+                  For each combination of direction and claimed key size, the TOE must be tested against 10 test
+                  cases consisting of a random IV, random key, and random plaintext/ciphertext. The
+                  plaintext/ciphertext starts with a length of 16 bytes and increases by 16 bytes for each test case
+                  until reaching 160 bytes.<h:p/>
+                  <h:br/><h:b><h:i>Monte Carlo Tests</h:i></h:b><h:p/>
+                  Monte Carlo tests are intended to test the implementation under strenuous conditions. The TOE
+                  must process the test cases according to the following algorithm once for each combination of
+                  direction and key size:<h:p/>
+                  <h:pre>
+                    Key[0] = Key
+                    IV[0] = IV
+                    PT[0] = PT
+                    for i = 0 to 99 {
+                    Output Key[i], IV[i], PT[0]
+                    for j = 0 to 999 {
+                    if (j == 0) {
+                    CT[j] = AES-CBC-Encrypt(Key[i], IV[i], PT[j])
+                    PT[j+1] = IV[i]
+                    } else {
+                    CT[j] = AES-CBC-Encrypt(Key[i], PT[j])
+                    PT[j+1] = CT[j-1]
+                    }
+                    }
+                    Output CT[j]
+                    AES_KEY_SHUFFLE(Key, CT)
+                    IV[i+1] = CT[j]
+                    PT[0] = CT[j-1]
+                    }
+                  </h:pre><h:p/>	
+                  where <h:pre>AES_KEY_SHUFFLE</h:pre> is defined as: <h:p/>
+                  <h:pre>
+                    If ( keylen = 128 )
+                    Key[i+1] = Key[i] xor MSB(CT[j], 128)
+                    If ( keylen = 192 )
+                    Key[i+1] = Key[i] xor (LSB(CT[j-1], 64) || MSB(CT[j], 128))
+                    If ( keylen = 256 )
+                    Key[i+1] = Key[i] xor (MSB(CT[j-1], 128) || MSB(CT[j], 128))
+                  </h:pre><h:p/>
+                  The above pseudocode is for encryption. For decryption, swap all instances of CT and PT.<h:p/>
+                  The initial IV, key, and plaintext/ciphertext should be random.<h:p/>
+                  The evaluator shall test the decrypt functionality using the same test as above,
+                  exchanging CT and PT, and replacing AES-CBC-Encrypt with AES-CBC-Decrypt.<h:p/>
+                  
+                  
+                  <!-- XTS-AES -->
+                  <h:br/><h:b>XTS-AES</h:b><h:p/>
+                  <h:table border="1">
+                    <h:tr class="header" bgcolor="#cccccc">
+                      <h:td valign="top">Identifier</h:td>
+                      <h:td valign="top">Cryptographic Algorithm</h:td>
+                      <h:td valign="top">Cryptographic Key Sizes</h:td>
+                      <h:td valign="top">List of Standards</h:td>
+                    </h:tr>
+                    <h:tr>
+                      <h:td valign="top">XTS-AES</h:td>
+                      <h:td valign="top">AES in XTS mode with unique tweak values that are consecutive
+                        non-negative integers starting at an arbitrary non-negative integer</h:td>
+                      <h:td valign="top">512 bits</h:td>
+                      <h:td valign="top">
+                        [<h:b>selection:</h:b> ISO/IEC 18033-3:2010 (Subclause 5.2),
+                        FIPS PUB 197] [AES]<h:p/>
+                        [<h:b>selection:</h:b> IEEE Std. 1619-2018, 
+                        NIST SP 800-38E] [XTS]</h:td>
+                    </h:tr>
+                  </h:table><h:p/>	
+                  To test the TOE’s ability to encrypt/decrypt data using AES in XTS mode, the evaluator shall
+                  perform the Single Data Unit Test and the Multiple Data Unit Test using the following input
+                  parameters:<h:ul>
+                    <h:li>Direction [encryption, decryption]</h:li>
+                    <h:li>Key size [512] bits</h:li>
+                    <h:li>Tweak value format [128-bit hex string, data unit sequence number]</h:li></h:ul><h:p/>
+                  <h:br/><h:b>Single Data Unit Test</h:b><h:p/>
+                  For each combination of claimed key size, direction, and supported tweak value format, the
+                  evaluator shall generate 50 test cases consisting of random payload data. The payload data size is
+                  determined randomly for each test case from supported values within the range [128-65536] bits.
+                  The payload size and data unit size must be equal.<h:p/>
+                  <h:br/><h:b>Multiple Data Unit Test</h:b><h:p/>
+                  For each combination of claimed key size, direction, and supported tweak value format, the
+                  evaluator shall generate 50 test cases consisting of random payload data. The payload data size is
+                  determined randomly for each test case from supported values within the range [128-65536] bits.
+                  Likewise, the data unit size is determined randomly for each test case from supported values
+                  within the range [128-65535] bits. The payload size and data unit size must not be equal.<h:p/>
+                  The evaluator shall verify the correctness of the TSF’s implementation by comparing values
+                  generated by the TSF with those generated by a known good implementation using the same
+                  input parameters.<h:p/>
+                  
+                  <!-- AES-CTR -->
+                  <h:br/><h:b>AES-CTR</h:b><h:p/>
+                  <h:table border="1">
+                    <h:tr class="header" bgcolor="#cccccc">
+                      <h:td valign="top">Identifier</h:td>
+                      <h:td valign="top">Cryptographic Algorithm</h:td>
+                      <h:td valign="top">Cryptographic Key Sizes</h:td>
+                      <h:td valign="top">List of Standards</h:td>
+                    </h:tr>
+                    <h:tr>
+                      <h:td valign="top">AES-CTR</h:td>
+                      <h:td valign="top">AES in Counter Mode with a non-repeating initial counter and
+                        with no repeated use of counter values across multiple messages with the 
+                        same secret key.</h:td>
+                      <h:td valign="top">256 bits</h:td>
+                      <h:td valign="top">
+                        [<h:b>selection:</h:b> ISO/IEC 18033-3:2010 (Subclause 5.2),
+                        FIPS PUB 197] [AES]<h:p/>
+                        [<h:b>selection:</h:b>  ISO/IEC 10116:2017 (Clause 10), 
+                        NIST SP 800-38A] [CTR]</h:td>
+                    </h:tr>
+                  </h:table><h:p/>	
+                  To test the TOE’s ability to encrypt/decrypt data using AES in CTR mode, the evaluator shall
+                  perform the Algorithm Functional Test and the Counter Test using the following input
+                  parameters:<h:ul>
+                    <h:li>Direction [encryption, decryption]</h:li>
+                    <h:li>Key size [256] bits</h:li></h:ul><h:p/>
+                  <h:br/><h:b>Algorithm Functional Tests</h:b><h:p/>
+                  Algorithm Functional Tests are designed to verify the correct operation of the logical
+                  components of the algorithm implementation under normal operation using different block sizes.
+                  For AES-CTR, there are three types of AFTs:<h:p/>
+                  <h:br/><h:b><h:i>Known-Answer Tests</h:i></h:b><h:p/>
+                  For each combination of direction and claimed key size, the TOE must be tested using the
+                  GFSBox, KeySbox, VarTxt, and VarKey test cases listed in Appendixes B through E of <h:i>The
+                    Advanced Encryption Standard Algorithm Validation Suite (AESAVS)</h:i>, NIST, 15 November 2002.<h:p/>
+                  <h:br/><h:b><h:i>Single Block Message Tests</h:i></h:b><h:p/>
+                  For each combination of direction and claimed key, the evaluator shall generate 10 test cases
+                  with a data size of 128 bits.<h:p/>
+                  <h:br/><h:b><h:i>Partial Block Message Tests</h:i></h:b><h:p/>
+                  Monte Carlo tests are intended to test the implementation under strenuous conditions. The TOE
+                  must process the test cases according to the following algorithm once for each combination of
+                  direction and key size:<h:p/>
+                  For each combination of direction and claimed key, the evaluator shall generate five test cases
+                  such that the data size is not a multiple of 128 bits.<h:p/>
+                  The evaluator shall verify the correctness of the TSF’s implementation by comparing values
+                  generated by the TSF with those generated by a known good implementation using the same
+                  input parameters.
+                  <h:br/><h:b><h:i>Counter Test</h:i></h:b><h:p/>
+                  The evaluator shall generate a single message of 1000 blocks (128000 bits) and either encrypt or
+                  decrypt it. Back-compute the IVs used. Verify that they are unique and increasing (encryption) or
+                  decreasing (decryption).<h:p/>
+                  
+                </Tests>
+              </aactivity>
+            
           </f-element>
           <audit-event/>
         </f-component>
