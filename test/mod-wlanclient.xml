@@ -1,0 +1,2179 @@
+<Module xmlns="https://niap-ccevs.org/cc/v1" xmlns:sec="https://niap-ccevs.org/cc/v1/section" xmlns:h="http://www.w3.org/1999/xhtml" boilerplate="yes" target-product="WLAN Client" name="PP-Module for Wireless LAN Clients">
+  <!-- <inline-comment color='green'> Hello World QQQQ </inline-comment> -->
+  <!-- <inline-comment color='blue' linebreak='yes'> Hello World QQQQ </inline-comment> -->
+  <PPReference>
+   
+    <ReferenceTable>
+      <PPVersion>2.0</PPVersion>
+      <PPAuthor>National Information Assurance Partnership</PPAuthor>
+      <PPPubDate>2025-01-15</PPPubDate>
+      <Keywords>WLAN; Wireless LAN; Wireless Networking; 802.11</Keywords>
+    </ReferenceTable>
+  </PPReference>
+
+  <RevisionHistory>
+    
+    <entry>
+      <version>0.5</version>
+      <date>2022-01-20</date>
+      <subject>Conversion to PP-Module; <h:br/> 
+        Updated to include WPA 3 and Wi-Fi 6. <h:br/>
+        WPA 3 is required. WPA 2 can additionally be included in the ST.<h:br/>
+        256 bit keys are required. 128 and 192 bit keys can additionally be included in the ST.<h:br/></subject>
+    </entry>
+    
+    <entry>
+      <version>1.0</version>
+      <date>2022-03-31</date>
+      <subject>Initial Release</subject>
+    </entry>
+    
+    <entry>
+      <version>2.0</version>
+      <date>2025-01-15</date>
+      <subject>Incorporation of NIAP TDs and CC:2022 changes</subject>
+    </entry>  
+    
+  </RevisionHistory>
+  
+  <release-notes><h:h3>TDs Applied</h:h3></release-notes><include-pkg id="tls">
+    <git>
+      <url>https://github.com/commoncriteria/tls</url>
+      <branch>master</branch>
+    </git>
+    <url>https://www.niap-ccevs.org/static_html/protection-profile/439/-439-/index.html</url>
+  </include-pkg>
+  <include-pkg id="X509">
+    <git>
+      <url>https://github.com/commoncriteria/X509</url>
+      <branch>master</branch>
+    </git>
+    <url>https://www.niap-ccevs.org/protectionprofiles/511</url>
+  </include-pkg>
+
+  <sec:Introduction>
+    <sec:Overview>
+      
+      The scope of the Wireless Local Area Network (WLAN) Client PP-Module is to describe the security functionality of a WLAN Client in terms of [CC] 
+      and to define functional and assurance requirements for such products. This PP-Module is intended for use with the following Base-PPs: <h:ul>
+        <h:li>General Purpose Operating System (GPOS) Protection Profile, Version 5.0</h:li>
+        <h:li>Protection Profile for Mobile Device Fundamentals (MDF), Version 4.0</h:li>
+      </h:ul>
+      <h:p>
+        A conformant TOE will claim conformance to a PP-Configuration that includes exactly one of the Base-PPs identified above, this PP-Module, and any of the PP-Modules or packages identified in Section 2.
+      </h:p>
+      <h:p> These Base-PPs are valid because a WLAN Client is
+      a part of either a commercial operating system that can be installed on a general-purpose computer or an operating system that runs on a purpose-built mobile device.</h:p>
+    </sec:Overview>
+<tech-terms>
+  
+  <term abbr="AES" full="Advanced Encryption Standard"/>
+              
+  <term abbr="AP" full="Access Point">A device that provides the network interface that enables wireless client hosts to access a wired network.
+    Once authenticated as trusted nodes on the wired infrastructure, the APs provide the encryption service on
+    the wireless network between the wireless client and the radio frequency (RF) interface of the AP.</term>
+                       
+  <term full="Administrator">A user that has administrative privilege to configure the TOE.</term>
+              
+  <term abbr="AS" full="Authentication Server">A server on the wired network that receives authentication credentials from wireless clients and determines their validity.</term>
+                
+  <term full="Authentication Credentials">The information the system uses to verify that the user or administrator is
+    authorized to access the TOE or network. Credentials can exist in various forms, such as username/password or digital 
+    certificates.</term>
+                
+  <term abbr="CA" full="Certification Authority"/>
+  
+  <term abbr="CBC" full="Cipher Block Chaining"/>
+  
+  <term abbr="CCEVS" full="Common Criteria Evaluation and Validation Scheme"/>
+  
+  <term abbr="CCMP" full="Counter mode CBC-MAC Protocol"/>
+  
+  <term abbr="CCTL" full="Common Criteria Test Laboratory"/>
+                
+  <term abbr="CSP" full="Critical Security Parameter">Security related information, e.g. secret and private cryptographic keys,
+    and authentication data such as passwords and Personal Identification Numbers (PINs), whose disclosure or modification can compromise the
+    security of a cryptographic module.</term>
+  
+                
+  <term full="Entropy Source">A cryptographic function that provides a seed for a random number generator by accumulating
+    the outputs from one or more noise sources. The functionality includes a measure of the minimum work
+    required to guess a given output and tests to ensure that the noise sources are operating properly.</term>
+             
+  <term abbr="EAP" full="Extensible Authentication Protocol">An authentication framework, used in wireless networks, that uses Public Key Infrastructure (PKI) to authenticate both the authentication server and the wireless client.</term>
+                
+  <term abbr="EAPOL" full="EAP over LAN"/>
+  
+  <term abbr="FIPS" full="Federal Information Processing Standards"/>
+                
+  <term full="FIPS-Approved Cryptographic Function">A cryptographic operation that is specified for use by FIPS 140.</term>
+                
+  <term abbr="FQDN" full="Fully Qualified Domain Name"/>
+  
+  <term abbr="GPOS" full="General-Purpose Operating System"/>
+  
+  <term abbr="GTK" full="Group Temporal Key"/>
+  
+  <term abbr="HMAC" full="Hash-Based Message Authentication Code"/>
+  
+  <term abbr="IEC" full="International Electrotechnical Commission"/>
+  
+  <term abbr="IEEE" full="Institute of Electrical and Electronics Engineers"/>
+                
+  <term full="IEEE 802.1X">A standard for port-based network access control that defines an authentication mechanism for WLAN Clients to attach to a wired network.</term>
+                
+  <term abbr="ISO" full="International Organization for Standardization"/>
+  
+  <term abbr="IT" full="Information Technology"/>
+  
+  <term abbr="KDF" full="Key Derivation Function"/>
+  
+  <term abbr="LAN" full="Local Area Network"/>
+  
+  <term abbr="MAC" full="Message Authentication Code (cryptography) or Media Control Address (system property)"/>
+  
+  <term abbr="MDF" full="Mobile Device Fundamentals"/>
+  
+  <term abbr="NIAP" full="National Information Assurance Partnership"/>
+  
+  <term abbr="NVLAP" full="National Voluntary Laboratory Accreditation Program"/>
+  
+  <term abbr="OSP" full="Organizational Security Policy"/>
+  
+  <term abbr="PAE" full="Port Access Entity"/>
+  
+  <term abbr="PIN" full="Personal Identification Number"/>
+  
+  <term abbr="PKI" full="Public Key Infrastructure"/>
+  
+  <term abbr="PMK" full="Pairwise Master Key"/>
+  
+  <term abbr="PP" full="Protection Profile"/>
+  
+  <term abbr="PRF" full="Pseudo-Random Function"/>
+  
+  <term abbr="PTK" full="Pairwise Temporal Key"/>
+  
+  <term abbr="RBG" full="Random Bit Generator"/>
+  
+  <term abbr="RF" full="Radio Frequency"/>
+  
+  <term abbr="RFC" full="Request for Comment"/>
+  
+  <term abbr="SFR" full="Security Functional Requirement"/>
+  
+  <term abbr="SHA" full="Secure Hash Algorithm"/>
+  
+  <term abbr="SSID" full="Service Set Identifier" plural="SSIDs"/>
+  
+  <term abbr="ST" full="Security Target"/>
+  
+  <term abbr="TLS" full="Transport Layer Security"/>
+  
+  <term abbr="TOE" full="Target of Evaluation"/>
+  
+  <term abbr="TSF" full="TOE Security Function"/>
+  
+  <term abbr="TSS" full="TOE Summary Specification"/>
+                
+  <term full="Unauthorized User">A user that has not been granted the ability to use the TOE.</term>
+  
+  <term abbr="WLAN" full="Wireless Local Area Network"/>
+  
+  <term abbr="WPA" full="Wireless Protected Access"/>
+  
+                
+</tech-terms>
+    <section title="Compliant Targets of Evaluation" id="TOEdescription">
+      <h:p>
+     This document specifies SFRs for a WLAN Client. The TOE defined
+     by this PP-Module is a WLAN Client, a software component executing on a client machine (often referred to as
+     a "remote access client") to control the use of a wireless networking interface on that machine. The TOE establishes a secure wireless tunnel between the client
+     device and a WLAN Access System through which all data will traverse. The TOE will implement the same security functionality regardless of whether it is a component of a general-purpose operating system or of a mobile device.
+      </h:p>
+      <h:p>
+      A WLAN Client allows remote users to use client machines to establish wireless communication
+      with a private network through a WLAN Access System. IP packets passing between the
+      private network and a WLAN Client are encrypted. The WLAN Client protects the confidentiality and integrity of
+      data in transit between itself and the private network, even though it traverses a wireless connection.
+      The focus of the SFRs in this PP-Module is on the following fundamental
+      aspects of a WLAN Client:
+      <h:ul>
+        <h:li>Authentication of the WLAN Client</h:li>
+        <h:li>Authentication of the Authentication Server</h:li>
+        <h:li>Cryptographic protection of data in transit</h:li>
+        
+        <!-- SME: don't know what specifically this refers to, unsure if we should keep as-is, change somehow, or remove altogether -->
+        <h:li>Implementation of services</h:li>
+        
+      </h:ul>
+      The WLAN Client establishes an 802.11 tunnel between the client device and the network
+      infrastructure using IEEE 802.1X with Extensible Authentication Protocol-Transport Layer Security (EAP-TLS) for authentication. It performs mutual
+      authentication to an AS in the private network as part of the EAP-TLS exchange. The EAP-TLS
+      exchange uses certificates for mutual authentication. The WLAN Client examines the machine
+      certificate transmitted from the AS, checks its validity, and ensures the certificate is signed by a
+      trusted Certificate Authority (CA). The AS will authenticate the WLAN Client certificate at the
+      same time. When the EAP-TLS exchange completes successfully, the network allows the WLAN
+      Client to finish establishing a secure communication tunnel to the private network. The WLAN
+      Client sets up an encrypted, authenticated channel to the WLAN Access System using a 4-way
+      handshake, as specified in IEEE 802.11. Once the channel is established, all communication
+      between the WLAN Client to the WLAN Access System is encrypted with Advanced Encryption Standard (AES) in 
+      Cipher Block Chaining-Message Authentication Code Protocol (CCMP) mode and
+      optionally AES in Galois/Counter Mode Protocol (GCMP) mode, as specified in <xref to="bib80211"/>.
+      </h:p>
+      <sec:TOE_Boundary>
+        The WLAN Client (Figure 1), as defined by this PP-Module, is a component executing on a remote access
+        client machine. Note the client is depicted as just a small portion of the WLAN client "machine."
+        As such, the TOE must rely heavily on the TOE’s operational environment (host platform,
+        network stack, and operating system) for its execution domain and its proper usage. The TOE
+        will rely on the IT environment to address much of the security functionality related to
+        administrative functions.  
+        
+        <figure entity="images/Toe.png" title="WLAN Client Operating Environment" id="toe"/>
+      </sec:TOE_Boundary>
+      <!-- 
+      <subsection title="TOE Platform" id="TOEplatform">
+      </subsection>  -->
+    </section>
+    
+    <!-- SME: the old WLAN EP did not define use cases, these have been added. Will need review. -->
+    <sec:Use-Cases>Requirements in this PP-Module are designed to
+      address the security problems in at least the following use cases. These use cases are intentionally
+      very broad, as many specific use cases exist within these larger categories.
+      
+      <usecases>
+                <usecase title="General-Purpose Operating System" id="gpos">
+          <description>
+            This use case is for a WLAN Client TOE that is part of a general-purpose operating system. Specifically, the WLAN Client TOE is expected to be part of the operating system itself and not a standalone third-party application that 
+            is installed on top of it.
+          </description>
+        </usecase>
+        <usecase title="Mobile Device" id="md">
+          <description>
+            This use case is for a WLAN Client TOE that is part of a mobile operating system that runs on a mobile device. Specifically, the WLAN Client TOE is expected to be part of the mobile operating system itself and not 
+            a standalone third-party application that is acquired from the mobile vendor's application store.
+          </description>
+        </usecase>
+        
+        <!-- to do: add use case for administrative capabilities if one needs to exist (currently TBD) -->
+        
+      </usecases>
+    </sec:Use-Cases>
+    <section title="Package Usage">
+      This section contains selections and assignments that are required when the listed Functional Packages are claimed by this PP-Module. <h:br/>
+      Package Usage guidance defined in the TOE's relevant Base-PP applies to the usage of the packages for this module, unless explicitly stated otherwise in this section.
+      <package-usage-list>
+        <package-usage ref="X509">         
+          <usage id="usage-x509-iterations" title="Required Iterations for WLAN Client X.509 functionality">
+            <description>The ST author shall include an iteration of X.509 package requirements in the ST with the suffix "WLAN". For instance, FCS_X509_EXT.1 shall be included as FCS_X509_EXT.1/WLAN.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+          </config>
+          </usage>
+          <usage id="usage-x509-validate" title="Certificate Validation Required in FIA_XCU_EXT.1.1">
+            <description>
+              The ST author shall select the option to verify certificate identities.
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          
+          <usage id="usage-x509-revocation-methods" title="Restrictions on Revocation Functionality for FIA_X509_EXT.1.3">
+            <description>
+              The ST author shall not select the option to validate certificate revocation status by validity period. CRL and/or OCSP are not required to be selected for this PP-Module. Any other options may be selected without restriction.
+            </description> 
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-revocation-connections" title="Restrictions on Revocation Information Retrieval for FIA_X509_EXT.1.4">
+            <description>
+              The ST author shall not select the option to determine that the certificate expires within a certain period. CRL and/or OCSP are not required to be selected for this PP-Module. Any other options may be selected without restriction.
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-eku-values" title="Restrictions on Acceptable Key Usage Values for FIA_X509_EXT.1.5">
+            <description>
+              The ST author shall select options requiring that certificates presented for TLS clients and TLS servers have appropriate values for the extendedKeyUsage field as defined in the available selections for processing the extendedKeyUsage extension.
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-functions" title="Required Function Support for FIA_X509_EXT.2.1">
+            <description>
+              The ST author shall specify in the assignment for supported functions that the TOE will utilize certificates to support authentication for EAP-TLS exchanges. The ST author shall additionally specify in the assignment for other 
+              authenticated communications protocols that the TOE will utilize EAP-TLS. 
+            </description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+        </package-usage>
+        <package-usage ref="tls">
+          <usage id="usage-tls-iterations" title="Required Iterations for WLAN Client TLS functionality">
+            <description>The ST author shall include an iteration of TLS package requirements in the ST with the suffix "WLAN". For instance, FCS_TLS_EXT.1 shall be included as FCS_TLS_EXT.1/WLAN.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-tls-client" title="TLS Client Functionality Required in FCS_TLS_EXT.1">
+            <description>The ST author shall claim support for TLS as a client.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-tls-client-versions" title="Required Version Claims in FCS_TLSC_EXT.1">
+            <description>The ST author shall ensure that the claims for supported versions in FCS_TLSC_EXT.1 match those in FCS_WLAN_EXT.1.1.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+        </package-usage>
+      </package-usage-list>
+    </section>
+  </sec:Introduction>
+
+
+
+
+  <sec:Conformance_Claims boilerplate="no">
+    
+    
+    <!-- The new CClaimsInfo construct -->
+    <CClaimsInfo cc-version="cc-2022r1" cc-approach="direct-rationale">
+      <cc-st-conf>exact</cc-st-conf>       
+      <cc-pt2-conf>extended</cc-pt2-conf>
+      <cc-pt3-conf>extended</cc-pt3-conf>
+      <cc-pp-conf/>
+      <cc-pp-config-with> 
+        <PP-cc-ref>Protection Profile for General Purpose Operating Systems, Version 5.0</PP-cc-ref>
+        <PP-cc-ref>Protection Profile for Mobile Device Fundamentals, Version 4.0</PP-cc-ref>
+        <Mod-cc-ref>PP-Module for Virtual Private Network (VPN) Clients, version 3.0</Mod-cc-ref>  
+        <Mod-cc-ref>PP-Module for Bluetooth, version 2.0</Mod-cc-ref>
+        <Mod-cc-ref>PP-Module for Mobile Device Management Agent, version 2.0</Mod-cc-ref>
+        <Mod-cc-ref>cPP-Module for Biometric Enrolment and Verification, version 1.1</Mod-cc-ref>  
+      </cc-pp-config-with>
+      <cc-pkg-claim>
+        <FP-cc-ref conf="conformant">Functional Package for Transport Layer Security Version 2.1</FP-cc-ref>
+        <FP-cc-ref conf="conformant">Functional Package for X.509 Version 1.0</FP-cc-ref>
+      </cc-pkg-claim>
+    </CClaimsInfo>	
+    
+    <!--
+    <cclaims>
+      <cclaim name="Conformance Statement">
+        <description>
+	  This PP-Module inherits exact conformance as required from
+          the specified Base-PP and as defined in the CC and
+          <xref to="bibCEM"/> addenda for Exact Conformance, Selection-Based SFRs, and Optional
+          SFRs (dated May 2017).<h:br/><h:br/> 
+          The following PPs and PP-Modules are allowed to be specified in a PP-Configuration with this PP-Module: <h:ul>
+		<h:li>PP-Module for MDM Agents, Version 1.0</h:li>
+		<h:li>PP-Module for Bluetooth, Version 1.0</h:li>
+		<h:li>PP-Module for VPN Client, Version 2.4</h:li>
+          </h:ul>
+        </description>
+      </cclaim>
+      <cclaim name="CC Conformance Claims">
+        <description>This PP-Module is conformant to Parts 2 (extended) and 3
+          (extended) of Common Criteria Version 3.1, Release 5 [CC].
+        </description>
+      </cclaim>
+      <cclaim name="Package Claims">
+        <description>There are no package claims for this PP-Module.</description>
+      </cclaim>
+    </cclaims>
+    -->
+  </sec:Conformance_Claims>
+
+
+  <sec:Security_Problem_Description title="Security Problem Definition">
+    This PP-Module is written to address the situation when an entity desires wireless access to a private
+    network. To allow access to the private network, the entity (machine) must be authenticated
+    before a secure communications channel can be established. The TOE is the entity that seeks to
+    be authenticated and be given access to services offered by the protected network and is the
+    Supplicant in the IEEE 802.1X framework.
+    
+    <sec:Threats> The following threats are specific to WLAN Clients, and represent an addition to those identified in the Base-PPs. 
+      <!-- Note: Threats contained in both base-PPs should not be listed in the PP-Module (section 3.1 or 6), but objectives can still be mapped to them (section 4.3). 
+        For these threats do not include a <description> or <consistency-rationale> section. If a <description> section is included then the threat is listed in Section 3.1. 
+        If no description is listed, then threat is only listed in section 4.3 (not in 3.1 or 6) -->
+      <threats>
+        <threat name="T.TSF_FAILURE">
+          <description>Security mechanisms of the TOE generally build up from a primitive set of
+            mechanisms (e.g,
+            memory management, privileged modes of process execution) to more complex sets of
+            mechanisms. Failure of the primitive mechanisms could lead to a compromise in more complex
+            mechanisms, resulting in a compromise of the TSF.</description>
+          <consistency-rationale/>
+
+          <addressed-by>	FPT_TST_EXT.3/WLAN	</addressed-by>	<rationale>	Mitigates the threat by performing self-tests to design if a TSF failure has occurred.	</rationale>
+          
+        </threat>
+        
+        <threat name="T.UNAUTHORIZED_ACCESS">
+          <description>A user may gain unauthorized access to the TOE data and TOE executable code. A malicious
+            user, process, or external IT entity may masquerade as an authorized entity in order to gain
+            unauthorized access to data or TOE resources. A malicious user, process, or external IT entity
+            may misrepresent itself as the TOE to obtain identification and authentication data.</description>
+          <consistency-rationale/>
+          
+          <addressed-by>	FCS_CKM.1/WPA	</addressed-by>	<rationale>	Mitigates the threat by performing secure key generation in support of protected wireless communications.	</rationale>
+          <addressed-by>	FCS_CKM.2/WLAN	</addressed-by>	<rationale>	Mitigates the threat by performing secure key distribution in support of protected wireless communications.	</rationale>
+          <!-- <addressed-by>	FCS_TLSC_EXT.1/WLAN	</addressed-by>	<rationale>	Mitigates the threat by implementing EAP-TLS for secure authentication of wireless communications.	</rationale> -->
+          <addressed-by>	FCS_WPA_EXT.1	</addressed-by>	<rationale>	Mitigates the threat by requiring the use of WPA for security.</rationale>
+          <addressed-by>	FIA_PAE_EXT.1	</addressed-by>	<rationale>	Mitigates the threat by implementing 802.1X for secure authentication of wireless communications.	</rationale>
+          <!-- <addressed-by>	FIA_X509_EXT.1/WLAN	</addressed-by>	<rationale>	Mitigates the threat by using X.509 for secure connectivity and non-repudiation of external IT entities.	</rationale>
+          <addressed-by>	FIA_X509_EXT.2/WLAN	</addressed-by>	<rationale>	Mitigates the threat by using X.509 for secure connectivity and non-repudiation of external IT entities.	</rationale> -->
+          <addressed-by>	FIA_X509_EXT.6	</addressed-by>	<rationale>	Mitigates the threat by implementing a mechanism to establish a root of trust for X.509 certificates presented to the TOE.	</rationale>
+          <addressed-by>	FMT_SMF.1/WLAN	</addressed-by>	<rationale>	Mitigates the threat by defining the authorization that is required to access the management functions of the TOE.	</rationale>
+          <addressed-by>	FTA_WSE_EXT.1	</addressed-by>	<rationale>	Mitigates the threat by operating in a default-deny posture for wireless networks so that the TOE will not communicate with unknown entities.	</rationale>
+          <addressed-by>	FTP_ITC.1/WLAN	</addressed-by>	<rationale>	Mitigates the threat by defining the trusted communications protocols the TSF implements to communicate with external entities.	</rationale>
+          <!-- <addressed-by>	FCS_TLSC_EXT.2/WLAN (selection-based)	</addressed-by>	<rationale>	Mitigates the threat by defining secure connection parameters for EAP-TLS.	</rationale> -->
+          
+       
+        </threat>
+        
+        <threat name="T.UNDETECTED_ACTIONS">
+          <description>Malicious remote users or external IT entities may take actions that adversely affect the
+            security of the TOE. These actions may remain undetected and thus their effects cannot be
+            effectively mitigated.</description>
+          <consistency-rationale/>
+     
+          <addressed-by>	FAU_GEN.1/WLAN	</addressed-by>	<rationale>	Mitigates the threat by implementing a mechanism to detect actions performed on or by the TOE.	</rationale>
+          
+        </threat>
+      </threats>
+     </sec:Threats>
+        
+    <sec:Assumptions>
+      
+      <assumptions>
+        <assumption name="A.NO_TOE_BYPASS">
+          <description>Information cannot flow between the wireless client and the internal wired
+            network without passing through the TOE.</description>
+          <consistency-rationale/>
+          <objective-refer ref="OE.NO_TOE_BYPASS">
+            <rationale>The operational environment objective OE.NO_TOE_BYPASS is realized through A.NO_TOE_BYPASS.</rationale>
+          </objective-refer>
+        </assumption>
+        <assumption name="A.TRUSTED_ADMIN">
+          <description>TOE Administrators are trusted to follow and apply all administrator guidance in
+            a trusted manner.</description>
+          <consistency-rationale/>
+          <objective-refer ref="OE.TRUSTED_ADMIN">
+            <rationale>The Operational Environment objective OE.TRUSTED ADMIN is realized through A.TRUSTED_ADMIN.</rationale>
+          </objective-refer>
+        </assumption>
+      </assumptions>
+    </sec:Assumptions>
+    
+    <sec:Organizational_Security_Policies>
+      <OSPs/>
+    </sec:Organizational_Security_Policies>
+  </sec:Security_Problem_Description>
+
+
+  <sec:Security_Objectives>
+    
+    <sec:Security_Objectives_for_the_Operational_Environment>
+      <!-- The Operational Environment of the TOE implements technical and procedural measures 
+      to assist the TOE in correctly providing its security functionality (which is defined by the security objectives for the TOE). 
+      The security objectives for the Operational Environment consist of a set of statements describing the goals that the Operational Environment should achieve. 
+      This section defines the security objectives that are to be addressed by the IT domain or by non-technical or procedural means. 
+      The assumptions identified in Section 3 are incorporated as security objectives for the environment. -->
+      <SOEs>
+        <SOE name="OE.NO_TOE_BYPASS">
+          <description>Information cannot flow between external and internal networks located
+            in different enclaves without passing through the TOE.</description>
+          <consistency-rationale/>
+        </SOE>
+        <SOE name="OE.TRUSTED_ADMIN">
+          <description>TOE administrators are trusted to follow and apply all administrator
+            guidance in a trusted manner.</description>
+          <consistency-rationale/>
+        </SOE>
+      </SOEs>
+    </sec:Security_Objectives_for_the_Operational_Environment>
+    
+    <sec:Security_Objectives_Rationale>
+      <!-- NOTE: This section should remain empty and is populated from the rationale tags in the previous sections.  -->
+    </sec:Security_Objectives_Rationale>
+  </sec:Security_Objectives>
+
+  <sec:Security_Requirements>
+    <!-- SME: the intro to this chapter appears to be getting populated with default text rather than what is specified here, which is problematic because the default text does not
+    define refinements correctly for this Module. How can we get it to use what is here instead of the default? -->
+    This chapter describes the security requirements
+    which have to be fulfilled by the <xref to="OS"/>. Those requirements comprise functional
+    components from Part 2 and assurance components from Part 3 of <xref to="bibCC"/>. 
+        
+    The following notations are used: <h:ul>
+      <h:li>
+        <h:b>Refinement</h:b> operation (denoted by <h:b>bold text</h:b>): Is used to add details to a
+        requirement, and thus further restricts a requirement.</h:li>
+      <h:li>
+        <h:b>Selection</h:b> operation (denoted by <h:i>italicized text</h:i>): Is used to select one or more options
+        provided by the [CC] in stating a requirement.</h:li>
+      <h:li>
+        <h:b>Assignment</h:b> operation (denoted by <h:span class="assignable-content">italicized text</h:span>): Is used to assign a
+        specific value to an unspecified parameter, such as the length of a password.</h:li>
+      <h:li>
+        <h:b>Iteration</h:b> operation: Identified with a slash followed by a unique text string (e.g. "/WLAN") or a number inside parentheses (e.g. "(1)")</h:li>
+    </h:ul>
+
+
+    <base-pp id="bpp-gpos" name="General Purpose Operating System" product="Operating System" short="GPOS" version="5.0">
+      <git>
+	      <url>https://github.com/commoncriteria/operatingsystem</url>
+	      <branch>release-5.0</branch>
+      </git>
+      <url>https://www.niap-ccevs.org/static_html/protection-profile/469/OS%204.3%20PP/index.html</url>
+      <modified-sfrs>
+ 
+      </modified-sfrs>
+      <additional-sfrs/>
+      
+          
+       
+      <con-toe> When this PP-Module is used to extend the GPOS PP, the TOE type for
+        the overall TOE is still a general-purpose operating system. The TOE boundary is simply extended to include the
+          WLAN Client functionality that runs on the operating system.</con-toe>
+      <con-sec-prob/>
+      <con-obj/>
+      <con-op-en/>
+      <con-mod ref="T.TSF_FAILURE">The Base-PP defines threats for local attacks and remote attacks, both of which could cause a failure of the TSF. This PP-Module adds a generic TSF failure threat
+      in the event that the WLAN Client fails through unintended system behavior rather than a direct malicious attack.</con-mod>
+      <con-mod ref="T.UNAUTHORIZED_ACCESS">The Base-PP defines threats for local attacks and remote attacks. The threat of unauthorized access to the WLAN Client is a specific threat that results from successful exploitation 
+      of one of these Base-PP threats.</con-mod>
+      <con-mod ref="T.UNDETECTED_ACTIONS">The Base-PP defines threats for local attacks and remote attacks. It does not define a threat specifically for undetected actions but it does map the local attack and remote attack threats to a
+      TOE objective for accountability. Therefore, the threat of undetected actions is consistent with the Base-PP because this is a subset of the threats defined in the Base-PP, or a mechanism to increase the likelihood that these
+      threats will successfully be exploited.</con-mod>        
+          
+      <con-mod ref="A.NO_TOE_BYPASS">This assumption relates to the deployment of the TOE in relation to the network resources that it interacts with. It does not enforce any restrictions on the TOE's deployment that are contrary to
+        what the Base-PP requires.</con-mod>
+      <con-mod ref="A.TRUSTED_ADMIN">The Base-PP defines A.PROPER_USER and A.PROPER_ADMIN assumptions that serve the same purpose as A.TRUSTED_ADMIN in this PP-Module.</con-mod>
+          
+      <con-mod ref="OE.NO_TOE_BYPASS">This objective relates to the deployment of the TOE in relation to the network resources that it interacts with. It does not enforce any restrictions on the TOE's deployment that are contrary to
+      what the Base-PP requires.</con-mod>
+      <con-mod ref="OE.TRUSTED_ADMIN">The Base-PP defines OE.PROPER_USER and OE.PROPER_ADMIN objectives that serve the same purpose as OE.TRUSTED_ADMIN in this PP-Module.</con-mod>          
+
+
+          
+      <con-mod ref="fco-audit-gen-wlan">The Base-PP defines its own auditing mechanism; this PP-Module can use that mechanism or implement its own to generate audit data for security-relevant events that are specific to this PP-Module.</con-mod>
+      <con-mod ref="fco-skeygen-wpa">This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.</con-mod>
+      <con-mod ref="fco-keydist-wlan">This SFR requires the TOE to perform a decryption operation using AES Key Wrap, which is a function that the Base-PP provides.</con-mod>
+      <con-mod ref="fco-tlsc-wlan">This SFR requires the TOE to implement EAP-TLS; this protocol relies on the same cryptographic functionality that the Base-PP uses to implement TLS.</con-mod>
+      <con-mod ref="fcs-wpa-version">This SFR requires the TOE to specify the WPA versions it supports; this is functionality that is specific to the PP-Module and does not affect any Base-PP functionality.</con-mod>
+      <con-mod ref="fco-portaccess-auth">This SFR defines the ability of the TOE to implement IEEE 802.1X. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.</con-mod>  
+      <con-mod ref="fco-certval-wlan">This SFR defines the TOE's X.509 certificate validation specifically when validating EAP-TLS certificates. The Base-PP also defines an iteration of this SFR but the PP-Module 
+      requires a separate iteration because EAP-TLS certificates have specific handling requirements that are not present in the Base-PP because the Base-PP does not define implementation of the EAP-TLS protocol.</con-mod>
+      <con-mod ref="fco-certauth">This SFR defines the TOE's use of X.509 certificates in EAP-TLS. This function uses the same certificate validation functionality that the Base-PP defines.</con-mod>
+      <con-mod ref="fco-manage-certs">This SFR defines behavior for implementing certificate storage. The SFR allows for the possibility that existing platform storage can be used, so it does not conflict with the Base-PP if that portion
+        of the TOE already implements its own storage mechanism.</con-mod>
+      <con-mod ref="fco-manage-functions">This SFR defines the management activities that are specific to this PP-Module. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.</con-mod>
+      <con-mod ref="fco-cryptotesting-wlan">This SFR defines self-test behavior for the WLAN Client. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.</con-mod>  
+      <con-mod ref="fco-wifi-access">This SFR requires the TOE to restrict the wireless networks that it can connect to. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.</con-mod>
+      <con-mod ref="fco-trusted-comms-wlan">This SFR defines the protocols that the TOE uses for secure wireless communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.</con-mod>
+          
+          
+      <!-- <con-mod ref="fcs-ckm-1-wpa2">This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.</con-mod> -->
+      <con-mod ref="fco-tls-client-support-wlan">This SFR requires the TOE to validate a specific TLS extension when establishing EAP-TLS communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.</con-mod>
+    </base-pp>
+    
+    
+    <base-pp id="bpp-mdf" name="Mobile Device Fundamentals" product="Mobile Device" short="MDF" version="4.0">
+	<git>
+		<url>https://github.com/commoncriteria/mobile-device</url>
+		<branch>release-3.3</branch>
+        </git>
+      <url>https://www.niap-ccevs.org/static_html/protection-profile/468/MDF%203.3%20PP/index.html</url>
+        
+      
+      <modified-sfrs>
+  
+      </modified-sfrs>
+      <additional-sfrs/>
+      
+      
+      
+      <con-toe> When this PP-Module is used to extend the MDF PP, the TOE type for
+        the overall TOE is still a mobile device. The TOE boundary is simply extended to include the
+        WLAN Client functionality that runs on the mobile device's Rich OS.</con-toe>
+      <con-sec-prob/>
+      <con-obj/>
+      <con-op-en/>
+      <con-mod ref="T.TSF_FAILURE">
+	The Base-PP defines the T.FLAWAPP threat for the threat that application failures may pose to the device as a whole.
+	The T.TSF_FAILURE threat from this PP-Module is a specific example of the T.FLAWAPP threat,
+        though it relates to the WLAN Client as an intrinsic part of the mobile device rather than a third-party application installed on top of it.
+	The Base-PP also defines the T.PERSISTENT threat, which is another specific case of TSF failure.
+      </con-mod>
+      <con-mod ref="T.UNAUTHORIZED_ACCESS">
+	The Base-PP defines threats for network eavesdropping and network attacks.
+	Exploiting either threat could allow an attacker to exploit the T.UNAUTHORIZED_ACCESS threat defined  by this PP-Module.
+      </con-mod>
+      <con-mod ref="T.UNDETECTED_ACTIONS">
+	The Base-PP defines threats for persistent access to the TOE and flawed applications on the TOE.
+	It does not define a threat specifically for undetected actions but the threat of undetected actions
+        defined by this PP-Module could increase the likelihood that the Base-PP threats can be successfully exploited.
+      </con-mod>          
+      <con-mod ref="A.NO_TOE_BYPASS">
+	This assumption relates to the deployment of the TOE in relation to the network resources that it interacts with.
+	It does not enforce any restrictions on the TOE's deployment that are contrary to
+        what the Base-PP requires.
+      </con-mod>
+      <con-mod ref="A.TRUSTED_ADMIN">
+	The Base-PP defines the A.TRUSTED_ADMIN assumptions that expects administrators will configure the TOE correctly, which also implies they are non-malicious.
+      </con-mod>
+   
+      <con-mod ref="OE.NO_TOE_BYPASS">
+	This objective relates to the deployment of the TOE in relation to the network resources that it interacts with.
+	It does not enforce any restrictions on the TOE's deployment that are contrary to what the Base-PP requires.
+      </con-mod>
+      <con-mod ref="OE.TRUSTED_ADMIN">
+        The Base-PP defines the OE.CONFIG objective that expects administrators will configure the TOE correctly, which also implies they are non-malicious.
+      </con-mod>
+      <con-mod ref="fco-audit-gen-wlan">
+        The Base-PP defines its own auditing mechanism;
+        this PP-Module can use that mechanism or implement its own to generate audit data for security-relevant events that are specific to this PP-Module.
+      </con-mod>
+      <con-mod ref="fco-skeygen-wpa">This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.</con-mod>
+      <con-mod ref="fco-keydist-wlan">This SFR requires the TOE to perform a decryption operation using AES Key Wrap, which is a function that the Base-PP provides.</con-mod>
+      <con-mod ref="fco-tlsc-wlan">This SFR requires the TOE to implement EAP-TLS; this protocol relies on the same cryptographic functionality that the Base-PP uses to implement TLS.</con-mod>
+      <con-mod ref="fcs-wpa-version">This SFR requires the TOE to specify the WPA versions it supports; this is functionality that is specific to the PP-Module and does not affect any Base-PP functionality.</con-mod>
+      <con-mod ref="fco-portaccess-auth">This SFR defines the ability of the TOE to implement IEEE 802.1X. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.</con-mod>  
+      <con-mod ref="fco-certval-wlan">This SFR defines the TOE's X.509 certificate validation specifically when validating EAP-TLS certificates. The Base-PP also defines an iteration of this SFR but the PP-Module 
+        requires a separate iteration because EAP-TLS certificates have specific handling requirements that are not present in the Base-PP because the Base-PP does not define implementation of the EAP-TLS protocol.</con-mod>
+      <con-mod ref="fco-certauth">This SFR defines the TOE's use of X.509 certificates in EAP-TLS. This function uses the same certificate validation functionality that the Base-PP defines.</con-mod>
+      <con-mod ref="fco-manage-certs">This SFR defines behavior for implementing certificate storage. The SFR allows for the possibility that existing platform storage can be used, so it does not conflict with the Base-PP if that portion
+          of the TOE already implements its own storage mechanism.</con-mod>
+        <con-mod ref="fco-manage-functions">This SFR defines the management activities that are specific to this PP-Module. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.</con-mod>
+      <con-mod ref="fco-cryptotesting-wlan">This SFR defines self-test behavior for the WLAN Client. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.</con-mod>  
+      <con-mod ref="fco-wifi-access">This SFR requires the TOE to restrict the wireless networks that it can connect to. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.</con-mod>
+      <con-mod ref="fco-trusted-comms-wlan">This SFR defines the protocols that the TOE uses for secure wireless communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.</con-mod>
+      <con-mod ref="fco-skeygen-wpa">This SFR requires the TOE to generate cryptographic keys that are only used by the PP-Module's functionality. It invokes Base-PP functionality to do this in a manner that the Base-PP permits.</con-mod>
+      <con-mod ref="fco-tls-client-support-wlan">This SFR requires the TOE to validate a specific TLS extension when establishing EAP-TLS communications. This behavior relates entirely to the PP-Module and does not affect the ability of the Base-PP to implement its security functionality.</con-mod>
+    </base-pp>
+      
+    <man-sfrs>
+	
+	    <section id="ss-wlc-man-audit-table" title="Auditable Events for Mandatory SFRs">
+        	<audit-table table="mandatory" id="a-mandatory-events"/>
+<!--  	     		<h:br/><h:b><ctr ctr-type="Table" pre="Table " id="atref-mandatory">: Auditable Events for Mandatory SFRs</ctr></h:b>
+			</audit-table>  -->
+	    </section>
+	
+      <sec:man_fau title="Security Audit (FAU)">
+        
+		<!-- FAU_GEN.1/WLAN -->
+        <f-component id="fco-audit-gen-wlan" cc-id="fau_gen.1" name="Audit Data Generation (Wireless LAN)" iteration="WLAN">
+          <consistency-rationale/>
+          <f-element>
+            <title>The TSF shall <h:b>
+              <selectables>
+                <selectable>invoke platform-provided functionality</selectable>
+                <selectable>implement functionality</selectable>
+              </selectables>
+            </h:b> to generate audit data of the following auditable events:
+                 <h:ol type="a">
+                <h:li>Startup and shutdown of the audit functions;</h:li>
+                <h:li>All auditable events for [<h:i>not specified</h:i>] level of audit;</h:li>
+                <h:li>[<h:i>all auditable events for mandatory SFRs specified in <xref to="a-mandatory-events"/>, 
+                  selected SFRs in <xref to="a-sel-based-events"/>, applicable audit events specified in <xref to="tls"/>, and applicable audit events specified in <xref to="X509"/></h:i>].</h:li>
+              </h:ol>
+            </title>
+            <note role="application">
+	      <h:p>If auditing for the WLAN Client cannot be controlled separately from its underlying platform, 
+              the "Startup and shutdown of the audit functions" event defined in each Base-PP is sufficient to address that event for this iteration of the SFR.
+	      </h:p><h:p>
+	        Auditable events for selection-based SFRs are found in <xref to="a-sel-based-events"/>. 
+		  If the TOE does not claim a particular selection-based SFR, it is not expected to
+          generate any corresponding audit data for that SFR. 
+	      </h:p><h:p>
+	        <xref to="a-mandatory-events"/> includes auditable events for FPT_TST_EXT.3/WLAN.
+	      If the TOE does not perform its own self-tests
+	      (i.e., "TOE platform" is selected in FPT_TST_EXT.3.1/WLAN and FPT_TST_EXT.3.2/WLAN),
+              the audit data for this event may also be generated by the TOE platform.
+              </h:p>
+			  <!--
+			  <h:p>
+              <h:b><ctr id="audit" ctr-type="Table"> Auditable Events</ctr></h:b>
+              <h:table style="margin-top:0px;white-space:10px">
+                <h:TR>
+                  <h:TH>Requirement</h:TH>
+                  <h:TH>Auditable Events</h:TH>
+                  <h:TH>Additional Audit Record Contents</h:TH>
+                </h:TR>
+                <h:TR>
+                  <h:TD>FAU_GEN.1/WLAN</h:TD>
+                  <h:TD>None.</h:TD>
+                  <h:TD>None.</h:TD>
+                </h:TR>
+                <h:TR>
+                  <h:TD>FCS_CKM.1/WPA</h:TD>
+                  <h:TD>None.</h:TD>
+                  <h:TD>None.</h:TD>
+                </h:TR>         
+                <h:TR>
+                  <h:TD>FCS_CKM.2/WLAN</h:TD>
+                  <h:TD>None.</h:TD>
+                  <h:TD>None.</h:TD>
+                </h:TR>                
+                <h:TR>
+                  <h:TD rowspan="2">FCS_TLSC_EXT.1/WLAN</h:TD>
+                  <h:TD>Failure to establish an EAP-TLS session.</h:TD><h:td>Reason for failure.<h:br/><h:br/>Non-TOE endpoint of connection.</h:td></h:TR>
+                <h:tr><h:TD>Establishment/termination of an EAP-TLS session.</h:TD><h:td>Non-TOE endpoint of connection.</h:td>
+                </h:tr>
+                <h:TR>
+                  <h:TD>FCS_TLSC_EXT.2/WLAN</h:TD>
+                  <h:TD>None.</h:TD>
+                  <h:TD>None.</h:TD>
+                </h:TR>
+                <h:tr>
+                  <h:TD>FCS_WPA_EXT.1</h:TD>
+                  <h:TD>None.</h:TD>
+                  <h:TD>None.</h:TD>
+                </h:tr>
+                <h:TR>
+                  <h:TD>FIA_PAE_EXT.1</h:TD>
+                  <h:TD>None.</h:TD>
+                  <h:TD>None.</h:TD>
+                </h:TR> 
+                <h:TR>
+                  <h:TD>FIA_X509_EXT.1/WLAN</h:TD>
+                  <h:TD>Failure to validate X.509v3 certificate.</h:TD><h:td>Reason for failure of validation.</h:td>
+                </h:TR>
+                <h:TR>
+                  <h:TD>FIA_X509_EXT.2/WLAN</h:TD>
+                  <h:TD>None.</h:TD>
+                  <h:TD>None.</h:TD>
+                </h:TR>
+                <h:TR>
+                  <h:TD rowspan="2">FIA_X509_EXT.6</h:TD>
+                  <h:TD>Attempts to load certificates.</h:TD><h:td>None.</h:td></h:TR>
+                  <h:tr><h:TD>Attempts to revoke certificates.</h:TD><h:td>None.</h:td>
+                </h:tr> 
+                <h:TR>
+                  <h:TD>FMT_SMF.1/WLAN</h:TD>
+                  <h:TD>None.</h:TD>
+                  <h:TD>None.</h:TD>
+                </h:TR> 
+                <h:TR>
+                  <h:TD rowspan="2">FPT_TST_EXT.3/WLAN</h:TD>
+                  <h:TD>Execution of this set of TSF self-tests.</h:TD><h:td>None.</h:td></h:TR>
+                <h:tr><h:TD><selectables>
+                  <selectable>Detected integrity violation</selectable>
+                  <selectable>None.</selectable>
+                </selectables></h:TD>
+                  <h:TD><selectables>
+                    <selectable>The TSF binary file that caused the integrity violation</selectable>
+                    <selectable>None.</selectable>
+                  </selectables></h:TD>
+                </h:tr>
+                <h:TR>
+                  <h:TD>FTA_WSE_EXT.1</h:TD>
+                  <h:TD>All attempts to connect to access points.</h:TD>
+                  <h:TD>
+		    For each access point record the 
+		    <selectables>
+		      <selectable>Complete SSID and MAC</selectable>
+		      <selectable>
+			Certificate Check Message and the last
+			<assignable>integer greater than or equal to 2</assignable>
+			octets
+		      </selectable>
+		    </selectables> of the MAC Address
+		    <h:br/><h:br/>Success and failures (including reason for failure).
+		  </h:TD>
+                </h:TR>    
+                <h:TR>
+                  <h:TD>FTP_ITC.1/WLAN</h:TD>
+                  <h:TD>All attempts to establish a trusted channel.</h:TD>
+                  <h:TD>Identification of the non-TOE endpoint of the channel.</h:TD>
+                </h:TR> 
+              </h:table>
+	    </h:p>  -->
+            </note>            
+          </f-element>
+          <f-element>
+            <title>The <h:b><selectables>
+              <selectable>TSF</selectable>
+              <selectable>TOE platform</selectable>
+            </selectables></h:b> shall record within the audit data at
+              least the following information: <h:ol type="a">
+                <h:li>Date and time of the event, type of event, subject identity, (if applicable),
+                  and the outcome (success or failure) of the event;</h:li>         
+                <h:li>For each audit event type, based on the auditable event definitions of the functional components 
+                  included in the PP, PP-Module, functional package or ST, [<h:i>Additional Audit Record Contents as specified in 
+                    <xref to="a-mandatory-events"/>, <xref to="a-sel-based-events"/>, applicable audit events specified in <xref to="tls"/>, and applicable audit events specified in <xref to="X509"/></h:i>].</h:li>
+              </h:ol>
+            </title>
+            <aactivity>
+              <TSS>
+                The evaluator shall check the TSS and ensure it provides a format for the audit data. Each 
+				format type for audit data must be covered, along with a brief description of each field. <h:br/><h:br/>
+                If "invoke platform-provided functionality" is selected, the evaluator shall examine the TSS to verify
+				it describes (for each supported platform) how this functionality is invoked 
+                (it should be noted that this may be through a mechanism that is not implemented by the WLAN Client;
+				however, that mechanism will be identified in the TSS as part of this evaluation activity).<h:br/><h:br/>
+              </TSS>
+              <Guidance>
+                The evaluator shall check the operational guidance and ensure it lists all of the auditable
+                events and provides a format for the audit data. Each format type for audit data must be
+                covered, along with a brief description of each field. The evaluator shall check to make sure
+                that every audit event type mandated by the PP-Module is described and that the description of the
+                fields contains the information required in FAU_GEN.1.2/WLAN, and the additional information
+                specified in <xref to="a-mandatory-events"/> and <xref to="a-sel-based-events"/>.
+                <h:br/><h:br/>
+                The evaluator shall in particular ensure that the operational guidance is clear in relation to the
+                contents for failed cryptographic events. In the Auditable Events tables, information detailing the cryptographic
+                mode of operation and a name or identifier for the object being encrypted is required. The
+                evaluator shall ensure that name or identifier is sufficient to allow an administrator reviewing
+                the audit log to determine the context of the cryptographic operation (for example,
+                performed during a key negotiation exchange, performed when encrypting data for transit) as
+                well as the non-TOE endpoint of the connection for cryptographic failures relating to
+                communications with other IT systems.
+		<h:br/><h:br/>
+                The evaluator shall also make a determination of the administrative actions that are relevant
+                in the context of this PP-Module. The TOE may contain functionality that is not evaluated in the
+                context of this PP-Module because the functionality is not specified in an SFR. This functionality may
+                have administrative aspects that are described in the operational guidance. Since such
+                administrative actions will not be performed in an evaluated configuration of the TOE, the
+                evaluator shall examine the operational guidance and make a determination of which
+                administrative commands, including subcommands, scripts, and configuration files, are related
+                to the configuration (including enabling or disabling) of the mechanisms implemented in the
+                TOE that are necessary to enforce the requirements specified in the PP-Module, which thus form the
+                set of “all administrative actions”. The evaluator may perform this activity as part of the
+                activities associated with ensuring the AGD_OPE guidance satisfies the requirements.   
+                <h:br/><h:br/>
+              </Guidance>
+              <Tests>
+                The evaluator shall test the TOE’s ability to correctly generate audit data by having the TOE
+                generate audit data in accordance with the evaluation activities associated with the
+                functional requirements in this PP-Module. When verifying the test results, the evaluator shall ensure
+                the audit data that is generated during testing matches the format specified in the administrative
+                guidance, and that the fields in the audit data have the proper entries.
+                <h:br/><h:br/>               
+                Note that the testing here can be accomplished in conjunction with the testing of the security
+                mechanisms directly. For example, testing performed to ensure that the administrative
+                guidance provided is correct verifies that AGD_OPE.1 is satisfied and should address the
+                invocation of the administrative actions that are needed to verify the audit data is
+                generated as expected.
+              </Tests>
+            </aactivity>
+          </f-element>
+		  <audit-event/>
+        </f-component>
+      </sec:man_fau>
+      
+      <sec:man_fcs title="Cryptographic Support (FCS)">
+        
+        <!--
+        The cryptographic requirements are also structured to require the use of the Wi-Fi certification
+        requirements for WPA2 enterprise, based on the IEEE 802.11 standard. The Wi-Fi Alliance
+        WPA2 Enterprise certification program tests devices for data communications interoperability
+        at ISO OSI layers 1 and 2, and mandates the use of the AES-CCMP algorithm for secure connections. Optionally, AES-GCMP can be used.
+         -->
+        <!-- FCS_CKM.1/WPA -->
+        <f-component id="fco-skeygen-wpa" cc-id="fcs_ckm.1" name="Cryptographic Key Generation (Symmetric Keys for WPA2/WPA3 Connections)" iteration="WPA">
+          <consistency-rationale/>
+          <f-element>
+            <title>The TSF shall generate <h:b>symmetric</h:b> cryptographic keys in accordance with a specified cryptographic key generation algorithm [<h:i>PRF-384 and
+              <selectables>
+                <selectable>PRF-512</selectable>
+                <selectable>PRF-704</selectable>
+                <selectable exclusive="yes">no other algorithm</selectable>
+              </selectables>
+              (as defined in IEEE 802.11-2020)</h:i>] and specified cryptographic key sizes [<h:i>256 bits</h:i>]
+              
+              <!-- 
+              [<h:i><h:b>256 bits and 
+                <selectables>
+                  <selectable>128 bits</selectable>
+                  <selectable>192 bits</selectable>
+                  <selectable exclusive="yes">no other key sizes</selectable>
+                </selectables></h:b></h:i>] 
+                -->
+                <h:b>using a Random Bit Generator as specified in FCS_RBG.1</h:b>.
+            </title>
+            <note role="application">
+	      <h:p>
+The cryptographic key derivation algorithm required by IEEE 802.11-2020
+              (Section 11.6.1.2) and verified in WPA2 certification is PRF-384, which uses the HMAC-SHA-1
+              function and outputs 384 bits. The use of GCMP was first defined in IEEE 802.11ac-2014 (Section
+              11.4.5) but subsequently integrated into 802.11-2020. This protocol requires a key derivation function (KDF) 
+              KDF based on HMAC-SHA-256 (for 128-bit symmetric keys) or HMAC-SHA384 (for 256-bit symmetric keys). This KDF outputs 704 bits.
+              </h:p><h:p>
+              This requirement applies only to the keys that are generated/derived for the communications
+              between the access point and the client once the client has been authenticated. It refers to the
+              derivation of the Pairwise Temporal Key (PTK) from the PMK, which is done using a random value generated by the RBG
+              specified in this PP-Module, the HMAC function using SHA-1 as specified in this PP-Module, as well as other
+              information. <!-- NOTE: commented out because I do not have access to 802.11-2012 and so I have no way to verify whether the section reference from 802.11-2016 needs to be updated. 
+              This is specified in 802.11-2012 primarily in section 11.6.1.2.  -->
+	      </h:p>
+            </note>            
+            
+            <aactivity>
+              <TSS>
+                The evaluator shall verify that the TSS describes how the primitives defined and implemented
+                by this PP-Module are used by the TOE in establishing and maintaining secure connectivity to the
+                wireless clients. The TSS shall also provide a description of the developer’s method(s) of
+                assuring that their implementation conforms to the cryptographic standards; this includes not
+                only testing done by the developing organization, but also any third-party testing that is
+                performed.<h:br/><h:br/>
+              </TSS>
+              <Guidance>
+                There are no guidance evaluation activities for this component.  <h:br/><h:br/> 
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <test>
+                    The evaluator shall configure the access point so the cryptoperiod of the
+                    session key is 1 hour. The evaluator shall successfully connect the TOE to the access
+                    point and maintain the connection for a length of time that is greater than the
+                    configured cryptoperiod. The evaluator shall use a packet capture tool to determine
+                    that after the configured cryptoperiod, a re-negotiation is initiated to establish a new
+                    session key. Finally, the evaluator shall determine that the renegotiation has been 
+                    successful and the client continues communication with the access point.
+                  </test>
+                  <test>
+		    The evaluator shall perform the following test using a packet sniffing tool to
+                    collect frames between the TOE and a wireless LAN access point:
+                    <h:br/> 
+                    Step 1: The evaluator shall configure the access point to an unused channel and
+                    configure the WLAN sniffer to sniff only on that channel (i.e., lock the sniffer on the
+                    selected channel). The sniffer should also be configured to filter on the MAC address
+                    of the TOE and/or access point.
+                    <h:br/> 
+                    Step 2: The evaluator shall configure the TOE to communicate with a WLAN access
+                    point using IEEE 802.11-2020 and a 256-bit (64 hex values 0-f) pre-shared key. The
+                    pre-shared key is only used for testing.
+                    <h:br/> 
+                    Step 3: The evaluator shall start the sniffing tool, initiate a connection between the
+                    TOE and the access point, and allow the TOE to authenticate, associate, and
+                    successfully complete the 4-way handshake with the client.
+                    <h:br/> 
+                    Step 4: The evaluator shall set a timer for 1 minute, at the end of which the evaluator
+                    shall disconnect the TOE from the wireless network and stop the sniffer.
+                    <h:br/> 
+                    Step 5: The evaluator shall identify the 4-way handshake frames (denoted EAPOL-key
+                    in Wireshark captures) and derive the PTK from the 4-way handshake frames and pre-shared key as specified in IEEE 802.11-2020.
+                    <h:br/> 
+                    Step 6: The evaluator shall select the first data frame from the captured packets that
+                    was sent between the TOE and access point after the 4-way handshake successfully
+                    completed, and without the frame control value 0x4208 (the first 2 bytes are 08 42).
+                    The evaluator shall use the PTK to decrypt the data portion of the packet as specified
+                    in IEEE 802.11-2020, and shall verify that the decrypted data contains ASCII-readable
+                    text.
+                    <h:br/> 
+                    Step 7: The evaluator shall repeat Step 6 for the next 2 data frames between the TOE
+                    and access point and without frame control value 0x4208.
+                  </test>
+                </testlist>                           
+              </Tests>
+            </aactivity>
+            
+          </f-element>
+  		  <audit-event/>
+        </f-component>
+
+        <!-- FCS_CKM.1/WLAN -->
+        <f-component id="fco-keydist-wlan" cc-id="fcs_ckm.2" name="Cryptographic Key Distribution (Group Temporal Key for WLAN)" iteration="WLAN">
+          <consistency-rationale/>
+          <f-element>
+            <title>The TSF shall <h:b>decrypt Group Temporal Key</h:b> in accordance with a specified cryptographic key distribution method 
+              [<h:i>AES Key Wrap (as defined in RFC 3394) in an EAPOL-Key frame (as defined in IEEE 802.11-2020 for the packet format and timing considerations</h:i>] <h:b>and does not expose the cryptographic keys</h:b>.
+            </title>
+            <note role="application">This requirement applies to the Group Temporal Key (GTK) that is received by
+              the TOE for use in decrypting broadcast and multicast messages from the access point to which
+              it's connected. 802.11-2020 specifies the format for the transfer as well as the fact that it must be wrapped by the AES Key Wrap method specified in RFC 3394; the TOE must be capable of
+              unwrapping such keys.
+            </note>            
+          
+          <aactivity>
+            <TSS>
+              The evaluator shall check the TSS to ensure that it describes how the GTK is unwrapped prior to
+              being installed for use on the TOE using the AES implementation specified in this PP-Module.<h:br/><h:br/>
+            </TSS>
+            <Guidance>
+              There are no guidance evaluation activities for this component.<h:br/><h:br/> 
+            </Guidance>
+            <Tests>
+              The evaluator shall perform the following test using a packet sniffing tool to collect frames
+              between the TOE and a wireless access point (which may be performed in conjunction with the
+              assurance activity for FCS_CKM.1.1/WLAN).
+              <h:br/><h:br/> 
+              Step 1: The evaluator shall configure the access point to an unused channel and configure the
+              WLAN sniffer to sniff only on that channel (i.e., lock the sniffer on the selected channel). The
+              sniffer should also be configured to filter on the MAC address of the TOE and/or access point.
+              <h:br/><h:br/>  
+              Step 2: The evaluator shall configure the TOE to communicate with the access point using IEEE
+              802.11-2020 and a 256-bit (64 hex values 0-f) pre-shared key, setting up the connections as
+              described in the operational guidance. The pre-shared key is only used for testing.
+              <h:br/><h:br/>  
+              Step 3: The evaluator shall start the sniffing tool, initiate a connection between the TOE and
+              access point, and allow the TOE to authenticate, associate, and successfully complete the 4-way
+              handshake with the TOE.
+              <h:br/><h:br/>  
+              Step 4: The evaluator shall set a timer for 1 minute, at the end of which the evaluator shall
+              disconnect the TOE from the access point and stop the sniffer.
+              <h:br/><h:br/>  
+              Step 5: The evaluator shall identify the 4-way handshake frames (denoted EAPOL-key in
+              Wireshark captures) and derive the PTK and GTK from the 4-way handshake frames and pre-shared key as specified in IEEE 802.11-2020.
+              <h:br/><h:br/>  
+              Step 6: The evaluator shall select the first data frame from the captured packets that was sent
+              between the TOE and access point after the 4-way handshake successfully completed, and with
+              the frame control value 0x4208 (the first 2 bytes are 08 42). The evaluator shall use the GTK to
+              decrypt the data portion of the selected packet as specified in IEEE 802.11-2020, and shall verify
+              that the decrypted data contains ASCII-readable text.
+              <h:br/><h:br/> 
+              Step 7: The evaluator shall repeat Step 6 for the next 2 data frames with frame control value
+              0x4208.
+            </Tests>
+          </aactivity>
+          </f-element>
+  		  <audit-event/>
+        </f-component>
+      
+		
+
+        <ext-comp-def fam-id="FCS_WLAN_EXT" title="EAP-TLS for WLAN">
+          <fam-behavior>Components in this family define requirements for the support of EAP-TLS.</fam-behavior>
+        </ext-comp-def>
+
+        <!-- FCS_WLAN_EXT.1 -->
+         <f-component cc-id="fcs_wlan_ext.1" name="EAP-TLS for WLAN">
+          <consistency-rationale/>
+          <comp-lev>requires the TSF to support EAP-TLS with specified versions.</comp-lev>
+          <management>There are no management functions foreseen.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_TLSC_EXT.1 TLS Client Protocol</dependencies>
+
+          <f-element>
+            <title>The TSF shall implement EAP-TLS 
+            <selectables>
+              <selectable> 1.2 (RFC 5216)</selectable>
+              <selectable>1.3 (RFC 9190)</selectable>
+            </selectables> in accordance with FCS_TLSC_EXT.1 <h:b>as defined in <xref to="tls"/></h:b>.</title>
+            <ext-comp-def-title>
+              <title>The TSF shall implement EAP-TLS 
+              <selectables>
+                <selectable>1.2 (RFC 5216)</selectable>
+                <selectable>1.3 (RFC 9190)</selectable>
+            </selectables> in accordance with FCS_TLSC_EXT.1.</title>
+            </ext-comp-def-title>
+            <aactivity>
+              <TSS/>
+              <Guidance/>
+              <Tests/>
+            </aactivity>
+          </f-element>
+         </f-component>
+        
+        <ext-comp-def fam-id="FCS_WPA_EXT" title="Supported WPA Versions">
+          <fam-behavior>Components in this family define requirements for supporting Wi-Fi Protected Access (WPA).
+          </fam-behavior>
+        </ext-comp-def>
+        
+        
+		<!-- FCS_WPA_EXT.1 -->
+        <f-component cc-id="fcs_wpa_ext.1" name="Supported WPA Versions" id="fcs-wpa-version">
+          <consistency-rationale/>
+          
+          <comp-lev> requires the TSF to support WPA3 at minimum, with optional
+            support for WPA2.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT:
+            <h:ul>
+              <h:li>Configure the supported WPA versions.</h:li>
+            </h:ul>
+          </management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation</dependencies>
+          
+          <f-element id="fel-wpa3">
+            <title>The TSF shall support WPA3 and <selectables>
+              <selectable id="wpa2">WPA2</selectable>
+              <selectable exclusive="yes">no other</selectable>
+            </selectables> security type.
+            </title>
+            <note role="application">
+	      The WLAN client can support connecting to networks of other security types (e.g., open);
+	      however, those will not be tested as part of this evaluation and FMT_SMF.1
+	      will ensure that WPA3 and, if selected, WPA2 can be configured.
+	    </note>
+            <aactivity>
+	      <TSS>
+		There are no TSS evaluation activities for this component.<h:br/><h:br/> 
+	      </TSS>
+              <Guidance>The evaluator shall ensure that the AGD contains guidance on how to configure the WLAN client to
+			  connect to networks supporting WPA3 and, if selected, WPA2.<h:br/><h:br/>
+		</Guidance>
+              <Tests> The evaluator shall configure a Wi-Fi network that utilizes WPA3 and verify that the client can connect.
+			  The same test shall be repeated for WPA2 if it is selected. </Tests>
+            </aactivity>
+          </f-element>
+		  <audit-event/>
+        </f-component>
+        
+ 
+       </sec:man_fcs>
+      
+      <sec:man_fia title="Identification and Authentication (FIA)">
+        
+        <!-- QQQQ
+        The baseline requirements for the TOE are fairly limited with respect to I&amp;A, since no formal
+        administrative or general purpose users are defined. The extent of the I&amp;A required to be
+        performed by the TOE relates to the process of becoming connected to the protected network
+        through the Wireless Access System. Additionally, some of the requirements that might
+        normally be considered part of the I&amp;A process are specified in other sections of this PP-Module,
+        particularly those related to cryptographic protocols used for the wireless communications
+        (WPA2). This was done to keep requirements on those protocols grouped together for
+        understandability as well as for ease of authoring and applying assurance activities. Therefore, 
+        the requirements in this section cover the remaining two aspects of the I&amp;A capabilities the
+        TOE must support:
+        <h:ul>
+        <h:li>802.1X-2010 Authentication. The 802.1X-2010 standard (and associated RFCs) specifies
+        authentication of a machine for the purposes of accessing a network. This method is
+        used as a precursor to wireless operations using the 802.11-2016 standard. While
+        802.1X contains requirements for several different parties that participate in 802.1X
+        exchanges, the requirements below are targeted at the TOE’s role as a “supplicant” per
+        802.1X.</h:li>
+        <h:li>Credentials. The protocols and mechanisms specified in this and other sections of the PP-Module
+        rely on certificates for use in the EAP-TLS exchange in performing the 802.1X
+        authentication.</h:li>
+        </h:ul>  -->
+        
+        <ext-comp-def fam-id="FIA_PAE_EXT" title="Port Access Entity Authentication">
+          <fam-behavior>Components in this family define requirements for TOE support of IEEE 802.1X authentication.
+          </fam-behavior>
+        </ext-comp-def>
+		
+		<!-- FIA_PAE_EXT.1 -->
+        <f-component id="fco-portaccess-auth" cc-id="fia_pae_ext.1" name="Port Access Entity Authentication">
+          <consistency-rationale/>
+          
+          <comp-lev> describes the ability of the TOE to act as a supplicant for 802.1X authentication.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul>
+            <h:li>Enable/disable IEEE 802.1X pre-authentication.</h:li>
+            <h:li>Enable/disable PMK caching.</h:li>
+            <h:li>Set the amount of time (in minutes) for which PMK entries are cached.</h:li>
+            <h:li>Set the maximum number of PMK entries that can be cached.</h:li>
+          </h:ul>
+          </management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>No dependencies.</dependencies>
+          
+          <f-element>
+            <title>The TSF shall conform to IEEE Standard 802.1X for a Port Access Entity (PAE)
+              in the “Supplicant” role.
+            </title>
+            <note role="application">
+	      <h:p>
+              This requirement covers the TOE's role as the supplicant in an 802.1X
+              authentication exchange. If the exchange is completed successfully, the TOE will derive the PMK
+              as a result of the EAP-TLS (or other appropriate EAP exchange) and perform the 4-way
+              handshake with the wireless access system (authenticator) to begin 802.11 communications.
+              </h:p><h:p>
+              As indicated previously, there are at least two communication paths present during the
+              exchange; one with the wireless access system and one with the authentication server that uses
+              the wireless access system as a relay. The TOE establishes an EAP over LAN (EAPOL) connection
+              with the wireless access system as specified in 802.1X-2020. The TOE and authentication server
+              establish an EAP-TLS session (RFC 5216).
+              </h:p><h:p>
+              The point of performing 802.1X authentication is to gain access to the network (assuming the
+              authentication was successful and that all 802.11 negotiations are performed successfully); in
+              the terminology of 802.1X, this means the TOE will gain access to the "controlled port" maintained 
+              by the wireless access system.
+	      </h:p>
+            </note>            
+          
+            <aactivity>
+              <TSS>
+                There are no TSS evaluation activities for this component.<h:br/><h:br/> 
+              </TSS>
+              <Guidance>
+                There are no guidance evaluation activities for this component.  <h:br/><h:br/>  
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <test>
+                  The evaluator shall demonstrate that the TOE has no access to the test network.
+                  After successfully authenticating with an authentication server through a wireless access
+                  system, the evaluator shall demonstrate that the TOE does have access to the test
+                  network.
+                  </test>
+                  <test>
+                    The evaluator shall demonstrate that the TOE has no access to the test network. 
+                    The evaluator shall attempt to authenticate using an invalid client certificate, such that
+                    the EAP-TLS negotiation fails. This should result in the TOE still being unable to access
+                    the test network.
+                  </test>
+                  <test>
+                    The evaluator shall demonstrate that the TOE has no access to the test network.
+                    The evaluator shall attempt to authenticate using an invalid authentication server
+                    certificate, such that the EAP-TLS negotiation fails. This should result in the TOE still
+                    being unable to access the test network.
+                  </test>
+                </testlist>                           
+              </Tests>
+            </aactivity>
+          </f-element>
+		  <audit-event/>
+        </f-component>
+        
+        <!-- SME: added to address TD0439. Component not included in ECD because both Base-PPs define it. -->
+		
+		<!-- FIA-X509_EXT.1/WLAN -->
+        <!-- <f-component id="fco-certval-wlan" cc-id="fia_x509_ext.1" name="X.509 Certificate Validation" iteration="WLAN">
+      <consistency-rationale/>
+          <f-element>
+          <title>
+            <comment>This SFR defines X.509 validation behavior specific for this PP-Module. The
+              expectation is that this can now be inherited from the X.509 FP rather than be defined here. However, we do not currently have a mechanism to tell ST authors what to do here. Specifically, we don't want to reproduce the SFR elements from the FP with whatever modifications are needed for the package because that causes the same problem that the FP was created to solve (having multiple sets of the same SFR that then get out of sync as documents don't all get updated at the same time). But at the same time, we need a way to communicate to the ST author how they should identify the SFR iteration (i.e. we would want it called "FIA_X509_EXT.1/WLAN" consistently in any ST that claims this module) as well as guidance on any required or forbidden selections in the context of the desired behavior (e.g. prohibiting certain revocation methods from being used).
+              <h:br/><h:br/>
+              This SFR is only a subset of what the X.509 FP requires for certificate validation so it's unclear whether there are functions in the X.509 FP that cannot be satisfied by the X.509 functionality that is needed specifically for EAP-TLS. (i.e. is the definition of this function intentionally complete or will the FP version of it be usable?)
+            </comment>
+            
+          </title>
+          </f-element>
+          <audit-event/>
+
+          <f-element>
+            <title>The TSF shall validate certificates for <h:b>EAP-TLS</h:b> in accordance with the following rules:
+              <h:ul>
+                <h:li>RFC 5280 certificate validation and certificate path validation</h:li>
+                <h:li>The certificate path must terminate with a certificate in the Trust Anchor Database</h:li>
+                <h:li>The TSF shall validate a certificate path by ensuring the presence of the basicConstraints extension and that the CA flag is set to TRUE for all CA certificates</h:li>
+                <h:li>The TSF shall validate the extendedKeyUsage field according to the following rules: <h:ul>
+                  <h:li>Server certificates presented for TLS shall have the Server Authentication purpose (id-kp 1 with OID 1.3.6.1.5.5.7.3.1) in the extendedKeyUsage field</h:li>
+                <h:li>Client certificates presented for TLS shall have the Client Authentication purpose (id-kp 2 with OID 1.3.6.1.5.5.7.3.2) in the extendedKeyUsage field.</h:li>
+                </h:ul>
+              </h:li>
+              </h:ul>
+            </title>
+          </f-element>
+          <f-element>
+            
+          <title>The TSF shall only treat a certificate as a CA certificate if the basicConstraints extension is present and the CA flag is set to TRUE.
+            </title>
+            <note role="application">
+              FIA_X509_EXT.1/WLAN lists the rules for validating certificates for EAP-TLS. 
+              In contrast to FIA_X509_EXT.1 in the Base-PPs, this iteration does not require revocation checking for the EAP-TLS connection used to establish a Wi-Fi connection. 
+              The FIA_X509_EXT.1 requirements defined in each of the possible Base-PPs define requirements that the underlying platform is expected to implement in order to support compliance with RFC 5280.
+            </note>            
+            
+            <aactivity>
+              <TSS>
+                The evaluator shall ensure the TSS describes where the check of validity of the EAP-TLS certificates takes place. 
+                The evaluator shall also ensure the TSS also provides a description of the certificate path validation algorithm.<h:br/><h:br/> 
+              </TSS>
+              <Guidance>
+                There are no guidance evaluation activities for this component.   <h:br/><h:br/> 
+              </Guidance>
+              <Tests>
+                The tests described must be performed in conjunction with the other Certificate Services assurance activities. 
+                The tests for the extendedKeyUsage rules are performed in conjunction with the uses that require those rules. 
+                The evaluator shall create a chain of at least four certificates: the node certificate to be tested, two Intermediate CAs, and the self-signed Root CA.
+                <testlist>
+                  <test>
+                    The evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function (e.g. application validation), 
+                    and demonstrate that the function succeeds. 
+                    The evaluator then shall delete one of the certificates, and show that the function fails.
+                  </test>
+                  <test>
+                    The evaluator shall demonstrate that validating an expired certificate results in the function failing.
+                  </test>
+                  <test>
+                    The evaluator shall construct a certificate path, such that the certificate of the CA issuing the TOE’s certificate does not contain the basicConstraints extension. 
+                    The validation of the certificate path fails.
+                  </test>
+                  <test>
+                    The evaluator shall construct a certificate path, such that the certificate of the CA issuing the TOE’s certificate has the cA flag in the basicConstraints extension not set. 
+                    The validation of the certificate path fails.
+                  </test>
+                  <test>
+                    The evaluator shall modify any byte in the first eight bytes of the certificate and demonstrate that the certificate fails to validate (the certificate will fail to parse correctly).
+                  </test>
+                  <test>
+                    The evaluator shall modify any bit in the last byte of the signature algorithm of the certificate and demonstrate that the certificate fails to validate 
+                    (the signature on the certificate will not validate).
+                  </test>
+                  <test>
+                    The evaluator shall modify any byte in the public key of the certificate and demonstrate that the certificate fails to validate (the signature on the certificate will not validate).
+                  </test>
+                </testlist>                           
+              </Tests>
+            </aactivity>
+          </f-element>
+  		  <audit-event>
+			<audit-event-descr>Failure to validate X.509v3 certificate.</audit-event-descr>
+			<audit-event-info>Reason for failure of validation.</audit-event-info>
+  		  </audit-event>
+  		  
+
+        
+        </f-component> -->
+        
+		<!-- FIA_X509_EXT.2/WLAN -->
+        <!-- <f-component id="fco-certauth" cc-id="fia_x509_ext.2" name="X.509 Certificate Authentication (EAP-TLS for WLAN)" iteration="WLAN">
+          <consistency-rationale/>
+          <f-element>
+            <title>
+              <comment>This SFR is just for defining the TOE's use of X.509 certificates for EAP-TLS. This can be covered by FIA_X509_EXT.2 from the X.509 FP but there is currently no way to instruct the ST author that this claim must be made there (whether as its own separate iteration as it is here or part of a single un-iterated FIA_X509_EXT.2 that also covers any other uses the TOE has for X.509).</comment>
+            </title>
+          </f-element>
+          <audit-event/>
+          
+          <f-element>
+            <title>The TSF shall use X.509v3 certificates as defined by RFC 5280 to
+              support [<h:i>[authentication for EAP-TLS exchanges]</h:i>].
+            </title>
+            <note role="application">
+              RFC 5280 defines certificate validation and certification path validation
+              requirements that must be implemented by the TSF. The FIA_X509_EXT.1 requirements defined
+              in each of the supported Base-PPs define requirements that the underlying platform is expected to
+              implement in order to support compliance with this RFC.
+            </note>      
+          
+          </f-element>
+          <f-element>
+            <title>When the TSF cannot establish a connection to determine the validity of a
+              certificate, the TSF shall 
+              <selectables>
+                <selectable>allow the administrator to choose whether to accept the certificate in these cases</selectable>
+                <selectable>allow the user to choose whether to accept the certificate in these cases</selectable>
+                <selectable>accept the certificate</selectable> 
+                <selectable>not accept the certificate</selectable>
+              </selectables>.
+            </title>          
+                      
+          <aactivity>
+            <TSS>
+              The evaluator shall check the TSS to ensure that it describes how the TOE chooses which
+              certificates to use, and any necessary instructions in the administrative guidance for configuring
+              the operational environment so that the TOE can use the certificates.
+              <h:br/><h:br/>  
+            </TSS>
+            <Guidance>
+              If not already present in the TSS, the evaluator shall check the administrative guidance to ensure that it describes how the TOE
+              chooses which certificates to use, and any necessary instructions for configuring the operating
+              environment so that the TOE can use the certificates.  
+              <h:br/><h:br/>  
+            </Guidance>
+            <Tests/>
+          </aactivity>
+          </f-element>
+		  <audit-event/> 
+		  
+        </f-component> -->
+        
+        
+        
+        <ext-comp-def fam-id="FIA_X509_EXT" title="X.509 Certificate Use and Management">
+          <fam-behavior>Components in this family define requirements for the use of X.509 certificates.
+          </fam-behavior>
+        </ext-comp-def>
+		
+		<!-- FIA_X509_EXT.6 -->
+        <f-component id="fco-manage-certs" cc-id="fia_x509_ext.6" name="X.509 Certificate Storage and Management">
+          <consistency-rationale/>
+          
+          <comp-lev> requires the TOE to implement the ability to store X.509 certificates.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul>
+            <h:li>Loading of X.509 certificates into the TOE.</h:li>
+            <h:li>Revocation of loaded X.509 certificates.</h:li>
+          </h:ul>
+          </management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data
+            generation is included in the PP/ST:<h:ul>
+              <h:li>Basic: Attempts to load certificates.</h:li>
+              <h:li>Basic: Attempts to revoke certificates.</h:li>
+            </h:ul>
+          </audit>
+          <dependencies>No dependencies.</dependencies>
+          
+          <f-element>
+            <title>The TSF shall <selectables>
+              <selectable>store and protect</selectable>
+              <selectable>invoke <assignable>platform storage mechanism</assignable> to store and protect</selectable>
+            </selectables> certificate(s) from unauthorized deletion and
+              modification.
+            </title>      
+          </f-element>
+          <f-element>
+            <title>The TSF shall <selectables>
+              <selectable>provide the capability for authorized administrators to load X.509v3 certificates into the TOE</selectable>
+              <selectable>rely on <assignable>platform mechanism</assignable> to load X.509v3 certificates into <assignable>platform storage mechanism</assignable></selectable>
+            </selectables> for use by the TSF.
+            </title>        
+            <note role="application">
+              This PP-Module assumes that any platform mechanism used for X.509 certificate loading is capable of enforcing access control to prevent unauthorized subjects from manipulating the contents of the certificate storage.
+            </note>   
+            
+            <aactivity>
+              <TSS>
+                The evaluator shall examine the TSS to determine that it describes all certificate stores implemented that contain certificates used to meet the requirements of this PP-Module. 
+                This description shall contain information pertaining to how certificates are loaded into the store, and how the store is protected from unauthorized access.
+                <h:br/><h:br/> 
+                If the TOE relies on a platform mechanism for certificate loading and storage, the evaluator shall verify that the TSS identifies this mechanism and describes how use of this mechanism is protected against unauthorized access.
+                <h:br/><h:br/> 
+              </TSS>
+              <Guidance>
+                The evaluator shall check the administrative guidance to ensure that it describes how to load X.509 certificates into the TOE's certificate store, 
+                regardless of whether the TSF provides this mechanism itself or the TOE relies on a platform-provided mechanism
+				for this.<h:br/><h:br/> 
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following test for each TOE function that requires the use of certificates:
+                <testlist>
+                  <test>
+                    The evaluator shall demonstrate that using a certificate without a valid certification path results in the function failing. 
+                    The evaluator shall then load any certificates needed to validate the certificate to be used in the function and demonstrate that the function succeeds. 
+                    The evaluator shall then delete one of these dependent certificates and show that the function fails.
+                  </test>
+                  <test>
+                    The evaluator shall demonstrate that the mechanism used to load or configure X.509 certificates cannot be accessed without appropriate authorization.
+                  </test>
+                </testlist>                           
+              </Tests>
+            </aactivity>
+          </f-element>    
+		  <audit-event>
+			<audit-event-descr>Attempts to load certificates.</audit-event-descr>
+		  </audit-event>
+		  <audit-event>
+			<audit-event-descr>Attempts to revoke certificates.</audit-event-descr>
+		  </audit-event>
+        </f-component>
+
+        
+       </sec:man_fia>  
+      
+      
+      <sec:man_fmt title="Security Management (FMT)">
+        
+        
+        <!-- SME: need clarification on what to do with this since it doesn't seem to be totally correct at the moment - notably, section 1 doesn't say anything about a separate management role as claimed here. -->
+        
+        <!-- QQQQ
+        As indicated in Section 1, the TOE is not required to maintain a separate management
+        role. It is, however, required to provide functionality to configure certain aspects of TOE
+        operation that should not be available to the general user population. If the TOE does provide
+        some degree of administrative control, then the appropriate optional requirements
+        should be claimed in the ST.  -->
+		
+		<!-- FMT_SMF.1/WLAN -->
+        <f-component id="fco-manage-functions" cc-id="fmt_smf.1" name="Specification of Management Functions (WLAN Client)" iteration="WLAN">
+          <consistency-rationale/>
+          <f-element>
+            <title>The TSF shall be capable of performing the following management functions: 
+	    <h:br/><h:br/>
+              <h:b><ctr id="fmt_smf" ctr-type="Table">: Management Functions</ctr></h:b><h:br/><h:br/> 
+              Status Markers:<h:br/> M - Mandatory<h:br/> O - Optional/Objective<h:br/>
+              <management-function-set default="O" ctr-prefix="WL-">
+                <manager cid="I">Impl</manager>
+		<manager cid="A">Admin</manager>
+		<manager cid="U">User</manager>
+		<management-function>
+		  <text>configure security policy for each wireless network:
+                <h:ul>
+                  <!-- SME: this selectable list conflicts with FCS_TLSC_EXT.1.5/WLAN, which only permits use of a CA to validate authentication server certificates, no FQDN option. Not sure which to modify to make consistent. -->
+                  <h:li><selectables>
+                    <selectable>specify the CA(s) from which the TSF will accept WLAN authentication server certificate(s)</selectable>
+                    <selectable>specify the Fully Qualified Domain Names (FQDNs) of acceptable WLAN authentication server certificate(s)</selectable>
+                  </selectables>,</h:li>
+                  <h:li>security type,</h:li>
+                  <h:li>authentication protocol,</h:li>
+                  <h:li>client credentials to be used for authentication,</h:li>
+                 </h:ul></text>
+                   <M ref="I"/><M ref="A"/>
+		</management-function>
+                <management-function><text>specify wireless networks (SSIDs) to which the TSF may connect</text>
+                   <M ref="I"/><M ref="A"/>
+		</management-function>
+                <management-function>
+		  <text>
+                    enable/disable wireless network bridging capability (for example, bridging a
+                    connection between the WLAN and cellular radios to function as a hotspot) authenticated by <selectables>
+                    <selectable>pre-shared key</selectable>
+                    <selectable>passcode</selectable>
+                    <selectable exclusive="yes">no authentication</selectable>
+                  </selectables>
+		  </text>
+		  <M ref="I"/><M ref="A"/>
+		</management-function>
+                <management-function><text>enable/disable certificate revocation list checking</text></management-function>
+                <management-function><text>disable ad hoc wireless client-to-client connection capability</text></management-function>
+                <management-function><text>disable roaming capability</text></management-function>
+                <management-function><text>enable/disable IEEE 802.1X pre-authentication</text></management-function>
+                <management-function><text>loading X.509 certificates into the TOE</text></management-function>
+                <management-function><text>revoke X.509 certificates loaded into the TOE</text></management-function>
+                <management-function><text>enable/disable and configure PMK caching:<h:br/>
+		<h:ul><h:li>set the amount of time (in minutes) for which PMK entries are cached,</h:li>
+		<h:li>set the maximum number of PMK entries that can be cached</h:li></h:ul>
+		</text></management-function>
+         <management-function>
+           <text>configure security policy for each wireless network: set wireless frequency band to  <selectables>
+                  <selectable>2.4 GHz</selectable>
+                  <selectable>5 GHz</selectable>
+                  <selectable>6 GHz</selectable></selectables>
+           </text>
+         </management-function>
+	      </management-function-set>
+            </title>
+            <note role="application">
+	      <h:p>
+		For installation, the WLAN Client relies on the underlying platform to
+		authenticate the administrator to the client machine on which the TOE is installed.
+	      </h:p>
+	      <h:p>
+              For the function "configure the cryptoperiod for the established session keys," the unit of measure
+              for configuring the cryptoperiod must be no greater than an hour. For example: units of measure
+              in seconds, minutes and hours are acceptable and units of measure in days or greater are not
+              acceptable.
+	      </h:p>
+            </note>            
+          
+          <aactivity>
+            <TSS>
+              There are no TSS evaluation activities for this component.<h:br/><h:br/> 
+            </TSS>
+            <Guidance>
+              The evaluator shall check the operational guidance to verify that every management function claimed by the TOE is described there. The evaluator shall also verify
+              that these descriptions include the information required to perform the management duties associated with the
+			  function.<h:br/><h:br/> 
+            </Guidance>
+            <Tests>
+              The evaluator shall test the TOE’s ability to provide the management functions by configuring the
+              TOE and performing the management activities associated with each function claimed in the SFR. 
+              <h:br/><h:br/>  
+              Note that this may be accomplished in conjunction with the testing of other
+              requirements, such as the FCS_TLSC_EXT requirements from the <xref to="tls"/> and FTA_WSE_EXT.1.
+            </Tests>
+          </aactivity>
+          </f-element>
+		<audit-event/>
+        </f-component>      
+      </sec:man_fmt>     
+ 
+      <sec:man_fpt title="Protection of the TSF (FPT)">
+        
+        <!-- SME: note that both GPOS and MDF have an FPT_TST_EXT.1 but neither of them correspond directly to this SFR. Unclear whether it should remain an iteration or if it should be renamed. 
+        Note that the VPN Client Module had the same issue and just handled it by iterating the SFR, so the same approach was done here for now. -->
+        <ext-comp-def fam-id="FPT_TST_EXT" title="TSF Self-Test">
+          <fam-behavior>Components in this family define requirements for self-testing to verify the functionality and integrity of the TOE.
+          </fam-behavior>
+        </ext-comp-def>
+        
+        
+    <!-- un-iterated invisible FPT_TST_EXT.3 for the purpose of the ECD -->
+        <f-component id="fco-cryptotesting-invis" cc-id="fpt_tst_ext.3" name="TSF Cryptographic Functionality Testing" status="invisible">
+          <consistency-rationale/>
+          
+          <comp-lev> requires the TOE or its platform to perform power on self-tests to verify its functionality and
+            the integrity of its stored executable code.</comp-lev>
+          <management>
+            No management functions are foreseen.
+            <!-- The following actions could be considered for the management functions in FMT: <h:ul> -->
+            <!--   <h:li>Specification of CAs that are authorized to sign authentication server certificates.</h:li> -->
+            <!--   <h:li>Specification of proposed and accepted algorithm suites.</h:li> -->
+            <!-- </h:ul> -->
+          </management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data
+            generation is included in the PP/ST:<h:ul>
+              <h:li>Basic: Execution of TSF self-tests.</h:li>
+              <h:li>Basic: Detected integrity violation.</h:li>
+            </h:ul>
+          </audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation</dependencies>
+          
+          <f-element>
+            <title>The <selectables>
+              <selectable>TOE</selectable>
+              <selectable>TOE platform</selectable>
+            </selectables> shall run a suite of self-tests during initial start-up (on power on) to demonstrate the correct operation of the TSF.
+            </title>
+          </f-element>
+          <f-element>
+            <title>The <selectables>
+              <selectable>TOE</selectable>
+              <selectable>TOE platform</selectable>
+            </selectables> shall provide the capability to
+              verify the integrity of stored TSF executable code when it is loaded for execution through the
+              use of the TSF-provided cryptographic services.
+            </title>
+            <aactivity>
+              <no-tests/>
+            </aactivity>
+          </f-element>          
+        </f-component>
+		
+		<!-- FPT_TST_EXT.3/WLAN -->
+        <f-component id="fco-cryptotesting-wlan" cc-id="fpt_tst_ext.3" name="TSF Cryptographic Functionality Testing (WLAN Client)" iteration="WLAN">
+          <consistency-rationale/>
+          
+          <f-element>
+            <title>The <selectables>
+              <selectable>TOE</selectable>
+              <selectable>TOE platform</selectable>
+            </selectables> shall run a suite of self-tests during initial start-up (on power on) to demonstrate the correct operation of the TSF.
+            </title>
+          </f-element>
+          <f-element>
+            <title>The <selectables>
+              <selectable>TOE</selectable>
+              <selectable>TOE platform</selectable>
+            </selectables> shall provide the capability to
+              verify the integrity of stored TSF executable code when it is loaded for execution through the
+              use of the TSF-provided cryptographic services.
+            </title>
+            
+            <note role="application">
+              While the TOE is defined as a software package running on a platform defined by the claimed Base-PP, it
+              is still capable of performing the self-test activities required above. However, if the
+              cryptographic algorithm implementation is provided by the underlying platform, it may be the
+              case where the TSF self-testing is a check to verify that the underlying platform has successfully
+              completed its own self-tests prior to the TSF attempting to use the implementation. It should be
+              understood that there is a significant dependency on the host platform in assessing the
+              assurance provided by these self-tests since a compromise of the underlying platform could
+              potentially result in the self-tests functioning incorrectly.
+           </note>  
+          
+          <aactivity>
+            <TSS>
+              The evaluator shall examine the TSS to ensure that it details the self tests that are run by the TSF
+              on start-up; this description should include an outline of what the tests are actually doing (e.g.,
+              rather than saying "memory is tested", a description similar to "memory is tested by writing a
+              value to each memory location and reading it back to ensure it is identical to what was written"
+              shall be used). The evaluator shall ensure that the TSS makes an argument that the tests are
+              sufficient to demonstrate that the TSF is operating correctly.
+              <h:br/><h:br/> 
+              The evaluator shall examine the TSS to ensure that it describes how to verify the integrity of
+              stored TSF executable code when it is loaded for execution. The evaluator shall ensure that the
+              TSS makes an argument that the tests are sufficient to demonstrate that the integrity of stored
+              TSF executable code has not been compromised. The evaluator also ensures that the TSS (or the
+              operational guidance) describes the actions that take place for successful (e.g. hash verified) and
+              unsuccessful (e.g., hash not verified) cases.
+              <h:br/><h:br/> 
+            </TSS>
+            <Guidance>
+              The evaluator shall ensure that the operational guidance describes the actions that
+              take place for successful (e.g. hash verified) and unsuccessful (e.g., hash not verified) cases.<h:br/><h:br/> 
+            </Guidance>
+            <Tests>
+              The evaluator shall perform the following tests:
+              <testlist>
+                <test>
+                  The evaluator shall perform the integrity check on a known good TSF executable and
+                  verify that the check is successful.
+                </test>
+                <test>
+                  The evaluator shall modify the TSF executable, perform the integrity check on the
+                  modified TSF executable, and verify that the check fails. 
+                </test>
+              </testlist>                 
+            </Tests>
+          </aactivity>
+          </f-element>
+		  <audit-event>
+			<audit-event-descr>Execution of this set of TSF self-tests.</audit-event-descr>
+		  </audit-event>
+		  <audit-event type="optional">
+			<audit-event-descr>Detected integrity violation</audit-event-descr>
+			<audit-event-info type="optional">The TSF binary file that caused the integrity violation</audit-event-info>
+		  </audit-event>
+        </f-component>      
+      </sec:man_fpt>   
+      
+
+      <sec:man_fta title="TOE Access (FTA)">
+        
+        <ext-comp-def fam-id="FTA_WSE_EXT" title="Wireless Network Access">
+          <fam-behavior>Components in this family define requirements for specifying wireless networks that the TOE can connect to.
+          </fam-behavior>
+        </ext-comp-def>
+		
+		<!-- FTA_WSE_EXT.1 -->
+        <f-component id="fco-wifi-access" cc-id="fta_wse_ext.1" name="Wireless Network Access">
+          <consistency-rationale/>
+          
+          <comp-lev> describes the ability of the TOE to apply administrative limits on the wireless networks that it can connect to.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul>
+            <h:li>Specify allowed wireless networks based on Service Set Identifier (SSID).</h:li>
+          </h:ul>
+          </management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data
+            generation is included in the PP/ST:<h:ul>
+              <h:li>Basic: All attempts to connect to access points.</h:li>
+            </h:ul>
+          </audit>
+          <dependencies>FMT_SMF.1 Specification of Management Functions</dependencies>
+          
+          <f-element>
+            <title>The TSF shall be able to attempt connections only to wireless networks
+              specified as acceptable networks as configured by the administrator in
+              FMT_SMF.1.1/WLAN.
+            </title>
+            
+            <note role="application">
+              The intent of this requirement is to allow the administrator to limit the wireless networks to which the TOE is allowed to connect. 
+            </note>  
+          
+          <aactivity>
+            <TSS>
+              The evaluator shall examine the TSS to determine that it defines SSIDs as the attribute to specify acceptable
+			  networks.<h:br/><h:br/> 
+            </TSS>
+            <Guidance>
+              The evaluator shall examine the operational guidance to determine that it contains guidance for
+              configuring the list of SSIDs that the WLAN Client is able to connect to.<h:br/><h:br/> 
+            </Guidance>
+            <Tests>
+              The evaluator shall perform the following tests for each attribute:
+              <testlist>
+                <test>
+                  The evaluator configures the TOE to allow a connection to a wireless network with a specific SSID. 
+                  The evaluator configures the test environment such that the allowed SSID and an SSID that is not allowed are both
+                  "visible" to the TOE.
+		  The evaluator shall demonstrate that they can successfully establish a connection with the allowed SSID.
+                  The evaluator shall then attempt to establish a session with the disallowed SSID and observe that the attempt fails.
+                </test>
+              </testlist>                 
+            </Tests>
+          </aactivity>
+          </f-element>
+		  <audit-event>
+			<audit-event-descr>All attempts to connect to access points.</audit-event-descr>
+			<audit-event-info>For each access point record the 
+				<selectables>
+					<selectable>Complete SSID and MAC</selectable>
+					<selectable>Certificate Check Message and the last <assignable>integer greater than or equal to 2</assignable>
+						octets</selectable>
+				</selectables> of the MAC Address</audit-event-info>
+			<audit-event-info>Success and failures (including reason for failure).</audit-event-info>
+		  </audit-event>
+        </f-component>      
+      </sec:man_fta>   
+ 
+ 
+      <sec:man_ftp title="Trusted Path/Channels (FTP)">
+        
+        <!-- SME: this was changed to FTP_ITC.1 because of ECD conflicts with the Base-PPs (which each define their own different versions of FTP_ITC_EXT.1) -->
+		<!-- FTP_ITC.1/WLAN -->
+        <f-component id="fco-trusted-comms-wlan" cc-id="ftp_itc.1" name="Trusted Channel Communication (Wireless LAN)" iteration="WLAN">
+          <consistency-rationale/>
+          <f-element>
+            <title>The TSF shall <h:b>use 802.11-2020, 802.1X, and EAP-TLS</h:b> to provide a
+              <h:b>trusted</h:b> communication channel between itself and <h:b>a wireless access point</h:b> that is logically
+              distinct from other communication channels and provides assured identification of its end points
+              and protection of the channel data from modification or disclosure.
+            </title>
+          </f-element>
+          <f-element>
+            <title>The TSF shall permit [<h:i>the TSF</h:i>] to initiate communication via the trusted channel.
+            </title>
+          </f-element>
+            <f-element>
+              <title>The TSF shall initiate communication via the trusted channel for [<h:i>wireless
+                access point connections</h:i>].
+              </title>
+              <note role="application">
+		<h:p>
+              The intent of the above requirement is to use the cryptographic protocols
+              identified in the requirement to protect communications between the TOE and the Access Point.
+              </h:p><h:p>
+              The requirement implies that not only are communications protected when they are initially
+              established, but also on resumption after an outage. It may be the case that some part of the
+              TOE setup involves manually setting up tunnels to protect other communication, and if after an
+              outage the TOE attempts to re-establish the communication automatically with (the necessary)
+              manual intervention, there may be a window created where an attacker might be able to gain
+              critical information or compromise a connection. The following tests are only intended to cover
+              the WLAN communication channel (not other communication channels that may be available on
+              the TOE such as mobile broadband).
+	      </h:p>
+            </note>              
+          <aactivity>
+            <TSS>
+              The evaluator shall examine the TSS to determine that it describes the details of the TOE
+              connecting to an access point in terms of the cryptographic protocols specified in the
+              requirement, along with TOE-specific options or procedures that might not be reflected in the
+              specification. The evaluator shall also confirm that all protocols listed in the TSS are specified and
+              included in the requirements in the ST.<h:br/><h:br/> 
+            </TSS>
+            <Guidance>
+              The evaluator shall confirm that the operational guidance includes instructions for establishing
+              the connection to the access point and that it includes recovery instructions should a
+              connection be unintentionally broken.<h:br/><h:br/> 
+            </Guidance>
+            <Tests>
+              The evaluator shall perform the following tests:
+              <testlist>
+                <test>
+                  The evaluator shall ensure that the TOE is able to initiate communications with
+                  an access point using the protocols specified in the requirement by setting up the
+                  connections as described in the operational guidance and ensuring that communications
+                  are successful.
+                </test>
+                <test>
+                  The evaluator shall ensure, for each communication channel with an authorized
+                  IT entity, the channel data is not sent in plaintext.
+                </test>
+                <test>
+                  The evaluator shall ensure, for each communication channel with an authorized
+                  IT entity, modification of the channel data is detected by the TOE.
+                </test>
+                <test>
+                  The evaluators shall physically interrupt the connection from the TOE to the
+                  access point (e.g., moving the TOE host out of range of the access point, turning the
+                  access point off). The evaluators shall ensure that subsequent communications are
+                  appropriately protected, at a minimum in the case of any attempts to automatically
+                  resume the connection or connect to a new access point.
+                </test>
+              </testlist>                 
+              Further evaluation activities are associated with the specific protocols.
+            </Tests>
+          </aactivity>
+            </f-element>
+			<audit-event>
+				<audit-event-descr>All attempts to establish a trusted channel.</audit-event-descr>
+				<audit-event-info>Identification of the non-TOE endpoint of the channel.</audit-event-info>
+			</audit-event>
+        </f-component>      
+      </sec:man_ftp>  
+
+ 
+    </man-sfrs>
+    
+    <!-- SME: the template guidance said to use the "status" attribute in the f-component tag to specify an SFR as optional. However, when we did this, the optional SFR still stayed in the mandatory requirements section - 
+    it just added a box underneath the heading saying the SFR was optional. It also stayed listed as 'mandatory' in the consistency rationale. Putting it in the <opt-sfrs> section as we did here fixed those issues
+    but it also prevented any of the intro text to the optional SFRs appendix from being displayed. We are flagging this as an issue with the template. Note that FE and FE-EM modules were done in this manner as well so we don't believe
+    it should be an issue here, but for future use it may be beneficial to correct the template so that it behaves as intended. -->
+    <opt-sfrs/>
+      <!-- QQQQ
+      As indicated in <xref to="ccl"/>,
+      the baseline requirements (those that must be performed by the TOE are
+      contained in the body of this PP. Additionally, there are three other types of requirements
+      specified in <xref to="optional"/>, <xref to="sel-based"/>, and <appref
+        linkend="objective"/>. The first type (in this appendix) are requirements that can be included
+      in the <xref to="ST"/>, but are not required in order for a TOE to claim conformance to
+      this PP-Module. The second type (in <xref to="sel-based"/>) are requirements based on selections
+      in the body of the PP-Module: if certain selections are made, then additional requirements in that
+      appendix must be included. The third type (in <xref to="objective"/> are components that
+      are not required in order to conform to this PP-Module, but will be included in the baseline
+      requirements in future versions of this PP-Module, so adoption by vendors is encouraged.  --> 
+      
+  
+
+    <!-- SME: the template guidance said to use the "status" attribute in the f-component tag to specify an SFR as selection-based. However, when we did this, the selection-based SFR still stayed in the mandatory requirements section - 
+    it just added a box underneath the heading saying the SFR was selection-based. It also stayed listed as 'mandatory' in the consistency rationale. Putting it in the <sel-sfrs> section as we did here fixed those issues
+    but it also prevented any of the intro text to the selection-based SFRs appendix from being displayed. We are flagging this as an issue with the template. Note that FE and FE-EM modules were done in this manner as well so we don't believe
+    it should be an issue here, but for future use it may be beneficial to correct the template so that it behaves as intended. -->
+    <sel-sfrs>
+      <!-- QQQQ
+      As indicated in the introduction to
+      this PP-Module, the baseline requirements are contained in the body of this PP-Module. There are additional requirements based on
+      selections in the body of the PP-Module: if certain selections are made, then additional requirements
+      below will need to be included.  --> 
+	  
+	    <!-- <section id="sb-audit-table" title="Auditable Events for Selection-based SFRs">
+        	<audit-table table="sel-based" id="a-sel-based-events"/>
+ 	     		<h:br/><h:b><ctr ctr-type="Table" pre="Table " id="atref-sel-based">: Auditable Events for Selection-based SFRs</ctr></h:b>
+	  	</audit-table>  
+	    </section>	   -->
+	  
+	  
+	  
+      <!-- <sec:fel_fcs title="Cryptographic Support (FCS)"> -->
+        
+        <!-- SME: references to 802.11-2012 and 802.11ac-2014 in this app note need to be updated along with the section references. We do not have a copy of the standard so we could not update the section references. -->
+      <!--  
+        <f-component id="fcs-ckm-1-wpa2" cc-id="fcs_ckm.1" name="Cryptographic Key Generation (Symmetric Keys for WPA2 Connections)" iteration="WPA2">
+          <depends on="wpa2"/>
+          <consistency-rationale/>
+          <f-element>
+            <title>The TSF shall generate <h:b>symmetric</h:b> cryptographic keys in accordance with a specified cryptographic key generation algorithm [<h:i><h:b>PRF-384 and
+              <selectables>
+                <selectable>PRF-704</selectable>
+                <selectable>no other algorithm</selectable>
+              </selectables>
+              (as defined in IEEE 802.11-2012)</h:b></h:i>] and specified key sizes [<h:i><h:b>128 bits and 
+                <selectables>
+                  <selectable>256 bits</selectable>
+                  <selectable>no other key sizes</selectable>
+                </selectables></h:b></h:i>] <h:b>using a Random Bit Generator as specified in FCS_RBG_EXT.1</h:b>.
+            </title>
+            <note role="application">
+		<h:p>The cryptographic key derivation algorithm required by IEEE 802.11-2012
+              (Section 11.6.1.2) and verified in WPA2 certification is PRF-384, which uses the HMAC-SHA-1
+              function and outputs 384 bits. The use of GCMP was first defined in IEEE 802.11ac-2014 (Section
+              11.4.5) but subsequently integrated into 802.11-2012. This protocol requires a key derivation function (KDF) 
+              KDF based on HMAC-SHA-256 (for 128-bit symmetric keys) or HMAC-SHA384 (for 256-bit symmetric keys). This KDF outputs 
+		704 bits.
+              </h:p><h:p>
+              This requirement applies only to the keys that are generated/derived for the communications
+              between the access point and the client once the client has been authenticated. It refers to the
+              derivation of the Pairwise Temporal Key (PTK) from the PMK, which is done using a random value generated by the RBG
+              specified in this PP-Module, the HMAC function using SHA-1 as specified in this PP-Module, as well as other
+	      information. </h:p>
+              
+              NOTE: commented out because I do not have access to 802.11-2012 and so I have no way to verify whether the section reference from 802.11-2016 needs to be updated. 
+                This is specified in 802.11-2012 primarily in section 11.6.1.2. 
+            </note>            
+            
+            <aactivity>
+              <TSS>
+                The evaluator shall verify that the TSS describes how the primitives defined and implemented
+                by this PP-Module are used by the TOE in establishing and maintaining secure connectivity to the
+                wireless clients. The TSS shall also provide a description of the developer’s method(s) of
+                assuring that their implementation conforms to the cryptographic standards; this includes not
+                only testing done by the developing organization, but also any third-party testing that is
+                performed.
+                <h:br/><h:br/>  
+              </TSS>
+              <Guidance>
+                There are no guidance evaluation activities for this component.   
+                <h:br/><h:br/> 
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <test>
+                    The evaluator shall configure the access point so the cryptoperiod of the
+                    session key is 1 hour. The evaluator shall successfully connect the TOE to the access
+                    point and maintain the connection for a length of time that is greater than the
+                    configured cryptoperiod. The evaluator shall use a packet capture tool to determine
+                    that after the configured cryptoperiod, a re-negotiation is initiated to establish a new
+                    session key. Finally, the evaluator shall determine that the renegotiation has been 
+                    successful and the client continues communication with the access point.
+                  </test>
+                  <test>The evaluator shall perform the following test using a packet sniffing tool to
+                    collect frames between the TOE and a wireless LAN access point:
+                    </h:p><h:p>
+                    Step 1: The evaluator shall configure the access point to an unused channel and
+                    configure the WLAN sniffer to sniff only on that channel (i.e., lock the sniffer on the
+                    selected channel). The sniffer should also be configured to filter on the MAC address
+                    of the TOE and/or access point.
+                    </h:p><h:p>
+                    Step 2: The evaluator shall configure the TOE to communicate with a WLAN access
+                    point using IEEE 802.11-2012 and a 256-bit (64 hex values 0-f) pre-shared key. The
+                    pre-shared key is only used for testing.
+                    </h:p><h:p>
+                    Step 3: The evaluator shall start the sniffing tool, initiate a connection between the
+                    TOE and the access point, and allow the TOE to authenticate, associate, and
+                    successfully complete the 4-way handshake with the client.
+                    </h:p><h:p>
+                    Step 4: The evaluator shall set a timer for 1 minute, at the end of which the evaluator
+                    shall disconnect the TOE from the wireless network and stop the sniffer.
+                    </h:p><h:p>
+                    Step 5: The evaluator shall identify the 4-way handshake frames (denoted EAPOL-key
+                    in Wireshark captures) and derive the PTK from the 4-way handshake frames and pre-shared key as specified in IEEE 802.11-2012.
+                    </h:p><h:p>
+                    Step 6: The evaluator shall select the first data frame from the captured packets that
+                    was sent between the TOE and access point after the 4-way handshake successfully
+                    completed, and without the frame control value 0x4208 (the first 2 bytes are 08 42).
+                    The evaluator shall use the PTK to decrypt the data portion of the packet as specified
+                    in IEEE 802.11-2012, and shall verify that the decrypted data contains ASCII-readable
+                    text.
+                    </h:p><h:p>
+                    Step 7: The evaluator shall repeat Step 6 for the next 2 data frames between the TOE
+                    and access point and without frame control value 0x4208.
+                  </test>
+                </testlist>                           
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        -->      
+        
+        <!--
+        <ext-comp-def fam-id="FCS_TLSC_EXT" title="TLS Client Protocol">
+          <fam-behavior>Components in this family define requirements for the implementation of the TLS protocol when the TOE is acting as a client.
+          </fam-behavior>
+        </ext-comp-def>
+        -->
+        <!-- SME: we were asked to cite the TLS Functional Package instead of defining 'new' TLS requirements in this Module. However, these EAP-TLS requirements are somewhat different from those in the TLS Package. 
+          It is unclear what the preferred method of resolving these discrepancies is. -->
+		  
+        <!-- FCS_TLSC_EXT.2/WLAN --> 
+		  
+		<!-- FCS_TLSC_EXT.2/WLAN -->
+        <!-- <f-component id="fco-tls-client-support-wlan" cc-id="fcs_tlsc_ext.2" name="TLS Client Support for Supported Groups Extension (EAP-TLS for WLAN)" iteration="WLAN">
+          
+	  <depends on1="ecdhe_ECDSA_WITH_AES_128_CBC_SHA256"
+		   on2="ecdhe_ECDSA_WITH_AES_128_GCM_SHA256"
+		   on3="ecdhe_ECDSA_WITH_AES_256_CBC_SHA384"
+		   on4="ecdhe_ECDSA_WITH_AES_256_GCM_SHA384"
+		   on5="ecdhe_RSA_WITH_AES_128_CBC_SHA256"
+		   on6="ecdhe_RSA_WITH_AES_128_GCM_SHA256"
+		   on7="ecdhe_RSA_WITH_AES_256_CBC_SHA384"
+		   on8="ecdhe_RSA_WITH_AES_256_GCM_SHA384"/>
+          <consistency-rationale/>
+          
+          <f-element>
+            <title>
+              <comment>This SFR is just for defining the supported groups that are offered in the TLS client hello. This is part of the TLS FP natively so it is expected that this SFR can be removed. It is being kept here for now as a placeholder until the appropriate way to handle defining a TLS iteration for WLAN EAP-TLS (FCS_TLSC_EXT.1/WLAN) is determined.</comment>
+            </title>
+          </f-element>
+          
+          
+          <comp-lev> describes the ability of the TOE to present certain values in the Supported Groups extension when attempting to establish a TLS connection as a client.</comp-lev>
+          <management>There are no specific management functions identified.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_TLSC_EXT.1 TLS Client Protocol</dependencies>
+          
+          <f-element>
+            <title>The TSF shall present the Supported Groups extension in the Client Hello with the following NIST curves:
+              <selectables>
+                <selectable>secp256r1</selectable>
+                <selectable>secp384r1</selectable>
+                <selectable>secp521r1</selectable>
+              </selectables>.
+            </title>
+            <ext-comp-def-title>
+              <title>The TSF shall present the Supported Groups extension in the Client Hello with the following NIST curves: <assignable>list of supported groups</assignable>.         
+                </title>
+            </ext-comp-def-title>
+            <note role="application">
+	      <h:p>
+		This requirement must be claimed if any cipher suites beginning with 'TLS_ECDHE' are selected in FCS_TLSC_EXT.1.1/WLAN.
+              </h:p><h:p>
+              This requirement does not limit the elliptic curves the client may propose for authentication and key agreement.  
+              Rather, it asks the ST author to define which of the NIST curves from FCS_COP.1/SIGN
+	      (defined in each supported Base-PP) and FCS_CKM.1/WPA and FCS_CKM.2/WLAN
+	      (each defined in this PP-Module) can be used for TLS key establishment.
+	      </h:p>
+            </note>            
+          
+          <aactivity>
+            <TSS>
+              The evaluator shall verify that the TSS describes the Supported Groups extension and
+              whether the required behavior is performed by default or may be configured. <h:br/><h:br/> 
+            </TSS>
+            <Guidance>
+              If the TSS indicates that the Supported Groups extension must be configured to meet
+              the requirement, the evaluator shall verify that the operational guidance includes instructions
+              for configuration of this extension.<h:br/><h:br/> 
+            </Guidance>
+            <Tests>
+              The evaluator shall perform the following test:
+              <testlist>
+                <test>The evaluator shall configure a server to perform ECDHE key exchange using each of the TOE’s supported 
+			curves and shall verify that the TOE successfully connects to the server.
+                </test>
+              </testlist>
+            </Tests>
+          </aactivity>
+          </f-element>
+		<audit-event/>
+		
+          </f-component> -->
+      <!-- </sec:fel_fcs> -->
+      
+    </sel-sfrs>
+    <obj-sfrs/>
+    <impl-dep-sfrs/>
+  </sec:Security_Requirements>
+
+  <appendix title="Optional Requirements" id="optional"> 
+    <!-- As indicated in <xref to="ccl"/>,
+    the baseline requirements (those that must be performed by the TOE are
+    contained in the body of this PP. Additionally, there are three other types of requirements
+    specified in <xref to="optional"/>, <xref to="sel-based"/>, and <xref to="objective"/>. The first type (in this appendix) are requirements that can be included
+    in the <xref to="ST"/>, but are not required in order for a TOE to claim conformance to
+    this PP-Module. The second type (in <xref to="sel-based"/>) are requirements based on selections
+    in the body of the PP-Module: if certain selections are made, then additional requirements in that
+    appendix must be included. The third type (in <xref to="objective"/> are components that
+    are not required in order to conform to this PP-Module, but will be included in the baseline
+    requirements in future versions of this PP-Module, so adoption by vendors is encouraged.  --></appendix>
+
+  <!-- 
+       Do NOT put SFRs in this section. All SFR belong up above in SFR section. 
+       To make an SFR optional tag it above as status="sel-based" 
+  -->
+  <appendix title="Selection-Based Requirements" id="sel-based"> As indicated in the introduction to
+    this PP-Module, the baseline requirements are contained in the body of this PP-Module. There are additional requirements based on
+    selections in the body of the PP-Module: if certain selections are made, then additional requirements
+    below will need to be included. 
+  
+  
+  </appendix>
+
+  <!-- 
+       Do NOT put SFRs in this section. All SFR belong up above in SFR section. 
+       To make an SFR optional tag it above as status="objective" 
+  -->
+  <appendix title="Objective Requirements" id="objective"> This appendix includes requirements that
+    specify security functionality which also addresses threats. The requirements are not currently
+    mandated in the body of this PP-Module as they describe security functionality not yet widely available
+    in commercial technology. However, these requirements may be included in the ST such that the
+    TOE is still conformant to this PP-Module, and it is expected that they be included as soon as
+    possible. </appendix>
+
+<!-- SME: entropy appendix was removed since it was not present in the original EP. Is this appropriate or would you prefer we have a stub appendix that states the entropy source(s) used by the TOE are provided by the OS platform
+  and this will therefore be covered through evaluation of the TOE against the claimed Base-PP? -->
+  
+  
+  <appendix title="Implicitly Satisfied Requirements" id="satisfiedreqs">
+    This PP-Module has no implicitly satisfied requirements.
+    All SFR dependencies are explicitly met either through SFRs defined by the PP-Module,
+    SFRs inherited from the Base-PPs, or 
+    SFRs that are hierarchical to the listed dependency. 
+  </appendix>
+  
+
+  <appendix title="Entropy Documentation and Assessment" id="EAR">
+    The TOE does not require any additional supplementary information to describe its entropy sources beyond the requirements outlined in the Base-PPs.  
+  </appendix>
+  
+    <bibliography> 
+      <cc-entry/>
+      
+      <entry id="bib80211">
+        <tag>802.11-2020</tag>
+        <description><h:a href="https://ieeexplore.ieee.org/document/9363693">802.11-2020 - IEEE Standard for Information technology—Telecommunications and information exchange between systems Local and metropolitan area networks—Specific requirements - 
+          Part 11: Wireless LAN Medium Access Control (MAC) and Physical Layer (PHY) Specifications</h:a></description>
+      </entry>
+      <entry id="bib8021X">
+        <tag>802.1X-2020</tag>
+        <description><h:a href="https://ieeexplore.ieee.org/document/9018454">802.1X-2020 - IEEE Standard for Local and metropolitan area networks--Port-Based Network Access Control</h:a></description>
+      </entry>      
+      <entry id="bibRFC3394">
+        <tag>RFC 3394</tag>
+        <description><h:a href="https://tools.ietf.org/html/rfc3394">RFC 3394 - Advanced Encryption Standard (AES) Key Wrap Algorithm</h:a></description>
+      </entry>   
+      <entry id="bibRFC4346">
+        <tag>RFC 4346</tag>
+        <description><h:a href="https://tools.ietf.org/html/rfc4346">RFC 4346 - The Transport Layer Security (TLS) Protocol Version 1.1</h:a></description>
+      </entry>       
+      <entry id="bibRFC5216">
+        <tag>RFC 5216</tag>
+        <description><h:a href="https://tools.ietf.org/html/rfc5216">RFC 5216 - The EAP-TLS Authentication Protocol</h:a></description>
+      </entry>         
+      <entry id="bibRFC5246">
+        <tag>RFC 5246</tag>
+        <description><h:a href="https://tools.ietf.org/html/rfc5246">RFC 5246 - The Transport Layer Security (TLS) Protocol Version 1.2</h:a></description>
+      </entry>        
+      <entry id="bibRFC5280">
+        <tag>RFC 5280</tag>
+        <description><h:a href="https://tools.ietf.org/html/rfc5280">RFC 5280 - Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile</h:a></description>
+      </entry>       
+      <entry id="bibRFC5288">
+        <tag>RFC 5288</tag>
+        <description><h:a href="https://tools.ietf.org/html/rfc5288">RFC 5288 - AES Galois Counter Mode (GCM) Cipher Suites for TLS</h:a></description>
+      </entry>       
+      <entry id="bibRFC5289">
+        <tag>RFC 5289</tag>
+        <description><h:a href="https://tools.ietf.org/html/rfc5289">RFC 5289 - TLS Elliptic Curve Cipher Suites with SHA-256/384 and AES Galois Counter Mode (GCM)</h:a></description>
+      </entry>       
+    </bibliography>
+ <!-- 
+    <acronyms/>  -->
+  
+</Module>
