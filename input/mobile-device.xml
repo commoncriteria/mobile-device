@@ -1102,6 +1102,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>FAU_STG.2 helps mitigate the threat of a malicious app by maintaining the availability of the audit trail.</rationale>
           <addressed-by>FAU_STG.5</addressed-by>
           <rationale>FAU_STG.5 helps mitigate the threat of a malicious app by maintaining the availability of the audit trail.</rationale>
+          <addressed-by>FCS_COP.1/SKC</addressed-by>
+          <rationale>FCS_COP.1/SKC helps mitigate the threat of a malicious app by implementing trusted cryptographic algorithm services that can be invoked by applications.</rationale>
+          
           <addressed-by>FCS_RBG.6</addressed-by>
           <rationale>FCS_RBG.6 helps mitigate the threat of a malicious app by providing a secure and legitimate interface that can be invoked by apps to perform DRBG functionality.</rationale>
           <addressed-by>FCS_SRV_EXT.1</addressed-by>
@@ -1140,7 +1143,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <addressed-by>FAU_SEL.1 (objective)</addressed-by>
           <rationale>FAU_SEL.1 helps mitigate the threat of a network attack by allowing the TSF to determine the behavior that indicates potential malicious activity in the audit trail.</rationale>       
           <addressed-by>FCS_SRV_EXT.2 (objective)</addressed-by>
-          <rationale>FCS_SRV_EXT.1 helps mitigate the threat of a malicious app by providing a secure and legitimate interface that can be invoked by apps to interact with protected storage.</rationale>
+          <rationale>FCS_SRV_EXT.2 helps mitigate the threat of a malicious app by providing a secure and legitimate interface that can be invoked by apps to interact with protected storage.</rationale>
           <addressed-by>FDP_ACF_EXT.3 (objective)</addressed-by>
           <rationale>FDP_ACF_EXT.3 helps mitigate the threat of a malicious app by enforcing policies on applications that prohibit write and execute permissions from being granted simultaneously.</rationale>
           <addressed-by>FDP_BCK_EXT.1 (objective)</addressed-by>
@@ -1239,6 +1242,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <rationale>FCS_COP.1/SigGen helps mitigate the threat of a network attack by ensuring that secure digital signature algorithms are used for trusted communications.</rationale>
           <addressed-by>FCS_COP.1/SigVer</addressed-by>
           <rationale>FCS_COP.1/SigVer helps mitigate the threat of a network attack by ensuring that secure digital signature algorithms are used for trusted communications.</rationale>
+        
           
           <addressed-by>FCS_HTTPS_EXT.1</addressed-by>
           <rationale>FCS_HTTPS_EXT.1 helps mitigate the threat of a network attack by implementing a secure protocol (HTTPS) for trusted communications.</rationale>
@@ -1291,8 +1295,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <addressed-by>FDP_UPC_EXT.1/BLUETOOTH (implementation-dependent)</addressed-by>
           <rationale>FDP_UPC_EXT.1/BLUETOOTH helps mitigate the threat of a network attack by protecting communication channels using Bluetooth functionality via a trusted channel.</rationale>   
           
-          <addressed-by>FCS_COP.1/SKC (selection-based)</addressed-by>
-          <rationale>FCS_COP.1/SKC helps mitigate the threat of a network attack by ensuring that secure symmetric algorithms are used for trusted communications.</rationale>
+       
           
           <addressed-by>FCS_RBG.2 (selection-based)</addressed-by>      
           <rationale>FCS_RBG.2 helps mitigate the threat of network eavesdrop by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
@@ -1366,8 +1369,6 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <addressed-by>FDP_UPC_EXT.1/BLUETOOTH (implementation-dependent)</addressed-by>
           <rationale>FDP_UPC_EXT.1/BLUETOOTH helps mitigate the threat of network eavesdrop by protecting communication channels using Bluetooth functionality via a trusted channel.</rationale>   
           
-          <addressed-by>FCS_COP.1/SKC (selection-based)</addressed-by>
-          <rationale>FCS_COP.1/SKC helps mitigate the threat of network eavesdrop by ensuring that secure symmetric algorithms are used for trusted communications.</rationale>
           <addressed-by>FCS_RBG.2 (selection-based)</addressed-by>      
           <rationale>FCS_RBG.2 helps mitigate the threat of network eavesdrop by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
           <addressed-by>FCS_RBG.3 (selection-based)</addressed-by>      
@@ -4094,7 +4095,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <selectable id="sel-fcs-cop-aead-aes-ccm">
                   <col>AES-CCM</col>
                   <col>AES in CCM mode with unpredictable, non-repeating nonce, minimum size of 64 bits</col>
-                  <col>256 bits</col>
+                  <col><selectables>
+                    <selectable>128 bits</selectable>
+                    <selectable>256 bits</selectable>
+                  </selectables></col>
                   <col><selectables>
                     <selectable>ISO/IEC 18033-3:2010 (Subclause 5.2)</selectable>
                     <selectable>FIPS PUB 197</selectable></selectables> [AES]<h:p/>
@@ -4127,9 +4131,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   </col></selectable>
               </selectables>
             </title>
-            <note role="application">              
-              <h:p/>
-              The use of 256-bit keys for AES encryption is required by CNSA 1.0 and 2.0.
+            <note role="application">
+              The use of 256-bit keys for AES encryption is required by CNSA 1.0 and 2.0. 128-bit keys may only be used when the PP-Module for Bluetooth is claimed and only for the purpose of Bluetooth communications.
             </note>
             <aactivity>
               <TSS>
@@ -4137,7 +4140,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 nonces, and tags in conformance with the relevant specifications.<h:p/>
                 If a CCM mode algorithm is selected, then the evaluator shall examine the TOE summary
                 specification to confirm that it describes how the nonce is generated and that the same nonce is
-                never reused to encrypt different plaintext pairs under the same key.<h:p/>
+                never reused to encrypt different plaintext pairs under the same key. If the use of 128-bit keys is selected in conjunction with AES-CCM, the evaluator shall verify that the TSS describes the use of 128-bit AES-CCM as being solely for Bluetooth.<h:p/>
                 If a GCM mode algorithm is selected, then the evaluator shall examine the TOE summary
                 specification to confirm that it describes how the IV is generated and that the same IV is never
                 reused to encrypt different plaintext pairs under the same key. The evaluator shall also confirm
@@ -4166,9 +4169,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   </h:tr>
                   <h:tr>
                     <h:td valign="top">AES-CCM </h:td>
-                    <h:td valign="top">AES in CCM mode with nonrepeating nonce, minimum size
+                    <h:td valign="top">AES in CCM mode with non-repeating nonce, minimum size
                       of 64 bits</h:td>
-                    <h:td valign="top">256 bits</h:td>
+                    <h:td valign="top">[<h:b>selection:</h:b>128 bits, 256 bits]</h:td>
                     <h:td valign="top">
                       [<h:b>selection:</h:b> ISO/IEC 18033-3:2010 (Subclause 5.2),
                       FIPS PUB 197] [AES]<h:p/>
@@ -4178,7 +4181,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 To test the TOE’s implementation of AES-CCM authenticated encryption functionality the
                 evaluator shall perform the Algorithm Functional Tests described below using the following
                 input parameters:<h:ul>
-                  <h:li>Key Size [256] bits</h:li>
+                  <h:li>Key Size [128,256] bits</h:li>
                   <h:li>Associated data size [0-65536] bits in increments of 8</h:li>
                   <h:li>Payload size [0-256] bits in increments of 8</h:li>
                   <h:li>IV/Nonce size [64-104] bits in increments of 8</h:li>
@@ -4221,7 +4224,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   </h:tr>
                   <h:tr>
                     <h:td valign="top">AES-GCM </h:td>
-                    <h:td valign="top">AES in GCM mode with nonrepeating IVs using 
+                    <h:td valign="top">AES in GCM mode with non-repeating IVs using 
                       [<h:b>selection:</h:b> deterministic, RBG-based] IV construction; 
                       the tag must be of length [<h:b>selection:</h:b> 96, 104, 112, 120, or 128] bits.</h:td>
                     <h:td valign="top">256 bits</h:td>
@@ -5713,63 +5716,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <audit-event/>
         </f-component>
         
-        <f-component cc-id="fcs_cop.1" iteration="SKC" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
-          <depends on-sel="fel-dar-how-cbc"/>             
-          <depends on-sel="fel-dar-how-xts"/> 
-          <depends on-sel="fcs_tlsc_ext.1.2_7">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_tlsc_ext.1.2_8">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_tlsc_ext.1.2_14">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_tlsc_ext.1.2_15">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_tlsc_ext.1.2_18">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_tlsc_ext.1.2_19">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_tlsc_ext.1.2_20">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_tlsc_ext.1.2_21">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_tlsc_ext.1.2_22">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_dtlsc_ext.1.2_7">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_dtlsc_ext.1.2_8">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_dtlsc_ext.1.2_14">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_dtlsc_ext.1.2_15">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_dtlsc_ext.1.2_18">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_dtlsc_ext.1.2_19">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_dtlsc_ext.1.2_20">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_dtlsc_ext.1.2_21">
-            <external-doc ref="tls"/>
-          </depends>
-          <depends on-sel="fcs_dtlsc_ext.1.2_22">
-            <external-doc ref="tls"/>
-          </depends>          
+        <f-component cc-id="fcs_cop.1" iteration="SKC" name="Cryptographic Operation - Encryption/Decryption">
+         
           <f-element id="fel-encrypt-how">
             
               <title>
@@ -5830,7 +5778,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   </selectable>
                 </selectables>
               </title>
-  
+  <note role="application">At minimum, the TOE is required to support AES-CBC to provide this algorithm as a cryptographic service to tenant software as defined in FCS_SRV_EXT.1.</note>
               <aactivity>
                 <TSS>
                   The evaluator shall examine the TSS to ensure that it describes the construction of any IVs,
@@ -6760,6 +6708,11 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <h:li>All mandatory and selected algorithms in FCS_COP.1/Hash</h:li>
                 <h:li>All mandatory and selected algorithms in FCS_COP.1/KeyedHash</h:li>
                 <h:li>All selected algorithms in FCS_COP.1/SigGen and FCS_COP.1/SigVer</h:li>
+                <h:li>AES-CBC and <selectables>
+                  <selectable>AES-CTR</selectable>
+                  <selectable>XTS-AES</selectable>
+                  <selectable>no other modes</selectable>
+                </selectables> as defined in FCS_COP.1/SKC</h:li>
                 <h:li>
                   <selectables linebreak="yes">
                     <selectable>All mandatory and <selectables>
@@ -6768,10 +6721,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                           25519-based algorithms</selectable></selectables> in FCS_CKM.1/AKG or FCS_CKM.1/SKG</selectable>
                     <selectable>All selected algorithms in FCS_CKM_EXT.8</selectable>
                     <selectable>All selected algorithms in FCS_COP.1/KeyWrap</selectable>
-                    <selectable>All selected algorithms in FCS_COP.1/SKC <selectables>
-                      <selectable>except for XTS-AES</selectable>
-                      <selectable>with no exceptions</selectable>
-                    </selectables></selectable>
+                
                     <selectable exclusive="yes">No other cryptographic operations</selectable>
                   </selectables>
                 </h:li>
@@ -6785,7 +6735,12 @@ The scope of this Protection Profile (PP) is to describe the security functional
             <note role="application"> 
               <h:p>
                 For each of the listed components in the bulleted list, the intent is that the TOE will make available all algorithms specified for that component in the ST.</h:p>
-              For FCS_COP.1/AEAD, the TOE is not required to make available AES_CCMP or AES_GCMP algorithms even though they may be implemented by the TSF. The intent is to provide an interface for AES-GCM and AES-CCM. Similarly, FCS_CKM_EXT.8 and FCS_COP.1/KeyWrap are selectable because it is not explicitly required for the TOE to provide interfaces for PBKDF or key wrapping functions. FCS_COP.1/SKC is selectable because it is possible for a conformant TOE not to claim this SFR. If it is claimed, then interfaces must exist to invoke AES-CBC and AES-CTR if claimed. If the TOE supports XTS-AES, providing the ability for this function to be invoked externally is optional. 
+              For FCS_COP.1/AEAD, the TOE is not required to make available AES_CCMP or AES_GCMP algorithms even though they may be implemented by the TSF. The intent is to provide an interface for AES-GCM and AES-CCM. 
+              
+              Support for AES-CBC is always required. If the TOE claims AES-CTR in FCS_COP.1/SKC, then this is required as well. If the TOE claims XTS-AES in FCS_COP.1/SKC, it is optional as to whether this be made available as a service.  
+              
+              FCS_CKM_EXT.8 and FCS_COP.1/KeyWrap are selectable because it is not explicitly required for the TOE to provide interfaces for PBKDF or key wrapping functions. 
+              
             </note>
             <aactivity> The evaluator shall verify that the API documentation provided according to
                 <xref to="adv"/> includes the security functions (cryptographic algorithms)
