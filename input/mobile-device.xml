@@ -4286,8 +4286,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
             <note role="application">
 	      <h:p>
 	        In accordance with CNSA 1.0 and 2.0:<h:ul>
-	          <h:li>SHA-1 hash is no longer permitted to be used as a hash function, </h:li>
-	          <h:li>SHA3 hashes may be used only for internal hardware functionality such as
+	          <h:li>SHA-3 hashes may be used only for internal hardware functionality such as
 	            boot integrity checks, and</h:li>
 	          <h:li>SHA-256 is permitted only for use as a PRF or MAC as part of a key derivation function,
 	            or as part of LMS or XMSS.</h:li>
@@ -4325,7 +4324,6 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 largest size supported.<h:p/>                
                 <h:br/><h:b>Monte Carlo Test</h:b><h:p/>
                 Monte Carlo tests begin with a single seed and run 100 iterations of the chained computation.<h:p/>
-                There are two versions of the Monte Carlo Test for SHA-1 and SHA-2. Either one is acceptable.
                 For the standard Monte Carlo test the message hashed is always three times the length of the
                 initial seed.<h:p/>
                 <h:pre>
@@ -7156,14 +7154,22 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <selectable exclusive="yes">no other keys</selectable>
                 </selectables> shall be encrypted using one of the following methods: <selectables>
                   <selectable>using a SP800-56B key establishment scheme</selectable>
-                  <selectable>using AES in the <selectables>
-                    <selectable>Key Wrap (KW) mode</selectable>
-                    <selectable>Key Wrap with Padding (KWP) mode</selectable>
-                    <selectable>GCM</selectable>
-                    <selectable>CCM</selectable>
-                    <selectable>CBC mode</selectable>
+                  <selectable>using AES in the following modes:<selectables>
+                    <selectable>Key Wrap (KW) as defined in FCS_COP.1/KeyWrap</selectable>
+                    <selectable>Key Wrap with Padding (KWP) as defined in FCS_COP.1/KeyWrap</selectable>
+                    <selectable>GCM as defined in FCS_COP.1/AEAD</selectable>
+                    <selectable>CCM as defined in FCS_COP.1/AEAD</selectable>
+                    <selectable>CBC as defined in FCS_COP.1/SKC</selectable>
                   </selectables></selectable>
-                </selectables>. </title>
+                </selectables>.</title>
+              <ext-comp-def-title>
+                  <title>DEKs, KEKs, <assignable>any long-term trusted channel key material</assignable>
+                    and <selectables>
+                      <selectable>all software-based key storage</selectable>
+                      <selectable exclusive="yes">no other keys</selectable>
+                    </selectables> shall be encrypted using one of the following methods: <assignable>key encryption method</assignable>
+                </title>
+              </ext-comp-def-title>
               <note role="application">The ST author selects which key encryption schemes are used by
                 the TOE. This requirement refers only to KEKs as defined this PP and does not refer to
                 those KEKs specified in other standards. The ST author must assign the same Long-term
@@ -7200,10 +7206,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <selectable exclusive="yes">no other keys</selectable>
               </selectables> by <selectables linebreak="yes">
                 <selectable><selectables>
-                  <selectable>GCM</selectable>
-                  <selectable>CCM</selectable>
-                  <selectable>Key Wrap</selectable>
-                  <selectable>Key Wrap with Padding</selectable>
+                  <selectable>GCM as defined in FCS_COP.1/AEAD</selectable>
+                  <selectable>CCM as defined in FCS_COP.1/AEAD</selectable>
+                  <selectable>Key Wrap as defined in FCS_COP.1/KeyWrap</selectable>
+                  <selectable>Key Wrap with Padding as defined in FCS_COP.1/KeyWrap</selectable>
                 </selectables> cipher mode for encryption according to FCS_STG_EXT.2</selectable>
                 <selectable>a hash (FCS_COP.1<h:b>/Hash</h:b>) of the stored key that is encrypted by a key
                   protected by FCS_STG_EXT.2</selectable>
@@ -7222,12 +7228,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <selectable>all software-based key storage</selectable>
                   <selectable exclusive="yes">no other keys</selectable>
                 </selectables> by <selectables linebreak="yes">
-                  <selectable><selectables>
-                    <selectable>GCM</selectable>
-                    <selectable>CCM</selectable>
-                    <selectable>Key Wrap</selectable>
-                    <selectable>Key Wrap with Padding</selectable>
-                  </selectables> cipher mode for encryption according to FCS_STG_EXT.2</selectable>
+                  <selectable><assignable>AES algorithm</assignable>
+                   cipher mode for encryption according to FCS_STG_EXT.2</selectable>
                   <selectable>a hash (FCS_COP.1) of the stored key that is encrypted by a key
                     protected by FCS_STG_EXT.2</selectable>
                   <selectable>a keyed hash (FCS_COP.1) using a key protected by a key
