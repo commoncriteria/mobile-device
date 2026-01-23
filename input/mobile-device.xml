@@ -6505,11 +6505,11 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <depends on="external-seed"/>
           <f-element id="fe1-rbg-seed">
             <title>
-              The TSF shall be able to accept a minimum input of <assignable>minimum input length greater than zero</assignable>
+              The TSF shall be able to accept a minimum input of <assignable>sufficient input length to ensure 256 bits of entropy</assignable>
               from a TSF interface for the purpose of seeding.
             </title>
             <note role="application">
-              This requirement is claimed when a DRBG is seeded with entropy from one or more noise source that is outside the TOE boundary. In the case of a mobile device this would likely only occur when the entropy source is a Dedicated Security Component that is integrated with the TOE. Typically the entropy produced by an environmental noise source is conditioned such that the input length has full entropy and is therefore usable as the seed. However, if this is not the case, it should be noted what the minimum entropy rate of the noise source is so that the TSF can collect a sufficiently large sample of noise data to be conditioned into a seed value.
+              This requirement is claimed when a DRBG is seeded with entropy from one or more noise source that is outside the TOE boundary. In the case of a mobile device this would likely only occur when the entropy source is a Dedicated Security Component that is integrated with the TOE. Typically the entropy produced by an environmental noise source is conditioned such that the input length has full entropy and is therefore usable as the seed. In this case, the ST author would specify 384 bits of entropy in the assignment if the TOE uses an AES-CTR_DRBG and there is no derivation function, and 256 bits of entropy for other DRBG selections. If the noise source does not assure full entropy, then the ST author must provide a value that is sufficient to ensure a min-entropy of 256 bits. In this case, the entropy documentation is expected to justify the amount of noise source data that is needed for this as well as how the TSF ultimately derives a 256-bit seed from this data. 
             </note>
             <aactivity>
               <h:p>
@@ -6530,10 +6530,12 @@ The scope of this Protection Profile (PP) is to describe the security functional
               The TSF shall be able to seed the RBG using a <selectables onlyone="yes">
                 <selectable>TSF software-based noise source</selectable>
                 <selectable>TSF hardware-based noise source</selectable></selectables>  <assignable>name of noise source</assignable>
-              with a minimum of <assignable>number of bits</assignable> bits of min-entropy.
+              with a minimum of <selectables>
+                <selectable>256</selectable>
+                <selectable>384</selectable>
+              </selectables> bits of min-entropy.
             </title>          
-            <note role="application">This requirement is claimed when a DRBG is seeded with entropy from a single noise source that is within the TOE boundary. Min-entropy should be expressed as a ratio of entropy bits to sampled bits so that the total amount of data needed to ensure full entropy is known, as well as the conditioning function by which that data is reduced in size to the seed.</note>
-            
+            <note role="application">This requirement is claimed when a DRBG is seeded with entropy from a single noise source that is within the TOE boundary. Min-entropy should be expressed as a ratio of entropy bits to sampled bits so that the total amount of data needed to ensure full entropy is known, as well as the conditioning function by which that data is reduced in size to the seed. When CTR_DRBG is selected in FCS_RBG.1.1 and there is no derivation function, the ST author must select 384 bits. If an amount of entropy greater than the minimum is collected, the ST author selects the minimum value.</note>
             <aactivity>
               <h:p>
                 The evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it identifies, for each DRBG function implemented by the TOE, the TSF noise source used to seed the TOE's DRBG. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the TSF can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the TOE estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the TSF applies to the output data to create a seed of sufficient size with full entropy.
@@ -6579,8 +6581,14 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <selectable>output from TSF noise source(s)</selectable>
                 <selectable>input from TSF interface(s) for seeding</selectable></selectables>
               to create the entropy input into the derivation function as defined in <assignable>list of standards</assignable>, resulting
-              in a minimum of <assignable>number of bits</assignable> bits of min-entropy.              
-            </title>        
+              in a minimum of <selectables>
+                <selectable>256</selectable>
+                <selectable>384</selectable>
+              </selectables> bits of min-entropy.
+            </title>    
+            <note role="application">
+              The purpose of this SFR is for the ST author to specify the mechanism by which multiple entropy sources are combined into a single seed. Different entropy sources may contribute different amounts of entropy to the entropy pool over time, whether due to collection rate or to the relative strength of the entropy that is collected. When CTR_DRBG is selected in FCS_RBG.1 and the TSF uses no derivation function after acquiring the seed, then the minimum bits of entropy must be 384. If an amount of entropy greater than the minimum is collected, the ST author selects the minimum value.
+            </note>
             <aactivity>
               <h:p>
                 Using the entropy sources specified in FCS_RBG.4, the evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it describes the method by which the various entropy sources are combined into a single seed. This should include an estimation of the rate at which each noise source outputs data and whether this is dependent on any system-specific factors so that each source's relative contribution to the overall entropy is understood. The evaluator shall verify that the resulting combination of sampled data and the min-entropy rate of the sampled data is described in sufficient detail to determine that sufficient entropy can be made available for the highest strength keys that the TSF can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the TOE estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the TSF applies to the output data to create a seed of sufficient size with full entropy.
