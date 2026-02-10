@@ -1,0 +1,277 @@
+name: QuickBuild v4.6pdf 20251010
+# Run only on demand to do quick build with both pdf and html output
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: string
+        default: DEV
+        required: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Quick Build
+    steps:
+    - name: Checkout project and transforms
+      uses: actions/checkout@v3
+      with:
+        submodules: true
+
+    - name: Install Build Packages
+#      run: "sudo apt-get update && sudo apt-get install -y xsltproc hunspell pandoc"
+      run: "sudo apt-get update && sudo apt-get install -y hunspell python3-lxml xsltproc"
+
+    - name: Install Jing
+      run: wget -O - https://github.com/relaxng/jing-trang/releases/download/V20181222/jing-20181222.zip | jar -x
+
+    - name: Set branch name
+      run: echo "action_branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
+    - name: Set base URL
+      run: echo "action_projname=${PWD##*/}" >> $GITHUB_ENV
+      
+    - name: Quick Build
+      run: WARN_PATH="output/SanityChecksOutput.md" make
+
+      
+    - name: Branch Test
+      run: |
+        branchname=$(echo ${GITHUB_REF#refs/heads/})
+        if [[ $branchname =~ [0-9] ]]; then
+          echo "action_is_release=YES" >> $GITHUB_ENV
+        else
+          echo "action_is_release=NO"  >> $GITHUB_ENV
+        fi
+        
+      # PDFify
+    - name: PDFify
+      run: |
+        sudo apt install -y chromium
+        cd output
+        for aa in *.html; do
+          chromium --no-sandbox --headless --disable-gpu --no-pdf-header-footer --timeout=10000 \
+            --print-to-pdf=${aa}.pdf \
+            file://${PWD}/${aa}
+        done
+
+    - id: validate
+      run: |
+        RNG_OUT="output/ValidationReport.txt" make validate || true
+
+    - name: Set valerrors
+      run: echo "action_valerrors=$(wc -l output/ValidationReport.txt | { read first rest ; echo $first ; } )" >> $GITHUB_ENV
+        
+    - id: spellcheck
+      run: |
+        SPELL_OUT="output/SpellCheckReport.txt" make spellcheck
+
+    - name: Set spellerrors
+      run: echo "action_spellerrors=$(wc -l output/SpellCheckReport.txt | { read first rest ; echo $first ; } )" >> $GITHUB_ENV
+
+    - name: Get Transforms Date
+#      run: echo "action_tdate=2002222" >> $GITHUB_ENV
+      run: echo "action_tdate=$(cd transforms && git log -1 --format=%cs; cd ->/dev/null)" >> $GITHUB_ENV
+       
+#    - name: Get DaisyDiff
+#      run: |
+#        wget -O- https://github.com/AndroidKitKat/ExecuteDaisy/archive/master.zip | jar -x
+#        [ -d "output/images" ] || mkdir "output/images";
+#        cp -u -r ExecuteDaisy-master/js ExecuteDaisy-master/css output;
+#        cp -u ExecuteDaisy-master/images/* output/images;
+
+      
+    - name: Make tmp dir
+      run: mkdir tmp
+      
+#    - name: diff
+#      run: TMP=tmp make diff || true; 
+    # Little diff depends on having a git history. 
+    # The current checkout has  depth=1 and has no history
+    #- name: little diff
+    #  run: make little-diff || true
+
+    - name: Outstanding TDs
+      id: tds
+      run: |
+        if [ "${{steps.extract_branch.outputs.branch}}" == "master" ] &&
+           ls input/tds/*.xml ; then
+          echo "Master branch should not have TDs" >> output/TDValidationReport.txt
+        fi
+    #        make effective
+    #        PP_XML=output/effective.xml RNG_OUT=output/TDValidationReport.txt make validate || true
+    # IF STATEMENT HERE
+    #        PP_XML=output/effective.xml PP_RELEASE_HTML=output/AppliedTDs.html make release
+    #        java -jar ExecuteDaisy-master/*.jar output/*-release.html output/AppliedTDs.html --file=output/AppliedTDs-Diff.html
+
+    - name: Set TD badge attributes
+      run: |
+        NUM=$(ls input/tds/*.xml | wc -l)
+        if [ $NUM == 0 ]; then
+            echo "action_tdcolor=gray" >> $GITHUB_ENV
+            echo "action_tdwarns=N/A"  >> $GITHUB_ENV
+            echo "GOING THROUGH HERE $NUM"
+        else
+            echo "action_tdcolor=$(if [ -s output/TDValidationReport.txt ]; then echo orange; else echo green; fi)" >> $GITHUB_ENV
+            echo "action_tdwarns=$NUM:$(wc -l output/TDValidationReport.txt | { read first rest ; echo $first;})" >> $GITHUB_ENV
+            echo "THERE ARE TDs $NUM"
+            
+        fi
+      # Not sure what the point of this is
+    - name: Validate Effective
+      run: |
+        echo "action_effvalcolor=$(if [ -s output/TDValidationReport.txt ]; then echo orange; else echo green; fi)" >> $GITHUB_ENV
+        echo "action_effvalwarns=$(wc -l output/TDValidationReport.txt | { read first rest ; echo $first;} )"       >> $GITHUB_ENV
+
+
+    - name: Prepare environment
+      run: |
+        # Generates a GitHub Workflow output named `lines` with a coverage value
+        echo "action_spellcolor=$(if [ 0 = ${{ env.action_spellerrors }} ]; then echo green; else echo red; fi)" >> $GITHUB_ENV
+        echo "action_valcolor=$(if [ 0 = ${{ env.action_valerrors }} ]; then echo green; else echo red; fi)" >> $GITHUB_ENV
+        echo "action_sanitystatus=$(if [ -s output/SanityChecksOutput.md ]; then echo some; else echo none; fi)"         >> $GITHUB_ENV
+        echo "action_sanitycolor=$(if [ -s output/SanityChecksOutput.md ]; then echo red; else echo green; fi )"         >> $GITHUB_ENV
+          
+
+
+    - name: Generate the spelling badge SVG image
+      uses: emibcn/badge-action@v2.0.2
+      with:
+        label: 'Misspellings'
+        status: ${{ env.action_spellerrors }}
+        color: ${{ env.action_spellcolor }}
+        path: output/spell-badge.svg
+
+
+
+    - name: Generate the validation badge SVG image
+      uses: emibcn/badge-action@v2.0.2
+      with:
+        label: 'Validation'
+        status: ${{ env.action_valerrors }}
+        color: ${{ env.action_valcolor }}
+        path: output/validation.svg
+
+
+    - name: Generate the warnings badge
+      uses: emibcn/badge-action@v2.0.2
+      with:
+        label: 'Warnings'
+        status: ${{ env.action_sanitystatus }}
+        color: ${{ env.action_sanitycolor }}
+        path: output/warnings.svg
+
+
+    - name: Generate the transforms badge
+      uses: emibcn/badge-action@v2.0.2
+      with:
+        label: 'Transforms'
+        status: ${{ env.action_tdate }}
+        color: gray
+        path: output/transforms.svg
+
+    - name: TD Badge
+      uses: emibcn/badge-action@v2.0.2
+      with:
+        label: 'TDs'
+        status: ${{ env.action_tdwarns }}
+        color:  ${{ env.action_tdcolor }}
+        path: output/tds.svg
+
+    - name:  Make Dashboard Snippet
+      run: |
+        rurl="https://raw.githubusercontent.com/commoncriteria/${{env.action_projname}}/gh-pages/${{env.action_branch}}"
+        surl="https://commoncriteria.github.io/${{env.action_projname}}/${{env.action_branch}}"
+        gurl="https://github.com/commoncriteria/${{env.action_projname}}/blob/gh-pages/${{env.action_branch}}"
+        (
+        echo '[cols="1,1,1,1,1,1,1,1"]'
+        echo '|==='
+        echo "8+|${{ env.action_projname }} "
+        echo "| https://github.com/commoncriteria/${{env.action_projname}}/tree/${{env.action_branch}}[${{ env.action_branch }}] "
+        echo "a| $surl/${{env.action_projname}}-release.html[📄]"
+        echo "a|[link=$gurl/ValidationReport.txt]"
+        echo "image::$rurl/validation.svg[Validation]"
+        echo "a|[link=$gurl/SanityChecksOutput.md]"
+        echo "image::$rurl/warnings.svg[SanityChecks]"
+        echo "a|[link=$gurl/SpellCheckReport.txt]"
+        echo "image::$rurl/spell-badge.svg[SpellCheck]"
+        echo "a|[link=$gurl/TDValidationReport.txt]"
+        echo "image::$rurl/tds.svg[TDs]"
+        echo "a|image::$rurl/transforms.svg[transforms,150]"
+        echo "a| [link=$gurl/HTMLs.adoc]"
+        echo "image::$rurl/html_count.svg[HTML Count]"
+        echo "[link=$gurl/PDFs.adoc]"
+        echo "image::$rurl/pdf_count.svg[PDF Count]"
+        echo '|==='
+        ) > output/Minidash.adoc
+
+
+    - name: HTML List
+      run: |
+        surl="https://commoncriteria.github.io/${{env.action_projname}}/${{env.action_branch}}"
+        ( for aa in output/*.html ; do
+           echo "* $surl/${aa#*/}[${aa#*/}]"
+        done ) > output/HTMLs.adoc
+        HTML_COUNT=$(wc -l < output/HTMLs.adoc)
+        echo "action_html_count=$HTML_COUNT" >> $GITHUB_ENV
+
+    - name: PDF List
+      run: |
+        surl="https://commoncriteria.github.io/${{env.action_projname}}/${{env.action_branch}}"
+        cd output
+        (for aa in $(find . -name '*.pdf') ; do
+           echo "* $surl/${aa#*/}[${aa#*/}]"
+        done ) > PDFs.adoc
+        PDF_COUNT=$(wc -l < PDFs.adoc)
+        echo "action_pdf_count=$PDF_COUNT" >> $GITHUB_ENV
+
+
+    - name: HTML Badge
+      uses: emibcn/badge-action@v2.0.2
+      with:
+        label: 'HTMLs'
+        status: ${{ env.action_html_count }}
+        color:  gray
+        path: output/html_count.svg
+
+    - name: PDF Badge
+      uses: emibcn/badge-action@v2.0.2
+      with:
+        label: 'PDFs'
+        status: ${{ env.action_pdf_count }}
+        color:  gray
+        path: output/pdf_count.svg
+
+        
+    - name:  Prepare checkout
+      run: |
+        mkdir gh-pages
+
+    - uses: actions/checkout@v3
+      with:
+        ref: gh-pages
+        path: gh-pages
+
+        
+    - name:  Move output to branch
+      run: |
+        rm -rf gh-pages/${{ env.action_branch }}
+        mv output gh-pages/${{ env.action_branch }}
+        
+    - name: Make listing
+      run: |
+        cd gh-pages
+        (echo "<html><head><title>Listing</title></head><body>";
+         date;
+         echo "<br/><ol>";
+         for aa in $(find . -name '*.*'); do
+            echo "<li><a href='$aa'>$aa</a></li>";
+         done;
+         echo "</ol></body></html>") > index.html
+        
+    - name: Deploy ��
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: gh-pages # The folder the action should deploy.
