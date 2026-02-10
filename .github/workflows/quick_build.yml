@@ -97,14 +97,15 @@ jobs:
       - name: Outstanding TDs
         id: tds
         run: |
-          make effective
-          PP_XML=output/effective.xml RNG_OUT=output/TDValidationReport.txt make validate || true
           if [ "${{steps.extract_branch.outputs.branch}}" == "master" ] &&
              ls input/tds/*.xml ; then
             echo "Master branch should not have TDs" >> output/TDValidationReport.txt
           fi
-          PP_XML=output/effective.xml PP_RELEASE_HTML=output/AppliedTDs.html make release
-          java -jar ExecuteDaisy-master/*.jar output/*-release.html output/AppliedTDs.html --file=output/AppliedTDs-Diff.html
+          git fetch origin gh-pages
+          git show origin/gh-pages:master/${{ env.action_projname }}-release.html > /tmp/master-release.html 2>/dev/null || true
+          if [ -f /tmp/master-release.html ]; then
+            java -jar ExecuteDaisy-master/*.jar /tmp/master-release.html output/${{ env.action_projname }}-release.html --file=output/AppliedTDs-Diff.html
+          fi
       #        make effective
       #        PP_XML=output/effective.xml RNG_OUT=output/TDValidationReport.txt make validate || true
       # IF STATEMENT HERE
