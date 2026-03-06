@@ -6,7 +6,6 @@
 * Error: Detected multiple elements with an id of 'usage-tls-mutual-auth'.
 * Error: Detected multiple elements with an id of 'sel-exp-skg-256'.
 * Error: Detected multiple elements with an id of 'sel-exp-skg-256'.
-* Error: Detected multiple elements with an id of 'fcs-ckm-ext-7-sels'.
 * Error: Detected multiple elements with an id of 'sel-fcs-ckm-kat-kas2'.
 * Error: Detected multiple elements with an id of 'sel-fcs-ckm-kat-dh'.
 * Error: Detected multiple elements with an id of 'sel-kat-ffc-modp3072'.
@@ -20,7 +19,6 @@
 * Error: Detected multiple elements with an id of 'sel-fcs-ckm-kat-ecdh'.
 * Error: Detected multiple elements with an id of 'sel-exp-kat-ecdh-P384'.
 * Error: Detected multiple elements with an id of 'sel-exp-kat-ecdh-P521'.
-* Error: Detected multiple elements with an id of 'fcs-ckm-ext-7-sels'.
 * Error: Detected multiple elements with an id of 'sel-fcs-ckm-kat-kas2'.
 * Error: Detected multiple elements with an id of 'sel-fcs-ckm-kat-dh'.
 * Error: Detected multiple elements with an id of 'sel-kat-ffc-modp3072'.
