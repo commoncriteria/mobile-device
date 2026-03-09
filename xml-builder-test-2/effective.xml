@@ -109,7 +109,7 @@
     <audit-events-in-sfrs/>
   </pp-preferences>
   <sec:Introduction>
-    <sec:Objectives_of_Document title="Objectives of Document">The scope of this Protection Profile (PP) is to describe the security functionality of mobile devices in terms of [CC] and to define functional and assurance requirements for such devices.</sec:Objectives_of_Document>
+    <sec:Objectives_of_Document title="Overview">The scope of this Protection Profile (PP) is to describe the security functionality of mobile devices in terms of [CC] and to define functional and assurance requirements for such devices.</sec:Objectives_of_Document>
     <tech-terms>
       <term full="Address Space Layout Randomization" abbr="ASLR">An anti-exploitation feature,
         which loads memory mappings into unpredictable locations. ASLR makes it more difficult for
@@ -303,17 +303,6 @@
       <term full="eXtensible Configuration Checklist Description Format" abbr="XCCDF"/>
       <term full="XEX (XOR Encrypt XOR) Tweakable Block Cipher with Ciphertext Stealing" abbr="XTS"/>
     </tech-terms>
-    <section title="Scope of Document" id="scope">
-      The scope of the Protection Profile within the
-      development and evaluation process is described in the Common Criteria for Information
-      Technology Security Evaluation
-      <xref g="CC"/>. In particular, a PP defines the IT security
-      requirements of a generic type of TOE and specifies the functional and assurance security
-      measures to be offered by that TOE to meet stated requirements
-      <xref g="CC"/>.
-    </section>
-    <section title="Intended Readership" id="intread">The target audiences of this PP are Mobile
-      Device developers, CC consumers, evaluators and schemes.</section>
     <section title="TOE Overview" id="toeov">
       This assurance standard specifies information security
       requirements for Mobile Devices for use in an enterprise. A Mobile Device in the context of
@@ -366,7 +355,7 @@
       <figure entity="images/figure2.jpg" title="Optional Additional Mobile Device Components" id="TOE"/>
       <h:br/>
     </section>
-    <sec:TOE_Usage>
+    <sec:Use_Cases>
       <h:p>
         The Mobile Device may be operated in a number of use cases.
         <xref g="use-case-appendix"/>
@@ -428,7 +417,7 @@
           </description>
         </usecase>
       </usecases>
-    </sec:TOE_Usage>
+    </sec:Use_Cases>
     <section title="Package Usage" id="package-usage">
       This section contains selections and assignments that are required when the listed Functional Packages are claimed by this PP.
       <package-usage-list>
@@ -11661,6 +11650,24 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         contained in the guidance documentation available to the end user as well as the TSS portion
         of the ST, and any additional information required by this PP that is not to be made public.
         <a-component cc-id="adv_fsp.1" name="Basic Functional Specification">
+          <summary>
+            The functional specification describes the TOE Security Functions Interface (TSFIs).
+            It is not necessary to have a formal or
+            complete specification of these interfaces. Additionally, because TOEs conforming to
+            this PP will necessarily have interfaces to the Operational Environment that are not
+            directly invokable by TOE users, there is little point specifying that such interfaces
+            be described in and of themselves since only indirect testing of such interfaces may be
+            possible. For this PP, the activities for this family should focus on understanding the
+            interfaces presented in the TSS in response to the functional requirements and the
+            interfaces presented in the AGD documentation.
+			No additional "functional specification"
+            documentation is necessary to satisfy the evaluation activities specified.
+            <h:br/>
+            <h:br/>
+            The interfaces that need to be evaluated are characterized through
+            the information needed to perform the evaluation activities listed, rather than as an
+            independent, abstract list.
+          </summary>
           <a-element type="D">
             <title>The developer shall provide a functional specification.</title>
           </a-element>
@@ -11879,6 +11886,9 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         practices play in contributing to the overall trustworthiness of a product; rather, it is a
         reflection on the information to be made available for evaluation at this assurance level.
         <a-component cc-id="alc_cmc.1" name="Labeling of the TOE">
+          <summary>This component is targeted at identifying the TOE such that it can be
+            distinguished from other products or versions from the same vendor and can be easily
+            specified when being procured by an end user.</summary>
           <a-element type="D">
             <title>The developer shall provide the TOE and a reference for the TOE.</title>
           </a-element>
@@ -11898,6 +11908,9 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </a-element>
         </a-component>
         <a-component cc-id="alc_cms.1" name="TOE CM Coverage">
+          <summary>Given the scope of the TOE and its associated evaluation evidence requirements,
+            this component’s evaluation activities are covered by the evaluation activities listed for
+            ALC_CMC.1.</summary>
           <a-element type="D">
             <title> The developer shall provide a configuration list for the TOE. </title>
           </a-element>
@@ -12086,6 +12099,14 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </a-element>
         </a-component>
         <a-component cc-id="alc_tsu_ext.1" name="Timely Security Updates">
+          <summary>This component requires the TOE developer, in conjunction with any other
+            necessary parties, to provide information as to how the end-user devices are updated to
+            address security issues in a timely manner. The documentation describes the process of
+            providing updates to the public from the time a security flaw is reported/discovered, to
+            the time an update is released. This description includes the parties involved (e.g.,
+            the developer, cellular carriers) and the steps that are performed (e.g., developer testing,
+            carrier testing), including worst-case time periods, before an update is made available
+            to the public.</summary>
           <a-element type="D">
             <title>The developer shall provide a description in the TSS of how timely security
               updates are made to the TOE.</title>
@@ -12180,6 +12201,19 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         example, to access APIs and view file system information that is not available on consumer
         Mobile Devices.
         <a-component cc-id="ate_ind.1" name="Independent Testing – Conformance">
+          <summary>
+            Testing is performed to confirm the functionality described in the TSS as well as
+            the administrative (including configuration and operational) documentation provided.
+			The focus of the testing is to confirm that the requirements specified in
+            <xref to="sfr"/>
+            being met, although some additional testing is specified for SARs in
+            <xref to="sar"/>.
+			The Evaluation Activities identify the additional testing
+            activities associated with these components.
+			The evaluator produces a test report
+            documenting the plan for and results of testing, as well as coverage arguments focused
+            on the platform/TOE combinations that are claiming conformance to this PP.
+          </summary>
           <a-element type="D">
             <title>The developer shall provide the TOE for testing.</title>
           </a-element>
