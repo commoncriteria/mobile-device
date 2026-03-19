@@ -775,7 +775,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
     <usecase id="uc-personal" title="Personally-owned device for personal and enterprise use">
       <description>
       <h:br/>
-      A personally-owned device that is used for both personal activities and enterprise data is commonly called Bring Your Own Device (BYOD). The device may be provisioned for access to enterprise resources after significant personal usage has occurred. Unlike in the enterprise-owned cases, the enterprise is limited in what security policies it can enforce because the user purchased the device primarily for personal use and is unlikely to accept policies that limit the functionality of the device. However, because the enterprise allows the user full (or nearly full) access to the enterprise network, the enterprise will require their own security controls to ensure that enterprise resources are protected from potential threats posed by the personal activities on the device. These controls could potentially be enforced by a separation mechanism built-in to the device itself to distinguish between enterprise and personal activities, or by a third-party application that provides access to enterprise resources and leverages security capabilities provided by the mobile device. Based upon the operational environment and the acceptable risk level of the enterprise, those security functional requirements outlined in <xref to="Security_Requirements"/> of this PP along with the selections in the Use Case 3 template defined in Appendix F - Use Case Templates are sufficient for the secure implementation of this BYOD use case.
+      A personally-owned device that is used for both personal activities and enterprise data is commonly called Bring Your Own Device (BYOD). The device may be provisioned for access to enterprise resources after significant personal usage has occurred. Unlike in the enterprise-owned cases, the enterprise is limited in what security policies it can enforce because the user purchased the device primarily for personal use and is unlikely to accept policies that limit the functionality of the device. However, because the enterprise allows the user full (or nearly full) access to the enterprise network, the enterprise will require their own security controls to ensure that enterprise resources are protected from potential threats posed by the personal activities on the device. These controls could potentially be enforced by a separation mechanism built-in to the device itself to distinguish between enterprise and personal activities, or by a third-party application that provides access to enterprise resources and leverages security capabilities provided by the mobile device. 
     </description>
       <!-- 
     <config>
@@ -801,7 +801,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
       <usecase id="uc-personal-limited" title="Personally-owned device for personal and limited enterprise use">
         <description>
         <h:br/>
-        A personally-owned device that is used for both personal activities and enterprise data is commonly called Bring Your Own Device (BYOD). This device may be provisioned for limited access to enterprise resources such as enterprise email. Because the user does not have full access to the enterprise or enterprise data, the enterprise may not need to enforce any security policies on the device. However, the enterprise may want secure email and web browsing with assurance that the services being provided to those clients by the Mobile Device are not compromised. Based upon the operational environment and the acceptable risk level of the enterprise, those security functional requirements outlined in Section 5 Security Requirements of this PP are sufficient for the secure implementation of this BYOD use case.
+        A personally-owned device that is used for both personal activities and enterprise data is commonly called Bring Your Own Device (BYOD). This device may be provisioned for limited access to enterprise resources such as enterprise email. Because the user does not have full access to the enterprise or enterprise data, the enterprise may not need to enforce any security policies on the device. However, the enterprise may want secure email and web browsing with assurance that the services being provided to those clients by the Mobile Device are not compromised. 
         </description>
       </usecase>
       </usecases>
@@ -1292,8 +1292,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           
           <addressed-by>FCS_CKM_EXT.7/UNLOCKED (implementation-dependent)</addressed-by>
           <rationale>FCS_CKM_EXT.7/UNLOCKED helps mitigate the threat of a network attack by performing key establishment for trusted communications.</rationale>
-          <addressed-by>FCS_COP.1/AEAD (implementation-dependent)</addressed-by>
-          <rationale>FCS_COP.1/AEAD mitigates the threat of network attack by enforcing the use of secure authenticated encryption algorithms when wireless functionality is implemented by the TOE.</rationale>
+          
           <addressed-by>FDP_UPC_EXT.1/BLUETOOTH (implementation-dependent)</addressed-by>
           <rationale>FDP_UPC_EXT.1/BLUETOOTH helps mitigate the threat of a network attack by protecting communication channels using Bluetooth functionality via a trusted channel.</rationale>   
           
@@ -1593,8 +1592,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
         <assumption name="A.PROPER_USER">
           <description> Mobile Device users are not willfully negligent or hostile, and use the
             device within compliance of a reasonable Enterprise security policy. </description>
-          <objective-refer ref="OE.DATA_PROPER_USER">
-            <rationale>The operational environment objective OE.DATA_PROPER_USER is realized through
+          <objective-refer ref="OE.PROPER_USER">
+            <rationale>The operational environment objective OE.PROPER_USER is realized through
               A.PROPER_USER. </rationale>
           </objective-refer>
         </assumption>
@@ -1623,7 +1622,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <description>The mobile device user exercises precautions to reduce the risk of loss or theft of
             the Mobile Device.</description>
         </SOE>
-        <SOE name="OE.DATA_PROPER_USER">
+        <SOE name="OE.PROPER_USER">
           <description>Administrators take measures to ensure that mobile device users are adequately vetted against malicious intent and are made aware of the expectations for appropriate use of the device.</description>      
         </SOE>
       </SOEs>
@@ -1913,6 +1912,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <col>ECC-ERB</col>
                   <col>ECC-ERB - Extra Random Bits</col>
                   <col>Elliptic Curve <selectables>
+                    <selectable id="sel-exp-ak-edcsa-erb-P256">P-256</selectable>
                     <selectable id="sel-exp-ak-edcsa-erb-P384">P-384</selectable>
                     <selectable id="sel-exp-ak-edcsa-erb-P521">P-521</selectable></selectables>
                   </col>
@@ -1927,6 +1927,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <col>ECC-RS</col>
                   <col>ECC-RS - Rejection Sampling</col>
                   <col>Elliptic Curve <selectables>
+                    <selectable id="sel-exp-ak-edcsa-rs-P256">P-256</selectable>
                     <selectable id="sel-exp-ak-edcsa-rs-P384">P-384</selectable>
                     <selectable id="sel-exp-ak-edcsa-rs-P521">P-521</selectable></selectables>
                   </col>
@@ -2070,6 +2071,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               generation but allows DSA for digital signature verification for legacy purposes.
               “FFC-ERB” or “FFC–RS” may be claimed only for generating private and public keys when
               “DH” is claimed in FCS_CKM_EXT.7/LOCKED or FCS_CKM_EXT.7/UNLOCKED.
+	      </h:p><h:p>For ECC selections, “P-256” may only be selected if the PP-Module for Bluetooth is included in the ST and P-256 may only be used specifically for Bluetooth functions.
 	      </h:p><h:p>
 	        When generating ECC keys pairs for key agreement and if “ECDH” is claimed in FCS_CKM_EXT.7/LOCKED or FCS_CKM_EXT.7/UNLOCKED, then “ECC–ERB” or “ECC–RS” must be claimed. The sizes of the private key, which is a scalar, and the public key, which is a point on the elliptic curve, are determined by the choice of the curve.
 	      </h:p><h:p>
@@ -2084,7 +2086,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 						The evaluator shall examine the TSS to verify that it describes how the TOE generates a key
 						based on output from a random bit generator as specified in FCS_RBG.1. The evaluator shall
 						review the TSS to verify that it describes how the functionality described by FCS_RBG.1 is
-						invoked.<h:p/>
+						invoked. If support for P-256 is claimed, the evaluator shall examine the TSS to verify that it is only used for Bluetooth functions.<h:p/>
 						The evaluator shall examine the TSS to verify that it identifies the usage and key lifecycle
 						for keys generated using each selected algorithm.<h:p/>
 						The evaluator shall examine the TSS to verify that any one-time values such as nonces or masks
@@ -2184,14 +2186,14 @@ The scope of this Protection Profile (PP) is to describe the security functional
 							<h:tr>
 								<h:td valign="top">ECC-ERB</h:td>
 							  <h:td valign="top">ECC – Extra Random Bits</h:td>
-								<h:td valign="top">Elliptic Curve [<h:b>selection:</h:b> <h:i>P-384, P-521</h:i>]</h:td>
+								<h:td valign="top">Elliptic Curve [<h:b>selection:</h:b> <h:i>P-256, P-384, P-521</h:i>]</h:td>
 								<h:td valign="top">NIST FIPS PUB 186-5 (Section A.2.1)<h:p/>
 													NIST SP 800-186 (Section 3) [NIST Curves]</h:td>
 							</h:tr>
 							<h:tr>
 								<h:td valign="top">ECC-RS</h:td>
 							  <h:td valign="top">ECC – Rejection Sampling</h:td>
-							  <h:td valign="top">Elliptic Curve [<h:b>selection:</h:b> <h:i>P-384, P-521</h:i>]</h:td>
+							  <h:td valign="top">Elliptic Curve [<h:b>selection:</h:b> <h:i>P-256, P-384, P-521</h:i>]</h:td>
 								<h:td valign="top">NIST FIPS PUB 186-5 (Section A.2.2)<h:p/>
 													NIST SP 800-186 (Section 3) [NIST Curves]</h:td>
 							</h:tr>
@@ -2199,7 +2201,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 						To test the TOE’s ability to generate asymmetric cryptographic keys using
 						elliptic curves, the evaluator shall perform the ECC Key Generation Test 
 						and the ECC Key Validation Test using the following input parameters.<h:ul>
-						<h:li>Elliptic curve [P-384, P-521]</h:li>
+						<h:li>Elliptic curve [P-256, P-384, P-521]</h:li>
 						<h:li>Key pair generation method [extra random bits, rejection sampling]</h:li></h:ul><h:p/>
 						
 						<h:br/><h:i><h:b>ECC Key Generation Test</h:b></h:i><h:br/>
@@ -3816,6 +3818,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <col>ECDH</col>
                   <col>Elliptic Curve Diffie-Hellman</col>
                   <col>Elliptic Curve <selectables>
+                    <selectable id="sel-exp-kat-ecdh-P384">P-256</selectable>
                     <selectable id="sel-exp-kat-ecdh-P384">P-384</selectable>
                     <selectable id="sel-exp-kat-ecdh-P521">P-521</selectable></selectables>
                   </col>
@@ -3839,6 +3842,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               This SFR must be included in the ST if key agreement or transport is a service provided by the TOE to 
               tenant software, or if they are used by the TOE itself to support or implement PP-specified security 
               functionality.<h:p/> 
+              All of the above algorithms with the selectable parameters are CNSA compliant with the exception of P-256 ECDH. This may only be selected if the PP-Module for Bluetooth is included in the ST and P-256 may only be used specifically for Bluetooth functions.<h:p/>
             </note>
             <aactivity>
               <TSS>
@@ -3959,7 +3963,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <h:tr>
                     <h:td valign="top">ECDH</h:td>
                     <h:td valign="top">Elliptic Curve Diffie-Hellman</h:td>
-                    <h:td valign="top">Elliptic Curve [<h:b>selection:</h:b> P-384, P-521</h:td>
+                    <h:td valign="top">Elliptic Curve [<h:b>selection:</h:b> P-256, P-384, P-521</h:td>
                     <h:td valign="top">NIST SP 800-56A Revision 3 (Section 5.7.1.2) [ECDH]<h:p/>
                       NIST SP 800-186 (Section 3.2.1) [NIST Curves]</h:td>
                   </h:tr>
@@ -3967,7 +3971,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 To test the TOE’s implementation of Elliptic Curve Diffie-Hellman Key Agreement,
                 the evaluator shall perform the Algorithm Functional Test and Validation Test 
                 using the following input parameters:<h:ul>
-                  <h:li>Elliptic Curve [P-384, P-521]</h:li></h:ul><h:p/>
+                  <h:li>Elliptic Curve [P-256, P-384, P-521]</h:li></h:ul><h:p/>
                 <h:br/><h:i><h:b>Algorithm Functional Test</h:b></h:i><h:br/>
                 For each supported Elliptic Curve the evaluator shall generate 10 test cases by
                 generating the initiator and responder secret keys using random data, calculating 
@@ -6790,10 +6794,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
               FCS_CKM_EXT.8 and FCS_COP.1/KeyWrap are selectable because it is not explicitly required for the TOE to provide interfaces for PBKDF or key wrapping functions. 
               
             </note>
-            <aactivity> The evaluator shall verify that the API documentation provided according to
-                <xref to="adv"/> includes the security functions (cryptographic algorithms)
-              described in these requirements.<h:br/><h:br/>
-              <TSS>There are no TSS evaluation activities for this component.<h:br/><h:br/></TSS>
+            <aactivity>
+              <TSS>The evaluation shall verify that the TSS (or other product documentation) includes the security functions (cryptographic algorithms)
+                described in these requirements.<h:br/><h:br/></TSS>
               <Guidance>There are no guidance evaluation activities for this component.<h:br/><h:br/></Guidance>
               <Tests> The evaluator shall write, or the developer shall provide access to, an
                 application that requests cryptographic operations by the TSF. The evaluator shall
@@ -6916,12 +6919,13 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <xref to="s-software-store"/>.
 		If <xref to="s-software-store"/> is selected,
 		the ST author must select <xref to="s-all-software-key-store"/> in FCS_STG_EXT.2.1.
+           <!--     
 		<rule id="r-store">
 		  <if><ref-id>s-software-store</ref-id></if>
 		  <then><ref-id>s-all-software-key-store</ref-id></then>
 		</rule>
 		<h:br/><h:br/>
-
+-->
 		Support for secure
                 key storage for all symmetric keys and persistent secrets will be required in future
                 revisions. </note>
@@ -6982,12 +6986,14 @@ The scope of this Protection Profile (PP) is to describe the security functional
 				the ST author must also select function <xref to="mf-keyWipeRules"/> in FMT_SMF_EXT.1.1.
 				If the ST selects only <xref to="s-killkey-user"/>, 
 				the ST author must select function <xref to="mf-keyWipeRules"/> in FMT_MOF_EXT.1.1. </note>
-              <aactivity> The evaluator shall verify that the API documentation provided according to
-                <xref to="adv"/> includes the security functions (import, use, and
-                destruction) described in these requirements. The API documentation shall include the
-                method by which applications restrict access to their keys or secrets in order to meet
-                FCS_STG_EXT.1.4. <h:br/><h:br/>
-                <TSS> The evaluator shall review the TSS to determine that the TOE implements the
+              <aactivity>
+                <TSS>
+                  The evaluator shall verify that the API documentation provided in the TSS (or other documentation) includes the security functions (import, use, and
+                  destruction) described in these requirements. The API documentation shall include the
+                  method by which applications restrict access to their keys or secrets in order to meet
+                  FCS_STG_EXT.1.4.
+                  <h:p/>
+                  The evaluator shall review the TSS to determine that the TOE implements the
                   required secure key storage. The evaluator shall ensure that the TSS contains a
                   description of the key storage mechanism that justifies the selection of "mutable
                   hardware" or "software-based". <h:br/><h:br/>
@@ -8095,13 +8101,15 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <f-element id="fel-tls-app-init">
             <title>The TSF shall permit the non-TSF applications to initiate communication via the
               trusted channel.</title>
-            <aactivity> The evaluator shall verify that the API documentation provided according to
-                <xref to="adv"/> includes the security functions (protection channel)
-              described in these requirements, and verify that the APIs implemented to support this
-              requirement include the appropriate settings/parameters so that the application can
-              both provide and obtain the information needed to assure mutual identification of the
-              endpoints of the communication as required by this component. <h:br/><h:br/>
-              <TSS> The evaluator shall examine the TSS to determine that it describes that all
+            <aactivity> 
+              <TSS>
+                The evaluator shall verify that the API documentation provided in the TSS (or other documentation) includes the security functions (protection channel)
+                described in these requirements, and verify that the APIs implemented to support this
+                requirement include the appropriate settings/parameters so that the application can
+                both provide and obtain the information needed to assure mutual identification of the
+                endpoints of the communication as required by this component.
+                <h:p/>
+                The evaluator shall examine the TSS to determine that it describes that all
                 protocols listed in the TSS are specified and included in the requirements in the
                 ST. <h:br/><h:br/>
               </TSS>
@@ -8163,13 +8171,15 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <f-element id="fel-bluetooth-chan">
             <title>The TSF shall permit the non-TSF applications to initiate communication via the
               trusted channel.</title>
-            <aactivity> The evaluator shall verify that the API documentation provided according to
-                <xref to="adv"/> includes the security functions (protection channel)
-              described in these requirements, and verify that the APIs implemented to support this
-              requirement include the appropriate settings/parameters so that the application can
-              both provide and obtain the information needed to assure mutual identification of the
-              endpoints of the communication as required by this component. <h:br/><h:br/>
-              <TSS> The evaluator shall examine the TSS to determine that it describes that all
+            <aactivity> 
+              <TSS>
+                The evaluator shall verify that the API documentation provided in the TSS (or other documentation) includes the security functions (protection channel)
+                described in these requirements, and verify that the APIs implemented to support this
+                requirement include the appropriate settings/parameters so that the application can
+                both provide and obtain the information needed to assure mutual identification of the
+                endpoints of the communication as required by this component. 
+                <h:p/>
+                The evaluator shall examine the TSS to determine that it describes that all
                 protocols listed in the TSS are specified and included in the requirements in the
                 ST. <h:br/><h:br/>
               </TSS>
@@ -9445,11 +9455,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
             <note role="application">In order to comply with all of the rules in FIA_X509_EXT.1 as defined in <xref to="X509"/>,
               multiple API calls may be required; all of these calls should be clearly
               documented.</note>
-            <aactivity> The evaluator shall verify that the API documentation provided according to
-                <xref to="adv"/> includes the security function (certificate validation)
-              described in this requirement. This documentation shall be clear as to which results
-              indicate success and failure.<h:br/><h:br/>
-              <TSS>There are no TSS evaluation activities for this component.<h:br/><h:br/></TSS>
+            <aactivity> 
+              <TSS>The evaluator shall verify that the API documentation provided in the TSS (or other documentation) includes the security function (certificate validation)
+                described in this requirement. This documentation shall be clear as to which results
+                indicate success and failure.<h:br/><h:br/></TSS>
               <Guidance>There are no guidance evaluation activities for this component.<h:br/><h:br/></Guidance>
               <Tests> The evaluator shall write, or the developer shall provide access to, an
                 application that requests certificate validation by the TSF. The evaluator shall
@@ -10562,7 +10571,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		  <app-note>
 		    The assignment in function <xref to="mf-serverProtocols"/>
               consists of all protocols where the TSF acts as a server, which can be enabled and
-              disabled by either the user or administrator.
+              disabled by either the user or administrator. Hotspot tethering is a 'protocol' as defined by this function. This is defined in management function WL-3 of <xref to="mod-wlanclient"/>.
 		  </app-note>
 		  <aactivity><TSS>
 		    The evaluator shall verify that the TSS describes how the TSF acts as a server in
@@ -10643,7 +10652,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   perform the selected action (import, removal) with respect to certificates in the
                   Trust Anchor Database is accomplished (e.g., a pop-up, policy setting, etc.).
                   <h:br/><h:br/> The evaluator shall also verify that the API documentation
-                  provided according to <xref to="adv"/> includes any security functions
+                  provided in the TSS (or other documentation) includes any security functions
                   (import, modification, or destruction of the Trust Anchor Database) allowed by applications.
 		</TSS>
 		<Tests>The evaluator shall perform one of the following tests: <testlist>
@@ -10891,36 +10900,26 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   <text>
                     <!-- <ctr id="hotspot" pre="" ctr-type="function">.</ctr>--> enable/disable <selectables
                       linebreak="yes">
-                      <selectable>Hotspot functionality authenticated by <selectables>
-                          <selectable>pre-shared key</selectable>
-                          <selectable>passcode</selectable>
-                          <selectable exclusive="yes">no authentication</selectable>
-                        </selectables></selectable>
+                      <selectable>Bluetooth tethering</selectable>
                       <selectable id="s-tether"><snip>USB tethering</snip> authenticated by <selectables>
-                          <selectable>pre-shared key</selectable>
-                          <selectable>passcode</selectable>
+                          <selectable>device authentication</selectable>
+                          <selectable>USB device identifier</selectable>
                           <selectable exclusive="yes">no authentication</selectable>
                         </selectables>
                       </selectable>
                     </selectables>
                   </text>
 		  <app-note>
-		    For function <xref to="mf-hotspot"/>,
-              hotspot functionality refers to the condition in which the mobile device is serving as
-              an access point to other devices, not the connection of the TOE to external hotspots.
+		    Device authentication for USB tethering refers to the user needing to authenticate themselves to the mobile device and unlock it in order to initiate a tethered connection. USB device authentication references the use of device filtration to permit or reject tethering for certain connected devices or types of devices.
 
 		  </app-note>
 		  <aactivity><TSS> The
-                  evaluator shall verify that the TSS includes a description of Hotspot
-                  functionality and USB tethering to include any authentication for these.</TSS>
+                  evaluator shall verify that the TSS includes a description of Bluetooth or USB tethering functinoality as claimed in the function. If USB tethering is supported, the evaluator shall verify that it includes the method used for authentication USB connections.</TSS>
 		  <Tests>The evaluator shall perform the following tests based on the selections in
                     Function <xref to="mf-hotspot"/>. <testlist>
-                      <test>[conditional] The evaluator shall enable hotspot functionality with
-                        each of the of the support authentication methods. The evaluator shall
-                        connect to the hotspot with another device and verify that the hotspot
-                        functionality requires the configured authentication method. </test>
+                      <test>[conditional] The evaluator shall enable Bluetooth tethering functionality. The evaluator shall use a Bluetooth device to connect to the TOE and verify that tethering functionality is implemented. The evaluator shall disable Bluetooth tethering functionality and verify that the function has been disabled.</test>
                       <test>[conditional] The evaluator shall enable USB tethering functionality
-                        with each of the of the support authentication methods. The evaluator shall
+                        with each of supported authentication methods. The evaluator shall
                         connect to the TOE over USB with another device and verify that the
                         tethering functionality requires the configured authentication method.
                       </test>
@@ -13400,7 +13399,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
       requirements as they apply to the specific technology instantiated in the TOE. The Evaluation
       Activities that are captured in <xref to="sfr"/> also provide clarification as to what
       the developer needs to provide to demonstrate the TOE is compliant with the PP.
-      <h:br/><h:br/> 
+      <h:p/>
       The TOE Security Assurance Requirements are identified in <xref to="sartable"/>.<h:br/><h:br/> 
       <ctr id="sartable" ctr-type="Table">: Security Assurance Requirements</ctr>
       <h:table>
@@ -13415,7 +13414,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
         <h:tr><h:td>ST Introduction (ASE_INT.1)</h:td></h:tr>
         <h:tr><h:td>Security Objectives for the Operational Environment
           (ASE_OBJ.1)</h:td></h:tr>
-        <h:tr><h:td>Stated Security Requirements (ASE_REQ.1)</h:td></h:tr>
+        <h:tr><h:td>Direct Rationale Security Requirements (ASE_REQ.1)</h:td></h:tr>
         <h:tr><h:td>Security Problem Definition (ASE_SPD.1)</h:td></h:tr>
         <h:tr><h:td>TOE Summary Specification (ASE_TSS.1)</h:td></h:tr>
         <h:tr>
@@ -13432,10 +13431,10 @@ The evaluator shall exercise the TSF configuration as the administrator and
           <h:td>Labeling of the TOE (ALC_CMC.1)</h:td>
         </h:tr>
         <h:tr><h:td>TOE CM Coverage (ALC_CMS.1)</h:td></h:tr>
-        <h:tr><h:td>Timely Security Updates (ALC_TSU_EXT)</h:td></h:tr>
+        <h:tr><h:td>Timely Security Updates (ALC_TSU_EXT.1)</h:td></h:tr>
         <h:tr>
           <h:td>Tests (ATE)</h:td>
-          <h:td>Independent Testing – Sample (ATE_IND.1)</h:td>
+          <h:td>Independent Testing – Conformance (ATE_IND.1)</h:td>
         </h:tr>
         <h:tr>
           <h:td>Vulnerability Assessment (AVA)</h:td>
@@ -13463,7 +13462,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
 			No additional "functional specification"
             documentation is necessary to satisfy the evaluation activities specified.
             <h:br/><h:br/>
-			  
+            Several TSS evaluation activities reference the need for the TOE to have API documentation to demonstrate that certain functions exist and can be performed in the manner required by this PP. These evaluation activities reference "other documentation" as it may not be practical to include this in the TSS itself. Vendor API documentation may exist outside the ST and be referenced separately. 
+            <h:br/><h:br/>
 			The interfaces that need to be evaluated are characterized through
             the information needed to perform the evaluation activities listed, rather than as an
             independent, abstract list.</summary>
