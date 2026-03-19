@@ -31,6 +31,7 @@
 * Error: Detected multiple elements with an id of 'sel-kat-ffc-ffdhe8192'.
 * Error: Detected multiple elements with an id of 'sel-fcs-ckm-kat-ecdh'.
 * Error: Detected multiple elements with an id of 'sel-exp-kat-ecdh-P384'.
+* Error: Detected multiple elements with an id of 'sel-exp-kat-ecdh-P384'.
 * Error: Detected multiple elements with an id of 'sel-exp-kat-ecdh-P521'.
 * Error: Detected multiple elements with an id of 'fel-sign-how'.
 * Error: Detected multiple elements with an id of 'fel-sign-how'.
@@ -173,6 +174,7 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[12]""/f-element[1]""/title[1]"The TSF s"/selectables[1]""/selectable[3]""/col[4]"NIST SP 8"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[12]""/f-element[1]""/note[1]"This SFR "/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[12]""/f-element[1]""/note[1]"This SFR "/h:p[2]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[12]""/f-element[1]""/note[1]"This SFR "/h:p[3]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[12]""/f-element[1]""/aactivity[1]""/Tests[1]"The follo"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[12]""/f-element[1]""/aactivity[1]""/Tests[1]"The follo"/h:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[12]""/f-element[1]""/aactivity[1]""/Tests[1]"The follo"/h:p[3]""
@@ -501,6 +503,10 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[22]""/f-element[1]""/aactivity[1]""/Tests[1]"The follo"/h:p[14]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[25]""/f-element[1]""/title[1]"The TSF s"/selectables[1]""/tabularize[1]""/reqtext[3]"after ini"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[25]""/f-element[1]""/title[1]"The TSF s"/selectables[1]""/tabularize[1]""/reqtext[3]"after ini"/h:p[2]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[35]""/f-element[5]""/aactivity[1]""/TSS[1]"The evalu"/h:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fdp[1]""/f-component[11]""/f-element[2]""/aactivity[1]""/TSS[1]"The evalu"/h:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fdp[1]""/f-component[12]""/f-element[2]""/aactivity[1]""/TSS[1]"The evalu"/h:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[2]"The Secur"/h:p[1]""
  Failed to find a reference to t-audit-additional.
  Failed to find a reference to sel-based-reqs.
  Failed to find a reference to bibCEM.
