@@ -507,7 +507,6 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fdp[1]""/f-component[11]""/f-element[2]""/aactivity[1]""/TSS[1]"The evalu"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fdp[1]""/f-component[12]""/f-element[2]""/aactivity[1]""/TSS[1]"The evalu"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[2]"The Secur"/h:p[1]""
- Failed to find a reference to t-audit-additional.
  Failed to find a reference to sel-based-reqs.
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
