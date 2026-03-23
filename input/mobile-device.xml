@@ -6496,7 +6496,17 @@ The scope of this Protection Profile (PP) is to describe the security functional
               </selectables></h:i>] bits of min-entropy to create the entropy input into the derivation function as defined in <assignable>list of standards</assignable>.
             </title>    
             <note role="application">
-              The purpose of this SFR is for the ST author to specify the mechanism by which multiple entropy sources are combined into a single seed. Different entropy sources may contribute different amounts of entropy to the entropy pool over time, whether due to collection rate or to the relative strength of the entropy that is collected. When CTR_DRBG is selected in FCS_RBG.1 and the TSF uses no derivation function after acquiring the seed, then the minimum bits of entropy must be 384. If an amount of entropy greater than the minimum is collected, the ST author selects the minimum value.
+              The ST author claims this requirement when a TOE combines two or more sources of entropy to
+              initialize or reseed a DRBG. Seeding a DRBG is the same as initializing a DRBG. The ST
+              author ensures that the assignment is completed with the number of bits of the combined entropy
+              sufficient to initialize or reseed a DRBG. Different entropy sources may contribute different amounts of entropy to the entropy pool over time, whether due to collection rate or to the relative strength of the entropy that is collected. When CTR_DRBG is selected in FCS_RBG.1 and the TSF uses no derivation function after acquiring the seed, then the minimum bits of entropy must be 384. If an amount of entropy greater than the minimum is collected, the ST author selects the minimum value.<h:p/>
+              One can apply NIST SP 800-90B (or AIS-31) statistical tests against internal entropy sources
+              (aka raw entropy) to confirm the min-entropy of the entropy sources either in aggregate or
+              individually. One should not apply NIST SP 800-90B (or AIS-31) statistical tests against
+              external entropy sources since the TOE is unable to enforce entropy requirements or conditioning
+              requirements against external sources of entropy. However, the TSS may include estimates for
+              min-entropy from external sources that contribute to the overall entropy requirements for 
+              the DRBG.
             </note>
             <aactivity>
               <h:p>
