@@ -6224,149 +6224,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <fam-behavior>This family defines requirements for the generation of random bits.
           </fam-behavior>
         </ext-comp-def>
-        
-     <!--   
-        <f-component cc-id="fcs_rbg_ext.1" name="Random Bit Generation">
-          
-          <comp-lev> requires the TSF to generate random data with a certain amount of entropy and in accordance with applicable standards.</comp-lev>
-          <management>There are no management activities foreseen.</management>
-          <audit>The following actions should be auditable if FAU_GEN Security audit data generation is included in the PP/ST:
-          <h:ul>
-            <h:li>Failure of the randomization process.</h:li>
-          </h:ul></audit>
-          <dependencies>No dependencies.</dependencies>
-          
-          
-          <f-element id="fel-rbg-how">
-            <title>The TSF shall perform all deterministic random bit generation services in
-              accordance with NIST Special Publication 800-90A using <selectables>
-                <selectable>Hash_DRBG (any)</selectable>
-                <selectable>HMAC_DRBG (any)</selectable>
-            <selectable>CTR_DRBG (AES)</selectable></selectables>. </title>
-	    <ext-comp-def-title><title>
-	      The TSF shall perform all deterministic random bit generation services in
-              accordance with NIST Special Publication 800-90A using <assignable>list of algorithms</assignable>.
-	    </title></ext-comp-def-title>
-          </f-element>
-          <f-element id="fel-rbg-seed">
-            <title>The deterministic RBG shall be seeded by an entropy source that accumulates
-              entropy from <selectables>
-                <selectable>a software-based noise source</selectable>
-                <selectable>TSF-hardware-based noise source</selectable>
-              </selectables> with a minimum of <selectables>
-                <selectable>128 bits</selectable>
-                <selectable id="s-rbg-256">256 bits</selectable></selectables> of entropy at least equal to the greatest security strength (according
-            to NIST SP 800-57) of the keys and hashes that it will generate. </title>
-	    <ext-comp-def-title><title>
-	      The deterministic RBG shall be seeded by an entropy source that accumulates
-              entropy from
-	      <assignable>list of sources of random</assignable> with a minimum of
-	      <assignable>number of bits</assignable>
-	      of entropy at least equal to the greatest security strength (according
-              to NIST SP 800-57) of the keys and hashes that it will generate.
-	    </title></ext-comp-def-title>
-          </f-element>
-          <f-element id="fel-rbg-give">
-            <title>The TSF shall be capable of providing output of the RBG to applications running
-              on the TSF that request random bits. </title>
-            <note role="application">SP 800-90A contains three different methods of generating
-              random numbers; each of these, in turn, depends on underlying cryptographic primitives
-              (hash functions/ciphers). The ST author will select the function used, and include the
-              specific underlying cryptographic primitives used in the requirement or in the TSS.
-              While any of the identified hash functions (SHA-224, SHA-256, SHA-384, SHA-512) are
-              allowed for Hash_DRBG or HMAC_DRBG, only AES-based implementations for CTR_DRBG are
-              allowed. <h:br/><h:br/> The ST author must also ensure that any underlying
-              functions are included in the baseline requirements for the TOE. <h:br/><h:br/>
-              Health testing of thes is performed in conjunction with the self-tests required
-              in FPT_TST_EXT.1.1. <h:br/><h:br/> For the selection in FCS_RBG_EXT.1.2, the ST
-              author selects the appropriate number of bits of entropy that corresponds to the
-              greatest security strength of the algorithms included in the ST. Security strength is
-              defined in Tables 2 and 3 of NIST SP 800-57A. For example, if the implementation
-              includes 2048-bit RSA (security strength of 112 bits), AES 128 (security strength 128
-              bits), and HMAC-SHA-256 (security strength 256 bits), then the ST author would select
-              256 bits. <h:br/><h:br/> The ST author may select either software or hardware
-              noise sources. A hardware noise source is a component that produces data that cannot
-              be explained by a deterministic rule, due to its physical nature. In other words, a
-              hardware based noise source generates sequences of random numbers from a physical
-              process that cannot be predicted. For example, a sampled ring oscillator consists of
-              an odd number of inverter gates chained into a loop, with an electrical pulse
-              traveling from inverter to inverter around the loop. The inverters are not clocked, so
-              the precise time required for a complete circuit around the loop varies slightly as
-              various physical effects modify the small delay time at each inverter on the line to
-              the next inverter. This variance results in an approximate natural frequency that
-              contains drift and jitter over time. The output of the ring oscillator consists of the
-              oscillating binary value sampled at a constant rate from one of the inverters – a rate
-              that is significantly slower than the oscillator’s natural frequency. </note>
-              <aactivity>
-
-		<h:div class="eacategory">Entropy Documentation</h:div>
-		<h:div class="ea">
-		  Documentation shall be produced and the evaluator shall perform the
-		  activities in accordance with <xref to="entropy"/>, the "Clarification to the
-		  Entropy Documentation and Assessment".
-		</h:div>
-
-		<h:div class="eacategory">API Documentation</h:div>
-		<h:div class="ea">
-		  The evaluator shall verify
-		  that the API documentation provided according to <xref to="adv"/>, includes the
-		  security functions described in FCS_RBG_EXT.1.3.
-		</h:div>
-              <TSS>There are no TSS evaluation activities for this component.<h:br/><h:br/></TSS>
-              <Guidance> The evaluator shall also confirm that the operational guidance contains
-                appropriate instructions for configuring the RNG functionality.<h:br/><h:br/>
-              </Guidance>
-              <Tests>
-                <h:b>Evaluation Activity Note:</h:b> The following tests require the developer to
-                provide access to a test platform that provides the evaluator with tools that are
-                typically not found on factory products. <h:br/><h:br/> The evaluator shall
-                perform 15 trials for the RNG implementation. If the RNG is configurable, the
-                evaluator shall perform 15 trials for each configuration. <h:br/><h:br/> If the
-                RNG has prediction resistance enabled, each trial consists of (1) instantiate,
-                (2) generate the first block of random bits (3) generate a second block of random
-                bits (4) uninstantiate. The evaluator verifies that the second block of random bits
-                is the expected value. The evaluator shall generate eight input values for each
-                trial. The first is a count (0 – 14). The next three are entropy input, nonce, and
-                personalization string for the instantiate operation. The next two are additional
-                input and entropy input for the first call to generate. The final two are additional
-                input and entropy input for the second call to generate. These values are randomly
-                generated. "generate one block of random bits" means to generate random bits with
-                number of returned bits equal to the Output Block Length (as defined in NIST
-                SP800-90A). <h:br/><h:br/> If the RNG does not have prediction resistance, each
-                trial consists of (1) instantiate, (2) generate the first block of random bits
-                (3) reseed, (4) generate a second block of random bits (5) uninstantiate. The
-                evaluator verifies that the second block of random bits is the expected value. The
-                evaluator shall generate eight input values for each trial. The first is a count (0
-                – 14). The next three are entropy input, nonce, and personalization string for the
-                instantiate operation. The fifth value is additional input to the first call to
-                generate. The sixth and seventh are additional input and entropy input to the call
-                to reseed. The final value is additional input to the second generate call.
-                <h:br/><h:br/> The following paragraphs contain more information on some of the
-                input values to be generated/selected by the evaluator. <h:br/><h:br/>
-                <h:ul style="list-style-type:none">
-                  <h:li><h:b>Entropy input: </h:b>the length of the entropy input value must
-                    equal the seed length.</h:li>
-                  <h:li><h:b>Nonce: </h:b>If a nonce is supported (CTR_DRBG with no Derivation
-                    Function does not use a nonce), the nonce bit length is one-half the seed
-                    length.</h:li>
-                  <h:li><h:b>Personalization string: </h:b>The length of the personalization
-                    string must be &#2264; seed length. If the implementation only supports one
-                    personalization string length, then the same length can be used for both values.
-                    If more than one string length is support, the evaluator shall use
-                    personalization strings of two different lengths. If the implementation does not
-                    use a personalization string, no value needs to be supplied.</h:li>
-                  <h:li><h:b>Additional input: </h:b>the additional input bit lengths have the
-                    same defaults and restrictions as the personalization string lengths.</h:li>
-                </h:ul>
-              </Tests>
-            </aactivity>
-          </f-element>
-	  <audit-event>
-	    <audit-event-descr>Failure of the randomization process</audit-event-descr>
-	  </audit-event>
-        </f-component>
-        
-        -->
+    
         
         <f-component cc-id="fcs_rbg.1" name="Random Bit Generation (RBG)">
           <f-element id="fel-rbg-init-seed">
@@ -6491,7 +6349,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
             <note role="application">
               <h:p>
                 For the 
-                selection in this requirement, the ST author selects "TSF noise source" if
+                selection in this requirement, the ST author selects "TSF entropy source" if
                 a single noise source is used as input to the. The ST author selects "multiple TSF noise sources" if a seed is formed from a combination of two or more noise sources within the TOE boundary. If the TSF implements two or more separates that are seeded in separate manners, this SFR should be iterated for each. It multiple distinct noise sources exist such that each only uses one of them, then each iteration would select "TSF noise source"; "multiple TSF noise sources" is only selected if a single uses multiple noise sources for its seed. The ST author selects "TSF interface for seeding" if noise source data is generated outside the TOE boundary.
               </h:p>
               <h:p>
