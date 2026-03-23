@@ -6445,7 +6445,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <selectable>384</selectable>
               </selectables></h:i>] bits of min-entropy.
             </title>          
-            <note role="application">This requirement is claimed when a is seeded with entropy from a single entropy source that is within the TOE boundary. Min-entropy should be expressed as a ratio of entropy bits to sampled bits so that the total amount of data needed to ensure full entropy is known, as well as the conditioning function by which that data is reduced in size to the seed. When CTR_DRBG is selected in FCS_RBG.1.1 and there is no derivation function, the ST author must select 384 bits. If an amount of entropy greater than the minimum is collected, the ST author selects the minimum value.</note>
+            <note role="application">This requirement is claimed when a DRBG is seeded with entropy from a single entropy source that is within the TOE boundary. Min-entropy should be expressed as a ratio of entropy bits to sampled bits so that the total amount of data needed to ensure full entropy is known, as well as the conditioning function by which that data is reduced in size to the seed. When CTR_DRBG is selected in FCS_RBG.1.1 and there is no derivation function, the ST author must select 384 bits. If an amount of entropy greater than the minimum is collected, the ST author selects the minimum value.</note>
             <aactivity>
               <h:p>
                 The evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it identifies, for each function implemented by the TOE, the TSF entropy source used to seed the TOE's. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the TSF can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the TOE estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the TSF applies to the output data to create a seed of sufficient size with full entropy.
@@ -6468,7 +6468,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               </selectables>.
             </title>
             <note role="application">
-              This requirement is claimed when a is seeded with entropy from multiple entropy sources that are within the TOE boundary. 
+              This requirement is claimed when a DRBG is seeded with entropy from multiple entropy sources that are within the TOE boundary. 
               FCS_RBG.5 defines the mechanism by which these sources are combined to ensure sufficient minimum entropy.
             </note>
             <aactivity>
@@ -6541,8 +6541,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <dependencies>FCS_RBG.1 Random Bit Generation</dependencies>
           
           <f-element id="fel-rbg-state-preserve">
-            <title>The TSF shall save the state of the deterministic DRBG at power-off, and shall use
-              this state as input to the deterministic DRBG at startup.</title>
+            <title>The TSF shall save the state of the DRBG at power-off, and shall use
+              this state as input to the DRBG at startup.</title>
             <note role="application"> The capability to add the state saved at power-off as input to
               the DRBG prevents a DRBG that is slow to gather entropy from producing the same output
               regularly and across reboots. Since there is no guarantee of the protections provided
@@ -6570,7 +6570,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <dependencies>FCS_RBG.1 Random Bit Generation</dependencies>
           
           <f-element id="fel-rbg-person-string">
-            <title>The TSF shall allow applications to add data to the deterministic DRBG using the
+            <title>The TSF shall allow applications to add data to the DRBG using the
               Personalization String as defined in SP 800-90A. </title>
             <note role="application"> As specified in SP 800-90A, the TSF must not count data input
               from an application towards the entropy required by FCS_RBG.1. Thus, the TSF must
