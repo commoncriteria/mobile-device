@@ -5461,7 +5461,17 @@ The following sections list Common Criteria and technology terms used in this do
             <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
-              The purpose of this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is for the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author to specify the mechanism by which multiple entropy sources are combined into a single seed. Different entropy sources may contribute different amounts of entropy to the entropy pool over time, whether due to collection rate or to the relative strength of the entropy that is collected. When CTR_DRBG is selected in <a href="#FCS_RBG.1">FCS_RBG.1</a> and the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses no derivation function after acquiring the seed, then the minimum bits of entropy must be 384. If an amount of entropy greater than the minimum is collected, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects the minimum value.
+              The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author claims this requirement when a <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> combines two or more sources of entropy to
+              initialize or reseed a DRBG. Seeding a DRBG is the same as initializing a DRBG. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>
+              author ensures that the assignment is completed with the number of bits of the combined entropy
+              sufficient to initialize or reseed a DRBG. Different entropy sources may contribute different amounts of entropy to the entropy pool over time, whether due to collection rate or to the relative strength of the entropy that is collected. When CTR_DRBG is selected in <a href="#FCS_RBG.1">FCS_RBG.1</a> and the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses no derivation function after acquiring the seed, then the minimum bits of entropy must be 384. If an amount of entropy greater than the minimum is collected, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects the minimum value.<p></p>
+              One can apply <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-90B (or AIS-31) statistical tests against internal entropy sources
+              (aka raw entropy) to confirm the min-entropy of the entropy sources either in aggregate or
+              individually. One should not apply <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-90B (or AIS-31) statistical tests against
+              external entropy sources since the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is unable to enforce entropy requirements or conditioning
+              requirements against external sources of entropy. However, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> may include estimates for
+              min-entropy from external sources that contribute to the overall entropy requirements for 
+              the DRBG.
             </span></div></div></div>
           
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_RBG.5">FCS_RBG.5</a></div>
