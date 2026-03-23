@@ -1015,6 +1015,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
         <feature id="bluetooth" title="Bluetooth">
           <description>Bluetooth is a short-range wireless technology standard that is commonly used for exchanging data between devices over short distances. Most, if not all, mobile devices include Bluetooth hardware.<h:br/></description>
         </feature>
+        <feature id="key-agreement-support" title="Key Agreement Support">
+          <description>A conformant TOE is required to implement trusted communications. Depending on the specific protocols used and the supported connection parameters for these protocols, it may be necessary to implement one or more key agreement algorithms as part of key establishment.<h:br/></description>
+        </feature>
       </implements>			
     </section>
     
@@ -1637,7 +1640,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
         <audit-table id="t-audit-mandatory" table="mandatory"/>
       </section>
       
-      <sec:fau title="Class: Security Audit (FAU)">
+      <sec:fau title="Class FAU: Security Audit">
         <f-component cc-id="fau_gen.1" name="Audit Data Generation">
           <f-element id="fel-audit-gen">
             <title>The TSF shall be able to generate audit data of the following auditable events:<h:br/>
@@ -1867,7 +1870,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
         </f-component>
       </sec:fau>
      
-      <sec:fcs title="Class: Cryptographic Support (FCS)"> 
+      <sec:fcs title="Class FCS: Cryptographic Support"> 
         This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: DEKs and KEKs. (A REK is considered a KEK.)
          DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications.
          The following diagram shows an example key hierarchy to illustrate the concepts of this profile. 
@@ -6156,9 +6159,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                     webserver, observe the traffic with a packet analyzer, and verify that the
                     connection succeeds and that the traffic is identified as TLS or HTTPS.
                     <h:br/><h:br/> Other tests are performed in conjunction with testing in the
-                    <xref to="tls"/>. <h:br/><h:br/> Certificate validity
-                    shall be tested in accordance with testing performed for FIA_X509_EXT.1 as defined in <xref to="X509"/>, and the
-                    evaluator shall perform the following test: </test><h:br/>
+                    <xref to="tls"/>.</test>
                   <test>The evaluator shall demonstrate that using a certificate without a valid
                     certification path results in an application notification. Using the
                     administrative guidance, the evaluator shall then load a certificate or
@@ -6167,6 +6168,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                     evaluator then shall delete one of the certificates, and show that the
                     application is notified of the validation failure.</test>
                 </testlist>
+                Certificate validity for HTTPS connections shall be tested in accordance with testing performed for FIA_X509_EXT.1 as defined in <xref to="X509"/>
               </Tests>
             </aactivity>
           </f-element>
@@ -7286,7 +7288,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           </f-component>
       </sec:fcs> 
       
-	<sec:fdp title="Class: User Data Protection (FDP)">
+	<sec:fdp title="Class FDP: User Data Protection">
 	  <h:p>
 	    A subset of the User Data Protection focuses on protecting Data-At-Rest, namely FDP_DAR_EXT.1 and FDP_DAR_EXT.2.
             Three levels of data-at-rest protection are addressed: TSF data, Protected Data (and keys), and sensitive data.
@@ -7447,27 +7449,33 @@ The scope of this Protection Profile (PP) is to describe the security functional
               <Tests>
                 <testlist>
                   <test>The evaluator shall write, or the developer shall provide, two applications,
-                    one that saves data containing a unique string, and the other, which attempts to
-                    access that data.
-		    If <xref to="fdp_group"/> is selected, the applications
-                    shall be placed into different groups.
-		    If <xref to="s-fdp-app"/> is selected, the
-                    evaluator shall install the two applications.
-		    If <xref to="s-private"/> is selected, the
-                    application shall not write to a designated shared storage area.
+                    one that saves data containing a unique string, and a second that attempts to
+                    access that data. Based on the selections made, the following steps shall be performed:
+                    <h:ul>
+                      <h:li>If <xref to="fdp_group"/> is selected, the applications
+                        shall be placed into different groups.</h:li>
+                      <h:li>If <xref to="s-fdp-app"/> is selected, the
+                        evaluator shall install the two applications.</h:li>
+                      <h:li>If <xref to="s-private"/> is selected, the
+                        application shall not write to a designated shared storage area.</h:li>
+                    </h:ul>
 		    The evaluator
                     shall verify that the second application is unable to access the stored unique
-                    string. <h:br/><h:br/> If <xref to="s-acl-user"/> is selected, the evaluator shall grant
-                    access as the user and verify that the second application is able to access the
-                    stored unique string. <h:br/><h:br/>
-
-		    If <xref to="s-acl-admin"/> is selected, the
-                    evaluator shall grant access as the administrator and verify that the second
-                    application is able to access the stored unique string. <h:br/><h:br/>
-
-		    If <xref to="s-acl-devel"/>  is selected, the evaluator shall grant access to
-                    an application with a common application developer to the first, and verify
-                    that the application is able to access the stored unique string. </test>
+                    string by default.
+                  </test>
+                  <test>(Conditional: "no one" is not selected in FDP_ACF_EXT.1.2] Using the applications from the previous test, the evaluator shall test the explicit authorizations for sharing data between applications as follows, depending on the selections made in FDP_ACF_EXT.1.2:
+                    <h:ul>
+                      <h:li>If <xref to="s-acl-user"/> is selected, the evaluator shall grant
+                        access as the user and verify that the second application is able to access the
+                        stored unique string.</h:li>
+                      <h:li>If <xref to="s-acl-admin"/> is selected, the
+                        evaluator shall grant access as the administrator and verify that the second
+                        application is able to access the stored unique string.</h:li>
+                      <h:li>If <xref to="s-acl-devel"/>  is selected, the evaluator shall grant access to
+                        an application with a common application developer to the first, and verify
+                        that the application is able to access the stored unique string.</h:li>
+                    </h:ul>
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -7727,7 +7735,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                     evaluator shall create user data (non-system) either by creating a file or by
                     using an application. The evaluator shall use a tool provided by the developer
                     to verify that this data is encrypted when the product is powered off, in
-                    conjunction with Test 1 for FIA_UAU_EXT.1.</test>
+                    conjunction with <xref to="unauthorized-encrypted-data"/>.</test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -8120,14 +8128,15 @@ The scope of this Protection Profile (PP) is to describe the security functional
               <Tests>
                 <h:b>Evaluation Activity Note:</h:b> The following test requires the developer to
                 provide access to a test platform that provides the evaluator with tools that are
-                typically not found on consumer Mobile Device products. <h:br/><h:br/> The
-                evaluator shall write, or the developer shall provide access to, an application that
-                requests protected channel services by the TSF. The evaluator shall verify that the
-                results from the protected channel match the expected results according to the API
-                documentation. This application may be used to assist in verifying the protected
-                channel Evaluation Activities for the protocol requirements. The evaluator shall also
+                typically not found on consumer Mobile Device products.<h:br/><h:br/> The evaluator shall 
                 perform the following tests: <testlist>
-                  <test>The evaluators shall ensure that the application is able to initiate
+                  <test>The
+                    evaluator shall write, or the developer shall provide access to, an application that
+                    requests protected channel services by the TSF. The evaluator shall verify that the
+                    results from the protected channel match the expected results according to the API
+                    documentation. This application may be used to assist in verifying the protected
+                    channel Evaluation Activities for the protocol requirements.</test>
+                  <test>The evaluator shall ensure that the application is able to initiate
                     communications with an external IT entity using each protocol specified in the
                     requirement, setting up the connections as described in the operational guidance
                     and ensuring that communication is successful. </test>
@@ -8190,14 +8199,14 @@ The scope of this Protection Profile (PP) is to describe the security functional
               <Tests>
                 <h:b>Evaluation Activity Note:</h:b> The following test requires the developer to
                 provide access to a test platform that provides the evaluator with tools that are
-                typically not found on consumer Mobile Device products. <h:br/><h:br/> The
-                evaluator shall write, or the developer shall provide access to, an application that
-                requests protected channel services by the TSF. The evaluator shall verify that the
-                results from the protected channel match the expected results according to the API
-                documentation. This application may be used to assist in verifying the protected
-                channel Evaluation Activities for the protocol requirements. The evaluator shall also
+                typically not found on consumer Mobile Device products. <h:br/><h:br/> The evaluator shall 
                 perform the following tests: <testlist>
-                  <test>The evaluators shall ensure that the application is able to initiate
+                  <test>The evaluator shall write, or the developer shall provide access to, an application that
+                  requests protected channel services by the TSF. The evaluator shall verify that the
+                  results from the protected channel match the expected results according to the API
+                  documentation. This application may be used to assist in verifying the protected
+                  channel Evaluation Activities for the protocol requirements.</test>
+                  <test>The evaluator shall ensure that the application is able to initiate
                     communications with an external IT entity using each protocol specified in the
                     requirement, setting up the connections as described in the operational guidance
                     and ensuring that communication is successful. </test>
@@ -8213,7 +8222,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	  </audit-event>
         </f-component>
       </sec:fdp>
-      <sec:fia title="Class: Identification and Authentication (FIA)">
+      <sec:fia title="Class FIA: Identification and Authentication">
         
         
         <ext-comp-def fam-id="FIA_AFL_EXT" title="Authentication Failures">
@@ -8384,16 +8393,18 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 attempts. <h:br/><h:br/>
               </Guidance>
               <Tests>
+                The evaluator shall configure the device with all authentication mechanisms
+                selected in FIA_UAU.5.1. The evaluator shall perform the following tests for
+                each available authentication interface:
                 <testlist>
-                  <test>The evaluator shall configure the device with all authentication mechanisms
-                    selected in FIA_UAU.5.1. The evaluator shall perform the following tests for
-                    each available authentication interface: <h:br/><h:br/> Test 1a: The
+                  <test>The
                     evaluator shall configure the TOE, according to the AGD guidance, with a maximum
                     number of unsuccessful authentication attempts. The evaluator shall enter the
                     locked state and enter incorrect passwords until the wipe occurs. The evaluator
                     shall verify that the number of password entries corresponds to the configured
-                    maximum and that the wipe is implemented. <h:br/><h:br/> Test 1b:
-                    [conditional] If the TOE supports multiple authentication mechanisms the
+                    maximum and that the wipe is implemented.
+                  </test>
+                  <test>[conditional] If the TOE supports multiple authentication mechanisms the
                     previous test shall be repeated using a combination of authentication mechanisms
                     confirming that the critical authentication mechanisms will cause the device to
                     wipe and that when the maximum number of unsuccessful authentication attempts
@@ -8402,8 +8413,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
                     multiple authentication mechanisms utilize a shared counter, then the evaluator
                     shall verify that the maximum number of unsuccessful authentication attempts can
                     be reached by using each individual authentication mechanism and a combination
-                    of all authentication mechanisms that share the counter. </test><h:br/>
-                  <test>The evaluator shall repeat test one, but shall power off (by removing the
+                    of all authentication mechanisms that share the counter. </test>
+                  <test>The evaluator shall repeat the previous tests, but shall power off (by removing the
                     battery, if possible) the TOE between unsuccessful authentication attempts. The
                     evaluator shall verify that the total number of unsuccessful authentication
                     attempts for each authentication mechanism corresponds to the configured maximum
@@ -8776,9 +8787,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               <TSS>There are no TSS evaluation activities for this component.<h:br/><h:br/></TSS>
               <Guidance>The evaluator shall examine the operational guidance to determine that it
                 provides guidance to security administrators on the composition of strong passwords,
-                and that it provides instructions on setting the minimum password length. The
-                evaluator shall also perform the following tests. Note that one or more of these
-                tests can be performed with a single test case.</Guidance>
+                and that it provides instructions on setting the minimum password length.</Guidance>
               <Tests>
                 <testlist>
                   <test>The evaluator shall compose passwords that either meet the requirements, or
@@ -9068,7 +9077,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 provide access to a test platform that provides the evaluator with tools that are
                 typically not found on consumer Mobile Device products. <h:br/><h:br/>
                 <testlist>
-                  <test>The evaluator shall enable encryption of protected data and require user
+                  <test id="unauthenticated-encrypted-data">The evaluator shall enable encryption of protected data and require user
                     authentication according to the AGD guidance. The evaluator shall write, or the
                     developer shall provide access to, an application that includes a unique string
                     treated as protected data. <h:br/><h:br/> The evaluator shall reboot the
@@ -9694,10 +9703,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
         </f-component>
         -->
       </sec:fia>
-      <sec:fmt title="Class: Security Management (FMT)"> 
+      <sec:fmt title="Class FMT: Security Management"> 
         Both the user and the administrator may manage the TOE. This administrator is likely to be acting remotely and could be the Mobile Device Management (MDM) Administrator acting through an MDM Agent. <h:br/><h:br/> 
         The Administrator is responsible for management activities, including setting the policy that is applied by the enterprise on the Mobile Device. These management functions are likely to be a different set than those management functions provided to the user. Management functions that are provided to the user and not the administrator are listed in FMT_MOF_EXT.1.1. Management functions for which the administrator may adopt a policy that restricts the user from performing that function are listed in FMT_MOF_EXT.1.2. <h:br/><h:br/> 
-        <xref to="fmt_smf"/> compares the management functions required by this Protection Profile in the following three requirements (FMT_MOF_EXT.1.1, FMT_MOF_EXT.1.2, and FMT_SMF_EXT.1).
+        <xref to="fmt_smf"/> identifies the management functions that this Protection Profile defines in terms of being mandatory or optional, and in terms of specifying any restrictions on the roles that can perform these functions. This table is in FMT_MOF_EXT.1 and FMT_SMF_EXT.1 to specify the management functions that the TOE supports and the roles that may perform those functions.
         
         <ext-comp-def fam-id="FMT_MOF_EXT" title="Management of Functions in TSF">
           <fam-behavior>This family defines requirements for authorization to manage the behavior of the TSF that are not addressed by FMT_MOF in CC Part 2. 
@@ -9719,21 +9728,21 @@ The scope of this Protection Profile (PP) is to describe the security functional
           
           
           <f-element id="fel-mof-est">
-            <title>The TSF shall restrict the ability to perform the functions [<h:i>in column 4 of
+            <title>The TSF shall restrict the ability to perform the functions [<h:i>in the "User Only" column of
               <xref to="fmt_smf"/></h:i>] to the user. </title>
             <ext-comp-def-title>
               <title>The TSF shall restrict the ability to perform the functions <assignable>reference to list of management functions</assignable> to the user. </title>
             </ext-comp-def-title>
-            <note role="application"> The functions that have an "M" in the fourth column are
+            <note role="application"> The functions that have an "M" in the "User Only" column are
               mandatory for this component, thus are restricted to the user, meaning that the
               administrator cannot manage those functions. The functions that have an "O" in the
-              fourth column are optional and may be selected; and those functions with a "-" are not applicable and may not be selected. The ST author should select those
+              "User Only" column are optional and may be selected; and those functions with a "-" are not applicable and may not be selected. The ST author should select those
               security management functions that only the user may perform (i.e. the ones the
               administrator may not perform). <h:br/><h:br/> The ST author may not select the
               same function in both FMT_MOF_EXT.1.1 and FMT_MOF_EXT.1.2. A function cannot contain
-              an "M" in both column 4 and column 6. <h:br/><h:br/> The ST author may use a table
+              an "M" in both the "User Only" and "Admin Only" columns. <h:br/><h:br/> The ST author may use a table
               in the ST, indicating with clear demarcations (to be accompanied by an index) those
-              functions that are restricted to the user (column 4). The ST author should iterate a
+              functions that are restricted to the user ("User Only" column). The ST author should iterate a
               row to indicate any variations in the selectable sub-functions or assigned values with
               respect to the values in the columns.<h:br/><h:br/> For functions that are
               mandatory, any sub-functions not in a selection are also mandatory and any assignments
@@ -9750,7 +9759,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
             </aactivity>
           </f-element>
           <f-element id="fel-mof-restrict">
-            <title>The TSF shall restrict the ability to perform the functions [<h:i>in column 6 of
+            <title>The TSF shall restrict the ability to perform the functions [<h:i>in the "Admin Only" column of
               <xref to="fmt_smf"/></h:i>] to the administrator when the device is enrolled and
               according to the administrator-configured policy. </title>
             <ext-comp-def-title>
@@ -9761,16 +9770,16 @@ The scope of this Protection Profile (PP) is to describe the security functional
               administrator (of the enterprise) must be guaranteed that minimum security functions
               of the enterprise policy are enforced. Further restrictive policies can be applied at
               any time by the user on behalf of the user or other administrators. <h:br/><h:br/>
-              The functions that have an "M" in the sixth column are mandatory for this component;
-              the functions that have an "O" in the sixth column are optional and may be selected;
-              and those functions with a "-" in the sixth are not applicable and may not be
+              The functions that have an "M" in the "Admin Only" column are mandatory for this component;
+              the functions that have an "O" in the "Admin Only" column are optional and may be selected;
+              and those functions with a "-" in the "Admin Only" column are not applicable and may not be
               selected. <h:br/><h:br/> The ST author may not select the same function in both
               FMT_MOF_EXT.1.1 and FMT_MOF_EXT.1.2. <h:br/><h:br/> The ST author should select
               those security management functions that the administrator may restrict. The ST author
               may use a table in the ST, indicating with clear demarcations (to be accompanied by an
               index) those functions that are and are not implemented with APIs for the
-              administrator (as in column 5). Additionally, the ST author should demarcate which
-              functions the user is prevented from accessing or performing (as in column 6). The ST
+              administrator (as in the "Admin" column). Additionally, the ST author should demarcate which
+              functions the user is prevented from accessing or performing (as in the "Admin Only" column). The ST
               author should iterate a row to indicate any variations in the selectable sub-functions
               or assigned values with respect to the values in the columns. <h:br/><h:br/> For
               functions that are mandatory, any sub-functions not in a selection are also mandatory
@@ -9855,8 +9864,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   password length and lifetime, and a description of complexity to include character
                   set and complexity policies (e.g., configuration and enforcement of number of
                   uppercase, lowercase, and special characters per password).</TSS>
-		  <Tests>
-The evaluator shall exercise the TSF configuration as the administrator and
+		    <Tests>Test FMT_SMF_EXT.1:1: The evaluator shall exercise the TSF configuration as the administrator and
                     perform positive and negative tests, with at least two values set for each
                     variable setting, for each of the following: <h:br/>
                     <h:ul>
@@ -9882,7 +9890,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		    <TSS>The evaluator shall
                     verify the TSS defines the range of values for both timeout period and number of
                     authentication failures for all supported authentication mechanisms.</TSS>
-		    <Tests> The evaluator shall exercise the TSF configuration as the administrator.
+		    <Tests>Test FMT_SMF_EXT.1:2: The evaluator shall exercise the TSF configuration as the administrator.
                     The evaluator shall perform positive and negative tests, with at least two
                     values set for each variable setting, for each of the following: <h:br/>
                     <h:ul>
@@ -9932,19 +9940,19 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		  <aactivity>
         <Tests>
 		    The evaluator shall perform the following tests: 
-          <testlist>
-                      <test>The evaluator shall exercise the TSF configuration to enable the VPN
+          <h:ul>
+                      <h:li>Test FMT_SMF_EXT.1:3a: The evaluator shall exercise the TSF configuration to enable the VPN
                         protection. These configuration actions must be used for the testing of the
-                        FDP_IFC_EXT.1.1 requirement. </test>
-                      <test>[conditional] If "<xref to="s-vpn-per-app"/>" is selected, the evaluator shall
+                        FDP_IFC_EXT.1.1 requirement. </h:li>
+            <h:li>Test FMT_SMF_EXT.1:3b: [conditional] If "<xref to="s-vpn-per-app"/>" is selected, the evaluator shall
                         create two applications and enable one to use the VPN and the other to not
                         use the VPN. The evaluator shall exercise each application (attempting to
                         access network resources; for example, by browsing different websites)
                         individually while capturing packets from the TOE. The evaluator shall
                         verify from the packet capture that the traffic from the VPN-enabled
                         application is encapsulated in IPsec and that the traffic from the
-                        VPN-disabled application is not encapsulated in IPsec. </test>
-                      <test>[conditional] If "<xref to="s-vpn-per-appgroup"/>" is selected, the
+                        VPN-disabled application is not encapsulated in IPsec. </h:li>
+            <h:li>Test FMT_SMF_EXT.1:3c: [conditional] If "<xref to="s-vpn-per-appgroup"/>" is selected, the
                         evaluator shall create two applications and the applications shall be placed
                         into different groups. Enable one application group to use the VPN and the
                         other to not use the VPN. The evaluator shall exercise each application
@@ -9953,8 +9961,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
                         shall verify from the packet capture that the traffic from the application
                         in the VPN-enabled group is encapsulated in IPsec and that the traffic from
                         the application in the VPN-disabled group is not encapsulated in IPsec.
-                      </test>
-            </testlist>
+                      </h:li>
+            </h:ul>
           </Tests>
         </aactivity>
                 </management-function>
@@ -9984,8 +9992,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   The evaluator shall confirm that the AGD guidance describes
                   how to perform the enable/disable function for each radio.<h:br/><h:br/>
 		</Guidance>
-		<Tests>
-		  The
+		        <Tests>Test FMT_SMF_EXT.1:4: The
                   evaluator shall ensure that minimal signal leakage enters the RF shielded
                   enclosure (i.e. Faraday bag, Faraday box, RF shielded room) by performing the
                   following steps:<h:br/><h:br/> Step 1: Place the antenna of the spectrum
@@ -9994,7 +10001,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   between 300 MHz – 6000 MHz, in I kHz steps (this range should encompass 802.11,
                   802.15, GSM, UMTS, and LTE). This range will not address NFC 13.56.MHz, another
                   test should be set up with similar constraints to address NFC.<h:br/><h:br/>
-                  If power above -90 dBm is observed, the Faraday box has too great of signal
+                  If power above -75 dBm is observed, the Faraday box has too great of signal
                   leakage and shall not be used to complete the test for
 		  Function <xref to="mf-radios"/>.
 
@@ -10072,8 +10079,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   enable/disable function.
 		  </TSS>
         <Tests>The evaluator shall perform the following tests:
-          <testlist>
-                      <test>The evaluator shall exercise the TSF configuration as the
+          <h:ul>
+            <h:li>Test FMT_SMF_EXT.1:5a: The evaluator shall exercise the TSF configuration as the
                         administrator and, if not restricted to the administrator, the user, to
                         enable and disable the state of each audio or visual collection devices
                         (e.g. camera, microphone) listed by the ST author. For each collection
@@ -10081,22 +10088,22 @@ The evaluator shall exercise the TSF configuration as the administrator and
                         functionality. The evaluator shall reboot the TOE and verify that disabled
                         collection devices may not be used during or early in the boot process.
                         Additionally, the evaluator shall boot the device into each available
-                        auxiliary boot mode and verify that the collection device cannot be used. </test>
-                      <test>[conditional] If "<xref to="s-audiovisual-per-app"/>" is selected, the evaluator shall
+                        auxiliary boot mode and verify that the collection device cannot be used. </h:li>
+            <h:li>Test FMT_SMF_EXT.1:5b: [conditional] If "<xref to="s-audiovisual-per-app"/>" is selected, the evaluator shall
                         create two applications and enable one to use access the A/V device and the
                         other to not access the A/V device. The evaluator shall exercise each
                         application attempting to access the A/V device individually. The evaluator
                         shall verify that the enabled application is able to access the A/V device
-                        and the disabled application is not able to access the A/V device. </test>
-                      <test>[conditional] If "<xref to="s-audiovisual-per-appgroup"/>" is selected, the
+                        and the disabled application is not able to access the A/V device. </h:li>
+            <h:li>Test FMT_SMF_EXT.1:5c: [conditional] If "<xref to="s-audiovisual-per-appgroup"/>" is selected, the
                         evaluator shall create two applications and the applications shall be placed
                         into different groups. Enable one group to access the A/V device and the
                         other to not access the A/V device. The evaluator shall exercise each
                         application attempting to access the A/V device individually. The evaluator
                         shall verify that the application in the enabled group is able to access the
                         A/V device and the application in the disabled group is not able to access
-                        the A/V device. </test>
-            </testlist>
+                        the A/V device. </h:li>
+            </h:ul>
 		      </Tests>
 		</aactivity>
                 </management-function>
@@ -10106,8 +10113,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     <!-- <ctr id="lockState" pre="" ctr-type="function">.</ctr>--> transition to the locked
                     state </text>
                     <M ref="I"/><NA ref="U"/><M ref="A"/><NA ref="AO"/>
-		    <aactivity><Tests>
-		      The evaluator shall use the test environment to instruct the TSF, both as a
+                  <aactivity><Tests>Test FMT_SMF_EXT.1:6: The evaluator shall use the test environment to instruct the TSF, both as a
                       user and as the administrator, to command the device to transition to a locked
                       state, and verify that the device transitions to the locked state upon
                       command.
@@ -10127,7 +10133,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		    Protected data is all non-TSF data, including all user or enterprise data. Some or all
 		  of this data may be considered sensitive data as well.</app-note>
       <aactivity>
-      <Tests>The evaluator shall use the test environment to instruct the TSF, both as a user and as the administrator, to command the device to perform a wipe of protected data. 
+        <Tests>Test FMT_SMF_EXT.1:7: The evaluator shall use the test environment to instruct the TSF, both as a user and as the administrator, to command the device to perform a wipe of protected data. 
       The evaluator must ensure that this management setup is used when conducting the Evaluation Activities in FCS_CKM_EXT.5.</Tests>
       </aactivity>
                 </management-function>
@@ -10173,16 +10179,16 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     installation according to the AGD guidance. The evaluator shall attempt to
                     install unauthorized applications and ensure that this is not possible. The
                     evaluator shall, in conjunction, perform the following specific tests: 
-                    <testlist>
-                      <test>[conditional] The evaluator shall attempt to connect to an
-                        unauthorized repository in order to install applications. </test>
-                      <test>[conditional] The evaluator shall attempt to install two applications
+                    <h:ul>
+                      <h:li>Test FMT_SMF_EXT.1:8a: [conditional] The evaluator shall attempt to connect to an
+                        unauthorized repository in order to install applications. </h:li>
+                      <h:li>Test FMT_SMF_EXT.1:8b: [conditional] The evaluator shall attempt to install two applications
                         (one allowlisted, and one not) from a known allowed repository and verify
                         that the application not on the allowlist is rejected. The evaluator shall
                         also attempt to side-load executables or installation packages via USB
                         connections to determine that the white list is still adhered to
-                      </test>
-                      </testlist>
+                      </h:li>
+                      </h:ul>
 		</Tests>
 		  </aactivity>
                 </management-function>
@@ -10226,7 +10232,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   both administrators and users) are identified.
 		      </Guidance>
 		      <Tests>
-			The evaluator shall import certificates according to the AGD guidance as the
+		        Test FMT_SMF_EXT.1:11: The evaluator shall import certificates according to the AGD guidance as the
 			user or as the administrator, as determined by the administrative guidance.
 			The evaluator shall verify that no errors occur during import. The evaluator
 			should perform an action requiring use of the X.509v3 certificate to provide
@@ -10259,7 +10265,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 			their use within the TSF.
 		      </TSS>
 		      <Tests>
-			The evaluator shall remove an administrator-imported certificate and any
+		        Test FMT_SMF_EXT.1:12: The evaluator shall remove an administrator-imported certificate and any
                     other categories of certificates included in the assignment of function <xref
                       to="mf-appRemove"/> from the Trust Anchor Database according to the AGD
                     guidance as the user and as the administrator.
@@ -10287,7 +10293,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   is present.
 		      </TSS>
 		      <Tests>
-		      The evaluator shall verify that user approval is required to enroll the
+		        Test FMT_SMF_EXT.1:13: The evaluator shall verify that user approval is required to enroll the
                       device into management.
 		      </Tests>
 		    </aactivity>
@@ -10311,7 +10317,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   not, on the other hand, refer to data such as word processing documents (for a
                   word processing app) or photos (for a photo or camera app).
 		  </TSS><Tests>
-		  The evaluator shall attempt to remove applications according to the AGD
+		    Test FMT_SMF_EXT.1:14: The evaluator shall attempt to remove applications according to the AGD
                     guidance and verify that the TOE no longer permits users to access those
                     applications or their associated data.</Tests></aactivity>
                 </management-function>
@@ -10330,7 +10336,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		      cognizant of this limitation and will enforce network access controls in order to
 		      enforce enterprise-critical updates.
 		    </app-note>
-		    <aactivity><Tests>The evaluator shall attempt to update the TSF system software following the
+                  <aactivity><Tests>Test FMT_SMF_EXT.1:15: The evaluator shall attempt to update the TSF system software following the
                     procedures in the AGD guidance and verify that updates correctly install and
                     that the version numbers of the system software increase.
 		    </Tests></aactivity>
@@ -10347,7 +10353,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               devices typically completely overwrite the previous installation with a new
               installation during an application update.
 		    </app-note>
-                    <aactivity><Tests>The evaluator shall attempt to install an application following the
+                  <aactivity><Tests>Test FMT_SMF_EXT.1:16: The evaluator shall attempt to install an application following the
                     procedures in the AGD guidance and verify that the application is installed and
                     available on the TOE.</Tests></aactivity>
                 </management-function>
@@ -10367,7 +10373,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
               <xref to="mf-appGroups"/> of FMT_SMF_EXT.1.1.
 		  </app-note>
 		  <aactivity><Tests>
-		  The evaluator shall attempt to remove any Enterprise applications from the
+		    Test FMT_SMF_EXT.1:17: The evaluator shall attempt to remove any Enterprise applications from the
                     device by following the administrator guidance. The evaluator shall verify that
                     the TOE no longer permits users to access those applications or their associated
                     data.</Tests></aactivity>
@@ -10398,7 +10404,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   how to enable and disable display information for that type of information in the
                   locked state.
 		</Guidance>
-		<Tests>For each category of information listed in the AGD guidance, the evaluator
+		    <Tests>Test FMT_SMF_EXT.1:18: For each category of information listed in the AGD guidance, the evaluator
                     shall verify that when that TSF is configured to limit the information according
                 to the AGD, the information is no longer displayed in the locked state.</Tests>
 		</aactivity>
@@ -10413,10 +10419,10 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		      selection if data-at-rest protection is not natively enabled.
 		    </app-note>
 		    <aactivity><Tests>
-		      The evaluator shall exercise the TSF configuration as the administrator and,
+		      Test FMT_SMF_EXT.1:19: The evaluator shall exercise the TSF configuration as the administrator and,
                     if not restricted to the administrator, the user, to enable system-wide
                     data-at-rest protection according to the AGD guidance. The evaluator shall
-                    ensure that all Evaluation Activities for DAR (FDP_DAR) are conducted with the
+                    ensure that all Evaluation Activities for DAR protection (FDP_DAR_EXT) are conducted with the
                     device in this configuration.
 		    </Tests></aactivity>
                 </management-function>
@@ -10432,10 +10438,10 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		      removable media.
 		    </app-note>
 		    <aactivity><Tests>
-		      The evaluator shall exercise the TSF configuration as the administrator and,
+		      Test FMT_SMF_EXT.1:20: The evaluator shall exercise the TSF configuration as the administrator and,
                     if not restricted to the administrator, the user, to enable removable media’s
                     data-at-rest protection according to the AGD guidance. The evaluator shall
-                    ensure that all Evaluation Activities for DAR (FDP_DAR) are conducted with the
+                    ensure that all Evaluation Activities for DAR protection (FDP_DAR_EXT) are conducted with the
                     device in this configuration.
 		    </Tests></aactivity>
                 </management-function>
@@ -10458,20 +10464,20 @@ The evaluator shall exercise the TSF configuration as the administrator and
 
 		  </app-note>
 		  <aactivity><Tests>
-		    The evaluator shall perform the following tests. <testlist>
-                      <test>The evaluator shall enable location services device-wide and shall
+		    The evaluator shall perform the following tests. <h:ul>
+		      <h:li>Test FMT_SMF_EXT.1:21a: The evaluator shall enable location services device-wide and shall
                         verify that an application (such as a mapping application) is able to access
                         the TOE’s location information. The evaluator shall disable location
                         services device-wide and shall verify that an application (such as a mapping
-                        application) is unable to access the TOE’s location information. </test>
-                      <test>[conditional] If <xref to="mf-location-per_app"/> is selected, the evaluator shall
+                        application) is unable to access the TOE’s location information. </h:li>
+		      <h:li>Test FMT_SMF_EXT.1:21b: [conditional] If <xref to="mf-location-per_app"/> is selected, the evaluator shall
                         create two applications and enable one to use access the location services
                         and the other to not access the location services. The evaluator shall
                         exercise each application attempting to access location services
                         individually. The evaluator shall verify that the enabled application is
                         able to access the location services and the disabled application is not
-                        able to access the location services. </test>
-                    </testlist></Tests></aactivity>
+                        able to access the location services. </h:li>
+                    </h:ul></Tests></aactivity>
                 </management-function>
                 <management-function id="mf-authFactors">
                   <text>
@@ -10492,8 +10498,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		  <aactivity><Tests>
 		    The evaluator shall verify that the TSS states if the TOE supports a BAF
                     or hybrid authentication. If the TOE does not include a BAF or hybrid
-                    authentication this test is implicitly met.<testlist>
-                      <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall verify that the
+                    authentication this test is implicitly met.<h:ul>
+                      <h:li>Test FMT_SMF_EXT.1:22a: [conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall verify that the
                         TSS describes the procedure to enable/disable the BAF.<!--If the TOE includes
                         multiple BAFs, the evaluator shall verify that the TSS describes how to
                         enable/disable each BAF, specifically if the different modalities can be
@@ -10501,16 +10507,16 @@ The evaluator shall exercise the TSF configuration as the administrator and
                         allow each supported BAF to authenticate and verify that successful
                         authentication can be achieved using the BAF. The evaluator shall configure
                         the TOE to disable the use of each supported BAF for authentication and
-                        confirm that the BAF cannot be used to authenticate. </test>
-                      <test>[conditional] If <xref to="uau_hybr"/> is selected the evaluator shall verify that
+                        confirm that the BAF cannot be used to authenticate. </h:li>
+                      <h:li>Test FMT_SMF_EXT.1:22b: [conditional] If <xref to="uau_hybr"/> is selected the evaluator shall verify that
                         the TSS describes the procedure to enable/disable the hybrid (biometric
                         credential and PIN/password) authentication. The evaluator shall configure
                         the TOE to allow hybrid authentication to authenticate and confirm that
                         successful authentication can be achieved using the hybrid authentication.
                         The evaluator shall configure the TOE to disable the use of hybrid
                         authentication and confirm that the hybrid authentication cannot be used to
-                        authenticate. </test>
-                        </testlist>
+                        authenticate. </h:li>
+                        </h:ul>
                     </Tests></aactivity>
                 </management-function>
                 <management-function id="mf-certInvalid">
@@ -10522,7 +10528,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		                    <!-- TODO: Should this be something like for TLS do not approve any exceptions, for HTTP this is per FCS_HTTPS_EXT.1.3?? How do I force the selection of no exceptions for all (non-HTTPS) TLS connections? -->
               Function <xref to="mf-certInvalid"/> must be included in the ST if the function is configurable on the TOE for any of the trusted channels either mandated or selected in <xref to="fel-wlan"/> or <xref to="fel-tls-app"/>. The configuration can be different depending on the specific trusted channel(s) and they must be filled in for the assignment.
 		    </app-note>
-                  <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in <xref to="X509"/>,
+                  <aactivity><Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in <xref to="X509"/> and
                     FCS_TLSC_EXT.1.6 in the <xref to="tls"/>. </Tests></aactivity>
                 </management-function>
                 <!-- Start of the Optional to implement functions -->
@@ -10550,7 +10556,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		    The evaluator shall verify that the TSS includes a list of each externally
                     accessible hardware port and an indication of if data transfer over that port can
                     be enabled/disabled. AGD guidance will describe how to perform the enable/disable function.</TSS>
-		    <Tests>The evaluator shall exercise the TSF configuration to enable and disable
+		    <Tests>Test FMT_SMF_EXT.1:24: The evaluator shall exercise the TSF configuration to enable and disable
                     data transfer capabilities over each externally accessible hardware ports (e.g.
                     USB, SD card, HDMI) listed by the ST author. The evaluator shall use test
                     equipment for the particular interface to ensure that while the TOE may continue to 
@@ -10575,7 +10581,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		    The evaluator shall verify that the TSS describes how the TSF acts as a server in
                   each of the protocols listed in the ST, and the reason for acting as a server.</TSS>
 		    <Tests>
-		    The evaluator shall attempt to disable each listed protocol in the
+		      Test FMT_SMF_EXT.1:25: The evaluator shall attempt to disable each listed protocol in the
                     assignment. The evaluator shall verify that remote devices can no longer access
                     the TOE or TOE resources using any disabled protocols.
 		    </Tests>
@@ -10591,7 +10597,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		    supported by the TSF.
 		  </app-note>
 		  <aactivity><Tests>
-		    The evaluator shall exercise the TSF configuration as the administrator and,
+		    Test FMT_SMF_EXT.1:26: The evaluator shall exercise the TSF configuration as the administrator and,
                     if not restricted to the administrator, the user, to enable and disable any
                     developer mode. The evaluator shall test that developer mode access is not
                     available when its configuration is disabled. The evaluator shall verify the
@@ -10612,7 +10618,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   enable and disable any "Forgot Password", password hint, or remote authentication
                   (to bypass local authentication mechanisms) capability.
 		</Guidance>
-		<Tests>For each mechanism listed in the AGD guidance that provides a "Forgot
+		    <Tests>Test FMT_SMF_EXT.1:27: For each mechanism listed in the AGD guidance that provides a "Forgot
                     Password" feature or other means where the local authentication process can be
                     bypassed, the evaluator shall disable the feature and ensure that they are not
                     able to bypass the local authentication process.</Tests></aactivity>
@@ -10622,7 +10628,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     <!-- <ctr id="wipeEntData" pre="" ctr-type="function">.</ctr>--> wipe Enterprise data </text>
                     <NA ref="AO"/>
 		    <aactivity><Tests>
-		      The evaluator shall attempt to wipe Enterprise data resident on the device
+		      Test FMT_SMF_EXT.1:28: The evaluator shall attempt to wipe Enterprise data resident on the device
                     according to the administrator guidance. The evaluator shall verify that the
                     data is no longer accessible by the user.</Tests></aactivity>
                 </management-function>
@@ -10653,8 +10659,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   provided in the TSS (or other documentation) includes any security functions
                   (import, modification, or destruction of the Trust Anchor Database) allowed by applications.
 		</TSS>
-		<Tests>The evaluator shall perform one of the following tests: <testlist>
-                      <test>[conditional] If applications may import certificates to the Trust
+		<Tests>The evaluator shall perform one of the following tests: <h:ul>
+		  <h:li>Test FMT_SMF_EXT.1:2: [conditional] If applications may import certificates to the Trust
                         Anchor Database, the evaluator shall write, or the developer shall provide
                         access to, an application that imports a certificate into the Trust Anchor
                         Database. The evaluator shall verify that the TOE requires approval before
@@ -10668,8 +10674,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
                             verify that the application is able to import the certificate and that
                             validation occurs. </h:li>
                         </h:ul>
-                      </test>
-                      <test>[conditional] If applications may remove certificates in the Trust
+                      </h:li>
+		  <h:li>Test FMT_SMF_EXT.1:29b: [conditional] If applications may remove certificates in the Trust
                         Anchor Database, the evaluator shall write, or the developer shall provide
                         access to, an application that removes certificates from the Trust Anchor
                         Database. The evaluator shall verify that the TOE requires approval before
@@ -10678,12 +10684,15 @@ The evaluator shall exercise the TSF configuration as the administrator and
                             application is not able to remove the certificate. Failure of removal
                             shall be tested by attempting to validate a certificate that chains to
                             the certificate whose removal was attempted (as described in the
-                            evaluation activity for FIA_X509_EXT.1 as defined in <xref to="X509"/>). </h:li>
+                            evaluation activity for FIA_X509_EXT.1 as defined in <xref to="X509"/>). 
+                          <h:p/>
+                            The evaluator shall repeat the test, allowing the approval to verify
+                            that the application is able to remove/modify the certificate and that
+                            validation no longer occurs.
+                          </h:li>
                         </h:ul>
-                      </test>
-                    </testlist> The evaluator shall repeat the test, allowing the approval to verify
-                    that the application is able to remove/modify the certificate and that
-                    validation no longer occurs.
+                      </h:li>
+                    </h:ul> 
 		    </Tests>
 		  </aactivity>
 		</management-function>
@@ -10709,7 +10718,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		  <Guidance>The evaluator shall confirm that the AGD guidance describes the
                   procedure for disabling each cellular protocol identified in the TSS.
 		  </Guidance>
-		  <Tests>The evaluator shall attempt to disable each cellular protocol according to
+		    <Tests>Test FMT_SMF_EXT.1:31: The evaluator shall attempt to disable each cellular protocol according to
                     the administrator guidance. The evaluator shall attempt to connect the device to
                     a cellular network and, using network analysis tools, verify that the device
                     does not allow negotiation of the disabled protocols.</Tests></aactivity>
@@ -10719,7 +10728,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     <!-- <ctr id="auditLogs" pre="" ctr-type="function">.</ctr>--> read audit logs kept by
                     the TSF </text>
                     <NA ref="AO"/>
-		    <aactivity><Tests>The evaluator shall attempt to read any device audit logs according to the
+                  <aactivity><Tests>Test FMT_SMF_EXT.1:32: The evaluator shall attempt to read any device audit logs according to the
                     administrator guidance and verify that the logs may be read. This test may be
                     performed in conjunction with the evaluation activity of FAU_GEN.1.</Tests></aactivity>
                 </management-function>
@@ -10830,25 +10839,24 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		  <aactivity><TSS>The
                   evaluator shall verify that the TSS includes a description of how data transfers
                   can be managed over USB.</TSS>
-                  <Tests>The evaluator shall perform the following tests based on the selections made
-                    in the table: <testlist>
-                      <test>[conditional] The evaluator shall disable USB mass storage mode,
+                  <Tests>The evaluator shall perform the following tests based on the selections made: <h:ul>
+                    <h:li>Test FMT_SMF_EXT.1:39a: [conditional] The evaluator shall disable USB mass storage mode,
                         attach the device to a computer, and verify that the computer cannot mount
                         the TOE as a drive. The evaluator shall reboot the TOE and repeat this test
-                        with other supported auxiliary boot modes. </test>
-                      <test>[conditional] The evaluator shall disable USB data transfer without
+                        with other supported auxiliary boot modes. </h:li>
+                    <h:li>Test FMT_SMF_EXT.1:39b: [conditional] The evaluator shall disable USB data transfer without
                         user authentication, attach the device to a computer, and verify that the
                         TOE requires user authentication before the computer can access TOE data.
                         The evaluator shall reboot the TOE and repeat this test with other supported
-                        auxiliary boot modes. </test>
-                      <test>[conditional] The evaluator shall disable USB data transfer without
+                        auxiliary boot modes. </h:li>
+                    <h:li>Test FMT_SMF_EXT.1:39c: [conditional] The evaluator shall disable USB data transfer without
                         connecting system authentication, attach the device to a computer, and
                         verify that the TOE requires connecting system authentication before the
                         computer can access TOE data. The evaluator shall then connect the TOE to
                         another computer and verify that the computer cannot access TOE data. The
                         evaluator shall then connect the TOE to the original computer and verify
-                        that the computer can access TOE data. </test>
-                      </testlist></Tests>
+                        that the computer can access TOE data. </h:li>
+                      </h:ul></Tests>
 		      </aactivity>
                 </management-function>
                 <management-function id="mf-backup">
@@ -10869,29 +10877,28 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   of applications" are selected the TSS shall include which applications of groups of
                   applications backup can be enabled/disabled.</TSS>
                   
-                <Tests> If <xref to="s-backup-all-apps"/> is selected, the evaluator shall disable each selected
+                <Tests> 
+                  <h:ul>
+                    <h:li>Test FMT_SMF_EXT.1:40a: [conditional] If <xref to="s-backup-all-apps"/> is selected, the evaluator shall disable each selected
                     backup location in turn and verify that the TOE cannot complete a backup. The
                     evaluator shall then enable each selected backup location in turn and verify
-                    that the TOE can perform a backup. <h:br/><h:br/>
-		    
-		    If <xref to="s-backup-sel-apps"/> is selected,
+                    that the TOE can perform a backup.</h:li>
+                    <h:li>Test FMT_SMF_EXT.1:40b: [conditional] If <xref to="s-backup-sel-apps"/> is selected,
 		    the evaluator shall disable each selected backup location in turn
                     and verify that for the selected application the TOE prevents backup from
                     occurring. The evaluator shall then enable each selected backup location in turn
-                    and verify that for the selected application the TOE can perform a backup.
-                    <h:br/><h:br/>
-		    
-		    If <xref to="s-backup-sel-grps"/> is selected, the
+                    and verify that for the selected application the TOE can perform a backup.</h:li>
+                    <h:li>Test FMT_SMF_EXT.1:40c: [conditional] If <xref to="s-backup-sel-grps"/> is selected, the
                     evaluator shall disable each selected backup location in turn and verify that
                     for a group of applications the TOE prevents the backup from occurring. The
                     evaluator shall then enable each selected backup location in turn and verify for
-                    the group of application the TOE can perform a backup. <h:br/><h:br/>
-		    
-		    If <xref to="s-backup-cfg"/> is selected, the evaluator shall disable each selected
+                    the group of application the TOE can perform a backup. </h:li>
+                    <h:li>Test FMT_SMF_EXT.1:40d: [conditional] If <xref to="s-backup-cfg"/> is selected, the evaluator shall disable each selected
                     backup location in turn and verify that the TOE prevents the backup of
                     configuration data from occurring. The evaluator shall then enable each selected
                     backup location in turn and verify that the TOE can perform a backup of
-                    configuration data.
+                    configuration data.</h:li>
+                  </h:ul>
 		    </Tests></aactivity>
                 </management-function>
                 <management-function id="mf-hotspot">
@@ -10914,14 +10921,14 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		  <aactivity><TSS> The
                   evaluator shall verify that the TSS includes a description of Bluetooth or USB tethering functinoality as claimed in the function. If USB tethering is supported, the evaluator shall verify that it includes the method used for authentication USB connections.</TSS>
 		  <Tests>The evaluator shall perform the following tests based on the selections in
-                    Function <xref to="mf-hotspot"/>. <testlist>
-                      <test>[conditional] The evaluator shall enable Bluetooth tethering functionality. The evaluator shall use a Bluetooth device to connect to the TOE and verify that tethering functionality is implemented. The evaluator shall disable Bluetooth tethering functionality and verify that the function has been disabled.</test>
-                      <test>[conditional] The evaluator shall enable USB tethering functionality
+                    Function <xref to="mf-hotspot"/>. <h:ul>
+                      <h:li>Test FMT_SMF_EXT.1:41a: [conditional] The evaluator shall enable Bluetooth tethering functionality. The evaluator shall use a Bluetooth device to connect to the TOE and verify that tethering functionality is implemented. The evaluator shall disable Bluetooth tethering functionality and verify that the function has been disabled.</h:li>
+                      <h:li>Test FMT_SMF_EXT.1:41b: [conditional] The evaluator shall enable USB tethering functionality
                         with each of supported authentication methods. The evaluator shall
                         connect to the TOE over USB with another device and verify that the
                         tethering functionality requires the configured authentication method.
-                      </test>
-                    </testlist></Tests></aactivity>
+                      </h:li>
+                    </h:ul></Tests></aactivity>
                 </management-function>
                 <management-function id="mf-dataSharing">
                   <text>
@@ -10942,7 +10949,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                     application groups based on <assignable>enterprise configuration
                   settings</assignable></text>
 		  <aactivity><Tests>
-		    The evaluator shall set a policy to cause a designated application to be
+		    Test FMT_SMF_EXT.1:43: The evaluator shall set a policy to cause a designated application to be
                     placed into a particular application group. The evaluator shall then install the
                     designated application and verify that it was placed into the correct group.
 		    </Tests></aactivity>
@@ -10956,7 +10963,8 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 <xref to="mf-unenroll"/>, FMT_SMF_EXT.2.1 specifies actions to be performed when
 		the TOE is unenrolled from management.
 		  </app-note>
-		  <aactivity><Tests>The evaluator shall attempt to unenroll the device from management and
+		  <aactivity><Tests>
+		    Test FMT_SMF_EXT.1:44: The evaluator shall attempt to unenroll the device from management and
                     verify that the steps described in FMT_SMF_EXT.2.1 are performed. This test
                     should be performed in conjunction with the FMT_SMF_EXT.2.1 evaluation activity.
 		    </Tests></aactivity>
@@ -10985,24 +10993,24 @@ The evaluator shall exercise the TSF configuration as the administrator and
 		  <aactivity><TSS>The evaluator shall verify that the TSS contains guidance to configure the
                   VPN as Always-On.
 		  </TSS><Tests>The evaluator shall configure the VPN as Always-On and perform the following tests:
-                    <testlist>
-                      <test>The evaluator shall verify that when the VPN is connected all traffic
+                    <h:ul>
+                      <h:li>Test FMT_SMF_EXT.1:45a: The evaluator shall verify that when the VPN is connected all traffic
                         is routed through the VPN. This test is performed in conjunction with
-                        FDP_IFC_EXT.1.1. </test>
-                      <test>The evaluator shall verify that when the VPN is not established, that
+                        FDP_IFC_EXT.1.1. </h:li>
+                      <h:li>Test FMT_SMF_EXT.1:45b: The evaluator shall verify that when the VPN is not established, that
                         no traffic leaves the device. The evaluator shall ensure that the TOE has
                         network connectivity and that the VPN is established. The evaluator shall
                         use a packet sniffing tool to capture the traffic leaving the TOE. The
                         evaluator shall disable the VPN connection on the server side. The evaluator
                         shall perform actions with the device such as navigating to websites, using
                         provided applications, and accessing other Internet resources and verify
-                        that no traffic leaves the device. </test>
-                      <test>The evaluator shall verify that the TOE has network connectivity and
+                        that no traffic leaves the device. </h:li>
+                      <h:li>Test FMT_SMF_EXT.1:45c: The evaluator shall verify that the TOE has network connectivity and
                         that the VPN is established. The evaluator shall disable network
                         connectivity (i.e. Airplane Mode) and verify that the VPN disconnects. The
                         evaluator shall re-establish network connectivity and verify that the VPN
-                        automatically reconnects. </test>
-                    </testlist>
+                        automatically reconnects. </h:li>
+                    </h:ul>
 		  </Tests></aactivity>
                 </management-function>
                 <management-function id="mf-bioRevoke">
@@ -11011,7 +11019,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   template</text>
 		  <aactivity><TSS>The evaluator shall verify that the TSS describes the procedure to revoke a
                   biometric credential stored on the TOE.
-		  </TSS><Tests>The evaluator shall configure the TOE to
+		  </TSS><Tests>Test FMT_SMF_EXT.1:46: The evaluator shall configure the TOE to
                     use BAF and confirm that the biometric can be used to authenticate to the
                     device. The evaluator shall revoke the biometric credential’s ability to
                     authenticate to the TOE and confirm that the same BAF cannot be used to
@@ -11027,7 +11035,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                   verify that the TSS describes all assigned security management functions and their
                   intended behavior.
 		  </TSS>
-                  <Tests>The evaluator shall design and perform tests to demonstrate that the
+		    <Tests>Test FMT_SMF_EXT.1:47: The evaluator shall design and perform tests to demonstrate that the
                     function may be configured and that the intended behavior of the function is
                     enacted by the TOE.
 		    </Tests></aactivity>
@@ -11040,9 +11048,9 @@ The evaluator shall exercise the TSF configuration as the administrator and
               </title>
             </ext-comp-def-title>
             <note role="application">
-              <xref to="fmt_smf"/> compares the management functions required by this
-              Protection Profile. <h:br/><h:br/>
-	      The first column lists the management functions
+              <xref to="fmt_smf"/> identifies the management functions required by this
+              Protection Profile, whether they are mandatory or optional, and whether it is mandatory, optional, or forbidden for a particular role to perform each function. <h:br/><h:br/>
+	       The first column ("#") is a sequential numeric identifier while the second olumn ("Management Function") lists the management functions
               identified in the PP. <h:br/><h:br/> In the following columns: <h:ul>
                 <h:li>‘M’ means Mandatory</h:li>
                 <h:li>‘O’ means Optional/Objective</h:li>
@@ -11053,12 +11061,12 @@ The evaluator shall exercise the TSF configuration as the administrator and
               implemented. <h:br/><h:br/> The fourth column ("User Only") indicates functions
               that are to be restricted to the user (i.e. not available to the administrator).
               <h:br/><h:br/> The fifth column ("Admin") indicates functions that are
-              available to the administrator. The functions restricted to the user (column 4) cannot
+              available to the administrator. The functions restricted to the user ("User Only" column) cannot
               also be available to the administrator. Functions available to the administrator can
               still be available to the user, as long as the function is not restricted to the
-              administrator (column 6). Thus, if the TOE must offer these functions to the
-              administrator to perform, the fifth column must be selected. <h:br/><h:br/> The
-              sixth column (FMT_MOF_EXT.1.2) indicates whether the function is to be restricted to
+              administrator ("Admin Only" column). Thus, if the TOE must offer these functions to both the user and the
+              administrator to perform, the "Admin" column entry must be selected. <h:br/><h:br/> The
+              "Admin Only" column (FMT_MOF_EXT.1.2) indicates whether the function is to be restricted to
               the administrator when the device is enrolled and the administrator applies the
               indicated policy. If the function is restricted to the administrator the function is
               not available to the user. This does not prevent the user from modifying a setting to
@@ -11105,7 +11113,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
                 may perform the function. The evaluator shall verify that the AGD guidance describes
                 how to perform each management function, including any configuration details. For
                 each specified management function tested, the evaluator shall confirm that the
-                underlying mechanism exhibits the configured setting. <h:br/><h:br/></Guidance>
+                underlying mechanism exhibits the configured setting.</Guidance>
               <!-- <Tests> -->
               <!--   <testlist> -->
               <!--     <h:b>Function <xref to="mf-pwd"/></h:b><h:br/> The evaluator shall verify -->
@@ -11745,7 +11753,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
           <audit-event/>
         </f-component>
       </sec:fmt>
-      <sec:fpt title="Class: Protection of the TSF (FPT)">
+      <sec:fpt title="Class FPT: Protection of the TSF">
         
         <ext-comp-def fam-id="FPT_AEX_EXT" title="Anti-Exploitation Capabilities">
           <fam-behavior>This family defines requirements for protecting against common types of software exploitation techniques. 
@@ -13147,7 +13155,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
           <audit-event table="objective"/>
         </f-component>
       </sec:fpt>
-      <sec:fta title="Class: TOE Access (FTA)">
+      <sec:fta title="Class FTA: TOE Access">
         
         <ext-comp-def fam-id="FTA_SSL_EXT" title="Session Locking and Termination">
           <fam-behavior>This family defines requirements for session locking capabilities that are not addressed by FTA_SSL in CC Part 2. 
@@ -13236,7 +13244,7 @@ The evaluator shall exercise the TSF configuration as the administrator and
 	  <audit-event/>
         </f-component>
       </sec:fta>
-      <sec:ftp title="Class: Trusted Path/Channels (FTP)">
+      <sec:ftp title="Class FTP: Trusted Path/Channels">
         
         <ext-comp-def fam-id="FTP_ITC_EXT" title="Inter-TSF Trusted Channel">
           <fam-behavior>This family defines requirements for trusted channels that are not addressed by FTP_ITC in CC Part 2 because they apply specifically to channels required by a mobile device. 
