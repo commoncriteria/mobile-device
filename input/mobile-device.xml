@@ -2142,7 +2142,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 						
 						<h:br/><h:i><h:b>Testing for Random Provable Primes and Conditional Methods</h:b></h:i><h:p/> 
 						To test the key generation method for the random provable primes method and for
-						all the primes with conditions methods (methods 1, 3-5), the evaluator must seed 
+						all the primes with conditions methods (methods 1, 3-5), the evaluator shall seed 
 						the TSF key generation routine with sufficient data to deterministically 
 						generate the RSA key pair. <h:p/>
 						For each supported combination of the above input parameters, the evaluator
@@ -2864,7 +2864,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 		  the evaluator shall ensure the TSS includes a description of the
                     randomness extraction step.</h:li>
                 </h:ul> The description must include how an approved untruncated MAC function is
-                being used for the randomness extraction step and the evaluator must verify the TSS
+                being used for the randomness extraction step and the evaluator shall verify the TSS
                 describes that the output length (in bits) of the MAC function is at least as large
                 as the targeted security strength (in bits) of the parameter set employed by the key
                 establishment scheme (see Tables 1-3 of SP 800-56C).<h:br/><h:br/> The
@@ -3155,7 +3155,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 the evaluator shall ensure the TSS includes a description of the randomness
                 extraction step. The description must include <h:ul>
                   <h:li>How an approved untruncated MAC function is being used for the randomness
-                    extraction step and the evaluator must verify the TSS describes that the output
+                    extraction step and the evaluator shall verify the TSS describes that the output
                     length (in bits) of the MAC function is at least as large as the targeted
                     security strength (in bits) of the parameter set employed by the key
                     establishment scheme (see Tables 1-3 of SP 800-56C).</h:li>
@@ -4032,7 +4032,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
             </note>
             <aactivity>
               <TSS>
-                The evaluator must verify that the TSS documents that the selection of the keyed hash
+                The evaluator shall verify that the TSS documents that the selection of the keyed hash
                 algorithm, iteration count, length of salt, and other mitigations are sufficient for the
                 security strength of the key derived.<h:p/>
                 The evaluator shall examine the TSS to verify that the salt is generated in accordance with the
@@ -6276,9 +6276,14 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   evaluator shall also confirm that the operational guidance contains appropriate
                   instructions for configuring the DRBG functionality.
                 </h:p><h:p>
-                  If the DRBG has  prediction resistance enabled, each trial consists of (1) instantiate DRBG, (2)
-                  generate the first block of random bits (3) generate a second block of random bits
-                  (4) uninstantiate. The evaluator verifies that the second block of random bits is
+                  If the DRBG has  prediction resistance enabled, each trial consists of:<h:ol type="1">
+                    <h:li>Instantiate the DRBG.</h:li>
+                    <h:li>Generate a block of random bits.</h:li>
+                    <h:li>Generate a second block of random bits.</h:li>
+                    <h:li>Uninstantiate.</h:li>
+                  </h:ol>
+                  
+                  The evaluator shall verify that the second block of random bits is
                   the expected value. The evaluator shall generate eight input values for each
                   trial. The first is a count (0 – 14). The next three are entropy input, nonce, and
                   personalization string for the instantiate operation. The next two are additional
@@ -6288,10 +6293,14 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   random bits with number of returned bits equal to the Output Block Length (as
                   defined in NIST SP 800-90A).
                 </h:p><h:p>
-                  If the DRBG does not have prediction resistance,
-                  each trial consists of (1) instantiate DRBG, (2) generate the first block of
-                  random bits (3) reseed, (4) generate a second block of random bits (5)
-                  uninstantiate. The evaluator verifies that the second block of random bits is the
+                  If the DRBG does not have prediction resistance, each trial consists of:<h:ol type="1">
+                    <h:li>Instantiate the DRBG.</h:li>
+                    <h:li>Generate a block of random bits.</h:li>
+                    <h:li>Reseed.</h:li>
+                    <h:li>Generate a second block of random bits.</h:li>
+                    <h:li>Uninstantiate.</h:li>
+                  </h:ol>
+                  The evaluator shall verify that the second block of random bits is the
                   expected value. The evaluator shall generate eight input values for each trial.
                   The first is a count (0 – 14). The next three are entropy input, nonce, and
                   personalization string for the instantiate operation. The fifth value is
@@ -6326,7 +6335,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <selectable id="internal-seeds"><h:b>multiple TSF entropy sources <assignable>names of entropy sources</assignable></h:b></selectable>
                 <selectable id="external-seed">TSF interface for obtaining entropy</selectable>
               </selectables>
-              after initialization and reseeding.
+              for initialization and reseeding.
             </title>
             <note role="application">
               <h:p>
@@ -10017,7 +10026,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 		  of this data may be considered sensitive data as well.</app-note>
       <aactivity>
         <Tests>Test FMT_SMF_EXT.1:7: The evaluator shall use the test environment to instruct the TSF, both as a user and as the administrator, to command the device to perform a wipe of protected data. 
-      The evaluator must ensure that this management setup is used when conducting the Evaluation Activities in FCS_CKM_EXT.5.</Tests>
+      The evaluator shall ensure that this management setup is used when conducting the Evaluation Activities in FCS_CKM_EXT.5.</Tests>
       </aactivity>
                 </management-function>
                 <management-function id="mf-appInstallRules">
@@ -11676,10 +11685,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <testlist>
                   <test>
                     <h:p>
-                    The evaluator must select 3 apps included with the TSF. These must include
+                    The evaluator shall select 3 apps included with the TSF. These must include
                     any web browser or mail client included with the TSF. For each of these apps,
                     the evaluator shall launch the same app on two separate Mobile Devices of the
-                    same type and compare all memory mapping locations. The evaluator must ensure
+                    same type and compare all memory mapping locations. The evaluator shall ensure
                     that no memory mappings are placed in the same location on both devices. This test can also be completed on the same Mobile Device if the evaluator reboots the Mobile Device between application launches.
                     </h:p>
                     <h:p>
@@ -11822,7 +11831,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <testlist>
                   <test>The evaluator shall create and load an app onto the Mobile Device. This app
                     shall attempt to traverse over all file systems and report any locations to
-                    which data can be written or overwritten. The evaluator must ensure that none of
+                    which data can be written or overwritten. The evaluator shall ensure that none of
                     these locations are part of the OS software, device drivers, system and security
                     configuration files, key material, or another untrusted application’s
                     image/data. For example, it is acceptable for a trusted photo editor app to have
@@ -11870,7 +11879,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 typically not found on consumer Mobile Device products. <testlist>
                   <test>The evaluator shall reboot the TOE six times. For each of these
                     reboots, the evaluator shall examine memory mapping locations of the kernel. The
-                    evaluator must ensure that for at least five reboots the memory mappings are not placed in the same location on
+                    evaluator shall ensure that for at least five reboots the memory mappings are not placed in the same location on
                     both devices.</test>
                 </testlist>
               </Tests>
@@ -13927,7 +13936,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               aspects of the system. The test plan covers all of the testing actions contained in
               the <xref to="bibCEM"/> and the body of this PP’s Evaluation Activities. While it is
               not necessary to have one test case per test listed in an evaluation activity, the
-              evaluator must document in the test plan that each applicable testing requirement in
+              evaluator shall document in the test plan that each applicable testing requirement in
               the ST is covered. <h:br/><h:br/> The test plan identifies the platforms to be
               tested, and for those platforms not included in the test plan but included in the ST,
               the test plan provides a justification for not testing the platforms. This
