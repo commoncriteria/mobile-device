@@ -1533,7 +1533,7 @@ The following sections list Common Criteria and technology terms used in this do
 						
 						<br/><i><b>Testing for Random Provable Primes and Conditional Methods</b></i><p></p> 
 						To test the key generation method for the random provable primes method and for
-						all the primes with conditions methods (methods 1, 3-5), the evaluator must seed 
+						all the primes with conditions methods (methods 1, 3-5), the evaluator shall seed 
 						the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> key generation routine with sufficient data to deterministically 
 						generate the <abbr class="dyn-abbr"><a href="#abbr_RSA">RSA</a></abbr> key pair. <p></p>
 						For each supported combination of the above input parameters, the evaluator
@@ -2193,7 +2193,7 @@ The following sections list Common Criteria and technology terms used in this do
 		  the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of the
                     randomness extraction step.</li>
                 </ul> The description must include how an approved untruncated MAC function is
-                being used for the randomness extraction step and the evaluator must verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                being used for the randomness extraction step and the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                 describes that the output length (in bits) of the MAC function is at least as large
                 as the targeted security strength (in bits) of the parameter set employed by the key
                 establishment scheme (see Tables 1-3 of SP 800-56C).<br/><br/> The
@@ -2442,7 +2442,7 @@ The following sections list Common Criteria and technology terms used in this do
                 the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> includes a description of the randomness
                 extraction step. The description must include <ul>
                   <li>How an approved untruncated MAC function is being used for the randomness
-                    extraction step and the evaluator must verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes that the output
+                    extraction step and the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes that the output
                     length (in bits) of the MAC function is at least as large as the targeted
                     security strength (in bits) of the parameter set employed by the key
                     establishment scheme (see Tables 1-3 of SP 800-56C).</li>
@@ -2991,7 +2991,7 @@ The following sections list Common Criteria and technology terms used in this do
               
               
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea">
-                The evaluator must verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> documents that the selection of the keyed hash
+                The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> documents that the selection of the keyed hash
                 algorithm, iteration count, length of salt, and other mitigations are sufficient for the
                 security strength of the key derived.<p></p>
                 The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that the salt is generated in accordance with the
@@ -4772,7 +4772,7 @@ The following sections list Common Criteria and technology terms used in this do
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use a [<b>selection</b>: <span class="selectable-content" id="internal-seed"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> entropy source [<b>assignment</b>: 
      <span class="assignable-content">name of entropy source</span>]</span>, <span class="selectable-content" id="internal-seeds"><b>multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> entropy sources [<b>assignment</b>: 
      <span class="assignable-content">names of entropy sources</span>]</b></span>, <span class="selectable-content" id="external-seed"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for obtaining entropy</span>]
-              after initialization and reseeding.
+              for initialization and reseeding.
             <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -4819,9 +4819,14 @@ The following sections list Common Criteria and technology terms used in this do
                   evaluator shall also confirm that the operational guidance contains appropriate
                   instructions for configuring the DRBG functionality.
                 </p><p>
-                  If the DRBG has  prediction resistance enabled, each trial consists of (1) instantiate DRBG, (2)
-                  generate the first block of random bits (3) generate a second block of random bits
-                  (4) uninstantiate. The evaluator verifies that the second block of random bits is
+                  If the DRBG has  prediction resistance enabled, each trial consists of:<ol type="1">
+                    <li>Instantiate the DRBG.</li>
+                    <li>Generate a block of random bits.</li>
+                    <li>Generate a second block of random bits.</li>
+                    <li>Uninstantiate.</li>
+                  </ol>
+                  
+                  The evaluator shall verify that the second block of random bits is
                   the expected value. The evaluator shall generate eight input values for each
                   trial. The first is a count (0 – 14). The next three are entropy input, nonce, and
                   personalization string for the instantiate operation. The next two are additional
@@ -4831,10 +4836,14 @@ The following sections list Common Criteria and technology terms used in this do
                   random bits with number of returned bits equal to the Output Block Length (as
                   defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> SP 800-90A).
                 </p><p>
-                  If the DRBG does not have prediction resistance,
-                  each trial consists of (1) instantiate DRBG, (2) generate the first block of
-                  random bits (3) reseed, (4) generate a second block of random bits (5)
-                  uninstantiate. The evaluator verifies that the second block of random bits is the
+                  If the DRBG does not have prediction resistance, each trial consists of:<ol type="1">
+                    <li>Instantiate the DRBG.</li>
+                    <li>Generate a block of random bits.</li>
+                    <li>Reseed.</li>
+                    <li>Generate a second block of random bits.</li>
+                    <li>Uninstantiate.</li>
+                  </ol>
+                  The evaluator shall verify that the second block of random bits is the
                   expected value. The evaluator shall generate eight input values for each trial.
                   The first is a count (0 – 14). The next three are entropy input, nonce, and
                   personalization string for the instantiate operation. The fifth value is
@@ -7644,7 +7653,7 @@ The following sections list Common Criteria and technology terms used in this do
                       command.
 		    </div><br/></div><div class="management_function_ea"><b>Function <a href="#mf-wipe">7</a></b><br/>
         <div class="eacategory">Tests</div><div class="ea">Test <a href="#FMT_SMF_EXT.1">FMT_SMF_EXT.1</a>:7: The evaluator shall use the test environment to instruct the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, both as a user and as the administrator, to command the device to perform a wipe of protected data. 
-      The evaluator must ensure that this management setup is used when conducting the Evaluation Activities in <a href="#FCS_CKM_EXT.5">FCS_CKM_EXT.5</a>.</div>
+      The evaluator shall ensure that this management setup is used when conducting the Evaluation Activities in <a href="#FCS_CKM_EXT.5">FCS_CKM_EXT.5</a>.</div>
       <br/></div><div class="management_function_ea"><b>Function <a href="#mf-appInstallRules">8</a></b><br/><div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
 		     The evaluator
                   shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the allowable application installation policy
@@ -8109,10 +8118,10 @@ The following sections list Common Criteria and technology terms used in this do
                   <li class="test-"><a id="_t_57" class="defined" href="#_t_57">Test FPT_AEX_EXT.1:1</a>:
       
                     <p>
-                    The evaluator must select 3 apps included with the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. These must include
+                    The evaluator shall select 3 apps included with the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. These must include
                     any web browser or mail client included with the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. For each of these apps,
                     the evaluator shall launch the same app on two separate Mobile Devices of the
-                    same type and compare all memory mapping locations. The evaluator must ensure
+                    same type and compare all memory mapping locations. The evaluator shall ensure
                     that no memory mappings are placed in the same location on both devices. This test can also be completed on the same Mobile Device if the evaluator reboots the Mobile Device between application launches.
                     </p>
                     <p>
@@ -8247,7 +8256,7 @@ The following sections list Common Criteria and technology terms used in this do
                   <li class="test-"><a id="_t_58" class="defined" href="#_t_58">Test FPT_AEX_EXT.4:1</a>:
       The evaluator shall create and load an app onto the Mobile Device. This app
                     shall attempt to traverse over all file systems and report any locations to
-                    which data can be written or overwritten. The evaluator must ensure that none of
+                    which data can be written or overwritten. The evaluator shall ensure that none of
                     these locations are part of the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> software, device drivers, system and security
                     configuration files, key material, or another untrusted application’s
                     image/data. For example, it is acceptable for a trusted photo editor app to have
@@ -9582,7 +9591,7 @@ The following sections list Common Criteria and technology terms used in this do
               aspects of the system. The test plan covers all of the testing actions contained in
               the <a href="#bibCEM" class="dynref" data-format="">[CEM]</a> and the body of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>’s Evaluation Activities. While it is
               not necessary to have one test case per test listed in an evaluation activity, the
-              evaluator must document in the test plan that each applicable testing requirement in
+              evaluator shall document in the test plan that each applicable testing requirement in
               the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> is covered. <br/><br/> The test plan identifies the platforms to be
               tested, and for those platforms not included in the test plan but included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>,
               the test plan provides a justification for not testing the platforms. This
@@ -10112,7 +10121,7 @@ The following sections list Common Criteria and technology terms used in this do
                   <li class="test-"><a id="_t_60" class="defined" href="#_t_60">Test FPT_AEX_EXT.5:1</a>:
       The evaluator shall reboot the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> six times. For each of these
                     reboots, the evaluator shall examine memory mapping locations of the kernel. The
-                    evaluator must ensure that for at least five reboots the memory mappings are not placed in the same location on
+                    evaluator shall ensure that for at least five reboots the memory mappings are not placed in the same location on
                     both devices.</li>
                 </ul></span>
               </div></div></div></div></div><div class="comp" id="FPT_AEX_EXT.6"><h4>FPT_AEX_EXT.6 Write or Execute Memory Page Permissions</h4>
