@@ -185,7 +185,7 @@ How is it differenet then me using subsection?
       <h:li>Moved FAU_SAR.1 to mandatory</h:li>
       <h:li>Added ECD</h:li>
       <h:li>Updated WLAN Client reference from Extended Package to Module</h:li>
-        <h:li>Removed Diffie-Hellman group 14 selection from FCS_CKM.1.1 and FCS_CKM_EXT.7.1/UNLOCKED</h:li>
+        <h:li>Removed Diffie-Hellman group 14 selection from FCS_CKM.1.1 and FCS_CKM_EXT.7.1</h:li>
       </subject>
     </entry>
     <entry>
@@ -1986,6 +1986,18 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   </col>
                 </selectable>
                 
+                <!-- EdDSA -->
+                <selectable id="sel-fcs-ckm-ak-lms">
+                  <col>EdDSA</col>
+                  <col>EdDSA</col>
+                  <col>Domain paramaters approved for elliptic curves [<h:i>Edwards25519</h:i>]
+                  </col>
+                  <col>NIST FIPS PUB 186-5 (sectkon 6.2.1)[key-pair generation]<h:p/>
+                    NIST SP 800-186 (Section 3.2.3)[Edwards Curves]
+                  </col>
+                </selectable>
+                
+                
                 <!-- LMS -->
                 <selectable id="sel-fcs-ckm-ak-lms">
                   <col>LMS</col>
@@ -2271,26 +2283,56 @@ The scope of this Protection Profile (PP) is to describe the security functional
 						correspond as expected for the modified and unmodified values.<h:p/>
 		
 		
-						<h:br/><h:b>LMS Key Generation</h:b><h:p/>
-						<h:table border="1">
-							<h:tr class="header" bgcolor="#cccccc">
-								<h:td valign="top">Identifier</h:td>
-								<h:td valign="top">Cryptographic Key Generation Algorithm</h:td>
-								<h:td valign="top">Cryptographic Algorithm Parameters</h:td>
-								<h:td valign="top">List of Standards</h:td>
-							</h:tr>
-							<h:tr>
-								<h:td valign="top">LMS</h:td>
-								<h:td valign="top">LMS Key Generation</h:td>
-								<h:td valign="top">Private key size = [<h:b>selection:</h:b>  
-									192 bits with [<h:b>selection:</h:b> <h:i>SHA-256/192, SHAKE256/192],
-									256 bits with [<h:b>selection:</h:b> SHA-256, SHAKE256]</h:i>]; 
-								  Winternitz parameter = [<h:b>selection:</h:b> <h:i>1, 2, 4, 8</h:i>]; 
-								  Tree height = [<h:b>selection:</h:b> <h:i>5, 10, 15, 20, 25</h:i>]
-								</h:td>
-								<h:td valign="top">RFC 8554 [LMS]<h:p/>NIST SP 800-208 [parameters]</h:td>
-							</h:tr>
-						</h:table><h:p/>						
+		<!-- EdDSA -->
+					  <h:br/><h:b>EdDSA Key Generation</h:b><h:p/>
+					  <h:table border="1">
+					    <h:tr class="header" bgcolor="#cccccc">
+					      <h:td valign="top">Identifier</h:td>
+					      <h:td valign="top">Cryptographic Key Generation Algorithm</h:td>
+					      <h:td valign="top">Cryptographic Algorithm Parameters</h:td>
+					      <h:td valign="top">List of Standards</h:td>
+					    </h:tr>
+					    <h:tr>
+					      <h:td valign="top">EdDSA</h:td>
+					      <h:td valign="top">EdDSA</h:td>
+					      <h:td valign="top">Edwards25519
+					      </h:td>
+					      <h:td valign="top">NIST FIPS PUB 186-5 [EdDSA]<h:p/>NISTP 800-186 [parameters]</h:td>
+					    </h:tr>
+					  </h:table><h:p/>						
+		<h:p>
+		The evaluator shall require the implementation under test (IUT) to generate 10 private/public key pairs. The private key shall be generated as specified in RFC 7748 using an approved random bit generator (RBG) and shall be written in little-endian order (least significant byte first). To determine correctness, the evaluator shall submit the generated key pairs to the public key verification (PKV) function of a known good implementation.
+		</h:p><h:p>
+		Note: Assuming the PKV function of the good implementation will (using little-endian order):<h:ol type="a">
+		  <h:li>Confirm the private and public keys are 32-byte values</h:li>
+		  <h:li>Confirm the three least significant bits of the first byte of the private key are zero</h:li>
+		  <h:li>Confirm the most significant bit of the last byte is zero</h:li>
+		  <h:li>Confirm the second most significant bit of the last byte is one</h:li>
+		  <h:li>Calculate the expected public key from the private key and confirm it matches the supplied public key</h:li>
+		</h:ol></h:p>
+		The evaluator shall generate 10 private/public key pairs using the key generation function of a known good implementation and modify 5 of the public key values so that they are incorrect, leaving five values unchanged (i.e. correct). The evaluator shall obtain in response a set of 10 PASS/FAIL values.
+		
+		
+					  <h:br/><h:b>LMS Key Generation</h:b><h:p/>
+					  <h:table border="1">
+					    <h:tr class="header" bgcolor="#cccccc">
+					      <h:td valign="top">Identifier</h:td>
+					      <h:td valign="top">Cryptographic Key Generation Algorithm</h:td>
+					      <h:td valign="top">Cryptographic Algorithm Parameters</h:td>
+					      <h:td valign="top">List of Standards</h:td>
+					    </h:tr>
+					    <h:tr>
+					      <h:td valign="top">LMS</h:td>
+					      <h:td valign="top">LMS Key Generation</h:td>
+					      <h:td valign="top">Private key size = [<h:b>selection:</h:b>  
+					        192 bits with [<h:b>selection:</h:b> <h:i>SHA-256/192, SHAKE256/192],
+					          256 bits with [<h:b>selection:</h:b> SHA-256, SHAKE256]</h:i>]; 
+					        Winternitz parameter = [<h:b>selection:</h:b> <h:i>1, 2, 4, 8</h:i>]; 
+					        Tree height = [<h:b>selection:</h:b> <h:i>5, 10, 15, 20, 25</h:i>]
+					      </h:td>
+					      <h:td valign="top">RFC 8554 [LMS]<h:p/>NIST SP 800-208 [parameters]</h:td>
+					    </h:tr>
+					  </h:table><h:p/>
 						To test the TOE’s ability to generate asymmetric cryptographic keys using LMS, the
 						evaluator shall perform the LMS Key Generation Test using the following input parameters:
 						<h:ul>
@@ -2746,7 +2788,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 	      is selected in
 	      FCS_CKM_EXT.1.1 it implicitly meets FCS_CKM_EXT.7/LOCKED or FCS_CKM_EXT.7/UNLOCKED.
 	      If <xref to="mutable_hardware"/> is selected
-              in FCS_CKM_EXT.1.1, FCS_CKM_EXT.7/LOCKED or FCS_CKM_EXT.7/UNLOCKED must be included in the ST. <h:br/><h:br/>
+              in FCS_CKM_EXT.1.1, FCS_CKM_EXT.9 must be included in the ST. <h:br/><h:br/>
 
 	      The
               lack of a public/documented API for importing or exporting the REK, when a
@@ -3774,7 +3816,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <reqtext>.<h:p/><h:p/><xref to="fcs-ckm-ext-7-unlocked-sels"/> provides the allowable choices for
                     completion of the selection operations of FCS_CKM_EXT.7/UNLOCKED.</reqtext>
                 </tabularize>
-                
+                <!--
                 <selectable id="sel-fcs-ckm-kat-kas2">
                   <col>KAS2</col>
                   <col>RSA</col>
@@ -3786,7 +3828,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   </selectables> bits</col>
                   <col>NIST SP 800-56B Revision 2 (Section 8.3) [KAS2]</col>
                 </selectable>
-                
+                -->
                 <selectable id="sel-fcs-ckm-kat-dh">
                   <col>DH</col>
                   <col>Finite Field Cryptography Diffie-Hellman</col>
@@ -3836,9 +3878,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
             </ext-comp-def-title>
             
             <note role="application">
-              This SFR is claimed if the TSF supports key agreement schemes as a method of key establishment for trusted channels, or if KAS2 is a method for establishing the key used for encrypted data when the device is locked. This will generally apply to all conformant TOEs, except in the rare (but possible) case where only key encapsulation is used.<h:p/>
-              This SFR must be included in the ST if key agreement or transport is a service provided by the TOE to 
-              tenant software, or if they are used by the TOE itself to support or implement PP-specified security 
+              This SFR is claimed if the TSF supports key agreement schemes as a method of key establishment for external communications channels. This will generally apply to all conformant TOEs, except in the rare (but possible) case where only key encapsulation is used.<h:p/>
+              This SFR must be included in the ST if agreement is a service provided by the TOE to 
+              tenant software, or if it is used by the TOE itself to support or implement PP-specified security 
               functionality.<h:p/> 
               All of the above algorithms with the selectable parameters are CNSA compliant with the exception of P-256 ECDH. This may only be selected if the <xref to="mod-bluetooth"/> is included in the ST and P-256 may only be used specifically for Bluetooth functions.<h:p/>
             </note>
@@ -3846,7 +3888,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               <TSS>
                 The evaluator shall ensure that the TSS documents that the security strength of the
                 material contributed by the TOE is sufficient for the security strength of the key and the
-                agreement method.
+                agreement method. If support for P-256 is claimed, the evaluator shall examine the TSS to verify that it is only used for Bluetooth functions.
               </TSS>
               <Guidance>There are no additional Guidance evaluation activities for this component.</Guidance>
               <Tests>
@@ -3860,6 +3902,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 described.<h:p/>
                 
                 <!-- KAS2 -->
+                <!--
                 <h:br/><h:b>KAS2</h:b><h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
@@ -3908,7 +3951,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <h:li>The remaining test cases are not modified.</h:li></h:ul><h:p/>
                 To determine correctness, the evaluator shall confirm that the resulting 25 shared 
                 secrets correspond as expected for both the modified and unmodified values.<h:p/>
-                
+                -->
                 <!-- FFC Diffie-Hellman Key Agreement -->
                 <h:br/><h:b>FFC Diffie-Hellman Key Agreement</h:b><h:p/>
                 <h:table border="1">
@@ -4074,6 +4117,36 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 The evaluator shall compare the resulting keys from each test case with keys derived using a
                 known-good implementation with the same input parameters.
               </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event/>
+        </f-component>
+        
+        
+        <f-component name="Hardware Key Confidentiality" id="sfr-fcs-ckm-ext-9" cc-id="fcs_ckm_ext.9" status="sel-based">
+          <depends on-sel="mutable-hardware"/>
+          <comp-lev> requires the TSF to enforce the confidentiality of key data stored in mutable hardware by ensuring no mechanism exists to read or export it.</comp-lev>
+          <management/>
+          <audit/>
+          <dependencies>FCS_CKM_EXT.1 Cryptographic Key Support</dependencies>
+          
+          <f-element id="fcs-ckm-ext-9e1">
+            <title>
+              A [<h:i>REK</h:i>] shall not be able to be read from or exported from hardware.
+            </title>
+            <ext-comp-def-title>
+              <title>
+                A <assignable>key, type of keys, or list of keys</assignable> shall not be able to be read from or exported from hardware.
+              </title>
+            </ext-comp-def-title>
+            <note role="application"><h:p>This SFR is claimed if "mutable hardware" is selected in FCS_CKM_EXT.1.1. It is not claimed if "immutable hardware" is selected because it is implicitly met in that case.</h:p><h:p>
+              The lack of a public or documented API for performing this function is not sufficient to meet the requirement if a private or undocumented function exists to perform it.
+            </h:p>
+            </note>
+            <aactivity>
+              <TSS>The evaluation activity for this component is performed in conjunction with the evaluation activity for FCS_CKM_EXT.1.</TSS>
+              <Guidance/>
+              <Tests/>
             </aactivity>
           </f-element>
           <audit-event/>
@@ -6620,48 +6693,31 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <f-element id="fel-crypt-service">
             <title>The TSF shall provide a mechanism for applications to request the TSF to perform
               the following cryptographic operations: [<h:i><h:ul>
-                <h:li>All mandatory and <selectables>
-                    <selectable>selected algorithms</selectable>
-                    <selectable> selected algorithms with the exception of ECC over curve
-                      25519-based algorithms</selectable></selectables> in FCS_CKM_EXT.7/LOCKED</h:li>
-       
-                <h:li>All selected algorithms in FCS_COP.1/AEAD</h:li>
-                <h:li>All mandatory and selected algorithms in FCS_COP.1/Hash</h:li>
-                <h:li>All mandatory and selected algorithms in FCS_COP.1/KeyedHash</h:li>
-                <h:li>All selected algorithms in FCS_COP.1/SigGen and FCS_COP.1/SigVer</h:li>
-                <h:li>AES-CBC and <selectables>
-                  <selectable>AES-CTR</selectable>
-                  <selectable>XTS-AES</selectable>
-                  <selectable>no other modes</selectable>
-                </selectables> as defined in FCS_COP.1/SKC</h:li>
-                <h:li>
-                  <selectables linebreak="yes">
-                    <selectable>All mandatory and <selectables>
-                        <selectable>selected algorithms</selectable>
-                        <selectable>selected algorithms with the exception of ECC over curve
-                          25519-based algorithms</selectable></selectables> in FCS_CKM.1/AKG or FCS_CKM.1/SKG</selectable>
-                    <selectable>All selected algorithms in FCS_CKM_EXT.8</selectable>
-                    <selectable>All selected algorithms in FCS_COP.1/KeyWrap</selectable>
-                
-                    <selectable exclusive="yes">No other cryptographic operations</selectable>
-                  </selectables>
-                </h:li>
-              </h:ul></h:i>].
+                <h:li>AEAD: <assignable>one or more AEAD algorithms</assignable> as claimed in FCS_COP.1/AEAD</h:li>
+                <h:li>Hash: <assignable>one or more hash algorithms</assignable> as claimed in FCS_COP.1/Hash</h:li>
+                <h:li>HMAC: <assignable>one or more HMAC algorithms</assignable> as claimed in FCS_COP.1/KeyedHash</h:li>
+                <h:li>Digital signature:<assignable>one or more digital signature generation or verification algorithms</assignable> as claimed in FCS_COP.1/SigGen or FCS_COP.1/SigVer</h:li></h:ul>
+                and <selectables linebreak="yes">
+                  <selectable>Asymmetric key generation: <assignable>one or more key generation algorithms</assignable> as claimed in FCS_CKM.1/AKG</selectable>
+                  <selectable>Key agreement: <assignable>one or more key agreement algorithms</assignable> as claimed in FCS_CKM_EXT.7/UNLOCKED</selectable>
+                  <selectable>Key encapsulation: <assignable>one or more key encapsulation algorithms</assignable> as claimed in FCS_COP.1/KeyEncap</selectable>
+                  <selectable>Key wrapping: <assignable>one or more key wrap algorithms</assignable> as claimed in FCS_COP.1/KeyWrap</selectable>
+                  <selectable>Symmetric encryption: <assignable>one or more symmetric encryption algorithms</assignable> as claimed in FCS_COP.1/SKC</selectable>
+                  <selectable>no other cryptographic operations</selectable>
+                </selectables>.
+                  
             </title>
             <ext-comp-def-title>
               <title>The TSF shall provide a mechanism for applications to request the TSF to perform
-                the following cryptographic operations: <assignable>cryptographic operations defined by the TSF in FCS_CKM.1 or FCS_COP.1</assignable>
+                the following cryptographic operations: <assignable>cryptographic functions</assignable>.
               </title>
             </ext-comp-def-title>
             <note role="application"> 
               <h:p>
-                For each of the listed components in the bulleted list, the intent is that the TOE will make available all algorithms specified for that component in the ST.</h:p>
-              For FCS_COP.1/AEAD, the TOE is not required to make available AES_CCMP or AES_GCMP algorithms even though they may be implemented by the TSF. The intent is to provide an interface for AES-GCM and AES-CCM. 
-              
-              Support for AES-CBC is always required. If the TOE claims AES-CTR in FCS_COP.1/SKC, then this is required as well. If the TOE claims XTS-AES in FCS_COP.1/SKC, it is optional as to whether this be made available as a service.  
-              
-              FCS_CKM_EXT.8 and FCS_COP.1/KeyWrap are selectable because it is not explicitly required for the TOE to provide interfaces for PBKDF or key wrapping functions. 
-              
+                A conformant TOE is required to provide to provide an interface for third-party applications to invoke AEAD, hash, HMAC, and digital signature functions. The functions made available by the TSF may be a subset of those functions claimed; for example, if the TOE claims both CCM and GCM modes in FCS_COP.1/AEAD but CCM is only implemented in hardware for the purpose of Bluetooth, it is sufficient to offer only GCM. The TSF is not required to provide algorithm services for the selectable algorithms, but they should be included within the TOE boundary if supported.
+              </h:p>
+                  The TSF must also provide a service for generation of symmetric keys as defined in FCS_CKM.1/SKC. However, since this PP specifies "direct generation from a random bit generator" as the only mechanism for doing this, it is not necessary to list that service here because FCS_RBG.6 already requires the TSF to make the output of its DRBG available to third parties. There is no extra step to generate a symmetric key from random bits; the random bits themselves are the key.
+                </h:p>
             </note>
             <aactivity>
               <TSS>The evaluation shall verify that the TSS (or other product documentation) includes the security functions (cryptographic algorithms)
@@ -6688,13 +6744,13 @@ The scope of this Protection Profile (PP) is to describe the security functional
           
           <f-element id="fel-crypt-service-extra">
             <title>The TSF shall provide a mechanism for applications to request the TSF to perform
-              the following cryptographic operations: [<h:i><h:ul>
-                <h:li>Algorithms in FCS_COP.1/AEAD</h:li>
-                <h:li>Algorithms in FCS_COP.1/KeyWrap</h:li>
-                <h:li>Algorithms in FCS_COP.1/SigGen</h:li>
-                <h:li>Algorithms in FCS_COP.1/SigVer</h:li>
-                <h:li>Algorithms in FCS_COP.1/SKC</h:li>
-              </h:ul></h:i>] <h:b>by keys stored in the secure key storage.</h:b></title>
+              the following cryptographic operations: <selectables linebreak="yes">
+                <selectable>Algorithms in FCS_COP.1/AEAD</selectable>
+                <selectable>Algorithms in FCS_COP.1/KeyWrap</selectable>
+                <selectable>Algorithms in FCS_COP.1/SigGen</selectable>
+                <selectable>Algorithms in FCS_COP.1/SigVer</selectable>
+                <selectable>Algorithms in FCS_COP.1/SKC</selectable>
+              </selectables> <h:b>by keys stored in the secure key storage.</h:b></title>
             <ext-comp-def-title>
               <title>The TSF shall provide a mechanism for applications to request the TSF to perform
                 the following cryptographic operations: 
@@ -7031,7 +7087,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <selectable exclusive="yes">no other keys</selectable>
                 </selectables> shall be encrypted using one of the following methods: <selectables>
                   <selectable>using a SP800-56B key establishment scheme</selectable>
-                  <selectable>using AES in the following modes:<selectables>
+                  <selectable>using AES in the following modes: <selectables>
                     <selectable>Key Wrap (KW) as defined in FCS_COP.1/KeyWrap</selectable>
                     <selectable>Key Wrap with Padding (KWP) as defined in FCS_COP.1/KeyWrap</selectable>
                     <selectable>GCM as defined in FCS_COP.1/AEAD</selectable>
@@ -14016,8 +14072,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
       </sec:ava>
     </section>
   </sec:Security_Requirements>
+  <!-- 
   <appendix title="Validation Guidelines" id="valguide"/>
-  
+  -->
   <appendix title="Implicitly Satisfied Requirements" id="satisfiedreqs"> 
     <h:table>
       <h:tr>
@@ -14640,15 +14697,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
 
   <bibliography>
     <cc-entry/>
-    <entry id="bibCSA">
-      <tag>CSA</tag>
-      <description>
-        <h:a href="http://csrc.nist.gov/groups/SMA/ispab/documents/csa_87.txt">Computer Security Act of 1987</h:a>, H.R. 145, June 11, 1987. </description>
-    </entry>
     <entry id="bibCCerrata">
       <tag>Errata</tag>
       <description>
-        <h:a href="https://www.commoncriteriaportal.org/files/ccfiles/CCMB-2025-001-v1_2-Errata_Interpretation_CC_CEM_2022.pdf">Errata and Interpretation for CC:2022 (Release 1) and CEM:2022 (Release 1)</h:a>
+        <h:a href="https://www.commoncriteriaportal.org/files/ccfiles/CCMB-2025-001-v1_2-Errata_Interpretation_CC_CEM_2022.pdf">Errata and Interpretation for CC:2022 (Release 1) and CEM:2022 (Release 1), Version 1.2</h:a>
       </description>
     </entry>
     <entry id="bibOMB">
