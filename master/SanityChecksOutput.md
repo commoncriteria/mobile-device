@@ -1,5 +1,3 @@
-* Error: Detected dangling id-reference to mutable-hardware from attribute
-        on-sel/PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fcs[1]"This sect"/f-component[14]""/depends[1]""/on-sel[1]""
 * Error: Detected multiple elements with an id of 'usage-tls-support-mutual-auth'.
 * Error: Detected multiple elements with an id of 'usage-tls-mutual-auth'.
 * Error: Detected multiple elements with an id of 'usage-tls-support-mutual-auth'.
@@ -505,6 +503,8 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[1]""/sec:fmt[1]"Both the "/f-component[2]""/f-element[1]""/title[1]"The TSF s"/management-function-set[1]""/management-function[29]""/aactivity[1]""/Tests[1]"The evalu"/h:ul[1]""/h:li[2]"Test FMT_"/h:ul[1]""/h:li[1]"The evalu"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[2]"The Secur"/h:p[1]""
  Failed to find a reference to mod=vpnclient.
+ Failed to find a reference to mutable_hardware.
+ Failed to find a reference to mutable_hardware.
  Failed to find a reference to sel-based-reqs.
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
