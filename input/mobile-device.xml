@@ -1298,7 +1298,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
        
           
           <addressed-by>FCS_RBG.2 (selection-based)</addressed-by>      
-          <rationale>FCS_RBG.2 helps mitigate the threat of network eavesdrop by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
+          <rationale>FCS_RBG.2 helps mitigate the threat of a network attack by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
           <addressed-by>FCS_RBG.3 (selection-based)</addressed-by>
           <rationale>FCS_RBG.3 helps mitigate the threat of a network attack by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
           <addressed-by>FCS_RBG.4 (selection-based)</addressed-by>
@@ -1534,8 +1534,10 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <addressed-by>FIA_BMG_EXT.6 (objective)</addressed-by>
           <rationale>FIA_BMG_EXT.6 helps mitigate the threat of physical access by ensuring that biometric authentication cannot be exploited by an improper user.</rationale>
 -->
+          <addressed-by>FCS_CKM_EXT.9 (selection-based)</addressed-by>      
+          <rationale>FCS_CKM_EXT.9 helps mitigate the threat of physical access by ensuring that the TOE's root encryption key used for storage encryption cannot be disclosed.</rationale>
           <addressed-by>FCS_RBG.2 (selection-based)</addressed-by>      
-          <rationale>FCS_RBG.2 helps mitigate the threat of network eavesdrop by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
+          <rationale>FCS_RBG.2 helps mitigate the threat of physical access by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
           <addressed-by>FCS_RBG.3 (selection-based)</addressed-by>
           <rationale>FCS_RBG.3 helps mitigate the threat of physical access by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
           <addressed-by>FCS_RBG.4 (selection-based)</addressed-by>
@@ -2763,7 +2765,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <f-element id="fel-mut-hard">
             <title>The TSF shall support <selectables>
                 <selectable id="s-immutable-hardware">immutable hardware</selectable>
-                <selectable id="mutable_hardware">mutable hardware</selectable></selectables> REKs with a <selectables>
+                <selectable id="s-mutable-hardware">mutable hardware</selectable></selectables> REKs with a <selectables>
                 <selectable id="s-rek-sym">symmetric</selectable>
                 <selectable id="s-rek-asym">asymmetric</selectable></selectables> key of strength <selectables>
 
@@ -3882,7 +3884,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               This SFR must be included in the ST if agreement is a service provided by the TOE to 
               tenant software, or if it is used by the TOE itself to support or implement PP-specified security 
               functionality.<h:p/> 
-              All of the above algorithms with the selectable parameters are CNSA compliant with the exception of P-256 ECDH. This may only be selected if the <xref to="mod-bluetooth"/> is included in the ST and P-256 may only be used specifically for Bluetooth functions.<h:p/>
+              The abovealgorithms are CNSA compliant with the exception of P-256 ECDH. This may only be selected if the <xref to="mod-bluetooth"/> is included in the ST and P-256 may only be used specifically for Bluetooth functions.<h:p/>
             </note>
             <aactivity>
               <TSS>
@@ -4124,7 +4126,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
         
         
         <f-component name="Hardware Key Confidentiality" id="sfr-fcs-ckm-ext-9" cc-id="fcs_ckm_ext.9" status="sel-based">
-          <depends on-sel="mutable-hardware"/>
+          <depends on-sel="s-mutable-hardware"/>
           <comp-lev> requires the TSF to enforce the confidentiality of key data stored in mutable hardware by ensuring no mechanism exists to read or export it.</comp-lev>
           <management/>
           <audit/>
@@ -6750,7 +6752,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <selectable>Algorithms in FCS_COP.1/SigGen</selectable>
                 <selectable>Algorithms in FCS_COP.1/SigVer</selectable>
                 <selectable>Algorithms in FCS_COP.1/SKC</selectable>
-              </selectables> <h:b>by keys stored in the secure key storage.</h:b></title>
+              </selectables> by keys stored in the secure key storage.</title>
             <ext-comp-def-title>
               <title>The TSF shall provide a mechanism for applications to request the TSF to perform
                 the following cryptographic operations: 
@@ -12571,7 +12573,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           </f-element>    	
           <audit-event>
             <audit-event-descr>
-              Execution of self-tests.
+              Execution of self-tests
             </audit-event-descr>
             <audit-event-info>None.</audit-event-info>
           </audit-event>
