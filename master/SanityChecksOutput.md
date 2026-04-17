@@ -504,7 +504,6 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Security_Requirements[1]""/section[2]"The Secur"/h:p[1]""
  Failed to find a reference to mod=vpnclient.
  Failed to find a reference to mutable_hardware.
- Failed to find a reference to mutable_hardware.
  Failed to find a reference to sel-based-reqs.
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
