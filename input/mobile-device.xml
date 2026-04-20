@@ -606,7 +606,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
       <usecases>
       <usecase title="Enterprise-owned device for general-purpose enterprise use and limited personal use" id="uc-enterprise">
       <description>
-      <h:br/> 
+      <h:p>
         An enterprise-owned device for general-purpose business use is commonly
         called <h:i>Corporately Owned, Personally Enabled (COPE)</h:i>.
         This use case entails a significant degree of enterprise control over configuration 
@@ -617,6 +617,37 @@ The scope of this Protection Profile (PP) is to describe the security functional
         Users may use Internet connectivity to browse the web or access corporate mail
         or run enterprise applications, but this connectivity may be under significant control of the
         enterprise.
+      </h:p>
+        <h:p>
+        A TOE that conforms to this use case is expected to make the following SFR claims:
+        </h:p>
+        <h:table>
+          <h:tr>
+            <h:td><h:b>Requirement</h:b></h:td>
+            <h:td><h:b>Action</h:b></h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FMT_SMF_EXT.1.1 Function 39 (configuration of USB data functions)</h:td>
+            <h:td>Include in ST and select "USB mass storage mode." <comment>to the exclusion of other selections or just as a minimum?</comment></h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FMT_SMF_EXT.1.1 Function 41 (configuration of tethering)</h:td>
+            <h:td>Include in ST and select both "Bluetooth tethering" and "USB tethering..." <comment>will all conformant TOEs by definition support Bluetooth or should that first part be conditional?</comment></h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FPT_BBD_EXT.1</h:td>
+            <h:td>Include in ST.</h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FPT_TST_EXT.2/POSTKERNEL</h:td>
+            <h:td>Include in ST and select "all executable code" in FPT_TST_EXT.2.1/POSTKERNEL</h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FPT_TUD_EXT.5</h:td>
+            <h:td>Include in ST.</h:td>
+          </h:tr>
+        </h:table>
+        <h:p>If an SFR is not listed here, this use case does not mandate or prohibit any of its available selections or assignments.</h:p>
       </description>
         <!-- 
       <config>
@@ -664,8 +695,37 @@ The scope of this Protection Profile (PP) is to describe the security functional
 
   <usecase title="Enterprise-owned device for specialized, high security use" id="uc-secure">
       <description>
-      <h:br/>
+      <h:p>
     An enterprise-owned device with intentionally limited network connectivity, tightly controlled configuration, and limited software inventory is appropriate for specialized, high-security use cases. For example, the device may not be permitted connectivity to any external peripherals. It may only be able to communicate via its Wi-Fi or cellular radios with the enterprise-run network, which may not even permit connectivity to the Internet. Use of the device may entail compliance with policies that are more restrictive than those in any general-purpose use case, yet may mitigate risks to highly sensitive information. As in the previous case, the enterprise will look for additional applications providing enterprise connectivity and services to have a similar level of assurance as the platform.
+      </h:p>
+        <h:p>
+          A TOE that conforms to this use case is expected to make the following SFR claims:
+        </h:p>
+        <h:table>
+          <h:tr>
+            <h:td><h:b>Requirement</h:b></h:td>
+            <h:td><h:b>Action</h:b></h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FCS_CKM.1.1/AKG</h:td>
+            <h:td>If "RSA" is selected, the selection for cryptographic algorithm parameters must include, but is not limited to, "3072."</h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FCS_CKM_EXT.7.1/LOCKED</h:td>
+            <h:td>Do not select "ECDH-Ed."</h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FMT_SMF_EXT.1.1 Function 5 (configuration of audio and visual collection devices)</h:td>
+            <h:td>Complete the assignment with all audio and visual collection devices present on the TOE.</h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FMT_SMF_EXT.1.1 Function 44 (unenroll the TOE from management)</h:td>
+            <h:td>Include in ST.</h:td>
+          </h:tr>
+        
+        </h:table>
+        <h:p>If an SFR is not listed here, this use case does not mandate or prohibit any of its available selections or assignments.</h:p>
+    
 
       </description>
     <!-- 
@@ -770,8 +830,46 @@ The scope of this Protection Profile (PP) is to describe the security functional
 -->
     <usecase id="uc-personal" title="Personally-owned device for personal and enterprise use">
       <description>
-      <h:br/>
+      <h:p>
       A personally-owned device that is used for both personal activities and enterprise data is commonly called Bring Your Own Device (BYOD). The device may be provisioned for access to enterprise resources after significant personal usage has occurred. Unlike in the enterprise-owned cases, the enterprise is limited in what security policies it can enforce because the user purchased the device primarily for personal use and is unlikely to accept policies that limit the functionality of the device. However, because the enterprise allows the user full (or nearly full) access to the enterprise network, the enterprise will require their own security controls to ensure that enterprise resources are protected from potential threats posed by the personal activities on the device. These controls could potentially be enforced by a separation mechanism built-in to the device itself to distinguish between enterprise and personal activities, or by a third-party application that provides access to enterprise resources and leverages security capabilities provided by the mobile device. 
+      </h:p><h:p>
+          A TOE that conforms to this use case is expected to make the following SFR claims:
+        </h:p>
+        <h:table>
+          <h:tr>
+            <h:td><h:b>Requirement</h:b></h:td>
+            <h:td><h:b>Action</h:b></h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FDP_ACF_EXT.1.2</h:td>
+            <h:td>Select "groups of applications" in each of the first two selections.</h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FMT_SMF_EXT.1.1 Function 3 (VPN protection)</h:td>
+            <h:td>Do not seelect "no other method."</h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FMT_SMF_EXT.1.1 Function 5 (configuration of audio and visual collection devices)</h:td>
+            <h:td>Do not seelect "no other method."</h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FMT_SMF_EXT.1.1 Function 28 (wipe Enterprise data)</h:td>
+            <h:td>Include in ST.</h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FMT_SMF_EXT.1.1 Function 44 (unenroll the TOE from management)</h:td>
+            <h:td>Include in ST.</h:td>
+          </h:tr>
+          <h:tr>
+            <h:td>FMT_SMF_EXT.2.1</h:td>
+            <h:td>Select "remove Enterprise applications."</h:td>
+          </h:tr>
+        
+          
+        </h:table>
+        <h:p>If an SFR is not listed here, this use case does not mandate or prohibit any of its available selections or assignments.</h:p>
+      
+      
     </description>
       <!-- 
     <config>
@@ -797,7 +895,9 @@ The scope of this Protection Profile (PP) is to describe the security functional
       <usecase id="uc-personal-limited" title="Personally-owned device for personal and limited enterprise use">
         <description>
         <h:br/>
-        A personally-owned device that is used for both personal activities and enterprise data is commonly called Bring Your Own Device (BYOD). This device may be provisioned for limited access to enterprise resources such as enterprise email. Because the user does not have full access to the enterprise or enterprise data, the enterprise may not need to enforce any security policies on the device. However, the enterprise may want secure email and web browsing with assurance that the services being provided to those clients by the Mobile Device are not compromised. 
+        <h:p>
+        A personally-owned device that is used for both personal activities and enterprise data is commonly called Bring Your Own Device (BYOD). This device may be provisioned for limited access to enterprise resources such as enterprise email. Because the user does not have full access to the enterprise or enterprise data, the enterprise may not need to enforce any security policies on the device. However, the enterprise may want secure email and web browsing with assurance that the services being provided to those clients by the Mobile Device are not compromised.</h:p>
+          <h:p>No specific SFR claims are mandated or prohibited for a TOE that meets this use case.</h:p>
         </description>
       </usecase>
       </usecases>
