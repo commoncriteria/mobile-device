@@ -203,6 +203,7 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]"This sect"/f-component[36]""/f-element[5]""/aactivity[1]""/TSS[1]"The evalu"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[11]""/f-element[2]""/aactivity[1]""/TSS[1]"The evalu"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[4]""/f-component[12]""/f-element[2]""/aactivity[1]""/TSS[1]"The evalu"/h:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]"Both the "/f-component[2]""/f-element[1]""/title[1]"The TSF s"/management-function-set[1]""/management-function[29]""/aactivity[1]""/Tests[1]"The evalu"/h:ul[1]""/h:li[2]"Test FMT_"/h:ul[1]""/h:li[1]"The evalu"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]"The Secur"/h:p[1]""
  Failed to find a reference to mod=vpnclient.
  Failed to find a reference to Security_Requirements.
