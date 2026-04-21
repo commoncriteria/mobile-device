@@ -207,7 +207,7 @@ FPT_TST_EXT.2(2) - POSTKERNEL
     <entry>
       <version>3.3</version>
       <date>2022-09-12</date>
-      <subject>Integrated Biometrics cPP Module, Included changes based on Technical Rapid Response Team Decisions and open issues from GitHub.<h:br/><h:li>Removed biometric definitions from Tech Terms</h:li> <h:li>Removed FDP_PBA</h:li> <h:li>Removed FIA_BMG</h:li> <h:li>Updated FIA_UAU.5 to support bio cPP module</h:li> <h:li>Moved FTA_TAB.1 to mandatory</h:li> <h:li>Moved FAU_SAR.1 to mandatory</h:li> <h:li>Added ECD</h:li> <h:li>Updated WLAN Client reference from Extended Package to Module</h:li> <h:li>Removed Diffie-Hellman group 14 selection from FCS_CKM.1.1 and FCS_CKM_EXT.7.1/UNLOCKED</h:li></subject>
+      <subject>Integrated Biometrics cPP Module, Included changes based on Technical Rapid Response Team Decisions and open issues from GitHub.<h:br/><h:li>Removed biometric definitions from Tech Terms</h:li> <h:li>Removed FDP_PBA</h:li> <h:li>Removed FIA_BMG</h:li> <h:li>Updated FIA_UAU.5 to support bio cPP module</h:li> <h:li>Moved FTA_TAB.1 to mandatory</h:li> <h:li>Moved FAU_SAR.1 to mandatory</h:li> <h:li>Added ECD</h:li> <h:li>Updated WLAN Client reference from Extended Package to Module</h:li> <h:li>Removed Diffie-Hellman group 14 selection from FCS_CKM.1.1 and FCS_CKM_EXT.7.1</h:li></subject>
     </entry>
     <entry>
       <version>4.0</version>
@@ -534,10 +534,10 @@ FPT_TST_EXT.2(2) - POSTKERNEL
       <usecases>
         <usecase title="Enterprise-owned device for general-purpose enterprise use and limited personal use" id="uc-enterprise">
           <description>
-            <h:br/>
-            An enterprise-owned device for general-purpose business use is commonly
+            <h:p>
+              An enterprise-owned device for general-purpose business use is commonly
         called
-            <h:i>Corporately Owned, Personally Enabled (COPE)</h:i>.
+              <h:i>Corporately Owned, Personally Enabled (COPE)</h:i>.
         This use case entails a significant degree of enterprise control over configuration 
         and, possibly, software inventory.
         The enterprise elects to provide users with Mobile Devices and additional applications (such as
@@ -546,24 +546,120 @@ FPT_TST_EXT.2(2) - POSTKERNEL
         Users may use Internet connectivity to browse the web or access corporate mail
         or run enterprise applications, but this connectivity may be under significant control of the
         enterprise.
+            </h:p>
+            <h:p>A TOE that conforms to this use case is expected to make the following SFR claims:</h:p>
+            <h:table>
+              <h:tr>
+                <h:td>
+                  <h:b>Requirement</h:b>
+                </h:td>
+                <h:td>
+                  <h:b>Action</h:b>
+                </h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FMT_SMF_EXT.1.1 Function 39 (configuration of USB data functions)</h:td>
+                <h:td>Include in ST and select "USB mass storage mode" at minimum. At minimum, specify the Admin column in the table as being associated with this function.</h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FMT_SMF_EXT.1.1 Function 41 (configuration of tethering)</h:td>
+                <h:td>Include in ST and select "USB tethering..." At minimum, specify the Admin column in the table as being associated with this function. Additionally, if the TOE claims conformance to <xref to="mod-bluetooth"/>, select "Bluetooth tethering." </h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FPT_BBD_EXT.1</h:td>
+                <h:td>Include in ST.</h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FPT_TST_EXT.2/POSTKERNEL</h:td>
+                <h:td>Include in ST and select "all executable code" in FPT_TST_EXT.2.1/POSTKERNEL</h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FPT_TUD_EXT.5</h:td>
+                <h:td>Include in ST.</h:td>
+              </h:tr>
+            </h:table>
+            <h:p>If an SFR is not listed here, this use case does not mandate or prohibit any of its available selections or assignments.</h:p>
           </description>
         </usecase>
         <usecase title="Enterprise-owned device for specialized, high security use" id="uc-secure">
           <description>
-            <h:br/>
-            An enterprise-owned device with intentionally limited network connectivity, tightly controlled configuration, and limited software inventory is appropriate for specialized, high-security use cases. For example, the device may not be permitted connectivity to any external peripherals. It may only be able to communicate via its Wi-Fi or cellular radios with the enterprise-run network, which may not even permit connectivity to the Internet. Use of the device may entail compliance with policies that are more restrictive than those in any general-purpose use case, yet may mitigate risks to highly sensitive information. As in the previous case, the enterprise will look for additional applications providing enterprise connectivity and services to have a similar level of assurance as the platform.
+            <h:p>An enterprise-owned device with intentionally limited network connectivity, tightly controlled configuration, and limited software inventory is appropriate for specialized, high-security use cases. For example, the device may not be permitted connectivity to any external peripherals. It may only be able to communicate via its Wi-Fi or cellular radios with the enterprise-run network, which may not even permit connectivity to the Internet. Use of the device may entail compliance with policies that are more restrictive than those in any general-purpose use case, yet may mitigate risks to highly sensitive information. As in the previous case, the enterprise will look for additional applications providing enterprise connectivity and services to have a similar level of assurance as the platform.</h:p>
+            <h:p>A TOE that conforms to this use case is expected to make the following SFR claims:</h:p>
+            <h:table>
+              <h:tr>
+                <h:td>
+                  <h:b>Requirement</h:b>
+                </h:td>
+                <h:td>
+                  <h:b>Action</h:b>
+                </h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FCS_CKM.1.1/AKG</h:td>
+                <h:td>If "RSA" is selected, the selection for cryptographic algorithm parameters must include, but is not limited to, "3072."</h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FCS_CKM_EXT.7.1/LOCKED</h:td>
+                <h:td>Do not select "ECDH-Ed."</h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FMT_SMF_EXT.1.1 Function 5 (configuration of audio and visual collection devices)</h:td>
+                <h:td>Complete the assignment with all audio and visual collection devices present on the TOE.</h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FMT_SMF_EXT.1.1 Function 44 (unenroll the TOE from management)</h:td>
+                <h:td>Include in ST. At minimum, specify the Admin column in the table as being associated with this function.</h:td>
+              </h:tr>
+            </h:table>
+            <h:p>If an SFR is not listed here, this use case does not mandate or prohibit any of its available selections or assignments.</h:p>
           </description>
         </usecase>
         <usecase title="Personally-owned device for personal and enterprise use" id="uc-personal">
           <description>
-            <h:br/>
-            A personally-owned device that is used for both personal activities and enterprise data is commonly called Bring Your Own Device (BYOD). The device may be provisioned for access to enterprise resources after significant personal usage has occurred. Unlike in the enterprise-owned cases, the enterprise is limited in what security policies it can enforce because the user purchased the device primarily for personal use and is unlikely to accept policies that limit the functionality of the device. However, because the enterprise allows the user full (or nearly full) access to the enterprise network, the enterprise will require their own security controls to ensure that enterprise resources are protected from potential threats posed by the personal activities on the device. These controls could potentially be enforced by a separation mechanism built-in to the device itself to distinguish between enterprise and personal activities, or by a third-party application that provides access to enterprise resources and leverages security capabilities provided by the mobile device.
+            <h:p>A personally-owned device that is used for both personal activities and enterprise data is commonly called Bring Your Own Device (BYOD). The device may be provisioned for access to enterprise resources after significant personal usage has occurred. Unlike in the enterprise-owned cases, the enterprise is limited in what security policies it can enforce because the user purchased the device primarily for personal use and is unlikely to accept policies that limit the functionality of the device. However, because the enterprise allows the user full (or nearly full) access to the enterprise network, the enterprise will require their own security controls to ensure that enterprise resources are protected from potential threats posed by the personal activities on the device. These controls could potentially be enforced by a separation mechanism built-in to the device itself to distinguish between enterprise and personal activities, or by a third-party application that provides access to enterprise resources and leverages security capabilities provided by the mobile device.</h:p>
+            <h:p>A TOE that conforms to this use case is expected to make the following SFR claims:</h:p>
+            <h:table>
+              <h:tr>
+                <h:td>
+                  <h:b>Requirement</h:b>
+                </h:td>
+                <h:td>
+                  <h:b>Action</h:b>
+                </h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FDP_ACF_EXT.1.2</h:td>
+                <h:td>Select "groups of applications" in each of the first two selections.</h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FMT_SMF_EXT.1.1 Function 3 (VPN protection)</h:td>
+                <h:td>Do not select "no other method."</h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FMT_SMF_EXT.1.1 Function 5 (configuration of audio and visual collection devices)</h:td>
+                <h:td>Do not select "no other method."</h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FMT_SMF_EXT.1.1 Function 28 (wipe Enterprise data)</h:td>
+                <h:td>Include in ST. At minimum, specify the Admin column in the table as being associated with this function.</h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FMT_SMF_EXT.1.1 Function 44 (unenroll the TOE from management)</h:td>
+                <h:td>Include in ST. At minimum, specify the Admin column in the table as being associated with this function.</h:td>
+              </h:tr>
+              <h:tr>
+                <h:td>FMT_SMF_EXT.2.1</h:td>
+                <h:td>Select "remove Enterprise applications."</h:td>
+              </h:tr>
+            </h:table>
+            <h:p>If an SFR is not listed here, this use case does not mandate or prohibit any of its available selections or assignments.</h:p>
           </description>
         </usecase>
         <usecase title="Personally-owned device for personal and limited enterprise use" id="uc-personal-limited">
           <description>
             <h:br/>
-            A personally-owned device that is used for both personal activities and enterprise data is commonly called Bring Your Own Device (BYOD). This device may be provisioned for limited access to enterprise resources such as enterprise email. Because the user does not have full access to the enterprise or enterprise data, the enterprise may not need to enforce any security policies on the device. However, the enterprise may want secure email and web browsing with assurance that the services being provided to those clients by the Mobile Device are not compromised.
+            <h:p>A personally-owned device that is used for both personal activities and enterprise data is commonly called Bring Your Own Device (BYOD). This device may be provisioned for limited access to enterprise resources such as enterprise email. Because the user does not have full access to the enterprise or enterprise data, the enterprise may not need to enforce any security policies on the device. However, the enterprise may want secure email and web browsing with assurance that the services being provided to those clients by the Mobile Device are not compromised.</h:p>
+            <h:p>No specific SFR claims are mandated or prohibited for a TOE that meets this use case.</h:p>
           </description>
         </usecase>
       </usecases>
@@ -890,7 +986,7 @@ FPT_TST_EXT.2(2) - POSTKERNEL
           <addressed-by>FCS_RBG.1</addressed-by>
           <rationale>FCS_RBG.1 helps mitigate the threat of a network attack by ensuring that keys used for trusted communications are generated using a secure DRBG.</rationale>
           <addressed-by>FCS_RBG.2 (Selection-based)</addressed-by>
-          <rationale>FCS_RBG.2 helps mitigate the threat of network eavesdrop by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
+          <rationale>FCS_RBG.2 helps mitigate the threat of a network attack by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
           <addressed-by>FCS_RBG.3 (Selection-based)</addressed-by>
           <rationale>FCS_RBG.3 helps mitigate the threat of a network attack by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
           <addressed-by>FCS_RBG.4 (Selection-based)</addressed-by>
@@ -1061,6 +1157,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           <rationale>FCS_CKM_EXT.7/UNLOCKED helps mitigate the threat of physical access by implementing a method of protecting data at rest while the TOE is in a locked state.</rationale>
           <addressed-by>FCS_CKM_EXT.8</addressed-by>
           <rationale>FCS_CKM_EXT.8 helps mitigate the threat of physical access by performing password conditioning to increase the difficulty of deriving a key from a password.</rationale>
+          <addressed-by>FCS_CKM_EXT.9 (Selection-based)</addressed-by>
+          <rationale>FCS_CKM_EXT.9 helps mitigate the threat of physical access by ensuring that the TOE's root encryption key used for storage encryption cannot be disclosed.</rationale>
           <addressed-by>FCS_CKM.2</addressed-by>
           <rationale>FCS_CKM.2 helps mitigate the threat of physical access by implementing secure methods to perform key distribution for trusted communications.</rationale>
           <addressed-by>FCS_CKM.6</addressed-by>
@@ -1082,7 +1180,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           <addressed-by>FCS_RBG.1</addressed-by>
           <rationale>FCS_RBG.1 helps mitigate the threat of physical access by ensuring that keys used for protected storage are generated using a secure DRBG.</rationale>
           <addressed-by>FCS_RBG.2 (Selection-based)</addressed-by>
-          <rationale>FCS_RBG.2 helps mitigate the threat of network eavesdrop by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
+          <rationale>FCS_RBG.2 helps mitigate the threat of physical access by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
           <addressed-by>FCS_RBG.3 (Selection-based)</addressed-by>
           <rationale>FCS_RBG.3 helps mitigate the threat of physical access by ensuring that the TOE's DRBG is seeded with sufficient entropy to ensure the generation of strong cryptographic keys.</rationale>
           <addressed-by>FCS_RBG.4 (Selection-based)</addressed-by>
@@ -1546,6 +1644,12 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <col>NIST SP 800-56A Revision 3 (Section 5.6.1.1.3) [key pair generation]<h:p/> <selectables><selectable id="fcs_ckm.1.1_AKG_7">RFC 3526 [IKE groups]</selectable><selectable id="fcs_ckm.1.1_AKG_8">RFC 7919 [TLS groups]</selectable></selectables></col>
                 </selectable>
                 <selectable id="sel-fcs-ckm-ak-lms">
+                  <col>EdDSA</col>
+                  <col>EdDSA</col>
+                  <col>Domain paramaters approved for elliptic curves [<h:i>Edwards25519</h:i>]</col>
+                  <col>NIST FIPS PUB 186-5 (sectkon 6.2.1)[key-pair generation]<h:p/>NIST SP 800-186 (Section 3.2.3)[Edwards Curves]</col>
+                </selectable>
+                <selectable id="sel-fcs-ckm-ak-lms">
                   <col>LMS</col>
                   <col>LMS</col>
                   <col>Private key size = <selectables><selectable id="fcs_ckm.1.1_AKG_9"><h:i>192 bits with</h:i><selectables><selectable id="fcs_ckm.1.1_AKG_10">SHA-256/192</selectable><selectable id="fcs_ckm.1.1_AKG_11">SHAKE256/192</selectable></selectables> </selectable><selectable id="fcs_ckm.1.1_AKG_12">256 bits with <selectables><selectable id="fcs_ckm.1.1_AKG_13">SHA-256</selectable><selectable id="fcs_ckm.1.1_AKG_14">SHAKE256</selectable></selectables> </selectable></selectables> <h:p/>Winternitz parameter = <selectables><selectable id="fcs_ckm.1.1_AKG_15">1</selectable><selectable id="fcs_ckm.1.1_AKG_16">2</selectable><selectable id="fcs_ckm.1.1_AKG_17">4</selectable><selectable id="fcs_ckm.1.1_AKG_18">8</selectable></selectables> <h:p/>Tree height = <selectables><selectable id="fcs_ckm.1.1_AKG_19">5</selectable><selectable id="fcs_ckm.1.1_AKG_20">10</selectable><selectable id="fcs_ckm.1.1_AKG_21">15</selectable><selectable id="fcs_ckm.1.1_AKG_22">20</selectable><selectable id="fcs_ckm.1.1_AKG_23">25</selectable></selectables></col>
@@ -1614,10 +1718,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
 						not carried out on the TOE itself, the test platform shall be identified and the
 						differences between test environment and TOE execution environment shall be 
 						described.
-                <h:p/>
                 <h:br/>
                 <h:b>RSA Key Generation</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -1632,14 +1734,12 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <h:td valign="top">NIST FIPS PUB 186-5 (Section A.1.1)</h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 FIPS PUB 186-5 Key Pair generation specifies five methods for generating the 
 						primes
                 <h:i>p</h:i>
                 and
                 <h:i>q</h:i>.
-                <h:p/>
-                These are:
+						These are:
                 <h:ol>
                   <h:li>Random provable primes</h:li>
                   <h:li>Random probable primes</h:li>
@@ -1647,7 +1747,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Probable primes with conditions based on auxiliary provable primes</h:li>
                   <h:li>Probable primes with conditions based on auxiliary probable primes</h:li>
                 </h:ol>
-                <h:p/>
                 In addition to the key generation method, the input parameters are:
                 <h:ul>
                   <h:li>Modulus [3072, 4096, 6144, 8192]</h:li>
@@ -1658,7 +1757,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Private key format [standard, Chinese Remainder Theorem]</h:li>
                   <h:li>Public exponent [fixed value, random]</h:li>
                 </h:ul>
-                <h:p/>
                 The evaluator shall verify the ability of the TSF to correctly produce values
 						for the RSA key components, including the public verification exponent
                 <h:i>e</h:i>, the
@@ -1669,35 +1767,29 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 <h:i>n</h:i>, and 
 						the calculation of the private signature exponent
                 <h:i>d</h:i>.
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Testing for Random Provable Primes and Conditional Methods</h:b>
                 </h:i>
-                <h:p/>
                 To test the key generation method for the random provable primes method and for
 						all the primes with conditions methods (methods 1, 3-5), the evaluator shall seed 
 						the TSF key generation routine with sufficient data to deterministically 
-						generate the RSA key pair.
-                <h:p/>
-                For each supported combination of the above input parameters, the evaluator
+						generate the RSA key pair. 
+						For each supported combination of the above input parameters, the evaluator
 						shall have the TSF generate 25 key pairs. The evaluator shall verify the
 						correctness of the TSF’s implementation by comparing values generated by the TSF 
 						with those generated by a known good implementation using the same input 
 						parameters.
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Testing for Random Probable Primes Method</h:b>
                 </h:i>
-                <h:p/>
                 If the TOE generates random probable primes (method 2) then, if possible, the 
 						random probable primes method should also be verified against a known good
 						implementation as described above. If verification against a known good
 						implementation is not possible, the evaluator shall have the TSF generate 25 key
 						pairs for each supported key length nlen and verify that all of the following 
 						are true.
-                <h:p/>
                 <h:ul>
                   <h:li><h:i>n</h:i> = <h:i>p</h:i>*<h:i>q</h:i></h:li>
                   <h:li>
@@ -1719,7 +1811,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 </h:ul>
                 <h:br/>
                 <h:b>Elliptic Curve Key Generation</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -1748,7 +1839,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to generate asymmetric cryptographic keys using
 						elliptic curves, the evaluator shall perform the ECC Key Generation Test 
 						and the ECC Key Validation Test using the following input parameters.
@@ -1756,7 +1846,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Elliptic curve [P-256, P-384, P-521]</h:li>
                   <h:li>Key pair generation method [extra random bits, rejection sampling]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>ECC Key Generation Test</h:b>
@@ -1786,7 +1875,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 is 
 						equal to
                 <h:i>Q'</h:i>.
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>ECC Key Validation Test</h:b>
@@ -1810,10 +1898,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
 						correct). To determine correctness, the evaluator shall submit the public keys
 						to the public key validation (PKV) function of the TOE and confirm that 
 						the results correspond as expected for the modified and unmodified values.
-                <h:p/>
                 <h:br/>
                 <h:b>Finite Field Cryptography Key Generation</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -1854,7 +1940,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to generate asymmetric cryptographic keys using finite
 						fields, the evaluator shall perform the Safe Primes Generation Test and the Safe
 						Primes Validation Test using the following input parameter:
@@ -1862,7 +1947,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Fields/Groups [MODP-3072, MODP-4096, MODP-6144, MODP-8192,  
 							ffdhe3072, ffdhe4096, ffdhe6144, ffdhe8192]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Safe Primes Generation Test</h:b>
@@ -1872,7 +1956,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
 						verify the correctness of the TSF’s implementation by comparing values generated
 						by the TSF with those generated by a known good implementation using the same 
 						input parameters.
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Safe Primes Verification Test</h:b>
@@ -1884,10 +1967,35 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
 						determine correctness, the evaluator shall submit the key pairs to the public 
 						key validation (PKV) function of the TOE and shall confirm that the results
 						correspond as expected for the modified and unmodified values.
-                <h:p/>
+                <h:br/>
+                <h:b>EdDSA Key Generation</h:b>
+                <h:table border="1">
+                  <h:tr class="header" bgcolor="#cccccc">
+                    <h:td valign="top">Identifier</h:td>
+                    <h:td valign="top">Cryptographic Key Generation Algorithm</h:td>
+                    <h:td valign="top">Cryptographic Algorithm Parameters</h:td>
+                    <h:td valign="top">List of Standards</h:td>
+                  </h:tr>
+                  <h:tr>
+                    <h:td valign="top">EdDSA</h:td>
+                    <h:td valign="top">EdDSA</h:td>
+                    <h:td valign="top">Edwards25519</h:td>
+                    <h:td valign="top">NIST FIPS PUB 186-5 [EdDSA]<h:p/>NISTP 800-186 [parameters]</h:td>
+                  </h:tr>
+                </h:table>
+                The evaluator shall require the implementation under test (IUT) to generate 10 private/public key pairs. The private key shall be generated as specified in RFC 7748 using an approved random bit generator (RBG) and shall be written in little-endian order (least significant byte first). To determine correctness, the evaluator shall submit the generated key pairs to the public key verification (PKV) function of a known good implementation.
+		
+		Note: Assuming the PKV function of the good implementation will (using little-endian order):
+                <h:ol type="a">
+                  <h:li>Confirm the private and public keys are 32-byte values</h:li>
+                  <h:li>Confirm the three least significant bits of the first byte of the private key are zero</h:li>
+                  <h:li>Confirm the most significant bit of the last byte is zero</h:li>
+                  <h:li>Confirm the second most significant bit of the last byte is one</h:li>
+                  <h:li>Calculate the expected public key from the private key and confirm it matches the supplied public key</h:li>
+                </h:ol>
+                The evaluator shall generate 10 private/public key pairs using the key generation function of a known good implementation and modify 5 of the public key values so that they are incorrect, leaving five values unchanged (i.e. correct). The evaluator shall obtain in response a set of 10 PASS/FAIL values.
                 <h:br/>
                 <h:b>LMS Key Generation</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -1903,18 +2011,17 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                       192 bits with [<h:b>selection:</h:b>
                       <h:i>
                         SHA-256/192, SHAKE256/192],
-									256 bits with [<h:b>selection:</h:b>
+					          256 bits with [<h:b>selection:</h:b>
                         SHA-256, SHAKE256]
                       </h:i>]; 
-								  Winternitz parameter = [<h:b>selection:</h:b>
+					        Winternitz parameter = [<h:b>selection:</h:b>
                       <h:i>1, 2, 4, 8</h:i>]; 
-								  Tree height = [<h:b>selection:</h:b>
+					        Tree height = [<h:b>selection:</h:b>
                       <h:i>5, 10, 15, 20, 25</h:i>]
                     </h:td>
                     <h:td valign="top">RFC 8554 [LMS]<h:p/>NIST SP 800-208 [parameters]</h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to generate asymmetric cryptographic keys using LMS, the
 						evaluator shall perform the LMS Key Generation Test using the following input parameters:
                 <h:ul>
@@ -1922,7 +2029,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Winternitz [1, 2, 4, 8]</h:li>
                   <h:li>Tree height [5, 10, 15, 20, 25]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>LMS Key Generation Test</h:b>
@@ -1962,14 +2068,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <h:td valign="top">1</h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 The evaluator shall verify the correctness of the TSF’s implementation by
 						comparing the public key generated by the TSF with that generated by a known
 						good implementation using the same input parameters.
-                <h:p/>
                 <h:br/>
                 <h:b>ML-KEM Key Generation</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -1984,7 +2087,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <h:td valign="top">NIST FIPS PUB 203 (Section 7.1)</h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to generate asymmetric cryptographic keys using ML-KEM,
 						the evaluator shall perform the Algorithm Functional Test using the following 
 						input parameters:
@@ -1993,7 +2095,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Random seed d [32 bytes]</h:li>
                   <h:li>Random seed z [32 bytes]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Algorithm Functional Test</h:b>
@@ -2003,10 +2104,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
 						generate 25 key pairs using 25 different randomly generated pairs of 32-byte seed values (<h:i>d, z</h:i>).
 						To determine correctness, the evaluator shall compare the resulting key pairs (<h:i>ek, dk</h:i>) with those
 						generated using a known good implementation using the same inputs.
-                <h:p/>
                 <h:br/>
                 <h:b>ML-DSA Key Generation</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -2021,7 +2120,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <h:td valign="top">NIST FIPS PUB 204 (Section 5.1)</h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to generate asymmetric cryptographic keys using ML-DSA, 
 							the evaluator shall perform the Algorithm Functional Test using the following
 							input parameters:
@@ -2029,7 +2127,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Parameter set [ML-DSA-87]</h:li>
                   <h:li>Random seed [32 bytes]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Algorithm Functional Test</h:b>
@@ -2040,10 +2137,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
 							seed values. To determine correctness, the evaluator shall compare the resulting
 							key pairs with those generated using a known good implementation using the same 
 							inputs.
-                <h:p/>
                 <h:br/>
                 <h:b>XMSS Key Generation</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -2073,7 +2168,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to generate asymmetric cryptographic keys using 
 						XMSS, the evaluator shall perform the XMSS Key 
 						Generation Test using the following input parameters:
@@ -2081,7 +2175,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Hash algorithm [SHA-256/192, SHAKE256/192, SHA-256, SHAKE256]</h:li>
                   <h:li>Tree height [10, 16, 20] (XMSS only)</h:li>
                 </h:ul>
-                <h:p/>
                 <h:b>
                   <h:div style="text-align: center;">
                     <ctr ctr-type="Table" pre="Table " id="xmss-akg-test-cases">: Number of Test Cases for XMSS<h:sup>MT</h:sup></ctr>
@@ -2113,7 +2206,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <h:td valign="top">1</h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>XMSS Key Generation Test</h:b>
@@ -2123,14 +2215,13 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
 						shall generate one public key for each test case. The number of test cases
 						depends on the tree height as specified in
                 <xref to="xmss-akg-test-cases"/>.
-                <h:p/>
-                The evaluator shall verify the correctness of the TSF’s implementation by comparing 
+
+						The evaluator shall verify the correctness of the TSF’s implementation by comparing 
 						values generated by the TSF with those generated by a known good implementation using 
 						the same input parameters.
-                <h:p/>
-                Note: The number of test cases is limited due to the extreme amount of time it can
+						
+						Note: The number of test cases is limited due to the extreme amount of time it can
 						take to generate XMSS trees.
-                <h:p/>
               </Tests>
             </aactivity>
           </f-element>
@@ -2183,8 +2274,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               </TSS>
               <Guidance>The evaluator shall verify that the AGD instructs the administrator how to configure the TOE to
                 use the DRBG to generate symmetric keys for all uses identified in the ST.</Guidance>
-              <Tests>
-                The following tests are conditional based upon the selections made in the SFR.
+              <Tests>The following tests are conditional based upon the selections made in the SFR.
                 The evaluator shall perform the following test or witness respective tests 
                 executed by the developer. The tests must be executed on a platform that is as 
                 close as practically possible to the operational platform (but which may be 
@@ -2192,13 +2282,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 is not carried out on the TOE itself, the test platform shall be identified and
                 the differences between test environment and TOE execution environment shall be
                 described.
-                <h:p/>
                 To test the TOE’s ability to generate symmetric cryptographic keys using a 
                 random bit generator, the evaluator shall configure the symmetric cryptographic 
                 key generation capability for each claimed key size. The evaluator shall use the
                 description of the DRBG interface to verify that the TOE requests and receives an
-                amount of DRBG output greater than or equal to the requested key size.
-              </Tests>
+                amount of DRBG output greater than or equal to the requested key size.</Tests>
             </aactivity>
           </f-element>
           <audit-event/>
@@ -2273,15 +2361,13 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               </TSS>
               <Guidance/>
               <Tests>
-                <h:p>
-                  <h:b>Evaluation Activity Note:</h:b>
-                  The following tests likely require the TOE developer to
+                <h:b>Evaluation Activity Note:</h:b>
+                The following tests likely require the TOE developer to
                 provide access to a test platform that provides the evaluator with tools that are
                 typically not found on the end consumer version of the TOE.
-                </h:p>
-                <h:p>The evaluator shall perform the following tests for all keys and key material subject to destruction by the TOE. For these tests, the evaluator shall utilize an appropriate development environment (e.g., a virtual machine) and development tools (debuggers, simulators, etc.) to test that keys are cleared, including all copies of
+                  The evaluator shall perform the following tests for all keys and key material subject to destruction by the TOE. For these tests, the evaluator shall utilize an appropriate development environment (e.g., a virtual machine) and development tools (debuggers, simulators, etc.) to test that keys are cleared, including all copies of
                   the key that may have been created internally by the TOE during normal cryptographic
-                  processing with that key.</h:p>
+                  processing with that key.
                 <testlist>
                   <test>Applied to each key held as plaintext in volatile memory and subject to destruction by overwrite by the TOE (whether or not the plaintext value is subsequently encrypted for storage in volatile or non-volatile memory). In the case where the only selection made for the destruction method key was removal of power, then this test is unnecessary. The evaluator shall: <h:br/>  <h:ol><h:li>Record the value of the key in the TOE subject to clearing.</h:li> <h:li>Cause the TOE to perform a normal cryptographic processing with the
                         key from Step #1.</h:li> <h:li>Cause the TOE to clear the key.</h:li> <h:li>Cause the TOE to stop the execution but not exit.</h:li> <h:li>Cause the TOE to dump the entire memory of the TOE into a binary
@@ -2318,7 +2404,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </audit>
           <dependencies>FCS_RBG.1 Random Bit Generation</dependencies>
           <f-element id="fel-mut-hard">
-            <title>The TSF shall support  <selectables><selectable id="s-immutable-hardware">immutable hardware</selectable><selectable id="mutable_hardware">mutable hardware</selectable></selectables>  REKs with a  <selectables><selectable id="s-rek-sym">symmetric</selectable><selectable id="s-rek-asym">asymmetric</selectable></selectables>  key of strength  <selectables><selectable id="s-rek-192">192 bits</selectable><selectable id="s-rek-256">256 bits</selectable></selectables>. </title>
+            <title>The TSF shall support  <selectables><selectable id="s-immutable-hardware">immutable hardware</selectable><selectable id="s-mutable-hardware">mutable hardware</selectable></selectables>  REKs with a  <selectables><selectable id="s-rek-sym">symmetric</selectable><selectable id="s-rek-asym">asymmetric</selectable></selectables>  key of strength  <selectables><selectable id="s-rek-192">192 bits</selectable><selectable id="s-rek-256">256 bits</selectable></selectables>. </title>
             <ext-comp-def-title>
               <title>The TSF shall support <assignable>description of REKs</assignable></title>
             </ext-comp-def-title>
@@ -2337,14 +2423,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               <h:br/>
               The raw key material of
               "immutable hardware" REKs is computationally processed by hardware and software
-              cannot access the raw key material. Thus if
-              <xref to="s-immutable-hardware"/>
-              is selected in
-	      FCS_CKM_EXT.1.1 it implicitly meets FCS_CKM_EXT.7/LOCKED or FCS_CKM_EXT.7/UNLOCKED.
+              cannot access the raw key material. 
 	      If
-              <xref to="mutable_hardware"/>
+              <xref to="s-mutable-hardware"/>
               is selected
-              in FCS_CKM_EXT.1.1, FCS_CKM_EXT.7/LOCKED or FCS_CKM_EXT.7/UNLOCKED must be included in the ST.
+              in FCS_CKM_EXT.1.1, FCS_CKM_EXT.9 must be included in the ST.
               <h:br/>
               <h:br/>
               The
@@ -2411,7 +2494,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           <audit-event>
             <audit-event-descr>
               <selectables>
-                <selectable>generation of a REK</selectable>
+                <selectable>Generation of a REK</selectable>
                 <selectable>None</selectable>
               </selectables>
             </audit-event-descr>
@@ -3382,10 +3465,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 not carried out on the TOE itself, the test platform shall be identified and the 
                 differences between test environment and TOE execution environment shall be 
                 described.
-                <h:p/>
                 <h:br/>
                 <h:b>KAS2</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -3404,7 +3485,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <h:td valign="top">NIST SP 800-56B Revision 2 (Section 8.3) [KAS2]</h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s implementation of the of the KAS2 RSA Key Agreement scheme, the evaluator
                 shall perform the Algorithm Functional Test and Validation Test using the 
                 following input parameters:
@@ -3413,20 +3493,16 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Modulo value [3072, 4096, 6144, 8192]</h:li>
                   <h:li>Role [initiator, responder]</h:li>
                 </h:ul>
-                <h:p/>
                 The evaluator shall generate a test group (i.e., set of tests) for each parameter
                 value of the above parameter type with the largest number of supported values.
                 For example, if the TOE supports all five Modulo values, then the evaluator 
                 shall generate five test groups. Each of the above supported parameter values
                 must be included in at least one test group.
-                <h:p/>
                 Regardless of how many parameter values are supported, there must be at least two 
                 test groups.
-                <h:p/>
                 Half of the test groups are designated as Algorithm Functional Tests (AFT) and the 
                 remainder are designated as Validation Tests (VAT). If there is an odd number of 
                 groups, then the extra group is designated randomly as either AFT or VAT.
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Algorithm Functional Test</h:b>
@@ -3436,7 +3512,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 cases using random data (except for a fixed public exponent, if supported). 
                 The resulting shared secrets shall be compared with those generated by a 
                 known-good implementation using the same inputs.
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Validation Test</h:b>
@@ -3452,13 +3527,10 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Two test cases have modified MACs, if key confirmation is supported, and</h:li>
                   <h:li>The remaining test cases are not modified.</h:li>
                 </h:ul>
-                <h:p/>
                 To determine correctness, the evaluator shall confirm that the resulting 25 shared 
                 secrets correspond as expected for both the modified and unmodified values.
-                <h:p/>
                 <h:br/>
                 <h:b>FFC Diffie-Hellman Key Agreement</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -3484,7 +3556,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s implementation of FFC Diffie-Hellman Key Agreement, the evaluator shall
                 perform the Algorithm Functional Test and Validation Test using the following 
                 input parameters:
@@ -3492,7 +3563,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Domain Parameter Group [MODP-3072, MODP-4096, MODP-6144, MODP-8192, 
                     ffdhe3072, ffdhe4096, ffdhe6144, ffdhe8192]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Algorithm Functional Test</h:b>
@@ -3503,7 +3573,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 calculating the responder public key, and creating the shared secret. The 
                 resulting shared secrets shall be compared with those generated by a known-good 
                 implementation using the same inputs.
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Validation Test</h:b>
@@ -3516,10 +3585,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 values are left unchanged (i.e., correct). To determine correctness, the 
                 evaluator shall confirm that the 15 shared secrets correspond as expected for 
                 both the modified and unmodified inputs.
-                <h:p/>
                 <h:br/>
                 <h:b>Elliptic Curve Diffie-Hellman Key Agreement</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -3538,14 +3605,12 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s implementation of Elliptic Curve Diffie-Hellman Key Agreement,
                 the evaluator shall perform the Algorithm Functional Test and Validation Test 
                 using the following input parameters:
                 <h:ul>
                   <h:li>Elliptic Curve [P-384, P-521]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Algorithm Functional Test</h:b>
@@ -3556,7 +3621,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 the responder public key, and creating the shared secret. The resulting shared 
                 secrets shall be compared with those generated by a known-good implementation using
                 the same inputs.
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Validation Test</h:b>
@@ -3570,7 +3634,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 shared secrets correspond as expected for the modified and unmodified values.
                 <h:br/>
                 <h:b>Curve25519 Key Establishment Schemes</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -3589,7 +3652,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Curve25519 Key Establishment Schemes</h:b>
@@ -3598,7 +3660,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 The evaluator shall verify a TOE's implementation of the key agreement scheme using the following Function and Validity tests.
                 These validation tests for each key agreement scheme verify that a TOE has implemented the components of the key agreement scheme
                 according to the specification. These components include the calculation of the shared secret K and the hash of K.
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Function Test</h:b>
@@ -3608,12 +3669,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 evaluator shall generate or obtain test vectors from a known good implementation of the TOE supported schemes. For each supported
                 key agreement role and hash function combination, the tester shall generate 10 sets of public keys. These keys are static, ephemeral
                 or both depending on the scheme being tested.
-                <h:p/>
+                
                 The evaluator shall obtain the shared secret value K, and the hash of K.
-                <h:p/>
+                
                 The evaluator shall verify the correctness of the TSF’s implementation of a given scheme by using a known good implementation to 
                 calculate the shared secret value K and compare the hash generated from this value.
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Validation Test</h:b>
@@ -3622,11 +3682,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 The Validity test verifies the ability of the TOE to recognize another party’s valid and invalid key agreement results. To conduct 
                 this test, the evaluator generates a set of 30 test vectors consisting of data sets including the evaluator’s public keys and the 
                 TOE’s public/private key pairs.
-                <h:p/>
+                
                 The evaluator shall inject an error in some of the test vectors to test that the TOE recognizes invalid key agreement results caused
                 by the following fields being incorrect: the shared secret value K or the hash of K. At least two of the test vectors shall remain 
                 unmodified and therefore should result in valid key agreement results (they should pass).
-                <h:p/>
+                
                 The TOE shall use these modified test vectors to emulate the key agreement scheme using the corresponding parameters. The evaluator 
                 shall compare the TOE’s results with the results using a known good implementation verifying that the TOE detects these errors.
               </Tests>
@@ -3657,17 +3717,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     completion of the selection operations of FCS_CKM_EXT.7/UNLOCKED.
                   </reqtext>
                 </tabularize>
-                <selectable id="sel-fcs-ckm-kat-kas2">
-                  <col>KAS2</col>
-                  <col>RSA</col>
-                  <col>Modulus size <selectables><selectable id="fcs_ckm_ext.7.1_UNLOCKED_1">3072</selectable><selectable id="fcs_ckm_ext.7.1_UNLOCKED_2">4096</selectable><selectable id="fcs_ckm_ext.7.1_UNLOCKED_3">6144</selectable><selectable id="fcs_ckm_ext.7.1_UNLOCKED_4">8192</selectable></selectables> bits</col>
-                  <col>NIST SP 800-56B Revision 2 (Section 8.3) [KAS2]</col>
-                </selectable>
                 <selectable id="sel-fcs-ckm-kat-dh">
                   <col>DH</col>
                   <col>Finite Field Cryptography Diffie-Hellman</col>
-                  <col>Static domain parameters approved for <selectables><selectable id="fcs_ckm_ext.7.1_UNLOCKED_5">IKE Groups <selectables><selectable id="sel-kat-ffc-modp3072">MODP-3072</selectable><selectable id="sel-kat-ffc-modp4096">MODP-4096</selectable><selectable id="sel-kat-ffc-modp6144">MODP-6144</selectable><selectable id="sel-kat-ffc-modp8192">MODP-8192</selectable></selectables> </selectable><selectable id="fcs_ckm_ext.7.1_UNLOCKED_6">TLS Groups <selectables><selectable id="sel-kat-ffc-ffdhe3072">ffdhe3072</selectable><selectable id="sel-kat-ffc-ffdhe4096">ffdhe4096</selectable><selectable id="sel-kat-ffc-ffdhe6144">ffdhe6144</selectable><selectable id="sel-kat-ffc-ffdhe8192">ffdhe8192</selectable></selectables> </selectable></selectables></col>
-                  <col>NIST SP 800-56A Revision 3 (Section 5.7.1.1) [DH]<h:p/> <selectables><selectable id="fcs_ckm_ext.7.1_UNLOCKED_7">RFC 3526 [IKE groups]</selectable><selectable id="fcs_ckm_ext.7.1_UNLOCKED_8">RFC 7919 [TLS groups]</selectable></selectables></col>
+                  <col>Static domain parameters approved for <selectables><selectable id="fcs_ckm_ext.7.1_UNLOCKED_1">IKE Groups <selectables><selectable id="sel-kat-ffc-modp3072">MODP-3072</selectable><selectable id="sel-kat-ffc-modp4096">MODP-4096</selectable><selectable id="sel-kat-ffc-modp6144">MODP-6144</selectable><selectable id="sel-kat-ffc-modp8192">MODP-8192</selectable></selectables> </selectable><selectable id="fcs_ckm_ext.7.1_UNLOCKED_2">TLS Groups <selectables><selectable id="sel-kat-ffc-ffdhe3072">ffdhe3072</selectable><selectable id="sel-kat-ffc-ffdhe4096">ffdhe4096</selectable><selectable id="sel-kat-ffc-ffdhe6144">ffdhe6144</selectable><selectable id="sel-kat-ffc-ffdhe8192">ffdhe8192</selectable></selectables> </selectable></selectables></col>
+                  <col>NIST SP 800-56A Revision 3 (Section 5.7.1.1) [DH]<h:p/> <selectables><selectable id="fcs_ckm_ext.7.1_UNLOCKED_3">RFC 3526 [IKE groups]</selectable><selectable id="fcs_ckm_ext.7.1_UNLOCKED_4">RFC 7919 [TLS groups]</selectable></selectables></col>
                 </selectable>
                 <selectable id="sel-fcs-ckm-kat-ecdh">
                   <col>ECDH</col>
@@ -3690,13 +3744,13 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               </title>
             </ext-comp-def-title>
             <note role="application">
-              This SFR is claimed if the TSF supports key agreement schemes as a method of key establishment for trusted channels, or if KAS2 is a method for establishing the key used for encrypted data when the device is locked. This will generally apply to all conformant TOEs, except in the rare (but possible) case where only key encapsulation is used.
+              This SFR is claimed if the TSF supports key agreement schemes as a method of key establishment for external communications channels. This will generally apply to all conformant TOEs, except in the rare (but possible) case where only key encapsulation is used.
               <h:p/>
-              This SFR must be included in the ST if key agreement or transport is a service provided by the TOE to 
-              tenant software, or if they are used by the TOE itself to support or implement PP-specified security 
+              This SFR must be included in the ST if agreement is a service provided by the TOE to 
+              tenant software, or if it is used by the TOE itself to support or implement PP-specified security 
               functionality.
               <h:p/>
-              All of the above algorithms with the selectable parameters are CNSA compliant with the exception of P-256 ECDH. This may only be selected if the
+              The above algorithms are CNSA compliant with the exception of P-256 ECDH. This may only be selected if the
               <xref to="mod-bluetooth"/>
               is included in the ST and P-256 may only be used specifically for Bluetooth functions.
               <h:p/>
@@ -3704,7 +3758,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
             <aactivity>
               <TSS>The evaluator shall ensure that the TSS documents that the security strength of the
                 material contributed by the TOE is sufficient for the security strength of the key and the
-                agreement method.</TSS>
+                agreement method. If support for P-256 is claimed, the evaluator shall examine the TSS to verify that it is only used for Bluetooth functions.</TSS>
               <Guidance>There are no additional Guidance evaluation activities for this component.</Guidance>
               <Tests>
                 The following tests are conditional based upon the selections made in the SFR.
@@ -3715,83 +3769,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 not carried out on the TOE itself, the test platform shall be identified and the 
                 differences between test environment and TOE execution environment shall be 
                 described.
-                <h:p/>
-                <h:br/>
-                <h:b>KAS2</h:b>
-                <h:p/>
-                <h:table border="1">
-                  <h:tr class="header" bgcolor="#cccccc">
-                    <h:td valign="top">Identifier</h:td>
-                    <h:td valign="top">Cryptographic Algorithm</h:td>
-                    <h:td valign="top">Cryptographic Parameters</h:td>
-                    <h:td valign="top">List of Standards</h:td>
-                  </h:tr>
-                  <h:tr>
-                    <h:td valign="top">KAS2</h:td>
-                    <h:td valign="top">RSA</h:td>
-                    <h:td valign="top">
-                      Modulus Size [<h:b>selection:</h:b>
-                      3072, 4096,
-                      6144, 8192] bits
-                    </h:td>
-                    <h:td valign="top">NIST SP 800-56B Revision 2 (Section 8.3) [KAS2]</h:td>
-                  </h:tr>
-                </h:table>
-                <h:p/>
-                To test the TOE’s implementation of the of the KAS2 RSA Key Agreement scheme, the evaluator
-                shall perform the Algorithm Functional Test and Validation Test using the 
-                following input parameters:
-                <h:ul>
-                  <h:li>RSA Private key format [Basic, Prime Factor, Chinese Remainder Theorem]</h:li>
-                  <h:li>Modulo value [3072, 4096, 6144, 8192]</h:li>
-                  <h:li>Role [initiator, responder]</h:li>
-                </h:ul>
-                <h:p/>
-                The evaluator shall generate a test group (i.e., set of tests) for each parameter
-                value of the above parameter type with the largest number of supported values.
-                For example, if the TOE supports all five Modulo values, then the evaluator 
-                shall generate five test groups. Each of the above supported parameter values
-                must be included in at least one test group.
-                <h:p/>
-                Regardless of how many parameter values are supported, there must be at least two 
-                test groups.
-                <h:p/>
-                Half of the test groups are designated as Algorithm Functional Tests (AFT) and the 
-                remainder are designated as Validation Tests (VAT). If there is an odd number of 
-                groups, then the extra group is designated randomly as either AFT or VAT.
-                <h:p/>
-                <h:br/>
-                <h:i>
-                  <h:b>Algorithm Functional Test</h:b>
-                </h:i>
-                <h:br/>
-                For each test group designated as AFT, the evaluator shall generate 10 test 
-                cases using random data (except for a fixed public exponent, if supported). 
-                The resulting shared secrets shall be compared with those generated by a 
-                known-good implementation using the same inputs.
-                <h:p/>
-                <h:br/>
-                <h:i>
-                  <h:b>Validation Test</h:b>
-                </h:i>
-                <h:br/>
-                For each test group designated as VAT, the evaluator shall generate 25 test cases are
-                using random data (except for a fixed public exponent, if supported). Of the 25
-                test cases:
-                <h:ul>
-                  <h:li>Two test cases must have a shared secret with a leading nibble of 0s,</h:li>
-                  <h:li>Two test cases have modified derived key material,</h:li>
-                  <h:li>Two test cases have modified tags, if key confirmation is supported,</h:li>
-                  <h:li>Two test cases have modified MACs, if key confirmation is supported, and</h:li>
-                  <h:li>The remaining test cases are not modified.</h:li>
-                </h:ul>
-                <h:p/>
-                To determine correctness, the evaluator shall confirm that the resulting 25 shared 
-                secrets correspond as expected for both the modified and unmodified values.
-                <h:p/>
                 <h:br/>
                 <h:b>FFC Diffie-Hellman Key Agreement</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -3817,7 +3796,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s implementation of FFC Diffie-Hellman Key Agreement, the evaluator shall
                 perform the Algorithm Functional Test and Validation Test using the following 
                 input parameters:
@@ -3825,7 +3803,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Domain Parameter Group [MODP-3072, MODP-4096, MODP-6144, MODP-8192, 
                     ffdhe3072, ffdhe4096, ffdhe6144, ffdhe8192]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Algorithm Functional Test</h:b>
@@ -3836,7 +3813,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 calculating the responder public key, and creating the shared secret. The 
                 resulting shared secrets shall be compared with those generated by a known-good 
                 implementation using the same inputs.
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Validation Test</h:b>
@@ -3849,10 +3825,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 values are left unchanged (i.e., correct). To determine correctness, the 
                 evaluator shall confirm that the 15 shared secrets correspond as expected for 
                 both the modified and unmodified inputs.
-                <h:p/>
                 <h:br/>
                 <h:b>Elliptic Curve Diffie-Hellman Key Agreement</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -3871,14 +3845,12 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s implementation of Elliptic Curve Diffie-Hellman Key Agreement,
                 the evaluator shall perform the Algorithm Functional Test and Validation Test 
                 using the following input parameters:
                 <h:ul>
                   <h:li>Elliptic Curve [P-256, P-384, P-521]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Algorithm Functional Test</h:b>
@@ -3889,7 +3861,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 the responder public key, and creating the shared secret. The resulting shared 
                 secrets shall be compared with those generated by a known-good implementation using
                 the same inputs.
-                <h:p/>
                 <h:br/>
                 <h:i>
                   <h:b>Validation Test</h:b>
@@ -3901,7 +3872,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 initiator private key values. The remaining key values are left unchanged (i.e.,
                 correct). To determine correctness, the evaluator shall confirm that the 15 
                 shared secrets correspond as expected for the modified and unmodified values.
-                <h:p/>
               </Tests>
             </aactivity>
           </f-element>
@@ -3982,7 +3952,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 not carried out on the TOE itself, the test platform shall be identified and the 
                 differences between test environment and TOE execution environment shall be 
                 described.
-                <h:p/>
+                
                 To test the TOE’s ability to derive cryptographic keys from a password using PBKDF2 the
                 evaluator shall perform the Algorithm Functional Test using the following input 
                 parameters:
@@ -3993,10 +3963,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Password length [8-128] bytes</h:li>
                   <h:li>Salt length [128-4096] bits in multiples of 8.</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Test</h:b>
-                <h:p/>
                 For each supported HMAC algorithm, the evaluator shall generate 50 test cases using 
                 supported values for the above parameters such that
                 <h:ul>
@@ -4008,10 +3976,37 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Salts are random values between the supported minimum and maximum lengths such that
                     the supported minimum and maximum lengths are both tested at least once.</h:li>
                 </h:ul>
-                <h:p/>
                 The evaluator shall compare the resulting keys from each test case with keys derived using a
                 known-good implementation with the same input parameters.
               </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event/>
+        </f-component>
+        <!-- FCS_CKM_EXT.9 Hardware Key Confidentiality -->
+        <f-component cc-id="fcs_ckm_ext.9" id="sfr-fcs-ckm-ext-9" name="Hardware Key Confidentiality" status="sel-based">
+          <depends on-sel="s-mutable-hardware"/>
+          <comp-lev> requires the TSF to enforce the confidentiality of key data stored in mutable hardware by ensuring no mechanism exists to read or export it.</comp-lev>
+          <dependencies>FCS_CKM_EXT.1 Cryptographic Key Support</dependencies>
+          <f-element id="fcs-ckm-ext-9e1">
+            <title>
+              A [<h:i>REK</h:i>] shall not be able to be read from or exported from hardware.
+            </title>
+            <ext-comp-def-title>
+              <title>
+                A
+                <assignable>key, type of keys, or list of keys</assignable>
+                shall not be able to be read from or exported from hardware.
+              </title>
+            </ext-comp-def-title>
+            <note role="application">
+              <h:p>This SFR is claimed if "mutable hardware" is selected in FCS_CKM_EXT.1.1. It is not claimed if "immutable hardware" is selected because it is implicitly met in that case.</h:p>
+              <h:p>The lack of a public or documented API for performing this function is not sufficient to meet the requirement if a private or undocumented function exists to perform it.</h:p>
+            </note>
+            <aactivity>
+              <TSS>The evaluation activity for this component is performed in conjunction with the evaluation activity for FCS_CKM_EXT.1.</TSS>
+              <Guidance/>
+              <Tests/>
             </aactivity>
           </f-element>
           <audit-event/>
@@ -4082,7 +4077,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               <Tests>
                 The following tests may require the developer to provide access to a test platform that
                 provides the evaluator with tools that are typically not found on factory products.
-                <h:p/>
                 The following tests are conditional based upon the selections made in the SFR. The
                 evaluator shall perform the following test or witness respective tests executed by
                 the developer. The tests must be executed on a platform that is as close as practically
@@ -4090,10 +4084,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 for example, use of a debug mode). Where the test is not carried out on the TOE
                 itself, the test platform shall be identified and the differences between test
                 environment and TOE execution environment shall be described.
-                <h:p/>
                 <h:br/>
                 <h:b>AES-CCM</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -4116,7 +4108,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s implementation of AES-CCM authenticated encryption functionality the
                 evaluator shall perform the Algorithm Functional Tests described below using the following
                 input parameters:
@@ -4127,64 +4118,50 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>IV/Nonce size [64-104] bits in increments of 8</h:li>
                   <h:li>Tag size [32-128] bits in increments of 16</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Tests</h:b>
-                <h:p/>
                 Unless otherwise specified, the following tests should use random data, a tag size of 128 bits,
                 IV/Nonce size of 104 bits, payload size of 256 bits, and associated data size of 256 bits. If any of
                 these values are not supported, any supported value may be used. The evaluator shall compare
                 the output from each test case against results generated by a known-good implementation with
                 the same input parameters.
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Variable Associated Data Test</h:i>
                 </h:b>
-                <h:p/>
                 For each claimed key size, and for each supported associated data size from 0 through 256 bits in
                 increments of 8 bits, the TOE must be tested by encrypting 10 test cases using all random data.
                 In addition, for each key size, the TOE must be tested by encrypting 10 cases with associated
                 data lengths of 65536 bits, if supported.
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Variable Payload Test</h:i>
                 </h:b>
-                <h:p/>
                 For each claimed key size, and for each supported payload size from 0 through 256 bits in
                 increments of 8 bits, the TOE must be tested by encrypting 10 test cases using all random data.
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Variable Nonce Test</h:i>
                 </h:b>
-                <h:p/>
                 For each claimed key size, and for each supported IV/Nonce size from 64 through 104 bits in
                 increments of 8 bits, the TOE must be tested by encrypting 10 test cases using all random data.
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Variable Tag Test</h:i>
                 </h:b>
-                <h:p/>
                 For each claimed key size, and for each supported tag size from 32 through 128 bits in
                 increments of 16 bits, the TOE must be tested by encrypting 10 test cases using all random data.
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Decryption Verification Test</h:i>
                 </h:b>
-                <h:p/>
                 For each claimed key size, for each supported associated data size from 0 through 256 bits in
                 increments of 8 bits, for each supported payload size from 0 through 256 bits in increments of 8
                 bits, for each supported IV/Nonce size from 64 through 104 bits in increments of 8 bits, and for
                 each supported tag size from 32 through 128 bits in increments of 16 bits, the TOE must be
                 tested by decrypting 10 test cases using all random data.
-                <h:p/>
                 <h:br/>
                 <h:b>AES-GCM</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -4212,7 +4189,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s implementation of AES-GCM authenticated encryption functionality the
                 evaluator shall perform the Encryption Algorithm Functional Tests and Decryption Algorithm
                 Functional Tests as described below using the following input parameters:
@@ -4223,13 +4199,10 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>IV size [96] bits</h:li>
                   <h:li>Tag size [96, 104, 112, 120, 128] bits</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Encryption Algorithm Functional Tests</h:b>
-                <h:p/>
                 The evaluator shall generate 15 test cases using random data for each combination of
                 the above parameters as follows:
-                <h:p/>
                 <h:ul>
                   <h:li>Each claimed key size,</h:li>
                   <h:li>Each supported tag size,</h:li>
@@ -4239,17 +4212,13 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     128 bits and two are not multiples of 128 bits, and</h:li>
                   <h:li>An associated data size of zero, if supported.</h:li>
                 </h:ul>
-                <h:p/>
                 Note that the IV size is always 96 bits.
-                <h:p/>
                 The evaluator shall compare the output from each test case against results generated by a known-
                 good implementation with the same input parameters.
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Decryption Algorithm Functional Tests</h:i>
                 </h:b>
-                <h:p/>
                 The evaluator shall test the authenticated decrypt functionality of AES-GCM by supplying 15
                 test cases for the supported combinations of the parameters as described above. For each
                 parameter combination the evaluator shall introduce an error into either the Ciphertext or the Tag
@@ -4301,7 +4270,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               <Tests>
                 The following tests may require the developer to provide access to a test platform that
                 provides the evaluator with tools that are typically not found on factory products.
-                <h:p/>
                 The following tests are conditional, based on the selections made in the SFR. The
                 evaluator shall perform the following tests or witness respective tests executed by
                 the developer. The tests must be executed on a platform that is as close as practically
@@ -4309,32 +4277,22 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 for example, use of a debug mode). Where the test is not carried out on the TOE
                 itself, the test platform shall be identified and the differences between test
                 environment and TOE execution environment shall be described.
-                <h:p/>
                 <h:br/>
                 <h:b>SHA-256, SHA-384, SHA-512</h:b>
-                <h:p/>
                 To test the TOE’s ability to generate hash digests using SHA2, the evaluator shall
                 perform the Algorithm Functional Test, Monte Carlo Test, and Large Data Test for each claimed
                 SHA2 algorithm.
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Test</h:b>
-                <h:p/>
                 The evaluator shall generate a number of test cases equal to the block size of the hash (512 for
                 SHA2-256; 1024 for the other SHA2 algorithms).
-                <h:p/>
                 Each test case is to consist of random data of a random length between 0 and 65536 bits, or the
                 largest size supported.
-                <h:p/>
                 <h:br/>
                 <h:b>Monte Carlo Test</h:b>
-                <h:p/>
                 Monte Carlo tests begin with a single seed and run 100 iterations of the chained computation.
-                <h:p/>
                 For the standard Monte Carlo test the message hashed is always three times the length of the
-                initial seed.
-                <h:p/>
-                <h:pre>
+                initial seed. <h:pre>
                   For j = 0 to 99
                   A = B = C = SEED
                   For i = 0 to 999
@@ -4346,11 +4304,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   Output MD
                   SEED = MD
                 </h:pre>
-                <h:p/>
                 For the alternate version of the Monte Carlo Test, the hashed message is always the same length as
-                the seed.
-                <h:p/>
-                <h:pre>
+                the seed. <h:pre>
                   INITIAL_SEED_LENGTH = LEN(SEED)
                   For j = 0 to 99
                   A = B = C = SEED
@@ -4367,51 +4322,36 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   Output MD
                   SEED = MD	
                 </h:pre>
-                <h:p/>
                 The evaluator shall compare the output against results generated by a known good
                 implementation with the same input.
-                <h:p/>
                 <h:br/>
                 <h:b>Large Data Test</h:b>
-                <h:p/>
                 The implementation must be tested against one test case each on large data messages of 1GB,
                 2GB, 4GB, and 8GB of data as supported. The data need not be random. It may, for example,
                 consist of a repeated pattern of 64 bits.
-                <h:p/>
                 The evaluator shall compare the output against results generated by a known good
                 implementation with the same input.
-                <h:p/>
                 <h:br/>
                 <h:b>SHA3-384, SHA3-512</h:b>
-                <h:p/>
                 To test the TOE’s ability to generate hash digests using SHA3 the evaluator shall perform the
                 Algorithm Functional Test, Monte Carlo Test, and Large Data Tests for each claimed SHA3
                 algorithm.
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Test</h:b>
-                <h:p/>
                 Generate a test case consisting of random data for every message length from 0 bits (or the
                 smallest supported message size) to rate bits, where rate equals
                 <h:ul>
                   <h:li>832 for SHA3-384 and</h:li>
                   <h:li>576 for SHA3-512.</h:li>
                 </h:ul>
-                <h:p/>
                 Additionally, generate tests cases of random data for messages of every multiple of (rate+1) bits
                 starting at length rate, and continuing until 65535 is exceeded.
-                <h:p/>
                 The evaluator shall compare the output against results generated by a known good
                 implementation with the same input.
-                <h:p/>
                 <h:br/>
                 <h:b>Monte Carlo Test</h:b>
-                <h:p/>
                 Monte Carlo tests begin with a single seed and run 100 iterations of the chained computation.
-                <h:p/>
-                For this Monte Carlo Test, the hashed message is always the same length as the seed.
-                <h:p/>
-                <h:pre>
+                For this Monte Carlo Test, the hashed message is always the same length as the seed. <h:pre>
                   MD[0] = SEED
                   INITIAL_SEED_LENGTH = LEN(SEED)
                   For 100 iterations
@@ -4425,17 +4365,13 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   MD[0] = MD[1000]
                   Output MD[0]
                 </h:pre>
-                <h:p/>
                 The evaluator shall compare the output against results generated by a known good
                 implementation with the same input.
-                <h:p/>
                 <h:br/>
                 <h:b>Large Data Test</h:b>
-                <h:p/>
                 The implementation must be tested against one test case each on large data messages of 1GB,
                 2GB, 4GB, and 8GB of data as supported. The data need not be random. It may, for example,
                 consist of a repeated pattern of 64 bits.
-                <h:p/>
                 The evaluator shall compare the output against results generated by a known good
                 implementation with the same input.
               </Tests>
@@ -4527,10 +4463,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 (but which may be instrumented in terms of, for example, use of a debug mode). Where the test
                 is not carried out on the TOE itself, the test platform shall be identified and the differences
                 between test environment and TOE execution environment shall be described.
-                <h:p/>
                 <h:br/>
                 <h:b>HMAC</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Keyed Hash Algorithm</h:td>
@@ -4562,7 +4496,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to generate keyed hashes using HMAC the evaluator shall perform the
                 Algorithm Functional Test for each combination of claimed HMAC algorithm the following
                 parameters:
@@ -4571,10 +4504,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Key length [8-65536] bits by 8s</h:li>
                   <h:li>MAC length [32-[digest size of hash function (256, 384, 512)]] bits</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Test</h:b>
-                <h:p/>
                 For each supported Hash function the evaluator shall generate 150 test cases using random input
                 messages of 128 bits, random supported key lengths, random keys, and random supported MAC
                 lengths such that across the 150 test cases:
@@ -4583,7 +4514,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     size, and key lengths that are both larger and smaller than the block size.</h:li>
                   <h:li>The MAC size includes the minimum, the maximum, and two other random values.</h:li>
                 </h:ul>
-                <h:p/>
                 The evaluator shall compare the output against results generated by a known good
                 implementation with the same input.
               </Tests>
@@ -4635,18 +4565,15 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               <Tests>
                 The following test may require the developer to provide access to a test platform that
 						provides the evaluator with tools that are typically not found on factory products.
-                <h:p/>
-                The following tests are conditional based upon the selections made in the SFR. The
+						The following tests are conditional based upon the selections made in the SFR. The
 						evaluator shall perform the following test or witness respective tests executed by
 						the developer. The tests must be executed on a platform that is as close as practically
 						possible to the operational platform (but which may be instrumented in terms of,
 						for example, use of a debug mode). Where the test is not carried out on the TOE
 						itself, the test platform shall be identified and the differences between test
 						environment and TOE execution environment shall be described.
-                <h:p/>
                 <h:br/>
                 <h:b>ML-KEM Key Encapsulation</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -4661,7 +4588,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <h:td valign="top">NIST FIPS PUB 203</h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s implementation of ML-KEM key encapsulation/decapsulation, the evaluator
 						shall perform the Encapsulation Test and the Decapsulation Test using the following input
 						parameters:
@@ -4669,47 +4595,37 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Encapsulation Parameters:<h:ul><h:li>Parameter set [ML-KEM-1024]</h:li> <h:li>Previously generated encapsulation key (<h:i>ek</h:i>)</h:li> <h:li>Random value (<h:i>m</h:i>) [32 bytes]</h:li></h:ul></h:li>
                   <h:li>Decapsulation Parameters:<h:ul><h:li>Parameter set [ML-KEM-1024]</h:li> <h:li>Previously generated decapsulation key (<h:i>dk</h:i>)</h:li> <h:li>Previously generated ciphertext (<h:i>c</h:i>) [32 bytes]</h:li></h:ul></h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Encapsulation Test</h:b>
-                <h:p/>
                 For each supported parameter set the evaluator shall generate 25 test cases consisting of an
 						encapsulation key ek and random value m. For each test case the valuator shall require the
 						implementation under test to generate the corresponding shared secret k and ciphertext c. To
 						determine correctness, the evaluator shall compare the resulting values with those generated
 						using a known-good implementation using the same inputs.
-                <h:p/>
                 <h:br/>
                 <h:b>Encapsulation Key Check (if supported)</h:b>
-                <h:p/>
                 The evaluator shall generate 10 encapsulation keys such that:
                 <h:ul>
                   <h:li>Five of the encapsulation keys are valid, and</h:li>
                   <h:li>Five of the encapsulation keys are modified such that a value in the noisy linear 
 						system is encoded into the key as a value greater than Q.</h:li>
                 </h:ul>
-                <h:p/>
                 The evaluator shall invoke the TOE’s Encapsulation Key Check functionality to determine the
 						validity of the 10 keys. The unmodified keys should be determined valid, and the modified keys
 						should be determined invalid.
-                <h:p/>
                 <h:br/>
                 <h:b>Decapsulation Key Check (if supported)</h:b>
-                <h:p/>
                 The evaluator shall generate 10 decapsulation keys such that:
                 <h:ul>
                   <h:li>Five of the decapsulation keys are valid, and</h:li>
                   <h:li>Five of the decapsulation keys are modified such that the concatenated
 						values ek||H(ek) will no longer match by modifying H(ek) to be a different value.</h:li>
                 </h:ul>
-                <h:p/>
                 The evaluator shall invoke the TOE’s Decapsulation Key Check functionality to determine the
 						validity of the 10 keys. The unmodified keys should be determined valid, and the modified keys
 						should be determined invalid.
-                <h:p/>
                 <h:br/>
                 <h:b>Decapsulation Test</h:b>
-                <h:p/>
                 For each supported parameter set the evaluator shall use a single previously generated
 						decapsulation key
                 <h:i>dk</h:i>
@@ -4720,7 +4636,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 whether or not the ciphertext is valid. To determine correctness,
 						the evaluator shall compare the resulting values with those generated using a known-good
 						implementation using the same inputs.
-                <h:p/>
               </Tests>
             </aactivity>
           </f-element>
@@ -4787,17 +4702,14 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               <Guidance/>
               <Tests>
                 For tests of AES-GCM and AES-CCM, see testing for FCS_COP.1/AEAD.
-                <h:p/>
-                The following tests are conditional based upon the selections made in the SFR. The evaluator
+						The following tests are conditional based upon the selections made in the SFR. The evaluator
 						shall perform the following test or witness respective tests executed by the developer. The tests
 						must be executed on a platform that is as close as practically possible to the operational platform
 						(but which may be instrumented in terms of, for example, use of a debug mode). Where the test
 						is not carried out on the TOE itself, the test platform shall be identified and the differences
 						between test environment and TOE execution environment shall be described.
-                <h:p/>
                 <h:br/>
                 <h:b>AES-KW</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -4820,7 +4732,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to wrap keys using AES in Key Wrap mode the evaluator shall perform
 						the Algorithm Functional Tests using the following input parameters:
                 <h:ul>
@@ -4828,26 +4739,20 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Keyword cipher type [cipher, inverse]</h:li>
                   <h:li>Payload sizes [128-4096] bits by 64s</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Test</h:b>
-                <h:p/>
                 The evaluator shall generate 100 encryption test cases using random data for each combination
 						of claimed key size, keyword cipher type, and six supported payload sizes such that the payload
 						sizes include the minimum, the maximum, two that are divisible by 128, and two that are not
 						divisible by 128.
-                <h:p/>
-                The results shall be compared with those generated by a known-good implementation using the
+						The results shall be compared with those generated by a known-good implementation using the
 						same inputs.
-                <h:p/>
-                The evaluator shall generate 100 decryption test cases using the same parameters as above, but
+						The evaluator shall generate 100 decryption test cases using the same parameters as above, but
 						with 20 of each 100 test cases having modified ciphertext to produce an incorrect result. To
 						determine correctness, the evaluator shall confirm that the results correspond as expected for
 						both the modified and unmodified values.
-                <h:p/>
                 <h:br/>
                 <h:b>AES-KWP</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -4868,7 +4773,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to wrap keys using AES in Key Wrap with Padding mode with padding
 						the evaluator shall perform the Algorithm Functional Tests using the following input parameters:
                 <h:ul>
@@ -4876,23 +4780,18 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Keyword cipher type [cipher, inverse]</h:li>
                   <h:li>Payload sizes [8-4096] bits by 8s</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Test</h:b>
-                <h:p/>
                 The evaluator shall generate 100 encryption test cases using random data for each combination
 						of claimed key size, keyword cipher type, and six supported payload sizes such that the payload
 						sizes include the minimum, the maximum, two that are divisible by 128, and two that are not
 						divisible by 128.
-                <h:p/>
-                The results shall be compared with those generated by a known-good implementation using the
+						The results shall be compared with those generated by a known-good implementation using the
 						same inputs.
-                <h:p/>
-                The evaluator shall generate 100 decryption test cases using the same parameters as above, but
+						The evaluator shall generate 100 decryption test cases using the same parameters as above, but
 						with 20 of each 100 test cases having modified ciphertext to produce an incorrect result. To
 						determine correctness, the evaluator shall confirm that the results correspond as expected for
 						both the modified and unmodified values.
-                <h:p/>
               </Tests>
             </aactivity>
           </f-element>
@@ -4981,10 +4880,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
 						(but which may be instrumented in terms of, for example, use of a debug mode). Where the test
 						is not carried out on the TOE itself, the test platform shall be identified and the differences
 						between test environment and TOE execution environment shall be described.
-                <h:p/>
                 <h:br/>
                 <h:b>RSA-PKCS Signature Generation </h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -5008,7 +4905,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to perform RSA Digital Signature Generation using PKCS1-v1_5
 						signature type, the evaluator shall perform the Generated Data Test using the following input
 						parameters:
@@ -5018,14 +4914,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 </h:ul>
                 <h:br/>
                 <h:b>Generated Data Test</h:b>
-                <h:p/>
                 For each supported combination of the above parameters, the evaluator shall cause the TOE to
 						generate three test cases using random data. The evaluator shall compare the results against those
 						from a known good implementation.
-                <h:p/>
                 <h:br/>
                 <h:b>RSA-PSS Signature Generation </h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -5052,7 +4945,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to perform RSA Digital Signature Generation using PSS signature type,
 						the evaluator shall perform the Generated Data Test using the following input parameters:
                 <h:ul>
@@ -5061,17 +4953,13 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Salt length [Fixed based on implementation]</h:li>
                   <h:li>Mask function [MGF1]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Generated Data Test</h:b>
-                <h:p/>
                 For each supported combination of the above parameters, the evaluator shall cause the TOE to
 						generate three test cases using random data. The evaluator shall compare the results against those
 						from a known good implementation.
-                <h:p/>
                 <h:br/>
                 <h:b>ECDSA Signature Generation </h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -5100,7 +4988,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to perform ECDSA Digital Signature Generation using extra random
 						bits or rejection sampling for secret number generation, the evaluator shall perform the
 						Algorithm Functional Test using the following input parameters:
@@ -5108,7 +4995,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Elliptic Curve [P-384, P-521]</h:li>
                   <h:li>Hash algorithm [SHA-384, SHA-512]</h:li>
                 </h:ul>
-                <h:p/>
                 To test the TOE’s ability to perform ECDSA Digital Signature Generation using deterministic
 						secret number generation, the evaluator shall perform the Algorithm Functional Test using the
 						following input parameters:
@@ -5118,14 +5004,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 </h:ul>
                 <h:br/>
                 <h:b>Algorithm Functional Test</h:b>
-                <h:p/>
                 For each supported combination of the above parameters, the evaluator shall cause the TOE to
 						generate 10 test cases using random data. The evaluator shall compare the results against those
 						from a known good implementation.
-                <h:p/>
                 <h:br/>
                 <h:b>LMS Signature Generation </h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -5154,7 +5037,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to generate cryptographic digital signature using LMS, the
 					  evaluator shall perform the Algorithm Functional Test using the following input parameters:
                 <h:ul>
@@ -5162,18 +5044,14 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Winternitz [1, 2, 4, 8]</h:li>
                   <h:li>Tree height [5, 10, 15, 20, 25]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Test</h:b>
-                <h:p/>
                 For each supported combination of the above parameters, the evaluator shall generate 10
 					  signatures. The evaluator shall verify the correctness of the implementation by comparing values
 					  generated by the TOE with those generated by a known good implementation using the same
 					  input parameters.
-                <h:p/>
                 <h:br/>
                 <h:b>ML-DSA Signature Generation</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -5188,7 +5066,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <h:td valign="top">NIST FIPS PUB 204 (Section 5.2)</h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to generate digital signatures using ML-DSA, the
 						evaluator shall perform the Algorithm Functional Test using the following input parameters:
                 <h:ul>
@@ -5200,35 +5077,27 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Previously generated private key (<h:i>sk</h:i>)</h:li>
                   <h:li>Context (for external interface testing)</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Test</h:b>
-                <h:p/>
                 For each combination of supported parameter set and capabilities, the evaluator shall require the
 						implementation under test to generate 15 signatures pairs using 15 different randomly generated
 						32-byte seed values. To determine correctness, the evaluator shall
 						compare the resulting key pairs with those generated using a known good implementation using
 						the same inputs.
-                <h:p/>
                 <h:br/>
                 <h:b>Known Answer Test for Rejection Cases</h:b>
-                <h:p/>
                 For each supported parameter set, the evaluator shall cause the TOE to generate signatures using
 						the data below and a deterministic seed of all 0’s. Correctness is determined by
 						comparing the hash of the resulting signature with the hash in the fourth row 
 						for each corresponding test case below.
-                <h:p/>
-                The test values are defined as follows:
+						The test values are defined as follows:
                 <h:ul>
                   <h:li><h:i>Seed</h:i> is the seed to generate the key pair (<h:i>pk, sk</h:i>)</h:li>
                   <h:li><h:i>Hash of keys</h:i> is computed by SHA-256(<h:i>pk</h:i>||<h:i>sk</h:i>)</h:li>
                   <h:li><h:i>Message</h:i> is the message to be signed</h:li>
                   <h:li><h:i>Hash of sig</h:i> is computed by SHA-256(<h:i>sig</h:i>)</h:li>
                 </h:ul>
-                <h:p/>
-                <h:p/>
                 <h:b>ML-DSA-87 Test Cases for Rejection Cases</h:b>
-                <h:p/>
                 <h:pre>
 		Test case 87-RC-01
 		Seed: 			E4F5AFCF697E0EC3C1BDEB66FAA903221E803902F9C3F716E1056A63D77DC250
@@ -5292,7 +5161,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
 						</h:pre>
                 <h:br/>
                 <h:b>XMSS Signature Generation</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -5319,33 +5187,25 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to generate digital signatures using XMSS, the evaluator
 					  shall perform the XMSS Key Generation Test using the following input parameters:
                 <h:ul>
                   <h:li>Hash algorithm [SHA-256/192, SHAKE256/192, SHA-256, SHAKE256]</h:li>
                   <h:li>Tree height [10, 16, 20]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>XMSS Key Generation Test</h:b>
-                <h:p/>
                 For each supported combination of the above parameters, the evaluator shall generate 10
 					  signatures. The evaluator shall verify the correctness of the implementation by comparing values
 					  generated by the TOE with those generated by a known-good implementation using the same
 					  input parameters.
-                <h:p/>
                 <h:br/>
                 <h:b>Known Answer Test for Large Number of Rejection Cases (Total Rejection Count)</h:b>
-                <h:p/>
                 For each supported parameter set, the evaluator shall cause the TOE to generate signatures using
 						the data below and a deterministic seed of all 0’s. Correctness is determined by
 						comparing the hash of the resulting signature with the hash in the fourth row
 						of the corresponding test case below.
-                <h:p/>
-                <h:p/>
                 <h:b>ML-DSA-87 Test Cases for Total Rejection Count</h:b>
-                <h:p/>
                 <h:pre>
 		Test case 87-LN-01
 		Seed: 			98B6298051D92BF37293C93C97370747BF527B87B71F6C4264182F45155ADE4C
@@ -5485,10 +5345,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
            (but which may be instrumented in terms of, for example, use of a debug mode). Where the test
            is not carried out on the TOE itself, the test platform shall be identified and the differences
            between test environment and TOE execution environment shall be described.
-                <h:p/>
                 <h:br/>
                 <h:b>RSA-PKCS Signature Verification</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -5512,7 +5370,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to perform RSA Digital Signature Verification using PKCS1-v1_5
            signature type, the evaluator shall perform Generated Data Test using the following input
            parameters:
@@ -5520,14 +5377,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Modulus size [3072, 4096, 6144, 8192] bits</h:li>
                   <h:li>Hash algorithm [SHA-384, SHA-512]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Generated Data Test</h:b>
-                <h:p/>
                 For each supported combination of the above parameters, the evaluator shall cause the TOE to
            generate six test cases using a random message and its signature such that the test cases are
            modified as follows:
-                <h:p/>
                 <h:ul>
                   <h:li>One test case is left unmodified</h:li>
                   <h:li>For one test case the Message is modified</h:li>
@@ -5536,13 +5390,10 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>For one test case the IR is moved</h:li>
                   <h:li>For one test case the Trailer is moved</h:li>
                 </h:ul>
-                <h:p/>
                 The TOE must correctly verify the unmodified signatures and fail to verify the modified
            signatures.
-                <h:p/>
                 <h:br/>
                 <h:b>RSA-PSS Signature Verification </h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -5566,7 +5417,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to perform RSA Digital Signature Verification using PSS signature
            type, the evaluator shall perform the Generated Data Test using the following input parameters:
                 <h:ul>
@@ -5575,13 +5425,10 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Salt length [0-hash length]</h:li>
                   <h:li>Mask function [MGF1]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Generated Data Test</h:b>
-                <h:p/>
                 For each supported combination of the above parameters, the evaluator shall cause the TOE to
            generate six test cases using random data such that the test cases are modified as follows:
-                <h:p/>
                 <h:ul>
                   <h:li>One test case is left unmodified</h:li>
                   <h:li>For one test case the Message is modified</h:li>
@@ -5590,13 +5437,10 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>For one test case the IR is moved</h:li>
                   <h:li>For one test case the Trailer is moved</h:li>
                 </h:ul>
-                <h:p/>
                 The TOE must correctly verify the unmodified signatures and fail to verify the modified
            signatures.
-                <h:p/>
                 <h:br/>
                 <h:b>ECDSA Signature Verification </h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -5622,21 +5466,17 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to perform ECDSA Digital Signature Verification, the evaluator shall
            perform the Algorithm Functional Test using the following input parameters:
                 <h:ul>
                   <h:li>Elliptic Curve [P-384, P-521]</h:li>
                   <h:li>Hash algorithm [SHA-384, SHA-512]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Test</h:b>
-                <h:p/>
                 For each supported combination of the above parameters, the evaluator shall cause the TOE to
            generate test cases consisting of messages and signatures such that the 21 test cases are
            modified as follows:
-                <h:p/>
                 <h:ul>
                   <h:li>Three test cases are left unmodified</h:li>
                   <h:li>For three test cases the Message is modified</h:li>
@@ -5646,13 +5486,10 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>For three test cases the value <h:i>r</h:i> is zeroed</h:li>
                   <h:li>For three test cases the value <h:i>s</h:i> is zeroed</h:li>
                 </h:ul>
-                <h:p/>
                 The TOE must correctly verify the unmodified signatures and fail to verify the modified
            signatures.
-                <h:p/>
                 <h:br/>
                 <h:b>LMS Signature Verification </h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -5683,7 +5520,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to verify cryptographic digital signature using LMS, the
            evaluator shall perform the Algorithm Functional Test using the following input parameters:
                 <h:ul>
@@ -5691,10 +5527,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Winternitz [1, 2, 4, 8]</h:li>
                   <h:li>Tree height [5, 10, 15, 20, 25]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Test</h:b>
-                <h:p/>
                 For each supported combination of the above parameters, the evaluator shall generate four test cases
            consisting of signed messages and keys, such that
                 <h:ul>
@@ -5704,12 +5538,9 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>For one test case modify the signature header so that it is a valid header for a different
                LMS parameter set.</h:li>
                 </h:ul>
-                <h:p/>
                 The TOE must correctly verify the unmodified test case and fail to verify the modified test cases.
-                <h:p/>
                 <h:br/>
                 <h:b>XMSS Signature Verification</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -5738,17 +5569,14 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to verify digital signatures using XMSS or XMSS MT, the evaluator shall
            perform the XMSS digital signature verification test using the following input parameters:
                 <h:ul>
                   <h:li>Hash algorithm [SHA-256/192, SHAKE256/192, SHA-256, SHAKE256]</h:li>
                   <h:li>Tree height [10, 16, 20]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>XMSS Digital Signature Verification Test</h:b>
-                <h:p/>
                 For each supported combination of the above parameters, the evaluator shall generate four test
            cases consisting of signed messages and keys, such that
                 <h:ul>
@@ -5758,13 +5586,10 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>For one test case modify the signature header so that it is a valid header 
                for a different XMSS parameter set</h:li>
                 </h:ul>
-                <h:p/>
                 The evaluator shall verify the correctness of the implementation by verifying that the TOE
            correctly verifies the unmodified test case and fails to verify the modified test cases.
-                <h:p/>
                 <h:br/>
                 <h:b>ML-DSA Signature Verification</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -5779,7 +5604,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <h:td valign="top">NIST FIPS PUB 204 (Section 5.2)</h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to validate digital signatures using ML-DSA, the
            evaluator shall perform the Algorithm Functional Test using the following input parameters:
                 <h:ul>
@@ -5790,10 +5614,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Previously generated public key (<h:i>pk</h:i>)</h:li>
                   <h:li>Previously generated Signature</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Test</h:b>
-                <h:p/>
                 For each combination of supported parameter set and capabilities, the evaluator shall require the
            implementation under test to validate 15 signatures. Each group of 15 test
            cases is modified as follows:
@@ -5807,7 +5629,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>For three test cases the component of the signature that allows the verifier to construct the hint array
                is modified</h:li>
                 </h:ul>
-                <h:p/>
                 The TOE must correctly verify the unmodified signatures and fail to verify the modified
            signatures.
               </Tests>
@@ -5871,18 +5692,15 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               <Tests>
                 The following tests require the developer to provide access to a test platform that
                   provides the evaluator with tools that are typically not found on factory products.
-                <h:p/>
-                The following tests are conditional based upon the selections made in the SFR. The
+                  The following tests are conditional based upon the selections made in the SFR. The
                   evaluator shall perform the following test or witness respective tests executed by
                   the developer. The tests must be executed on a platform that is as close as practically
                   possible to the operational platform (but which may be instrumented in terms of,
                   for example, use of a debug mode). Where the test is not carried out on the TOE
                   itself, the test platform shall be identified and the differences between test
                   environment and TOE execution environment shall be described.
-                <h:p/>
                 <h:br/>
                 <h:b>AES-CBC</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -5905,7 +5723,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to encrypt/decrypt data using AES in CBC mode, the evaluator 
                   shall perform Algorithm Functional Tests and Monte Carlo Tests using the following
                   input parameters:
@@ -5913,44 +5730,34 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Key size [256] bits</h:li>
                   <h:li>Direction [encryption, decryption]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Tests</h:b>
-                <h:p/>
                 Algorithm Functional Tests are designed to verify the correct operation of the logical
                   components of the algorithm implementation under normal operation using different block sizes.
                   For AES-CBC, there are two types of AFTs:
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Known-Answer Tests</h:i>
                 </h:b>
-                <h:p/>
                 For each combination of direction and claimed key size, the TOE must be tested using the
                   GFSBox, KeySbox, VarTxt, and VarKey test cases listed in Appendixes B through E of
                 <h:i>The
                     Advanced Encryption Standard Algorithm Validation Suite (AESAVS)</h:i>, NIST, 15 November 2002.
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Multi-Block Message Tests</h:i>
                 </h:b>
-                <h:p/>
                 For each combination of direction and claimed key size, the TOE must be tested against 10 test
                   cases consisting of a random IV, random key, and random plaintext/ciphertext. The
                   plaintext/ciphertext starts with a length of 16 bytes and increases by 16 bytes for each test case
                   until reaching 160 bytes.
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Monte Carlo Tests</h:i>
                 </h:b>
-                <h:p/>
                 Monte Carlo tests are intended to test the implementation under strenuous conditions. The TOE
                   must process the test cases according to the following algorithm once for each combination of
-                  direction and key size:
-                <h:p/>
-                <h:pre>
+                  direction and key size: <h:pre>
                     Key[0] = Key
                     IV[0] = IV
                     PT[0] = PT
@@ -5970,11 +5777,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     IV[i+1] = CT[j]
                     PT[0] = CT[j-1]
                     }
-                  </h:pre>
-                <h:p/>
-                where  <h:pre>AES_KEY_SHUFFLE</h:pre> is defined as:
-                <h:p/>
-                <h:pre>
+                  </h:pre>	
+                  where  <h:pre>AES_KEY_SHUFFLE</h:pre> is defined as:  <h:pre>
                     If ( keylen = 128 )
                     Key[i+1] = Key[i] xor MSB(CT[j], 128)
                     If ( keylen = 192 )
@@ -5982,17 +5786,12 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     If ( keylen = 256 )
                     Key[i+1] = Key[i] xor (MSB(CT[j-1], 128) || MSB(CT[j], 128))
                   </h:pre>
-                <h:p/>
-                The above pseudocode is for encryption. For decryption, swap all instances of CT and PT.
-                <h:p/>
-                The initial IV, key, and plaintext/ciphertext should be random.
-                <h:p/>
-                The evaluator shall test the decrypt functionality using the same test as above,
+                  The above pseudocode is for encryption. For decryption, swap all instances of CT and PT.
+                  The initial IV, key, and plaintext/ciphertext should be random.
+                  The evaluator shall test the decrypt functionality using the same test as above,
                   exchanging CT and PT, and replacing AES-CBC-Encrypt with AES-CBC-Decrypt.
-                <h:p/>
                 <h:br/>
                 <h:b>XTS-AES</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -6016,7 +5815,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to encrypt/decrypt data using AES in XTS mode, the evaluator shall
                   perform the Single Data Unit Test and the Multiple Data Unit Test using the following input
                   parameters:
@@ -6025,31 +5823,24 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Key size [512] bits</h:li>
                   <h:li>Tweak value format [128-bit hex string, data unit sequence number]</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Single Data Unit Test</h:b>
-                <h:p/>
                 For each combination of claimed key size, direction, and supported tweak value format, the
                   evaluator shall generate 50 test cases consisting of random payload data. The payload data size is
                   determined randomly for each test case from supported values within the range [128-65536] bits.
                   The payload size and data unit size must be equal.
-                <h:p/>
                 <h:br/>
                 <h:b>Multiple Data Unit Test</h:b>
-                <h:p/>
                 For each combination of claimed key size, direction, and supported tweak value format, the
                   evaluator shall generate 50 test cases consisting of random payload data. The payload data size is
                   determined randomly for each test case from supported values within the range [128-65536] bits.
                   Likewise, the data unit size is determined randomly for each test case from supported values
                   within the range [128-65535] bits. The payload size and data unit size must not be equal.
-                <h:p/>
-                The evaluator shall verify the correctness of the TSF’s implementation by comparing values
+                  The evaluator shall verify the correctness of the TSF’s implementation by comparing values
                   generated by the TSF with those generated by a known good implementation using the same
                   input parameters.
-                <h:p/>
                 <h:br/>
                 <h:b>AES-CTR</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Identifier</h:td>
@@ -6074,7 +5865,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     </h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s ability to encrypt/decrypt data using AES in CTR mode, the evaluator shall
                   perform the Algorithm Functional Test and the Counter Test using the following input
                   parameters:
@@ -6082,56 +5872,44 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Direction [encryption, decryption]</h:li>
                   <h:li>Key size [256] bits</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>Algorithm Functional Tests</h:b>
-                <h:p/>
                 Algorithm Functional Tests are designed to verify the correct operation of the logical
                   components of the algorithm implementation under normal operation using different block sizes.
                   For AES-CTR, there are three types of AFTs:
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Known-Answer Tests</h:i>
                 </h:b>
-                <h:p/>
                 For each combination of direction and claimed key size, the TOE must be tested using the
                   GFSBox, KeySbox, VarTxt, and VarKey test cases listed in Appendixes B through E of
                 <h:i>The
                     Advanced Encryption Standard Algorithm Validation Suite (AESAVS)</h:i>, NIST, 15 November 2002.
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Single Block Message Tests</h:i>
                 </h:b>
-                <h:p/>
                 For each combination of direction and claimed key, the evaluator shall generate 10 test cases
                   with a data size of 128 bits.
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Partial Block Message Tests</h:i>
                 </h:b>
-                <h:p/>
                 Monte Carlo tests are intended to test the implementation under strenuous conditions. The TOE
                   must process the test cases according to the following algorithm once for each combination of
                   direction and key size:
-                <h:p/>
-                For each combination of direction and claimed key, the evaluator shall generate five test cases
+                  For each combination of direction and claimed key, the evaluator shall generate five test cases
                   such that the data size is not a multiple of 128 bits.
-                <h:p/>
-                The evaluator shall verify the correctness of the TSF’s implementation by comparing values
+                  The evaluator shall verify the correctness of the TSF’s implementation by comparing values
                   generated by the TSF with those generated by a known good implementation using the same
                   input parameters.
                 <h:br/>
                 <h:b>
                   <h:i>Counter Test</h:i>
                 </h:b>
-                <h:p/>
                 The evaluator shall generate a single message of 1000 blocks (128000 bits) and either encrypt or
                   decrypt it. Back-compute the IVs used. Verify that they are unique and increasing (encryption) or
                   decreasing (decryption).
-                <h:p/>
               </Tests>
             </aactivity>
           </f-element>
@@ -6180,10 +5958,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 (but which may be instrumented in terms of, for example, use of a debug mode). Where the test
                 is not carried out on the TOE itself, the test platform shall be identified and the differences
                 between test environment and TOE execution environment shall be described.
-                <h:p/>
                 <h:br/>
                 <h:b>SHAKE</h:b>
-                <h:p/>
                 <h:table border="1">
                   <h:tr class="header" bgcolor="#cccccc">
                     <h:td valign="top">Cryptographic Algorithm</h:td>
@@ -6196,7 +5972,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <h:td valign="top">NIST FIPS PUB 202 Section 6.2 [SHAKE]</h:td>
                   </h:tr>
                 </h:table>
-                <h:p/>
                 To test the TOE’s implementation of the SHAKE Extendable Output Function the evaluator shall
                 perform the Algorithm Functional Test, Monte Carlo Test, and Variable Output Test using the
                 following input parameters:
@@ -6204,34 +5979,25 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <h:li>Function [SHAKE256]</h:li>
                   <h:li>Output length [16-65536] bits</h:li>
                 </h:ul>
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Algorithm Functional Test</h:i>
                 </h:b>
-                <h:p/>
                 For each supported function, generate test cases consisting of random data for every message
                 length from 0 bits (if supported) to
                 <h:i>rate</h:i>
                 -1 bits, where
                 <h:i>rate</h:i>
-                equals
-                <h:p/>
-                1088.
-                <h:p/>
+                equals 1088.
                 Additionally, generate tests cases of random data for messages of every multiple of (rate+1) bits
                 starting at length rate, and continuing until 65535 is exceeded.
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Monte Carlo Test</h:i>
                 </h:b>
-                <h:p/>
                 The Monte Carlo test takes in a single 128-bit message (SEED) and desired output length in
                 bits, and runs 100 iterations of the chained computation. MaxOutBytes and MinOutBytes are the
-                largest and smallest supported input and output sizes in bytes, respectively.
-                <h:p/>
-                <h:pre>
+                largest and smallest supported input and output sizes in bytes, respectively. <h:pre>
                   Range = maxOutBytes - minOutBytes + 1
                   OutputLen = maxOutBytes
                   For j = 0 to 99
@@ -6247,19 +6013,15 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   Output MD[1000], OutputLen
                   SEED = MD[1000]
                 </h:pre>
-                <h:p/>
                 <h:br/>
                 <h:b>
                   <h:i>Variable Output Test</h:i>
                 </h:b>
-                <h:p/>
                 This test measures the ability of the TOE to generate output digests of varying sizes.
-                <h:p/>
                 The evaluator shall generate 512 test cases such that the input for each test case consists of 128-
                 bits of random data, and the output length includes the minimum supported value, the maximum
                 supported value, and 510 random values between the minimum and maximum digest sizes
                 supported by the implementation.
-                <h:p/>
               </Tests>
             </aactivity>
           </f-element>
@@ -6450,20 +6212,21 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               <TSS>The evaluator shall verify that the TSS identifies the DRBGs used by the TOE.</TSS>
               <Guidance>If the DRBG functionality is configurable, the evaluator shall verify that the operational guidance includes instructions on how to configure this behavior.</Guidance>
               <Tests>
-                <h:p>The evaluator shall perform the following tests:</h:p>
-                <h:p>The evaluator shall perform 15 trials for the DRBG implementation. If the DRBG
+                The evaluator shall perform the following tests:
+                
+                  The evaluator shall perform 15 trials for the DRBG implementation. If the DRBG
                   is configurable, the evaluator shall perform 15 trials for each configuration. The
                   evaluator shall also confirm that the operational guidance contains appropriate
-                  instructions for configuring the DRBG functionality.</h:p>
-                <h:p>
+                  instructions for configuring the DRBG functionality.
+                
                   If the DRBG has  prediction resistance enabled, each trial consists of:
-                  <h:ol type="1">
-                    <h:li>Instantiate the DRBG.</h:li>
-                    <h:li>Generate a block of random bits.</h:li>
-                    <h:li>Generate a second block of random bits.</h:li>
-                    <h:li>Uninstantiate.</h:li>
-                  </h:ol>
-                  The evaluator shall verify that the second block of random bits is
+                <h:ol type="1">
+                  <h:li>Instantiate the DRBG.</h:li>
+                  <h:li>Generate a block of random bits.</h:li>
+                  <h:li>Generate a second block of random bits.</h:li>
+                  <h:li>Uninstantiate.</h:li>
+                </h:ol>
+                The evaluator shall verify that the second block of random bits is
                   the expected value. The evaluator shall generate eight input values for each
                   trial. The first is a count (0 – 14). The next three are entropy input, nonce, and
                   personalization string for the instantiate operation. The next two are additional
@@ -6472,53 +6235,50 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   are randomly generated. "generate one block of random bits" means to generate
                   random bits with number of returned bits equal to the Output Block Length (as
                   defined in NIST SP 800-90A).
-                </h:p>
-                <h:p>
+                
                   If the DRBG does not have prediction resistance, each trial consists of:
-                  <h:ol type="1">
-                    <h:li>Instantiate the DRBG.</h:li>
-                    <h:li>Generate a block of random bits.</h:li>
-                    <h:li>Reseed.</h:li>
-                    <h:li>Generate a second block of random bits.</h:li>
-                    <h:li>Uninstantiate.</h:li>
-                  </h:ol>
-                  The evaluator shall verify that the second block of random bits is the
+                <h:ol type="1">
+                  <h:li>Instantiate the DRBG.</h:li>
+                  <h:li>Generate a block of random bits.</h:li>
+                  <h:li>Reseed.</h:li>
+                  <h:li>Generate a second block of random bits.</h:li>
+                  <h:li>Uninstantiate.</h:li>
+                </h:ol>
+                The evaluator shall verify that the second block of random bits is the
                   expected value. The evaluator shall generate eight input values for each trial.
                   The first is a count (0 – 14). The next three are entropy input, nonce, and
                   personalization string for the instantiate operation. The fifth value is
                   additional input to the first call to generate. The sixth and seventh are
                   additional input and entropy input to the call to reseed. The final value is
                   additional input to the second generate call.
-                </h:p>
-                <h:p>
+                
                   The following list contains more information on some of the input values to be generated/selected by the evaluator.
-                  <h:ul>
-                    <h:li>
-                      <h:b>Entropy input:</h:b>
-                      The length of the entropy input value must equal the seed
+                <h:ul>
+                  <h:li>
+                    <h:b>Entropy input:</h:b>
+                    The length of the entropy input value must equal the seed
                       length.
-                    </h:li>
-                    <h:li>
-                      <h:b>Nonce:</h:b>
-                      If a nonce is supported (CTR_DRBG with no Derivation Function does
+                  </h:li>
+                  <h:li>
+                    <h:b>Nonce:</h:b>
+                    If a nonce is supported (CTR_DRBG with no Derivation Function does
                       not use a nonce), the nonce bit length is one-half the seed length.
-                    </h:li>
-                    <h:li>
-                      <h:b>Personalization string:</h:b>
-                      The length of the personalization string must be
+                  </h:li>
+                  <h:li>
+                    <h:b>Personalization string:</h:b>
+                    The length of the personalization string must be
                       less than or equal to seed length. If the implementation only supports one
                       personalization string length, then the same length can be used for both values.
                       If more than one string length is support, the evaluator shall use personalization
                       strings of two different lengths. If the implementation does not use a
                       personalization string, no value needs to be supplied.
-                    </h:li>
-                    <h:li>
-                      <h:b>Additional input:</h:b>
-                      The additional input bit lengths have the same defaults
+                  </h:li>
+                  <h:li>
+                    <h:b>Additional input:</h:b>
+                    The additional input bit lengths have the same defaults
                       and restrictions as the personalization string lengths.
-                    </h:li>
-                  </h:ul>
-                </h:p>
+                  </h:li>
+                </h:ul>
               </Tests>
             </aactivity>
           </f-element>
@@ -6528,17 +6288,17 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               <selectables>
                 <selectable id="internal-seed">TSF entropy source <assignable>name of entropy source</assignable></selectable>
                 <selectable id="internal-seeds">
-                  <h:b>multiple TSF entropy sources <assignable>names of entropy sources</assignable></h:b></selectable>
+                  <h:b>multiple independent TSF entropy sources <assignable>names of entropy sources</assignable></h:b></selectable>
                 <selectable id="external-seed">TSF interface for obtaining entropy</selectable>
               </selectables>
               for initialization and reseeding.
             </title>
             <note role="application">
-              <h:p>For the 
+              <h:p>Following the approach in SP800-90B/C, noise sources are required to be independent. Non-independent noise sources that share dependencies are treated as a single raw source requiring a single entropy source validation. If a TOE has multiple dependent noise sources, they should be grouped according to their dependencies for the purposes of these requirements. For the 
                 selection in this requirement, the ST author selects "TSF entropy source..." if
-                a single entropy source is used as input to the DRBG. The ST author selects "multiple TSF entropy sources..." if a seed is formed from a combination of two or more entropy sources within the TOE boundary. If the TSF implements two or more separate DRBGs that are seeded in separate manners, this SFR should be iterated for each DRBG. If multiple distinct entropy sources exist such that each DRBG only uses one of them, then each iteration would select "TSF entropy source..."; "multiple TSF entropy sources..." is only selected if a single DRBG uses multiple entropy sources for its seed. The ST author selects "TSF interface for obtaining entropy" if entropy source data is generated outside the TOE boundary.</h:p>
+                a single entropy source is used as input to the DRBG. The ST author selects "multiple independent TSF entropy sources..." if a seed is formed from a combination of two or more independent entropy sources within the TOE boundary. If the TSF implements two or more separate DRBGs that are seeded in separate manners, this SFR should be iterated for each DRBG. If multiple distinct entropy sources exist such that each DRBG only uses one of them, then each iteration would select "TSF entropy source..."; "multiple independent TSF entropy sources..." is only selected if a single DRBG uses multiple independent entropy sources for its seed. The ST author selects "TSF interface for obtaining entropy" if entropy source data is generated outside the TOE boundary.</h:p>
               <h:p>If "TSF entropy source..." is selected, FCS_RBG.3 must be claimed.</h:p>
-              <h:p>If "multiple TSF entropy sources..." is selected, FCS_RBG.4 and FCS_RBG.5 must be claimed.</h:p>
+              <h:p>If "multiple independent TSF entropy sources..." is selected, FCS_RBG.4 and FCS_RBG.5 must be claimed.</h:p>
               <h:p>If "TSF interface for obtaining entropy" is selected, FCS_RBG.2 must be claimed.</h:p>
             </note>
             <aactivity level="element">
@@ -6580,14 +6340,14 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           <depends on-sel="external-seed"/>
           <f-element id="fe1-rbg-seed">
             <title>
-              The TSF shall be able to accept a minimum input of [<h:i> <selectables><selectable id="fcs_rbg.2.1_1">256</selectable><selectable id="fcs_rbg.2.1_2">384</selectable></selectables>  bits of min-entropy</h:i>] from a TSF interface for obtaining entropy.
+              The TSF shall be able to accept a minimum input of [<h:i>384 bits of min-entropy</h:i>] from a TSF interface for obtaining entropy.
             </title>
             <note role="application">
               <h:p>
                 This SFR is claimed if "TSF interface for obtaining entropy" is selected in
                 <xref to="fel-rbg-init-seed-how"/>, i.e., the TOE's entropy source is outside the TOE boundary. In the case of a mobile device this would likely only occur when the entropy source is a Dedicated Security Component that is integrated with the TOE.
               </h:p>
-              <h:p>The ST author specifies 384 bits of entropy in the selection if the TOE uses an AES-CTR_DRBG and there is no derivation function, and 256 bits of entropy for all other DRBG implementations. If the environmental entropy source produces full entropy, the amount of entropy data collected is equal to the amount specified in the selection. If the entropy source does not assure full entropy (i.e., the ratio of min-entropy to collected data is less than 1:1), then the TSF must collect sufficient additional entropy data and perform a derivation function on it to reduce the collected data to a seed with the claimed min-entropy. In this case, the entropy documentation is expected to identify the min-entropy rate of the source data, how much data the TSF collects, and what derivation function is performed on this collected data to ensure that it has the claimed min-entropy.</h:p>
+              <h:p>If the environmental entropy source produces full entropy, the amount of entropy data collected is equal to the amount specified in the selection. If the entropy source does not assure full entropy (i.e., the ratio of min-entropy to collected data is less than 1:1), then the TSF must collect sufficient additional entropy data and perform a derivation function on it to reduce the collected data to a seed with the claimed min-entropy. In this case, the entropy documentation is expected to identify the min-entropy rate of the source data, how much data the TSF collects, and what derivation function is performed on this collected data to ensure that it has the claimed min-entropy.</h:p>
               <h:p>One should not apply NIST SP 800-90B (or AIS-31) statistical tests against
                 an external entropy source since the TSF is unable to enforce entropy requirements or conditioning
                 requirements against something outside of its logical boundary. However, the TSS may include estimates for
@@ -6614,14 +6374,14 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 <selectable id="fcs_rbg.3.1_2">TSF hardware-based entropy source</selectable>
               </selectables>
               <assignable>name of entropy source</assignable>
-              with [<h:i>a minimum of  <selectables><selectable id="fcs_rbg.3.1_4">256</selectable><selectable id="fcs_rbg.3.1_5">384</selectable></selectables></h:i>] bits of min-entropy.
+              with [<h:i>a minimum of 384</h:i>] bits of min-entropy.
             </title>
             <note role="application">
               <h:p>
                 This SFR is claimed if "TSF entropy source..." is selected in
                 <xref to="fel-rbg-init-seed-how"/>, i.e., the TOE has a single entropy source that is inside the TOE boundary. If the TOE obtains seed material from an environmental component, this is specified using FCS_RBG.2.
               </h:p>
-              <h:p>The ST author specifies 384 bits of entropy in the selection if the TOE uses an AES-CTR_DRBG and there is no derivation function, and 256 bits of entropy for all other DRBG implementations. If the TSF entropy source produces full entropy, the amount of entropy data collected is equal to the amount specified in the selection. If the entropy source does not assure full entropy (i.e., the ratio of min-entropy to collected data is less than 1:1), then the TSF must collect sufficient additional entropy data and perform a derivation function on it to reduce the collected data to a seed with the claimed min-entropy. In this case, the entropy documentation is expected to identify the min-entropy rate of the source data, how much data the TSF collects, and what derivation function is performed on this collected data to ensure that it has the claimed min-entropy.</h:p>
+              <h:p>If the TSF entropy source produces full entropy, the amount of entropy data collected is equal to the amount specified in the selection. If the entropy source does not assure full entropy (i.e., the ratio of min-entropy to collected data is less than 1:1), then the TSF must collect sufficient additional entropy data and perform a derivation function on it to reduce the collected data to a seed with the claimed min-entropy. In this case, the entropy documentation is expected to identify the min-entropy rate of the source data, how much data the TSF collects, and what derivation function is performed on this collected data to ensure that it has the claimed min-entropy.</h:p>
               <h:p>One can apply NIST SP 800-90B (or AIS-31) statistical tests against internal entropy sources
                 (aka raw entropy) to confirm the min-entropy of the entropy source.</h:p>
             </note>
@@ -6641,13 +6401,13 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
             <title>
               The TSF shall be able to seed the DRBG using
               <selectables>
-                <selectable id="fcs_rbg.4.1_1"><assignable>number</assignable> TSF software-based entropy source(s)</selectable>
-                <selectable id="fcs_rbg.4.1_3"><assignable>number</assignable> TSF hardware-based entropy source(s)</selectable>
+                <selectable id="fcs_rbg.4.1_1"><assignable>number</assignable> independent TSF software-based entropy source(s)</selectable>
+                <selectable id="fcs_rbg.4.1_3"><assignable>number</assignable> independent TSF hardware-based entropy source(s)</selectable>
               </selectables>.
             </title>
             <note role="application">
               <h:p>
-                This SFR is claimed if "multiple TSF entropy sources..." is selected in
+                This SFR is claimed if "multiple independent TSF entropy sources..." is selected in
                 <xref to="fel-rbg-init-seed-how"/>, i.e., the TSF performs some sort of operation to combine data from multiple distinct sources into a value that is used to derive a seed. If the TOE has only a single entropy source, this is specified using FCS_RBG.3. FCS_RBG.5 defines the mechanism by which these sources are combined to ensure sufficient minimum entropy.
               </h:p>
             </note>
@@ -6671,10 +6431,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 <selectable id="fcs_rbg.5.1_2">output from TSF entropy source(s)</selectable>
                 <selectable id="fcs_rbg.5.1_3">input from TSF interface(s) for obtaining entropy</selectable>
               </selectables>
-              resulting in a minimum of [<h:i> <selectables>
-                  <selectable id="fcs_rbg.5.1_4">256</selectable>
-                  <selectable id="fcs_rbg.5.1_5">384</selectable>
-                </selectables></h:i>] bits of min-entropy to create the entropy input into the derivation function as defined in
+              resulting in a minimum of [<h:i>384</h:i>] bits of min-entropy to create the entropy input into the derivation function as defined in
               <assignable>list of standards</assignable>.
             </title>
             <note role="application">
@@ -6682,7 +6439,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 This SFR is claimed if "multiple TSF entropy sources..." is selected in
                 <xref to="fel-rbg-init-seed-how"/>, i.e., the TSF performs some sort of operation to combine data from multiple distinct sources into a value that is used to derive a seed. If the TOE has only a single entropy source, this is specified using FCS_RBG.3.
               </h:p>
-              <h:p>The ST author specifies 384 bits of entropy in the selection if the TOE uses an AES-CTR_DRBG and there is no derivation function, and 256 bits of entropy for all other DRBG implementations. If the environmental entropy source produces full entropy, the amount of entropy data collected is equal to the amount specified in the selection. If the entropy source does not assure full entropy (i.e., the ratio of min-entropy to collected data is less than 1:1), then the TSF must collect sufficient additional entropy data and perform a derivation function on it to reduce the collected data to a seed with the claimed min-entropy. In this case, the entropy documentation is expected to identify the min-entropy rate of the source data, how much data the TSF collects, and what derivation function is performed on this collected data to ensure that it has the claimed min-entropy.</h:p>
+              <h:p>If the environmental entropy source produces full entropy, the amount of entropy data collected is equal to the amount specified in the selection. If the entropy source does not assure full entropy (i.e., the ratio of min-entropy to collected data is less than 1:1), then the TSF must collect sufficient additional entropy data and perform a derivation function on it to reduce the collected data to a seed with the claimed min-entropy. In this case, the entropy documentation is expected to identify the min-entropy rate of the source data, how much data the TSF collects, and what derivation function is performed on this collected data to ensure that it has the claimed min-entropy.</h:p>
               <h:p>One can apply NIST SP 800-90B (or AIS-31) statistical tests against internal entropy sources
               (aka raw entropy) to confirm the min-entropy of the entropy sources either in aggregate or
               individually.</h:p>
@@ -6793,36 +6550,31 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
             <title>
               The TSF shall provide a mechanism for applications to request the TSF to perform
               the following cryptographic operations: [<h:i><h:ul>
-                  <h:li>All mandatory and  <selectables><selectable id="fcs_srv_ext.1.1_1">selected algorithms</selectable><selectable id="fcs_srv_ext.1.1_2">selected algorithms with the exception of ECC over curve 25519-based algorithms</selectable></selectables>  in FCS_CKM_EXT.7/LOCKED</h:li>
-                  <h:li>All selected algorithms in FCS_COP.1/AEAD</h:li>
-                  <h:li>All mandatory and selected algorithms in FCS_COP.1/Hash</h:li>
-                  <h:li>All mandatory and selected algorithms in FCS_COP.1/KeyedHash</h:li>
-                  <h:li>All selected algorithms in FCS_COP.1/SigGen and FCS_COP.1/SigVer</h:li>
-                  <h:li>AES-CBC and  <selectables><selectable id="fcs_srv_ext.1.1_3">AES-CTR</selectable><selectable id="fcs_srv_ext.1.1_4">XTS-AES</selectable><selectable id="fcs_srv_ext.1.1_5">no other modes</selectable></selectables>  as defined in FCS_COP.1/SKC</h:li>
-                  <h:li>
-                    <selectables linebreak="yes">
-                      <selectable id="fcs_srv_ext.1.1_6">All mandatory and <selectables><selectable id="fcs_srv_ext.1.1_7">selected algorithms</selectable><selectable id="fcs_srv_ext.1.1_8">selected algorithms with the exception of ECC over curve 25519-based algorithms</selectable></selectables> in FCS_CKM.1/AKG or FCS_CKM.1/SKG</selectable>
-                      <selectable id="fcs_srv_ext.1.1_9">All selected algorithms in FCS_CKM_EXT.8</selectable>
-                      <selectable id="fcs_srv_ext.1.1_10">All selected algorithms in FCS_COP.1/KeyWrap</selectable>
-                      <selectable id="fcs_srv_ext.1.1_11" exclusive="yes">No other cryptographic operations</selectable>
-                    </selectables></h:li>
+                  <h:li>AEAD: <assignable>one or more AEAD algorithms</assignable> as claimed in FCS_COP.1/AEAD</h:li>
+                  <h:li>Hash: <assignable>one or more hash algorithms</assignable> as claimed in FCS_COP.1/Hash</h:li>
+                  <h:li>HMAC: <assignable>one or more HMAC algorithms</assignable> as claimed in FCS_COP.1/KeyedHash</h:li>
+                  <h:li>Digital signature: <assignable>one or more digital signature generation or verification algorithms</assignable>  as claimed in FCS_COP.1/SigGen or FCS_COP.1/SigVer</h:li>
                 </h:ul>
-              </h:i>].
+                and
+                <selectables linebreak="yes">
+                  <selectable id="fcs_srv_ext.1.1_5">Asymmetric key generation: <assignable>one or more key generation algorithms</assignable> as claimed in FCS_CKM.1/AKG</selectable>
+                  <selectable id="fcs_srv_ext.1.1_7">Key agreement: <assignable>one or more key agreement algorithms</assignable> as claimed in FCS_CKM_EXT.7/UNLOCKED</selectable>
+                  <selectable id="fcs_srv_ext.1.1_9">Key encapsulation: <assignable>one or more key encapsulation algorithms</assignable> as claimed in FCS_COP.1/KeyEncap</selectable>
+                  <selectable id="fcs_srv_ext.1.1_11">Key wrapping: <assignable>one or more key wrap algorithms</assignable> as claimed in FCS_COP.1/KeyWrap</selectable>
+                  <selectable id="fcs_srv_ext.1.1_13">Symmetric encryption: <assignable>one or more symmetric encryption algorithms</assignable> as claimed in FCS_COP.1/SKC</selectable>
+                  <selectable id="fcs_srv_ext.1.1_15">no other cryptographic operations</selectable>
+                </selectables></h:i>].
             </title>
             <ext-comp-def-title>
               <title>
                 The TSF shall provide a mechanism for applications to request the TSF to perform
                 the following cryptographic operations:
-                <assignable>cryptographic operations defined by the TSF in FCS_CKM.1 or FCS_COP.1</assignable>
+                <assignable>cryptographic functions</assignable>.
               </title>
             </ext-comp-def-title>
             <note role="application">
-              <h:p>For each of the listed components in the bulleted list, the intent is that the TOE will make available all algorithms specified for that component in the ST.</h:p>
-              For FCS_COP.1/AEAD, the TOE is not required to make available AES_CCMP or AES_GCMP algorithms even though they may be implemented by the TSF. The intent is to provide an interface for AES-GCM and AES-CCM. 
-              
-              Support for AES-CBC is always required. If the TOE claims AES-CTR in FCS_COP.1/SKC, then this is required as well. If the TOE claims XTS-AES in FCS_COP.1/SKC, it is optional as to whether this be made available as a service.  
-              
-              FCS_CKM_EXT.8 and FCS_COP.1/KeyWrap are selectable because it is not explicitly required for the TOE to provide interfaces for PBKDF or key wrapping functions.
+              <h:p>A conformant TOE is required to provide to provide an interface for third-party applications to invoke AEAD, hash, HMAC, and digital signature functions. The functions made available by the TSF may be a subset of those functions claimed; for example, if the TOE claims both CCM and GCM modes in FCS_COP.1/AEAD but CCM is only implemented in hardware for the purpose of Bluetooth, it is sufficient to offer only GCM. The TSF is not required to provide algorithm services for the selectable algorithms, but they should be included within the TOE boundary if supported.</h:p>
+              <h:p>The TSF must also provide a service for generation of symmetric keys as defined in FCS_CKM.1/SKC. However, since this PP specifies "direct generation from a random bit generator" as the only mechanism for doing this, it is not necessary to list that service here because FCS_RBG.6 already requires the TSF to make the output of its DRBG available to third parties. There is no extra step to generate a symmetric key from random bits; the random bits themselves are the key.</h:p>
             </note>
             <aactivity>
               <TSS>
@@ -6851,15 +6603,15 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           <f-element id="fel-crypt-service-extra">
             <title>
               The TSF shall provide a mechanism for applications to request the TSF to perform
-              the following cryptographic operations: [<h:i><h:ul>
-                  <h:li>Algorithms in FCS_COP.1/AEAD</h:li>
-                  <h:li>Algorithms in FCS_COP.1/KeyWrap</h:li>
-                  <h:li>Algorithms in FCS_COP.1/SigGen</h:li>
-                  <h:li>Algorithms in FCS_COP.1/SigVer</h:li>
-                  <h:li>Algorithms in FCS_COP.1/SKC</h:li>
-                </h:ul>
-              </h:i>]
-              <h:b>by keys stored in the secure key storage.</h:b>
+              the following cryptographic operations:
+              <selectables linebreak="yes">
+                <selectable id="fcs_srv_ext.2.1_1">Algorithms in FCS_COP.1/AEAD</selectable>
+                <selectable id="fcs_srv_ext.2.1_2">Algorithms in FCS_COP.1/KeyWrap</selectable>
+                <selectable id="fcs_srv_ext.2.1_3">Algorithms in FCS_COP.1/SigGen</selectable>
+                <selectable id="fcs_srv_ext.2.1_4">Algorithms in FCS_COP.1/SigVer</selectable>
+                <selectable id="fcs_srv_ext.2.1_5">Algorithms in FCS_COP.1/SKC</selectable>
+              </selectables>
+              by keys stored in the secure key storage.
             </title>
             <ext-comp-def-title>
               <title>
@@ -7088,7 +6840,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>Import or destruction of key</audit-event-descr>
-            <audit-event-info>Identity of key, role and identity of requester</audit-event-info>
           </audit-event>
           <audit-event>
             <audit-event-descr>
@@ -7097,7 +6848,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 <selectable>None</selectable>
               </selectables>
             </audit-event-descr>
-            <audit-event-info>Identity of key, role and identity of requester</audit-event-info>
           </audit-event>
         </f-component>
         <!-- FCS_STG_EXT.2 Encrypted Cryptographic Key Storage -->
@@ -8066,7 +7816,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>Addition or removal of certificate from Trust Anchor Database</audit-event-descr>
-            <audit-event-info>Subject name of certificate.</audit-event-info>
+            <audit-event-info>Subject name of certificate</audit-event-info>
           </audit-event>
         </f-component>
         <!-- FDP_UPC_EXT.1 Inter-TSF User Data Transfer Protection -->
@@ -8176,7 +7926,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>Application initiation of trusted channel</audit-event-descr>
-            <audit-event-info>Name of application. Trusted channel protocol. Non-TOE endpoint of connection</audit-event-info>
           </audit-event>
         </f-component>
         <!-- FDP_UPC_EXT.1/BLUETOOTH Inter-TSF User Data Transfer Protection (Bluetooth) -->
@@ -8250,7 +7999,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>Application initiation of trusted channel</audit-event-descr>
-            <audit-event-info>Name of application. Trusted channel protocol. Non-TOE endpoint of connection</audit-event-info>
           </audit-event>
         </f-component>
       </section>
@@ -8867,7 +8615,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
             </aactivity>
           </f-element>
           <audit-event>
-            <audit-event-descr>Action performed before authentication.</audit-event-descr>
+            <audit-event-descr>Action performed before authentication</audit-event-descr>
           </audit-event>
         </f-component>
         <!-- FIA_UAU_EXT.4 Secondary User Authentication -->
@@ -9178,6 +8926,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <O ref="A"/>
                   <O ref="AO"/>
                   <app-note>
+                    <also ref-id="mf-audioVisual"/>
+                    <also ref-id="mf-location"/>
                     <also ref-id="mf-audioVisual"/>
                     <also ref-id="mf-location"/>
                     Functions
@@ -9893,11 +9643,9 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </audit-event>
           <audit-event>
             <audit-event-descr>Change of settings</audit-event-descr>
-            <audit-event-info>Role of user that changed setting, Value of new setting</audit-event-info>
           </audit-event>
           <audit-event>
             <audit-event-descr>Success or failure of function</audit-event-descr>
-            <audit-event-info>Role of user that performed function, Function performed, Reason for failure</audit-event-info>
           </audit-event>
           <audit-event>
             <audit-event-descr>Initiation of software update</audit-event-descr>
@@ -9985,8 +9733,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
             </aactivity>
           </f-element>
           <audit-event>
-            <audit-event-descr>Unenrollment, Initiation of unenrollment</audit-event-descr>
-            <audit-event-info>Identity of administrator Remediation action performed, failure of accepting command to unenroll</audit-event-info>
+            <audit-event-descr>Initiation of unenrollment</audit-event-descr>
+          </audit-event>
+          <audit-event>
+            <audit-event-descr>Unenrollment</audit-event-descr>
+            <audit-event-info>Remediation action performed</audit-event-info>
           </audit-event>
         </f-component>
         <!-- FMT_SMF_EXT.3 Current Administrator -->
@@ -10532,19 +10283,16 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               </TSS>
               <Guidance>There are no guidance evaluation activities for this component.<h:br/><h:br/></Guidance>
               <Tests>
-                <h:p>
-                  <h:b>Evaluation Activity Note:</h:b>
-                  The following test requires the developer to
+                <h:b>Evaluation Activity Note:</h:b>
+                The following test requires the developer to
                 provide access to a test platform that provides the evaluator with chip level
                 access.
-                </h:p>
-                <h:p>
-                  If
-                  <xref to="s-jtag-kill-hw"/>
-                  is selected:
-                  <h:br/>
-                  The evaluator shall connect to the available JTAG port(s) on the device. The evaluator shall query the JTAG port(s) to determine if the functionality of the JTAG access is available. This could be through the retrieval of information that may only be accessible through the JTAG interface(s) or by other means that can show the status of the interface to accept commands.
-                </h:p>
+                
+                If
+                <xref to="s-jtag-kill-hw"/>
+                is selected:
+                <h:br/>
+                The evaluator shall connect to the available JTAG port(s) on the device. The evaluator shall query the JTAG port(s) to determine if the functionality of the JTAG access is available. This could be through the retrieval of information that may only be accessible through the JTAG interface(s) or by other means that can show the status of the interface to accept commands.
               </Tests>
             </aactivity>
           </f-element>
@@ -10901,14 +10649,13 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               <Guidance>
                 <h:p>If a self-test can be executed at the request of an authorized user, the evaluator shall verify that the operational guidance provides instructions on how to execute that self-test.</h:p>
               </Guidance>
-              <Tests>
-                <h:p>For each self-test, the evaluator shall verify that evidence is produced that the self-test is executed when specified by FPT_TST.1.1.</h:p>
-                <h:p>If a self-test can be executed at the request of an authorized user, the evaluator shall verify that following the steps documented in the operational guidance to perform the self-test will result in execution of the self-test.</h:p>
-              </Tests>
+              <Tests>For each self-test, the evaluator shall verify that evidence is produced that the self-test is executed when specified by FPT_TST.1.1.
+                
+                  If a self-test can be executed at the request of an authorized user, the evaluator shall verify that following the steps documented in the operational guidance to perform the self-test will result in execution of the self-test.</Tests>
             </aactivity>
           </f-element>
           <audit-event>
-            <audit-event-descr>Execution of self-tests.</audit-event-descr>
+            <audit-event-descr>Execution of self-tests</audit-event-descr>
             <audit-event-info>None.</audit-event-info>
           </audit-event>
         </f-component>
@@ -11757,7 +11504,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>Initiation and termination of trusted channel</audit-event-descr>
-            <audit-event-info>Trusted channel protocol, non-TOE endpoint of connection</audit-event-info>
           </audit-event>
         </f-component>
       </section>
@@ -12556,7 +12302,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
       </section>
     </section>
   </sec:req>
-  <appendix title="Validation Guidelines" id="valguide"/>
   <appendix title="Implicitly Satisfied Requirements" id="satisfiedreqs">
     <h:table>
       <h:tr>
@@ -12797,14 +12542,10 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
     <h:br/>
   </appendix>
   <bibliography>
-    <entry id="bibCSA">
-      <tag>CSA</tag>
-      <description><h:a href="http://csrc.nist.gov/groups/SMA/ispab/documents/csa_87.txt">Computer Security Act of 1987</h:a>, H.R. 145, June 11, 1987. </description>
-    </entry>
     <entry id="bibCCerrata">
       <tag>Errata</tag>
       <description>
-        <h:a href="https://www.commoncriteriaportal.org/files/ccfiles/CCMB-2025-001-v1_2-Errata_Interpretation_CC_CEM_2022.pdf">Errata and Interpretation for CC:2022 (Release 1) and CEM:2022 (Release 1)</h:a>
+        <h:a href="https://www.commoncriteriaportal.org/files/ccfiles/CCMB-2025-001-v1_2-Errata_Interpretation_CC_CEM_2022.pdf">Errata and Interpretation for CC:2022 (Release 1) and CEM:2022 (Release 1), Version 1.2</h:a>
       </description>
     </entry>
     <entry id="bibOMB">
