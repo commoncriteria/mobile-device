@@ -1,4 +1,3 @@
-* Warning: This document still has at least one comment.
 * Error: Detected multiple elements with an id of 'usage-tls-support-mutual-auth'.
 * Error: Detected multiple elements with an id of 'usage-tls-mutual-auth'.
 * Error: Detected multiple elements with an id of 'usage-tls-support-mutual-auth'.
