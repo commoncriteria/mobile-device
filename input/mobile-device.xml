@@ -274,7 +274,7 @@ FPT_TST_EXT.2(2) - POSTKERNEL
     <audit-events-in-sfrs/>
   </pp-preferences>
   <sec:Introduction>
-    <sec:Objectives_of_Document title="Overview">The scope of this Protection Profile (PP) is to describe the security functionality of mobile devices in terms of [CC] and to define functional and assurance requirements for such devices.</sec:Objectives_of_Document>
+    <sec:Objectives_of_Document>The scope of this Protection Profile (PP) is to describe the security functionality of mobile devices in terms of [CC] and to define functional and assurance requirements for such devices.</sec:Objectives_of_Document>
     <tech-terms>
       <term full="Address Space Layout Randomization" abbr="ASLR">An anti-exploitation feature,
         which loads memory mappings into unpredictable locations. ASLR makes it more difficult for
@@ -396,6 +396,7 @@ FPT_TST_EXT.2(2) - POSTKERNEL
       <term full="Counter with CBC-Message Authentication Code" abbr="CCM"/>
       <term full="CCM Protocol" abbr="CCMP"/>
       <term full="Certificate Management over Cryptographic Message Syntax (CMS)" abbr="CMC"/>
+      <term full="Commercial National Security Algorithm Suite" abbr="CNSA"/>
       <term full="Central Processing Unit" abbr="CPU"/>
       <term full="Certificate Revocation List" abbr="CRL"/>
       <term full="Data At Rest" abbr="DAR"/>
@@ -1312,7 +1313,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
   <!-- 5.0 Security Requirements -->
   <sec:req title="Security Requirements">
     <!-- 5.1 Security Functional Requirements-->
-    <section title="Security Functional Requirements" id="sfr">
+    <sec:SFRs title="Security Functional Requirements">
       <section id="ss-audit-table" title="Auditable Events for Mandatory SFRs">
         <audit-table id="t-audit-mandatory" table="mandatory"/>
       </section>
@@ -2334,7 +2335,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               The TSF shall destroy [<h:i>all plaintext keys and keying material</h:i>] when
               <selectables>
                 <selectable id="fcs_ckm.6.1_1">no longer needed</selectable>
-                <selectable id="fcs_ckm.6.1_3">
+                <selectable id="fcs_ckm.6.1_2">
                   <assignable>other circumstances for destruction</assignable></selectable>
               </selectables>.
             </title>
@@ -7709,7 +7710,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               with the exception of IP traffic needed to manage the VPN
               connection, and
               <selectables>
-                <selectable id="fdp_ifc_ext.1.1_4">
+                <selectable id="fdp_ifc_ext.1.1_3">
                   <assignable>traffic needed for correct functioning of the TOE</assignable></selectable>
                 <selectable id="fdp_ifc_ext.1.1_5">no other traffic</selectable>
               </selectables>, when the VPN is enabled.
@@ -8247,7 +8248,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           <audit>There are no auditable events foreseen.</audit>
           <dependencies>FIA_UAU.5 Multiple Authentication Mechanisms</dependencies>
           <f-element id="fel-password-manage">
-            <title>The TSF shall support the following for the Password Authentication Factor: <h:ol><h:li>Passwords shall be able to be composed of any combination of  <selectables><selectable id="fia_pmg_ext.1.1_1">upper and lower case letters</selectable><selectable id="fia_pmg_ext.1.1_3"><assignable>a character set of at least 52 characters</assignable></selectable></selectables>, numbers, and special characters:  <selectables><selectable id="fia_pmg_ext.1.1_4">"!"</selectable><selectable id="fia_pmg_ext.1.1_5">"@"</selectable><selectable id="fia_pmg_ext.1.1_6">"#"</selectable><selectable id="fia_pmg_ext.1.1_7">"$"</selectable><selectable id="fia_pmg_ext.1.1_8">"%"</selectable><selectable id="fia_pmg_ext.1.1_9">"^"</selectable><selectable id="fia_pmg_ext.1.1_10">"&amp;"</selectable><selectable id="fia_pmg_ext.1.1_11">"*"</selectable><selectable id="fia_pmg_ext.1.1_12">"("</selectable><selectable id="fia_pmg_ext.1.1_13">")"</selectable><selectable id="fia_pmg_ext.1.1_15"><assignable>other characters</assignable></selectable></selectables>; </h:li> <h:li>Password length up to <assignable>an integer greater than or equal to 14</assignable>  characters shall be supported. </h:li></h:ol></title>
+            <title>The TSF shall support the following for the Password Authentication Factor: <h:ol><h:li>Passwords shall be able to be composed of any combination of  <selectables><selectable id="fia_pmg_ext.1.1_1">upper and lower case letters</selectable><selectable id="fia_pmg_ext.1.1_2"><assignable>a character set of at least 52 characters</assignable></selectable></selectables>, numbers, and special characters:  <selectables><selectable id="fia_pmg_ext.1.1_4">"!"</selectable><selectable id="fia_pmg_ext.1.1_5">"@"</selectable><selectable id="fia_pmg_ext.1.1_6">"#"</selectable><selectable id="fia_pmg_ext.1.1_7">"$"</selectable><selectable id="fia_pmg_ext.1.1_8">"%"</selectable><selectable id="fia_pmg_ext.1.1_9">"^"</selectable><selectable id="fia_pmg_ext.1.1_10">"&amp;"</selectable><selectable id="fia_pmg_ext.1.1_11">"*"</selectable><selectable id="fia_pmg_ext.1.1_12">"("</selectable><selectable id="fia_pmg_ext.1.1_13">")"</selectable><selectable id="fia_pmg_ext.1.1_14"><assignable>other characters</assignable></selectable></selectables>; </h:li> <h:li>Password length up to <assignable>an integer greater than or equal to 14</assignable>  characters shall be supported. </h:li></h:ol></title>
             <note role="application">
               While some corporate policies require passwords of 14
               characters or better, the use of a REK for DAR protection and key storage protection
@@ -8581,7 +8582,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
             <title>
               The TSF shall allow
               <selectables>
-                <selectable id="fia_uau_ext.2.1_2">
+                <selectable id="fia_uau_ext.2.1_1">
                   <assignable>list of actions</assignable></selectable>
                 <selectable id="fia_uau_ext.2.1_3">no actions</selectable>
               </selectables>
@@ -8965,8 +8966,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <app-note>
                     <also ref-id="mf-audioVisual"/>
                     <also ref-id="mf-location"/>
-                    <also ref-id="mf-audioVisual"/>
-                    <also ref-id="mf-location"/>
                     Functions
                     <_/>
                     must be implemented on a device-wide basis but may also be
@@ -9188,7 +9187,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   </app-note>
                 </management-function>
                 <management-function id="mf-appInstallRules">
-                  <text>configure application installation policy by <selectables linebreak="yes"><selectable id="mf-appInstallRules-restrict">restricting the sources of applications</selectable><selectable id="mf-appInstallRules-specify">specifying a set of allowed applications based on <assignable>application characteristics</assignable> (an <snip>application allowlist</snip>)</selectable><selectable id="mf-appInstallRules-deny">denying installation of applications</selectable></selectables></text>
+                  <text>configure application installation policy by <selectables linebreak="yes"><selectable id="mf-appInstallRules-restrict">restricting the sources of applications</selectable><selectable id="mf-appInstallRules-specify">specifying a set of allowed applications based on <assignable>application characteristics</assignable> (an application allowlist)</selectable><selectable id="mf-appInstallRules-deny">denying installation of applications</selectable></selectables></text>
                   <M ref="I"/>
                   <NA ref="U"/>
                   <M ref="A"/>
@@ -9264,7 +9263,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   </aactivity>
                 </management-function>
                 <management-function id="mf-keyWipe">
-                  <text>destroy imported keys or secrets and <selectables><selectable id="fmt_smf_ext.1.1_4" exclusive="yes">no other keys or secrets</selectable><selectable id="fmt_smf_ext.1.1_6"><assignable>list of other categories of keys or secrets</assignable></selectable></selectables> in the secure key storage</text>
+                  <text>destroy imported keys or secrets and <selectables><selectable id="fmt_smf_ext.1.1_4" exclusive="yes">no other keys or secrets</selectable><selectable id="fmt_smf_ext.1.1_5"><assignable>list of other categories of keys or secrets</assignable></selectable></selectables> in the secure key storage</text>
                   <M ref="I"/>
                   <O ref="U"/>
                   <O ref="A"/>
@@ -9278,7 +9277,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <O ref="AO"/>
                 </management-function>
                 <management-function id="mf-certWipe">
-                  <text>remove imported X.509v3 certificates and <selectables><selectable id="fmt_smf_ext.1.1_7" exclusive="yes">no other X.509v3 certificates</selectable><selectable id="fmt_smf_ext.1.1_9"><assignable>list of other categories of X.509v3 certificates</assignable></selectable></selectables> in the Trust Anchor Database</text>
+                  <text>remove imported X.509v3 certificates and <selectables><selectable id="fmt_smf_ext.1.1_7" exclusive="yes">no other X.509v3 certificates</selectable><selectable id="fmt_smf_ext.1.1_8"><assignable>list of other categories of X.509v3 certificates</assignable></selectable></selectables> in the Trust Anchor Database</text>
                   <M ref="I"/>
                   <O ref="U"/>
                   <O ref="A"/>
@@ -9408,7 +9407,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   </app-note>
                 </management-function>
                 <management-function id="mf-notifications">
-                  <text>enable/disable display notification in the locked state of: <selectables linebreak="yes"><selectable id="fmt_smf_ext.1.1_10">email notifications</selectable><selectable id="fmt_smf_ext.1.1_11">calendar appointments</selectable><selectable id="fmt_smf_ext.1.1_12">contact associated with phone call notification</selectable><selectable id="fmt_smf_ext.1.1_13">text message notification</selectable><selectable id="fmt_smf_ext.1.1_15"><assignable>other application-based notifications</assignable></selectable><selectable id="fmt_smf_ext.1.1_16">all notifications</selectable></selectables></text>
+                  <text>enable/disable display notification in the locked state of: <selectables linebreak="yes"><selectable id="fmt_smf_ext.1.1_10">email notifications</selectable><selectable id="fmt_smf_ext.1.1_11">calendar appointments</selectable><selectable id="fmt_smf_ext.1.1_12">contact associated with phone call notification</selectable><selectable id="fmt_smf_ext.1.1_13">text message notification</selectable><selectable id="fmt_smf_ext.1.1_14"><assignable>other application-based notifications</assignable></selectable><selectable id="fmt_smf_ext.1.1_16">all notifications</selectable></selectables></text>
                   <M ref="I"/>
                   <O ref="U"/>
                   <O ref="A"/>
@@ -10125,7 +10124,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </audit>
           <dependencies>No dependencies.</dependencies>
           <f-element id="fmt-smf-ext-acts">
-            <title>The TSF shall offer  <selectables><selectable id="s-smf-wipe-pro">wipe of protected data</selectable><selectable id="s-smf-wipe-sen">wipe of sensitive data</selectable><selectable id="s-smf-ext-2-rem-ent-app">remove Enterprise applications</selectable><selectable id="fmt_smf_ext.2.1_1">remove all device-stored Enterprise resource data</selectable><selectable id="fmt_smf_ext.2.1_2">remove Enterprise secondary authentication data</selectable><selectable id="fmt_smf_ext.2.1_4"><assignable>list other available remediation actions</assignable></selectable></selectables>  upon unenrollment and  <selectables><selectable id="fmt_smf_ext.2.1_6"><assignable>other administrator-configured triggers</assignable></selectable><selectable id="fmt_smf_ext.2.1_7" exclusive="yes">no other triggers</selectable></selectables>.</title>
+            <title>The TSF shall offer  <selectables><selectable id="s-smf-wipe-pro">wipe of protected data</selectable><selectable id="s-smf-wipe-sen">wipe of sensitive data</selectable><selectable id="s-smf-ext-2-rem-ent-app">remove Enterprise applications</selectable><selectable id="fmt_smf_ext.2.1_1">remove all device-stored Enterprise resource data</selectable><selectable id="fmt_smf_ext.2.1_2">remove Enterprise secondary authentication data</selectable><selectable id="fmt_smf_ext.2.1_3"><assignable>list other available remediation actions</assignable></selectable></selectables>  upon unenrollment and  <selectables><selectable id="fmt_smf_ext.2.1_5"><assignable>other administrator-configured triggers</assignable></selectable><selectable id="fmt_smf_ext.2.1_7" exclusive="yes">no other triggers</selectable></selectables>.</title>
             <ext-comp-def-title>
               <title>
                 The TSF shall offer
@@ -10500,7 +10499,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               granted to any page of physical memory
               <selectables>
                 <selectable id="fpt_aex_ext.6.1_1">with no exceptions</selectable>
-                <selectable id="fpt_aex_ext.6.1_3">
+                <selectable id="fpt_aex_ext.6.1_2">
                   <assignable>specific exceptions</assignable></selectable>
               </selectables>.
             </title>
@@ -10927,7 +10926,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
             FPT_TST_EXT.2 TSF Integrity Checking
           </dependencies>
           <f-element id="fel-selftest-trans">
-            <title>The TSF shall transition to non-operational mode and  <selectables><selectable id="fpt_not_ext.1.1_1">log failures in the audit record</selectable><selectable id="fpt_not_ext.1.1_2">notify the administrator</selectable><selectable id="fpt_not_ext.1.1_4"><assignable>other actions</assignable></selectable><selectable id="fpt_not_ext.1.1_5" exclusive="yes">no other actions</selectable></selectables>  when the following types of failures occur: <h:ul><h:li>failures of the self-tests</h:li> <h:li>TSF software integrity verification failures</h:li> <h:li> <selectables><selectable id="fpt_not_ext.1.1_6" exclusive="yes">no other failures</selectable><selectable id="fpt_not_ext.1.1_8"><assignable>other failures</assignable></selectable></selectables></h:li></h:ul></title>
+            <title>The TSF shall transition to non-operational mode and  <selectables><selectable id="fpt_not_ext.1.1_1">log failures in the audit record</selectable><selectable id="fpt_not_ext.1.1_2">notify the administrator</selectable><selectable id="fpt_not_ext.1.1_3"><assignable>other actions</assignable></selectable><selectable id="fpt_not_ext.1.1_5" exclusive="yes">no other actions</selectable></selectables>  when the following types of failures occur: <h:ul><h:li>failures of the self-tests</h:li> <h:li>TSF software integrity verification failures</h:li> <h:li> <selectables><selectable id="fpt_not_ext.1.1_6" exclusive="yes">no other failures</selectable><selectable id="fpt_not_ext.1.1_7"><assignable>other failures</assignable></selectable></selectables></h:li></h:ul></title>
             <aactivity>
               <TSS>
                 The evaluator shall verify that the TSS describes critical failures that may
@@ -11210,7 +11209,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         <!-- FPT_TST_EXT.2/POSTKERNEL TSF Integrity Checking (Post-Kernel) -->
         <f-component cc-id="fpt_tst_ext.2" id="fpt-tst-ext-2-postkernel" name="TSF Integrity Checking (Post-Kernel)" iteration="POSTKERNEL" status="objective">
           <f-element id="fel-integrity-what">
-            <title>The TSF shall verify the integrity of  <selectables><selectable id="s-all-exe">all executable code</selectable><selectable id="fpt_tst_ext.2.1_POSTKERNEL_2"><assignable>subset of executable code</assignable></selectable></selectables>  stored in mutable media prior to its execution through the use of  <selectables><selectable id="fpt_tst_ext.2.1_POSTKERNEL_3">a digital signature using an immutable hardware asymmetric key</selectable><selectable id="fpt_tst_ext.2.1_POSTKERNEL_4">an immutable hardware hash of an asymmetric key</selectable><selectable id="fpt_tst_ext.2.1_POSTKERNEL_5">an immutable hardware hash</selectable><selectable id="fpt_tst_ext.2.1_POSTKERNEL_6">a digital signature using a hardware-protected asymmetric key</selectable><selectable id="fpt_tst_ext.2.1_POSTKERNEL_7">hardware-protected hash</selectable></selectables>. </title>
+            <title>The TSF shall verify the integrity of  <selectables><selectable id="s-all-exe">all executable code</selectable><selectable id="fpt_tst_ext.2.1_POSTKERNEL_1"><assignable>subset of executable code</assignable></selectable></selectables>  stored in mutable media prior to its execution through the use of  <selectables><selectable id="fpt_tst_ext.2.1_POSTKERNEL_3">a digital signature using an immutable hardware asymmetric key</selectable><selectable id="fpt_tst_ext.2.1_POSTKERNEL_4">an immutable hardware hash of an asymmetric key</selectable><selectable id="fpt_tst_ext.2.1_POSTKERNEL_5">an immutable hardware hash</selectable><selectable id="fpt_tst_ext.2.1_POSTKERNEL_6">a digital signature using a hardware-protected asymmetric key</selectable><selectable id="fpt_tst_ext.2.1_POSTKERNEL_7">hardware-protected hash</selectable></selectables>. </title>
             <note role="application">
               All executable code covered in this requirement is executed
               after the kernel is loaded.
@@ -11441,7 +11440,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               The TSF shall verify software updates to the Application Processor system
               software and
               <selectables>
-                <selectable id="fpt_tud_ext.2.1_2">
+                <selectable id="fpt_tud_ext.2.1_1">
                   <assignable>other processor system software</assignable></selectable>
                 <selectable id="fpt_tud_ext.2.1_3">no other processor system software</selectable>
               </selectables>
@@ -11962,7 +11961,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </audit-event>
         </f-component>
       </section>
-    </section>
+    </sec:SFRs>
     <!-- 5.2 Security Assurance Requirements -->
     <section title="Security Assurance Requirements" id="sar">
       The Security Objectives in
@@ -13000,7 +12999,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
     <entry id="bibCCerrata">
       <tag>Errata</tag>
       <description>
-        <h:a href="https://www.commoncriteriaportal.org/files/ccfiles/CCMB-2025-001-v1_2-Errata_Interpretation_CC_CEM_2022.pdf">Errata and Interpretation for CC:2022 (Release 1) and CEM:2022 (Release 1), Version 1.2</h:a>
+        <h:a href="https://www.commoncriteriaportal.org/files/ccfiles/CCMB-2025-001-v1_2-Errata_Interpretation_CC_CEM_2022.pdf">Errata and Interpretation for CC:2022 (Release 1) and CEM:2022 (Release 1)</h:a>, Version 1.2
       </description>
     </entry>
     <entry id="bibOMB">
