@@ -1,7 +1,3 @@
-* Error: Detected dangling id-reference to x509-updates from attribute
-        on-sel/PP[1]""/sec:req[1]""/section[1]""/section[7]""/f-component[27]""/depends[1]""/on-sel[1]""
-* Error: Detected dangling id-reference to x509-other-uses from attribute
-        on-sel/PP[1]""/sec:req[1]""/section[1]""/section[7]""/f-component[27]""/depends[2]""/on-sel[1]""
 * Error: Detected multiple elements with an id of 'usage-tls-support-mutual-auth'.
 * Error: Detected multiple elements with an id of 'usage-tls-mutual-auth'.
 * Error: Detected multiple elements with an id of 'usage-tls-support-mutual-auth'.
@@ -75,8 +71,6 @@
 	  /PP[1]""/sec:Introduction[1]""/section[4]"This sect"/package-usage-list[1]""/package-usage[2]""/usage[9]""/config[1]""/ref-id[1]"dummy-ref"
 * Error: Detected dangling ref-id to 'dummy-ref-id'.
 	  /PP[1]""/sec:Introduction[1]""/section[4]"This sect"/package-usage-list[1]""/package-usage[2]""/usage[10]""/config[1]""/ref-id[1]"dummy-ref"
-* Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/sec:Use_Cases[1]""/h:p[1]"The Mobil"/h:p[1]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/sec:Use_Cases[1]""/h:p[1]"The Mobil"/h:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/section[3]"This sect"/f-component[1]""/f-element[1]""/title[1]"The TSF s"/selectables[1]""/tabularize[1]""/reqtext[3]"."/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/section[3]"This sect"/f-component[1]""/f-element[1]""/title[1]"The TSF s"/selectables[1]""/tabularize[1]""/reqtext[3]"."/h:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/section[3]"This sect"/f-component[1]""/f-element[1]""/title[1]"The TSF s"/selectables[1]""/selectable[2]""/col[4]"FIPS PUB "/h:p[1]""
