@@ -2494,7 +2494,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>
-              <selectables>
+              <selectables onlyone="yes">
                 <selectable>Generation of a REK</selectable>
                 <selectable>None</selectable>
               </selectables>
@@ -3305,7 +3305,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>
-              <selectables>
+              <selectables onlyone="yes">
                 <selectable>Failure of the wipe</selectable>
                 <selectable>None</selectable>
               </selectables>
@@ -6844,7 +6844,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </audit-event>
           <audit-event>
             <audit-event-descr>
-              <selectables>
+              <selectables onlyone="yes">
                 <selectable>Exceptions to use and destruction rules</selectable>
                 <selectable>None</selectable>
               </selectables>
@@ -7490,7 +7490,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>
-              <selectables>
+              <selectables onlyone="yes">
                 <selectable>Failure to encrypt/decrypt data</selectable>
                 <selectable>None</selectable>
               </selectables>
@@ -7680,7 +7680,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>
-              <selectables>
+              <selectables onlyone="yes">
                 <selectable>Failure to encrypt/decrypt data</selectable>
                 <selectable>None</selectable>
               </selectables>
@@ -9022,81 +9022,25 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               calls.
                   </app-note>
                   <aactivity>
-                    <TSS>The evaluator shall
-                  verify that the TSS includes a description of each radio and an indication of if
-                  the radio can be enabled/disabled along with what role can do so. In addition the
-                  evaluator shall verify that the frequency ranges at which each radio operates is
-                  included in the TSS. The evaluator shall verify that the TSS includes at what point 
-                  in the boot sequence the radios are powered on and indicates if the radios are used 
-                  as part of the initialization of the device.</TSS>
-                    <Guidance>
-                      The evaluator shall confirm that the AGD guidance describes
-                  how to perform the enable/disable function for each radio.
-                      <h:br/>
-                      <h:br/>
-                    </Guidance>
+                    <TSS>The evaluator shall verify that the TSS includes a description of each radio and an indication of if the radio can be enabled/disabled along with what role can do so. In addition the evaluator shall verify that the frequency ranges at which each radio operates is included in the TSS. The evaluator shall verify that the TSS includes at what point in the boot sequence the radios are powered on and indicates if the radios are used as part of the initialization of the device.</TSS>
+                    <Guidance>The evaluator shall confirm that the AGD guidance describes how to perform the enable/disable function for each radio.</Guidance>
                     <Tests>
-                      Test FMT_SMF_EXT.1:4: The
-                  evaluator shall ensure that minimal signal leakage enters the RF shielded
-                  enclosure (i.e., Faraday bag, Faraday box, RF shielded room) by performing the
-                  following steps:
-                      <h:br/>
-                      <h:br/>
-                      Step 1: Place the antenna of the spectrum
-                  analyzer inside the RF shielded enclosure.
-                      <h:br/>
-                      <h:br/>
-                      Step 2: Enable "Max
-                  Hold" on the spectrum analyzer and perform a spectrum sweep of the frequency range
-                  between 300 MHz – 6000 MHz, in I kHz steps (this range should encompass 802.11,
-                  802.15, GSM, UMTS, and LTE). This range will not address NFC 13.56.MHz, another
-                  test should be set up with similar constraints to address NFC.
-                      <h:br/>
-                      <h:br/>
-                      If power above -75 dBm is observed, the Faraday box has too great of signal
-                  leakage and shall not be used to complete the test for
-		  Function
+                      Test FMT_SMF_EXT.1:4: The evaluator shall ensure that minimal signal leakage enters the RF shielded enclosure (i.e., Faraday bag, Faraday box, RF shielded room) by performing the following steps:
+                
+                Step 1: Place the antenna of the spectrum analyzer inside the RF shielded enclosure.
+                
+                Step 2: Enable "Max Hold" on the spectrum analyzer and perform a spectrum sweep of the frequency range between 300 MHz - 6000 MHz, in 1 kHz steps (this range should encompass 802.11, 802.15, GSM, UMTS, and LTE). This range will not address NFC 13.56.MHz, another test should be set up with similar constraints to address NFC.
+                
+                If power above -75 dBm is observed, the Faraday box has too great of signal leakage and shall not be used to complete the test for Function
                       <xref to="mf-radios"/>.
-
-		  The evaluator shall exercise the TSF configuration as the administrator and,
-                    if not restricted to the administrator, the user, to enable and disable the
-                    state of each radio (e.g. Wi-Fi, cellular, NFC, Bluetooth). Additionally,
-                    the evaluator shall repeat the steps below, booting into any auxiliary boot mode
-                    supported by the device. For each radio, the evaluator shall:
-                      <h:br/>
-                      <h:br/>
-                      Step 1: Place the antenna of the spectrum analyzer inside the RF shielded
-                    enclosure. Configure the spectrum analyzer to sweep desired frequency range for
-                    the radio to be tested (based on range provided in the TSS)). The ambient noise
-                    floor shall be set to -110 dBm. Place the TOE into the RF shielded enclosure to
-                    isolate them from all other RF traffic.
-                      <h:br/>
-                      <h:br/>
-                      Step 2: The evaluator
-                    shall create a baseline of the expected behavior of RF signals. The evaluator
-                    shall power on the device, ensure the radio in question is enabled, power off
-                    the device, enable "Max Hold" on the spectrum analyzer and power on the device.
-                    The evaluator shall wait 2 minutes at each Authentication Factor interface prior
-                    to entering the necessary password to complete the boot process, waiting 5
-                    minutes after the device is fully booted. The evaluator shall observe that RF
-                    spikes are present at the expected uplink channel frequency. The evaluator shall
-                    clear the "Max Hold" on the spectrum analyzer.
-                      <h:br/>
-                      <h:br/>
-                      Step 3: The
-                    evaluator shall verify the absence of RF activity for the uplink channel when
-                    the radio in question is disabled. The evaluator shall complete the following
-                    test five times. The evaluator shall power on the device, ensure the radio in
-                    question is disabled, power off the device, enable "Max Hold" on the spectrum
-                    analyzer and power on the device. The evaluator shall wait 2 minutes at each
-                    Authentication Factor interface prior to entering the necessary password to
-                    complete the boot process, waiting 5 minutes after the device is fully booted.
-                    The evaluator shall clear the "Max Hold" on the spectrum analyzer. If the radios 
-                    are used for device initialization, then a spike of RF activity for the uplink channel
-                    can be observed initially at device boot. However, if a spike of
-                    RF activity for the uplink channel of the specific radio frequency band is
-                    observed after the device is fully booted or at an Authentication Factor interface 
-                    it is deemed that the radio is enabled.
+                
+                The evaluator shall exercise the TSF configuration as the administrator and, if not restricted to the administrator, the user, to enable and disable the state of each radio (e.g. Wi-Fi, cellular, NFC, Bluetooth). Additionally, the evaluator shall repeat the steps below, booting into any auxiliary boot mode supported by the device. For each radio, the evaluator shall:
+                
+                Step 1: Place the antenna of the spectrum analyzer inside the RF shielded enclosure. Configure the spectrum analyzer to sweep desired frequency range for the radio to be tested (based on range provided in the TSS)). The ambient noise floor shall be set to -110 dBm. Place the TOE into the RF shielded enclosure to isolate them from all other RF traffic.
+                
+                Step 2: The evaluator shall create a baseline of the expected behavior of RF signals. The evaluator shall power on the device, ensure the radio in question is enabled, power off the device, enable "Max Hold" on the spectrum analyzer and power on the device. The evaluator shall wait 2 minutes at each Authentication Factor interface prior to entering the necessary password to complete the boot process, waiting 5 minutes after the device is fully booted. The evaluator shall observe that RF spikes are present at the expected uplink channel frequency. The evaluator shall clear the "Max Hold" on the spectrum analyzer.
+                
+                Step 3: The evaluator shall verify the absence of RF activity for the uplink channel when the radio in question is disabled. The evaluator shall complete the following test five times. The evaluator shall power on the device, ensure the radio in  question is disabled, power off the device, enable "Max Hold" on the spectrum analyzer and power on the device. The evaluator shall wait 2 minutes at each Authentication Factor interface prior to entering the necessary password to complete the boot process, waiting 5 minutes after the device is fully booted. The evaluator shall clear the "Max Hold" on the spectrum analyzer. If the radios are used for device initialization, then a spike of RF activity for the uplink channel can be observed initially at device boot. However, if a spike of RF activity for the uplink channel of the specific radio frequency band is observed after the device is fully booted or at an Authentication Factor interface it is deemed that the radio is enabled.
                     </Tests>
                   </aactivity>
                 </management-function>
@@ -10954,7 +10898,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>
-              <selectables>
+              <selectables onlyone="yes">
                 <selectable>Measurement of TSF software</selectable>
                 <selectable>None</selectable>
               </selectables>
@@ -11242,7 +11186,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>
-              <selectables>
+              <selectables onlyone="yes">
                 <selectable>Detected integrity violation</selectable>
                 <selectable>None</selectable>
               </selectables>
@@ -11331,7 +11275,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </audit-event>
           <audit-event>
             <audit-event-descr>
-              <selectables>
+              <selectables onlyone="yes">
                 <selectable>Detected integrity violation</selectable>
                 <selectable>None</selectable>
               </selectables>
