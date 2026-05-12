@@ -9003,6 +9003,37 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
 		  split tunnel.
                     </h:p>
                   </app-note>
+                  <aactivity>
+                    <Tests>
+                      The evaluator shall perform the following tests:
+                      <h:ul>
+                        <h:li>Test FMT_SMF_EXT.1:3a: The evaluator shall exercise the TSF configuration to enable the VPN
+                        protection. These configuration actions must be used for the testing of the
+                        FDP_IFC_EXT.1.1 requirement.</h:li>
+                        <h:li>
+                          Test FMT_SMF_EXT.1:3b: [conditional] If "<xref to="s-vpn-per-app"/>" is selected, the evaluator shall
+                        create two applications and enable one to use the VPN and the other to not
+                        use the VPN. The evaluator shall exercise each application (attempting to
+                        access network resources; for example, by browsing different websites)
+                        individually while capturing packets from the TOE. The evaluator shall
+                        verify from the packet capture that the traffic from the VPN-enabled
+                        application is encapsulated in IPsec and that the traffic from the
+                        VPN-disabled application is not encapsulated in IPsec.
+                        </h:li>
+                        <h:li>
+                          Test FMT_SMF_EXT.1:3c: [conditional] If "<xref to="s-vpn-per-appgroup"/>" is selected, the
+                        evaluator shall create two applications and the applications shall be placed
+                        into different groups. Enable one application group to use the VPN and the
+                        other to not use the VPN. The evaluator shall exercise each application
+                        (attempting to access network resources; for example, by browsing different
+                        websites) individually while capturing packets from the TOE. The evaluator
+                        shall verify from the packet capture that the traffic from the application
+                        in the VPN-enabled group is encapsulated in IPsec and that the traffic from
+                        the application in the VPN-disabled group is not encapsulated in IPsec.
+                        </h:li>
+                      </h:ul>
+                    </Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-radios">
                   <text>enable/disable <assignable>list of all radios</assignable></text>
@@ -9123,6 +9154,12 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <NA ref="U"/>
                   <M ref="A"/>
                   <NA ref="AO"/>
+                  <aactivity>
+                    <Tests>Test FMT_SMF_EXT.1:6: The evaluator shall use the test environment to instruct the TSF, both as a
+                      user and as the administrator, to command the device to transition to a locked
+                      state, and verify that the device transitions to the locked state upon
+                      command.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-wipe">
                   <text>TSF wipe of protected data</text>
@@ -9137,6 +9174,10 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
 		    Protected data is all non-TSF data, including all user or enterprise data. Some or all
 		  of this data may be considered sensitive data as well.
                   </app-note>
+                  <aactivity>
+                    <Tests>Test FMT_SMF_EXT.1:7: The evaluator shall use the test environment to instruct the TSF, both as a user and as the administrator, to command the device to perform a wipe of protected data. 
+      The evaluator shall ensure that this management setup is used when conducting the Evaluation Activities in FCS_CKM_EXT.5.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-appInstallRules">
                   <text>configure application installation policy by <selectables linebreak="yes"><selectable id="mf-appInstallRules-restrict">restricting the sources of applications</selectable><selectable id="mf-appInstallRules-specify">specifying a set of allowed applications based on <assignable>application characteristics</assignable> (an <snip>application allowlist</snip>)</selectable><selectable id="mf-appInstallRules-deny">denying installation of applications</selectable></selectables></text>
@@ -9227,6 +9268,18 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <NA ref="U"/>
                   <M ref="A"/>
                   <O ref="AO"/>
+                  <aactivity>
+                    <Guidance>The evaluator shall
+                  review the AGD guidance to determine that it describes the steps needed to import,
+                  modify, or remove certificates in the Trust Anchor database, and that the users
+                  that have authority to import those certificates (e.g., only administrator, or
+                  both administrators and users) are identified.</Guidance>
+                    <Tests>Test FMT_SMF_EXT.1:11: The evaluator shall import certificates according to the AGD guidance as the
+			user or as the administrator, as determined by the administrative guidance.
+			The evaluator shall verify that no errors occur during import. The evaluator
+			should perform an action requiring use of the X.509v3 certificate to provide
+			assurance that installation was completed properly.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-certWipe">
                   <text>remove imported X.509v3 certificates and <selectables><selectable id="fmt_smf_ext.1.1_7" exclusive="yes">no other X.509v3 certificates</selectable><selectable id="fmt_smf_ext.1.1_8"><assignable>list of other categories of X.509v3 certificates</assignable></selectable></selectables> in the Trust Anchor Database</text>
@@ -9325,6 +9378,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
 		      cognizant of this limitation and will enforce network access controls in order to
 		      enforce enterprise-critical updates.
                   </app-note>
+                  <aactivity>
+                    <Tests>Test FMT_SMF_EXT.1:15: The evaluator shall attempt to update the TSF system software following the
+                    procedures in the AGD guidance and verify that updates correctly install and
+                    that the version numbers of the system software increase.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-appInstall">
                   <text>install applications</text>
@@ -9340,6 +9398,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               devices typically completely overwrite the previous installation with a new
               installation during an application update.
                   </app-note>
+                  <aactivity>
+                    <Tests>Test FMT_SMF_EXT.1:16: The evaluator shall attempt to install an application following the
+                    procedures in the AGD guidance and verify that the application is installed and
+                    available on the TOE.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-entAppRemove">
                   <text>remove Enterprise applications</text>
@@ -9357,6 +9420,12 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <xref to="mf-appGroups"/>
                     of FMT_SMF_EXT.1.1.
                   </app-note>
+                  <aactivity>
+                    <Tests>Test FMT_SMF_EXT.1:17: The evaluator shall attempt to remove any Enterprise applications from the
+                    device by following the administrator guidance. The evaluator shall verify that
+                    the TOE no longer permits users to access those applications or their associated
+                    data.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-notifications">
                   <text>enable/disable display notification in the locked state of: <selectables linebreak="yes"><selectable id="fmt_smf_ext.1.1_10">email notifications</selectable><selectable id="fmt_smf_ext.1.1_11">calendar appointments</selectable><selectable id="fmt_smf_ext.1.1_12">contact associated with phone call notification</selectable><selectable id="fmt_smf_ext.1.1_13">text message notification</selectable><selectable id="fmt_smf_ext.1.1_14"><assignable>other application-based notifications</assignable></selectable><selectable id="fmt_smf_ext.1.1_16">all notifications</selectable></selectables></text>
@@ -9371,6 +9440,19 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <xref to="mf-notifications"/>) must be included in the
               selection.
                   </app-note>
+                  <aactivity>
+                    <Guidance>
+                      The evaluator
+                  shall examine the AGD Guidance to determine that it specifies, for at least each
+                  category of information selected for Function
+                      <xref to="mf-notifications"/>,
+                  how to enable and disable display information for that type of information in the
+                  locked state.
+                    </Guidance>
+                    <Tests>Test FMT_SMF_EXT.1:18: For each category of information listed in the AGD guidance, the evaluator
+                    shall verify that when that TSF is configured to limit the information according
+                to the AGD, the information is no longer displayed in the locked state.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-dar">
                   <text>enable data-at rest protection</text>
@@ -9384,6 +9466,13 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     must be included in the
 		      selection if data-at-rest protection is not natively enabled.
                   </app-note>
+                  <aactivity>
+                    <Tests>Test FMT_SMF_EXT.1:19: The evaluator shall exercise the TSF configuration as the administrator and,
+                    if not restricted to the administrator, the user, to enable system-wide
+                    data-at-rest protection according to the AGD guidance. The evaluator shall
+                    ensure that all Evaluation Activities for DAR protection (FDP_DAR_EXT) are conducted with the
+                    device in this configuration.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-rmediaDar">
                   <text>enable removable media’s data-at-rest protection</text>
@@ -9397,6 +9486,13 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     is implicitly met if the TSF does not support
 		      removable media.
                   </app-note>
+                  <aactivity>
+                    <Tests>Test FMT_SMF_EXT.1:20: The evaluator shall exercise the TSF configuration as the administrator and,
+                    if not restricted to the administrator, the user, to enable removable media’s
+                    data-at-rest protection according to the AGD guidance. The evaluator shall
+                    ensure that all Evaluation Activities for DAR protection (FDP_DAR_EXT) are conducted with the
+                    device in this configuration.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-location">
                   <text>enable/disable location services:  <h:ul><h:li>Across device  </h:li>  </h:ul><selectables linebreak="yes"><selectable id="mf-location-per_app">on a per-app basis</selectable><selectable id="fmt_smf_ext.1.1_17">on a per-group of applications processes basis</selectable><selectable id="fmt_smf_ext.1.1_18" exclusive="yes">no other method</selectable></selectables></text>
@@ -9409,6 +9505,29 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <xref to="mf-location"/>, location
               services include location information gathered from GPS, cellular, and Wi-Fi.
                   </app-note>
+                  <aactivity>
+                    <Tests>
+                      The evaluator shall perform the following tests.
+                      <h:ul>
+                        <h:li>Test FMT_SMF_EXT.1:21a: The evaluator shall enable location services device-wide and shall
+                        verify that an application (such as a mapping application) is able to access
+                        the TOE’s location information. The evaluator shall disable location
+                        services device-wide and shall verify that an application (such as a mapping
+                        application) is unable to access the TOE’s location information.</h:li>
+                        <h:li>
+                          Test FMT_SMF_EXT.1:21b: [conditional] If
+                          <xref to="mf-location-per_app"/>
+                          is selected, the evaluator shall
+                        create two applications and enable one to use access the location services
+                        and the other to not access the location services. The evaluator shall
+                        exercise each application attempting to access location services
+                        individually. The evaluator shall verify that the enabled application is
+                        able to access the location services and the disabled application is not
+                        able to access the location services.
+                        </h:li>
+                      </h:ul>
+                    </Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-authFactors">
                   <text>enable/disable the use of <selectables><selectable id="fmt_smf_ext.1.1_19">Biometric Authentication Factor</selectable><selectable id="fmt_smf_ext.1.1_20">Hybrid Authentication Factor</selectable></selectables></text>
@@ -9431,6 +9550,39 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     is selected in FIA_UAU.5.1 it must be selected and the user
               or admin must have the option to disable the use of it.
                   </app-note>
+                  <aactivity>
+                    <Tests>
+                      The evaluator shall verify that the TSS states if the TOE supports a BAF
+                    or hybrid authentication. If the TOE does not include a BAF or hybrid
+                    authentication this test is implicitly met.
+                      <h:ul>
+                        <h:li>
+                          Test FMT_SMF_EXT.1:22a: [conditional] If
+                          <xref to="uau_biometric"/>
+                          is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the
+                          <xref to="mod-biometrics"/>
+                          the evaluator shall verify that the
+                        TSS describes the procedure to enable/disable the BAF. The evaluator shall configure the TOE to
+                        allow each supported BAF to authenticate and verify that successful
+                        authentication can be achieved using the BAF. The evaluator shall configure
+                        the TOE to disable the use of each supported BAF for authentication and
+                        confirm that the BAF cannot be used to authenticate.
+                        </h:li>
+                        <h:li>
+                          Test FMT_SMF_EXT.1:22b: [conditional] If
+                          <xref to="uau_hybr"/>
+                          is selected the evaluator shall verify that
+                        the TSS describes the procedure to enable/disable the hybrid (biometric
+                        credential and PIN/password) authentication. The evaluator shall configure
+                        the TOE to allow hybrid authentication to authenticate and confirm that
+                        successful authentication can be achieved using the hybrid authentication.
+                        The evaluator shall configure the TOE to disable the use of hybrid
+                        authentication and confirm that the hybrid authentication cannot be used to
+                        authenticate.
+                        </h:li>
+                      </h:ul>
+                    </Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-certInvalid">
                   <text>configure whether to allow or disallow establishment of <assignable>configurable trusted channel in FTP_ITC_EXT.1.1 or FDP_UPC_EXT.1.1/APPS</assignable> if the peer or server certificate is deemed invalid.</text>
@@ -9446,6 +9598,15 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     or
                     <xref to="fel-tls-app"/>. The configuration can be different depending on the specific trusted channel(s) and they must be filled in for the assignment.
                   </app-note>
+                  <aactivity>
+                    <Tests>
+                      The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in
+                      <xref to="X509"/>
+                      and
+                    FCS_TLSC_EXT.1.6 in the
+                      <xref to="tls"/>.
+                    </Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-externalPorts">
                   <text>enable/disable all data signaling over <assignable>list of externally accessible hardware ports</assignable></text>
@@ -9517,6 +9678,13 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     must be included in the selection if developer modes are
 		    supported by the TSF.
                   </app-note>
+                  <aactivity>
+                    <Tests>Test FMT_SMF_EXT.1:26: The evaluator shall exercise the TSF configuration as the administrator and,
+                    if not restricted to the administrator, the user, to enable and disable any
+                    developer mode. The evaluator shall test that developer mode access is not
+                    available when its configuration is disabled. The evaluator shall verify the
+                    developer mode remains disabled during device reboot.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-authBypass">
                   <text>enable/disable bypass of local user authentication</text>
@@ -9531,6 +9699,16 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               be included in the selection if bypass of local user authentication, such as a "Forgot
               Password", password hint, or remote authentication feature, is supported.
                   </app-note>
+                  <aactivity>
+                    <Guidance>The
+                  evaluator shall examine the AGD guidance to determine that it describes how to
+                  enable and disable any "Forgot Password", password hint, or remote authentication
+                  (to bypass local authentication mechanisms) capability.</Guidance>
+                    <Tests>Test FMT_SMF_EXT.1:27: For each mechanism listed in the AGD guidance that provides a "Forgot
+                    Password" feature or other means where the local authentication process can be
+                    bypassed, the evaluator shall disable the feature and ensure that they are not
+                    able to bypass the local authentication process.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-wipeEntData">
                   <text>wipe Enterprise data</text>
@@ -9538,6 +9716,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <O ref="U"/>
                   <O ref="A"/>
                   <NA ref="AO"/>
+                  <aactivity>
+                    <Tests>Test FMT_SMF_EXT.1:28: The evaluator shall attempt to wipe Enterprise data resident on the device
+                    according to the administrator guidance. The evaluator shall verify that the
+                    data is no longer accessible by the user.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-appCert">
                   <text>approve <selectables><selectable id="fmt_smf_ext.1.1_23">import</selectable><selectable id="fmt_smf_ext.1.1_24">removal</selectable></selectables> by applications of X.509v3 certificates in the Trust Anchor Database</text>
@@ -9611,6 +9794,9 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               FIA_X509_EXT.2.2 in
                     <xref to="X509"/>
                   </app-note>
+                  <aactivity>
+                    <Tests>The test of this function is performed in conjunction with FIA_X509_EXT.2.2 in  <xref to="X509"/>.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-cellular">
                   <text>enable/disable the cellular protocols used to connect to cellular network base stations</text>
@@ -9636,6 +9822,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <NA ref="U"/>
                   <M ref="A"/>
                   <NA ref="AO"/>
+                  <aactivity>
+                    <Tests>Test FMT_SMF_EXT.1:32: The evaluator shall attempt to read any device audit logs according to the
+                    administrator guidance and verify that the logs may be read. This test may be
+                    performed in conjunction with the evaluation activity of FAU_GEN.1.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-digSign">
                   <text>configure <selectables><selectable id="fmt_smf_ext.1.1_25">certificate</selectable><selectable id="fmt_smf_ext.1.1_26">public-key</selectable></selectables> used to validate digital signature on applications</text>
@@ -9650,6 +9841,9 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
               included in the selection if FPT_TUD_EXT.5.1 is included in the ST and the
               configurable option is selected.
                   </app-note>
+                  <aactivity>
+                    <Tests>The test of this function is performed in conjunction with FPT_TUD_EXT.5.1.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-sharedKeys">
                   <text>approve exceptions for shared use of keys or secrets by multiple applications</text>
@@ -9722,6 +9916,9 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     must be included in the selection if FAU_SEL.1
 				    is included in the ST.
                   </app-note>
+                  <aactivity>
+                    <Tests>The test of this function is performed in conjunction with FAU_SEL.1.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-integ">
                   <text>retrieve TSF-software integrity verification values</text>
@@ -9729,6 +9926,9 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <O ref="U"/>
                   <O ref="A"/>
                   <O ref="AO"/>
+                  <aactivity>
+                    <Tests>The test of this function is performed in conjunction with FPT_NOT_EXT.2.1.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-USB">
                   <text>enable/disable <selectables linebreak="yes"><selectable id="s-usbstore">USB mass storage mode</selectable><selectable id="fmt_smf_ext.1.1_27">USB data transfer without user authentication</selectable><selectable id="fmt_smf_ext.1.1_28">USB data transfer without authentication of the connecting system</selectable></selectables></text>
@@ -9852,6 +10052,9 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <xref to="mf-appGroups"/>
                     correspond to FDP_ACF_EXT.1.2.
                   </app-note>
+                  <aactivity>
+                    <Tests>The test of this function is performed in conjunction with FDP_ACF_EXT.1.2.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-appGroups">
                   <text>place applications into application groups based on <assignable>enterprise configuration settings</assignable></text>
@@ -9859,6 +10062,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                   <O ref="U"/>
                   <O ref="A"/>
                   <O ref="AO"/>
+                  <aactivity>
+                    <Tests>Test FMT_SMF_EXT.1:43: The evaluator shall set a policy to cause a designated application to be
+                    placed into a particular application group. The evaluator shall then install the
+                    designated application and verify that it was placed into the correct group.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-unenroll">
                   <text>unenroll the TOE from management</text>
@@ -9871,6 +10079,11 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                     <xref to="mf-unenroll"/>, FMT_SMF_EXT.2.1 specifies actions to be performed when
 		the TOE is unenrolled from management.
                   </app-note>
+                  <aactivity>
+                    <Tests>Test FMT_SMF_EXT.1:44: The evaluator shall attempt to unenroll the device from management and
+                    verify that the steps described in FMT_SMF_EXT.2.1 are performed. This test
+                    should be performed in conjunction with the FMT_SMF_EXT.2.1 evaluation activity.</Tests>
+                  </aactivity>
                 </management-function>
                 <management-function id="mf-alwaysOnVPN">
                   <text>enable/disable the Always On VPN protection:  <h:ul><h:li>Across device  </h:li>  </h:ul><selectables linebreak="yes"><selectable id="fmt_smf_ext.1.1_38">on a per-app basis</selectable><selectable id="fmt_smf_ext.1.1_39">on a per-group of applications processes basis</selectable><selectable id="fmt_smf_ext.1.1_40" exclusive="yes">no other method</selectable></selectables></text>
