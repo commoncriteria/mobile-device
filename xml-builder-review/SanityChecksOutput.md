@@ -2,8 +2,6 @@
 * Error: Detected multiple elements with an id of 'usage-tls-mutual-auth'.
 * Error: Detected multiple elements with an id of 'usage-tls-support-mutual-auth'.
 * Error: Detected multiple elements with an id of 'usage-tls-mutual-auth'.
-* Error: Detected multiple elements with an id of ''.
-* Error: Detected multiple elements with an id of ''.
 * Error: Detected multiple elements with an id of 'sel-fcs-ckm-ak-lms'.
 * Error: Detected multiple elements with an id of 'sel-fcs-ckm-ak-lms'.
 * Error: Detected multiple elements with an id of 'sel-exp-skg-256'.
@@ -35,12 +33,6 @@
 * Error: Detected multiple elements with an id of 'sel-exp-kat-ecdh-P521'.
 * Error: Detected multiple elements with an id of 'fel-sign-how'.
 * Error: Detected multiple elements with an id of 'fel-sign-how'.
-* Error: Detected multiple elements with an id of ''.
-* Error: Detected multiple elements with an id of ''.
-* Error: Detected multiple elements with an id of ''.
-* Error: Detected multiple elements with an id of ''.
-* Error: Detected multiple elements with an id of ''.
-* Error: Detected multiple elements with an id of ''.
 * Error: Detected dangling ref-id to 'dummy-ref-id'.
 	  /PP[1]""/sec:Introduction[1]""/section[4]"This sect"/package-usage-list[1]""/package-usage[1]""/usage[1]""/config[1]""/ref-id[1]"dummy-ref"
 * Error: Detected dangling ref-id to 'dummy-ref-id'.
