@@ -1316,7 +1316,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         <audit-table id="t-audit-mandatory" table="mandatory"/>
       </section>
       <!-- 5.1.1 Class FAU: Security Audit -->
-      <section id="" title="Class FAU: Security Audit">
+      <section id="fau" title="Class FAU: Security Audit">
         <!-- FAU_GEN.1 Audit Data Generation -->
         <f-component cc-id="fau_gen.1" id="fau-gen-1" name="Audit Data Generation">
           <f-element id="fel-audit-gen">
@@ -1553,7 +1553,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         </f-component>
       </section>
       <!-- 5.1.2 Class FCS: Cryptographic Support -->
-      <section id="" title="Class FCS: Cryptographic Support">
+      <section id="fcs" title="Class FCS: Cryptographic Support">
         This section describes how keys are generated, derived, combined, released and destroyed. There are two major types of keys: DEKs and KEKs. (A REK is considered a KEK.)
          DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications.
          The following diagram shows an example key hierarchy to illustrate the concepts of this profile. 
@@ -6841,6 +6841,12 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>Import or destruction of key</audit-event-descr>
+            <audit-event-info>
+              <h:ul>
+                <h:li>Identity of key</h:li>
+                <h:li>Role and identity of requester</h:li>
+              </h:ul>
+            </audit-event-info>
           </audit-event>
           <audit-event>
             <audit-event-descr>
@@ -6849,6 +6855,12 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
                 <selectable>None</selectable>
               </selectables>
             </audit-event-descr>
+            <audit-event-info>
+              <h:ul>
+                <h:li>Identity of key</h:li>
+                <h:li>Role and identity of requester</h:li>
+              </h:ul>
+            </audit-event-info>
           </audit-event>
         </f-component>
         <!-- FCS_STG_EXT.2 Encrypted Cryptographic Key Storage -->
@@ -7053,7 +7065,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         </f-component>
       </section>
       <!-- 5.1.3 Class FDP: User Data Protection -->
-      <section id="" title="Class FDP: User Data Protection">
+      <section id="fdp" title="Class FDP: User Data Protection">
         <h:p>
           A subset of the User Data Protection focuses on protecting Data-At-Rest, namely FDP_DAR_EXT.1 and FDP_DAR_EXT.2.
             Three levels of data-at-rest protection are addressed: TSF data, protected data (and keys), and sensitive data.
@@ -7928,6 +7940,13 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>Application initiation of trusted channel</audit-event-descr>
+            <audit-event-info>
+              <h:ul>
+                <h:li>Name of application</h:li>
+                <h:li>Trusted channel protocol</h:li>
+                <h:li>Non-TOE endpoint of connection</h:li>
+              </h:ul>
+            </audit-event-info>
           </audit-event>
         </f-component>
         <!-- FDP_UPC_EXT.1/BLUETOOTH Inter-TSF User Data Transfer Protection (Bluetooth) -->
@@ -8003,11 +8022,18 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>Application initiation of trusted channel</audit-event-descr>
+            <audit-event-info>
+              <h:ul>
+                <h:li>Name of application</h:li>
+                <h:li>Trusted channel protocol</h:li>
+                <h:li>Non-TOE endpoint of connection</h:li>
+              </h:ul>
+            </audit-event-info>
           </audit-event>
         </f-component>
       </section>
       <!-- 5.1.4 Class FIA: Identification and Authentication -->
-      <section id="" title="Class FIA: Identification and Authentication">
+      <section id="fia" title="Class FIA: Identification and Authentication">
         <ext-comp-def title="Authentication Failures" fam-id="FIA_AFL_EXT">
           <fam-behavior>This family defines requirements for authentication failure handling that are not addressed by the FIA_AFL family in CC Part 2.</fam-behavior>
         </ext-comp-def>
@@ -8741,7 +8767,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         </f-component>
       </section>
       <!-- 5.1.5 Class FMT: Security Management -->
-      <section id="" title="Class FMT: Security Management">
+      <section id="fmt" title="Class FMT: Security Management">
         Both the user and the administrator may manage the TOE. This administrator is likely to be acting remotely and could be the Mobile Device Management (MDM) Administrator acting through an MDM agent.
         <h:br/>
         <h:br/>
@@ -10307,9 +10333,22 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </audit-event>
           <audit-event>
             <audit-event-descr>Change of settings</audit-event-descr>
+            <audit-event-info>
+              <h:ul>
+                <h:li>Role of user that changed setting</h:li>
+                <h:li>Value of new setting</h:li>
+              </h:ul>
+            </audit-event-info>
           </audit-event>
           <audit-event>
             <audit-event-descr>Success or failure of function</audit-event-descr>
+            <audit-event-info>
+              <h:ul>
+                <h:li>Role of user that performed function</h:li>
+                <h:li>Function performed</h:li>
+                <h:li>Reason for failure</h:li>
+              </h:ul>
+            </audit-event-info>
           </audit-event>
           <audit-event>
             <audit-event-descr>Initiation of software update</audit-event-descr>
@@ -10398,6 +10437,12 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>Initiation of unenrollment</audit-event-descr>
+            <audit-event-info>
+              <h:ul>
+                <h:li>Identity of administrator</h:li>
+                <h:li>Failure of accepting command to unenroll</h:li>
+              </h:ul>
+            </audit-event-info>
           </audit-event>
           <audit-event>
             <audit-event-descr>Unenrollment</audit-event-descr>
@@ -10427,7 +10472,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         </f-component>
       </section>
       <!-- 5.1.6 Class FPT: Protection of the TSF -->
-      <section id="" title="Class FPT: Protection of the TSF">
+      <section id="fpt" title="Class FPT: Protection of the TSF">
         <ext-comp-def title="Anti-Exploitation Capabilities" fam-id="FPT_AEX_EXT">
           <fam-behavior>This family defines requirements for protecting against common types of software exploitation techniques.</fam-behavior>
         </ext-comp-def>
@@ -11930,7 +11975,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         </f-component>
       </section>
       <!-- 5.1.7 Class FTA: TOE Access -->
-      <section id="" title="Class FTA: TOE Access">
+      <section id="fta" title="Class FTA: TOE Access">
         <ext-comp-def title="Session Locking and Termination" fam-id="FTA_SSL_EXT">
           <fam-behavior>This family defines requirements for session locking capabilities that are not addressed by FTA_SSL in CC Part 2.</fam-behavior>
         </ext-comp-def>
@@ -12027,7 +12072,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         </f-component>
       </section>
       <!-- 5.1.8 Class FTP: Trusted Path/Channels -->
-      <section id="" title="Class FTP: Trusted Path/Channels">
+      <section id="ftp" title="Class FTP: Trusted Path/Channels">
         <ext-comp-def title="Inter-TSF Trusted Channel" fam-id="FTP_ITC_EXT">
           <fam-behavior>This family defines requirements for trusted channels that are not addressed by FTP_ITC in CC Part 2 because they apply specifically to channels required by a mobile device.</fam-behavior>
         </ext-comp-def>
@@ -12166,6 +12211,12 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event>
             <audit-event-descr>Initiation and termination of trusted channel</audit-event-descr>
+            <audit-event-info>
+              <h:ul>
+                <h:li>Trusted channel protocol</h:li>
+                <h:li>Non-TOE endpoint of connection</h:li>
+              </h:ul>
+            </audit-event-info>
           </audit-event>
         </f-component>
       </section>
