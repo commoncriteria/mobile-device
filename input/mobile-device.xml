@@ -906,8 +906,6 @@ FPT_TST_EXT.2(2) - POSTKERNEL
           <rationale>FPT_AEX_EXT.5 helps mitigate the threat of a malicious app by enforcing kernel level ASLR.</rationale>
           <addressed-by>FPT_AEX_EXT.6 (Objective)</addressed-by>
           <rationale>FPT_AEX_EXT.6 helps mitigate the threat of a malicious app by preventing non-privileged execution domains from being writable and executable.</rationale>
-          <addressed-by>FPT_AEX_EXT.7 (Objective)</addressed-by>
-          <rationale>FPT_AEX_EXT.7 helps mitigate the threat of a malicious app by enforcing heap-based buffer overflow protections.</rationale>
           <addressed-by>FPT_BBD_EXT.1 (Objective)</addressed-by>
           <rationale>FPT_BBD_EXT.1 helps mitigate the threat of a malicious app by preventing the application processor's executable memory from being modified by the baseband processor.</rationale>
           <addressed-by>FPT_BLT_EXT.1 (Objective)</addressed-by>
@@ -1311,7 +1309,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
   <!-- 5.0 Security Requirements -->
   <sec:Security_Requirements title="Security Requirements">
     <!-- 5.1 Security Functional Requirements-->
-    <section title="Security Functional Requirements" id="sfr">
+    <sec:SFRs title="Security Functional Requirements" id="sfr">
       <section id="ss-audit-table" title="Auditable Events for Mandatory SFRs">
         <audit-table id="t-audit-mandatory" table="mandatory"/>
       </section>
@@ -1498,7 +1496,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
             </aactivity>
           </f-element>
           <audit-event>
-            <audit-event-descr>All modifications to the audit configuration that occur while the audit collection functions are operating</audit-event-descr>
+            <audit-event-descr>All modifications to the audit configuration that
+	    occur while the audit collection functions are operating</audit-event-descr>
           </audit-event>
         </f-component>
         <!-- FAU_STG.2 Protected Audit Data Storage -->
@@ -3358,6 +3357,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         <f-component cc-id="fcs_ckm_ext.7" id="fcs-ckm-ext-7" name="Cryptographic Key Establishment" status="invisible">
           <comp-lev>requires the TSF to perform key establishment regardless of whether the device is locked or
             unlocked.</comp-lev>
+          <management/>
           <audit>
             The following actions should be auditable if FAU_GEN Security audit data generation is included
             in the PP, PP-Module, functional package or ST:
@@ -3881,7 +3881,9 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         </f-component>
         <!-- FCS_CKM_EXT.8 Password-Based Key Derivation -->
         <f-component cc-id="fcs_ckm_ext.8" id="sfr-fcs-ckm-ext-8" name="Password-Based Key Derivation">
+          <consistency-rationale/>
           <comp-lev>requires that password-based key derivation be performed in accordance with specified standards.</comp-lev>
+          <management/>
           <audit>
             The following actions should be auditable if FAU_GEN Security audit data generation is
             included in the PP, PP-Module, functional package or ST:
@@ -3989,6 +3991,8 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         <f-component cc-id="fcs_ckm_ext.9" id="sfr-fcs-ckm-ext-9" name="Hardware Key Confidentiality" status="sel-based">
           <depends on-sel="s-mutable-hardware"/>
           <comp-lev> requires the TSF to enforce the confidentiality of key data stored in mutable hardware by ensuring no mechanism exists to read or export it.</comp-lev>
+          <management/>
+          <audit/>
           <dependencies>FCS_CKM_EXT.1 Cryptographic Key Support</dependencies>
           <f-element id="fcs-ckm-ext-9e1">
             <title>
@@ -8906,6 +8910,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         </f-component>
         <!-- FMT_SMF_EXT.1 Specification of Management Functions -->
         <f-component cc-id="fmt_smf_ext.1" id="fmt-smf-ext-1" name="Specification of Management Functions">
+          <consistency-rationale/>
           <comp-lev> requires the TSF to define the management functions that it implements.</comp-lev>
           <management>There are no management activities foreseen.</management>
           <audit>
@@ -10780,44 +10785,6 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </f-element>
           <audit-event/>
         </f-component>
-        <!-- FPT_AEX_EXT.7 Heap Overflow Protection -->
-        <f-component cc-id="fpt_aex_ext.7" id="fpt-aex-ext-7" name="Heap Overflow Protection" status="objective">
-          <comp-lev> requires the TSF to support heap-based buffer overflow protection. </comp-lev>
-          <management>There are no management activities foreseen.</management>
-          <audit>There are no auditable events foreseen.</audit>
-          <dependencies>No dependencies.</dependencies>
-          <f-element id="fel-heap-protect">
-            <title>The TSF shall include heap-based buffer overflow protections in the runtime
-              environment it provides to processes that execute on the application
-              processor.</title>
-            <note role="application">These heap-based buffer overflow protections are expected to
-              ensure the integrity of heap metadata such as memory addresses or offsets recorded by
-              the heap implementation to manage memory blocks. This includes chunk headers,
-              look-aside lists, and other data structures used to track the state and location of
-              memory blocks managed by the heap.</note>
-            <aactivity>
-              <TSS>
-                The evaluator shall verify that the TSS enumerates the heap implementations
-                provided to userspace processes. The evaluator shall ensure that the TSS lists all
-                types of heap metadata and identifies how the integrity of each type of metadata is
-                ensured. The evaluator shall ensure that the TSS identifies all fields within each
-                type of metadata and identifies how the integrity of these fields is ensured. The
-                evaluator shall verify that the TSS identifies the manner in which an error
-                condition is entered when a heap overflow is detected and the resulting actions
-                taken by the TSF.
-                <h:br/>
-                <h:br/>
-              </TSS>
-              <Guidance>There are no guidance evaluation activities for this component.<h:br/><h:br/></Guidance>
-              <Tests>For each heap implementation, the evaluator shall write, or the developer
-                shall provide access to, an application, which allocates memory from the heap and
-                then writes arbitrary data significantly beyond the end of the allocated buffer. The
-                evaluator shall attempt to execute this application and verify that the write is not
-                allowed.</Tests>
-            </aactivity>
-          </f-element>
-          <audit-event/>
-        </f-component>
         <!-- FPT_BBD_EXT.1 Application Processor Mediation -->
         <f-component cc-id="fpt_bbd_ext.1" id="fc-ap_med" name="Application Processor Mediation" status="objective">
           <comp-lev> requires the TSF to enforce separation between baseband and application processor execution except through application processor mechanisms. </comp-lev>
@@ -11344,7 +11311,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
             <title>
               The TSF shall provide authorized users with the capability to verify the integrity of [<h:i>[TSF DRBG specified in FCS_RBG.1]</h:i>].
             </title>
-            <note role="application">This SFR is a required dependency of FCS_RBG.1. It is intended to require that any DRBG implemented by the TOE undergo health testing at startup (and optionally in other circumstances) to ensure that the random bit generation functionality has not been degraded. If the TSF supports multiple DRBGs, this SFR should be iterated to describe the self-test behavior for each. The TSF's response to a DRBG health test failure is addressed by in FPT_FLS.1.</note>
+            <note role="application">This SFR is a required dependency of FCS_RBG.1. It is intended to require that any DRBG implemented by the TOE undergo health testing at startup (and optionally in other circumstances) to ensure that the random bit generation functionality has not been degraded. If the TSF supports multiple DRBGs, this SFR should be iterated to describe the self-test behavior for each. The TSF's response to a DRBG health test failure is addressed by FPT_FLS.1.</note>
             <aactivity>
               <TSS>
                 <h:p>The	evaluator shall examine the TSS to ensure that it details the self-tests that are run by the TSF along with how they are run. This description should include an outline of what the tests are actually doing. The evaluator shall ensure that the TSS makes an argument that the tests are sufficient to demonstrate that the DRBG is operating correctly.</h:p>
@@ -11382,15 +11349,9 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
             <title>The TSF shall run a suite of self-tests during initial start-up (on power on) to
               demonstrate the correct operation of all cryptographic functionality.</title>
             <note role="application">
-              This requirement may be met by performing known answer tests
-              or pair-wise consistency tests. The self-tests must be performed before the
-              cryptographic functionality is exercised (for example, during the initialization of a
-              process that utilizes the functionality).
-              <h:br/>
-              <h:br/>
-              The cryptographic
-              functionality includes the cryptographic operations in FCS_COP and the key generation
-              functions in FCS_CKM. DRBG self-test functionality is specifically addressed by FPT_TST.1.
+              <h:p>This requirement may be met by performing known answer tests or pair-wise consistency tests. The self-tests must be performed before the cryptographic functionality is exercised (for example, during the initialization of a process that utilizes the functionality).</h:p>
+              <h:p>The cryptographic functionality includes the cryptographic operations in FCS_COP and the key generation functions in FCS_CKM. DRBG self-test functionality is specifically addressed by FPT_TST.1.</h:p>
+              <h:p>The TSF's response to a self-test failure is addressed by FPT_NOT_EXT.1.</h:p>
             </note>
             <aactivity>
               <TSS>
@@ -11431,6 +11392,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
         </f-component>
         <!-- FPT_TST_EXT.2 TSF Integrity Checking -->
         <f-component cc-id="fpt_tst_ext.2" id="fpt-tst-ext-2" name="TSF Integrity Checking" status="invisible">
+          <consistency-rationale/>
           <comp-lev>requires the TSF to verify code and bootchain integrity is stored prior to execution by a
             designated key or hash.</comp-lev>
           <management>There are no management activities foreseen.</management>
@@ -12220,7 +12182,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           </audit-event>
         </f-component>
       </section>
-    </section>
+    </sec:SFRs>
     <!-- 5.2 Security Assurance Requirements -->
     <section title="Security Assurance Requirements" id="sar">
       The Security Objectives in
@@ -12611,7 +12573,7 @@ FCS_COP.1/AEAD mitigates the threat of network eavesdrop by enforcing the use of
           <a-element type="E">
             <title>The evaluator shall confirm that the information provided meets all requirements
               for content and presentation of evidence.</title>
-            <note role="application">
+            <note role="Application">
               The "evaluation evidence required by the SARs" in this PP is
               limited to the information in the ST coupled with the guidance provided to
               administrators and users under the AGD requirements. By ensuring that the TOE is
