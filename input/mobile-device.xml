@@ -202,53 +202,6 @@ How is it different then me using subsection?
       </subject>
     </entry>
   </RevisionHistory>
-  <include-pkg id="tls">
-    <git>
-      <url>https://github.com/commoncriteria/tls</url>
-      <branch>release-2.1</branch>
-    </git>
-    <url><![CDATA[https://www.niap-ccevs.org/static_html/protection-profile/519]]></url>
-  </include-pkg>
-  <include-pkg id="X509">
-    <git>
-      <url>https://github.com/commoncriteria/X509</url>
-      <branch>release-1.0</branch>
-    </git>
-    <url><![CDATA[https://www.niap-ccevs.org/protectionprofiles/511]]></url>
-  </include-pkg>
-    <modules>
-    <module id="mod-vpnclient">
-      <git>
-	<url>https://github.com/commoncriteria/vpnclient</url>
-	<branch>master</branch>
-      </git>
-      <url><![CDATA[https://www.niap-ccevs.org/protectionprofiles/487]]></url>
-    </module>
-      <module id="mod-bluetooth">
-        <git>
-          <url>https://github.com/commoncriteria/bluetooth</url>
-          <branch>master</branch>
-        </git>
-        <url><![CDATA[https://www.niap-ccevs.org/protectionprofiles/425]]></url>
-      </module>
-      <module id="mod-mdmagent">
-        <git>
-          <url>https://github.com/commoncriteria/mdmagent</url>
-          <branch>master</branch>
-        </git>
-        <url><![CDATA[https://www.niap-ccevs.org/protectionprofiles/441]]></url>
-      </module>
-      <module id="mod-wlanclient">
-        <git>
-          <url>https://github.com/commoncriteria/wlanclient</url>
-          <branch>master</branch>
-        </git>
-        <url><![CDATA[https://www.niap-ccevs.org/protectionprofiles/463]]></url>
-      </module>
-    <module id="mod-biometrics" name="cPP-Module for Biometric Enrollment and Verification" product="Biometric Devices" short="Biometric cPP" version="2.0">
-      <url>https://github.com/biometricITC/cPP-biometrics/blob/master/Protection%20Profile/BiocPP.adoc</url>
-    </module>
-  </modules>
   
   <pp-preferences>
     <audit-events-in-sfrs/>
@@ -565,13 +518,13 @@ The scope of this Protection Profile (PP) is to describe the security functional
       authentication, and software integrity protection are implemented in order to address threats.
       <h:br/><h:br/> This assurance standard describes these essential security services
       provided by the Mobile Device and serves as a foundation for a secure mobile architecture. The
-      wireless connectivity shall be validated against the <xref to="mod-wlanclient"/>. If the
+      wireless connectivity shall be validated against the <xref to="wlanclient"/>. If the
       mobile device contains Bluetooth functionality (i.e., has Bluetooth hardware), the Bluetooth
-      connectivity shall be evaluated against the <xref to="mod-bluetooth"/>.
+      connectivity shall be evaluated against the <xref to="bluetooth"/>.
 	  As illustrated in <xref to="TOE"/>, it is expected that a typical deployment would also include either
       third-party or bundled components. Whether these components are bundled as part of the Mobile
       Device by the manufacturer or developed by a third-party, they must be separately validated
-      against the related assurance standards such as <xref to="mod-mdmagent"/>, <xref to="mod-vpnclient"/>, and <xref to="mod-wlanclient"/>. It is the responsibility of the architect of
+      against the related assurance standards such as <xref to="mdm-agent"/>, <xref to="vpnclient"/>, and <xref to="wlanclient"/>. It is the responsibility of the architect of
       the overall secure mobile architecture to ensure validation of these components. Additional
       applications that may come pre-installed on the Mobile Device that are not validated are
       considered to be potentially flawed, but not malicious. Examples include email client and web
@@ -645,7 +598,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           </h:tr>
           <h:tr>
             <h:td>FMT_SMF_EXT.1.1 Function <xref to="mf-tethering"/> (configuration of tethering)</h:td>
-            <h:td>Include in ST and select "USB tethering..." At minimum, specify the Admin column in the table as being associated with this function. Additionally, if the TOE claims conformance to <xref to="mod-bluetooth"/>, select "Bluetooth tethering." </h:td>
+            <h:td>Include in ST and select "USB tethering..." At minimum, specify the Admin column in the table as being associated with this function. Additionally, if the TOE claims conformance to <xref to="bluetooth"/>, select "Bluetooth tethering." </h:td>
           </h:tr>
           <h:tr>
             <h:td>FPT_BBD_EXT.1</h:td>
@@ -1204,15 +1157,79 @@ The scope of this Protection Profile (PP) is to describe the security functional
       <cc-pt3-conf>extended</cc-pt3-conf>
       <cc-pp-conf/>
       <cc-pp-config-with>       
-        <Mod-cc-ref>PP-Module for VPN Client, version 3.0</Mod-cc-ref>  
-        <Mod-cc-ref>PP-Module for Bluetooth, version 2.0</Mod-cc-ref>
-        <Mod-cc-ref>PP-Module for MDM Agent, version 2.0</Mod-cc-ref>
-        <Mod-cc-ref>PP-Module for WLAN Client, version 2.0</Mod-cc-ref>
-        <Mod-cc-ref>cPP-Module for Biometric Enrolment and Verification, version 2.0</Mod-cc-ref>  
+        <Mod-cc-ref>
+			<!-- PP-Module for VPN Client, Version 3.0 -->
+			<cc-doc-ref id="vpnclient">
+				<git>
+					<url>https://github.com/commoncriteria/vpnclient</url>
+					<branch>release-3.0</branch>
+				</git>
+				<url>https://www.niap-ccevs.org/protectionprofiles/522</url>
+			</cc-doc-ref>		
+		</Mod-cc-ref>
+        <Mod-cc-ref>
+			<!-- PP-Module for Bluetooth, version 2.0 -->
+			<cc-doc-ref id="bluetooth">
+				<git>
+					<url>https://github.com/commoncriteria/bluetooth</url>
+					<branch>master</branch>
+				</git>
+				<url>https://www.niap-ccevs.org/protectionprofiles/425</url>
+			</cc-doc-ref>
+		</Mod-cc-ref>
+        <Mod-cc-ref>
+			<!-- PP-Module for Mobile Device Management Agent, version 2.0 -->
+			<cc-doc-ref id="mdm-agent">
+				<git>
+					<url>https://github.com/commoncriteria/mdm-agent</url>
+					<branch>master</branch>
+				</git>
+				<url>https://www.niap-ccevs.org/protectionprofiles/441</url>
+			</cc-doc-ref>
+		</Mod-cc-ref>
+        <Mod-cc-ref>
+			<!-- cPP-Module for Wireless LAN Clients, version 2.0 -->
+			<cc-doc-ref id="wlanclient">
+				<git>
+					<url>https://github.com/commoncriteria/wlanclient</url>
+					<branch>master</branch>
+				</git>
+				<url>https://www.niap-ccevs.org/protectionprofiles/463</url>
+			</cc-doc-ref>
+		</Mod-cc-ref>
+        <Mod-cc-ref>
+			<!-- cPP-Module for Biometric Enrolment and Verification, version 2.0 -->
+			<cc-doc-ref id="biometrics" 
+				name="cPP-Module for Biometric Enrollment and Verification" 
+				version="2.0"
+				short = "Biometric cPP"
+				product="Biometric Device" 
+				plural="Biometric Devices"
+				doctype="PP-Module">
+				<url>https://www.niap-ccevs.org/protectionprofiles/476</url>
+			</cc-doc-ref>	
+		</Mod-cc-ref>
       </cc-pp-config-with>
       <cc-pkg-claim>
-        <FP-cc-ref conf="conformant">Functional Package for Transport Layer Security Version 2.1</FP-cc-ref>
-        <FP-cc-ref conf="conformant">Functional Package for X.509 Version 1.0</FP-cc-ref>        
+        <FP-cc-ref conf="conformant">
+			<cc-doc-ref id="tls">
+				<git>
+					<url>https://github.com/commoncriteria/tls</url>
+					<branch>release-2.1</branch>
+				</git>
+				<url>https://www.niap-ccevs.org/protectionprofiles/465</url>
+				<depends on="fcs-eap-ext-1"/>
+			</cc-doc-ref>
+		</FP-cc-ref>
+        <FP-cc-ref conf="conformant">
+			<cc-doc-ref id="X509">
+				<git>
+					<url>https://github.com/commoncriteria/X509</url>
+					<branch>release-1.0</branch>
+				</git>
+				<url>https://www.niap-ccevs.org/protectionprofiles/511</url>
+			</cc-doc-ref>
+		</FP-cc-ref>
       </cc-pkg-claim>
     </CClaimsInfo>	
     
@@ -1226,11 +1243,11 @@ The scope of this Protection Profile (PP) is to describe the security functional
   <!-- 	<h:p> -->
   <!--         The following PP-Modules are allowed to be specified in a PP-Configuration with this PP. -->
   <!--         <h:ul> -->
-  <!--               <h:li id="mod-vpnclient">PP-Module for VPN Client, Version 2.4</h:li> -->
-  <!--               <h:li id ="mod-bluetooth">PP-Module for Bluetooth, Version 1.0</h:li> -->
-  <!--               <h:li id="agentPPMod">PP-Module for MDM Agent, Version 1.0</h:li> -->
-  <!--               <h:li id="mod-wlanclient">PP-Module for Wireless Local Access Network (WLAN) Client, Version 1.0</h:li> -->
-  <!--               <h:li id="mod-biometrics">cPP-Module for Biometric Enrollment and Verification, Version 1.1</h:li> -->
+  <!--               <h:li id="vpnclient">PP-Module for VPN Client, Version 2.4</h:li> -->
+  <!--               <h:li id ="bluetooth">PP-Module for Bluetooth, Version 1.0</h:li> -->
+  <!--               <h:li id="mdm-agent">PP-Module for MDM Agent, Version 1.0</h:li> -->
+  <!--               <h:li id="wlanclient">PP-Module for Wireless Local Access Network (WLAN) Client, Version 1.0</h:li> -->
+  <!--               <h:li id="biometrics">cPP-Module for Biometric Enrollment and Verification, Version 1.1</h:li> -->
   <!--         </h:ul> -->
   <!-- 	</h:p> -->
   <!--       </description> -->
@@ -2050,7 +2067,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
          DEKs are used to protect data (as in the DAR protection described in FDP_DAR_EXT.1 and FDP_DAR_EXT.2). KEKs are used to protect other keys – DEKs, other KEKs, and other types of keys stored by the user or applications.
          The following diagram shows an example key hierarchy to illustrate the concepts of this profile. 
          This example is not meant as an approved design, but ST authors will be expected to provide a diagram illustrating their key hierarchy in order to demonstrate that they meet the requirements of this profile. 
-         Please note if <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys.
+         Please note if <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biometrics"/> shall be illustrated in the key hierarchy diagram, to include a description of when and how the BAF is used to release keys.
 	 If <xref to="uau_hybr"/> is selected in FIA_UAU.5.1, meaning that a PIN or password must be used in conjunction with the BAF, this interaction shall be included.<h:br/>
         <figure entity="images/figure3.jpg" title="An Illustrative Key Hierarchy" id="Keys"/>
         
@@ -2261,7 +2278,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               generation but allows DSA for digital signature verification for legacy purposes.
               “FFC-ERB” or “FFC–RS” may be claimed only for generating private and public keys when
               “DH” is claimed in FCS_CKM_EXT.7/LOCKED or FCS_CKM_EXT.7/UNLOCKED.
-	      </h:p><h:p>For ECC selections, “P-256” may only be selected if the <xref to="mod-bluetooth"/> is included in the ST and P-256 may only be used specifically for Bluetooth functions.
+	      </h:p><h:p>For ECC selections, “P-256” may only be selected if the <xref to="bluetooth"/> is included in the ST and P-256 may only be used specifically for Bluetooth functions.
 	      </h:p><h:p>
 	        When generating ECC keys pairs for key agreement and if “ECDH” is claimed in FCS_CKM_EXT.7/LOCKED or FCS_CKM_EXT.7/UNLOCKED, then “ECC–ERB” or “ECC–RS” must be claimed. The sizes of the private key, which is a scalar, and the public key, which is a point on the elliptic curve, are determined by the choice of the curve.
 	      </h:p><h:p>
@@ -4061,7 +4078,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               This SFR must be included in the ST if agreement is a service provided by the TOE to 
               tenant software, or if it is used by the TOE itself to support or implement PP-specified security 
               functionality.<h:p/> 
-              The above algorithms are CNSA compliant with the exception of P-256 ECDH. This may only be selected if the <xref to="mod-bluetooth"/> is included in the ST and P-256 may only be used specifically for Bluetooth functions.<h:p/>
+              The above algorithms are CNSA compliant with the exception of P-256 ECDH. This may only be selected if the <xref to="bluetooth"/> is included in the ST and P-256 may only be used specifically for Bluetooth functions.<h:p/>
             </note>
             <aactivity>
               <TSS>
@@ -4389,7 +4406,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               </selectables>
             </title>
             <note role="application">
-              The use of 256-bit keys for AES encryption is required by CNSA. 128-bit keys may only be used when the <xref to="mod-bluetooth"/> is claimed and only for the purpose of Bluetooth communications.
+              The use of 256-bit keys for AES encryption is required by CNSA. 128-bit keys may only be used when the <xref to="bluetooth"/> is claimed and only for the purpose of Bluetooth communications.
             </note>
             <aactivity>
               <TSS>
@@ -8010,7 +8027,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <selectable>provide an interface which allows a VPN client to protect all IP traffic
                   using IPsec</selectable>
                 <selectable>provide a VPN client which can protect all IP traffic using
-                  IPsec <h:b>as defined in the <xref to="mod-vpnclient"/></h:b></selectable>
+                  IPsec <h:b>as defined in the <xref to="vpnclient"/></h:b></selectable>
               </selectables> with the exception of IP traffic needed to manage the VPN
               connection, and
               <selectables> 
@@ -8028,8 +8045,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
               <h:br/><h:br/>
 	      The ST author must select the second option if the TSF implements
               a native VPN client (<xref to="s-itc-ipsec"/> is selected in <xref to="fel-wlan"/>). Thus the TSF must be
-              validated against the <xref to="mod-vpnclient"/> and the ST author must also include
-              <no-link>FDP_IFC_EXT.1</no-link> from the <xref to="mod-vpnclient"/>. <h:br/><h:br/> It is optional for
+              validated against the <xref to="vpnclient"/> and the ST author must also include
+              <no-link>FDP_IFC_EXT.1</no-link> from the <xref to="vpnclient"/>. <h:br/><h:br/> It is optional for
               the VPN client to be configured to be always-on per FMT_SMF_EXT.1 Function <xref
                 to="mf-alwaysOnVPN"/>. Always-on means the establishment of an IPsec trusted channel
               to allow any communication by the TSF. </note>
@@ -8187,7 +8204,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <h:li>HTTPS,</h:li>
               </h:ul>and <selectables linebreak="yes">
                 <selectable id="upc_dtls">mutually authenticated DTLS as defined in the <xref to="tls"/></selectable>
-                <selectable id="s-upc-ipsec">IPsec as defined in the <xref to="mod-vpnclient"/></selectable>
+                <selectable id="s-upc-ipsec">IPsec as defined in the <xref to="vpnclient"/></selectable>
                 <selectable exclusive="yes">no other protocol</selectable>
               </selectables> </h:i>] to provide a protected communication channel between the non-TSF
               application and another IT product that is logically distinct from other communication
@@ -8203,7 +8220,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               If <xref to="upc_dtls"/> is selected, the TSF must be validated against FCS_DTLS_EXT requirements from the <xref to="tls"/>, with the claims from that package made for those requirements as defined in <xref to="package-usage"/>.
              
               <h:br/>
-			  If the ST author selects <xref to="s-upc-ipsec"/>, the TSF must be validated against the <xref to="mod-vpnclient"/>. 
+			  If the ST author selects <xref to="s-upc-ipsec"/>, the TSF must be validated against the <xref to="vpnclient"/>. 
             </note>
           </f-element>
           <f-element id="fel-tls-app-init">
@@ -8259,7 +8276,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <depends on="bluetooth"/>
           <f-element id="fel-bluetooth">
             <title>The TSF shall provide a means for non-TSF applications executing on the TOE to
-              use Bluetooth as defined in [<h:i>the <xref to="mod-bluetooth"/></h:i>] to provide a protected communication channel between the non-TSF
+              use Bluetooth as defined in [<h:i>the <xref to="bluetooth"/></h:i>] to provide a protected communication channel between the non-TSF
               application and another IT product that is logically distinct from other communication
               channels, provides assured identification of its end points, protects channel data
               from disclosure, and detects modification of the channel data. </title>
@@ -8275,7 +8292,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               </h:p>
               <h:p>
               The TSF must be validated against requirements from the
-              <xref to="mod-bluetooth"/>. It should be noted that the FTP_ITC_EXT.1 requires that all
+              <xref to="bluetooth"/>. It should be noted that the FTP_ITC_EXT.1 requires that all
               TSF communications be protected using the protocols indicated in that requirement, so
               the protocols required by this component ride "on top of" those listed in
               FTP_ITC_EXT.1.
@@ -8368,7 +8385,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 <selectable> face</selectable>
                 <selectable> voice</selectable>
                 <selectable> vein</selectable> -->
-                <selectable> biometric in accordance with the <xref to="mod-biometrics"/></selectable>
+                <selectable> biometric in accordance with the <xref to="biometrics"/></selectable>
                 <selectable> hybrid</selectable>
                 <selectable exclusive="yes" id="s-authfail-noother"> no other mechanism</selectable>
             </selectables> as critical authentication mechanisms. </title>
@@ -8962,7 +8979,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                   <selectable id="uau_face"> face</selectable>
                   <selectable id="uau_vox"> voice</selectable>
                   <selectable id="uau_vein"> vein</selectable> -->
-                  <selectable id="uau_biometric"> biometric in accordance with the <xref to="mod-biometrics"/></selectable>
+                  <selectable id="uau_biometric"> biometric in accordance with the <xref to="biometrics"/></selectable>
                   <selectable id="uau_hybr"> hybrid</selectable>
                   <selectable exclusive="yes">no other mechanism</selectable>
                 </selectables>
@@ -8973,7 +8990,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               combination of PIN/password and biometric sample where both have to pass and if either
               fails the user is not made aware of which factor failed.<h:br/><h:br/> 
               If <xref to="uau_biometric"/> or <xref to="uau_hybr"/> is selected,
-	      then the TSF must be validated against requirements from the <xref to="mod-biometrics"/>.<h:br/><h:br/>
+	      then the TSF must be validated against requirements from the <xref to="biometrics"/>.<h:br/><h:br/>
 	      
               If <xref to="uau_hybr"/> is selected, <xref to="uau_biometric"/> does not need to be selected, but should be
               selected if the biometric authentication can be used independent of the hybrid
@@ -9003,7 +9020,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                 successful authentication (i.e., is the user input used to derive or unlock a key) and
                 which authentication mechanism can be used at which authentication factor interfaces
                 (i.e., if there are times, for example, after a reboot, that only specific
-                authentication mechanisms can be used). If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/>, the interaction between the BAFs must be described. For example, whether the
+                authentication mechanisms can be used). If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the <xref to="biometrics"/>, the interaction between the BAFs must be described. For example, whether the
                 multiple BAFs can be enabled at the same time.<h:br/><h:br/></TSS>
               <Guidance> The evaluator shall verify that configuration guidance for each
                 authentication mechanism is addressed in the AGD guidance.<h:br/><h:br/></Guidance>
@@ -9038,7 +9055,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                     Authentication Factor according to the AGD guidance and verify that the TSF
                     requires the entry of the Password Authentication Factor before allowing the
                     factor to be changed.</test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biometrics"/> the evaluator shall
                     configure the TSF to use the BAF, which includes configuring the Password
                     Authentication Factor, according to the AGD guidance. The evaluator shall change
                     the BAF according to the AGD guidance and verify that the TSF requires the entry
@@ -9074,7 +9091,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                     evaluator shall wait until the TSF locks and then verify that the TSF requires
                     the entry of the Password Authentication Factor before transitioning to the
                     unlocked state.</test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biometrics"/> the evaluator shall
                     repeat Test 1 verifying that the TSF requires the entry of the BAF before
                     transitioning to the unlocked state. </test>
                   <test>[conditional] If <xref to="uau_hybr"/> is selected in FIA_UAU.5.1, the evaluator shall
@@ -9084,7 +9101,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                     guidance. The evaluator shall lock the TSF and then verify that the TSF requires
                     the entry of the Password Authentication Factor before transitioning to the
                     unlocked state.</test>
-                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall
+                  <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biometrics"/> the evaluator shall
                     repeat <xref to="t-locks"/> verifying that the TSF requires the entry of the BAF before
                     transitioning to the unlocked state.</test>
                   <test>[conditional] If <xref to="uau_hybr"/> is selected in FIA_UAU.5.1, the evaluator shall
@@ -9126,7 +9143,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
                     Password Authentication Factor at lock screen, and verify that the password is
                     not displayed on the device. </test>
                     <test>[conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1,
-		    for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall
+		    for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biometrics"/> the evaluator shall
                     authenticate by producing a biometric sample at lock screen. As the biometric
                     algorithms are performed, the evaluator shall verify that sensitive images,
                     audio, or other information identifying the user are kept secret and are not
@@ -9368,8 +9385,8 @@ The scope of this Protection Profile (PP) is to describe the security functional
             </title>
 	    <ext-comp-def-title>            <title>The TSF shall validate certificates in accordance with the following rules: <assignable>list of rules</assignable>.
 	    </title></ext-comp-def-title>
-            <note role="application">FIA_X509_EXT.1.1 lists the rules for validating certificates. The ST author must select whether revocation status is verified using OCSP or CRLs. OCSP stapling and OCSP multi-stapling only support TLS server certificate validation. If other certificate types are validated, either OCSP or CRL should be claimed. The <xref to="mod-wlanclient"/>, to which a MDF TOE must also conform, requires that certificates are used for EAP-TLS; this use requires that the extendedKeyUsage rules are verified. Certificates may optionally be used for trusted updates of system software and applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2(1)) and, if implemented, must be validated to contain the Code Signing purpose extendedKeyUsage.<h:br/><h:br/>
-              While FIA_X509_EXT.1.1 requires that the TOE perform certain checks on the certificate presented by a TLS server, there are corresponding checks that the authentication server will have to perform on the certificate presented by the client; namely that the extendedKeyUsage field of the client certificate includes “Client Authentication” and that the key agreement bit (for the Diffie-Hellman ciphersuites) or the key encipherment bit (for RSA ciphersuites) be set. Certificates obtained for use by the TOE will have to conform to these requirements in order to be used in the enterprise. This check is required to support EAP-TLS for the <xref to="mod-wlanclient"/>.</note>
+            <note role="application">FIA_X509_EXT.1.1 lists the rules for validating certificates. The ST author must select whether revocation status is verified using OCSP or CRLs. OCSP stapling and OCSP multi-stapling only support TLS server certificate validation. If other certificate types are validated, either OCSP or CRL should be claimed. The <xref to="wlanclient"/>, to which a MDF TOE must also conform, requires that certificates are used for EAP-TLS; this use requires that the extendedKeyUsage rules are verified. Certificates may optionally be used for trusted updates of system software and applications (FPT_TUD_EXT.2) and for integrity verification (FPT_TST_EXT.2(1)) and, if implemented, must be validated to contain the Code Signing purpose extendedKeyUsage.<h:br/><h:br/>
+              While FIA_X509_EXT.1.1 requires that the TOE perform certain checks on the certificate presented by a TLS server, there are corresponding checks that the authentication server will have to perform on the certificate presented by the client; namely that the extendedKeyUsage field of the client certificate includes “Client Authentication” and that the key agreement bit (for the Diffie-Hellman ciphersuites) or the key encipherment bit (for RSA ciphersuites) be set. Certificates obtained for use by the TOE will have to conform to these requirements in order to be used in the enterprise. This check is required to support EAP-TLS for the <xref to="wlanclient"/>.</note>
           </f-element>
           <f-element id="fel-cacert-what">
             <title>The TSF shall only treat a certificate as a CA certificate if the
@@ -9447,7 +9464,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
           <f-element id="fel-cert-auth">
             <title>The TSF shall use X.509v3 certificates as defined by RFC 5280 to support
               authentication for [<h:i>mutually authenticated TLS as defined in the <xref to="tls"/>, HTTPS, <selectables>
-                <selectable>IPsec in accordance with the <xref to="mod-vpnclient"/></selectable>
+                <selectable>IPsec in accordance with the <xref to="vpnclient"/></selectable>
                 <selectable id="x509_dtls">mutually authenticated DTLS as defined in the <xref to="tls"/></selectable>
                 <selectable exclusive="yes">no other protocol</selectable>  
               </selectables></h:i>] and <selectables>
@@ -10053,7 +10070,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 		  Function <_/> addresses
 		  enabling and disabling the IPsec VPN only. The configuration of the VPN Client itself
 		  (with information such as VPN Gateway, certificates, and algorithms) is addressed by
-		  the <xref to="mod-vpnclient"/>. The administrator options should only be listed if the
+		  the <xref to="vpnclient"/>. The administrator options should only be listed if the
 		  administrator can remotely enable/disable the VPN connection.
 		  <h:p>
 		  Function <xref to="mf-vpn"/> optionally allows the VPN to be configured per-app or
@@ -10597,7 +10614,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 		    Function <xref to="mf-authFactors"/> must be included in the ST if the TOE contains a BAF. This selection must correspond with the selection made in
               FIA_UAU.5.1. If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, "Biometric Authentication Factor"
               must be selected and the user or admin must have the option to disable the use of
-              it. If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/>, this applies to all different
+              it. If multiple BAFs are claimed in FIA_MBV_EXT.1.1 in the <xref to="biometrics"/>, this applies to all different
               modalities. If <xref to="uau_hybr"/> is selected in FIA_UAU.5.1 it must be selected and the user
               or admin must have the option to disable the use of it.
 		  </app-note>
@@ -10605,7 +10622,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 		    The evaluator shall verify that the TSS states if the TOE supports a BAF
                     or hybrid authentication. If the TOE does not include a BAF or hybrid
                     authentication this test is implicitly met.<h:ul>
-                      <h:li>Test FMT_SMF_EXT.1:22a: [conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="mod-biometrics"/> the evaluator shall verify that the
+                      <h:li>Test FMT_SMF_EXT.1:22a: [conditional] If <xref to="uau_biometric"/> is selected in FIA_UAU.5.1, for each BAF claimed in FIA_MBV_EXT.1.1 in the <xref to="biometrics"/> the evaluator shall verify that the
                         TSS describes the procedure to enable/disable the BAF.<!--If the TOE includes
                         multiple BAFs, the evaluator shall verify that the TSS describes how to
                         enable/disable each BAF, specifically if the different modalities can be
@@ -10681,7 +10698,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
 		  <app-note>
 		    The assignment in function <xref to="mf-serverProtocols"/>
               consists of all protocols where the TSF acts as a server, which can be enabled and
-              disabled by either the user or administrator. Hotspot tethering is not a 'protocol' as defined by this function. This is defined in management function WL-3 of <xref to="mod-wlanclient"/>.
+              disabled by either the user or administrator. Hotspot tethering is not a 'protocol' as defined by this function. This is defined in management function WL-3 of <xref to="wlanclient"/>.
 		  </app-note>
 		  <aactivity><TSS>
 		    The evaluator shall verify that the TSS describes how the TSF acts as a server in
@@ -11094,7 +11111,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               connect, all data leaving the device uses the VPN when the VPN is connected and no
               data leaves that device when the VPN is disconnected. The configuration of the VPN
               Client itself (with information such as VPN Gateway, certificates, and algorithms) is
-              addressed by the <xref to="mod-vpnclient"/>.
+              addressed by the <xref to="vpnclient"/>.
 		  </app-note>
 		  <aactivity><TSS>The evaluator shall verify that the TSS contains guidance to configure the
                   VPN as Always-On.
@@ -13414,12 +13431,12 @@ The scope of this Protection Profile (PP) is to describe the security functional
           
           <f-element id="fel-wlan">
             <title>The TSF shall use <h:ul>
-              <h:li>802.11-2012 in accordance with the [<h:i><xref to="mod-wlanclient"/></h:i>],</h:li>
-              <h:li>802.1X in accordance with the [<h:i><xref to="mod-wlanclient"/></h:i>],</h:li>
-              <h:li>EAP-TLS in accordance with the [<h:i><xref to="mod-wlanclient"/></h:i>],</h:li>
+              <h:li>802.11-2012 in accordance with the [<h:i><xref to="wlanclient"/></h:i>],</h:li>
+              <h:li>802.1X in accordance with the [<h:i><xref to="wlanclient"/></h:i>],</h:li>
+              <h:li>EAP-TLS in accordance with the [<h:i><xref to="wlanclient"/></h:i>],</h:li>
               <h:li>Mutually authenticated TLS in accordance with the [<h:i><xref to="tls"/></h:i>]</h:li>
               </h:ul> and <selectables linebreak="yes">
-                <selectable id="s-itc-ipsec"><snip>IPsec</snip> in accordance with the <xref to="mod-vpnclient"/></selectable>
+                <selectable id="s-itc-ipsec"><snip>IPsec</snip> in accordance with the <xref to="vpnclient"/></selectable>
                 <selectable id="itc_dtls"><snip>mutually authenticated DTLS</snip> as defined in the <xref to="tls"/></selectable>
                 <selectable>HTTPS</selectable>
               </selectables> protocols to provide a communication channel between itself and another trusted IT product using certificates as defined in [<h:i><xref to="X509"/></h:i>] that is logically distinct from other communication channels, 
@@ -13454,7 +13471,7 @@ The scope of this Protection Profile (PP) is to describe the security functional
               <!-- 
 	      <rule id="r-ipsec">
 		<if><ref-id>s-itc-ipsec</ref-id></if>
-		<then><ref-id>mod-vpnclient</ref-id></then>
+		<then><ref-id>vpnclient</ref-id></then>
 	      </rule>
 	      -->
                             
